@@ -43,9 +43,7 @@
  '(nrepl-message-colors
    (quote
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
- '(package-selected-packages
-   (quote
-    (jknav 2048-game evil-indent-plus evil-lisp-state smart-mode-line-powerline-theme better-defaults better-registers better-shell cmake-font-lock cmake-ide cmake-mode cmake-project airline-themes evil-tabs on-parens ssh projectile evil-avy evil-cleverparens evil-easymotion evil-escape evil-exchange evil-extra-operator evil-god-state evil-indent-textobject evil-mark-replace evil-matchit evil-mc evil-mc-extras evil-paredit evil-quickscope evil-smartparens evil-snipe evil-swap-keys evil-text-object-python evil-textobj-anyblock evil-textobj-column evil-visual-mark-mode evil-visualstar powerline-evil aws-ec2 evil-nerd-commenter 0blayout emms ercn web-mode ace-jump-mode evil-replace-with-register evil-numbers autotetris-mode dired+ evil-commentary evil-args evil-org evil-magit org-evil pomodoro solarized-theme syndicate chronos evil-surround evil helm)))
+ '(package-selected-packages nil)
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
@@ -110,6 +108,9 @@
 (eval-when-compile
   (require 'use-package))
 
+;; make sure we download when necessary
+(setq use-package-always-ensure t)
+
 ;; turn on line numbers
 (global-linum-mode 1)
 
@@ -119,82 +120,76 @@
 ;; autopairing
 (electric-pair-mode 1)
 
+; Remove toolbar
+(tool-bar-mode -1)
+
+;;datetime things
+(defvar current-date-time-format "%Y-%m-%dT%H:%M:%S"
+  "Format of date to insert with `insert-current-date-time' func
+  See help of `format-time-string' for possible replacements")
+
+(defun insert-current-date-time ()
+  "insert the current date and time into current buffer.
+  Uses `current-date-time-format' for the formatting the date/time."
+  (interactive)
+  (insert (format-time-string current-date-time-format (current-time))))
+
 ;;evil-leader config
 (use-package evil-leader
-  :init 
-  (add-to-list 'load-path "~/.emacs.d/packages/evil-leader")
-  :config
-  (global-evil-leader-mode)
-  (evil-leader/set-key
-    "\\" 'helm-M-x
-    "f"  'helm-find-files
-    ))
- 
-(use-package evil
-  :init
-  (setq evil-want-C-u-scroll t)
-  :config
-  (evil-mode 1))
+			 :init
+			 (add-to-list 'load-path "~/.emacs.d/packages/evil-leader")
+			 :config
+			 (global-evil-leader-mode)
+			 (evil-leader/set-leader "<SPC>")
+			 (evil-leader/set-key
+			   "<SPC>" 'helm-M-x
+			   "\\" 'magit-status
+			   "f"  'helm-find-files
+			   "t" 'insert-current-date-time
+			   ))
 
-;; activate evil mode and associated plugins[
-;;(setq evil-want-C-u-scroll t)
-;;(require 'evil)
-;;(evil-mode 1)
+(use-package evil
+			 :init
+			 (setq evil-want-C-u-scroll t)
+			 :config
+			 (evil-mode 1)
+			 (define-key global-map (kbd "C-f") 'universal-argument)
+			 (define-key universal-argument-map (kbd "C-u") nil)
+			 (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
+			 (define-key global-map (kbd "C-u") 'kill-whole-line)
+			 (eval-after-load 'evil-maps
+							  '(progn
+								 (define-key evil-motion-state-map (kbd "C-f") nil)
+								 (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)))
+			 )
 
 ;; rebind <C-u> to intended behavior, otherwise defaults to universal-argument
-(define-key global-map (kbd "C-f") 'universal-argument)
-(define-key universal-argument-map (kbd "C-u") nil)
-(define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
-(define-key global-map (kbd "C-u") 'kill-whole-line)
-(eval-after-load 'evil-maps
-  '(progn
-     (define-key evil-motion-state-map (kbd "C-f") nil)
-     (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)))
 
 (use-package evil-surround
-  :config
-  (global-evil-surround-mode 1))
-
-;;(require 'evil-surround)
-;;(global-evil-surround-mode 1)
-;;(setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~")) evil-surround-pairs-alist))
+			 :config
+			 (global-evil-surround-mode 1))
 
 (use-package evil-args
-  :config
-  ;; bind evil-args text objects
-  (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
-  (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
-  
-  ;; bind evil-forward/backward-args
-  (define-key evil-normal-state-map "L" 'evil-forward-arg)
-  (define-key evil-normal-state-map "H" 'evil-backward-arg)
-  (define-key evil-motion-state-map "L" 'evil-forward-arg)
-  (define-key evil-motion-state-map "H" 'evil-backward-arg)
-  
-  ;; bind evil-jump-out-args
-  (define-key evil-normal-state-map "K" 'evil-jump-out-args)
-  )
-;; locate and load the package
-;;(require 'evil-args)
+			 :config
+			 ;; bind evil-args text objects
+			 (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
+			 (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
-;; bind evil-args text objects
-;;(define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
-;;(define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+			 ;; bind evil-forward/backward-args
+			 (define-key evil-normal-state-map "L" 'evil-forward-arg)
+			 (define-key evil-normal-state-map "H" 'evil-backward-arg)
+			 (define-key evil-motion-state-map "L" 'evil-forward-arg)
+			 (define-key evil-motion-state-map "H" 'evil-backward-arg)
 
-;; bind evil-forward/backward-args
-;;(define-key evil-normal-state-map "L" 'evil-forward-arg)
-;;(define-key evil-normal-state-map "H" 'evil-backward-arg)
-;;(define-key evil-motion-state-map "L" 'evil-forward-arg)
-;;(define-key evil-motion-state-map "H" 'evil-backward-arg)
-
-;; bind evil-jump-out-args
-;;(define-key evil-normal-state-map "K" 'evil-jump-out-args)
+			 ;; bind evil-jump-out-args
+			 (define-key evil-normal-state-map "K" 'evil-jump-out-args)
+			 )
 
 (use-package evil-numbers
-  :config
-  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-  (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-  )
+			 :config
+			 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+			 (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+			 )
 
 ;; evil number support
 ;;(require 'evil-numbers)
@@ -205,40 +200,30 @@
 (use-package evil-commentary)
 (use-package evil-replace-with-register)
 (use-package evil-magit)
-(use-package evil-powerline)
-;;(require 'evil-commentary)
-;;(require 'evil-replace-with-register)
-;;(require 'evil-magit)
 
 ;; orgmode bindings
-(require 'org-evil)
-(setq org-M-RET-may-split-line nil) ;; so we can press 'o' in evil and generate the next item
+
+(use-package org-evil
+			 :config
+			 (setq org-M-RET-may-split-line nil) ;; so we can press 'o' in evil and generate the next item
+			 )
 
 ;; activate helm mode
-(require 'helm)
-(helm-mode 1)
-(global-set-key (kbd "M-x") 'helm-M-x)
+(use-package helm
+			 :config
+			 (helm-mode 1)
+			 ;(global-set-key (kbd "M-x") 'helm-M-x) ;evil leader already handles this
+			 )
 
 ;;solarized dark theme
-(setq solarized-use-variable-pitch nil
-      solarized-scale-org-headlines nil) ;;unscrew org layout
-(load-theme 'solarized-dark t)
+(use-package solarized-theme
+			 :config
+			 (setq solarized-use-variable-pitch nil
+				   solarized-scale-org-headlines nil) ;;unscrew org layout
+			 (load-theme 'solarized-dark t)
+			 )
 
 ;; set default font
 (add-to-list 'default-frame-alist '(font . "Consolas-11"))
 ;;(set-frame-font "Consolas 11")
-
-;;datetime things
-(defvar current-date-time-format "%Y-%m-%dT%H:%M:%S"
-    "Format of date to insert with `insert-current-date-time' func
-    See help of `format-time-string' for possible replacements")
-
-(defun insert-current-date-time ()
-    "insert the current date and time into current buffer.
-    Uses `current-date-time-format' for the formatting the date/time."
-       (interactive)
-       (insert (format-time-string current-date-time-format (current-time))))
-
-(global-set-key (kbd "<f5>") 'insert-current-date-time)
-;; datetime things
 

@@ -3,8 +3,8 @@
 ;;; Code:
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil nil ("monitor-pkg.el" "monitor.el") (22591
-;;;;;;  60020 0 0))
+;;;### (autoloads nil nil ("monitor-pkg.el" "monitor.el") (22726
+;;;;;;  53033 0 0))
 
 ;;;***
 

@@ -4,7 +4,7 @@
 (add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
 ;;;### (autoloads nil "evil-replace-with-register" "evil-replace-with-register.el"
-;;;;;;  (22610 18249 0 0))
+;;;;;;  (22726 52891 0 0))
 ;;; Generated autoloads from evil-replace-with-register.el
 
 (autoload 'evil-replace-with-register "evil-replace-with-register" "\

@@ -5,7 +5,7 @@
 
 ;;;### (autoloads nil nil ("org-evil-commands.el" "org-evil-core.el"
 ;;;;;;  "org-evil-motion.el" "org-evil-pkg.el" "org-evil-table.el"
-;;;;;;  "org-evil.el") (22591 60022 0 0))
+;;;;;;  "org-evil.el") (22726 53034 0 0))
 
 ;;;***
 
