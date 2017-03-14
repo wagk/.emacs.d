@@ -45,7 +45,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (helm-company elpy evil-tabs projectile docker-tramp evil-text-object-python tramp-term company powershell use-package solarized-theme org-evil helm evil-surround evil-replace-with-register evil-numbers evil-magit evil-leader evil-commentary evil-args)))
+    (discover helm-company elpy evil-tabs projectile docker-tramp evil-text-object-python tramp-term company powershell use-package solarized-theme org-evil helm evil-surround evil-replace-with-register evil-numbers evil-magit evil-leader evil-commentary evil-args)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
@@ -95,6 +95,14 @@
  '(org-level-7 ((t (:inherit fixed-pitch :foreground "#dc322f"))))
  '(org-level-8 ((t (:inherit fixed-pitch :foreground "#268bd2")))))
 
+
+
+
+
+
+
+
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
@@ -104,7 +112,17 @@
 (when (< emacs-major-version 24)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
   )
+(package-refresh-contents)
 (package-initialize)
+
+(use-package el-get
+  :init
+  (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+  :config
+  (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+  (el-get 'sync)
+  )
+
 (elpy-enable) ; TODO: configure elpy
 
 (unless (package-installed-p 'use-package)
@@ -170,7 +188,7 @@
 	(evil-leader/set-key
 	    "<SPC>" 'helm-M-x
 	    "\\" 'magit-status
-	    "f"  'helm-find-files
+	    "f"  'find-files
 	    "t" 'insert-current-date-time
 	))
 
@@ -294,7 +312,9 @@
 (use-package company
   :config
   (use-package helm-company)
+  (setq company-require-match nil)
   (add-hook 'after-init-hook 'global-company-mode))
 (use-package projectile)
 (use-package tramp-term)
 (use-package docker-tramp)
+(use-package discover)
