@@ -123,6 +123,9 @@
 ; Remove toolbar
 (tool-bar-mode -1)
 
+;; set default font
+(add-to-list 'default-frame-alist '(font . "Consolas-11"))
+
 ;;datetime things
 (defvar current-date-time-format "%Y-%m-%dT%H:%M:%S"
   "Format of date to insert with `insert-current-date-time' func
@@ -136,60 +139,60 @@
 
 ;;evil-leader config
 (use-package evil-leader
-			 :init
-			 (add-to-list 'load-path "~/.emacs.d/packages/evil-leader")
-			 :config
-			 (global-evil-leader-mode)
-			 (evil-leader/set-leader "<SPC>")
-			 (evil-leader/set-key
-			   "<SPC>" 'helm-M-x
-			   "\\" 'magit-status
-			   "f"  'helm-find-files
-			   "t" 'insert-current-date-time
-			   ))
+    :init
+    (add-to-list 'load-path "~/.emacs.d/packages/evil-leader")
+    :config
+    (global-evil-leader-mode)
+    (evil-leader/set-leader "<SPC>")
+    (evil-leader/set-key
+	"<SPC>" 'helm-M-x
+	"\\" 'magit-status
+	"f"  'helm-find-files
+	"t" 'insert-current-date-time
+    ))
 
 (use-package evil
-			 :init
-			 (setq evil-want-C-u-scroll t)
-			 :config
-			 (evil-mode 1)
-			 (define-key global-map (kbd "C-f") 'universal-argument)
-			 (define-key universal-argument-map (kbd "C-u") nil)
-			 (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
-			 (define-key global-map (kbd "C-u") 'kill-whole-line)
-			 (eval-after-load 'evil-maps
-							  '(progn
-								 (define-key evil-motion-state-map (kbd "C-f") nil)
-								 (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)))
-			 )
+    :init
+    (setq evil-want-C-u-scroll t)
+    :config
+    (evil-mode 1)
+    (define-key global-map (kbd "C-f") 'universal-argument)
+    (define-key universal-argument-map (kbd "C-u") nil)
+    (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
+    (define-key global-map (kbd "C-u") 'kill-whole-line)
+    (eval-after-load 'evil-maps
+	'(progn
+	    (define-key evil-motion-state-map (kbd "C-f") nil)
+	    (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)))
+    )
 
 ;; rebind <C-u> to intended behavior, otherwise defaults to universal-argument
 
 (use-package evil-surround
-			 :config
-			 (global-evil-surround-mode 1))
+    :config
+    (global-evil-surround-mode 1))
 
 (use-package evil-args
-			 :config
-			 ;; bind evil-args text objects
-			 (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
-			 (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+    :config
+    ;; bind evil-args text objects
+    (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
+    (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
-			 ;; bind evil-forward/backward-args
-			 (define-key evil-normal-state-map "L" 'evil-forward-arg)
-			 (define-key evil-normal-state-map "H" 'evil-backward-arg)
-			 (define-key evil-motion-state-map "L" 'evil-forward-arg)
-			 (define-key evil-motion-state-map "H" 'evil-backward-arg)
+    ;; bind evil-forward/backward-args
+    (define-key evil-normal-state-map "L" 'evil-forward-arg)
+    (define-key evil-normal-state-map "H" 'evil-backward-arg)
+    (define-key evil-motion-state-map "L" 'evil-forward-arg)
+    (define-key evil-motion-state-map "H" 'evil-backward-arg)
 
-			 ;; bind evil-jump-out-args
-			 (define-key evil-normal-state-map "K" 'evil-jump-out-args)
-			 )
+    ;; bind evil-jump-out-args
+    (define-key evil-normal-state-map "K" 'evil-jump-out-args)
+    )
 
 (use-package evil-numbers
-			 :config
-			 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-			 (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-			 )
+    :config
+    (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+    (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+    )
 
 ;; evil number support
 ;;(require 'evil-numbers)
@@ -204,26 +207,22 @@
 ;; orgmode bindings
 
 (use-package org-evil
-			 :config
-			 (setq org-M-RET-may-split-line nil) ;; so we can press 'o' in evil and generate the next item
-			 )
+    :config
+    (setq org-M-RET-may-split-line nil) ;; so we can press 'o' in evil and generate the next item
+    )
 
 ;; activate helm mode
 (use-package helm
-			 :config
-			 (helm-mode 1)
-			 ;(global-set-key (kbd "M-x") 'helm-M-x) ;evil leader already handles this
-			 )
+    :config
+    (helm-mode 1)
+    ;(global-set-key (kbd "M-x") 'helm-M-x) ;evil leader already handles this
+    )
 
 ;;solarized dark theme
 (use-package solarized-theme
-			 :config
-			 (setq solarized-use-variable-pitch nil
-				   solarized-scale-org-headlines nil) ;;unscrew org layout
-			 (load-theme 'solarized-dark t)
-			 )
-
-;; set default font
-(add-to-list 'default-frame-alist '(font . "Consolas-11"))
-;;(set-frame-font "Consolas 11")
+    :config
+    (setq solarized-use-variable-pitch nil
+	    solarized-scale-org-headlines nil) ;;unscrew org layout
+    (load-theme 'solarized-dark t)
+    )
 
