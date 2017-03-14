@@ -45,7 +45,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (evil-text-object-python tramp-term company powershell use-package solarized-theme org-evil helm evil-surround evil-replace-with-register evil-numbers evil-magit evil-leader evil-commentary evil-args)))
+    (helm-company elpy evil-tabs projectile docker-tramp evil-text-object-python tramp-term company powershell use-package solarized-theme org-evil helm evil-surround evil-replace-with-register evil-numbers evil-magit evil-leader evil-commentary evil-args)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
@@ -96,12 +96,16 @@
  '(org-level-8 ((t (:inherit fixed-pitch :foreground "#268bd2")))))
 
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/")
-             '("melpa-stable" . "http://stable.melpa.org/packages/")) ;; what is the trailing t for?
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+; https://marmalade-repo.org/packages/#windowsinstructions
+(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/"))
 (when (< emacs-major-version 24)
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+  )
 (package-initialize)
+(elpy-enable) ; TODO: configure elpy
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -139,25 +143,77 @@
   (interactive)
   (insert (format-time-string current-date-time-format (current-time))))
 
-;;evil-leader config
-(use-package evil-leader
-    :init
-    (add-to-list 'load-path "~/.emacs.d/packages/evil-leader")
-    :config
-    (global-evil-leader-mode)
-    (evil-leader/set-leader "<SPC>")
-    (evil-leader/set-key
-	"<SPC>" 'helm-M-x
-	"\\" 'magit-status
-	"f"  'helm-find-files
-	"t" 'insert-current-date-time
-    ))
+;; ;;evil-leader config
+;; (use-package evil-leader
+;;     :init
+;;     (add-to-list 'load-path "~/.emacs.d/packages/evil-leader")
+;;     :config
+;;     (global-evil-leader-mode)
+;;     (evil-leader/set-leader "<SPC>")
+;;     (evil-leader/set-key
+;; 	"<SPC>" 'helm-M-x
+;; 	"\\" 'magit-status
+;; 	"f"  'helm-find-files
+;; 	"t" 'insert-current-date-time
+;;     ))
 
 (use-package evil
     :init
     (setq evil-want-C-u-scroll t)
+
+    (use-package evil-leader
+	:init
+	(add-to-list 'load-path "~/.emacs.d/packages/evil-leader")
+	:config
+	(global-evil-leader-mode)
+	(evil-leader/set-leader "<SPC>")
+	(evil-leader/set-key
+	    "<SPC>" 'helm-M-x
+	    "\\" 'magit-status
+	    "f"  'helm-find-files
+	    "t" 'insert-current-date-time
+	))
+
     :config
     (evil-mode 1)
+
+    (use-package evil-surround
+	:config
+	(global-evil-surround-mode 1)
+	(setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
+						    evil-surround-pairs-alist)))
+    
+    (use-package evil-args
+	:config
+	;; bind evil-args text objects
+	(define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
+	(define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+	;; bind evil-forward/backward-args
+	(define-key evil-normal-state-map "L" 'evil-forward-arg)
+	(define-key evil-normal-state-map "H" 'evil-backward-arg)
+	(define-key evil-motion-state-map "L" 'evil-forward-arg)
+	(define-key evil-motion-state-map "H" 'evil-backward-arg)
+	;; bind evil-jump-out-args
+	(define-key evil-normal-state-map "K" 'evil-jump-out-args)
+	)
+
+    (use-package evil-numbers
+	:config
+	(define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+	(define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+	)
+
+    (use-package evil-commentary)
+    (use-package evil-replace-with-register)
+    (use-package evil-text-object-python)
+    (use-package evil-magit)
+    (use-package evil-tabs
+	:init
+	(use-package elscreen)
+	:config
+	(global-evil-tabs-mode t)
+	)
+
     (define-key global-map (kbd "C-f") 'universal-argument)
     (define-key universal-argument-map (kbd "C-u") nil)
     (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
@@ -170,48 +226,54 @@
 
 ;; rebind <C-u> to intended behavior, otherwise defaults to universal-argument
 
-(use-package evil-surround
-    :config
-    (global-evil-surround-mode 1))
+;; (use-package evil-surround
+;;     :config
+;;     (global-evil-surround-mode 1)
+;;     (setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
+;; 						  evil-surround-pairs-alist)))
 
-(use-package evil-args
-    :config
-    ;; bind evil-args text objects
-    (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
-    (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+;; (use-package evil-args
+;;     :config
+;;     ;; bind evil-args text objects
+;;     (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
+;;     (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+;;     ;; bind evil-forward/backward-args
+;;     (define-key evil-normal-state-map "L" 'evil-forward-arg)
+;;     (define-key evil-normal-state-map "H" 'evil-backward-arg)
+;;     (define-key evil-motion-state-map "L" 'evil-forward-arg)
+;;     (define-key evil-motion-state-map "H" 'evil-backward-arg)
+;;     ;; bind evil-jump-out-args
+;;     (define-key evil-normal-state-map "K" 'evil-jump-out-args)
+;;     )
 
-    ;; bind evil-forward/backward-args
-    (define-key evil-normal-state-map "L" 'evil-forward-arg)
-    (define-key evil-normal-state-map "H" 'evil-backward-arg)
-    (define-key evil-motion-state-map "L" 'evil-forward-arg)
-    (define-key evil-motion-state-map "H" 'evil-backward-arg)
-
-    ;; bind evil-jump-out-args
-    (define-key evil-normal-state-map "K" 'evil-jump-out-args)
-    )
-
-(use-package evil-numbers
-    :config
-    (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-    (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-    )
+;; (use-package evil-numbers
+;;     :config
+;;     (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+;;     (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+;;     )
 
 ;; evil number support
 ;;(require 'evil-numbers)
 ;;(define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 ;;(define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
 
-;; evil leader support
-(use-package evil-commentary)
-(use-package evil-replace-with-register)
-(use-package evil-magit)
+;; ;; evil leader support
+;; (use-package evil-commentary)
+;; (use-package evil-replace-with-register)
+;; (use-package evil-text-object-python)
+;; (use-package evil-magit)
+;; (use-package evil-tabs
+;;   :init
+;;   (use-package elscreen)
+;;   :config
+;;   (global-evil-tabs-mode t)
+;;   )
 
 ;; orgmode bindings
-
 (use-package org-evil
-    :config
-    (setq org-M-RET-may-split-line nil) ;; so we can press 'o' in evil and generate the next item
-    )
+  :config
+  (setq org-M-RET-may-split-line nil) ;; so we can press 'o' in evil and generate the next item
+  )
 
 ;; activate helm mode
 (use-package helm
@@ -231,6 +293,8 @@
 (use-package powershell)
 (use-package company
   :config
+  (use-package helm-company)
   (add-hook 'after-init-hook 'global-company-mode))
+(use-package projectile)
 (use-package tramp-term)
-(use-package evil-text-object-python)
+(use-package docker-tramp)
