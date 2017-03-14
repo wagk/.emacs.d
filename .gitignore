@@ -3,3 +3,5 @@ elpa/*
 backups/*
 server/*
 recentf
+.#*
+*.el#
