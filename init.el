@@ -1,3 +1,4 @@
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
@@ -12,9 +13,10 @@
 
 ;; autoindentation
 (electric-indent-mode 1)
-
-					; Remove toolbar
+;; Remove toolbar
 (tool-bar-mode -1)
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
 
 ;; set default font
 (add-to-list 'default-frame-alist '(font . "Consolas-11"))
@@ -47,11 +49,21 @@
 
 
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-2" . "http://melpa.milkbox.net/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/")) ;
-(add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
-(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
+ (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+ (add-to-list 'package-archives '("melpa-2" . "http://melpa.milkbox.net/packages/"))
+ (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/")) ;
+ (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+ (add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
+
+;(add-to-list 'package-archives '(
+				 ;'("melpa" . "http://melpa.org/packages/")
+				 ;'("melpa-2" . "http://melpa.milkbox.net/packages/")
+;'("melpa-stable" . "http://stable.melpa.org/packages/")
+;'("elpy" . "http://jorgenschaefer.github.io/packages/")
+;'("marmalade" . "https://marmalade-repo.org/packages/")
+				 ;)
+		 ;)
+
 (when (< emacs-major-version 24)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
   )
@@ -66,13 +78,19 @@
 (eval-when-compile (require 'use-package))
 (setq use-package-always-ensure t) ;; make sure we download when necessary
 
-
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (use-package el-get
   :init
-  (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
   :config
   (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
   (el-get 'sync)
+  )
+
+(use-package async
+  :config
+  (autoload 'dired-async-mode "dired-async.el" nil t)
+  (dired-async-mode 1)
+  (async-bytecomp-package-mode 1)
   )
 
 (use-package elpy
@@ -146,12 +164,14 @@
     (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
     (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
     )
-  
+
   (use-package evil-vimish-fold
     :config
     (evil-vimish-fold-mode 1)
     )
-  
+
+  (use-package evil-args)
+  (use-package evil-matchit)
   (use-package evil-commentary)
   (use-package evil-replace-with-register)
   (use-package evil-text-object-python)
@@ -176,20 +196,17 @@
        (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
        )
     )
-  ;; change mode-line color by evil state
-  (lexical-let ((default-color (cons (face-background 'mode-line)
-				     (face-foreground 'mode-line)))
-		)
-    (add-hook 'post-command-hook
-	      (lambda ()
-		(let ((color (cond ((minibufferp) default-color)
-				   ((evil-insert-state-p) '("#e80000" . "#ffffff"))
-				   ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
-				   ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
-				   (t default-color))))
-		  (set-face-background 'mode-line (car color))
-		  (set-face-foreground 'mode-line (cdr color)))))
+  )
+
+(use-package powerline
+  :config
+
+  (use-package powerline-evil
+    :config
+    (powerline-evil-vim-color-theme)
     )
+
+  (powerline-default-theme)
   )
 
 ;; rebind <C-u> to intended behavior, otherwise defaults to universal-argument
@@ -288,6 +305,23 @@
   (add-hook 'after-init-hook 'global-company-mode)
   )
 
+(use-package projectile)
+
+(use-package whitespace-cleanup-mode
+  :config
+  (global-whitespace-cleanup-mode 1)
+  )
+
+(use-package aggressive-indent
+  :config
+  (global-aggressive-indent-mode 1)
+  )
+
+(use-package flycheck
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  )
+
 (use-package tramp-term)
 
 (use-package docker-tramp)
@@ -295,3 +329,14 @@
 (use-package discover)
 
 (use-package groovy-mode)
+
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode 1)
+  )
+
+(use-package guide-key
+  :config
+  (setq guide-key/guide-key-sequence t)
+  (guide-key-mode 1)
+  )
