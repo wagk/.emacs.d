@@ -48,10 +48,10 @@
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-2" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/")) ;
 (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
-					; https://marmalade-repo.org/packages/#windowsinstructions
-(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/")) ;
+(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
 (when (< emacs-major-version 24)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
   )
@@ -60,13 +60,11 @@
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
-  (package-install 'use-package))
+  (package-install 'use-package)
+  )
 
-(eval-when-compile
-  (require 'use-package))
-
-;; make sure we download when necessary
-(setq use-package-always-ensure t)
+(eval-when-compile (require 'use-package))
+(setq use-package-always-ensure t) ;; make sure we download when necessary
 
 
 (use-package el-get
@@ -91,6 +89,7 @@
 ;; 	      )
 ;;       )
 
+
 (use-package yasnippet
   :config
   (setq yas-snippet-dirs
@@ -110,11 +109,12 @@
     (global-evil-leader-mode)
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
-      "<SPC>" 'helm-M-x
-      "\\" 'magit-status
-      "f"  'find-file
-      "t" 'insert-current-date-time
-      "cc" 'comment-or-uncomment-region
+      "<SPC>"	'helm-M-x
+      "\\"	'magit-status
+      "f"	'find-file
+      "t"	'insert-current-date-time
+      "cc"	'comment-or-uncomment-region
+      "a"	'align-regexp
       )
     )
 
@@ -146,7 +146,12 @@
     (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
     (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
     )
-
+  
+  (use-package evil-vimish-fold
+    :config
+    (evil-vimish-fold-mode 1)
+    )
+  
   (use-package evil-commentary)
   (use-package evil-replace-with-register)
   (use-package evil-text-object-python)
@@ -158,6 +163,9 @@
     (global-evil-tabs-mode t)
     )
 
+  (evil-set-initial-state 'info-mode 'normal)
+  (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
+  (setq evil-motion-state-modes nil)
   (define-key global-map (kbd "C-f") 'universal-argument)
   (define-key universal-argument-map (kbd "C-u") nil)
   (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
@@ -260,6 +268,15 @@
     (setq company-quickhelp-idle-delay 0)
     )
 
+  (defvar company-mode/enable-yas t
+    "Enable yasnippet for all backends.")
+  (defun company-mode/backend-with-yas (backend)
+    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+	backend
+      (append (if (consp backend) backend (list backend))
+	      '(:with company-yasnippet))))
+
+  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
   (use-package helm-company)
   (setq company-idle-delay 0)
   (setq company-require-match nil)
@@ -267,10 +284,14 @@
   (define-key company-active-map (kbd "M-p") nil)
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
+  ;(define-key company-active-map (kbd "<tab>") 'company-complete-selection)
   (add-hook 'after-init-hook 'global-company-mode)
   )
 
 (use-package tramp-term)
+
 (use-package docker-tramp)
+
 (use-package discover)
+
+(use-package groovy-mode)
