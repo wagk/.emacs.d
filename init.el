@@ -18,6 +18,9 @@
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 
+(setq truncate-lines t)
+(setq tab-width 8)
+
 ;; set default font
 (add-to-list 'default-frame-alist '(font . "Consolas-11"))
 
@@ -49,20 +52,11 @@
 
 
 (require 'package)
- (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
- (add-to-list 'package-archives '("melpa-2" . "http://melpa.milkbox.net/packages/"))
- (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/")) ;
- (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
- (add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
-
-;(add-to-list 'package-archives '(
-				 ;'("melpa" . "http://melpa.org/packages/")
-				 ;'("melpa-2" . "http://melpa.milkbox.net/packages/")
-;'("melpa-stable" . "http://stable.melpa.org/packages/")
-;'("elpy" . "http://jorgenschaefer.github.io/packages/")
-;'("marmalade" . "https://marmalade-repo.org/packages/")
-				 ;)
-		 ;)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-2" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/")) ;
+(add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
 
 (when (< emacs-major-version 24)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
@@ -129,7 +123,6 @@
     (evil-leader/set-key
       "<SPC>"	'helm-M-x
       "\\"	'magit-status
-      "f"	'find-file
       "t"	'insert-current-date-time
       "cc"	'comment-or-uncomment-region
       "a"	'align-regexp
@@ -196,6 +189,12 @@
        (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
        )
     )
+  ;; Let _ be considered part of a word
+  (defadvice evil-inner-word (around underscore-as-word activate)
+    (let ((table (copy-syntax-table (syntax-table))))
+      (modify-syntax-entry ?_ "w" table)
+      (with-syntax-table table
+	ad-do-it)))
   )
 
 (use-package powerline
@@ -289,9 +288,9 @@
     "Enable yasnippet for all backends.")
   (defun company-mode/backend-with-yas (backend)
     (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-	backend
+		backend
       (append (if (consp backend) backend (list backend))
-	      '(:with company-yasnippet))))
+			  '(:with company-yasnippet))))
 
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
   (use-package helm-company)
@@ -301,11 +300,15 @@
   (define-key company-active-map (kbd "M-p") nil)
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  ;(define-key company-active-map (kbd "<tab>") 'company-complete-selection)
+  (define-key company-active-map (kbd "C-w") 'company-abort)
+  ;;(define-key company-active-map (kbd "<tab>") 'company-complete-selection)
   (add-hook 'after-init-hook 'global-company-mode)
   )
 
-(use-package projectile)
+(use-package projectile
+  :config
+  (use-package helm-projectile)
+  )
 
 (use-package whitespace-cleanup-mode
   :config
