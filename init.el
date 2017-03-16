@@ -117,11 +117,12 @@
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
     "<SPC>"	'helm-M-x
+    "f"		'helm-find-files
+    "F"		'helm-projectile
     "\\"	'magit-status
-    "t"	'insert-current-date-time
+    "t"		'insert-current-date-time
     "cc"	'comment-or-uncomment-region
-    "a"	'align-regexp
-    "f" 'helm-find-files
+    "a"		'align-regexp
     )
   )
 
@@ -288,9 +289,9 @@
     "Enable yasnippet for all backends.")
   (defun company-mode/backend-with-yas (backend)
     (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-		backend
+	backend
       (append (if (consp backend) backend (list backend))
-			  '(:with company-yasnippet))))
+	      '(:with company-yasnippet))))
 
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
   (use-package helm-company)
@@ -332,6 +333,10 @@
 (use-package discover)
 
 (use-package groovy-mode)
+
+(use-package php-mode)
+
+(use-package dockerfile-mode)
 
 (use-package git-gutter
   :config
