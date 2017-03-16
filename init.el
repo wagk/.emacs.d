@@ -151,7 +151,12 @@
     (let ((table (copy-syntax-table (syntax-table))))
       (modify-syntax-entry ?_ "w" table)
       (with-syntax-table table
-	ad-do-it)))
+	ad-do-it)))  ;; remap paste command
+  (defun evil-paste-after-from-0 ()
+    (interactive)
+    (let ((evil-this-register ?0))
+      (call-interactively 'evil-paste-after)))
+  (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
   )
 
 (use-package evil-surround
