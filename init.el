@@ -1,4 +1,3 @@
-
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
@@ -110,71 +109,28 @@
   (yas-global-mode 1)
   )
 
+(use-package evil-leader
+  :init
+  (add-to-list 'load-path "~/.emacs.d/packages/evil-leader")
+  :config
+  (global-evil-leader-mode)
+  (evil-leader/set-leader "<SPC>")
+  (evil-leader/set-key
+    "<SPC>"	'helm-M-x
+    "\\"	'magit-status
+    "t"	'insert-current-date-time
+    "cc"	'comment-or-uncomment-region
+    "a"	'align-regexp
+    "f" 'helm-find-files
+    )
+  )
+
 (use-package evil
   :init
   (setq evil-want-C-u-scroll t)
 
-  (use-package evil-leader
-    :init
-    (add-to-list 'load-path "~/.emacs.d/packages/evil-leader")
-    :config
-    (global-evil-leader-mode)
-    (evil-leader/set-leader "<SPC>")
-    (evil-leader/set-key
-      "<SPC>"	'helm-M-x
-      "\\"	'magit-status
-      "t"	'insert-current-date-time
-      "cc"	'comment-or-uncomment-region
-      "a"	'align-regexp
-      )
-    )
-
   :config
   (evil-mode 1)
-
-  (use-package evil-surround
-    :config
-    (global-evil-surround-mode 1)
-    (setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
-						  evil-surround-pairs-alist)))
-
-  (use-package evil-args
-    :config
-    ;; bind evil-args text objects
-    (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
-    (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
-    ;; bind evil-forward/backward-args
-    (define-key evil-normal-state-map "L" 'evil-forward-arg)
-    (define-key evil-normal-state-map "H" 'evil-backward-arg)
-    (define-key evil-motion-state-map "L" 'evil-forward-arg)
-    (define-key evil-motion-state-map "H" 'evil-backward-arg)
-    ;; bind evil-jump-out-args
-    (define-key evil-normal-state-map "K" 'evil-jump-out-args)
-    )
-
-  (use-package evil-numbers
-    :config
-    (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-    (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-    )
-
-  (use-package evil-vimish-fold
-    :config
-    (evil-vimish-fold-mode 1)
-    )
-
-  (use-package evil-args)
-  (use-package evil-matchit)
-  (use-package evil-commentary)
-  (use-package evil-replace-with-register)
-  (use-package evil-text-object-python)
-  (use-package evil-magit)
-  (use-package evil-tabs
-    :init
-    (use-package elscreen)
-    :config
-    (global-evil-tabs-mode t)
-    )
 
   (evil-set-initial-state 'info-mode 'normal)
   (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
@@ -195,6 +151,50 @@
       (modify-syntax-entry ?_ "w" table)
       (with-syntax-table table
 	ad-do-it)))
+  )
+
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1)
+  (setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
+						evil-surround-pairs-alist)))
+
+(use-package evil-args
+  :config
+  ;; bind evil-args text objects
+  (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
+  (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+  ;; bind evil-forward/backward-args
+  (define-key evil-normal-state-map "L" 'evil-forward-arg)
+  (define-key evil-normal-state-map "H" 'evil-backward-arg)
+  (define-key evil-motion-state-map "L" 'evil-forward-arg)
+  (define-key evil-motion-state-map "H" 'evil-backward-arg)
+  ;; bind evil-jump-out-args
+  (define-key evil-normal-state-map "K" 'evil-jump-out-args)
+  )
+
+(use-package evil-numbers
+  :config
+  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+  (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+  )
+
+(use-package evil-vimish-fold
+  :config
+  (evil-vimish-fold-mode 1)
+  )
+
+(use-package evil-args)
+(use-package evil-matchit)
+(use-package evil-commentary)
+(use-package evil-replace-with-register)
+(use-package evil-text-object-python)
+(use-package evil-magit)
+(use-package evil-tabs
+  :init
+  (use-package elscreen)
+  :config
+  (global-evil-tabs-mode t)
   )
 
 (use-package powerline
