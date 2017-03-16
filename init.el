@@ -71,13 +71,13 @@
 (eval-when-compile (require 'use-package))
 (setq use-package-always-ensure t) ;; make sure we download when necessary
 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-(use-package el-get
-  :init
-  :config
-  (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-  (el-get 'sync)
+(add-to-list 'load-path (concat user-emacs-directory "/el-get/el-get"))
+(unless (require 'el-get nil 'noerror)
+  (package-install 'el-get)
+  (require 'el-get)
   )
+(add-to-list 'el-get-recipe-path (concat user-emacs-directory "/el-get-user/recipes"))
+(el-get 'sync)
 
 (use-package async
   :config
@@ -314,6 +314,7 @@
 (use-package projectile
   :config
   (use-package helm-projectile)
+  (add-hook 'after-init-hook #'projectile-mode)
   )
 
 (use-package whitespace-cleanup-mode
