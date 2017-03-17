@@ -5,13 +5,15 @@
 (global-linum-mode 1)
 
 ;; startup maximised
-(add-to-list 'default-frame-alist '(fullscreen . maximised))
+(custom-set-variables
+ '(initial-frame-alist (quote ((fullscreen . maximized)))))
 
 ;; autopairing
 (electric-pair-mode 1)
 
 ;; autoindentation
 (electric-indent-mode 1)
+
 ;; Remove toolbar
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -46,7 +48,7 @@
   (find-file-other-window user-init-file)
   )
 
-
+(defun user-emacs-subdirectory (subdir) (concat user-emacs-directory subdir))
 
 
 
@@ -70,12 +72,12 @@
 (eval-when-compile (require 'use-package))
 (setq use-package-always-ensure t) ;; make sure we download when necessary
 
-(add-to-list 'load-path (concat user-emacs-directory "/el-get/el-get"))
+(add-to-list 'load-path (user-emacs-subdirectory "el-get/el-get"))
 (unless (require 'el-get nil 'noerror)
   (package-install 'el-get)
   (require 'el-get)
   )
-(add-to-list 'el-get-recipe-path (concat user-emacs-directory "/el-get-user/recipes"))
+(add-to-list 'el-get-recipe-path (user-emacs-subdirectory "el-get-user/recipes"))
 (el-get 'sync)
 
 (use-package async
@@ -102,15 +104,12 @@
 
 (use-package yasnippet
   :config
-  (setq yas-snippet-dirs
-	'("~/.emacs.d/snippets") ;; personal snippets
-	)
   (yas-global-mode 1)
   )
 
 (use-package evil-leader
   :init
-  (add-to-list 'load-path "~/.emacs.d/packages/evil-leader")
+  (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
   :config
   (global-evil-leader-mode)
   (evil-leader/set-leader "<SPC>")
@@ -241,7 +240,8 @@
 
   (use-package company-quickhelp
     :config
-    (setq company-quickhelp-idle-delay 0)
+    (company-quickhelp-mode 1)
+    (setq company-quickhelp-delay 0)
     )
 
   (defvar company-mode/enable-yas t
@@ -267,8 +267,8 @@
 
 (use-package projectile
   :config
+  (use-package helm-projectile)
   (add-hook 'after-init-hook #'projectile-mode)
-  (add-hook 'after-init-hook '(use-package helm-projectile))
   )
 
 (use-package whitespace-cleanup-mode
@@ -298,6 +298,8 @@
 
 (use-package dockerfile-mode)
 
+(use-package markdown-mode)
+
 (use-package git-gutter
   :config
   (global-git-gutter-mode 1)
@@ -314,6 +316,5 @@
   (define-key emmet-mode-keymap (kbd "TAB") 'emmet-expand-line) ;;todo: integrate this into company or something
   )
 
-(setq custom-file "~/.emacs.d/custom.el")
+(setq custom-file (user-emacs-subdirectory "custom.el"))
 (load custom-file)
-
