@@ -123,6 +123,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   (async-bytecomp-package-mode 1)
   )
 
+
 (use-package elpy
   :config
   (elpy-enable); TODO: configure elpy
@@ -165,7 +166,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   (use-package company-quickhelp
     :config
     (company-quickhelp-mode 1)
-    (setq company-quickhelp-delay 0)
+    (setq company-quickhelp-delay 1)
     )
 
   (use-package company-jedi
@@ -229,7 +230,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (use-package which-key
   :config
-  (setq which-key-popup-type 'minibuffer)
+  ;; (setq which-key-popup-type 'minibuffer)
   (which-key-mode 1)
   )
 
@@ -258,11 +259,11 @@ Uses `current-date-time-format' for the formatting the date/time."
   (global-git-gutter-mode 1)
   )
 
-(use-package guide-key
-  :config
-  (setq guide-key/guide-key-sequence t)
-  (guide-key-mode 1)
-  )
+;; (use-package guide-key
+;;   :config
+;;   (setq guide-key/guide-key-sequence t)
+;;   (guide-key-mode 1)
+;;   )
 
 (use-package emmet-mode)
 
