@@ -1,5 +1,5 @@
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+;; No startup screen
+(setq inhibit-startup-screen t)
 
 ;; turn on line numbers
 (global-linum-mode 1)
@@ -56,7 +56,6 @@
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/")) ;
 (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 (add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
-
 (when (< emacs-major-version 24)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
   )
@@ -214,51 +213,6 @@
   (powerline-default-theme)
   )
 
-;; rebind <C-u> to intended behavior, otherwise defaults to universal-argument
-
-;; (use-package evil-surround
-;;     :config
-;;     (global-evil-surround-mode 1)
-;;     (setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
-;; 						  evil-surround-pairs-alist)))
-
-;; (use-package evil-args
-;;     :config
-;;     ;; bind evil-args text objects
-;;     (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
-;;     (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
-;;     ;; bind evil-forward/backward-args
-;;     (define-key evil-normal-state-map "L" 'evil-forward-arg)
-;;     (define-key evil-normal-state-map "H" 'evil-backward-arg)
-;;     (define-key evil-motion-state-map "L" 'evil-forward-arg)
-;;     (define-key evil-motion-state-map "H" 'evil-backward-arg)
-;;     ;; bind evil-jump-out-args
-;;     (define-key evil-normal-state-map "K" 'evil-jump-out-args)
-;;     )
-
-;; (use-package evil-numbers
-;;     :config
-;;     (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-;;     (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-;;     )
-
-;; evil number support
-;;(require 'evil-numbers)
-;;(define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-;;(define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-
-;; ;; evil leader support
-;; (use-package evil-commentary)
-;; (use-package evil-replace-with-register)
-;; (use-package evil-text-object-python)
-;; (use-package evil-magit)
-;; (use-package evil-tabs
-;;   :init
-;;   (use-package elscreen)
-;;   :config
-;;   (global-evil-tabs-mode t)
-;;   )
-
 ;; orgmode bindings
 (use-package org-evil
   :config
@@ -313,8 +267,8 @@
 
 (use-package projectile
   :config
-  (use-package helm-projectile)
   (add-hook 'after-init-hook #'projectile-mode)
+  (add-hook 'after-init-hook '(use-package helm-projectile))
   )
 
 (use-package whitespace-cleanup-mode
@@ -354,3 +308,12 @@
   (setq guide-key/guide-key-sequence t)
   (guide-key-mode 1)
   )
+
+(use-package emmet-mode
+  :config
+  (define-key emmet-mode-keymap (kbd "TAB") 'emmet-expand-line) ;;todo: integrate this into company or something
+  )
+
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
+
