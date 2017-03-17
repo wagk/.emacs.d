@@ -22,33 +22,42 @@
 (setq truncate-lines t)
 (setq tab-width 8)
 
+;; Save buffer state
+(desktop-save-mode 1)
+(setq history-length 250)
+(add-to-list 'desktop-globals-to-save 'file-name-history)
+
 ;; set default font
 (add-to-list 'default-frame-alist '(font . "Consolas-11"))
 
 ;;datetime things
 (defvar current-date-time-format "%Y-%m-%dT%H:%M:%S"
-  "Format of date to insert with `insert-current-date-time' func
-  See help of `format-time-string' for possible replacements")
+  "Format of date to insert with `insert-current-date-time' func.
+See help of `format-time-string' for possible replacements")
 
 (defun insert-current-date-time ()
-  "insert the current date and time into current buffer.
-  Uses `current-date-time-format' for the formatting the date/time."
+  "Insert the current date and time into current buffer.
+Uses `current-date-time-format' for the formatting the date/time."
   (interactive)
   (insert (format-time-string current-date-time-format (current-time))))
 
 (defun find-user-init-file-here ()
-  "Edit `user-init-file` without opening a new window"
+  "Edit `user-init-file` without opening a new window."
   (interactive)
   (find-file user-init-file)
   )
 
 (defun find-user-init-file ()
-  "Edit `user-init-file` in another window"
+  "Edit `user-init-file` in another window."
   (interactive)
   (find-file-other-window user-init-file)
   )
 
-(defun user-emacs-subdirectory (subdir) (concat user-emacs-directory subdir))
+(defun user-emacs-subdirectory (subdir)
+  "Not sure if needed, but I don't like how arbitrary `~/.emacs.d/` is.  SUBDIR should not have a `/` in front."
+  (concat user-emacs-directory subdir)
+  )
+
 
 
 
@@ -177,11 +186,11 @@
   (define-key evil-normal-state-map "K" 'evil-jump-out-args)
   )
 
-(use-package evil-numbers
-  :config
-  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-  (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-  )
+;; (use-package evil-numbers
+;;   :config
+;;   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+;;   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+;;   )
 
 (use-package evil-vimish-fold
   :config
