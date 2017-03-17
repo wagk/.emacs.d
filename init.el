@@ -4,13 +4,18 @@
 
 ;; somehow optimise for garbage collection
 ;; https://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
-(defvar default-gc-cons-threshold gc-cons-threshold)
+
+;; (defvar default-gc-cons-threshold gc-cons-threshold)
+
+(defvar default-gc-cons-threshold 20000000)
 
 (defun gc-minibuffer-setup-hook ()
+  "Set the garbage collection threshold to the maximum."
   (setq gc-cons-threshold most-positive-fixnum)
   )
 
 (defun gc-minibuffer-exit-hook ()
+  "Set the garbage collection threshold to the default."
   (setq gc-cons-threshold default-gc-cons-threshold)
   )
 
@@ -163,6 +168,13 @@ Uses `current-date-time-format' for the formatting the date/time."
     (setq company-quickhelp-delay 0)
     )
 
+  (use-package company-jedi
+    :config
+    (defun my/python-mode-hook ()
+      (add-to-list 'python-mode-hook 'company-jedi))
+    (add-hook 'python-mode-hook 'my/python-mode-hook)
+    )
+
   (defvar company-mode/enable-yas t
     "Enable yasnippet for all backends.")
   (defun company-mode/backend-with-yas (backend)
@@ -200,6 +212,10 @@ Uses `current-date-time-format' for the formatting the date/time."
   (global-aggressive-indent-mode 1)
   )
 
+(use-package spu
+  :defer 5 ;; defer package loading for 5 second
+  :config (spu-package-upgrade-daily))
+
 (use-package flycheck
   :config
   (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -209,7 +225,13 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (use-package docker-tramp)
 
-(use-package discover)
+(use-package linum-relative)
+
+(use-package which-key
+  :config
+  (setq which-key-popup-type 'minibuffer)
+  (which-key-mode 1)
+  )
 
 (use-package groovy-mode)
 
@@ -218,6 +240,18 @@ Uses `current-date-time-format' for the formatting the date/time."
 (use-package dockerfile-mode)
 
 (use-package markdown-mode)
+
+(use-package minimap)
+
+(use-package multiple-cursors)
+
+(use-package origami
+  :init
+  (use-package dash)
+  (use-package s)
+  :config
+  (global-origami-mode 1)
+  ) ;; TODO: map z-a, z-r, and z-m to these functions. I want folding dammit
 
 (use-package git-gutter
   :config
@@ -230,10 +264,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   (guide-key-mode 1)
   )
 
-(use-package emmet-mode
-  :config
-  (define-key emmet-mode-keymap (kbd "TAB") 'emmet-expand-line) ;;todo: integrate this into company or something
-  )
+(use-package emmet-mode)
 
 (use-package evil-leader
   :init
@@ -286,6 +317,8 @@ Uses `current-date-time-format' for the formatting the date/time."
     (let ((evil-this-register ?0))
       (call-interactively 'evil-paste-after)))
   (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+  ;; This is how you define commands
+  ;; (evil-ex-define-cmd "b[utterfly]" 'butterfly)
   )
 
 (use-package evil-surround
