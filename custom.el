@@ -40,16 +40,16 @@
    (quote
     ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
  '(inhibit-startup-screen t)
+ '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(magit-diff-use-overlays nil)
  '(nrepl-message-colors
    (quote
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (markdown-mode emmet-mode php-mode dockerfile-mode powerline powerline-evil git-gutter guide-key flycheck aggressive-indent whitespace-cleanup-mode evil-matchit evil-vimish-fold groovy-mode fireplace company-quickhelp ## discover helm-company elpy evil-tabs docker-tramp evil-text-object-python tramp-term company powershell use-package solarized-theme org-evil helm evil-surround evil-replace-with-register evil-numbers evil-magit evil-leader evil-commentary evil-args)))
+    (emmet-mode markdown-mode php-mode dockerfile-mode powerline powerline-evil git-gutter guide-key flycheck aggressive-indent whitespace-cleanup-mode evil-matchit evil-vimish-fold groovy-mode fireplace company-quickhelp ## discover helm-company elpy evil-tabs docker-tramp evil-text-object-python tramp-term company powershell use-package solarized-theme org-evil helm evil-surround evil-replace-with-register evil-numbers evil-magit evil-leader evil-commentary evil-args)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
- '(projectile-mode t nil (projectile))
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
  '(term-default-bg-color "#002b36")
  '(term-default-fg-color "#839496")
@@ -79,7 +79,6 @@
  '(weechat-color-list
    (quote
     (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
- '(window-divider-mode t)
  '(xterm-color-names
    ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
  '(xterm-color-names-bright

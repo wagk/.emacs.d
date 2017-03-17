@@ -1,3 +1,25 @@
+;;; package --- Summary
+;;; Commentary:
+;;; Code:
+
+;; somehow optimise for garbage collection
+;; https://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
+(defvar default-gc-cons-threshold gc-cons-threshold)
+
+(defun gc-minibuffer-setup-hook ()
+  (setq gc-cons-threshold most-positive-fixnum)
+  )
+
+(defun gc-minibuffer-exit-hook ()
+  (setq gc-cons-threshold default-gc-cons-threshold)
+  )
+
+(add-hook 'minibuffer-setup-hook #'gc-minibuffer-setup-hook)
+(add-hook 'minibuffer-exit-hook #'gc-minibuffer-exit-hook)
+
+;; While initing, max out gc threshold
+(setq gc-cons-threshold most-positive-fixnum)
+
 ;; No startup screen
 (setq inhibit-startup-screen t)
 
@@ -59,7 +81,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   )
 
 
-
+;; Packages
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -115,118 +137,6 @@ Uses `current-date-time-format' for the formatting the date/time."
   :config
   (yas-global-mode 1)
   )
-
-(use-package evil-leader
-  :init
-  (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
-  :config
-  (global-evil-leader-mode)
-  (evil-leader/set-leader "<SPC>")
-  (evil-leader/set-key
-    "<SPC>"	'helm-M-x
-    "f"		'helm-find-files
-    "F"		'helm-projectile
-    "\\"	'magit-status
-    "t"		'insert-current-date-time
-    "cc"	'comment-or-uncomment-region
-    "a"		'align-regexp
-    )
-  )
-
-(use-package evil
-  :init
-  (setq evil-want-C-u-scroll t)
-
-  :config
-  (evil-mode 1)
-
-  (evil-set-initial-state 'info-mode 'normal)
-  (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
-  (setq evil-motion-state-modes nil)
-  (define-key global-map (kbd "C-f") 'universal-argument)
-  (define-key universal-argument-map (kbd "C-u") nil)
-  (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
-  (define-key global-map (kbd "C-u") 'kill-whole-line)
-  (eval-after-load 'evil-maps
-    '(progn
-       (define-key evil-motion-state-map (kbd "C-f") nil)
-       (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
-       )
-    )
-  ;; Let _ be considered part of a word
-  (defadvice evil-inner-word (around underscore-as-word activate)
-    (let ((table (copy-syntax-table (syntax-table))))
-      (modify-syntax-entry ?_ "w" table)
-      (with-syntax-table table
-	ad-do-it)))  ;; remap paste command
-  (defun evil-paste-after-from-0 ()
-    (interactive)
-    (let ((evil-this-register ?0))
-      (call-interactively 'evil-paste-after)))
-  (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
-  )
-
-(use-package evil-surround
-  :config
-  (global-evil-surround-mode 1)
-  (setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
-						evil-surround-pairs-alist)))
-
-(use-package evil-args
-  :config
-  ;; bind evil-args text objects
-  (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
-  (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
-  ;; bind evil-forward/backward-args
-  (define-key evil-normal-state-map "L" 'evil-forward-arg)
-  (define-key evil-normal-state-map "H" 'evil-backward-arg)
-  (define-key evil-motion-state-map "L" 'evil-forward-arg)
-  (define-key evil-motion-state-map "H" 'evil-backward-arg)
-  ;; bind evil-jump-out-args
-  (define-key evil-normal-state-map "K" 'evil-jump-out-args)
-  )
-
-;; (use-package evil-numbers
-;;   :config
-;;   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-;;   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-;;   )
-
-(use-package evil-vimish-fold
-  :config
-  (evil-vimish-fold-mode 1)
-  )
-
-(use-package evil-args)
-(use-package evil-matchit)
-(use-package evil-commentary)
-(use-package evil-replace-with-register)
-(use-package evil-text-object-python)
-(use-package evil-magit)
-(use-package evil-tabs
-  :init
-  (use-package elscreen)
-  :config
-  (global-evil-tabs-mode t)
-  )
-
-(use-package powerline
-  :config
-
-  (use-package powerline-evil
-    :config
-    (powerline-evil-vim-color-theme)
-    )
-
-  (powerline-default-theme)
-  )
-
-;; orgmode bindings
-(use-package org-evil
-  :config
-  (setq org-M-RET-may-split-line nil) ;; so we can press 'o' in evil and generate the next item
-  )
-
 ;; activate helm mode
 (use-package helm
   :config
@@ -325,5 +235,122 @@ Uses `current-date-time-format' for the formatting the date/time."
   (define-key emmet-mode-keymap (kbd "TAB") 'emmet-expand-line) ;;todo: integrate this into company or something
   )
 
+(use-package evil-leader
+  :init
+  (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
+  :config
+  (global-evil-leader-mode)
+  (evil-leader/set-leader "<SPC>")
+  (evil-leader/set-key
+    "<SPC>"	'helm-M-x
+    "f"		'helm-find-files
+    "F"		'helm-projectile
+    "\\"	'magit-status
+    "t"		'insert-current-date-time
+    "cc"	'comment-or-uncomment-region
+    "a"		'align-regexp
+    )
+  )
+
+(use-package evil
+  :init
+  (setq evil-want-C-u-scroll t)
+
+  :config
+  (evil-mode 1)
+
+  (evil-set-initial-state 'info-mode 'normal)
+  (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
+  (setq evil-motion-state-modes nil)
+  (define-key global-map (kbd "C-f") 'universal-argument)
+  (define-key universal-argument-map (kbd "C-u") nil)
+  (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
+  (define-key global-map (kbd "C-u") 'kill-whole-line)
+  (eval-after-load 'evil-maps
+    '(progn
+       (define-key evil-motion-state-map (kbd "C-f") nil)
+       (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
+       )
+    )
+  ;; Let _ be considered part of a word
+  (defadvice evil-inner-word (around underscore-as-word activate)
+    (let ((table (copy-syntax-table (syntax-table))))
+      (modify-syntax-entry ?_ "w" table)
+      (modify-syntax-entry ?- "w" table)
+      (with-syntax-table table ad-do-it)
+      )
+    )
+  ;; remap paste command
+  (defun evil-paste-after-from-0 ()
+    (interactive)
+    (let ((evil-this-register ?0))
+      (call-interactively 'evil-paste-after)))
+  (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+  )
+
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1)
+  (setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
+						evil-surround-pairs-alist)))
+
+(use-package evil-args
+  :config
+  ;; bind evil-args text objects
+  (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
+  (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+  ;; bind evil-forward/backward-args
+  (define-key evil-normal-state-map "L" 'evil-forward-arg)
+  (define-key evil-normal-state-map "H" 'evil-backward-arg)
+  (define-key evil-motion-state-map "L" 'evil-forward-arg)
+  (define-key evil-motion-state-map "H" 'evil-backward-arg)
+  ;; bind evil-jump-out-args
+  (define-key evil-normal-state-map "K" 'evil-jump-out-args)
+  )
+
+;; (use-package evil-numbers
+;;   :config
+;;   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+;;   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+;;   )
+
+(use-package evil-vimish-fold
+  :config
+  (evil-vimish-fold-mode 1)
+  )
+
+(use-package evil-args)
+(use-package evil-matchit)
+(use-package evil-commentary)
+(use-package evil-replace-with-register)
+(use-package evil-text-object-python)
+(use-package evil-magit)
+(use-package evil-tabs
+  :init
+  (use-package elscreen)
+  :config
+  (global-evil-tabs-mode t)
+  )
+
+(use-package powerline
+  :config
+
+  (use-package powerline-evil
+    :config
+    (powerline-evil-vim-color-theme)
+    )
+
+  (powerline-default-theme)
+  )
+
+;; orgmode bindings
+(use-package org-evil
+  :config
+  (setq org-M-RET-may-split-line nil) ;; so we can press 'o' in evil and generate the next item
+  )
+
 (setq custom-file (user-emacs-subdirectory "custom.el"))
 (load custom-file)
+
+;; Reduce gc threshold to more manageable values:
+(setq gc-cons-threshold default-gc-cons-threshold)
