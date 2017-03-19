@@ -254,6 +254,9 @@ Uses `current-date-time-format' for the formatting the date/time."
   (global-origami-mode 1)
   ) ;; TODO: map z-a, z-r, and z-m to these functions. I want folding dammit
 
+(use-package sublimity
+  )
+
 (use-package git-gutter
   :config
   (global-git-gutter-mode 1)
@@ -265,7 +268,12 @@ Uses `current-date-time-format' for the formatting the date/time."
 ;;   (guide-key-mode 1)
 ;;   )
 
-(use-package emmet-mode)
+(use-package emmet-mode
+  :config
+  (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+  (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+  (setq emmet-move-cursor-between-quotes t) ;; default nil
+  )
 
 (use-package evil-leader
   :init
@@ -291,6 +299,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   :config
   (evil-mode 1)
 
+  (setq sentence-end-double-space nil)
   (evil-set-initial-state 'info-mode 'normal)
   (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
   (setq evil-motion-state-modes nil)

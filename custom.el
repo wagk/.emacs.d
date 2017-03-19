@@ -42,12 +42,13 @@
  '(inhibit-startup-screen t)
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(magit-diff-use-overlays nil)
+ '(minimap-mode t)
  '(nrepl-message-colors
    (quote
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (package-safe-delete linum-relative emmet-mode markdown-mode php-mode dockerfile-mode powerline powerline-evil git-gutter guide-key flycheck aggressive-indent whitespace-cleanup-mode evil-matchit evil-vimish-fold groovy-mode fireplace company-quickhelp ## discover helm-company elpy evil-tabs docker-tramp evil-text-object-python tramp-term company powershell use-package solarized-theme org-evil helm evil-surround evil-replace-with-register evil-numbers evil-magit evil-leader evil-commentary evil-args)))
+    (sublimity-attractive sublimity-scroll sublimity package-safe-delete linum-relative emmet-mode markdown-mode php-mode dockerfile-mode powerline powerline-evil git-gutter guide-key flycheck aggressive-indent whitespace-cleanup-mode evil-matchit evil-vimish-fold groovy-mode fireplace company-quickhelp ## discover helm-company elpy evil-tabs docker-tramp evil-text-object-python tramp-term company powershell use-package solarized-theme org-evil helm evil-surround evil-replace-with-register evil-numbers evil-magit evil-leader evil-commentary evil-args)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
