@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: sh
+# key: sh
+# --
+sh(script: ${1:command}, returnStdout: ${2:true}).trim()
