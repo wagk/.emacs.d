@@ -138,6 +138,9 @@ Uses `current-date-time-format' for the formatting the date/time."
 ;; 	      )
 ;;       )
 
+;; org mode maps
+(define-key org-mode-map (kbd "S-SPC") 'org-toggle-checkbox)
+
 
 (use-package yasnippet
   :config
@@ -163,6 +166,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 (use-package company
   :config
 
+
   (use-package company-quickhelp
     :config
     (company-quickhelp-mode 1)
@@ -184,8 +188,10 @@ Uses `current-date-time-format' for the formatting the date/time."
       (append (if (consp backend) backend (list backend))
 	      '(:with company-yasnippet))))
 
-  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
   (use-package helm-company)
+
+  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+  (setq company-dabbrev-downcase nil)
   (setq company-idle-delay 0)
   (setq company-require-match nil)
   (define-key company-active-map (kbd "M-n") nil)
@@ -193,7 +199,12 @@ Uses `current-date-time-format' for the formatting the date/time."
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   (define-key company-active-map (kbd "C-w") 'company-abort)
-  ;;(define-key company-active-map (kbd "<tab>") 'company-complete-selection)
+
+  (defun my-universal-complete()
+    (interactive)
+    (company-complete-selection)
+    (company-complete))
+  (define-key company-active-map (kbd "<tab>") 'my-universal-complete)
   (add-hook 'after-init-hook 'global-company-mode)
   )
 
@@ -329,6 +340,8 @@ Uses `current-date-time-format' for the formatting the date/time."
   (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
   ;; This is how you define commands
   ;; (evil-ex-define-cmd "b[utterfly]" 'butterfly)
+  (evil-ex-define-cmd "re[cent]" 'helm-recentf)
+  (evil-ex-define-cmd "proj[ectile]" 'helm-projectile)
   )
 
 (use-package evil-surround
