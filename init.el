@@ -44,7 +44,8 @@
 ;; Remove toolbar
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-(toggle-scroll-bar -1)
+(scroll-bar-mode -1)
+(window-divider-mode -1)
 
 (setq truncate-lines t)
 (setq tab-width 8)
@@ -138,10 +139,6 @@ Uses `current-date-time-format' for the formatting the date/time."
 ;; 	      )
 ;;       )
 
-;; org mode maps
-;; (define-key org-mode-map (kbd "S-SPC") 'org-toggle-checkbox)
-
-
 (use-package yasnippet
   :config
   (yas-global-mode 1)
@@ -162,6 +159,11 @@ Uses `current-date-time-format' for the formatting the date/time."
   )
 
 (use-package powershell)
+
+(use-package beacon
+  :config
+  (beacon-mode 1)
+  )
 
 (use-package company
   :config
@@ -268,17 +270,18 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (use-package git-gutter
   :config
+  (if (display-graphic-p) (use-package git-gutter-fringe))
   (global-git-gutter-mode 1)
+  )
+
+(use-package centered-window-mode
+  :config
+  (centered-window-mode t) 
   )
 
 (use-package sublimity
   :config
-  (if (display-graphic-p) ;;if we're in a terminal don't use git-gutter-fringe
-      (require 'sublimity-attractive)
-    (use-package git-gutter-fringe)
-    (defun my-sublimity-toggle()
-      )
-    )
+  (if (display-graphic-p) (require 'sublimity-attractive))
   )
 
 ;; (use-package guide-key
@@ -308,7 +311,7 @@ Uses `current-date-time-format' for the formatting the date/time."
     "t"		'insert-current-date-time
     "cc"	'comment-or-uncomment-region
     "a"		'align-regexp
-    "s"		'sublimity-mode
+    "."		'centered-window-mode
     )
   )
 
@@ -331,6 +334,8 @@ Uses `current-date-time-format' for the formatting the date/time."
     '(progn
        (define-key evil-motion-state-map (kbd "C-f") nil)
        (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
+       (define-key evil-normal-state-map (kbd "gt") 'other-frame)
+       (define-key evil-normal-state-map (kbd "gT") 'other-frame)
        )
     )
   ;; Let _ be considered part of a word
@@ -347,11 +352,38 @@ Uses `current-date-time-format' for the formatting the date/time."
     (let ((evil-this-register ?0))
       (call-interactively 'evil-paste-after)))
   (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+
+  ;; change mode-line color by evil state
+  (lexical-let ((default-color (cons (face-background 'mode-line)
+				     (face-foreground 'mode-line))))
+    (add-hook 'post-command-hook
+	      (lambda ()
+		(let ((color (cond ((minibufferp) default-color)
+				   ((evil-insert-state-p) '("#e80000" . "#ffffff"))
+				   ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
+				   ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
+				   (t default-color))))
+		  (set-face-background 'mode-line (car color))
+		  (set-face-foreground 'mode-line (cdr color))))))
+
+  ;;see if we can fix this to make it work or something
+  (defun my-vertical-split(&optional COUNT FILE)
+    (if (bound-and-true-p centered-window-mode)
+	((centered-window-mode nil)
+	 (evil-window-vsplit COUNT FILE)
+	 (centered-window-mode t))
+      (evil-window-vsplit COUNT FILE)
+      )
+    )
+  
   ;; This is how you define commands
-  ;; (evil-ex-define-cmd "b[utterfly]" 'butterfly)
-  (evil-ex-define-cmd "re[cent]" 'helm-recentf)
-  (evil-ex-define-cmd "proj[ectile]" 'helm-projectile)
-  (evil-ex-define-cmd "sub[limity]" 'sublimity-mode)
+  ;; (evil-ex-define-cmd "b[utterfly]"	'butterfly)
+  (evil-ex-define-cmd "re[cent]"	'helm-recentf)
+  (evil-ex-define-cmd "pr[ojectile]"	'helm-projectile)
+  (evil-ex-define-cmd "vsp[lit]"	'split-window-horizontally)
+  ;; (evil-ex-define-cmd "vsp[lit]"	'my-vertical-split) ;; this won't solve the bug
+  (evil-ex-define-cmd "tabn[ew]"	'make-frame)
+  (evil-ex-define-cmd "tabe[dit]"	'make-frame) ;; TODO: let this take arguments
   )
 
 (use-package evil-surround
@@ -386,11 +418,18 @@ Uses `current-date-time-format' for the formatting the date/time."
 ;;   )
 
 (use-package evil-args)
+(use-package evil-lion
+  :config (evil-lion-mode))
 (use-package evil-matchit)
+(use-package evil-cleverparens)
 (use-package evil-commentary)
 (use-package evil-replace-with-register)
 (use-package evil-text-object-python)
 (use-package evil-magit)
+(use-package evil-indent-textobject)
+(use-package vi-tilde-fringe
+  :config (global-vi-tilde-fringe-mode 1))
+
 ;; ;; This was causing some performance issues
 ;; (use-package evil-tabs
 ;;   :init
@@ -421,6 +460,9 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (setq custom-file (user-emacs-subdirectory "custom.el"))
 (load custom-file)
+
+;; org mode maps
+(define-key org-mode-map (kbd "S-SPC") 'org-toggle-checkbox)
 
 ;; Reduce gc threshold to more manageable values:
 (setq gc-cons-threshold default-gc-cons-threshold)
