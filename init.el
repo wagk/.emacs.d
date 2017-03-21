@@ -140,12 +140,15 @@ Uses `current-date-time-format' for the formatting the date/time."
   :config
   (yas-global-mode 1)
   )
+
 ;; activate helm mode
 (use-package helm
   :config
   (helm-mode 1)
   (global-set-key (kbd "M-x") 'helm-M-x)
   )
+
+(use-package helm-org-rifle)
 
 ;;solarized dark theme
 (use-package solarized-theme
@@ -154,6 +157,8 @@ Uses `current-date-time-format' for the formatting the date/time."
 	solarized-scale-org-headlines nil) ;;unscrew org layout
   (load-theme 'solarized-dark t)
   )
+
+(use-package org-brain)
 
 (use-package powershell)
 
@@ -273,7 +278,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (use-package centered-window-mode
   :config
-  (centered-window-mode t)
+  (centered-window-mode 1)
   )
 
 (use-package sublimity
@@ -377,6 +382,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   ;; (evil-ex-define-cmd "b[utterfly]"	'butterfly)
   (evil-ex-define-cmd "re[cent]"	'helm-recentf)
   (evil-ex-define-cmd "pr[ojectile]"	'helm-projectile)
+  (evil-ex-define-cmd "or[gsearch]"	'helm-org-rifle)
   (evil-ex-define-cmd "vsp[lit]"	'split-window-horizontally)
   ;; (evil-ex-define-cmd "vsp[lit]"	'my-vertical-split) ;; this won't solve the bug
   (evil-ex-define-cmd "tabn[ew]"	'make-frame)
