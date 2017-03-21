@@ -366,9 +366,9 @@ Uses `current-date-time-format' for the formatting the date/time."
   ;;see if we can fix this to make it work or something
   (defun my-vertical-split(&optional COUNT FILE)
     (if (bound-and-true-p centered-window-mode)
-	((centered-window-mode nil)
-	 (evil-window-vsplit COUNT FILE)
-	 (centered-window-mode t))
+	(progn (centered-window-mode nil)
+	       (evil-window-vsplit COUNT FILE)
+	       (centered-window-mode t))
       (evil-window-vsplit COUNT FILE)
       )
     )
