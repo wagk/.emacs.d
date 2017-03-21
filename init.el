@@ -29,7 +29,7 @@
 (setq inhibit-startup-screen t)
 
 ;; turn on line numbers
-;; (global-linum-mode nil) ;; THIS MIGHT HAVE PERFORMANCE ISSUES
+(global-linum-mode nil) ;; THIS MIGHT HAVE PERFORMANCE ISSUES
 
 ;; startup maximised
 (custom-set-variables
@@ -55,6 +55,9 @@
 (setq history-length 250)
 (add-to-list 'desktop-globals-to-save 'file-name-history)
 
+;; strip whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; set default font
 (add-to-list 'default-frame-alist '(font . "Consolas-11"))
 
@@ -69,16 +72,10 @@ Uses `current-date-time-format' for the formatting the date/time."
   (interactive)
   (insert (format-time-string current-date-time-format (current-time))))
 
-(defun find-user-init-file-here ()
+(defun find-user-init-file ()
   "Edit `user-init-file` without opening a new window."
   (interactive)
   (find-file user-init-file)
-  )
-
-(defun find-user-init-file ()
-  "Edit `user-init-file` in another window."
-  (interactive)
-  (find-file-other-window user-init-file)
   )
 
 (defun user-emacs-subdirectory (subdir)
@@ -276,7 +273,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (use-package centered-window-mode
   :config
-  (centered-window-mode t) 
+  (centered-window-mode t)
   )
 
 (use-package sublimity
@@ -375,7 +372,7 @@ Uses `current-date-time-format' for the formatting the date/time."
       (evil-window-vsplit COUNT FILE)
       )
     )
-  
+
   ;; This is how you define commands
   ;; (evil-ex-define-cmd "b[utterfly]"	'butterfly)
   (evil-ex-define-cmd "re[cent]"	'helm-recentf)

@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: try-catch
+# key: try
+# --
+try {
+
+    $0
+
+} catch ($1) {
+
+      $2
+
+} finally {
+
+	$3
+
+}
