@@ -9,18 +9,18 @@
 
 (defvar default-gc-cons-threshold 20000000)
 
-(defun gc-minibuffer-setup-hook ()
+(defun my-minibuffer-setup-hook ()
   "Set the garbage collection threshold to the maximum."
   (setq gc-cons-threshold most-positive-fixnum)
   )
 
-(defun gc-minibuffer-exit-hook ()
+(defun my-minibuffer-exit-hook ()
   "Set the garbage collection threshold to the default."
   (setq gc-cons-threshold default-gc-cons-threshold)
   )
 
-(add-hook 'minibuffer-setup-hook #'gc-minibuffer-setup-hook)
-(add-hook 'minibuffer-exit-hook #'gc-minibuffer-exit-hook)
+(add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+(add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
 
 ;; While initing, max out gc threshold
 (setq gc-cons-threshold most-positive-fixnum)
@@ -204,6 +204,7 @@ Uses `current-date-time-format' for the formatting the date/time."
     (interactive)
     (company-complete-selection)
     (company-complete))
+
   (define-key company-active-map (kbd "<tab>") 'my-universal-complete)
   (add-hook 'after-init-hook 'global-company-mode)
   )
@@ -265,14 +266,19 @@ Uses `current-date-time-format' for the formatting the date/time."
   (global-origami-mode 1)
   ) ;; TODO: map z-a, z-r, and z-m to these functions. I want folding dammit
 
-(use-package sublimity
-  :config
-  (require 'sublimity-attractive)
-  )
-
 (use-package git-gutter
   :config
   (global-git-gutter-mode 1)
+  )
+
+(use-package sublimity
+  :config
+  (if (display-graphic-p) ;;if we're in a terminal don't use git-gutter-fringe
+      (require 'sublimity-attractive)
+    (use-package git-gutter-fringe)
+    (defun my-sublimity-toggle()
+      )
+    )
   )
 
 ;; (use-package guide-key
@@ -302,6 +308,7 @@ Uses `current-date-time-format' for the formatting the date/time."
     "t"		'insert-current-date-time
     "cc"	'comment-or-uncomment-region
     "a"		'align-regexp
+    "s"		'sublimity-mode
     )
   )
 
@@ -344,6 +351,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   ;; (evil-ex-define-cmd "b[utterfly]" 'butterfly)
   (evil-ex-define-cmd "re[cent]" 'helm-recentf)
   (evil-ex-define-cmd "proj[ectile]" 'helm-projectile)
+  (evil-ex-define-cmd "sub[limity]" 'sublimity-mode)
   )
 
 (use-package evil-surround
@@ -372,10 +380,10 @@ Uses `current-date-time-format' for the formatting the date/time."
 ;;   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
 ;;   )
 
-(use-package evil-vimish-fold
-  :config
-  (evil-vimish-fold-mode 1)
-  )
+;; (use-package evil-vimish-fold
+;;   :config
+;;   (evil-vimish-fold-mode 1)
+;;   )
 
 (use-package evil-args)
 (use-package evil-matchit)
