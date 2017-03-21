@@ -29,7 +29,7 @@
 (setq inhibit-startup-screen t)
 
 ;; turn on line numbers
-(global-linum-mode 1)
+;; (global-linum-mode nil) ;; THIS MIGHT HAVE PERFORMANCE ISSUES
 
 ;; startup maximised
 (custom-set-variables
@@ -139,7 +139,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 ;;       )
 
 ;; org mode maps
-(define-key org-mode-map (kbd "S-SPC") 'org-toggle-checkbox)
+;; (define-key org-mode-map (kbd "S-SPC") 'org-toggle-checkbox)
 
 
 (use-package yasnippet
@@ -266,6 +266,8 @@ Uses `current-date-time-format' for the formatting the date/time."
   ) ;; TODO: map z-a, z-r, and z-m to these functions. I want folding dammit
 
 (use-package sublimity
+  :config
+  (require 'sublimity-attractive)
   )
 
 (use-package git-gutter
@@ -381,12 +383,13 @@ Uses `current-date-time-format' for the formatting the date/time."
 (use-package evil-replace-with-register)
 (use-package evil-text-object-python)
 (use-package evil-magit)
-(use-package evil-tabs
-  :init
-  (use-package elscreen)
-  :config
-  (global-evil-tabs-mode t)
-  )
+;; ;; This was causing some performance issues
+;; (use-package evil-tabs
+;;   :init
+;;   (use-package elscreen)
+;;   :config
+;;   (global-evil-tabs-mode t)
+;;   )
 
 (use-package powerline
   :config
@@ -404,6 +407,9 @@ Uses `current-date-time-format' for the formatting the date/time."
   :config
   (setq org-M-RET-may-split-line nil) ;; so we can press 'o' in evil and generate the next item
   )
+
+(add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode))
+(add-to-list 'auto-mode-alist '("\\Jenkinsfile\\'" . groovy-mode))
 
 (setq custom-file (user-emacs-subdirectory "custom.el"))
 (load custom-file)
