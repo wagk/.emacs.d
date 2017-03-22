@@ -25,42 +25,6 @@
 ;; While initing, max out gc threshold
 (setq gc-cons-threshold most-positive-fixnum)
 
-;; No startup screen
-(setq inhibit-startup-screen t)
-
-;; turn on line numbers
-(global-linum-mode nil) ;; THIS MIGHT HAVE PERFORMANCE ISSUES
-
-;; startup maximised
-(custom-set-variables
- '(initial-frame-alist (quote ((fullscreen . maximized)))))
-
-;; autopairing
-(electric-pair-mode 1)
-
-;; autoindentation
-(electric-indent-mode 1)
-
-;; Remove toolbar
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(window-divider-mode -1)
-
-(setq truncate-lines t)
-(setq tab-width 8)
-
-;; Save buffer state
-(desktop-save-mode 1)
-(setq history-length 250)
-(add-to-list 'desktop-globals-to-save 'file-name-history)
-
-;; strip whitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; set default font
-(add-to-list 'default-frame-alist '(font . "Consolas-11"))
-
 ;;datetime things
 (defvar current-date-time-format "%Y-%m-%dT%H:%M:%S"
   "Format of date to insert with `insert-current-date-time' func.
@@ -79,7 +43,8 @@ Uses `current-date-time-format' for the formatting the date/time."
   )
 
 (defun user-emacs-subdirectory (subdir)
-  "Not sure if needed, but I don't like how arbitrary `~/.emacs.d/` is.  SUBDIR should not have a `/` in front."
+  "Not sure if needed, but I don't like how arbitrary `~/.emacs.d/` is.
+SUBDIR should not have a `/` in front."
   (concat user-emacs-directory subdir)
   )
 
@@ -146,6 +111,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   :config
   (helm-mode 1)
   (global-set-key (kbd "M-x") 'helm-M-x)
+  (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
   )
 
 (use-package helm-org-rifle)
@@ -154,11 +120,10 @@ Uses `current-date-time-format' for the formatting the date/time."
 (use-package solarized-theme
   :config
   (setq solarized-use-variable-pitch nil
-	solarized-scale-org-headlines nil) ;;unscrew org layout
+	solarized-scale-org-headlines nil
+	solarized-high-contrast-mode-line t) ;;unscrew org layout
   (load-theme 'solarized-dark t)
   )
-
-(use-package org-brain)
 
 (use-package powershell)
 
@@ -167,9 +132,16 @@ Uses `current-date-time-format' for the formatting the date/time."
   (beacon-mode 1)
   )
 
+(use-package indent-guide ;; this might be a performance hit
+  :config
+  (set-face-background 'indent-guide-face "#073642")
+  (setq indent-guide-delay 0.0
+	indent-guide-char " ")
+  (indent-guide-global-mode)
+  )
+
 (use-package company
   :config
-
 
   (use-package company-quickhelp
     :config
@@ -210,6 +182,7 @@ Uses `current-date-time-format' for the formatting the date/time."
     (company-complete))
 
   (define-key company-active-map (kbd "<tab>") 'my-universal-complete)
+  (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
   (add-hook 'after-init-hook 'global-company-mode)
   )
 
@@ -242,7 +215,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (use-package docker-tramp)
 
-(use-package linum-relative)
+;; (use-package linum-relative)
 
 (use-package which-key
   :config
@@ -312,7 +285,7 @@ Uses `current-date-time-format' for the formatting the date/time."
     "\\"	'magit-status
     "t"		'insert-current-date-time
     "cc"	'comment-or-uncomment-region
-    "a"		'align-regexp
+    "a"		'evil-lion-left
     "."		'centered-window-mode
     )
   )
@@ -463,6 +436,42 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (setq custom-file (user-emacs-subdirectory "custom.el"))
 (load custom-file)
+
+;; No startup screen
+(setq inhibit-startup-screen t)
+
+;; turn on line numbers
+(global-linum-mode 0) ;; THIS MIGHT HAVE PERFORMANCE ISSUES
+
+;; startup maximised
+(custom-set-variables
+ '(initial-frame-alist (quote ((fullscreen . maximized)))))
+
+;; autopairing
+(electric-pair-mode 1)
+
+;; indentation
+(electric-indent-mode 1)
+
+;; Remove toolbar
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(window-divider-mode -1)
+
+(setq truncate-lines t)
+(setq tab-width 8)
+
+;; Save buffer state
+(desktop-save-mode 1)
+(setq history-length 250)
+(add-to-list 'desktop-globals-to-save 'file-name-history)
+
+;; strip whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; set default font
+(add-to-list 'default-frame-alist '(font . "Consolas-11"))
 
 ;; org mode maps
 (define-key org-mode-map (kbd "S-SPC") 'org-toggle-checkbox)
