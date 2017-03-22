@@ -129,15 +129,22 @@ SUBDIR should not have a `/` in front."
 
 (use-package beacon
   :config
-  (beacon-mode 1)
+  (beacon-mode 0)
   )
 
-(use-package indent-guide ;; this might be a performance hit
+;; (use-package indent-guide ;; this might be a performance hit
+;;   :config
+;;   (set-face-background 'indent-guide-face "#073642")
+;;   (setq indent-guide-delay 0.0
+;; 	indent-guide-char " ")
+;;   (indent-guide-global-mode)
+;;   )
+
+(use-package highlight-indent-guides
   :config
-  (set-face-background 'indent-guide-face "#073642")
-  (setq indent-guide-delay 0.0
-	indent-guide-char " ")
-  (indent-guide-global-mode)
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+  (setq highlight-indent-guides-method 'character
+	highlight-indent-guides-character ?\|)
   )
 
 (use-package company
@@ -251,7 +258,7 @@ SUBDIR should not have a `/` in front."
 
 (use-package centered-window-mode
   :config
-  (centered-window-mode 1)
+  (centered-window-mode t)
   )
 
 (use-package sublimity
@@ -287,6 +294,7 @@ SUBDIR should not have a `/` in front."
     "cc"	'comment-or-uncomment-region
     "a"		'evil-lion-left
     "."		'centered-window-mode
+    ","		'magit-status
     )
   )
 
@@ -461,6 +469,10 @@ SUBDIR should not have a `/` in front."
 
 (setq truncate-lines t)
 (setq tab-width 8)
+
+;; (global-hl-line-mode 1)
+;; (set-face-background 'hl-line  "#073642")
+;; (set-face-foreground 'highlight nil)
 
 ;; Save buffer state
 (desktop-save-mode 1)
