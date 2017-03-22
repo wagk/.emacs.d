@@ -116,6 +116,13 @@ SUBDIR should not have a `/` in front."
 
 (use-package helm-org-rifle)
 
+(use-package helm-hunks
+  :commands (helm-hunks
+             helm-hunks-current-buffer
+             helm-hunks-staged
+             helm-hunks-staged-current-buffer)
+  )
+
 ;;solarized dark theme
 (use-package solarized-theme
   :config
@@ -289,7 +296,7 @@ SUBDIR should not have a `/` in front."
     "<SPC>"	'helm-M-x
     "f"		'helm-find-files
     "F"		'helm-projectile
-    "\\"	'magit-status
+    "\\"	'helm-hunks
     "t"		'insert-current-date-time
     "cc"	'comment-or-uncomment-region
     "a"		'evil-lion-left
