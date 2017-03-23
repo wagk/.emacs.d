@@ -2,6 +2,12 @@ auto-save-list/*
 elpa/*
 backups/*
 server/*
+el-get/*
+spu_log/*
+.emacs.desktop
+.emacs.desktop.lock
+projectile-bookmarks.eld
+projectile.cache
 recentf
 .#*
 *.el#
