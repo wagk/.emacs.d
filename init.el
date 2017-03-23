@@ -95,10 +95,10 @@ SUBDIR should not have a `/` in front."
 ;; ;; Example el-get-sources
 ;; (setq el-get-sources
 ;;       '(:name yasnippet
-;; 	      :type github
-;; 	      :pkgname "joaotavora/yasnippet"
-;; 	      :after (yas-global-mode 1)
-;; 	      )
+;;            :type github
+;;            :pkgname "joaotavora/yasnippet"
+;;            :after (yas-global-mode 1)
+;;            )
 ;;       )
 
 (use-package yasnippet
@@ -116,19 +116,27 @@ SUBDIR should not have a `/` in front."
 
 (use-package helm-org-rifle)
 
+(use-package git-gutter
+  :config
+  (if (display-graphic-p) (use-package git-gutter-fringe))
+  (global-git-gutter-mode 1)
+  )
+
 (use-package helm-hunks
   :commands (helm-hunks
              helm-hunks-current-buffer
              helm-hunks-staged
              helm-hunks-staged-current-buffer)
+  :config
+  (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
   )
 
 ;;solarized dark theme
 (use-package solarized-theme
   :config
   (setq solarized-use-variable-pitch nil
-	solarized-scale-org-headlines nil
-	solarized-high-contrast-mode-line t) ;;unscrew org layout
+        solarized-scale-org-headlines nil
+        solarized-high-contrast-mode-line t) ;;unscrew org layout
   (load-theme 'solarized-dark t)
   )
 
@@ -143,15 +151,16 @@ SUBDIR should not have a `/` in front."
 ;;   :config
 ;;   (set-face-background 'indent-guide-face "#073642")
 ;;   (setq indent-guide-delay 0.0
-;; 	indent-guide-char " ")
+;;      indent-guide-char " ")
 ;;   (indent-guide-global-mode)
 ;;   )
 
 (use-package highlight-indent-guides
   :config
-  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-  (setq highlight-indent-guides-method 'character
-	highlight-indent-guides-character ?\|)
+  ;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+  ;; character || column || fill
+  (setq highlight-indent-guides-method 'column
+        highlight-indent-guides-character ?\|)
   )
 
 (use-package company
@@ -174,9 +183,9 @@ SUBDIR should not have a `/` in front."
     "Enable yasnippet for all backends.")
   (defun company-mode/backend-with-yas (backend)
     (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-	backend
+        backend
       (append (if (consp backend) backend (list backend))
-	      '(:with company-yasnippet))))
+              '(:with company-yasnippet))))
 
   (use-package helm-company)
 
@@ -195,7 +204,7 @@ SUBDIR should not have a `/` in front."
     (company-complete-selection)
     (company-complete))
 
-  (define-key company-active-map (kbd "<tab>") 'my-universal-complete)
+  (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
   (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
   (add-hook 'after-init-hook 'global-company-mode)
   )
@@ -255,13 +264,7 @@ SUBDIR should not have a `/` in front."
   (use-package s)
   :config
   (global-origami-mode 1)
-  ) ;; TODO: map z-a, z-r, and z-m to these functions. I want folding dammit
-
-(use-package git-gutter
-  :config
-  (if (display-graphic-p) (use-package git-gutter-fringe))
-  (global-git-gutter-mode 1)
-  )
+  ) ;; todo: map z-a, z-r, and z-m to these functions. i want folding dammit
 
 (use-package centered-window-mode
   :config
@@ -281,8 +284,8 @@ SUBDIR should not have a `/` in front."
 
 (use-package emmet-mode
   :config
-  (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-  (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+  (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
+  (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.
   (setq emmet-move-cursor-between-quotes t) ;; default nil
   )
 
@@ -302,6 +305,7 @@ SUBDIR should not have a `/` in front."
     "a"		'evil-lion-left
     "."		'centered-window-mode
     ","		'magit-status
+    "/"         'highlight-indent-guides-mode
     )
   )
 
@@ -332,7 +336,7 @@ SUBDIR should not have a `/` in front."
   (defadvice evil-inner-word (around underscore-as-word activate)
     (let ((table (copy-syntax-table (syntax-table))))
       (modify-syntax-entry ?_ "w" table)
-      (modify-syntax-entry ?- "w" table)
+      ;; (modify-syntax-entry ?- "w" table)
       (with-syntax-table table ad-do-it)
       )
     )
@@ -345,43 +349,43 @@ SUBDIR should not have a `/` in front."
 
   ;; change mode-line color by evil state
   (lexical-let ((default-color (cons (face-background 'mode-line)
-				     (face-foreground 'mode-line))))
+                                     (face-foreground 'mode-line))))
     (add-hook 'post-command-hook
-	      (lambda ()
-		(let ((color (cond ((minibufferp) default-color)
-				   ((evil-insert-state-p) '("#e80000" . "#ffffff"))
-				   ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
-				   ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
-				   (t default-color))))
-		  (set-face-background 'mode-line (car color))
-		  (set-face-foreground 'mode-line (cdr color))))))
+              (lambda ()
+                (let ((color (cond ((minibufferp) default-color)
+                                   ((evil-insert-state-p) '("#e80000" . "#ffffff"))
+                                   ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
+                                   ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
+                                   (t default-color))))
+                  (set-face-background 'mode-line (car color))
+                  (set-face-foreground 'mode-line (cdr color))))))
 
   ;;see if we can fix this to make it work or something
   (defun my-vertical-split(&optional COUNT FILE)
     (if (bound-and-true-p centered-window-mode)
-	(progn (centered-window-mode nil)
-	       (evil-window-vsplit COUNT FILE)
-	       (centered-window-mode t))
+        (progn (centered-window-mode nil)
+               (evil-window-vsplit COUNT FILE)
+               (centered-window-mode t))
       (evil-window-vsplit COUNT FILE)
       )
     )
 
   ;; This is how you define commands
-  ;; (evil-ex-define-cmd "b[utterfly]"	'butterfly)
-  (evil-ex-define-cmd "re[cent]"	'helm-recentf)
-  (evil-ex-define-cmd "pr[ojectile]"	'helm-projectile)
-  (evil-ex-define-cmd "or[gsearch]"	'helm-org-rifle)
-  (evil-ex-define-cmd "vsp[lit]"	'split-window-horizontally)
-  ;; (evil-ex-define-cmd "vsp[lit]"	'my-vertical-split) ;; this won't solve the bug
-  (evil-ex-define-cmd "tabn[ew]"	'make-frame)
-  (evil-ex-define-cmd "tabe[dit]"	'make-frame) ;; TODO: let this take arguments
+  ;; (evil-ex-define-cmd "b[utterfly]"  'butterfly)
+  (evil-ex-define-cmd "re[cent]"        'helm-recentf)
+  (evil-ex-define-cmd "pr[ojectile]"    'helm-projectile)
+  (evil-ex-define-cmd "or[gsearch]"     'helm-org-rifle)
+  (evil-ex-define-cmd "vsp[lit]"        'split-window-horizontally)
+  ;; (evil-ex-define-cmd "vsp[lit]"     'my-vertical-split) ;; this won't solve the bug
+  (evil-ex-define-cmd "tabn[ew]"        'make-frame)
+  (evil-ex-define-cmd "tabe[dit]"       'make-frame) ;; TODO: let this take arguments
   )
 
 (use-package evil-surround
   :config
   (global-evil-surround-mode 1)
   (setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
-						evil-surround-pairs-alist)))
+                                                evil-surround-pairs-alist)))
 
 (use-package evil-args
   :config
@@ -467,6 +471,7 @@ SUBDIR should not have a `/` in front."
 
 ;; indentation
 (electric-indent-mode 1)
+(setq-default indent-tabs-mode nil)
 
 ;; Remove toolbar
 (tool-bar-mode -1)
@@ -494,6 +499,9 @@ SUBDIR should not have a `/` in front."
 
 ;; org mode maps
 (define-key org-mode-map (kbd "S-SPC") 'org-toggle-checkbox)
+
+;; Remove really annoying bindings
+(global-unset-key (kbd "M-:"))
 
 ;; Reduce gc threshold to more manageable values:
 (setq gc-cons-threshold default-gc-cons-threshold)
