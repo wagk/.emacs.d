@@ -12,3 +12,4 @@ recentf
 .#*
 *.el#
 *~
+flycheck_init.el
