@@ -258,6 +258,10 @@ SUBDIR should not have a `/` in front."
 
 (use-package multiple-cursors)
 
+(use-package transpose-frame)
+
+(use-package buffer-move)
+
 (use-package origami
   :init
   (use-package dash)
@@ -328,8 +332,35 @@ SUBDIR should not have a `/` in front."
     '(progn
        (define-key evil-motion-state-map (kbd "C-f") nil)
        (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
-       (define-key evil-normal-state-map (kbd "gt") 'other-frame)
-       (define-key evil-normal-state-map (kbd "gT") 'other-frame)
+
+       (define-key evil-normal-state-map (kbd "gt") '(lambda () (interactive) (other-frame 1)))
+       (define-key evil-normal-state-map (kbd "gT") '(lambda () (interactive) (other-frame -1)))
+
+       (define-key evil-ex-map "b" 'helm-buffers-list)
+       (define-key evil-ex-map "e" 'helm-find-files)
+       (define-key evil-ex-map "vsp"
+         '(lambda()
+            (interactive)
+            (split-window-horizontally)
+            (other-window 1)
+            ;; (call-interactively #'helm-find-files)
+            )
+         )
+       (define-key evil-ex-map "sp"
+         '(lambda()
+            (interactive)
+            (split-window-vertically)
+            (other-window 1)
+            ;; (call-interactively #'helm-find-files)
+            )
+         )
+       (define-key evil-ex-map "tabe"
+         '(lambda()
+            (interactive)
+            (make-frame)
+            ;; (call-interactively #'helm-find-files)
+            )
+         )
        )
     )
   ;; Let _ be considered part of a word
@@ -375,10 +406,9 @@ SUBDIR should not have a `/` in front."
   (evil-ex-define-cmd "re[cent]"        'helm-recentf)
   (evil-ex-define-cmd "pr[ojectile]"    'helm-projectile)
   (evil-ex-define-cmd "or[gsearch]"     'helm-org-rifle)
-  (evil-ex-define-cmd "vsp[lit]"        'split-window-horizontally)
   ;; (evil-ex-define-cmd "vsp[lit]"     'my-vertical-split) ;; this won't solve the bug
   (evil-ex-define-cmd "tabn[ew]"        'make-frame)
-  (evil-ex-define-cmd "tabe[dit]"       'make-frame) ;; TODO: let this take arguments
+  ;; (evil-ex-define-cmd "tabe[dit]"        'make-frame)
   )
 
 (use-package evil-surround
@@ -479,8 +509,9 @@ SUBDIR should not have a `/` in front."
 (scroll-bar-mode -1)
 (window-divider-mode -1)
 
-(setq truncate-lines t)
-(setq tab-width 8)
+(setq truncate-lines t
+      tab-width 8
+      auto-hscroll-mode t)
 
 ;; (global-hl-line-mode 1)
 ;; (set-face-background 'hl-line  "#073642")
@@ -490,6 +521,9 @@ SUBDIR should not have a `/` in front."
 (desktop-save-mode 1)
 (setq history-length 250)
 (add-to-list 'desktop-globals-to-save 'file-name-history)
+
+;; Display time
+(display-time-mode 1)
 
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
