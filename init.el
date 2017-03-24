@@ -258,6 +258,10 @@ SUBDIR should not have a `/` in front."
 
 (use-package multiple-cursors)
 
+(use-package transpose-frame)
+
+(use-package buffer-move)
+
 (use-package origami
   :init
   (use-package dash)
@@ -339,7 +343,7 @@ SUBDIR should not have a `/` in front."
             (interactive)
             (split-window-horizontally)
             (other-window 1)
-            (call-interactively #'helm-find-files)
+            ;; (call-interactively #'helm-find-files)
             )
          )
        (define-key evil-ex-map "sp"
@@ -347,14 +351,14 @@ SUBDIR should not have a `/` in front."
             (interactive)
             (split-window-vertically)
             (other-window 1)
-            (call-interactively #'helm-find-files)
+            ;; (call-interactively #'helm-find-files)
             )
          )
        (define-key evil-ex-map "tabe"
          '(lambda()
             (interactive)
             (make-frame)
-            (call-interactively #'helm-find-files)
+            ;; (call-interactively #'helm-find-files)
             )
          )
        )
