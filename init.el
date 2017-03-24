@@ -338,22 +338,22 @@ SUBDIR should not have a `/` in front."
 
        (define-key evil-ex-map "b" 'helm-buffers-list)
        (define-key evil-ex-map "e" 'helm-find-files)
-       (define-key evil-ex-map "vsp"
-         '(lambda()
-            (interactive)
-            (split-window-horizontally)
-            (other-window 1)
-            ;; (call-interactively #'helm-find-files)
-            )
-         )
-       (define-key evil-ex-map "sp"
-         '(lambda()
-            (interactive)
-            (split-window-vertically)
-            (other-window 1)
-            ;; (call-interactively #'helm-find-files)
-            )
-         )
+       ;; (define-key evil-ex-map "vsp"
+       ;;   '(lambda()
+       ;;      (interactive)
+       ;;      (split-window-horizontally)
+       ;;      (other-window 1)
+       ;;      ;; (call-interactively #'helm-find-files)
+       ;;      )
+       ;;   )
+       ;; (define-key evil-ex-map "sp"
+       ;;   '(lambda()
+       ;;      (interactive)
+       ;;      (split-window-vertically)
+       ;;      (other-window 1)
+       ;;      ;; (call-interactively #'helm-find-files)
+       ;;      )
+       ;;   )
        (define-key evil-ex-map "tabe"
          '(lambda()
             (interactive)
@@ -363,6 +363,7 @@ SUBDIR should not have a `/` in front."
          )
        )
     )
+
   ;; Let _ be considered part of a word
   (defadvice evil-inner-word (around underscore-as-word activate)
     (let ((table (copy-syntax-table (syntax-table))))
@@ -409,6 +410,20 @@ SUBDIR should not have a `/` in front."
   ;; (evil-ex-define-cmd "vsp[lit]"     'my-vertical-split) ;; this won't solve the bug
   (evil-ex-define-cmd "tabn[ew]"        'make-frame)
   ;; (evil-ex-define-cmd "tabe[dit]"        'make-frame)
+  (evil-ex-define-cmd "vsp[lit]" '(lambda()
+                                    (interactive)
+                                    (split-window-horizontally)
+                                    (other-window 1)
+                                    ;; (call-interactively #'helm-find-files)
+                                    )
+                      )
+  (evil-ex-define-cmd "sp[lit]" '(lambda()
+                                   (interactive)
+                                   (split-window-vertically)
+                                   (other-window 1)
+                                   ;; (call-interactively #'helm-find-files)
+                                   )
+                      )
   )
 
 (use-package evil-surround
