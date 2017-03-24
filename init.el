@@ -328,8 +328,35 @@ SUBDIR should not have a `/` in front."
     '(progn
        (define-key evil-motion-state-map (kbd "C-f") nil)
        (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
+
        (define-key evil-normal-state-map (kbd "gt") '(lambda () (interactive) (other-frame 1)))
        (define-key evil-normal-state-map (kbd "gT") '(lambda () (interactive) (other-frame -1)))
+
+       (define-key evil-ex-map "b" 'helm-buffers-list)
+       (define-key evil-ex-map "e" 'helm-find-files)
+       (define-key evil-ex-map "vsp"
+         '(lambda()
+            (interactive)
+            (split-window-horizontally)
+            (other-window 1)
+            (call-interactively #'helm-find-files)
+            )
+         )
+       (define-key evil-ex-map "sp"
+         '(lambda()
+            (interactive)
+            (split-window-vertically)
+            (other-window 1)
+            (call-interactively #'helm-find-files)
+            )
+         )
+       (define-key evil-ex-map "tabe"
+         '(lambda()
+            (interactive)
+            (make-frame)
+            (call-interactively #'helm-find-files)
+            )
+         )
        )
     )
   ;; Let _ be considered part of a word
@@ -375,16 +402,9 @@ SUBDIR should not have a `/` in front."
   (evil-ex-define-cmd "re[cent]"        'helm-recentf)
   (evil-ex-define-cmd "pr[ojectile]"    'helm-projectile)
   (evil-ex-define-cmd "or[gsearch]"     'helm-org-rifle)
-  (evil-ex-define-cmd "vsp[lit]"
-                      '(lambda() (interactive) (split-window-horizontally) (other-window 1))
-                      )
-  (evil-ex-define-cmd "sp[lit]"
-                      '(lambda() (interactive) (split-window-vertically) (other-window 1))
-                      )
   ;; (evil-ex-define-cmd "vsp[lit]"     'my-vertical-split) ;; this won't solve the bug
-  (evil-ex-define-cmd "tab"             'helm-buffer-list)
   (evil-ex-define-cmd "tabn[ew]"        'make-frame)
-  (evil-ex-define-cmd "tabe[dit]"       'make-frame) ;; TODO: let this take arguments
+  ;; (evil-ex-define-cmd "tabe[dit]"        'make-frame)
   )
 
 (use-package evil-surround
