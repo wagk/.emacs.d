@@ -328,8 +328,8 @@ SUBDIR should not have a `/` in front."
     '(progn
        (define-key evil-motion-state-map (kbd "C-f") nil)
        (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
-       (define-key evil-normal-state-map (kbd "gt") 'other-frame)
-       (define-key evil-normal-state-map (kbd "gT") 'other-frame)
+       (define-key evil-normal-state-map (kbd "gt") '(lambda () (interactive) (other-frame 1)))
+       (define-key evil-normal-state-map (kbd "gT") '(lambda () (interactive) (other-frame -1)))
        )
     )
   ;; Let _ be considered part of a word
@@ -479,7 +479,7 @@ SUBDIR should not have a `/` in front."
 (scroll-bar-mode -1)
 (window-divider-mode -1)
 
-(setq truncate-lines t)
+(setq truncate-lines nil)
 (setq tab-width 8)
 
 ;; (global-hl-line-mode 1)
