@@ -424,6 +424,56 @@ SUBDIR should not have a `/` in front."
                                    ;; (call-interactively #'helm-find-files)
                                    )
                       )
+
+  (defun my-evil-org-new-item ()
+    (interactive)
+    (end-of-line)
+    (if (not (org-in-item-p))
+        (insert "\n- ")
+      (org-insert-item)
+      )
+    (evil-append nil)
+    )
+
+  (defun my-evil-org-new-indent ()
+    (interactive)
+    (my-evil-org-new-item)
+    (org-indent-item)
+    )
+
+  (defmacro my-evil-update-cursor-eol(func)
+    (lambda ()
+      (interactive)
+      (func)
+      (end-of-line)))
+
+  ;; bind evil normal keymodes inside orgmode
+  (evil-declare-key 'normal org-mode-map
+    (kbd "L") 'org-shiftright
+    (kbd "H") 'org-shiftleft
+    (kbd "K") 'org-shiftup
+    (kbd "J") 'org-shiftdown
+    (kbd "RET") 'my-evil-org-new-item
+    (kbd "M-l") 'org-metaright
+    (kbd "M-h") 'org-metaleft
+    (kbd "M-k") 'org-metaup
+    (kbd "M-j") 'org-metadown
+    (kbd "M-L") '(my-evil-update-cursor-eol(org-shiftmetaright))
+    (kbd "M-H") '(my-evil-update-cursor-eol(org-shiftmetaleft))
+    (kbd "M-K") '(my-evil-update-cursor-eol(org-shiftmetaup))
+    (kbd "M-L") '(my-evil-update-cursor-eol(org-shiftmetadown))
+    )
+
+  (evil-declare-key 'insert org-mode-map
+    (kbd "M-l") 'org-metaright
+    (kbd "M-h") 'org-metaleft
+    (kbd "M-k") 'org-metaup
+    (kbd "M-j") 'org-metadown
+    (kbd "M-L") 'org-shiftmetaright
+    (kbd "M-H") 'org-shiftmetaleft
+    (kbd "M-K") 'org-shiftmetaup
+    (kbd "M-L") 'org-shiftmetadown
+    )
   )
 
 (use-package evil-surround
@@ -507,6 +557,9 @@ SUBDIR should not have a `/` in front."
 ;; turn on line numbers
 (global-linum-mode 0) ;; THIS MIGHT HAVE PERFORMANCE ISSUES
 
+;; set default font
+(add-to-list 'default-frame-alist '(font . "Consolas-11"))
+
 ;; startup maximised
 (custom-set-variables
  '(initial-frame-alist (quote ((fullscreen . maximized)))))
@@ -543,11 +596,11 @@ SUBDIR should not have a `/` in front."
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; set default font
-(add-to-list 'default-frame-alist '(font . "Consolas-11"))
-
 ;; org mode maps
-(define-key org-mode-map (kbd "S-SPC") 'org-toggle-checkbox)
+(eval-after-load 'org-mode
+  '(define-key org-mode-map (kbd "S-SPC") 'org-toggle-checkbox)
+  )
+
 
 ;; Remove really annoying bindings
 (global-unset-key (kbd "M-:"))
