@@ -435,6 +435,13 @@ SUBDIR should not have a `/` in front."
       )
     )
 
+  (defun my-evil-org-toggle-checkbox ()
+    "If the list element has no checkbox, add one. Do nothing otherwise"
+    (interactive)
+    ;; (setq prefix-arg '(4)) ;; prefix arguments are WEIRD.
+    (save-excursion (org-toggle-checkbox '(4)))
+    )
+
   (defun my-evil-org-new-indent ()
     (interactive)
     (my-evil-org-new-item)
