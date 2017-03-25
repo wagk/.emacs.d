@@ -427,12 +427,12 @@ SUBDIR should not have a `/` in front."
 
   (defun my-evil-org-new-item ()
     (interactive)
-    (end-of-line)
-    (if (not (org-in-item-p))
-        (insert "\n- ")
+    (when (org-in-item-p)
       (org-insert-item)
+      (evil-next-line-first-non-blank)
+      (evil-append 1)
+      (insert " ")
       )
-    (evil-append nil)
     )
 
   (defun my-evil-org-new-indent ()
@@ -519,6 +519,8 @@ SUBDIR should not have a `/` in front."
 (use-package evil-indent-textobject)
 (use-package vi-tilde-fringe
   :config (global-vi-tilde-fringe-mode 1))
+(use-package evil-visualstar
+  :config (global-evil-visualstar-mode))
 
 ;; ;; This was causing some performance issues
 ;; (use-package evil-tabs
@@ -577,8 +579,8 @@ SUBDIR should not have a `/` in front."
 (scroll-bar-mode -1)
 (window-divider-mode -1)
 
-(setq truncate-lines t
-      tab-width 8
+(setq truncate-lines    t
+      tab-width         8
       auto-hscroll-mode t)
 
 ;; (global-hl-line-mode 1)
