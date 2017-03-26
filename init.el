@@ -71,21 +71,15 @@ SUBDIR should not have a `/` in front."
 (eval-when-compile (require 'use-package))
 (setq use-package-always-ensure t) ;; make sure we download when necessary
 
-(add-to-list 'load-path (user-emacs-subdirectory "el-get/el-get"))
+;; el-get stuff
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
 (unless (require 'el-get nil 'noerror)
   (package-install 'el-get)
-  (require 'el-get)
-  )
-(add-to-list 'el-get-recipe-path (user-emacs-subdirectory "el-get-user/recipes"))
+  (require 'el-get))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
-
-(use-package async
-  :config
-  (autoload 'dired-async-mode "dired-async.el" nil t)
-  (dired-async-mode 1)
-  (async-bytecomp-package-mode 1)
-  )
-
 
 (use-package elpy
   :config
@@ -275,10 +269,11 @@ SUBDIR should not have a `/` in front."
   (centered-window-mode t)
   )
 
-(use-package sublimity
-  :config
-  (if (display-graphic-p) (require 'sublimity-attractive))
-  )
+;; (use-package sublimity
+;;   :config
+;;   (when (display-graphic-p) (use-package sublimity-attractive))
+;;   (sublimity-mode 0)
+;;   )
 
 ;; (use-package guide-key
 ;;   :config
@@ -295,6 +290,8 @@ SUBDIR should not have a `/` in front."
 
 (use-package evil-leader
   :init
+  ;; (el-get-bundle evil-leader
+  ;;   :url "https://github.com/cofi/evil-leader")
   (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
   :config
   (global-evil-leader-mode)
@@ -403,12 +400,14 @@ SUBDIR should not have a `/` in front."
     )
 
   ;; This is how you define commands
-  ;; (evil-ex-define-cmd "b[utterfly]"  'butterfly)
-  (evil-ex-define-cmd "re[cent]"        'helm-recentf)
-  (evil-ex-define-cmd "pr[ojectile]"    'helm-projectile)
-  (evil-ex-define-cmd "or[gsearch]"     'helm-org-rifle)
-  ;; (evil-ex-define-cmd "vsp[lit]"     'my-vertical-split) ;; this won't solve the bug
-  (evil-ex-define-cmd "tabn[ew]"        'make-frame)
+  ;; (evil-ex-define-cmd "b[utterfly]"      'butterfly)
+  (evil-ex-define-cmd "re[cent]"            'helm-recentf)
+  (evil-ex-define-cmd "pr[ojectile]"        'helm-projectile)
+  (evil-ex-define-cmd "or[gsearch]"         'helm-org-rifle)
+  (evil-ex-define-cmd "h[elp]"              'helm-apropos)
+  (evil-ex-define-cmd "go[ogle]"            'helm-google-suggest)
+  ;; (evil-ex-define-cmd "vsp[lit]"         'my-vertical-split) ;; this won't solve the bug
+  (evil-ex-define-cmd "tabn[ew]"            'make-frame)
   ;; (evil-ex-define-cmd "tabe[dit]"        'make-frame)
   (evil-ex-define-cmd "vsp[lit]" '(lambda()
                                     (interactive)
@@ -428,24 +427,19 @@ SUBDIR should not have a `/` in front."
   (defun my-evil-org-new-item ()
     (interactive)
     (when (org-in-item-p)
+      (end-of-line)
       (org-insert-item)
-      (evil-next-line-first-non-blank)
       (evil-append 1)
-      (insert " ")
       )
     )
 
   (defun my-evil-org-toggle-checkbox ()
     "If the list element has no checkbox, add one. Do nothing otherwise"
     (interactive)
-    ;; (setq prefix-arg '(4)) ;; prefix arguments are WEIRD.
-    (save-excursion (org-toggle-checkbox '(4)))
-    )
-
-  (defun my-evil-org-new-indent ()
-    (interactive)
-    (my-evil-org-new-item)
-    (org-indent-item)
+    (if (not (org-at-item-checkbox-p))
+        (save-excursion (org-toggle-checkbox '(4))) ;; Prefix arguments are WEIRD
+      (org-toggle-checkbox)
+      )
     )
 
   (defmacro my-evil-update-cursor-eol(func)
@@ -456,11 +450,12 @@ SUBDIR should not have a `/` in front."
 
   ;; bind evil normal keymodes inside orgmode
   (evil-declare-key 'normal org-mode-map
+    (kbd "RET") 'my-evil-org-new-item
+    (kbd "S-SPC") 'my-evil-org-toggle-checkbox
     (kbd "L") 'org-shiftright
     (kbd "H") 'org-shiftleft
     (kbd "K") 'org-shiftup
     (kbd "J") 'org-shiftdown
-    (kbd "RET") 'my-evil-org-new-item
     (kbd "M-l") 'org-metaright
     (kbd "M-h") 'org-metaleft
     (kbd "M-k") 'org-metaup
@@ -472,6 +467,7 @@ SUBDIR should not have a `/` in front."
     )
 
   (evil-declare-key 'insert org-mode-map
+    (kbd "S-RET") 'my-evil-org-new-item
     (kbd "M-l") 'org-metaright
     (kbd "M-h") 'org-metaleft
     (kbd "M-k") 'org-metaup
