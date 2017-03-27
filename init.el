@@ -597,7 +597,7 @@ SUBDIR should not have a `/` in front."
 
 ;; Japanese mode
 (setq default-input-method "japanese"
-      kkc-show-conversion-list-count 0) ;; ばかがいじん
+      kkc-show-conversion-list-count 1) ;; ばかがいじん
 
 (evil-declare-key 'insert kkc-keymap
   (kbd "SPC") 'kkc-terminate
