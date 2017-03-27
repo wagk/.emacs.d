@@ -192,24 +192,21 @@ SUBDIR should not have a `/` in front."
       (append (if (consp backend) backend (list backend))
               '(:with company-yasnippet))))
 
-  (use-package helm-company)
+  (use-package helm-company
+    :config
+    (define-key company-mode-map (kbd "S-SPC") 'helm-company)
+    (define-key company-active-map (kbd "S-SPC") 'helm-company)
+    )
 
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
   (setq company-dabbrev-downcase nil)
   (setq company-idle-delay 0)
   (setq company-require-match nil)
-  (define-key company-active-map (kbd "M-n") nil)
-  (define-key company-active-map (kbd "M-p") nil)
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   (define-key company-active-map (kbd "C-w") 'company-abort)
 
-  (defun my-universal-complete()
-    (interactive)
-    (company-complete-selection)
-    (company-complete))
-
-  (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
+  (define-key company-active-map (kbd "TAB") 'company-complete-selection)
   (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
   (add-hook 'after-init-hook 'global-company-mode)
   )
@@ -354,8 +351,6 @@ SUBDIR should not have a `/` in front."
        (define-key evil-normal-state-map (kbd "C-\\") '(lambda () (interactive) (toggle-input-method)
                                                          (evil-append 1)))
 
-
-
        (evil-define-command my-evil-helm-apropos (prefix)
          (interactive "<a>")
          (helm-apropos prefix)
@@ -364,27 +359,10 @@ SUBDIR should not have a `/` in front."
        (define-key evil-ex-map "b" 'helm-buffers-list)
        (define-key evil-ex-map "e" 'helm-find-files)
        (define-key evil-ex-map "h" 'my-evil-helm-apropos)
-       ;; (define-key evil-ex-map "vsp"
-       ;;   '(lambda()
-       ;;      (interactive)
-       ;;      (split-window-horizontally)
-       ;;      (other-window 1)
-       ;;      ;; (call-interactively #'helm-find-files)
-       ;;      )
-       ;;   )
-       ;; (define-key evil-ex-map "sp"
-       ;;   '(lambda()
-       ;;      (interactive)
-       ;;      (split-window-vertically)
-       ;;      (other-window 1)
-       ;;      ;; (call-interactively #'helm-find-files)
-       ;;      )
-       ;;   )
        (define-key evil-ex-map "tabe"
          '(lambda()
             (interactive)
             (make-frame)
-            ;; (call-interactively #'helm-find-files)
             )
          )
        )
@@ -428,83 +406,25 @@ SUBDIR should not have a `/` in front."
       )
     )
 
-  ;; This is how you define commands
-  ;; (evil-ex-define-cmd "b[utterfly]"      'butterfly)
-  (evil-ex-define-cmd "re[cent]"            'helm-recentf)
-  (evil-ex-define-cmd "pr[ojectile]"        'helm-projectile)
-  (evil-ex-define-cmd "or[gsearch]"         'helm-org-rifle)
-  (evil-ex-define-cmd "goo[gle]"            'helm-google-suggest)
-  ;; (evil-ex-define-cmd "vsp[lit]"         'my-vertical-split) ;; this won't solve the bug
-  (evil-ex-define-cmd "tabn[ew]"            'make-frame)
-  ;; (evil-ex-define-cmd "tabe[dit]"        'make-frame)
-  (evil-ex-define-cmd "vsp[lit]" '(lambda()
-                                    (interactive)
-                                    (split-window-horizontally)
-                                    (other-window 1)
-                                    ;; (call-interactively #'helm-find-files)
-                                    )
+  (evil-ex-define-cmd "re[cent]"     'helm-recentf)
+  (evil-ex-define-cmd "pr[ojectile]" 'helm-projectile)
+  (evil-ex-define-cmd "or[gsearch]"  'helm-org-rifle)
+  (evil-ex-define-cmd "goo[gle]"     'helm-google-suggest)
+  (evil-ex-define-cmd "tabn[ew]"     'make-frame)
+  (evil-ex-define-cmd "vsp[lit]"     '(lambda()
+                                        (interactive)
+                                        (split-window-horizontally)
+                                        (other-window 1)
+                                        ;; (call-interactively #'helm-find-files)
+                                        )
                       )
-  (evil-ex-define-cmd "sp[lit]" '(lambda()
-                                   (interactive)
-                                   (split-window-vertically)
-                                   (other-window 1)
-                                   ;; (call-interactively #'helm-find-files)
-                                   )
+  (evil-ex-define-cmd "sp[lit]"      '(lambda()
+                                        (interactive)
+                                        (split-window-vertically)
+                                        (other-window 1)
+                                        ;; (call-interactively # 'helm-find-files)
+                                        )
                       )
-
-  (defun my-evil-org-new-item ()
-    (interactive)
-    (when (org-in-item-p)
-      (end-of-line)
-      (org-insert-item)
-      (evil-append 1)
-      )
-    )
-
-  (defun my-evil-org-toggle-checkbox ()
-    "If the list element has no checkbox, add one. Do nothing otherwise"
-    (interactive)
-    (if (not (org-at-item-checkbox-p))
-        (save-excursion (org-toggle-checkbox '(4))) ;; Prefix arguments are WEIRD
-      (org-toggle-checkbox)
-      )
-    )
-
-  (defmacro my-evil-update-cursor-eol(func)
-    (lambda ()
-      (interactive)
-      (func)
-      (end-of-line)))
-
-  ;; bind evil normal keymodes inside orgmode
-  (evil-declare-key 'normal org-mode-map
-    (kbd "RET") 'my-evil-org-new-item
-    (kbd "S-SPC") 'my-evil-org-toggle-checkbox
-    (kbd "L") 'org-shiftright
-    (kbd "H") 'org-shiftleft
-    (kbd "K") 'org-shiftup
-    (kbd "J") 'org-shiftdown
-    (kbd "M-l") 'org-metaright
-    (kbd "M-h") 'org-metaleft
-    (kbd "M-k") 'org-metaup
-    (kbd "M-j") 'org-metadown
-    (kbd "M-L") '(my-evil-update-cursor-eol(org-shiftmetaright))
-    (kbd "M-H") '(my-evil-update-cursor-eol(org-shiftmetaleft))
-    (kbd "M-K") '(my-evil-update-cursor-eol(org-shiftmetaup))
-    (kbd "M-L") '(my-evil-update-cursor-eol(org-shiftmetadown))
-    )
-
-  (evil-declare-key 'insert org-mode-map
-    (kbd "S-RET") 'my-evil-org-new-item
-    (kbd "M-l") 'org-metaright
-    (kbd "M-h") 'org-metaleft
-    (kbd "M-k") 'org-metaup
-    (kbd "M-j") 'org-metadown
-    (kbd "M-L") 'org-shiftmetaright
-    (kbd "M-H") 'org-shiftmetaleft
-    (kbd "M-K") 'org-shiftmetaup
-    (kbd "M-L") 'org-shiftmetadown
-    )
   )
 
 (use-package evil-surround
@@ -581,6 +501,63 @@ SUBDIR should not have a `/` in front."
 (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode))
 (add-to-list 'auto-mode-alist '("\\Jenkinsfile\\'" . groovy-mode))
 
+;; orgmode config BEGIN
+(defun my-evil-org-new-item ()
+  (interactive)
+  (when (org-in-item-p)
+    (end-of-line)
+    (org-insert-item)
+    (evil-append 1)
+    )
+  )
+
+(defun my-evil-org-toggle-checkbox ()
+  "If the list element has no checkbox, add one. Do nothing otherwise."
+  (interactive)
+  (if (not (org-at-item-checkbox-p))
+      (save-excursion (org-toggle-checkbox '(4))) ;; Prefix arguments are WEIRD
+    (org-toggle-checkbox)
+    )
+  )
+
+(defmacro my-evil-update-cursor-eol(func)
+  (lambda ()
+    (interactive)
+    (func)
+    (end-of-line)))
+
+;; bind evil normal keymodes inside orgmode
+(evil-declare-key 'normal org-mode-map
+  (kbd "RET") 'my-evil-org-new-item
+  (kbd "S-SPC") 'my-evil-org-toggle-checkbox
+  (kbd "L") 'org-shiftright
+  (kbd "H") 'org-shiftleft
+  (kbd "K") 'org-shiftup
+  (kbd "J") 'org-shiftdown
+  (kbd "M-l") 'org-metaright
+  (kbd "M-h") 'org-metaleft
+  (kbd "M-k") 'org-metaup
+  (kbd "M-j") 'org-metadown
+  (kbd "M-L") '(my-evil-update-cursor-eol(org-shiftmetaright))
+  (kbd "M-H") '(my-evil-update-cursor-eol(org-shiftmetaleft))
+  (kbd "M-K") '(my-evil-update-cursor-eol(org-shiftmetaup))
+  (kbd "M-L") '(my-evil-update-cursor-eol(org-shiftmetadown))
+  )
+
+(evil-declare-key 'insert org-mode-map
+  (kbd "S-RET") 'my-evil-org-new-item
+  (kbd "M-l") 'org-metaright
+  (kbd "M-h") 'org-metaleft
+  (kbd "M-k") 'org-metaup
+  (kbd "M-j") 'org-metadown
+  (kbd "M-L") 'org-shiftmetaright
+  (kbd "M-H") 'org-shiftmetaleft
+  (kbd "M-K") 'org-shiftmetaup
+  (kbd "M-L") 'org-shiftmetadown
+  )
+
+;; orgmode config END
+
 (setq custom-file (user-emacs-subdirectory "custom.el"))
 (load custom-file)
 
@@ -618,7 +595,15 @@ SUBDIR should not have a `/` in front."
 ;; (set-face-background 'hl-line  "#073642")
 ;; (set-face-foreground 'highlight nil)
 
-(setq default-input-method "japanese") ;; ばかがいじん
+;; Japanese mode
+(setq default-input-method "japanese"
+      kkc-show-conversion-list-count 0) ;; ばかがいじん
+
+(evil-declare-key 'insert kkc-keymap
+  (kbd "SPC") 'kkc-terminate
+  (kbd "TAB") 'kkc-next
+  (kbd "S-TAB") 'kkc-prev
+  )
 
 ;; Save buffer state
 (desktop-save-mode 1)
@@ -630,12 +615,6 @@ SUBDIR should not have a `/` in front."
 
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; org mode maps
-(eval-after-load 'org-mode
-  '(define-key org-mode-map (kbd "S-SPC") 'org-toggle-checkbox)
-  )
-
 
 ;; Remove really annoying bindings
 (global-unset-key (kbd "M-:"))
