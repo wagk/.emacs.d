@@ -48,6 +48,17 @@ SUBDIR should not have a `/` in front."
   (concat user-emacs-directory subdir)
   )
 
+;; (defun my-japanese-input-toggle ()
+;;   "Rotates the input method between none -> hiragana -> katakana."
+;;   (when (or (equal current-input-method "japanese-hiragana")
+;;             (equal default-input-method "japanese-hiragana"))
+;;     (set-input-method "japanese-katakana"))
+;;   (when (or (equal current-input-method "japanese-katakana")
+;;             (equal default-input-method "japanese-katakana"))
+;;     (deactivate-input-method))
+;;   (when (booleanp current-input-method)
+;;     (set-input-method "japanese-hiragana"))
+;;   )
 
 ;; Packages
 
@@ -261,6 +272,7 @@ SUBDIR should not have a `/` in front."
   (use-package dash)
   (use-package s)
   :config
+  (setq origami-show-fold-header t)
   (global-origami-mode 1)
   ) ;; todo: map z-a, z-r, and z-m to these functions. i want folding dammit
 
@@ -304,6 +316,7 @@ SUBDIR should not have a `/` in front."
     "t"		'insert-current-date-time
     "cc"	'comment-or-uncomment-region
     "a"		'evil-lion-left
+    "A"		'evil-lion-right
     "."		'centered-window-mode
     ","		'magit-status
     "/"         'highlight-indent-guides-mode
@@ -316,6 +329,11 @@ SUBDIR should not have a `/` in front."
 
   :config
   (evil-mode 1)
+
+  (evil-define-command my-evil-helm-apropos (prefix)
+    (interactive "<a>")
+    (helm-apropos prefix)
+    (other-window 1))
 
   (setq sentence-end-double-space nil)
   (evil-set-initial-state 'info-mode 'normal)
@@ -333,8 +351,19 @@ SUBDIR should not have a `/` in front."
        (define-key evil-normal-state-map (kbd "gt") '(lambda () (interactive) (other-frame 1)))
        (define-key evil-normal-state-map (kbd "gT") '(lambda () (interactive) (other-frame -1)))
 
+       (define-key evil-normal-state-map (kbd "C-\\") '(lambda () (interactive) (toggle-input-method)
+                                                         (evil-append 1)))
+
+
+
+       (evil-define-command my-evil-helm-apropos (prefix)
+         (interactive "<a>")
+         (helm-apropos prefix)
+         (other-window 1))
+
        (define-key evil-ex-map "b" 'helm-buffers-list)
        (define-key evil-ex-map "e" 'helm-find-files)
+       (define-key evil-ex-map "h" 'my-evil-helm-apropos)
        ;; (define-key evil-ex-map "vsp"
        ;;   '(lambda()
        ;;      (interactive)
@@ -404,8 +433,7 @@ SUBDIR should not have a `/` in front."
   (evil-ex-define-cmd "re[cent]"            'helm-recentf)
   (evil-ex-define-cmd "pr[ojectile]"        'helm-projectile)
   (evil-ex-define-cmd "or[gsearch]"         'helm-org-rifle)
-  (evil-ex-define-cmd "h[elp]"              'helm-apropos)
-  (evil-ex-define-cmd "go[ogle]"            'helm-google-suggest)
+  (evil-ex-define-cmd "goo[gle]"            'helm-google-suggest)
   ;; (evil-ex-define-cmd "vsp[lit]"         'my-vertical-split) ;; this won't solve the bug
   (evil-ex-define-cmd "tabn[ew]"            'make-frame)
   ;; (evil-ex-define-cmd "tabe[dit]"        'make-frame)
@@ -589,6 +617,8 @@ SUBDIR should not have a `/` in front."
 ;; (global-hl-line-mode 1)
 ;; (set-face-background 'hl-line  "#073642")
 ;; (set-face-foreground 'highlight nil)
+
+(setq default-input-method "japanese") ;; ばかがいじん
 
 ;; Save buffer state
 (desktop-save-mode 1)
