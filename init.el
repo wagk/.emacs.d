@@ -92,6 +92,140 @@ SUBDIR should not have a `/` in front."
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
 
+(use-package evil-leader
+  :init
+  (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
+  :config
+  (global-evil-leader-mode)
+  (evil-leader/set-leader "<SPC>")
+  )
+
+(use-package evil
+  :init
+  (setq evil-want-C-u-scroll t)
+
+  :config
+  (evil-mode 1)
+
+  (setq sentence-end-double-space nil)
+  (evil-set-initial-state 'info-mode 'normal)
+  (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
+  (setq evil-motion-state-modes nil)
+  (define-key global-map (kbd "C-f") 'universal-argument)
+  (define-key universal-argument-map (kbd "C-u") nil)
+  (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
+  (define-key global-map (kbd "C-u") 'kill-whole-line)
+  (eval-after-load 'evil-maps
+    '(progn
+       (define-key evil-motion-state-map (kbd "C-f") nil)
+       (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
+       (define-key evil-normal-state-map (kbd "gt") '(lambda () (interactive) (other-frame 1)))
+       (define-key evil-normal-state-map (kbd "gT") '(lambda () (interactive) (other-frame -1)))
+       (define-key evil-normal-state-map (kbd "C-\\") '(lambda () (interactive) (toggle-input-method)
+                                                         (evil-append 1)))
+       (define-key evil-ex-map "tabe"
+         '(lambda() (interactive)
+            (make-frame)))
+       )
+    )
+
+  ;; Let _ be considered part of a word
+  (defadvice evil-inner-word (around underscore-as-word activate)
+    (let ((table (copy-syntax-table (syntax-table))))
+      (modify-syntax-entry ?_ "w" table)
+      ;; (modify-syntax-entry ?- "w" table)
+      (with-syntax-table table ad-do-it)
+      )
+    )
+
+  ;; remap paste command
+  (defun evil-paste-after-from-0 ()
+    (interactive)
+    (let ((evil-this-register ?0))
+      (call-interactively 'evil-paste-after)))
+  (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+
+  ;; change mode-line color by evil state
+  (lexical-let ((default-color (cons (face-background 'mode-line)
+                                     (face-foreground 'mode-line))))
+    (add-hook 'post-command-hook
+              (lambda ()
+                (let ((color (cond ((minibufferp) default-color)
+                                   ((evil-insert-state-p) '("#e80000" . "#ffffff"))
+                                   ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
+                                   ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
+                                   (t default-color))))
+                  (set-face-background 'mode-line (car color))
+                  (set-face-foreground 'mode-line (cdr color))))))
+
+  (evil-ex-define-cmd "tabn[ew]"     'make-frame)
+  (evil-ex-define-cmd "vsp[lit]"     '(lambda()
+                                        (interactive)
+                                        (split-window-horizontally)
+                                        (other-window 1)
+                                        ;; (call-interactively #'helm-find-files)
+                                        )
+                      )
+  (evil-ex-define-cmd "sp[lit]"      '(lambda()
+                                        (interactive)
+                                        (split-window-vertically)
+                                        (other-window 1)
+                                        ;; (call-interactively # 'helm-find-files)
+                                        )
+                      )
+  )
+
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1)
+  (setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
+                                                evil-surround-pairs-alist)))
+
+(use-package evil-args
+  :config
+  ;; bind evil-args text objects
+  (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
+  (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+  ;; bind evil-forward/backward-args
+  (define-key evil-normal-state-map "L" 'evil-forward-arg)
+  (define-key evil-normal-state-map "H" 'evil-backward-arg)
+  (define-key evil-motion-state-map "L" 'evil-forward-arg)
+  (define-key evil-motion-state-map "H" 'evil-backward-arg)
+  ;; bind evil-jump-out-args
+  (define-key evil-normal-state-map "K" 'evil-jump-out-args)
+  )
+
+;; (use-package evil-numbers
+;;   :config
+;;   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+;;   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+;;   )
+
+;; (use-package evil-vimish-fold
+;;   :config
+;;   (evil-vimish-fold-mode 1)
+;;   )
+
+(use-package evil-args)
+(use-package evil-lion :config (evil-lion-mode))
+(use-package evil-matchit)
+(use-package evil-cleverparens)
+(use-package evil-commentary)
+(use-package evil-replace-with-register)
+(use-package evil-text-object-python)
+(use-package evil-magit)
+(use-package evil-indent-textobject)
+(use-package vi-tilde-fringe :config (global-vi-tilde-fringe-mode 1))
+(use-package evil-visualstar :config (global-evil-visualstar-mode))
+
+;; ;; This was causing some performance issues
+;; (use-package evil-tabs
+;;   :init
+;;   (use-package elscreen)
+;;   :config
+;;   (global-evil-tabs-mode t)
+;;   )
+
 (use-package elpy
   :config
   (elpy-enable); TODO: configure elpy
@@ -111,6 +245,14 @@ SUBDIR should not have a `/` in front."
   (yas-global-mode 1)
   )
 
+(use-package ivy
+  :config
+  (setq ivy-use-virtual-buffers t
+        enable-recursive-minibuffers t)
+  )
+
+(use-package counsel)
+
 ;; activate helm mode
 (use-package helm
   :config
@@ -119,6 +261,7 @@ SUBDIR should not have a `/` in front."
   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
   )
 
+(use-package helm-swoop)
 (use-package helm-org-rifle)
 
 (use-package git-gutter
@@ -194,7 +337,6 @@ SUBDIR should not have a `/` in front."
   )
 
 (use-package tramp-term)
-
 (use-package docker-tramp)
 
 ;; (use-package linum-relative)
@@ -206,19 +348,12 @@ SUBDIR should not have a `/` in front."
   )
 
 (use-package groovy-mode)
-
 (use-package php-mode)
-
 (use-package dockerfile-mode)
-
 (use-package markdown-mode)
-
 (use-package minimap)
-
 (use-package multiple-cursors)
-
 (use-package transpose-frame)
-
 (use-package buffer-move)
 
 (use-package origami
@@ -253,191 +388,6 @@ SUBDIR should not have a `/` in front."
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.
   (setq emmet-move-cursor-between-quotes t) ;; default nil
   )
-
-(use-package evil-leader
-  :init
-  ;; (el-get-bundle evil-leader
-  ;;   :url "https://github.com/cofi/evil-leader")
-  (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
-  :config
-  (global-evil-leader-mode)
-  (evil-leader/set-leader "<SPC>")
-  (evil-leader/set-key
-    "<SPC>"	'helm-M-x
-    "f"		'helm-find-files
-    "F"		'helm-projectile
-    "\\"	'helm-hunks
-    "t"		'insert-current-date-time
-    "cc"	'comment-or-uncomment-region
-    "a"		'evil-lion-left
-    "A"		'evil-lion-right
-    "."		'centered-window-mode
-    ","		'magit-status
-    "/"         'highlight-indent-guides-mode
-    "TAB"         'yas-expand
-    )
-  )
-
-(use-package evil
-  :init
-  (setq evil-want-C-u-scroll t)
-
-  :config
-  (evil-mode 1)
-
-  (evil-define-command my-evil-helm-apropos (prefix)
-    (interactive "<a>")
-    (helm-apropos prefix)
-    (other-window 1))
-
-  (setq sentence-end-double-space nil)
-  (evil-set-initial-state 'info-mode 'normal)
-  (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
-  (setq evil-motion-state-modes nil)
-  (define-key global-map (kbd "C-f") 'universal-argument)
-  (define-key universal-argument-map (kbd "C-u") nil)
-  (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
-  (define-key global-map (kbd "C-u") 'kill-whole-line)
-  (eval-after-load 'evil-maps
-    '(progn
-       (define-key evil-motion-state-map (kbd "C-f") nil)
-       (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
-
-       (define-key evil-normal-state-map (kbd "gt") '(lambda () (interactive) (other-frame 1)))
-       (define-key evil-normal-state-map (kbd "gT") '(lambda () (interactive) (other-frame -1)))
-
-       (define-key evil-normal-state-map (kbd "C-\\") '(lambda () (interactive) (toggle-input-method)
-                                                         (evil-append 1)))
-
-       (evil-define-command my-evil-helm-apropos (prefix)
-         (interactive "<a>")
-         (helm-apropos prefix)
-         (other-window 1))
-
-       (define-key evil-ex-map "b" 'helm-buffers-list)
-       (define-key evil-ex-map "e" 'helm-find-files)
-       (define-key evil-ex-map "h" 'my-evil-helm-apropos)
-       (define-key evil-ex-map "tabe"
-         '(lambda()
-            (interactive)
-            (make-frame)
-            )
-         )
-       )
-    )
-
-  ;; Let _ be considered part of a word
-  (defadvice evil-inner-word (around underscore-as-word activate)
-    (let ((table (copy-syntax-table (syntax-table))))
-      (modify-syntax-entry ?_ "w" table)
-      ;; (modify-syntax-entry ?- "w" table)
-      (with-syntax-table table ad-do-it)
-      )
-    )
-  ;; remap paste command
-  (defun evil-paste-after-from-0 ()
-    (interactive)
-    (let ((evil-this-register ?0))
-      (call-interactively 'evil-paste-after)))
-  (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
-
-  ;; change mode-line color by evil state
-  (lexical-let ((default-color (cons (face-background 'mode-line)
-                                     (face-foreground 'mode-line))))
-    (add-hook 'post-command-hook
-              (lambda ()
-                (let ((color (cond ((minibufferp) default-color)
-                                   ((evil-insert-state-p) '("#e80000" . "#ffffff"))
-                                   ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
-                                   ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
-                                   (t default-color))))
-                  (set-face-background 'mode-line (car color))
-                  (set-face-foreground 'mode-line (cdr color))))))
-
-  ;;see if we can fix this to make it work or something
-  (defun my-vertical-split(&optional COUNT FILE)
-    (if (bound-and-true-p centered-window-mode)
-        (progn (centered-window-mode nil)
-               (evil-window-vsplit COUNT FILE)
-               (centered-window-mode t))
-      (evil-window-vsplit COUNT FILE)
-      )
-    )
-
-  (evil-ex-define-cmd "re[cent]"     'helm-recentf)
-  (evil-ex-define-cmd "pr[ojectile]" 'helm-projectile)
-  (evil-ex-define-cmd "or[gsearch]"  'helm-org-rifle)
-  (evil-ex-define-cmd "goo[gle]"     'helm-google-suggest)
-  (evil-ex-define-cmd "tabn[ew]"     'make-frame)
-  (evil-ex-define-cmd "vsp[lit]"     '(lambda()
-                                        (interactive)
-                                        (split-window-horizontally)
-                                        (other-window 1)
-                                        ;; (call-interactively #'helm-find-files)
-                                        )
-                      )
-  (evil-ex-define-cmd "sp[lit]"      '(lambda()
-                                        (interactive)
-                                        (split-window-vertically)
-                                        (other-window 1)
-                                        ;; (call-interactively # 'helm-find-files)
-                                        )
-                      )
-  )
-
-(use-package evil-surround
-  :config
-  (global-evil-surround-mode 1)
-  (setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
-                                                evil-surround-pairs-alist)))
-
-(use-package evil-args
-  :config
-  ;; bind evil-args text objects
-  (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
-  (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
-  ;; bind evil-forward/backward-args
-  (define-key evil-normal-state-map "L" 'evil-forward-arg)
-  (define-key evil-normal-state-map "H" 'evil-backward-arg)
-  (define-key evil-motion-state-map "L" 'evil-forward-arg)
-  (define-key evil-motion-state-map "H" 'evil-backward-arg)
-  ;; bind evil-jump-out-args
-  (define-key evil-normal-state-map "K" 'evil-jump-out-args)
-  )
-
-;; (use-package evil-numbers
-;;   :config
-;;   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-;;   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-;;   )
-
-;; (use-package evil-vimish-fold
-;;   :config
-;;   (evil-vimish-fold-mode 1)
-;;   )
-
-(use-package evil-args)
-(use-package evil-lion
-  :config (evil-lion-mode))
-(use-package evil-matchit)
-(use-package evil-cleverparens)
-(use-package evil-commentary)
-(use-package evil-replace-with-register)
-(use-package evil-text-object-python)
-(use-package evil-magit)
-(use-package evil-indent-textobject)
-(use-package vi-tilde-fringe
-  :config (global-vi-tilde-fringe-mode 1))
-(use-package evil-visualstar
-  :config (global-evil-visualstar-mode))
-
-;; ;; This was causing some performance issues
-;; (use-package evil-tabs
-;;   :init
-;;   (use-package elscreen)
-;;   :config
-;;   (global-evil-tabs-mode t)
-;;   )
 
 (use-package powerline
   :config
@@ -607,6 +557,35 @@ SUBDIR should not have a `/` in front."
   (kbd "TAB") 'kkc-next
   (kbd "S-TAB") 'kkc-prev
   )
+
+(evil-leader/set-key
+  "<SPC>"	'helm-M-x
+  "f"		'(lambda ()
+                   (interactive)
+                   (setq prefix-arg 4)
+                   (helm-swoop))
+  "\\"          'helm-hunks
+  "t"		'insert-current-date-time
+  "cc"          'comment-or-uncomment-region
+  "a"		'evil-lion-left
+  "A"		'evil-lion-right
+  "."		'centered-window-mode
+  ","		'magit-status
+  "/"           'highlight-indent-guides-mode
+  "TAB"         'yas-expand
+  )
+
+(evil-ex-define-cmd "re[cent]"     'helm-recentf)
+(evil-ex-define-cmd "pr[ojectile]" 'helm-projectile)
+(evil-ex-define-cmd "or[gsearch]"  'helm-org-rifle)
+(evil-ex-define-cmd "goo[gle]"     'helm-google-suggest)
+
+(eval-after-load 'evil-maps
+  '(progn
+     (define-key evil-ex-map "b" 'helm-buffers-list)
+     (define-key evil-ex-map "e" 'helm-find-files)
+     (define-key evil-ex-map "h" 'helm-apropos)
+     ))
 
 ;; Save buffer state
 (desktop-save-mode 1)
