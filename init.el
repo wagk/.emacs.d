@@ -168,49 +168,6 @@ SUBDIR should not have a `/` in front."
         highlight-indent-guides-character ?\|)
   )
 
-(use-package company
-  :config
-
-  (use-package company-quickhelp
-    :config
-    (company-quickhelp-mode 1)
-    (setq company-quickhelp-delay 1)
-    )
-
-  (use-package company-jedi
-    :config
-    (defun my/python-mode-hook ()
-      (add-to-list 'python-mode-hook 'company-jedi))
-    (add-hook 'python-mode-hook 'my/python-mode-hook)
-    )
-
-  (defvar company-mode/enable-yas t
-    "Enable yasnippet for all backends.")
-  (defun company-mode/backend-with-yas (backend)
-    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-        backend
-      (append (if (consp backend) backend (list backend))
-              '(:with company-yasnippet))))
-
-  (use-package helm-company
-    :config
-    (define-key company-mode-map (kbd "S-SPC") 'helm-company)
-    (define-key company-active-map (kbd "S-SPC") 'helm-company)
-    )
-
-  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
-  (setq company-dabbrev-downcase nil)
-  (setq company-idle-delay 0)
-  (setq company-require-match nil)
-  (define-key company-active-map (kbd "C-n") 'company-select-next)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  (define-key company-active-map (kbd "C-w") 'company-abort)
-
-  (define-key company-active-map (kbd "TAB") 'company-complete-selection)
-  (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
-  (add-hook 'after-init-hook 'global-company-mode)
-  )
-
 (use-package projectile
   :config
   (use-package helm-projectile)
@@ -317,6 +274,7 @@ SUBDIR should not have a `/` in front."
     "."		'centered-window-mode
     ","		'magit-status
     "/"         'highlight-indent-guides-mode
+    "TAB"         'yas-expand
     )
   )
 
@@ -557,6 +515,51 @@ SUBDIR should not have a `/` in front."
   )
 
 ;; orgmode config END
+
+;; company mode
+(use-package company
+  :config
+
+  (use-package company-quickhelp
+    :config
+    (company-quickhelp-mode 1)
+    (setq company-quickhelp-delay 1)
+    )
+
+  (use-package company-jedi
+    :config
+    (defun my/python-mode-hook ()
+      (add-to-list 'python-mode-hook 'company-jedi))
+    (add-hook 'python-mode-hook 'my/python-mode-hook)
+    )
+
+  (defvar company-mode/enable-yas t
+    "Enable yasnippet for all backends.")
+  (defun company-mode/backend-with-yas (backend)
+    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+        backend
+      (append (if (consp backend) backend (list backend))
+              '(:with company-yasnippet))))
+  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+
+  (use-package helm-company
+    :config
+    (evil-declare-key 'insert company-mode-map (kbd "?") 'helm-company)
+    (evil-declare-key 'insert company-active-map (kbd "?") 'helm-company)
+    )
+
+  (setq company-dabbrev-downcase nil
+        company-dabbrev-ignore-case nil
+        company-idle-delay 0
+        company-require-match nil)
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (define-key company-active-map (kbd "C-w") 'company-abort)
+
+  ;; (define-key company-active-map (kbd "TAB") 'helm-company)
+  (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
+  (add-hook 'after-init-hook 'global-company-mode)
+  )
 
 (setq custom-file (user-emacs-subdirectory "custom.el"))
 (load custom-file)
