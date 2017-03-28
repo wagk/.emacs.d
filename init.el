@@ -2,7 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-;; somehow optimise for garbage collection
 ;; https://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
 
 ;; (defvar default-gc-cons-threshold gc-cons-threshold)
@@ -218,7 +217,6 @@ SUBDIR should not have a `/` in front."
 (use-package vi-tilde-fringe :config (global-vi-tilde-fringe-mode 1))
 (use-package evil-visualstar :config (global-evil-visualstar-mode))
 
-;; ;; This was causing some performance issues
 ;; (use-package evil-tabs
 ;;   :init
 ;;   (use-package elscreen)
@@ -251,18 +249,33 @@ SUBDIR should not have a `/` in front."
         enable-recursive-minibuffers t)
   )
 
-(use-package counsel)
+(use-package counsel
+  :config
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  )
 
 ;; activate helm mode
 (use-package helm
   :config
   (helm-mode 1)
-  (global-set-key (kbd "M-x") 'helm-M-x)
+  ;; (global-set-key (kbd "M-x") 'helm-M-x)
   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
+  ;; (define-key helm-map (kbd "<tab>") 'helm-next-line)
+  ;; (define-key helm-map (kbd "<backtab>") 'helm-previous-line)
+
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
   )
 
-(use-package helm-swoop)
+(use-package helm-swoop
+  :config
+  (define-key helm-swoop-map (kbd "C-w") 'evil-delete-backward-word)
+  ;; no annoying under mouse highlights
+  (setq helm-swoop-pre-input-function (lambda () nil))
+  )
 (use-package helm-org-rifle)
+(use-package helm-flx
+  :config
+  (helm-flx-mode 1))
 
 (use-package git-gutter
   :config
@@ -391,19 +404,17 @@ SUBDIR should not have a `/` in front."
 
 (use-package powerline
   :config
-
   (use-package powerline-evil
     :config
     (powerline-evil-vim-color-theme)
     )
-
   (powerline-default-theme)
   )
 
 ;; orgmode bindings
 (use-package org-evil
   :config
-  (setq org-M-RET-may-split-line nil) ;; so we can press 'o' in evil and generate the next item
+  (setq org-M-RET-may-split-line nil) ;; so we can press 'o' evil and generate the next item
   )
 
 (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode))
@@ -469,6 +480,7 @@ SUBDIR should not have a `/` in front."
 ;; company mode
 (use-package company
   :config
+  (global-company-mode)
 
   (use-package company-quickhelp
     :config
@@ -501,14 +513,14 @@ SUBDIR should not have a `/` in front."
   (setq company-dabbrev-downcase nil
         company-dabbrev-ignore-case nil
         company-idle-delay 0
-        company-require-match nil)
+        company-require-match nil
+        company-selection-wrap-around t)
+
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  (define-key company-active-map (kbd "C-w") 'company-abort)
 
   ;; (define-key company-active-map (kbd "TAB") 'helm-company)
   (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
-  (add-hook 'after-init-hook 'global-company-mode)
   )
 
 (setq custom-file (user-emacs-subdirectory "custom.el"))
@@ -555,24 +567,22 @@ SUBDIR should not have a `/` in front."
 (evil-declare-key 'insert kkc-keymap
   (kbd "SPC") 'kkc-terminate
   (kbd "TAB") 'kkc-next
-  (kbd "S-TAB") 'kkc-prev
-  )
+  (kbd "S-TAB") 'kkc-prev)
 
 (evil-leader/set-key
   "<SPC>"	'helm-M-x
-  "f"		'(lambda ()
+  "/"		'(lambda ()
                    (interactive)
-                   (setq prefix-arg 4)
-                   (helm-swoop))
+                   (helm-swoop :$query "" :$multiline 4))
   "\\"          'helm-hunks
-  "t"		'insert-current-date-time
+  "t"		'(lambda () (interactive)
+                   (org-time-stamp '(16) t))
   "cc"          'comment-or-uncomment-region
   "a"		'evil-lion-left
   "A"		'evil-lion-right
   "."		'centered-window-mode
   ","		'magit-status
-  "/"           'highlight-indent-guides-mode
-  "TAB"         'yas-expand
+  "'"           'highlight-indent-guides-mode
   )
 
 (evil-ex-define-cmd "re[cent]"     'helm-recentf)
@@ -580,11 +590,17 @@ SUBDIR should not have a `/` in front."
 (evil-ex-define-cmd "or[gsearch]"  'helm-org-rifle)
 (evil-ex-define-cmd "goo[gle]"     'helm-google-suggest)
 
+(evil-define-command my-evil-helm-apropos(arg)
+  (interactive "<a>")
+  (helm-apropos arg)
+  (other-window 1)
+  )
+
 (eval-after-load 'evil-maps
   '(progn
-     (define-key evil-ex-map "b" 'helm-buffers-list)
+     (define-key evil-ex-map "b" 'helm-mini)
      (define-key evil-ex-map "e" 'helm-find-files)
-     (define-key evil-ex-map "h" 'helm-apropos)
+     (define-key evil-ex-map "h" 'my-evil-helm-apropos)
      ))
 
 ;; Save buffer state
