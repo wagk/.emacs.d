@@ -94,6 +94,9 @@ SUBDIR should not have a `/` in front."
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
 
+(use-package dash)
+(use-package s)
+
 (use-package evil-leader
   :init
   (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
@@ -247,9 +250,8 @@ SUBDIR should not have a `/` in front."
   :url "https://github.com/roman/golden-ratio.el"
   )
 
-(use-package epa-file
-  :config
-  (epa-file-enable))
+(require 'epa-file)
+  (epa-file-enable)
 
 (use-package yasnippet
   :config
@@ -387,8 +389,6 @@ SUBDIR should not have a `/` in front."
 
 (use-package origami
   :init
-  (use-package dash)
-  (use-package s)
   :config
   (setq origami-show-fold-header t)
   (global-origami-mode 1)
@@ -463,33 +463,35 @@ SUBDIR should not have a `/` in front."
 
 ;; bind evil normal keymodes inside orgmode
 (evil-declare-key 'normal org-mode-map
-  (kbd "RET") 'my-evil-org-new-item
-  (kbd "S-SPC") 'my-evil-org-toggle-checkbox
-  (kbd "L") 'org-shiftright
-  (kbd "H") 'org-shiftleft
-  (kbd "K") 'org-shiftup
-  (kbd "J") 'org-shiftdown
-  (kbd "M-l") 'org-metaright
-  (kbd "M-h") 'org-metaleft
-  (kbd "M-k") 'org-metaup
-  (kbd "M-j") 'org-metadown
-  (kbd "M-L") '(my-evil-update-cursor-eol(org-shiftmetaright))
-  (kbd "M-H") '(my-evil-update-cursor-eol(org-shiftmetaleft))
-  (kbd "M-K") '(my-evil-update-cursor-eol(org-shiftmetaup))
-  (kbd "M-L") '(my-evil-update-cursor-eol(org-shiftmetadown))
+  (kbd "RET")     'my-evil-org-new-item
+  (kbd "S-SPC")   'my-evil-org-toggle-checkbox
+  (kbd "L")       'org-shiftright
+  (kbd "H")       'org-shiftleft
+  (kbd "K")       'org-shiftup
+  (kbd "J")       'org-shiftdown
+  (kbd "M-l")     'org-metaright
+  (kbd "M-h")     'org-metaleft
+  (kbd "M-k")     'org-metaup
+  (kbd "M-j")     'org-metadown
+  (kbd "M-L")     '(my-evil-update-cursor-eol(org-shiftmetaright))
+  (kbd "M-H")     '(my-evil-update-cursor-eol(org-shiftmetaleft))
+  (kbd "M-K")     '(my-evil-update-cursor-eol(org-shiftmetaup))
+  (kbd "M-L")     '(my-evil-update-cursor-eol(org-shiftmetadown))
   )
 
 (evil-declare-key 'insert org-mode-map
-  (kbd "S-RET") 'my-evil-org-new-item
-  (kbd "M-l") 'org-metaright
-  (kbd "M-h") 'org-metaleft
-  (kbd "M-k") 'org-metaup
-  (kbd "M-j") 'org-metadown
-  (kbd "M-L") 'org-shiftmetaright
-  (kbd "M-H") 'org-shiftmetaleft
-  (kbd "M-K") 'org-shiftmetaup
-  (kbd "M-L") 'org-shiftmetadown
+  (kbd "S-RET")   'my-evil-org-new-item
+  (kbd "M-l")     'org-metaright
+  (kbd "M-h")     'org-metaleft
+  (kbd "M-k")     'org-metaup
+  (kbd "M-j")     'org-metadown
+  (kbd "M-L")     'org-shiftmetaright
+  (kbd "M-H")     'org-shiftmetaleft
+  (kbd "M-K")     'org-shiftmetaup
+  (kbd "M-L")     'org-shiftmetadown
   )
+
+(list ) ;; org agenda list
 
 ;; orgmode config END
 
