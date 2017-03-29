@@ -78,8 +78,11 @@ SUBDIR should not have a `/` in front."
   (package-install 'use-package)
   )
 
+;; use-package things
 (eval-when-compile (require 'use-package))
 (setq use-package-always-ensure t) ;; make sure we download when necessary
+(require 'diminish)
+(require 'bind-key)
 
 ;; el-get stuff
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -122,6 +125,7 @@ SUBDIR should not have a `/` in front."
        (define-key evil-normal-state-map (kbd "gT") '(lambda () (interactive) (other-frame -1)))
        (define-key evil-normal-state-map (kbd "C-\\") '(lambda () (interactive) (toggle-input-method)
                                                          (evil-append 1)))
+       (define-key evil-ex-map (kbd "SPC") 'helm-M-x)
        (define-key evil-ex-map "tabe"
          '(lambda() (interactive)
             (make-frame)))
@@ -144,15 +148,15 @@ SUBDIR should not have a `/` in front."
       (call-interactively 'evil-paste-after)))
   (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
 
-  ;; change mode-line color by evil state
+  ;; change mode-line color evil state
   (lexical-let ((default-color (cons (face-background 'mode-line)
                                      (face-foreground 'mode-line))))
     (add-hook 'post-command-hook
               (lambda ()
                 (let ((color (cond ((minibufferp) default-color)
-                                   ((evil-insert-state-p) '("#e80000" . "#ffffff"))
+                                   ((evil-insert-state-p) '("#b58900" . "#ffffff"))
                                    ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
-                                   ((buffer-modified-p)   '("#006fa0" . "#ffffff"))
+                                   ((buffer-modified-p)   '("#dc322f" . "#ffffff"))
                                    (t default-color))))
                   (set-face-background 'mode-line (car color))
                   (set-face-foreground 'mode-line (cdr color))))))
@@ -216,6 +220,7 @@ SUBDIR should not have a `/` in front."
 (use-package evil-indent-textobject)
 (use-package vi-tilde-fringe :config (global-vi-tilde-fringe-mode 1))
 (use-package evil-visualstar :config (global-evil-visualstar-mode))
+(use-package evil-mc :config (global-evil-mc-mode 1))
 
 ;; (use-package evil-tabs
 ;;   :init
@@ -238,6 +243,14 @@ SUBDIR should not have a `/` in front."
 ;;            )
 ;;       )
 
+(el-get-bundle golden-ratio
+  :url "https://github.com/roman/golden-ratio.el"
+  )
+
+(use-package epa-file
+  :config
+  (epa-file-enable))
+
 (use-package yasnippet
   :config
   (yas-global-mode 1)
@@ -248,6 +261,8 @@ SUBDIR should not have a `/` in front."
   (setq ivy-use-virtual-buffers t
         enable-recursive-minibuffers t)
   )
+
+(use-package swiper)
 
 (use-package counsel
   :config
@@ -357,7 +372,7 @@ SUBDIR should not have a `/` in front."
 (use-package which-key
   :config
   ;; (setq which-key-popup-type 'minibuffer)
-  (which-key-mode 1)
+  (which-key-mode 0)
   )
 
 (use-package groovy-mode)
@@ -368,6 +383,7 @@ SUBDIR should not have a `/` in front."
 (use-package multiple-cursors)
 (use-package transpose-frame)
 (use-package buffer-move)
+
 
 (use-package origami
   :init
@@ -385,8 +401,8 @@ SUBDIR should not have a `/` in front."
 
 ;; (use-package sublimity
 ;;   :config
-;;   (when (display-graphic-p) (use-package sublimity-attractive))
 ;;   (sublimity-mode 0)
+;;   :if (display-graphic-p) (use-package sublimity-attractive)
 ;;   )
 
 ;; (use-package guide-key
@@ -411,11 +427,11 @@ SUBDIR should not have a `/` in front."
   (powerline-default-theme)
   )
 
-;; orgmode bindings
-(use-package org-evil
-  :config
-  (setq org-M-RET-may-split-line nil) ;; so we can press 'o' evil and generate the next item
-  )
+;; ;; orgmode bindings
+;; (use-package org-evil
+;;   :config
+;;   (setq org-M-RET-may-split-line nil) ;; so we can press 'o' evil and generate the next item
+;;   )
 
 (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode))
 (add-to-list 'auto-mode-alist '("\\Jenkinsfile\\'" . groovy-mode))
@@ -506,8 +522,8 @@ SUBDIR should not have a `/` in front."
 
   (use-package helm-company
     :config
-    (evil-declare-key 'insert company-mode-map (kbd "?") 'helm-company)
-    (evil-declare-key 'insert company-active-map (kbd "?") 'helm-company)
+    (evil-declare-key 'insert company-mode-map (kbd "C-SPC") 'helm-company)
+    (evil-declare-key 'insert company-active-map (kbd "C-SPC") 'helm-company)
     )
 
   (setq company-dabbrev-downcase nil
@@ -533,7 +549,7 @@ SUBDIR should not have a `/` in front."
 (global-linum-mode 0) ;; THIS MIGHT HAVE PERFORMANCE ISSUES
 
 ;; set default font
-(add-to-list 'default-frame-alist '(font . "Consolas-11"))
+;; (add-to-list 'default-frame-alist '(font . "Consolas-11"))
 
 ;; startup maximised
 (custom-set-variables
@@ -581,6 +597,7 @@ SUBDIR should not have a `/` in front."
   "a"		'evil-lion-left
   "A"		'evil-lion-right
   "."		'centered-window-mode
+
   ","		'magit-status
   "'"           'highlight-indent-guides-mode
   )
@@ -589,6 +606,9 @@ SUBDIR should not have a `/` in front."
 (evil-ex-define-cmd "pr[ojectile]" 'helm-projectile)
 (evil-ex-define-cmd "or[gsearch]"  'helm-org-rifle)
 (evil-ex-define-cmd "goo[gle]"     'helm-google-suggest)
+(evil-ex-define-cmd "e[dit]"     'helm-find-files)
+(evil-ex-define-cmd "e!"     '(lambda() (interactive) (revert-buffer t t t)))
+(evil-ex-define-cmd "b[uffer]"     'helm-mini)
 
 (evil-define-command my-evil-helm-apropos(arg)
   (interactive "<a>")
@@ -598,10 +618,26 @@ SUBDIR should not have a `/` in front."
 
 (eval-after-load 'evil-maps
   '(progn
-     (define-key evil-ex-map "b" 'helm-mini)
-     (define-key evil-ex-map "e" 'helm-find-files)
+     ;; (define-key evil-ex-map "b" 'helm-mini)
+     ;; (define-key evil-ex-map "e" 'helm-find-files)
      (define-key evil-ex-map "h" 'my-evil-helm-apropos)
      ))
+
+;; Overload shifts so that they don't lose the selection
+(defun my-evil-shift-left-visual ()
+  (interactive)
+  (evil-shift-left (region-beginning) (region-end))
+  (evil-normal-state)
+  (evil-visual-restore))
+
+(defun my-evil-shift-right-visual ()
+  (interactive)
+  (evil-shift-right (region-beginning) (region-end))
+  (evil-normal-state)
+  (evil-visual-restore))
+
+(define-key evil-visual-state-map (kbd ">>") 'my-evil-shift-right-visual)
+(define-key evil-visual-state-map (kbd "<<") 'my-evil-shift-left-visual)
 
 ;; Save buffer state
 (desktop-save-mode 1)

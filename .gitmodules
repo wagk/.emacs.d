@@ -1,0 +1,3 @@
+[submodule "packages/golden-ratio"]
+	path = packages/golden-ratio
+	url = https://github.com/roman/golden-ratio.el
