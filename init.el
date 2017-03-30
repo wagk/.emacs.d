@@ -582,10 +582,13 @@ SUBDIR should not have a `/` in front."
 (setq default-input-method "japanese"
       kkc-show-conversion-list-count 1) ;; ばかがいじん
 
-(evil-declare-key 'insert kkc-keymap
-  (kbd "SPC") 'kkc-terminate
-  (kbd "TAB") 'kkc-next
-  (kbd "S-TAB") 'kkc-prev)
+(with-eval-after-load "kkc"
+  (define-key kkc-keymap (kbd "SPC") 'kkc-terminate)
+  (define-key kkc-keymap (kbd "<tab>") 'kkc-next)
+  (define-key kkc-keymap (kbd "<backtab>") 'kkc-prev)
+  )
+
+;; しん おれを ワタ
 
 (evil-leader/set-key
   "<SPC>"	'helm-M-x
