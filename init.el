@@ -83,6 +83,10 @@ SUBDIR should not have a `/` in front."
 (setq use-package-always-ensure t) ;; make sure we download when necessary
 (require 'diminish)
 (require 'bind-key)
+(require 'cl)
+(use-package dash)
+(use-package s)
+
 
 ;; el-get stuff
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -94,9 +98,6 @@ SUBDIR should not have a `/` in front."
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
 
-(use-package dash)
-(use-package s)
-
 (use-package evil-leader
   :init
   (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
@@ -105,6 +106,9 @@ SUBDIR should not have a `/` in front."
   (evil-leader/set-leader "<SPC>")
   )
 
+(use-package undo-tree)
+(use-package goto-chg)
+
 (use-package evil
   :init
   (setq evil-want-C-u-scroll t)
@@ -112,6 +116,8 @@ SUBDIR should not have a `/` in front."
   :config
   (evil-mode 1)
 
+
+  (setq evil-want-Y-yank-to-eol t)
   (setq sentence-end-double-space nil)
   (evil-set-initial-state 'info-mode 'normal)
   (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
@@ -598,7 +604,8 @@ SUBDIR should not have a `/` in front."
   "\\"          'helm-hunks
   "t"		'(lambda () (interactive)
                    (org-time-stamp '(16) t))
-  "cc"          'comment-or-uncomment-region
+  "cc"          'comment-region
+  "cu"          'uncomment-region
   "a"		'evil-lion-left
   "A"		'evil-lion-right
   "."		'centered-window-mode
