@@ -467,9 +467,15 @@ SUBDIR should not have a `/` in front."
     (func)
     (end-of-line)))
 
+(defun my-evil-org-insert-heading()
+  (interactive)
+  (org-insert-heading)
+  (evil-append-line 1))
+
 ;; bind evil normal keymodes inside orgmode
 (evil-declare-key 'normal org-mode-map
   (kbd "RET")     'my-evil-org-new-item
+  (kbd "M-RET")     'my-evil-org-insert-heading
   (kbd "S-SPC")   'my-evil-org-toggle-checkbox
   (kbd "L")       'org-shiftright
   (kbd "H")       'org-shiftleft
@@ -497,6 +503,8 @@ SUBDIR should not have a `/` in front."
   (kbd "M-L")     'org-shiftmetadown
   )
 
+;; (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+
 (list ) ;; org agenda list
 
 ;; orgmode config END
@@ -508,8 +516,8 @@ SUBDIR should not have a `/` in front."
 
   (use-package company-quickhelp
     :config
-    (company-quickhelp-mode 1)
-    (setq company-quickhelp-delay 1)
+    (company-quickhelp-mode 0)
+    ;; (setq company-quickhelp-delay 1)
     )
 
   (use-package company-jedi
@@ -540,6 +548,7 @@ SUBDIR should not have a `/` in front."
         company-require-match nil
         company-selection-wrap-around t)
 
+  (define-key company-active-map (kbd "C-h") 'company-quickhelp-manual-begin)
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
 
@@ -558,6 +567,7 @@ SUBDIR should not have a `/` in front."
 
 ;; set default font
 ;; (add-to-list 'default-frame-alist '(font . "Consolas-11"))
+(set-frame-font "Consolas-11" nil t)
 
 ;; startup maximised
 (custom-set-variables
