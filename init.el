@@ -87,6 +87,9 @@ SUBDIR should not have a `/` in front."
 (use-package dash)
 (use-package s)
 
+(use-package rainbow-delimiters
+  :config
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 ;; el-get stuff
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -393,6 +396,9 @@ SUBDIR should not have a `/` in front."
 (use-package transpose-frame)
 (use-package buffer-move)
 
+(use-package neotree)
+
+(use-package google-translate)
 
 (use-package origami
   :init
