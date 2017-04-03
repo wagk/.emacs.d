@@ -281,6 +281,7 @@ SUBDIR should not have a `/` in front."
 (use-package helm
   :config
   (helm-mode 1)
+  (helm-mode-fuzzy-match t)
   ;; (global-set-key (kbd "M-x") 'helm-M-x)
   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
   ;; (define-key helm-map (kbd "<tab>") 'helm-next-line)
@@ -631,6 +632,7 @@ SUBDIR should not have a `/` in front."
 (evil-ex-define-cmd "e[dit]"     'helm-find-files)
 (evil-ex-define-cmd "e!"     '(lambda() (interactive) (revert-buffer t t t)))
 (evil-ex-define-cmd "b[uffer]"     'helm-mini)
+(evil-ex-define-cmd "ini[t]"     'find-user-init-file)
 
 (evil-define-command my-evil-helm-apropos(arg)
   (interactive "<a>")
