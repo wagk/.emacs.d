@@ -402,6 +402,7 @@ SUBDIR should not have a `/` in front."
 (use-package multiple-cursors)
 (use-package transpose-frame)
 (use-package buffer-move)
+(use-package unicode-troll-stopper)
 
 (use-package neotree)
 
