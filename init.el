@@ -117,7 +117,6 @@ SUBDIR should not have a `/` in front."
   (setq evil-want-C-u-scroll t)
 
   :config
-  (evil-mode 1)
 
 
   (setq evil-want-Y-yank-to-eol t)
@@ -385,6 +384,14 @@ SUBDIR should not have a `/` in front."
   :config
   ;; (setq which-key-popup-type 'minibuffer)
   (which-key-mode 0)
+  )
+
+(use-package elisp-slime-nav
+  :config
+  (defun my-elisp-mode()
+    (elisp-slime-nav-mode)
+    (turn-on-eldoc-mode))
+  (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode)
   )
 
 (use-package groovy-mode)
@@ -669,6 +676,8 @@ SUBDIR should not have a `/` in front."
 (define-key evil-visual-state-map (kbd ">>") 'my-evil-shift-right-visual)
 (define-key evil-visual-state-map (kbd "<<") 'my-evil-shift-left-visual)
 
+(setq require-final-newline t)
+
 ;; Save buffer state
 (desktop-save-mode 1)
 (setq history-length 250)
@@ -685,3 +694,4 @@ SUBDIR should not have a `/` in front."
 
 ;; Reduce gc threshold to more manageable values:
 (setq gc-cons-threshold default-gc-cons-threshold)
+(evil-mode 1)
