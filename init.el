@@ -89,7 +89,8 @@ SUBDIR should not have a `/` in front."
 
 (use-package rainbow-delimiters
   :config
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+  ;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+  )
 
 ;; el-get stuff
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -137,9 +138,6 @@ SUBDIR should not have a `/` in front."
        (define-key evil-normal-state-map (kbd "C-\\") '(lambda () (interactive) (toggle-input-method)
                                                          (evil-append 1)))
        (define-key evil-ex-map (kbd "SPC") 'helm-M-x)
-       (define-key evil-ex-map "tabe"
-         '(lambda() (interactive)
-            (make-frame)))
        )
     )
 
@@ -259,7 +257,7 @@ SUBDIR should not have a `/` in front."
   )
 
 (require 'epa-file)
-  (epa-file-enable)
+(epa-file-enable)
 
 (use-package yasnippet
   :config
@@ -282,14 +280,15 @@ SUBDIR should not have a `/` in front."
 ;; activate helm mode
 (use-package helm
   :config
-  (helm-mode 1)
-  (helm-mode-fuzzy-match t)
   ;; (global-set-key (kbd "M-x") 'helm-M-x)
   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
   ;; (define-key helm-map (kbd "<tab>") 'helm-next-line)
   ;; (define-key helm-map (kbd "<backtab>") 'helm-previous-line)
+  (define-key helm-map (kbd "<backtab>") 'helm-select-action)
+  (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 
-  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+  (helm-mode 1)
+  (helm-mode-fuzzy-match t)
   )
 
 (use-package helm-swoop
@@ -316,6 +315,7 @@ SUBDIR should not have a `/` in front."
              helm-hunks-staged-current-buffer)
   :config
   (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
+  (helm-hunks--is-preview t)
   )
 
 ;;solarized dark theme
@@ -646,6 +646,9 @@ SUBDIR should not have a `/` in front."
 (evil-ex-define-cmd "e!"     '(lambda() (interactive) (revert-buffer t t t)))
 (evil-ex-define-cmd "b[uffer]"     'helm-mini)
 (evil-ex-define-cmd "ini[t]"     'find-user-init-file)
+(define-key evil-ex-map "tabe"
+  '(lambda() (interactive)
+     (make-frame)))
 
 (evil-define-command my-evil-helm-apropos(arg)
   (interactive "<a>")
@@ -657,7 +660,7 @@ SUBDIR should not have a `/` in front."
   '(progn
      ;; (define-key evil-ex-map "b" 'helm-mini)
      ;; (define-key evil-ex-map "e" 'helm-find-files)
-     (define-key evil-ex-map "h" 'my-evil-helm-apropos)
+     (evil-ex-define-cmd "h[elp]" 'my-evil-helm-apropos)
      ))
 
 ;; Overload shifts so that they don't lose the selection

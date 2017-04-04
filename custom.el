@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#657b83"])
- '(centered-window-mode t)
+ '(centered-window-mode nil)
  '(compilation-message-face (quote default))
  '(cua-global-mark-cursor-color "#2aa198")
  '(cua-normal-cursor-color "#839496")
@@ -49,10 +49,24 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (elisp-slime-nav google-translate neotree rainbow-delimiters evil-mc epa-file helm-flx helm-swoop counsel evil-visualstar buffer-move transpose-frame helm-hunks highlight-indent-guides org-brain helm-org-rifle evil-indent-textobject evil-cleverparens evil-lion vi-tilde-fringe vi-tilde-fringe-mode beacon centered-window-mode git-gutter-fringe sublimity-attractive which-key linum-relative spu company-jedi markdown-mode emmet-mode php-mode dockerfile-mode powerline powerline-evil git-gutter guide-key flycheck aggressive-indent whitespace-cleanup-mode evil-matchit evil-vimish-fold groovy-mode fireplace company-quickhelp ## discover helm-company elpy evil-tabs docker-tramp evil-text-object-python tramp-term company powershell use-package solarized-theme org-evil helm evil-surround evil-replace-with-register evil-numbers evil-magit evil-leader evil-commentary evil-args)))
+    (neotree rainbow-delimiters evil-mc epa-file helm-flx helm-swoop counsel evil-visualstar buffer-move transpose-frame helm-hunks highlight-indent-guides org-brain helm-org-rifle evil-indent-textobject evil-cleverparens evil-lion vi-tilde-fringe vi-tilde-fringe-mode beacon centered-window-mode git-gutter-fringe sublimity-attractive which-key linum-relative spu company-jedi markdown-mode emmet-mode php-mode dockerfile-mode powerline powerline-evil git-gutter guide-key flycheck aggressive-indent whitespace-cleanup-mode evil-matchit evil-vimish-fold groovy-mode fireplace company-quickhelp ## discover helm-company elpy evil-tabs docker-tramp evil-text-object-python tramp-term company powershell use-package solarized-theme org-evil helm evil-surround evil-replace-with-register evil-numbers evil-magit evil-leader evil-commentary evil-args)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(projectile-mode t nil (projectile))
+ '(safe-local-variable-values
+   (quote
+    ((eval ignore-errors "Write-contents-functions is a buffer-local alternative to before-save-hook"
+           (add-hook
+            (quote write-contents-functions)
+            (lambda nil
+              (delete-trailing-whitespace)
+              nil))
+           (require
+            (quote whitespace))
+           "Sometimes the mode needs to be toggled off and on."
+           (whitespace-mode 0)
+           (whitespace-mode 1))
+     (whitespace-style face tabs trailing lines-tail))))
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
  '(sublimity-mode nil)
  '(term-default-bg-color "#002b36")
