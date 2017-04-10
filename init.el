@@ -605,10 +605,12 @@ SUBDIR should not have a `/` in front."
 (setq-default indent-tabs-mode nil)
 
 ;; Remove toolbar
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(window-divider-mode -1)
+(progn
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (window-divider-mode -1)
+  )
 
 (setq truncate-lines    t
       tab-width         8
