@@ -289,8 +289,8 @@ SUBDIR should not have a `/` in front."
   (define-key helm-map (kbd "<backtab>") 'helm-select-action)
   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 
-  (helm-mode 1)
   (helm-mode-fuzzy-match t)
+  (helm-mode 1)
   )
 
 (use-package helm-swoop
@@ -377,7 +377,11 @@ SUBDIR should not have a `/` in front."
   (add-hook 'after-init-hook #'global-flycheck-mode)
   )
 
+(require 'tramp)
+(cond ((eq system-type "windows-nt") (progn (setq tramp-default-method "plink"))))
+
 (use-package tramp-term)
+
 (use-package docker-tramp)
 
 ;; (use-package linum-relative)
@@ -642,6 +646,7 @@ SUBDIR should not have a `/` in front."
     "'"           'highlight-indent-guides-mode
     )
 
+  (evil-ex-define-cmd "sh[ell]"      'shell)
   (evil-ex-define-cmd "re[cent]"     'helm-recentf)
   (evil-ex-define-cmd "pr[ojectile]" 'helm-projectile)
   (evil-ex-define-cmd "or[gsearch]"  'helm-org-rifle)
