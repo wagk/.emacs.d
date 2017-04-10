@@ -83,7 +83,7 @@ SUBDIR should not have a `/` in front."
 (setq use-package-always-ensure t) ;; make sure we download when necessary
 (require 'diminish)
 (require 'bind-key)
-(require 'cl)
+(with-no-warnings (require 'cl))
 (use-package dash)
 (use-package s)
 
@@ -99,8 +99,12 @@ SUBDIR should not have a `/` in front."
   (package-install 'el-get)
   (require 'el-get))
 
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(el-get 'sync)
+(eval-after-load 'el-get
+  '(progn
+     (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+     (el-get 'sync)
+     )
+  )
 
 (use-package evil-leader
   :init
@@ -118,8 +122,6 @@ SUBDIR should not have a `/` in front."
   (setq evil-want-C-u-scroll t)
 
   :config
-
-
   (setq evil-want-Y-yank-to-eol t)
   (setq sentence-end-double-space nil)
   (evil-set-initial-state 'info-mode 'normal)
@@ -459,6 +461,7 @@ SUBDIR should not have a `/` in front."
 
 ;; orgmode config BEGIN
 (defun my-evil-org-new-item ()
+  "Inserts a new item if we're in normal mode."
   (interactive)
   (when (org-in-item-p)
     (end-of-line)
@@ -488,22 +491,22 @@ SUBDIR should not have a `/` in front."
   (evil-append-line 1))
 
 ;; bind evil normal keymodes inside orgmode
-(evil-declare-key 'normal org-mode-map
-  (kbd "RET")     'my-evil-org-new-item
+(evil-declare-key   'normal org-mode-map
+  (kbd "RET")       'my-evil-org-new-item
   (kbd "M-RET")     'my-evil-org-insert-heading
-  (kbd "S-SPC")   'my-evil-org-toggle-checkbox
-  (kbd "L")       'org-shiftright
-  (kbd "H")       'org-shiftleft
-  (kbd "K")       'org-shiftup
-  (kbd "J")       'org-shiftdown
-  (kbd "M-l")     'org-metaright
-  (kbd "M-h")     'org-metaleft
-  (kbd "M-k")     'org-metaup
-  (kbd "M-j")     'org-metadown
-  (kbd "M-L")     '(my-evil-update-cursor-eol(org-shiftmetaright))
-  (kbd "M-H")     '(my-evil-update-cursor-eol(org-shiftmetaleft))
-  (kbd "M-K")     '(my-evil-update-cursor-eol(org-shiftmetaup))
-  (kbd "M-L")     '(my-evil-update-cursor-eol(org-shiftmetadown))
+  (kbd "S-SPC")     'my-evil-org-toggle-checkbox
+  (kbd "L")         'org-shiftright
+  (kbd "H")         'org-shiftleft
+  (kbd "K")         'org-shiftup
+  (kbd "J")         'org-shiftdown
+  (kbd "M-l")       'org-metaright
+  (kbd "M-h")       'org-metaleft
+  (kbd "M-k")       'org-metaup
+  (kbd "M-j")       'org-metadown
+  (kbd "M-L")       '(my-evil-update-cursor-eol(org-shiftmetaright))
+  (kbd "M-H")       '(my-evil-update-cursor-eol(org-shiftmetaleft))
+  (kbd "M-K")       '(my-evil-update-cursor-eol(org-shiftmetaup))
+  (kbd "M-L")       '(my-evil-update-cursor-eol(org-shiftmetadown))
   )
 
 (evil-declare-key 'insert org-mode-map
@@ -610,76 +613,74 @@ SUBDIR should not have a `/` in front."
 ;; (set-face-foreground 'highlight nil)
 
 ;; Japanese mode
-(setq default-input-method "japanese"
-      kkc-show-conversion-list-count 1) ;; ばかがいじん
-
-(with-eval-after-load "kkc"
-  (define-key kkc-keymap (kbd "SPC") 'kkc-terminate)
-  (define-key kkc-keymap (kbd "<tab>") 'kkc-next)
-  (define-key kkc-keymap (kbd "<backtab>") 'kkc-prev)
+(progn
+  (setq default-input-method "japanese"
+        kkc-show-conversion-list-count 1) ;; ばかがいじん
+  (with-eval-after-load "kkc"
+    (define-key kkc-keymap (kbd "SPC")       'kkc-terminate)
+    (define-key kkc-keymap (kbd "<tab>")     'kkc-next)
+    (define-key kkc-keymap (kbd "<backtab>") 'kkc-prev)
+    )
   )
 
 ;; しん おれを ワタ
-
-(evil-leader/set-key
-  "<SPC>"	'helm-M-x
-  "/"		'(lambda ()
-                   (interactive)
+(progn
+  (evil-leader/set-key
+    "<SPC>"	'helm-M-x
+    "/"		'(lambda () (interactive)
                    (helm-swoop :$query "" :$multiline 4))
-  "\\"          'helm-hunks
-  "t"		'(lambda () (interactive)
+    "\\"          'helm-hunks
+    "t"		'(lambda () (interactive)
                    (org-time-stamp '(16) t))
-  "cc"          'comment-region
-  "cu"          'uncomment-region
-  "a"		'evil-lion-left
-  "A"		'evil-lion-right
-  "."		'centered-window-mode
+    "cc"          'comment-region
+    "cu"          'uncomment-region
+    "a"		'evil-lion-left
+    "A"		'evil-lion-right
+    "."		'centered-window-mode
 
-  ","		'magit-status
-  "'"           'highlight-indent-guides-mode
+    ","		'magit-status
+    "'"           'highlight-indent-guides-mode
+    )
+
+  (evil-ex-define-cmd "re[cent]"     'helm-recentf)
+  (evil-ex-define-cmd "pr[ojectile]" 'helm-projectile)
+  (evil-ex-define-cmd "or[gsearch]"  'helm-org-rifle)
+  (evil-ex-define-cmd "goo[gle]"     'helm-google-suggest)
+  (evil-ex-define-cmd "e[dit]"       'helm-find-files)
+  (evil-ex-define-cmd "e!"           '(lambda() (interactive) (revert-buffer t t t)))
+  (evil-ex-define-cmd "b[uffer]"     'helm-mini)
+  (evil-ex-define-cmd "ini[t]"       'find-user-init-file)
+  (define-key evil-ex-map "tabe"     '(lambda() (interactive)
+                                        (make-frame)))
+
+  (evil-define-command my-evil-helm-apropos(arg)
+    (interactive "<a>")
+    (helm-apropos arg)
+    (other-window 1)
+    )
+
+  (eval-after-load 'evil-maps '(progn
+                                 (evil-ex-define-cmd "h[elp]" 'my-evil-helm-apropos)
+                                 ))
+
+  ;; Overload shifts so that they don't lose the selection
+  (defun my-evil-shift-left-visual ()
+    "Keep visual selection after shifting left."
+    (interactive)
+    (evil-shift-left (region-beginning) (region-end))
+    (evil-normal-state)
+    (evil-visual-restore))
+
+  (defun my-evil-shift-right-visual ()
+    "Same as my-evil-shift-left-visual, but for the right instead."
+    (interactive)
+    (evil-shift-right (region-beginning) (region-end))
+    (evil-normal-state)
+    (evil-visual-restore))
+
+  (define-key evil-visual-state-map (kbd ">>") 'my-evil-shift-right-visual)
+  (define-key evil-visual-state-map (kbd "<<") 'my-evil-shift-left-visual)
   )
-
-(evil-ex-define-cmd "re[cent]"     'helm-recentf)
-(evil-ex-define-cmd "pr[ojectile]" 'helm-projectile)
-(evil-ex-define-cmd "or[gsearch]"  'helm-org-rifle)
-(evil-ex-define-cmd "goo[gle]"     'helm-google-suggest)
-(evil-ex-define-cmd "e[dit]"     'helm-find-files)
-(evil-ex-define-cmd "e!"     '(lambda() (interactive) (revert-buffer t t t)))
-(evil-ex-define-cmd "b[uffer]"     'helm-mini)
-(evil-ex-define-cmd "ini[t]"     'find-user-init-file)
-(define-key evil-ex-map "tabe"
-  '(lambda() (interactive)
-     (make-frame)))
-
-(evil-define-command my-evil-helm-apropos(arg)
-  (interactive "<a>")
-  (helm-apropos arg)
-  (other-window 1)
-  )
-
-(eval-after-load 'evil-maps
-  '(progn
-     ;; (define-key evil-ex-map "b" 'helm-mini)
-     ;; (define-key evil-ex-map "e" 'helm-find-files)
-     (evil-ex-define-cmd "h[elp]" 'my-evil-helm-apropos)
-     ))
-
-;; Overload shifts so that they don't lose the selection
-(defun my-evil-shift-left-visual ()
-  (interactive)
-  (evil-shift-left (region-beginning) (region-end))
-  (evil-normal-state)
-  (evil-visual-restore))
-
-(defun my-evil-shift-right-visual ()
-  (interactive)
-  (evil-shift-right (region-beginning) (region-end))
-  (evil-normal-state)
-  (evil-visual-restore))
-
-(define-key evil-visual-state-map (kbd ">>") 'my-evil-shift-right-visual)
-(define-key evil-visual-state-map (kbd "<<") 'my-evil-shift-left-visual)
-
 (setq require-final-newline t)
 
 ;; Save buffer state
@@ -699,3 +700,6 @@ SUBDIR should not have a `/` in front."
 ;; Reduce gc threshold to more manageable values:
 (setq gc-cons-threshold default-gc-cons-threshold)
 (evil-mode 1)
+
+(provide 'init)
+;;; init.el ends here
