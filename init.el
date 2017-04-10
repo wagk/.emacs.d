@@ -289,7 +289,7 @@ SUBDIR should not have a `/` in front."
   (define-key helm-map (kbd "S-SPC") 'helm-select-action)
   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 
-  (helm-mode-fuzzy-match t)
+  (eval-after-load 'helm (helm-mode-fuzzy-match t))
   (helm-mode 1)
   )
 
@@ -465,7 +465,7 @@ SUBDIR should not have a `/` in front."
 
 ;; orgmode config BEGIN
 (defun my-evil-org-new-item ()
-  "Inserts a new item if we're in normal mode."
+  "Insert a new item if we're in normal mode."
   (interactive)
   (when (org-in-item-p)
     (end-of-line)
@@ -589,8 +589,9 @@ SUBDIR should not have a `/` in front."
 
 ;; set default font
 ;; (add-to-list 'default-frame-alist '(font . "Consolas-11"))
-(when (eq system-type "windows-nt")
-  (set-frame-font "Consolas-11" nil t)
+(if (eq system-type "windows-nt")
+    (set-frame-font "Consolas-11" nil t)
+  (message "Not windows, not using consolas")
   )
 
 ;; startup maximised
@@ -634,20 +635,19 @@ SUBDIR should not have a `/` in front."
 ;; しん おれを ワタ
 (progn
   (evil-leader/set-key
-    "<SPC>"	'helm-M-x
-    "/"		'(lambda () (interactive)
-                   (helm-swoop :$query "" :$multiline 4))
-    "\\"          'helm-hunks
-    "t"		'(lambda () (interactive)
-                   (org-time-stamp '(16) t))
-    "cc"          'comment-region
-    "cu"          'uncomment-region
-    "a"		'evil-lion-left
-    "A"		'evil-lion-right
-    "."		'centered-window-mode
-
-    ","		'magit-status
-    "'"           'highlight-indent-guides-mode
+    "<SPC>" 'helm-M-x
+    "/"     '(lambda () (interactive)
+               (helm-swoop :$query "" :$multiline 4))
+    "."     'helm-hunks
+    "t"     '(lambda () (interactive)
+               (org-time-stamp '(16) t))
+    "cc"    'comment-region
+    "cu"    'uncomment-region
+    "a"     'evil-lion-left
+    "A"     'evil-lion-right
+    "\\"    'centered-window-mode
+    ","     'magit-status
+    "'"     'highlight-indent-guides-mode
     )
 
   (evil-ex-define-cmd "sh[ell]"      'shell)
