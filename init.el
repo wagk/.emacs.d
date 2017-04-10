@@ -286,7 +286,7 @@ SUBDIR should not have a `/` in front."
   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
   ;; (define-key helm-map (kbd "<tab>") 'helm-next-line)
   ;; (define-key helm-map (kbd "<backtab>") 'helm-previous-line)
-  (define-key helm-map (kbd "<backtab>") 'helm-select-action)
+  (define-key helm-map (kbd "S-SPC") 'helm-select-action)
   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 
   (helm-mode 1)
@@ -684,6 +684,9 @@ SUBDIR should not have a `/` in front."
   (define-key evil-visual-state-map (kbd "<<") 'my-evil-shift-left-visual)
   )
 (setq require-final-newline t)
+
+;; remove annoying bell sound
+(setq ring-bell-function 'ignore)
 
 ;; Save buffer state
 (desktop-save-mode 1)
