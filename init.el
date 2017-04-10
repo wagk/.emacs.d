@@ -585,7 +585,9 @@ SUBDIR should not have a `/` in front."
 
 ;; set default font
 ;; (add-to-list 'default-frame-alist '(font . "Consolas-11"))
-(set-frame-font "Consolas-11" nil t)
+(when (eq system-type "windows-nt")
+  (set-frame-font "Consolas-11" nil t)
+  )
 
 ;; startup maximised
 (custom-set-variables
