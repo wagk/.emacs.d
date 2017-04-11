@@ -215,7 +215,6 @@ SUBDIR should not have a `/` in front."
 ;;   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 ;;   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
 ;;   )
-
 ;; (use-package evil-vimish-fold
 ;;   :config
 ;;   (evil-vimish-fold-mode 1)
@@ -232,7 +231,7 @@ SUBDIR should not have a `/` in front."
 (use-package evil-indent-textobject)
 (use-package vi-tilde-fringe :config (global-vi-tilde-fringe-mode 1))
 (use-package evil-visualstar :config (global-evil-visualstar-mode))
-(use-package evil-mc :config (global-evil-mc-mode 1))
+(use-package evil-mc :config (global-evil-mc-mode 0))
 
 ;; (use-package evil-tabs
 ;;   :init
@@ -290,6 +289,11 @@ SUBDIR should not have a `/` in front."
   (helm-mode 1)
   )
 
+(use-package helm-describe-modes
+  :bind ("C-h m" . helm-describe-modes))
+
+(use-package helm-descbinds :config (helm-descbinds-mode))
+
 (use-package helm-swoop
   :config
   (define-key helm-swoop-map (kbd "C-w") 'evil-delete-backward-word)
@@ -297,14 +301,13 @@ SUBDIR should not have a `/` in front."
   (setq helm-swoop-pre-input-function (lambda () nil))
   )
 (use-package helm-org-rifle)
-(use-package helm-flx
-  :config
-  (helm-flx-mode 1))
+(use-package helm-fuzzier :config (helm-fuzzier-mode 1))
+(use-package helm-flx :config (helm-flx-mode 1))
 
-(use-package git-gutter
+(use-package git-gutter+
   :config
-  (if (display-graphic-p) (use-package git-gutter-fringe))
-  (global-git-gutter-mode 1)
+  (use-package git-gutter-fringe+)
+  (global-git-gutter+-mode 1)
   )
 
 (use-package helm-hunks
@@ -636,7 +639,7 @@ SUBDIR should not have a `/` in front."
 ;; Japanese mode
 (progn
   (setq default-input-method "japanese"
-        kkc-show-conversion-list-count 1) ;; ばかがいじん
+        kkc-show-conversion-list-count 1)
   (with-eval-after-load "kkc"
     (define-key kkc-keymap (kbd "SPC")       'kkc-terminate)
     (define-key kkc-keymap (kbd "<tab>")     'kkc-next)
@@ -648,6 +651,7 @@ SUBDIR should not have a `/` in front."
 (progn
   (evil-leader/set-key
     "<SPC>" 'helm-M-x
+    "y"     'helm-show-kill-ring
     "/"     '(lambda () (interactive)
                (helm-swoop :$query "" :$multiline 4))
     "."     'helm-hunks
