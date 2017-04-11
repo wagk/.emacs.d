@@ -122,8 +122,9 @@ SUBDIR should not have a `/` in front."
   (setq evil-want-C-u-scroll t)
 
   :config
-  (setq evil-want-Y-yank-to-eol t)
-  (setq sentence-end-double-space nil)
+  (fset 'evil-visual-update-x-selection 'ignore)
+  (setq evil-want-Y-yank-to-eol t
+        sentence-end-double-space nil)
   (evil-set-initial-state 'info-mode 'normal)
   (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
   (setq evil-motion-state-modes nil)
@@ -282,14 +283,10 @@ SUBDIR should not have a `/` in front."
 ;; activate helm mode
 (use-package helm
   :config
-  ;; (global-set-key (kbd "M-x") 'helm-M-x)
   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
-  ;; (define-key helm-map (kbd "<tab>") 'helm-next-line)
-  ;; (define-key helm-map (kbd "<backtab>") 'helm-previous-line)
   (define-key helm-map (kbd "S-SPC") 'helm-select-action)
   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-
-  (eval-after-load 'helm (helm-mode-fuzzy-match t))
+  (helm-mode-fuzzy-match t)
   (helm-mode 1)
   )
 
@@ -317,7 +314,7 @@ SUBDIR should not have a `/` in front."
              helm-hunks-staged-current-buffer)
   :config
   (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
-  (helm-hunks--is-preview t)
+  (setq helm-hunks-preview-diffs t)
   )
 
 ;;solarized dark theme
@@ -434,7 +431,7 @@ SUBDIR should not have a `/` in front."
 
 ;; (use-package guide-key
 ;;   :config
-;;   (setq guide-key/guide-key-sequence t)
+;;   (setq guide-y/guide-key-sequence t)
 ;;   (guide-key-mode 1)
 ;;   )
 
@@ -592,6 +589,21 @@ SUBDIR should not have a `/` in front."
 (if (eq system-type "windows-nt")
     (set-frame-font "Consolas-11" nil t)
   (message "Not windows, not using consolas")
+  )
+
+;; Switch to cygwin if it exists
+;; this isn't working though
+(when (and (eq system-type "windows-nt")
+           (file-directory-p "C:\cygwin64"))
+  (setq shell-file-name "C:\cygwin64\bin\bash.exe")
+  (setq explicit-shell-file-name shell-file-name)
+  (let (path (getenv "PATH"))
+    (setq path (replace-regexp-in-string "\\([A-Za-z]\\):" "/\\1" path)
+          path (replace-regexp-in-string "\\\\" "/" path)
+          path (replace-regexp-in-string " " "\\\\ " path)
+          path (concat "~/bin:/usr/local/bin:/usr/bin:" path))
+    (setenv "PATH" path)
+    )
   )
 
 ;; startup maximised
