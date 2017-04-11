@@ -354,9 +354,9 @@ SUBDIR should not have a `/` in front."
 
 (use-package projectile
   :config
-  (use-package helm-projectile)
   (add-hook 'after-init-hook #'projectile-mode)
   )
+(use-package helm-projectile)
 
 (use-package whitespace-cleanup-mode
   :config
@@ -415,7 +415,6 @@ SUBDIR should not have a `/` in front."
 (use-package google-translate)
 
 (use-package origami
-  :init
   :config
   (setq origami-show-fold-header t)
   (global-origami-mode 1)
@@ -654,7 +653,7 @@ SUBDIR should not have a `/` in front."
     "y"     'helm-show-kill-ring
     "/"     '(lambda () (interactive)
                (helm-swoop :$query "" :$multiline 4))
-    "."     'helm-hunks
+    "."     'helm-hunks-current-buffer
     "t"     '(lambda () (interactive)
                (org-time-stamp '(16) t))
     "cc"    'comment-region
