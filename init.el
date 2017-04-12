@@ -198,7 +198,7 @@ SUBDIR should not have a `/` in front."
 
 (use-package evil-args
   :config
-  ;; bind evil-args text objects
+  ;; bind evil-args text jects
   (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
   (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
   ;; bind evil-forward/backward-args
@@ -411,6 +411,7 @@ SUBDIR should not have a `/` in front."
 (use-package groovy-mode)
 (use-package php-mode)
 (use-package dockerfile-mode)
+(use-package json-mode)
 (use-package markdown-mode)
 (use-package minimap)
 (use-package multiple-cursors)
@@ -671,6 +672,7 @@ SUBDIR should not have a `/` in front."
     ","     'magit-status
     "'"     'highlight-indent-guides-mode
     "h"     'helm-apropos
+    ;; "h"     '(lambda () (interactive) (helm-apropos) (with-current-buffer "*Help*")) ;; this errors into "wrong number of arguments"
     "e"     'helm-find-files
     "r"     'helm-mini
     "b"     'helm-bookmarks
@@ -686,8 +688,7 @@ SUBDIR should not have a `/` in front."
   (evil-ex-define-cmd "e!"           '(lambda() (interactive) (revert-buffer t t t)))
   (evil-ex-define-cmd "b[uffer]"     'helm-mini)
   (evil-ex-define-cmd "ini[t]"       'find-user-init-file)
-  (define-key evil-ex-map "tabe"     '(lambda() (interactive)
-                                        (make-frame)))
+  (evil-ex-define-cmd "tabe[dit]"     '(lambda() (interactive) (make-frame)))
 
   (evil-define-command my-evil-helm-apropos(arg)
     (interactive "<a>")
