@@ -296,8 +296,7 @@ SUBDIR should not have a `/` in front."
         helm-imenu-fuzzy-match t
         helm-lisp-fuzzy-completion t
         helm-completion-in-region-fuzzy-match t)
-  (setq helm-split-window-in-side-p t
-        helm-move-to-line-cycle-in-source t)
+  (setq helm-split-window-in-side-p t)
   (progn (helm-autoresize-mode)
          (setq helm-autoresize-min-height 20 ;; These numbers are percentages
                helm-autoresize-max-height 40)
@@ -454,6 +453,9 @@ SUBDIR should not have a `/` in front."
 ;;   )
 
 (use-package emmet-mode
+  :bind (:map emmet-mode-keymap
+              ("<tab>" . emmet-next-edit-point)
+              ("<backtab>" . emmet-prev-edit-point))
   :config
   (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.
@@ -679,8 +681,9 @@ SUBDIR should not have a `/` in front."
     "\\"       'centered-window-mode
     ","        'magit-status
     "'"        'highlight-indent-guides-mode
-    "h"        'helm-apropos
-    ;; "h"     '(lambda () (interactive) (helm-apropos) (with-current-buffer "*Help*")) ;; this errors into "wrong number of arguments"
+    ;; "h"        'helm-apropos
+    "h"     '(lambda () (interactive) (helm-apropos nil)
+               (switch-to-buffer-other-window "*Help*"))
     "e"        'helm-find-files
     "r"        'helm-mini
     "b"        'helm-bookmarks
