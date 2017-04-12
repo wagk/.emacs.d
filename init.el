@@ -285,7 +285,15 @@ SUBDIR should not have a `/` in front."
   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
   (define-key helm-map (kbd "S-SPC") 'helm-select-action)
   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-  (setq helm-M-x-fuzzy-match t)
+  (setq helm-recentf-fuzzy-match t
+        helm-locate-fuzzy-match nil ;; locate fuzzy is worthless
+        helm-M-x-fuzzy-match t
+        helm-buffers-fuzzy-matching t
+        helm-semantic-fuzzy-match t
+        helm-apropos-fuzzy-match t
+        helm-imenu-fuzzy-match t
+        helm-lisp-fuzzy-completion t
+        helm-completion-in-region-fuzzy-match t)
   (helm-mode 1)
   )
 
