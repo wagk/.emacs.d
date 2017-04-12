@@ -216,11 +216,6 @@ SUBDIR should not have a `/` in front."
   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
   )
 
-;; (use-package evil-vimish-fold
-;;   :config
-;;   (evil-vimish-fold-mode 1)
-;;   )
-
 (use-package evil-args)
 (use-package evil-lion :config (evil-lion-mode))
 (use-package evil-matchit)
@@ -233,13 +228,6 @@ SUBDIR should not have a `/` in front."
 (use-package vi-tilde-fringe :config (global-vi-tilde-fringe-mode 1))
 (use-package evil-visualstar :config (global-evil-visualstar-mode))
 (use-package evil-mc :config (global-evil-mc-mode 0))
-
-;; (use-package evil-tabs
-;;   :init
-;;   (use-package elscreen)
-;;   :config
-;;   (global-evil-tabs-mode t)
-;;   )
 
 (use-package elpy
   :config
@@ -440,18 +428,6 @@ SUBDIR should not have a `/` in front."
   (centered-window-mode t)
   )
 
-;; (use-package sublimity
-;;   :config
-;;   (sublimity-mode 0)
-;;   :if (display-graphic-p) (use-package sublimity-attractive)
-;;   )
-
-;; (use-package guide-key
-;;   :config
-;;   (setq guide-y/guide-key-sequence t)
-;;   (guide-key-mode 1)
-;;   )
-
 (use-package emmet-mode
   :bind (:map emmet-mode-keymap
               ("<tab>" . emmet-next-edit-point)
@@ -470,12 +446,6 @@ SUBDIR should not have a `/` in front."
     )
   (powerline-default-theme)
   )
-
-;; ;; orgmode bindings
-;; (use-package org-evil
-;;   :config
-;;   (setq org-M-RET-may-split-line nil) ;; so we can press 'o' evil and generate the next item
-;;   )
 
 (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode))
 (add-to-list 'auto-mode-alist '("\\Jenkinsfile\\'" . groovy-mode))
@@ -541,8 +511,6 @@ SUBDIR should not have a `/` in front."
   (kbd "M-K")     'org-shiftmetaup
   (kbd "M-L")     'org-shiftmetadown
   )
-
-;; (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
 
 (list ) ;; org agenda list
 
@@ -681,9 +649,9 @@ SUBDIR should not have a `/` in front."
     "\\"       'centered-window-mode
     ","        'magit-status
     "'"        'highlight-indent-guides-mode
-    ;; "h"        'helm-apropos
-    "h"     '(lambda () (interactive) (helm-apropos nil)
-               (switch-to-buffer-other-window "*Help*"))
+    "h"        'helm-apropos
+    ;; "h"     '(lambda () (interactive) (helm-apropos nil)
+    ;;            (switch-to-buffer-other-window "*Help*"))
     "e"        'helm-find-files
     "r"        'helm-mini
     "b"        'helm-bookmarks
@@ -707,9 +675,7 @@ SUBDIR should not have a `/` in front."
     (other-window 1)
     )
 
-  (eval-after-load 'evil-maps '(progn
-                                 (evil-ex-define-cmd "h[elp]" 'my-evil-helm-apropos)
-                                 ))
+  (eval-after-load 'evil-maps '(progn (evil-ex-define-cmd "h[elp]" 'my-evil-helm-apropos)))
 
   ;; Overload shifts so that they don't lose the selection
   (defun my-evil-shift-left-visual ()
