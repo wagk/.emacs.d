@@ -298,10 +298,10 @@ SUBDIR should not have a `/` in front."
         helm-completion-in-region-fuzzy-match t)
   (setq helm-split-window-in-side-p t
         helm-move-to-line-cycle-in-source t)
-  (helm-autoresize-mode)
-  ;; These numbers are percentages
-  (setq helm-autoresize-min-height 20
-        helm-autoresize-max-height 30)
+  (progn (helm-autoresize-mode)
+         (setq helm-autoresize-min-height 20 ;; These numbers are percentages
+               helm-autoresize-max-height 40)
+         )
   )
 
 (use-package helm-describe-modes
@@ -363,7 +363,7 @@ SUBDIR should not have a `/` in front."
   :config
   ;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
   ;; character || column || fill
-  (setq highlight-indent-guides-method 'column
+  (setq highlight-indent-guides-method 'character
         highlight-indent-guides-character ?\|)
   )
 
