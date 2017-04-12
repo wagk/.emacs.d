@@ -285,7 +285,7 @@ SUBDIR should not have a `/` in front."
   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
   (define-key helm-map (kbd "S-SPC") 'helm-select-action)
   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-  (helm-mode-fuzzy-match t)
+  (setq helm-M-x-fuzzy-match t)
   (helm-mode 1)
   )
 
@@ -651,11 +651,10 @@ SUBDIR should not have a `/` in front."
   (evil-leader/set-key
     "<SPC>" 'helm-M-x
     "y"     'helm-show-kill-ring
-    "/"     '(lambda () (interactive)
-               (helm-swoop :$query "" :$multiline 4))
+    "/"     '(lambda () (interactive) (helm-swoop :$query "" :$multiline 4))
+    "?"     '(lambda () (interactive) (helm-swoop :$query "" :$multiline 4))
     "."     'helm-hunks-current-buffer
-    "t"     '(lambda () (interactive)
-               (org-time-stamp '(16) t))
+    "t"     '(lambda () (interactive) (org-time-stamp '(16) t))
     "cc"    'comment-region
     "cu"    'uncomment-region
     "a"     'evil-lion-left
@@ -663,6 +662,11 @@ SUBDIR should not have a `/` in front."
     "\\"    'centered-window-mode
     ","     'magit-status
     "'"     'highlight-indent-guides-mode
+    "h"     'helm-apropos
+    "e"     'helm-find-files
+    "r"     'helm-mini
+    "b"     'helm-bookmarks
+    "p"     'helm-projectile
     )
 
   (evil-ex-define-cmd "sh[ell]"      'shell)
