@@ -210,11 +210,12 @@ SUBDIR should not have a `/` in front."
   (define-key evil-normal-state-map "K" 'evil-jump-out-args)
   )
 
-;; (use-package evil-numbers
-;;   :config
-;;   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-;;   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-;;   )
+(use-package evil-numbers
+  :config
+  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+  (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+  )
+
 ;; (use-package evil-vimish-fold
 ;;   :config
 ;;   (evil-vimish-fold-mode 1)
@@ -285,6 +286,7 @@ SUBDIR should not have a `/` in front."
   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
   (define-key helm-map (kbd "S-SPC") 'helm-select-action)
   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
+  (helm-mode 1)
   (setq helm-recentf-fuzzy-match t
         helm-locate-fuzzy-match nil ;; locate fuzzy is worthless
         helm-M-x-fuzzy-match t
@@ -294,7 +296,12 @@ SUBDIR should not have a `/` in front."
         helm-imenu-fuzzy-match t
         helm-lisp-fuzzy-completion t
         helm-completion-in-region-fuzzy-match t)
-  (helm-mode 1)
+  (setq helm-split-window-in-side-p t
+        helm-move-to-line-cycle-in-source t)
+  (helm-autoresize-mode)
+  ;; These numbers are percentages
+  (setq helm-autoresize-min-height 20
+        helm-autoresize-max-height 30)
   )
 
 (use-package helm-describe-modes
@@ -658,25 +665,26 @@ SUBDIR should not have a `/` in front."
 ;; しん おれを ワタ
 (progn
   (evil-leader/set-key
-    "<SPC>" 'helm-M-x
-    "y"     'helm-show-kill-ring
-    "/"     '(lambda () (interactive) (helm-swoop :$query "" :$multiline 4))
-    "?"     '(lambda () (interactive) (helm-swoop :$query "" :$multiline 4))
-    "."     'helm-hunks-current-buffer
-    "t"     '(lambda () (interactive) (org-time-stamp '(16) t))
-    "cc"    'comment-region
-    "cu"    'uncomment-region
-    "a"     'evil-lion-left
-    "A"     'evil-lion-right
-    "\\"    'centered-window-mode
-    ","     'magit-status
-    "'"     'highlight-indent-guides-mode
-    "h"     'helm-apropos
+    "<SPC>"    'helm-M-x
+    "S-<SPC>"  'helm-resume
+    "y"        'helm-show-kill-ring
+    "/"        '(lambda () (interactive) (helm-swoop :$query "" :$multiline 4))
+    "?"        '(lambda () (interactive) (helm-swoop :$query "" :$multiline 4))
+    "."        'helm-hunks-current-buffer
+    "t"        '(lambda () (interactive) (org-time-stamp '(16) t))
+    "cc"       'comment-region
+    "cu"       'uncomment-region
+    "a"        'evil-lion-left
+    "A"        'evil-lion-right
+    "\\"       'centered-window-mode
+    ","        'magit-status
+    "'"        'highlight-indent-guides-mode
+    "h"        'helm-apropos
     ;; "h"     '(lambda () (interactive) (helm-apropos) (with-current-buffer "*Help*")) ;; this errors into "wrong number of arguments"
-    "e"     'helm-find-files
-    "r"     'helm-mini
-    "b"     'helm-bookmarks
-    "p"     'helm-projectile
+    "e"        'helm-find-files
+    "r"        'helm-mini
+    "b"        'helm-bookmarks
+    "p"        'helm-projectile
     )
 
   (evil-ex-define-cmd "sh[ell]"      'shell)
