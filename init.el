@@ -219,6 +219,8 @@ SUBDIR should not have a `/` in front."
 (use-package evil-args)
 (use-package evil-lion :config (evil-lion-mode))
 (use-package evil-matchit)
+(use-package evil-paredit
+  :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
 (use-package evil-cleverparens)
 (use-package evil-commentary)
 (use-package evil-replace-with-register)
