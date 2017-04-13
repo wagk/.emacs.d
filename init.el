@@ -47,18 +47,6 @@ SUBDIR should not have a `/` in front."
   (concat user-emacs-directory subdir)
   )
 
-;; (defun my-japanese-input-toggle ()
-;;   "Rotates the input method between none -> hiragana -> katakana."
-;;   (when (or (equal current-input-method "japanese-hiragana")
-;;             (equal default-input-method "japanese-hiragana"))
-;;     (set-input-method "japanese-katakana"))
-;;   (when (or (equal current-input-method "japanese-katakana")
-;;             (equal default-input-method "japanese-katakana"))
-;;     (deactivate-input-method))
-;;   (when (booleanp current-input-method)
-;;     (set-input-method "japanese-hiragana"))
-;;   )
-
 ;; Packages
 
 (require 'package)
@@ -125,7 +113,6 @@ SUBDIR should not have a `/` in front."
   (fset 'evil-visual-update-x-selection 'ignore)
   (setq evil-want-Y-yank-to-eol t
         sentence-end-double-space nil)
-  (evil-set-initial-state 'info-mode 'normal)
   (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
   (setq evil-motion-state-modes nil)
   (define-key global-map (kbd "C-f") 'universal-argument)
@@ -288,7 +275,7 @@ SUBDIR should not have a `/` in front."
         helm-completion-in-region-fuzzy-match t)
   (setq helm-split-window-in-side-p t)
   (progn (helm-autoresize-mode)
-         (setq helm-autoresize-min-height 20 ;; These numbers are percentages
+         (setq helm-autoresize-min-height 40 ;; These numbers are percentages
                helm-autoresize-max-height 40)
          )
   )
@@ -648,7 +635,8 @@ SUBDIR should not have a `/` in front."
     "cu"       'uncomment-region
     "a"        'evil-lion-left
     "A"        'evil-lion-right
-    "\\"       'centered-window-mode
+    ";"        'centered-window-mode
+    "\\"       'org-capture
     ","        'magit-status
     "'"        'highlight-indent-guides-mode
     "h"        'helm-apropos
