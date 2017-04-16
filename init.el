@@ -107,12 +107,14 @@ SUBDIR should not have a `/` in front."
 
 (use-package evil
   :init
-  (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-u-scroll t
+        evil-search-module 'evil-search)
 
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
   (setq evil-want-Y-yank-to-eol t
-        sentence-end-double-space nil)
+        sentence-end-double-space nil
+        evil-regexp-search t)
   (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
   (setq evil-motion-state-modes nil)
   (define-key global-map (kbd "C-f") 'universal-argument)
@@ -391,6 +393,8 @@ SUBDIR should not have a `/` in front."
   (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode)
   )
 
+(use-package typescript-mode)
+(use-package tide)
 (use-package groovy-mode)
 (use-package php-mode)
 (use-package dockerfile-mode)
@@ -644,6 +648,7 @@ SUBDIR should not have a `/` in front."
     ;;            (switch-to-buffer-other-window "*Help*"))
     "e"        'helm-find-files
     "r"        'helm-mini
+    ;; command to go to last buffet in vim is <C-^> and <C-6>
     "b"        'helm-bookmarks
     "p"        'helm-projectile
     )

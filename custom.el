@@ -50,7 +50,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (evil-paredit json-mode git-gutter-fringe+ git-gutter+ helm-fuzzier helm-descbinds helm-describe-modes neotree rainbow-delimiters evil-mc epa-file helm-flx helm-swoop counsel evil-visualstar buffer-move transpose-frame helm-hunks highlight-indent-guides org-brain helm-org-rifle evil-indent-textobject evil-cleverparens evil-lion vi-tilde-fringe vi-tilde-fringe-mode beacon centered-window-mode git-gutter-fringe sublimity-attractive which-key linum-relative spu company-jedi markdown-mode emmet-mode php-mode dockerfile-mode powerline powerline-evil git-gutter guide-key flycheck aggressive-indent whitespace-cleanup-mode evil-matchit evil-vimish-fold groovy-mode fireplace company-quickhelp ## discover helm-company elpy evil-tabs docker-tramp evil-text-object-python tramp-term company powershell use-package solarized-theme org-evil helm evil-surround evil-replace-with-register evil-numbers evil-magit evil-leader evil-commentary evil-args)))
+    (tide typescript-mode json-mode git-gutter-fringe+ git-gutter+ helm-fuzzier helm-descbinds helm-describe-modes neotree rainbow-delimiters evil-mc epa-file helm-flx helm-swoop counsel evil-visualstar buffer-move transpose-frame helm-hunks highlight-indent-guides org-brain helm-org-rifle evil-indent-textobject evil-cleverparens evil-lion vi-tilde-fringe vi-tilde-fringe-mode beacon centered-window-mode git-gutter-fringe sublimity-attractive which-key linum-relative spu company-jedi markdown-mode emmet-mode php-mode dockerfile-mode powerline powerline-evil git-gutter guide-key flycheck aggressive-indent whitespace-cleanup-mode evil-matchit evil-vimish-fold groovy-mode fireplace company-quickhelp ## discover helm-company elpy evil-tabs docker-tramp evil-text-object-python tramp-term company powershell use-package solarized-theme org-evil helm evil-surround evil-replace-with-register evil-numbers evil-magit evil-leader evil-commentary evil-args)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(projectile-mode t nil (projectile))
@@ -103,7 +103,10 @@
  '(xterm-color-names
    ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
  '(xterm-color-names-bright
-   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
+   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"])
+ '(yas-snippet-dirs
+   (quote
+    ("c:/Users/Pang/AppData/Roaming/.emacs.d/snippets" yas-installed-snippets-dir "c:/Users/Pang/AppData/Roaming/.emacs.d/elpa/elpy-20170414.319/snippets/"))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
