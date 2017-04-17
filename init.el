@@ -1,6 +1,7 @@
 ;;; package --- Summary
 ;;; Commentary:
 ;;; Code:
+;; TODO(pangt): chunk the config file into separate packages
 
 ;; https://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
 
@@ -329,14 +330,6 @@ SUBDIR should not have a `/` in front."
   (beacon-mode 0)
   )
 
-;; (use-package indent-guide ;; this might be a performance hit
-;;   :config
-;;   (set-face-background 'indent-guide-face "#073642")
-;;   (setq indent-guide-delay 0.0
-;;      indent-guide-char " ")
-;;   (indent-guide-global-mode)
-;;   )
-
 (use-package highlight-indent-guides
   :config
   ;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
@@ -345,11 +338,70 @@ SUBDIR should not have a `/` in front."
         highlight-indent-guides-character ?\|)
   )
 
+(progn
+  (require 'zone)
+  (zone-when-idle 120)
+
+  ;; TODO(pangt): figure out what this does
+  (defun zone-choose (pgm)
+    "Choose a PGM to run for `zone'."
+    (interactive
+     (list
+      (completing-read
+       "Program: "
+       (mapcar 'symbol-name zone-programs))))
+    (let ((zone-programs (list (intern pgm))))
+      (zone)))
+
+  (defun zone-pgm-md5 ()
+    "MD5 the buffer, then recursively checksum each hash."
+    (let ((prev-md5 (buffer-substring-no-properties ;; Initialize.
+                     (point-min) (point-max))))
+      ;; Whitespace-fill the window.
+      (zone-fill-out-screen (window-width) (window-height))
+      (random t)
+      (goto-char (point-min))
+      (while (not (input-pending-p))
+        (when (eobp)
+          (goto-char (point-min)))
+        (while (not (eobp))
+          (delete-region (point) (line-end-position))
+          (let ((next-md5 (md5 prev-md5)))
+            (insert next-md5)
+            (setq prev-md5 next-md5))
+          (forward-line 1)
+          (zone-park/sit-for (point-min) 0.1)))))
+
+  (eval-after-load "zone"
+    '(unless (memq 'zone-pgm-md5 (append zone-programs nil))
+       (setq zone-programs
+             (vconcat zone-programs [zone-pgm-md5]))))
+  )
+
+
 (use-package projectile
   :config
   (add-hook 'after-init-hook #'projectile-mode)
+  ;; TODO(pangt): Figure out a way to get this function to ignore binary files
+  ;; (defun projectile-whitespace-cleanup-project-files()
+  ;;   "Run whitespace-cleanup on all project files"
+  ;;   (interactive)
+  ;;   (dolist (file (projectile-current-project-files))
+  ;;     (let ((path (concat (projectile-project-root) file)))
+  ;;       (let ((buffer (find-file-noselect path)))
+  ;;         (when buffer
+  ;;           (with-current-buffer buffer
+  ;;             (whitespace-cleanup)
+  ;;             (save-buffer)
+  ;;             (kill-buffer)))
+  ;;         )
+  ;;       )))
   )
 (use-package helm-projectile)
+(use-package perspective
+  :config
+  (persp-mode))
+(use-package persp-projectile)
 
 (use-package whitespace-cleanup-mode
   :config
@@ -683,6 +735,8 @@ SUBDIR should not have a `/` in front."
   (evil-ex-define-cmd "ini[t]"        'find-user-init-file)
   (evil-ex-define-cmd "todo"          '(lambda() (interactive)
                                          (insert "TODO(pangt): ")
+                                         (comment-region (line-beginning-position) (line-end-position))
+                                         (end-of-line)
                                          (evil-insert nil)))
   (evil-ex-define-cmd "tabe[dit]"     '(lambda() (interactive)
                                          (make-frame)))
