@@ -705,9 +705,29 @@ SUBDIR should not have a `/` in front."
 
 ;; しん おれを ワタ
 
+(use-package misc-cmds)
+(defun my-line-lengths()
+  (let (length)
+    (save-excursion
+      (goto-char (point-min))
+      (while (not (eobp))
+        (push (- (line-end-position) (line-beginning-position))
+              length)
+        (forward-line)))
+    (copy-sequence length) ;; we return a list since this is the last form evaluated
+    )
+  )
+
+(defun my-longest-line-length()
+  (let ((lines (my-line-lengths)))
+    (nth 0 (sort lines '>)) ;; return the first element, which should be the largest
+    )
+  )
+
 (defun my-centre-window-function()
   (interactive)
-  (let ((margin-size (/ (- (frame-width) 80 ) 2)))
+  (message "Longest line is %d long" (my-longest-line-length))
+  (let ((margin-size (/ (- (window-width) (my-longest-line-length) ) 2)))
     (if (not (get 'my-centre-window-function 'active))
         (progn
           (set-window-margins nil margin-size margin-size)
@@ -716,8 +736,7 @@ SUBDIR should not have a `/` in front."
       (progn
         (set-window-margins nil 0 nil)
         (put 'my-centre-window-function 'active nil)
-        ))
-    )
+        )))
   )
 
 (progn
