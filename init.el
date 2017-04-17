@@ -48,6 +48,13 @@ SUBDIR should not have a `/` in front."
   (concat user-emacs-directory subdir)
   )
 
+;; TODO(pangt): figure out how this works
+(defun text-file-p (filename)
+  "Checks if the filename is a binary file"
+  (with-current-buffer (find-file-noselect filename :no-warn)
+    (prog1 (not (eq buffer-file-coding-system 'no-conversion))
+      (kill-buffer))))
+
 ;; Packages
 
 (require 'package)
@@ -381,6 +388,7 @@ SUBDIR should not have a `/` in front."
 
 (use-package projectile
   :config
+  (projectile-mode)
   (add-hook 'after-init-hook #'projectile-mode)
   ;; TODO(pangt): Figure out a way to get this function to ignore binary files
   ;; (defun projectile-whitespace-cleanup-project-files()
@@ -388,20 +396,36 @@ SUBDIR should not have a `/` in front."
   ;;   (interactive)
   ;;   (dolist (file (projectile-current-project-files))
   ;;     (let ((path (concat (projectile-project-root) file)))
-  ;;       (let ((buffer (find-file-noselect path)))
-  ;;         (when buffer
-  ;;           (with-current-buffer buffer
-  ;;             (whitespace-cleanup)
-  ;;             (save-buffer)
-  ;;             (kill-buffer)))
-  ;;         )
+  ;;       (when (and (find-file-noselect path) (text-file-p path))
+  ;;         (let ((buffer (find-file-noselect path)))
+  ;;           (when buffer
+  ;;             (with-current-buffer buffer
+  ;;               (whitespace-cleanup)
+  ;;               (save-buffer)
+  ;;               (kill-buffer)))
+  ;;           ))
   ;;       )))
+
+  ;; (defun projectile-whitespace-cleanup-project-files()
+  ;;   "Run whitespace-cleanup on all project files"
+  ;;   (interactive)
+  ;;   (dolist (file (projectile-current-project-files))
+  ;;     (let ((path (concat (projectile-project-root) file))
+  ;;           (buffer (find-file-noselect path)))
+  ;;       (when (and buffer (text-file-p path))
+  ;;         (with-current-buffer buffer
+  ;;           (whitespace-cleanup)
+  ;;           (save-buffer)
+  ;;           (kill-buffer)))
+  ;;       )))
+
   )
 (use-package helm-projectile)
 (use-package perspective
   :config
   (persp-mode))
 (use-package persp-projectile)
+
 
 (use-package whitespace-cleanup-mode
   :config
