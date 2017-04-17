@@ -121,6 +121,7 @@ SUBDIR should not have a `/` in front."
   (define-key universal-argument-map (kbd "C-u") nil)
   (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
   (define-key global-map (kbd "C-u") 'kill-whole-line)
+  (add-hook 'view-mode-hook 'evil-motion-state)
   (eval-after-load 'evil-maps
     '(progn
        (define-key evil-motion-state-map (kbd "C-f") nil)
@@ -293,7 +294,6 @@ SUBDIR should not have a `/` in front."
   ;; no annoying under mouse highlights
   (setq helm-swoop-pre-input-function (lambda () nil))
   )
-(use-package helm-org-rifle)
 (use-package helm-fuzzier :config (helm-fuzzier-mode 1))
 (use-package helm-flx :config (helm-flx-mode 1))
 
@@ -416,10 +416,10 @@ SUBDIR should not have a `/` in front."
   (global-origami-mode 1)
   ) ;; todo: map z-a, z-r, and z-m to these functions. i want folding dammit
 
-(use-package centered-window-mode
-  :config
-  (centered-window-mode t)
-  )
+;; (use-package centered-window-mode
+;;   :config
+;;   (centered-window-mode t)
+;;   )
 
 (use-package emmet-mode
   :bind (:map emmet-mode-keymap
@@ -444,6 +444,8 @@ SUBDIR should not have a `/` in front."
 (add-to-list 'auto-mode-alist '("\\Jenkinsfile\\'" . groovy-mode))
 
 ;; orgmode config BEGIN
+(require 'org)
+(use-package helm-org-rifle)
 (defun my-evil-org-new-item ()
   "Insert a new item if we're in normal mode."
   (interactive)
@@ -626,6 +628,22 @@ SUBDIR should not have a `/` in front."
   )
 
 ;; しん おれを ワタ
+
+(defun my-centre-window-function()
+  (interactive)
+  (let ((margin-size (/ (- (frame-width) 80 ) 2)))
+    (if (not (get 'my-centre-window-function 'active))
+        (progn
+          (set-window-margins nil margin-size margin-size)
+          (put 'my-centre-window-function 'active t)
+          )
+      (progn
+        (set-window-margins nil 0 nil)
+        (put 'my-centre-window-function 'active nil)
+        ))
+    )
+  )
+
 (progn
   (evil-leader/set-key
     "<SPC>"    'helm-M-x
@@ -639,7 +657,7 @@ SUBDIR should not have a `/` in front."
     "cu"       'uncomment-region
     "a"        'evil-lion-left
     "A"        'evil-lion-right
-    ";"        'centered-window-mode
+    ";"        'my-centre-window-function
     "\\"       'org-capture
     ","        'magit-status
     "'"        'highlight-indent-guides-mode
@@ -653,16 +671,21 @@ SUBDIR should not have a `/` in front."
     "p"        'helm-projectile
     )
 
-  (evil-ex-define-cmd "sh[ell]"      'shell)
-  (evil-ex-define-cmd "re[cent]"     'helm-recentf)
-  (evil-ex-define-cmd "pr[ojectile]" 'helm-projectile)
-  (evil-ex-define-cmd "or[gsearch]"  'helm-org-rifle)
-  (evil-ex-define-cmd "goo[gle]"     'helm-google-suggest)
-  (evil-ex-define-cmd "e[dit]"       'helm-find-files)
-  (evil-ex-define-cmd "e!"           '(lambda() (interactive) (revert-buffer t t t)))
-  (evil-ex-define-cmd "b[uffer]"     'helm-mini)
-  (evil-ex-define-cmd "ini[t]"       'find-user-init-file)
-  (evil-ex-define-cmd "tabe[dit]"     '(lambda() (interactive) (make-frame)))
+  (evil-ex-define-cmd "sh[ell]"       'shell)
+  (evil-ex-define-cmd "re[cent]"      'helm-recentf)
+  (evil-ex-define-cmd "pr[ojectile]"  'helm-projectile)
+  (evil-ex-define-cmd "or[gsearch]"   'helm-org-rifle)
+  (evil-ex-define-cmd "goo[gle]"      'helm-google-suggest)
+  (evil-ex-define-cmd "e[dit]"        'helm-find-files)
+  (evil-ex-define-cmd "e!"            '(lambda() (interactive)
+                                         (revert-buffer t t t)))
+  (evil-ex-define-cmd "b[uffer]"      'helm-mini)
+  (evil-ex-define-cmd "ini[t]"        'find-user-init-file)
+  (evil-ex-define-cmd "todo"          '(lambda() (interactive)
+                                         (insert "TODO(pangt): ")
+                                         (evil-insert nil)))
+  (evil-ex-define-cmd "tabe[dit]"     '(lambda() (interactive)
+                                         (make-frame)))
 
   (evil-define-command my-evil-helm-apropos(arg)
     (interactive "<a>")
