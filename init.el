@@ -347,7 +347,7 @@ SUBDIR should not have a `/` in front."
 
 (progn
   (require 'zone)
-  (zone-when-idle 120)
+  (zone-when-idle 600)
 
   ;; TODO(pangt): figure out what this does
   (defun zone-choose (pgm)
@@ -421,10 +421,11 @@ SUBDIR should not have a `/` in front."
 
   )
 (use-package helm-projectile)
-(use-package perspective
-  :config
-  (persp-mode))
-(use-package persp-projectile)
+;; perspective messes with a lot of things. Helm mini esp
+;;(use-package perspective
+;;  :config
+;;  (persp-mode))
+;;(use-package persp-projectile)
 
 
 (use-package whitespace-cleanup-mode
@@ -652,16 +653,23 @@ SUBDIR should not have a `/` in front."
 
 ;; Switch to cygwin if it exists
 ;; this isn't working though
-(when (and (eq system-type "windows-nt")
-           (file-directory-p "C:\cygwin64"))
-  (setq shell-file-name "C:\cygwin64\bin\bash.exe")
-  (setq explicit-shell-file-name shell-file-name)
-  (let (path (getenv "PATH"))
-    (setq path (replace-regexp-in-string "\\([A-Za-z]\\):" "/\\1" path)
-          path (replace-regexp-in-string "\\\\" "/" path)
-          path (replace-regexp-in-string " " "\\\\ " path)
-          path (concat "~/bin:/usr/local/bin:/usr/bin:" path))
-    (setenv "PATH" path)
+;; (when (and (string-equal system-type "windows-nt")
+;;            (file-directory-p "C:\cygwin64"))
+;;   (setq shell-file-name "C:\cygwin64\bin\bash.exe")
+;;   (setq explicit-shell-file-name shell-file-name)
+;;   (let (path (getenv "PATH"))
+;;     (setq path (replace-regexp-in-string "\\([A-Za-z]\\):" "/\\1" path)
+;;           path (replace-regexp-in-string "\\\\" "/" path)
+;;           path (replace-regexp-in-string " " "\\\\ " path)
+;;           path (concat "~/bin:/usr/local/bin:/usr/bin:" path))
+;;     (setenv "PATH" path)
+;;     )
+;;   )
+
+(let ((msys-path "C:/msys/1.0/bin"))
+  (when (and (string-equal system-type "windows-nt")
+             (file-directory-p msys-path))
+    (setq exec-path (append exec-path '(msys-path)))
     )
   )
 
@@ -726,7 +734,6 @@ SUBDIR should not have a `/` in front."
 
 (defun my-centre-window-function()
   (interactive)
-  (message "Longest line is %d long" (my-longest-line-length))
   (let ((margin-size (/ (- (window-width) (my-longest-line-length) ) 2)))
     (if (not (get 'my-centre-window-function 'active))
         (progn

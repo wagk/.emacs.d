@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("init"
+(("todo"
+ (filename . "c:/repos/todo/")
+ (front-context-string)
+ (rear-context-string . "0 11:57 U25.org\n")
+ (position . 1147))
+("init"
  (filename . "~/.emacs.d/init.el")
  (front-context-string . "(add-to-list 'pa")
  (rear-context-string . "rg/packages/\"))\n")
