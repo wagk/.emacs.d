@@ -122,8 +122,10 @@ SUBDIR should not have a `/` in front."
   (fset 'evil-visual-update-x-selection 'ignore)
   (setq evil-want-Y-yank-to-eol t
         sentence-end-double-space nil
-        evil-regexp-search t)
+        evil-regexp-search t
+        evil-normal-state-cursor '(box "red"))
   (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
+
   (setq evil-motion-state-modes nil)
   (define-key global-map (kbd "C-f") 'universal-argument)
   (define-key universal-argument-map (kbd "C-u") nil)
@@ -291,7 +293,6 @@ SUBDIR should not have a `/` in front."
          )
   )
 
-(use-package helm-emmet)
 (use-package helm-describe-modes
   :bind ("C-h m" . helm-describe-modes))
 
