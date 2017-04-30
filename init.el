@@ -347,6 +347,9 @@ SUBDIR should not have a `/` in front."
         highlight-indent-guides-character ?\|)
   )
 
+(if (bound-and-true-p (highlight-indentation-mode))
+    (highlight-indentation-mode))
+
 (progn
   (require 'zone)
   (zone-when-idle 600)
