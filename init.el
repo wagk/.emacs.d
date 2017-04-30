@@ -775,7 +775,7 @@ SUBDIR should not have a `/` in front."
     "r"        'helm-mini
     ;; command to go to last buffet in vim is <C-^> and <C-6>
     "b"        'helm-bookmarks
-    "p"        'helm-projectile
+    "w"        'helm-projectile
     )
 
   (evil-ex-define-cmd "sh[ell]"       'shell)
@@ -794,8 +794,13 @@ SUBDIR should not have a `/` in front."
                                          (indent-relative)
                                          (end-of-line)
                                          (evil-insert nil)))
-  (evil-ex-define-cmd "tabe[dit]"     '(lambda() (interactive)
-                                         (make-frame)))
+  ;; TODO(pangt): we fix this some day
+  (evil-define-command my-evil-tabedit(arg) (interactive "<a>")
+    ;; (generate-buffer-create arg)
+    ;; (make-frame ((buffer-list . arg)))
+    (make-frame)
+    )
+  (evil-ex-define-cmd "tabe[dit]"     'my-evil-tabedit)
 
   (evil-define-command my-evil-helm-apropos(arg)
     (interactive "<a>")
