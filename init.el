@@ -347,7 +347,7 @@ SUBDIR should not have a `/` in front."
         highlight-indent-guides-character ?\|)
   )
 
-(if (bound-and-true-p (highlight-indentation-mode))
+(if (bound-and-true-p highlight-indentation-mode)
     (highlight-indentation-mode))
 
 (progn
@@ -791,6 +791,7 @@ SUBDIR should not have a `/` in front."
   (evil-ex-define-cmd "todo"          '(lambda() (interactive)
                                          (insert "TODO(pangt): ")
                                          (comment-region (line-beginning-position) (line-end-position))
+                                         (indent-relative)
                                          (end-of-line)
                                          (evil-insert nil)))
   (evil-ex-define-cmd "tabe[dit]"     '(lambda() (interactive)
