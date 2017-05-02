@@ -62,7 +62,7 @@ SUBDIR should not have a `/` in front."
 (add-to-list 'package-archives '("melpa-2" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/")) ;
 (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
-(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
 (when (< emacs-major-version 24)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
   )
@@ -115,8 +115,7 @@ SUBDIR should not have a `/` in front."
 
 (use-package evil
   :init
-  (setq evil-want-C-u-scroll t
-        evil-search-module 'evil-search)
+  (setq evil-want-C-u-scroll t)
 
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
@@ -140,7 +139,6 @@ SUBDIR should not have a `/` in front."
        (define-key evil-normal-state-map (kbd "gT") '(lambda () (interactive) (other-frame -1)))
        (define-key evil-normal-state-map (kbd "C-\\") '(lambda () (interactive) (toggle-input-method)
                                                          (evil-append 1)))
-       (define-key evil-ex-map (kbd "SPC") 'helm-M-x)
        )
     )
 
@@ -231,10 +229,10 @@ SUBDIR should not have a `/` in front."
 (use-package evil-visualstar :config (global-evil-visualstar-mode))
 (use-package evil-mc :config (global-evil-mc-mode 0))
 
-(use-package elpy
-  :config
-  (elpy-enable); TODO: configure elpy
-  )
+;; (use-package elpy
+;;   :config
+;;   (elpy-enable); TODO: configure elpy
+;;   )
 
 ;; ;; Example el-get-sources
 ;; (setq el-get-sources
@@ -324,20 +322,22 @@ SUBDIR should not have a `/` in front."
   )
 
 ;;solarized dark theme
-(use-package solarized-theme
-  :config
-  (setq solarized-use-variable-pitch nil
-        solarized-scale-org-headlines nil
-        solarized-high-contrast-mode-line t) ;;unscrew org layout
-  (load-theme 'solarized-dark t)
-  )
+(if (display-graphic-p)
+    (progn (use-package solarized-theme
+             :config
+             (setq solarized-use-variable-pitch nil
+                   solarized-scale-org-headlines nil
+                   solarized-high-contrast-mode-line t) ;;unscrew org layout
+             (load-theme 'solarized-dark t)
+             )
+           ))
 
 (use-package powershell)
 
-(use-package beacon
-  :config
-  (beacon-mode 0)
-  )
+;; (use-package beacon
+;;   :config
+;;   (beacon-mode 0)
+;;   )
 
 (use-package highlight-indent-guides
   :config
@@ -432,6 +432,13 @@ SUBDIR should not have a `/` in front."
 ;;  (persp-mode))
 ;;(use-package persp-projectile)
 
+(use-package org-projectile
+  :config
+  (org-projectile:per-repo)
+  (setq org-projectile:per-repo-filename ".todo.org"
+        org-agenda-files (append org-agenda-files (org-projectile:todo-files))
+        )
+  )
 
 (use-package whitespace-cleanup-mode
   :config
@@ -766,6 +773,7 @@ SUBDIR should not have a `/` in front."
     "A"        'evil-lion-right
     ";"        'my-centre-window-function
     "\\"       'org-capture
+    "]"        'org-projectile:template-or-project
     ","        'magit-status
     "'"        'highlight-indent-guides-mode
     "h"        'helm-apropos
@@ -845,7 +853,9 @@ SUBDIR should not have a `/` in front."
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Remove really annoying bindings
-(global-unset-key (kbd "M-:"))
+;; (global-set-key (kbd "ESC") 'evil-force-normal-state)
+(global-set-key (kbd "M-:") nil)
+(global-set-key (kbd "M-ESC :") nil)
 
 ;; Reduce gc threshold to more manageable values:
 (setq gc-cons-threshold default-gc-cons-threshold)
