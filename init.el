@@ -332,7 +332,7 @@ SUBDIR should not have a `/` in front."
 ;;              )
 ;;            ))
 
-(use-package color-theme-solarized)
+;;(use-package color-theme-solarized)
 
 (use-package powershell)
 
@@ -725,7 +725,7 @@ SUBDIR should not have a `/` in front."
     )
   )
 
-;; しん おれを ワタ
+;; しん おれを ワ
 
 (use-package misc-cmds)
 (defun my-line-lengths()
@@ -859,6 +859,7 @@ SUBDIR should not have a `/` in front."
 (global-set-key (kbd "M-:") nil)
 (global-set-key (kbd "M-ESC :") nil)
 
+(define-key key-translation-map [?\C-h] [?\C-?])
 ;; Reduce gc threshold to more manageable values:
 (setq gc-cons-threshold default-gc-cons-threshold)
 (evil-mode 1)
