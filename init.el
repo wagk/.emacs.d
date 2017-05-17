@@ -291,6 +291,7 @@ SUBDIR should not have a `/` in front."
          )
   )
 
+(use-package helm-emmet)
 (use-package helm-describe-modes
   :bind ("C-h m" . helm-describe-modes))
 
