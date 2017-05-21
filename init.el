@@ -537,6 +537,7 @@ SUBDIR should not have a `/` in front."
 
 ;; orgmode config BEGIN
 (require 'org)
+(setq org-descriptive-links t)
 (use-package helm-org-rifle)
 (defun my-evil-org-new-item ()
   "Insert a new item if we're in normal mode."
@@ -599,8 +600,6 @@ SUBDIR should not have a `/` in front."
   (kbd "M-L")     'org-shiftmetadown
   )
 
-(list ) ;; org agenda list
-
 ;; orgmode config END
 
 ;; company mode
@@ -611,7 +610,7 @@ SUBDIR should not have a `/` in front."
   (use-package company-quickhelp
     :config
     (company-quickhelp-mode 0)
-    ;; (setq company-quickhelp-delay 1)
+    (setq company-quickhelp-delay 1)
     )
 
   (use-package company-jedi
@@ -638,7 +637,7 @@ SUBDIR should not have a `/` in front."
 
   (setq company-dabbrev-downcase nil
         company-dabbrev-ignore-case nil
-        company-idle-delay 0
+        company-idle-delay 1
         company-require-match nil
         company-selection-wrap-around t)
 
@@ -661,10 +660,13 @@ SUBDIR should not have a `/` in front."
 
 ;; set default font
 ;; (add-to-list 'default-frame-alist '(font . "Consolas-11"))
-(if (eq system-type "windows-nt")
-    (set-frame-font "Consolas-11" nil t)
-  (message "Not windows, not using consolas")
-  )
+;; (if (eq system-type "windows-nt")
+;;     (set-frame-font "Consolas-11" nil t)
+;;   (message "Not windows, not using consolas")
+;;   )
+
+;;this should make it global. Solve japanese fonting separately
+(set-frame-font "Courier" nil t)
 
 ;; Switch to cygwin if it exists
 ;; this isn't working though
