@@ -323,15 +323,15 @@ SUBDIR should not have a `/` in front."
   )
 
 ;;solarized dark theme
-;; (if (display-graphic-p)
-;;     (progn (use-package solarized-theme
-;;              :config
-;;              (setq solarized-use-variable-pitch nil
-;;                    solarized-scale-org-headlines nil
-;;                    solarized-high-contrast-mode-line t) ;;unscrew org layout
-;;              (load-theme 'solarized-dark t)
-;;              )
-;;            ))
+(if (display-graphic-p)
+    (progn (use-package solarized-theme
+             :config
+             (setq solarized-use-variable-pitch nil
+                   solarized-scale-org-headlines nil
+                   solarized-high-contrast-mode-line t) ;;unscrew org layout
+             (load-theme 'solarized-dark t)
+             )
+           ))
 
 ;;(use-package color-theme-solarized)
 

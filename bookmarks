@@ -2,7 +2,17 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("todo"
+(("wiki"
+ (filename . "d:/repos/wiki/")
+ (front-context-string . ".git\n  -rw-rw-rw")
+ (rear-context-string . "096 05-20 23:17 ")
+ (position . 231))
+("repos"
+ (filename . "d:/repos/")
+ (front-context-string . "callsign\n  drwxr")
+ (rear-context-string . "  0 01-22 01:18 ")
+ (position . 233))
+("todo"
  (filename . "c:/repos/todo/")
  (front-context-string)
  (rear-context-string . "0 11:57 U25.org\n")
