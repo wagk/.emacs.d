@@ -7,9 +7,7 @@
 
 ;; (defvar default-gc-cons-threshold gc-cons-threshold)
 
-(defvar default-gc-cons-threshold 20000000)
-
-(defun my-minibuffer-setup-hook ()
+(defvar default-gc-cons-threshold defun my-minibuffer-setup-hook ()
   "Set the garbage collection threshold to the maximum."
   (setq gc-cons-threshold most-positive-fixnum)
   )
@@ -666,7 +664,9 @@ SUBDIR should not have a `/` in front."
 ;;   )
 
 ;;this should make it global. Solve japanese fonting separately
-(set-frame-font "Courier" nil t)
+;; (set-default-font "Courier" nil t )
+(set-face-attribute 'default nil :font "Courier-11" )
+(set-frame-font "Courier-11" nil t)
 
 ;; Switch to cygwin if it exists
 ;; this isn't working though
