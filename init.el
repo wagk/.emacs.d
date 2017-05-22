@@ -7,7 +7,9 @@
 
 ;; (defvar default-gc-cons-threshold gc-cons-threshold)
 
-(defvar default-gc-cons-threshold defun my-minibuffer-setup-hook ()
+(defvar default-gc-cons-threshold 20000000)
+
+(defun my-minibuffer-setup-hook ()
   "Set the garbage collection threshold to the maximum."
   (setq gc-cons-threshold most-positive-fixnum)
   )
