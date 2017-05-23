@@ -62,7 +62,7 @@ SUBDIR should not have a `/` in front."
 (add-to-list 'package-archives '("melpa-2" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/")) ;
 (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
+;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
 (when (< emacs-major-version 24)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
   )
@@ -139,6 +139,8 @@ SUBDIR should not have a `/` in front."
        (define-key evil-normal-state-map (kbd "gT") '(lambda () (interactive) (other-frame -1)))
        (define-key evil-normal-state-map (kbd "C-\\") '(lambda () (interactive) (toggle-input-method)
                                                          (evil-append 1)))
+       (define-key evil-normal-state-map (kbd "<f5>") '(lambda () (interactive) (org-time-stamp '(16) t)))
+       (define-key evil-insert-state-map (kbd "<f5>") '(lambda () (interactive) (org-time-stamp '(16) t)))
        )
     )
 
@@ -841,6 +843,7 @@ SUBDIR should not have a `/` in front."
   (define-key evil-visual-state-map (kbd ">>") 'my-evil-shift-right-visual)
   (define-key evil-visual-state-map (kbd "<<") 'my-evil-shift-left-visual)
   )
+
 (setq require-final-newline t)
 
 ;; remove annoying bell sound
@@ -862,10 +865,8 @@ SUBDIR should not have a `/` in front."
 (global-set-key (kbd "M-:") nil)
 (global-set-key (kbd "M-ESC :") nil)
 
+;; make sure backspace works on terminals
 (define-key key-translation-map [?\C-h] [?\C-?])
 ;; Reduce gc threshold to more manageable values:
 (setq gc-cons-threshold default-gc-cons-threshold)
 (evil-mode 1)
-
-(provide 'init)
-;;; init.el ends here
