@@ -668,7 +668,9 @@ SUBDIR should not have a `/` in front."
 ;;   )
 
 ;;this should make it global. Solve japanese fonting separately
-(set-frame-font "Courier" nil t)
+;; (set-default-font "Courier" nil t )
+(set-face-attribute 'default nil :font "Courier-11" )
+(set-frame-font "Courier-11" nil t)
 
 ;; Switch to cygwin if it exists
 ;; this isn't working though
