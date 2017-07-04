@@ -1,3 +1,81 @@
+;;; init.el --- Bootstrap further configurations
+
+;;; Commentary:
+;; Useful resources:
+;; https://bling.github.io/blog/2013/10/27/emacs-as-my-leader-vim-survival-guide/
+;; https://github.com/bbatsov/emacs-lisp-style-guide
+
+;;; Code:
+
+(defconst user-init-dir
+  "Sets up the startup directory"
+  (cond ((boundp 'user-emacs-directory)
+         user-emacs-directory)
+        ((boundp 'user-init-directory)
+         user-init-directory)
+        (t "~/.emacs.d/")))
+
+(defun load-user-config-file (file)
+  "Load FILE as configuration file.
+Assumes that it:
+- Is a configuration file (i.e. elisp)
+- Is relative to user-init-dir"
+  (interactive "f")
+  (load-file (expand-file-name file user-init-dir)))
+
+;; tweak garbage collector before
+(defvar default-gc-cons-threshold 20000000)
+(setq gc-cons-threshold most-positive-fixnum)
+
+;; load each config file in order
+(load-user-config-file "config/package.el")
+;;(load-user-config-file "config/evil.el")
+
+(setq gc-cons-threshold default-gc-cons-threshold)
+(package-initialize)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ;;; package --- Summary
 ;;; Commentary:
 ;;; Code:
@@ -333,6 +411,7 @@ SUBDIR should not have a `/` in front."
                    solarized-high-contrast-mode-line t) ;;unscrew org layout
              (load-theme 'solarized-dark t)
              )
+           (load-theme 'solarized-dark t)
            ))
 
 ;;(use-package color-theme-solarized)
@@ -539,7 +618,7 @@ SUBDIR should not have a `/` in front."
 
 ;; orgmode config BEGIN
 (require 'org)
-(setq org-descriptive-links t)
+(org-toggle-link-display) ;;expand link displays
 (use-package helm-org-rifle)
 (defun my-evil-org-new-item ()
   "Insert a new item if we're in normal mode."
