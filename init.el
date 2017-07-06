@@ -5,15 +5,25 @@
 ;; https://bling.github.io/blog/2013/10/27/emacs-as-my-leader-vim-survival-guide/
 ;; https://github.com/bbatsov/emacs-lisp-style-guide
 
+;; https://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
+
 ;;; Code:
 
+;; Note that docstrings for variables come *after* the value
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (defconst user-init-dir
-  "Sets up the startup directory"
   (cond ((boundp 'user-emacs-directory)
          user-emacs-directory)
         ((boundp 'user-init-directory)
          user-init-directory)
-        (t "~/.emacs.d/")))
+        (t "~/.emacs.d/"))
+  "Sets up the startup directory")
 
 (defun load-user-config-file (file)
   "Load FILE as configuration file.
@@ -28,11 +38,12 @@ Assumes that it:
 (setq gc-cons-threshold most-positive-fixnum)
 
 ;; load each config file in order
+(load-user-config-file "config/utility.el")
 (load-user-config-file "config/package.el")
-;;(load-user-config-file "config/evil.el")
+(load-user-config-file "config/dependencies.el")
+(load-user-config-file "config/evil.el")
 
 (setq gc-cons-threshold default-gc-cons-threshold)
-(package-initialize)
 
 
 
@@ -81,7 +92,6 @@ Assumes that it:
 ;;; Code:
 ;; TODO(pangt): chunk the config file into separate packages
 
-;; https://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
 
 ;; (defvar default-gc-cons-threshold gc-cons-threshold)
 
@@ -103,28 +113,13 @@ Assumes that it:
 ;; While initing, max out gc threshold
 (setq gc-cons-threshold most-positive-fixnum)
 
-;;datetime things
-(defvar current-date-time-format "%Y-%m-%dT%H:%M:%S"
-  "Format of date to insert with `insert-current-date-time' func.
-See help of `format-time-string' for possible replacements")
-
-(defun insert-current-date-time ()
-  "Insert the current date and time into current buffer.
-Uses `current-date-time-format' for the formatting the date/time."
-  (interactive)
-  (insert (format-time-string current-date-time-format (current-time))))
-
-(defun find-user-init-file ()
-  "Edit `user-init-file` without opening a new window."
-  (interactive)
-  (find-file user-init-file)
-  )
-
 (defun user-emacs-subdirectory (subdir)
   "Not sure if needed, but I don't like how arbitrary `~/.emacs.d/` is.
 SUBDIR should not have a `/` in front."
   (concat user-emacs-directory subdir)
   )
+
+(setq use-package-always-ensure t)
 
 ;; TODO(pangt): figure out how this works
 (defun text-file-p (filename)
@@ -133,160 +128,121 @@ SUBDIR should not have a `/` in front."
     (prog1 (not (eq buffer-file-coding-system 'no-conversion))
       (kill-buffer))))
 
-;; Packages
-
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-2" . "http://melpa.milkbox.net/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/")) ;
-(add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
-;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
-(when (< emacs-major-version 24)
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-  )
-;; (package-refresh-contents)
-(package-initialize)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package)
-  )
-
-;; use-package things
-(eval-when-compile (require 'use-package))
-(setq use-package-always-ensure t) ;; make sure we download when necessary
 (require 'diminish)
 (require 'bind-key)
-(with-no-warnings (require 'cl))
-(use-package dash)
-(use-package s)
 
 (use-package rainbow-delimiters
   :config
   ;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   )
 
-;; el-get stuff
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
-(unless (require 'el-get nil 'noerror)
-  (package-install 'el-get)
-  (require 'el-get))
-
-(eval-after-load 'el-get
-  '(progn
-     (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-     (el-get 'sync)
-     )
-  )
-
-(use-package evil-leader
-  :init
-  (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
-  :config
-  (global-evil-leader-mode)
-  (evil-leader/set-leader "<SPC>")
-  )
+; (use-package evil-leader
+;   :init
+;   (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
+;   :config
+;   (global-evil-leader-mode)
+;   (evil-leader/set-leader "<SPC>")
+;   )
 
 (use-package undo-tree)
 (use-package goto-chg)
 
-(use-package evil
-  :init
-  (setq evil-want-C-u-scroll t)
+; (use-package evil
+;   :init
+;   (setq evil-want-C-u-scroll t)
 
-  :config
-  (fset 'evil-visual-update-x-selection 'ignore)
-  (setq evil-want-Y-yank-to-eol t
-        sentence-end-double-space nil
-        evil-regexp-search t
-        evil-normal-state-cursor '(box "red"))
-  (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
+;   :config
+;   (fset 'evil-visual-update-x-selection 'ignore)
+;   (setq evil-want-Y-yank-to-eol t
+;         sentence-end-double-space nil
+;         evil-regexp-search t
+;         evil-normal-state-cursor '(box "red"))
+;   (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
 
-  (setq evil-motion-state-modes nil)
-  (define-key global-map (kbd "C-f") 'universal-argument)
-  (define-key universal-argument-map (kbd "C-u") nil)
-  (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
-  (define-key global-map (kbd "C-u") 'kill-whole-line)
-  (add-hook 'view-mode-hook 'evil-motion-state)
-  (eval-after-load 'evil-maps
-    '(progn
-       (define-key evil-motion-state-map (kbd "C-f") nil)
-       (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
-       (define-key evil-normal-state-map (kbd "gt") '(lambda () (interactive) (other-frame 1)))
-       (define-key evil-normal-state-map (kbd "gT") '(lambda () (interactive) (other-frame -1)))
-       (define-key evil-normal-state-map (kbd "C-\\") '(lambda () (interactive) (toggle-input-method)
-                                                         (evil-append 1)))
-       (define-key evil-normal-state-map (kbd "<f5>") '(lambda () (interactive) (org-time-stamp '(16) t)))
-       (define-key evil-insert-state-map (kbd "<f5>") '(lambda () (interactive) (org-time-stamp '(16) t)))
-       )
-    )
+;   (setq evil-motion-state-modes nil)
+;   (define-key global-map (kbd "C-f") 'universal-argument)
+;   (define-key universal-argument-map (kbd "C-u") nil)
+;   (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
+;   (define-key global-map (kbd "C-u") 'kill-whole-line)
+;   (add-hook 'view-mode-hook 'evil-motion-state)
+;   (eval-after-load 'evil-maps
+;     '(progn
+;        (define-key evil-motion-state-map (kbd "C-f") nil)
+;        (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
+;        (define-key evil-normal-state-map (kbd "gt") '(lambda () (interactive) (other-frame 1)))
+;        (define-key evil-normal-state-map (kbd "gT") '(lambda () (interactive) (other-frame -1)))
+;        (define-key evil-normal-state-map (kbd "C-\\") '(lambda () (interactive) (toggle-input-method)
+;                                                          (evil-append 1)))
+;        (define-key evil-normal-state-map (kbd "<f5>") '(lambda () (interactive) (org-time-stamp '(16) t)))
+;        (define-key evil-insert-state-map (kbd "<f5>") '(lambda () (interactive) (org-time-stamp '(16) t)))
+;        )
+;     )
 
-  ;; Let _ be considered part of a word
-  (defadvice evil-inner-word (around underscore-as-word activate)
-    (let ((table (copy-syntax-table (syntax-table))))
-      (modify-syntax-entry ?_ "w" table)
-      ;; (modify-syntax-entry ?- "w" table)
-      (with-syntax-table table ad-do-it)
-      )
-    )
+;   ;; Let _ be considered part of a word
+;   (defadvice evil-inner-word (around underscore-as-word activate)
+;     (let ((table (copy-syntax-table (syntax-table))))
+;       (modify-syntax-entry ?_ "w" table)
+;       ;; (modify-syntax-entry ?- "w" table)
+;       (with-syntax-table table ad-do-it)
+;       )
+;     )
 
-  ;; remap paste command
-  (defun evil-paste-after-from-0 ()
-    (interactive)
-    (let ((evil-this-register ?0))
-      (call-interactively 'evil-paste-after)))
-  (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+;   ;; remap paste command
+;   (defun evil-paste-after-from-0 ()
+;     (interactive)
+;     (let ((evil-this-register ?0))
+      ; (call-interactively 'evil-paste-after)))
+  ; (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
 
-  ;; change mode-line color evil state
-  (lexical-let ((default-color (cons (face-background 'mode-line)
-                                     (face-foreground 'mode-line))))
-    (add-hook 'post-command-hook
-              (lambda ()
-                (let ((color (cond ((minibufferp) default-color)
-                                   ((evil-insert-state-p) '("#b58900" . "#ffffff"))
-                                   ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
-                                   ((buffer-modified-p)   '("#dc322f" . "#ffffff"))
-                                   (t default-color))))
-                  (set-face-background 'mode-line (car color))
-                  (set-face-foreground 'mode-line (cdr color))))))
+  ; ;; change mode-line color evil state
+  ; (lexical-let ((default-color (cons (face-background 'mode-line)
+      ;                                (face-foreground 'mode-line))))
+    ; (add-hook 'post-command-hook
+      ;         (lambda ()
+      ;           (let ((color (cond ((minibufferp) default-color)
+      ;                              ((evil-insert-state-p) '("#b58900" . "#ffffff"))
+      ;                              ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
+      ;                              ((buffer-modified-p)   '("#dc322f" . "#ffffff"))
+      ;                              (t default-color))))
+      ;             (set-face-background 'mode-line (car color))
+      ;             (set-face-foreground 'mode-line (cdr color))))))
 
-  (evil-ex-define-cmd "tabn[ew]"     'make-frame)
-  (evil-ex-define-cmd "vsp[lit]"     '(lambda()
-                                        (interactive)
-                                        (split-window-horizontally)
-                                        (other-window 1)
-                                        ;; (call-interactively #'helm-find-files)
-                                        )
-                      )
-  (evil-ex-define-cmd "sp[lit]"      '(lambda()
-                                        (interactive)
-                                        (split-window-vertically)
-                                        (other-window 1)
-                                        ;; (call-interactively # 'helm-find-files)
-                                        )
-                      )
-  )
+  ; (evil-ex-define-cmd "tabn[ew]"     'make-frame)
+  ; (evil-ex-define-cmd "vsp[lit]"     '(lambda()
+      ;                                   (interactive)
+      ;                                   (split-window-horizontally)
+      ;                                   (other-window 1)
+      ;                                   ;; (call-interactively #'helm-find-files)
+      ;                                   )
+      ;                 )
+  ; (evil-ex-define-cmd "sp[lit]"      '(lambda()
+      ;                                   (interactive)
+      ;                                   (split-window-vertically)
+      ;                                   (other-window 1)
+      ;                                   ;; (call-interactively # 'helm-find-files)
+      ;                                   )
+      ;                 )
+  ; )
 
-(use-package evil-surround
-  :config
-  (global-evil-surround-mode 1)
-  (setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
-                                                evil-surround-pairs-alist)))
+; (use-package evil-surround
+;   :config
+;   (global-evil-surround-mode 1)
+;   (setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
+;                                                 evil-surround-pairs-alist)))
 
-(use-package evil-args
-  :config
-  ;; bind evil-args text jects
-  (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
-  (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
-  ;; bind evil-forward/backward-args
-  (define-key evil-normal-state-map "L" 'evil-forward-arg)
-  (define-key evil-normal-state-map "H" 'evil-backward-arg)
-  (define-key evil-motion-state-map "L" 'evil-forward-arg)
-  (define-key evil-motion-state-map "H" 'evil-backward-arg)
-  ;; bind evil-jump-out-args
-  (define-key evil-normal-state-map "K" 'evil-jump-out-args)
-  )
+; (use-package evil-args
+;   :config
+;   ;; bind evil-args text jects
+;   (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
+;   (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+;   ;; bind evil-forward/backward-args
+;   (define-key evil-normal-state-map "L" 'evil-forward-arg)
+;   (define-key evil-normal-state-map "H" 'evil-backward-arg)
+;   (define-key evil-motion-state-map "L" 'evil-forward-arg)
+;   (define-key evil-motion-state-map "H" 'evil-backward-arg)
+;   ;; bind evil-jump-out-args
+;   (define-key evil-normal-state-map "K" 'evil-jump-out-args)
+;   )
 
 (use-package evil-numbers
   :config
