@@ -23,7 +23,10 @@
         ((boundp 'user-init-directory)
          user-init-directory)
         (t "~/.emacs.d/"))
-  "Sets up the startup directory")
+  "Sets up the startup directory.")
+
+(defconst user-config-dir
+  (concat user-init-dir "config/"))
 
 (defun load-user-config-file (file)
   "Load FILE as configuration file.
@@ -31,17 +34,22 @@ Assumes that it:
 - Is a configuration file (i.e. elisp)
 - Is relative to user-init-dir"
   (interactive "f")
-  (load-file (expand-file-name file user-init-dir)))
+  (load-file (expand-file-name file user-config-dir)))
+
+;; Add to load path our configuration folder
+(add-to-list 'load-path user-config-dir)
 
 ;; tweak garbage collector before
 (defvar default-gc-cons-threshold 20000000)
 (setq gc-cons-threshold most-positive-fixnum)
 
 ;; load each config file in order
-(load-user-config-file "config/utility.el")
-(load-user-config-file "config/package.el")
-(load-user-config-file "config/dependencies.el")
-(load-user-config-file "config/evil.el")
+(load-user-config-file "config-utility.el")
+(load-user-config-file "config-package.el")
+(load-user-config-file "config-common.el")
+(load-user-config-file "config-evil.el")
+(load-user-config-file "config-helm.el")
+(load-user-config-file "config-snippets.el")
 
 (setq gc-cons-threshold default-gc-cons-threshold)
 
@@ -127,9 +135,6 @@ SUBDIR should not have a `/` in front."
   (with-current-buffer (find-file-noselect filename :no-warn)
     (prog1 (not (eq buffer-file-coding-system 'no-conversion))
       (kill-buffer))))
-
-(require 'diminish)
-(require 'bind-key)
 
 (use-package rainbow-delimiters
   :config
@@ -244,26 +249,26 @@ SUBDIR should not have a `/` in front."
 ;   (define-key evil-normal-state-map "K" 'evil-jump-out-args)
 ;   )
 
-(use-package evil-numbers
-  :config
-  (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-  (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-  )
+; (use-package evil-numbers
+;   :config
+;   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+;   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+;   )
 
-(use-package evil-args)
-(use-package evil-lion :config (evil-lion-mode))
-(use-package evil-matchit)
-;; (use-package evil-paredit
-;;   :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
-(use-package evil-cleverparens)
-(use-package evil-commentary)
-(use-package evil-replace-with-register)
-(use-package evil-text-object-python)
-(use-package evil-magit)
-(use-package evil-indent-textobject)
-(use-package vi-tilde-fringe :config (global-vi-tilde-fringe-mode 1))
-(use-package evil-visualstar :config (global-evil-visualstar-mode))
-(use-package evil-mc :config (global-evil-mc-mode 0))
+; (use-package evil-args)
+; (use-package evil-lion :config (evil-lion-mode))
+; (use-package evil-matchit)
+; ;; (use-package evil-paredit
+; ;;   :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
+; (use-package evil-cleverparens)
+; (use-package evil-commentary)
+; (use-package evil-replace-with-register)
+; (use-package evil-text-object-python)
+; (use-package evil-magit)
+; (use-package evil-indent-textobject)
+; (use-package vi-tilde-fringe :config (global-vi-tilde-fringe-mode 1))
+; (use-package evil-visualstar :config (global-evil-visualstar-mode))
+; (use-package evil-mc :config (global-evil-mc-mode 0))
 
 ;; (use-package elpy
 ;;   :config
@@ -279,17 +284,18 @@ SUBDIR should not have a `/` in front."
 ;;            )
 ;;       )
 
-(el-get-bundle golden-ratio
-  :url "https://github.com/roman/golden-ratio.el"
-  )
+; (el-get-bundle golden-ratio
+;   :url "https://github.com/roman/golden-ratio.el"
+;   )
 
+;; crypto
 (require 'epa-file)
 (epa-file-enable)
 
-(use-package yasnippet
-  :config
-  (yas-global-mode 1)
-  )
+; (use-package yasnippet
+;   :config
+;   (yas-global-mode 1)
+;   )
 
 (use-package ivy
   :config
@@ -305,27 +311,27 @@ SUBDIR should not have a `/` in front."
   )
 
 ;; activate helm mode
-(use-package helm
-  :config
-  (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
-  (define-key helm-map (kbd "S-SPC") 'helm-select-action)
-  (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-  (helm-mode 1)
-  (setq helm-recentf-fuzzy-match t
-        helm-locate-fuzzy-match nil ;; locate fuzzy is worthless
-        helm-M-x-fuzzy-match t
-        helm-buffers-fuzzy-matching t
-        helm-semantic-fuzzy-match t
-        helm-apropos-fuzzy-match t
-        helm-imenu-fuzzy-match t
-        helm-lisp-fuzzy-completion t
-        helm-completion-in-region-fuzzy-match t)
-  (setq helm-split-window-in-side-p t)
-  (progn (helm-autoresize-mode)
-         (setq helm-autoresize-min-height 40 ;; These numbers are percentages
-               helm-autoresize-max-height 40)
-         )
-  )
+; (use-package helm
+;   :config
+;   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
+;   (define-key helm-map (kbd "S-SPC") 'helm-select-action)
+;   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
+;   (helm-mode 1)
+;   (setq helm-recentf-fuzzy-match t
+;         helm-locate-fuzzy-match nil ;; locate fuzzy is worthless
+;         helm-M-x-fuzzy-match t
+;         helm-buffers-fuzzy-matching t
+;         helm-semantic-fuzzy-match t
+;         helm-apropos-fuzzy-match t
+;         helm-imenu-fuzzy-match t
+;         helm-lisp-fuzzy-completion t
+;         helm-completion-in-region-fuzzy-match t)
+;   (setq helm-split-window-in-side-p t)
+;   (progn (helm-autoresize-mode)
+;          (setq helm-autoresize-min-height 40 ;; These numbers are percentages
+;                helm-autoresize-max-height 40)
+;          )
+;   )
 
 (use-package helm-emmet)
 (use-package helm-describe-modes
@@ -358,17 +364,26 @@ SUBDIR should not have a `/` in front."
   (setq helm-hunks-preview-diffs t)
   )
 
-;;solarized dark theme
-(if (display-graphic-p)
-    (progn (use-package solarized-theme
-             :config
-             (setq solarized-use-variable-pitch nil
-                   solarized-scale-org-headlines nil
-                   solarized-high-contrast-mode-line t) ;;unscrew org layout
-             (load-theme 'solarized-dark t)
-             )
-           (load-theme 'solarized-dark t)
-           ))
+;; ;;solarized dark theme
+;; (if (display-graphic-p)
+;;     (progn (use-package solarized-theme
+;;              :config
+;;              (setq solarized-use-variable-pitch nil
+;;                    solarized-scale-org-headlines nil
+;;                    solarized-high-contrast-mode-line t) ;;unscrew org layout
+;;              (load-theme 'solarized-dark t)
+;;              )
+;;            (load-theme 'solarized-dark t)
+;;            ))
+
+(use-package solarized-theme
+  ;; :if (display-graphic-p)
+  :demand
+  :config
+  (setq solarized-use-variable-pitch nil
+        solarized-scale-org-headlines nil
+        solarized-high-contrast-mode-line t) ;;unscrew org layout
+  (load-theme 'solarized-dark t))
 
 ;;(use-package color-theme-solarized)
 
@@ -390,45 +405,45 @@ SUBDIR should not have a `/` in front."
 (if (bound-and-true-p highlight-indentation-mode)
     (highlight-indentation-mode))
 
-(progn
-  (require 'zone)
-  (zone-when-idle 600)
+; (progn
+;   (require 'zone)
+;   (zone-when-idle 600)
 
-  ;; TODO(pangt): figure out what this does
-  (defun zone-choose (pgm)
-    "Choose a PGM to run for `zone'."
-    (interactive
-     (list
-      (completing-read
-       "Program: "
-       (mapcar 'symbol-name zone-programs))))
-    (let ((zone-programs (list (intern pgm))))
-      (zone)))
+;   ;; TODO(pangt): figure out what this does
+;   (defun zone-choose (pgm)
+;     "Choose a PGM to run for `zone'."
+;     (interactive
+;      (list
+;       (completing-read
+;        "Program: "
+;        (mapcar 'symbol-name zone-programs))))
+;     (let ((zone-programs (list (intern pgm))))
+;       (zone)))
 
-  (defun zone-pgm-md5 ()
-    "MD5 the buffer, then recursively checksum each hash."
-    (let ((prev-md5 (buffer-substring-no-properties ;; Initialize.
-                     (point-min) (point-max))))
-      ;; Whitespace-fill the window.
-      (zone-fill-out-screen (window-width) (window-height))
-      (random t)
-      (goto-char (point-min))
-      (while (not (input-pending-p))
-        (when (eobp)
-          (goto-char (point-min)))
-        (while (not (eobp))
-          (delete-region (point) (line-end-position))
-          (let ((next-md5 (md5 prev-md5)))
-            (insert next-md5)
-            (setq prev-md5 next-md5))
-          (forward-line 1)
-          (zone-park/sit-for (point-min) 0.1)))))
+;   (defun zone-pgm-md5 ()
+;     "MD5 the buffer, then recursively checksum each hash."
+;     (let ((prev-md5 (buffer-substring-no-properties ;; Initialize.
+;                      (point-min) (point-max))))
+;       ;; Whitespace-fill the window.
+;       (zone-fill-out-screen (window-width) (window-height))
+;       (random t)
+;       (goto-char (point-min))
+;       (while (not (input-pending-p))
+;         (when (eobp)
+;           (goto-char (point-min)))
+;         (while (not (eobp))
+;           (delete-region (point) (line-end-position))
+;           (let ((next-md5 (md5 prev-md5)))
+;             (insert next-md5)
+;             (setq prev-md5 next-md5))
+;           (forward-line 1)
+;           (zone-park/sit-for (point-min) 0.1)))))
 
-  (eval-after-load "zone"
-    '(unless (memq 'zone-pgm-md5 (append zone-programs nil))
-       (setq zone-programs
-             (vconcat zone-programs [zone-pgm-md5]))))
-  )
+;   (eval-after-load "zone"
+;     '(unless (memq 'zone-pgm-md5 (append zone-programs nil))
+;        (setq zone-programs
+;              (vconcat zone-programs [zone-pgm-md5]))))
+;   )
 
 
 (use-package projectile
@@ -465,6 +480,7 @@ SUBDIR should not have a `/` in front."
   ;;       )))
 
   )
+
 (use-package helm-projectile)
 ;; perspective messes with a lot of things. Helm mini esp
 ;;(use-package perspective
@@ -575,7 +591,7 @@ SUBDIR should not have a `/` in front."
 ;; orgmode config BEGIN
 (require 'org)
 (org-toggle-link-display) ;;expand link displays
-(use-package helm-org-rifle)
+; (use-package helm-org-rifle)
 (defun my-evil-org-new-item ()
   "Insert a new item if we're in normal mode."
   (interactive)
@@ -745,8 +761,7 @@ SUBDIR should not have a `/` in front."
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
-  (window-divider-mode -1)
-  )
+  (window-divider-mode -1))
 
 (setq truncate-lines    t
       tab-width         8
@@ -757,15 +772,14 @@ SUBDIR should not have a `/` in front."
 ;; (set-face-foreground 'highlight nil)
 
 ;; Japanese mode
-(progn
-  (setq default-input-method "japanese"
-        kkc-show-conversion-list-count 1)
-  (with-eval-after-load "kkc"
-    (define-key kkc-keymap (kbd "SPC")       'kkc-terminate)
-    (define-key kkc-keymap (kbd "<tab>")     'kkc-next)
-    (define-key kkc-keymap (kbd "<backtab>") 'kkc-prev)
-    )
-  )
+(progn (setq default-input-method "japanese"
+             kkc-show-conversion-list-count 1)
+       (with-eval-after-load "kkc"
+         (define-key kkc-keymap (kbd "SPC")       'kkc-terminate)
+         (define-key kkc-keymap (kbd "<tab>")     'kkc-next)
+         (define-key kkc-keymap (kbd "<backtab>") 'kkc-prev)
+         )
+       )
 
 ;; しん おれを ワ
 
@@ -779,14 +793,12 @@ SUBDIR should not have a `/` in front."
               length)
         (forward-line)))
     (copy-sequence length) ;; we return a list since this is the last form evaluated
-    )
-  )
+    ))
 
 (defun my-longest-line-length()
   (let ((lines (my-line-lengths)))
     (nth 0 (sort lines '>)) ;; return the first element, which should be the largest
-    )
-  )
+    ))
 
 (defun my-centre-window-function()
   (interactive)
@@ -799,8 +811,7 @@ SUBDIR should not have a `/` in front."
       (progn
         (set-window-margins nil 0 nil)
         (put 'my-centre-window-function 'active nil)
-        )))
-  )
+        ))))
 
 (progn
   (evil-leader/set-key
@@ -823,8 +834,8 @@ SUBDIR should not have a `/` in front."
     "h"        'helm-apropos
     ;; "h"     '(lambda () (interactive) (helm-apropos nil)
     ;;            (switch-to-buffer-other-window "*Help*"))
-    "e"        'helm-find-files
-    "r"        'helm-mini
+    "-"        'helm-find-files
+    "_"        'helm-mini
     ;; command to go to last buffet in vim is <C-^> and <C-6>
     "b"        'helm-bookmarks
     "w"        'helm-projectile
@@ -833,7 +844,7 @@ SUBDIR should not have a `/` in front."
   (evil-ex-define-cmd "sh[ell]"       'shell)
   (evil-ex-define-cmd "re[cent]"      'helm-recentf)
   (evil-ex-define-cmd "pr[ojectile]"  'helm-projectile)
-  (evil-ex-define-cmd "or[gsearch]"   'helm-org-rifle)
+                                        ; (evil-ex-define-cmd "or[gsearch]"   'helm-org-rifle)
   (evil-ex-define-cmd "goo[gle]"      'helm-google-suggest)
   (evil-ex-define-cmd "e[dit]"        'helm-find-files)
   (evil-ex-define-cmd "e!"            '(lambda() (interactive)
@@ -906,4 +917,4 @@ SUBDIR should not have a `/` in front."
 (define-key key-translation-map [?\C-h] [?\C-?])
 ;; Reduce gc threshold to more manageable values:
 (setq gc-cons-threshold default-gc-cons-threshold)
-(evil-mode 1)
+; (evil-mode 1)
