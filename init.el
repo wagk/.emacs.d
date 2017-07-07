@@ -15,7 +15,7 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-(package-initialize)
+;; (package-initialize)
 
 (defconst user-init-dir
   (cond ((boundp 'user-emacs-directory)
@@ -50,6 +50,7 @@ Assumes that it:
 (load-user-config-file "config-evil.el")
 (load-user-config-file "config-helm.el")
 (load-user-config-file "config-snippets.el")
+(load-user-config-file "config-theme.el")
 
 (setq gc-cons-threshold default-gc-cons-threshold)
 
@@ -376,17 +377,6 @@ SUBDIR should not have a `/` in front."
 ;;            (load-theme 'solarized-dark t)
 ;;            ))
 
-(use-package solarized-theme
-  ;; :if (display-graphic-p)
-  :demand
-  :config
-  (setq solarized-use-variable-pitch nil
-        solarized-scale-org-headlines nil
-        solarized-high-contrast-mode-line t) ;;unscrew org layout
-  (load-theme 'solarized-dark t))
-
-;;(use-package color-theme-solarized)
-
 (use-package powershell)
 
 ;; (use-package beacon
@@ -703,7 +693,7 @@ SUBDIR should not have a `/` in front."
   )
 
 (setq custom-file (user-emacs-subdirectory "custom.el"))
-(load custom-file)
+; (load custom-file)
 
 ;; No startup screen
 (setq inhibit-startup-screen t)
@@ -898,9 +888,9 @@ SUBDIR should not have a `/` in front."
 (setq ring-bell-function 'ignore)
 
 ;; Save buffer state
-(desktop-save-mode 1)
+;; (desktop-save-mode 1)
 (setq history-length 250)
-(add-to-list 'desktop-globals-to-save 'file-name-history)
+;; (add-to-list 'desktop-globals-to-save 'file-name-history)
 
 ;; Display time
 (display-time-mode 1)
