@@ -51,6 +51,7 @@ Assumes that it:
 (load-user-config-file "config-helm.el")
 (load-user-config-file "config-snippets.el")
 (load-user-config-file "config-theme.el")
+(load-user-config-file "config-git.el")
 
 (setq gc-cons-threshold default-gc-cons-threshold)
 
@@ -142,13 +143,14 @@ SUBDIR should not have a `/` in front."
   ;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   )
 
-; (use-package evil-leader
-;   :init
-;   (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
-;   :config
-;   (global-evil-leader-mode)
-;   (evil-leader/set-leader "<SPC>")
-;   )
+
+                                        ; (use-package evil-leader
+                                        ;   :init
+                                        ;   (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
+                                        ;   :config
+                                        ;   (global-evil-leader-mode)
+                                        ;   (evil-leader/set-leader "<SPC>")
+                                        ;   )
 
 (use-package undo-tree)
 (use-package goto-chg)
@@ -349,11 +351,11 @@ SUBDIR should not have a `/` in front."
 (use-package helm-fuzzier :config (helm-fuzzier-mode 1))
 (use-package helm-flx :config (helm-flx-mode 1))
 
-(use-package git-gutter+
-  :config
-  (use-package git-gutter-fringe+)
-  (global-git-gutter+-mode 1)
-  )
+;; (use-package git-gutter+
+;;   :config
+;;   (use-package git-gutter-fringe+)
+;;   (global-git-gutter+-mode 1)
+;;   )
 
 (use-package helm-hunks
   :commands (helm-hunks
