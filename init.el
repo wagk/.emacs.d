@@ -144,134 +144,134 @@ SUBDIR should not have a `/` in front."
   )
 
 
-                                        ; (use-package evil-leader
-                                        ;   :init
-                                        ;   (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
-                                        ;   :config
-                                        ;   (global-evil-leader-mode)
-                                        ;   (evil-leader/set-leader "<SPC>")
-                                        ;   )
+;; (use-package evil-leader
+;;   :init
+;;   (add-to-list 'load-path (user-emacs-subdirectory "packages/evil-leader"))
+;;   :config
+;;   (global-evil-leader-mode)
+;;   (evil-leader/set-leader "<SPC>")
+;;   )
 
 (use-package undo-tree)
 (use-package goto-chg)
 
-; (use-package evil
-;   :init
-;   (setq evil-want-C-u-scroll t)
+;; (use-package evil
+;;   :init
+;;   (setq evil-want-C-u-scroll t)
 
-;   :config
-;   (fset 'evil-visual-update-x-selection 'ignore)
-;   (setq evil-want-Y-yank-to-eol t
-;         sentence-end-double-space nil
-;         evil-regexp-search t
-;         evil-normal-state-cursor '(box "red"))
-;   (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
+;;   :config
+;;   (fset 'evil-visual-update-x-selection 'ignore)
+;;   (setq evil-want-Y-yank-to-eol t
+;;         sentence-end-double-space nil
+;;         evil-regexp-search t
+;;         evil-normal-state-cursor '(box "red"))
+;;   (setq evil-normal-state-modes (append evil-motion-state-modes evil-normal-state-modes))
 
-;   (setq evil-motion-state-modes nil)
-;   (define-key global-map (kbd "C-f") 'universal-argument)
-;   (define-key universal-argument-map (kbd "C-u") nil)
-;   (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
-;   (define-key global-map (kbd "C-u") 'kill-whole-line)
-;   (add-hook 'view-mode-hook 'evil-motion-state)
-;   (eval-after-load 'evil-maps
-;     '(progn
-;        (define-key evil-motion-state-map (kbd "C-f") nil)
-;        (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
-;        (define-key evil-normal-state-map (kbd "gt") '(lambda () (interactive) (other-frame 1)))
-;        (define-key evil-normal-state-map (kbd "gT") '(lambda () (interactive) (other-frame -1)))
-;        (define-key evil-normal-state-map (kbd "C-\\") '(lambda () (interactive) (toggle-input-method)
-;                                                          (evil-append 1)))
-;        (define-key evil-normal-state-map (kbd "<f5>") '(lambda () (interactive) (org-time-stamp '(16) t)))
-;        (define-key evil-insert-state-map (kbd "<f5>") '(lambda () (interactive) (org-time-stamp '(16) t)))
-;        )
-;     )
+;;   (setq evil-motion-state-modes nil)
+;;   (define-key global-map (kbd "C-f") 'universal-argument)
+;;   (define-key universal-argument-map (kbd "C-u") nil)
+;;   (define-key universal-argument-map (kbd "C-f") 'universal-argument-more)
+;;   (define-key global-map (kbd "C-u") 'kill-whole-line)
+;;   (add-hook 'view-mode-hook 'evil-motion-state)
+;;   (eval-after-load 'evil-maps
+;;     '(progn
+;;        (define-key evil-motion-state-map (kbd "C-f") nil)
+;;        (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up)
+;;        (define-key evil-normal-state-map (kbd "gt") '(lambda () (interactive) (other-frame 1)))
+;;        (define-key evil-normal-state-map (kbd "gT") '(lambda () (interactive) (other-frame -1)))
+;;        (define-key evil-normal-state-map (kbd "C-\\") '(lambda () (interactive) (toggle-input-method)
+;;                                                          (evil-append 1)))
+;;        (define-key evil-normal-state-map (kbd "<f5>") '(lambda () (interactive) (org-time-stamp '(16) t)))
+;;        (define-key evil-insert-state-map (kbd "<f5>") '(lambda () (interactive) (org-time-stamp '(16) t)))
+;;        )
+;;     )
 
-;   ;; Let _ be considered part of a word
-;   (defadvice evil-inner-word (around underscore-as-word activate)
-;     (let ((table (copy-syntax-table (syntax-table))))
-;       (modify-syntax-entry ?_ "w" table)
-;       ;; (modify-syntax-entry ?- "w" table)
-;       (with-syntax-table table ad-do-it)
-;       )
-;     )
+;;   ;; Let _ be considered part of a word
+;;   (defadvice evil-inner-word (around underscore-as-word activate)
+;;     (let ((table (copy-syntax-table (syntax-table))))
+;;       (modify-syntax-entry ?_ "w" table)
+;;       ;; (modify-syntax-entry ?- "w" table)
+;;       (with-syntax-table table ad-do-it)
+;;       )
+;;     )
 
-;   ;; remap paste command
-;   (defun evil-paste-after-from-0 ()
-;     (interactive)
-;     (let ((evil-this-register ?0))
-      ; (call-interactively 'evil-paste-after)))
-  ; (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
+;;   ;; remap paste command
+;;   (defun evil-paste-after-from-0 ()
+;;     (interactive)
+;;     (let ((evil-this-register ?0))
+;; (call-interactively 'evil-paste-after)))
+;; (define-key evil-visual-state-map "p" 'evil-paste-after-from-0)
 
-  ; ;; change mode-line color evil state
-  ; (lexical-let ((default-color (cons (face-background 'mode-line)
-      ;                                (face-foreground 'mode-line))))
-    ; (add-hook 'post-command-hook
-      ;         (lambda ()
-      ;           (let ((color (cond ((minibufferp) default-color)
-      ;                              ((evil-insert-state-p) '("#b58900" . "#ffffff"))
-      ;                              ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
-      ;                              ((buffer-modified-p)   '("#dc322f" . "#ffffff"))
-      ;                              (t default-color))))
-      ;             (set-face-background 'mode-line (car color))
-      ;             (set-face-foreground 'mode-line (cdr color))))))
+;; ;; change mode-line color evil state
+;; (lexical-let ((default-color (cons (face-background 'mode-line)
+;;                                (face-foreground 'mode-line))))
+;; (add-hook 'post-command-hook
+;;         (lambda ()
+;;           (let ((color (cond ((minibufferp) default-color)
+;;                              ((evil-insert-state-p) '("#b58900" . "#ffffff"))
+;;                              ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
+;;                              ((buffer-modified-p)   '("#dc322f" . "#ffffff"))
+;;                              (t default-color))))
+;;             (set-face-background 'mode-line (car color))
+;;             (set-face-foreground 'mode-line (cdr color))))))
 
-  ; (evil-ex-define-cmd "tabn[ew]"     'make-frame)
-  ; (evil-ex-define-cmd "vsp[lit]"     '(lambda()
-      ;                                   (interactive)
-      ;                                   (split-window-horizontally)
-      ;                                   (other-window 1)
-      ;                                   ;; (call-interactively #'helm-find-files)
-      ;                                   )
-      ;                 )
-  ; (evil-ex-define-cmd "sp[lit]"      '(lambda()
-      ;                                   (interactive)
-      ;                                   (split-window-vertically)
-      ;                                   (other-window 1)
-      ;                                   ;; (call-interactively # 'helm-find-files)
-      ;                                   )
-      ;                 )
-  ; )
+;; (evil-ex-define-cmd "tabn[ew]"     'make-frame)
+;; (evil-ex-define-cmd "vsp[lit]"     '(lambda()
+;;                                   (interactive)
+;;                                   (split-window-horizontally)
+;;                                   (other-window 1)
+;;                                   ;; (call-interactively #'helm-find-files)
+;;                                   )
+;;                 )
+;; (evil-ex-define-cmd "sp[lit]"      '(lambda()
+;;                                   (interactive)
+;;                                   (split-window-vertically)
+;;                                   (other-window 1)
+;;                                   ;; (call-interactively # 'helm-find-files)
+;;                                   )
+;;                 )
+;; )
 
-; (use-package evil-surround
-;   :config
-;   (global-evil-surround-mode 1)
-;   (setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
-;                                                 evil-surround-pairs-alist)))
+;; (use-package evil-surround
+;;   :config
+;;   (global-evil-surround-mode 1)
+;;   (setq-default evil-surround-pairs-alist (cons '(?~ . ("~" . "~"))
+;;                                                 evil-surround-pairs-alist)))
 
-; (use-package evil-args
-;   :config
-;   ;; bind evil-args text jects
-;   (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
-;   (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
-;   ;; bind evil-forward/backward-args
-;   (define-key evil-normal-state-map "L" 'evil-forward-arg)
-;   (define-key evil-normal-state-map "H" 'evil-backward-arg)
-;   (define-key evil-motion-state-map "L" 'evil-forward-arg)
-;   (define-key evil-motion-state-map "H" 'evil-backward-arg)
-;   ;; bind evil-jump-out-args
-;   (define-key evil-normal-state-map "K" 'evil-jump-out-args)
-;   )
+;; (use-package evil-args
+;;   :config
+;;   ;; bind evil-args text jects
+;;   (define-key evil-inner-text-objects-map "i" 'evil-inner-arg)
+;;   (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+;;   ;; bind evil-forward/backward-args
+;;   (define-key evil-normal-state-map "L" 'evil-forward-arg)
+;;   (define-key evil-normal-state-map "H" 'evil-backward-arg)
+;;   (define-key evil-motion-state-map "L" 'evil-forward-arg)
+;;   (define-key evil-motion-state-map "H" 'evil-backward-arg)
+;;   ;; bind evil-jump-out-args
+;;   (define-key evil-normal-state-map "K" 'evil-jump-out-args)
+;;   )
 
-; (use-package evil-numbers
-;   :config
-;   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-;   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
-;   )
+;; (use-package evil-numbers
+;;   :config
+;;   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+;;   (define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+;;   )
 
-; (use-package evil-args)
-; (use-package evil-lion :config (evil-lion-mode))
-; (use-package evil-matchit)
-; ;; (use-package evil-paredit
-; ;;   :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
-; (use-package evil-cleverparens)
-; (use-package evil-commentary)
-; (use-package evil-replace-with-register)
-; (use-package evil-text-object-python)
-; (use-package evil-magit)
-; (use-package evil-indent-textobject)
-; (use-package vi-tilde-fringe :config (global-vi-tilde-fringe-mode 1))
-; (use-package evil-visualstar :config (global-evil-visualstar-mode))
-; (use-package evil-mc :config (global-evil-mc-mode 0))
+;; (use-package evil-args)
+;; (use-package evil-lion :config (evil-lion-mode))
+;; (use-package evil-matchit)
+;; ;; (use-package evil-paredit
+;; ;;   :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
+;; (use-package evil-cleverparens)
+;; (use-package evil-commentary)
+;; (use-package evil-replace-with-register)
+;; (use-package evil-text-object-python)
+;; (use-package evil-magit)
+;; (use-package evil-indent-textobject)
+;; (use-package vi-tilde-fringe :config (global-vi-tilde-fringe-mode 1))
+;; (use-package evil-visualstar :config (global-evil-visualstar-mode))
+;; (use-package evil-mc :config (global-evil-mc-mode 0))
 
 ;; (use-package elpy
 ;;   :config
@@ -287,69 +287,67 @@ SUBDIR should not have a `/` in front."
 ;;            )
 ;;       )
 
-; (el-get-bundle golden-ratio
-;   :url "https://github.com/roman/golden-ratio.el"
-;   )
+;; (el-get-bundle golden-ratio
+;;   :url "https://github.com/roman/golden-ratio.el"
+;;   )
 
 ;; crypto
 (require 'epa-file)
 (epa-file-enable)
 
-; (use-package yasnippet
-;   :config
-;   (yas-global-mode 1)
-;   )
+;; (use-package yasnippet
+;;   :config
+;;   (yas-global-mode 1)
+;;   )
 
-(use-package ivy
-  :config
-  (setq ivy-use-virtual-buffers t
-        enable-recursive-minibuffers t)
-  )
+;; (use-package ivy
+;;   :config
+;;   (setq ivy-use-virtual-buffers t
+;;         enable-recursive-minibuffers t))
 
-(use-package swiper)
+;; (use-package swiper)
 
-(use-package counsel
-  :config
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  )
+;; (use-package counsel
+;;   :config
+;;   (global-set-key (kbd "M-x") 'counsel-M-x))
 
 ;; activate helm mode
-; (use-package helm
-;   :config
-;   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
-;   (define-key helm-map (kbd "S-SPC") 'helm-select-action)
-;   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-;   (helm-mode 1)
-;   (setq helm-recentf-fuzzy-match t
-;         helm-locate-fuzzy-match nil ;; locate fuzzy is worthless
-;         helm-M-x-fuzzy-match t
-;         helm-buffers-fuzzy-matching t
-;         helm-semantic-fuzzy-match t
-;         helm-apropos-fuzzy-match t
-;         helm-imenu-fuzzy-match t
-;         helm-lisp-fuzzy-completion t
-;         helm-completion-in-region-fuzzy-match t)
-;   (setq helm-split-window-in-side-p t)
-;   (progn (helm-autoresize-mode)
-;          (setq helm-autoresize-min-height 40 ;; These numbers are percentages
-;                helm-autoresize-max-height 40)
-;          )
-;   )
+;; (use-package helm
+;;   :config
+;;   (define-key helm-map (kbd "C-w") 'evil-delete-backward-word)
+;;   (define-key helm-map (kbd "S-SPC") 'helm-select-action)
+;;   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
+;;   (helm-mode 1)
+;;   (setq helm-recentf-fuzzy-match t
+;;         helm-locate-fuzzy-match nil ;; locate fuzzy is worthless
+;;         helm-M-x-fuzzy-match t
+;;         helm-buffers-fuzzy-matching t
+;;         helm-semantic-fuzzy-match t
+;;         helm-apropos-fuzzy-match t
+;;         helm-imenu-fuzzy-match t
+;;         helm-lisp-fuzzy-completion t
+;;         helm-completion-in-region-fuzzy-match t)
+;;   (setq helm-split-window-in-side-p t)
+;;   (progn (helm-autoresize-mode)
+;;          (setq helm-autoresize-min-height 40 ;; These numbers are percentages
+;;                helm-autoresize-max-height 40)
+;;          )
+;;   )
 
 (use-package helm-emmet)
-(use-package helm-describe-modes
-  :bind ("C-h m" . helm-describe-modes))
+;; (use-package helm-describe-modes
+;;   :bind ("C-h m" . helm-describe-modes))
 
-(use-package helm-descbinds :config (helm-descbinds-mode))
+;; (use-package helm-descbinds :config (helm-descbinds-mode))
 
-(use-package helm-swoop
-  :config
-  (define-key helm-swoop-map (kbd "C-w") 'evil-delete-backward-word)
-  ;; no annoying under mouse highlights
-  (setq helm-swoop-pre-input-function (lambda () nil))
-  )
-(use-package helm-fuzzier :config (helm-fuzzier-mode 1))
-(use-package helm-flx :config (helm-flx-mode 1))
+;; (use-package helm-swoop
+;;   :config
+;;   (define-key helm-swoop-map (kbd "C-w") 'evil-delete-backward-word)
+;;   ;; no annoying under mouse highlights
+;;   (setq helm-swoop-pre-input-function (lambda () nil))
+;;   )
+;; (use-package helm-fuzzier :config (helm-fuzzier-mode 1))
+;; (use-package helm-flx :config (helm-flx-mode 1))
 
 ;; (use-package git-gutter+
 ;;   :config
@@ -397,45 +395,45 @@ SUBDIR should not have a `/` in front."
 (if (bound-and-true-p highlight-indentation-mode)
     (highlight-indentation-mode))
 
-; (progn
-;   (require 'zone)
-;   (zone-when-idle 600)
+;; (progn
+;;   (require 'zone)
+;;   (zone-when-idle 600)
 
-;   ;; TODO(pangt): figure out what this does
-;   (defun zone-choose (pgm)
-;     "Choose a PGM to run for `zone'."
-;     (interactive
-;      (list
-;       (completing-read
-;        "Program: "
-;        (mapcar 'symbol-name zone-programs))))
-;     (let ((zone-programs (list (intern pgm))))
-;       (zone)))
+;;   ;; TODO(pangt): figure out what this does
+;;   (defun zone-choose (pgm)
+;;     "Choose a PGM to run for `zone'."
+;;     (interactive
+;;      (list
+;;       (completing-read
+;;        "Program: "
+;;        (mapcar 'symbol-name zone-programs))))
+;;     (let ((zone-programs (list (intern pgm))))
+;;       (zone)))
 
-;   (defun zone-pgm-md5 ()
-;     "MD5 the buffer, then recursively checksum each hash."
-;     (let ((prev-md5 (buffer-substring-no-properties ;; Initialize.
-;                      (point-min) (point-max))))
-;       ;; Whitespace-fill the window.
-;       (zone-fill-out-screen (window-width) (window-height))
-;       (random t)
-;       (goto-char (point-min))
-;       (while (not (input-pending-p))
-;         (when (eobp)
-;           (goto-char (point-min)))
-;         (while (not (eobp))
-;           (delete-region (point) (line-end-position))
-;           (let ((next-md5 (md5 prev-md5)))
-;             (insert next-md5)
-;             (setq prev-md5 next-md5))
-;           (forward-line 1)
-;           (zone-park/sit-for (point-min) 0.1)))))
+;;   (defun zone-pgm-md5 ()
+;;     "MD5 the buffer, then recursively checksum each hash."
+;;     (let ((prev-md5 (buffer-substring-no-properties ;; Initialize.
+;;                      (point-min) (point-max))))
+;;       ;; Whitespace-fill the window.
+;;       (zone-fill-out-screen (window-width) (window-height))
+;;       (random t)
+;;       (goto-char (point-min))
+;;       (while (not (input-pending-p))
+;;         (when (eobp)
+;;           (goto-char (point-min)))
+;;         (while (not (eobp))
+;;           (delete-region (point) (line-end-position))
+;;           (let ((next-md5 (md5 prev-md5)))
+;;             (insert next-md5)
+;;             (setq prev-md5 next-md5))
+;;           (forward-line 1)
+;;           (zone-park/sit-for (point-min) 0.1)))))
 
-;   (eval-after-load "zone"
-;     '(unless (memq 'zone-pgm-md5 (append zone-programs nil))
-;        (setq zone-programs
-;              (vconcat zone-programs [zone-pgm-md5]))))
-;   )
+;;   (eval-after-load "zone"
+;;     '(unless (memq 'zone-pgm-md5 (append zone-programs nil))
+;;        (setq zone-programs
+;;              (vconcat zone-programs [zone-pgm-md5]))))
+;;   )
 
 
 (use-package projectile
@@ -807,9 +805,9 @@ SUBDIR should not have a `/` in front."
 
 (progn
   (evil-leader/set-key
-    "<SPC>"    'helm-M-x
-    "S-<SPC>"  'helm-resume
-    "y"        'helm-show-kill-ring
+    ;; "<SPC>"    'helm-M-x
+    ;; "S-<SPC>"  'helm-resume
+    ;; "y"        'helm-show-kill-ring
     "/"        '(lambda () (interactive) (helm-swoop :$query "" :$multiline 4))
     "?"        '(lambda () (interactive) (helm-swoop :$query "" :$multiline 4))
     "."        'helm-hunks-current-buffer
@@ -823,13 +821,13 @@ SUBDIR should not have a `/` in front."
     "]"        'org-projectile:template-or-project
     ","        'magit-status
     "'"        'highlight-indent-guides-mode
-    "h"        'helm-apropos
+    ;; "h"        'helm-apropos
     ;; "h"     '(lambda () (interactive) (helm-apropos nil)
     ;;            (switch-to-buffer-other-window "*Help*"))
-    "-"        'helm-find-files
-    "_"        'helm-mini
+    ;; "-"        'helm-find-files
+    ;; "_"        'helm-mini
     ;; command to go to last buffet in vim is <C-^> and <C-6>
-    "b"        'helm-bookmarks
+    ;; "b"        'helm-bookmarks
     "w"        'helm-projectile
     )
 
@@ -855,6 +853,7 @@ SUBDIR should not have a `/` in front."
     ;; (make-frame ((buffer-list . arg)))
     (make-frame)
     )
+
   (evil-ex-define-cmd "tabe[dit]"     'my-evil-tabedit)
 
   (evil-define-command my-evil-helm-apropos(arg)
@@ -906,7 +905,8 @@ SUBDIR should not have a `/` in front."
 (global-set-key (kbd "M-ESC :") nil)
 
 ;; make sure backspace works on terminals
-(define-key key-translation-map [?\C-h] [?\C-?])
+(unless (display-graphic-p)
+  (define-key key-translation-map [?\C-h] [?\C-?]))
 ;; Reduce gc threshold to more manageable values:
 (setq gc-cons-threshold default-gc-cons-threshold)
 ; (evil-mode 1)

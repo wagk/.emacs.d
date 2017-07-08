@@ -14,37 +14,44 @@ Probably copied it from stackoverflow"
   (let ((evil-this-register ?0))
     (call-interactively 'evil-paste-after)))
 
-(defun my-evil-gt ()
+(defun -evil-gt ()
   "Emulating vim's `gt' using frames."
   (interactive)
   (other-frame 1))
 
-(defun my-evil-gT ()
+(defun -evil-gT ()
   "Emulating vim's `gT' using frames."
   (interactive)
   (other-frame -1))
 
-(defun my-lang-toggle ()
+(defun -lang-toggle ()
   "Input language toggle wrapper."
   (interactive)
   (toggle-input-method)
   (evil-append 1))
 
 ;; Overload shifts so that they don't lose the selection
-(defun my-evil-shift-left-visual ()
+(defun -evil-shift-left-visual ()
   "Keep visual selection after shifting left."
   (interactive)
   (evil-shift-left (region-beginning) (region-end))
   (evil-normal-state)
   (evil-visual-restore))
 
-(defun my-evil-shift-right-visual ()
-  "Same as my-evil-shift-left-visual, but for the right instead."
+(defun -evil-shift-right-visual ()
+  "Same as -evil-shift-left-visual, but for the right instead."
   (interactive)
   (evil-shift-right (region-beginning) (region-end))
   (evil-normal-state)
   (evil-visual-restore))
 ;; END LOCAL FUNCTIONS ---
+
+;; Make my own leader keys and bake it into evil
+(defvar -mapleader "<SPC>")
+
+(defun -leader (keystroke)
+  "Append our leader key onto KEYSTROKE."
+  (concat -mapleader " " keystroke))
 
 ;; evil config
 (use-package evil
@@ -57,23 +64,17 @@ Probably copied it from stackoverflow"
          :map evil-motion-state-map
          ("C-u" . evil-scroll-up)
          :map evil-normal-state-map
-         ("gt" . my-evil-gt)
-         ("gT" . my-evil-gT)
-         ("C-\\" . my-lang-toggle) ;; binding for eng <-> jap
+         ("gt" . -evil-gt)
+         ("gT" . -evil-gT)
+         ("C-\\" . -lang-toggle) ;; binding for eng <-> jap
          :map evil-visual-state-map
-         ("p" . evil-paste-after-from-0)) ;; NOTE: function defined *below*. Check if this loads
-
-  :init
-  ;; (setq evil-want-C-u-scroll t)
+         ("p" . -evil-paste-after-from-0)) ;; NOTE: function defined *below*. Check if this loads
 
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
   (setq evil-want-Y-yank-to-eol t
         sentence-end-double-space nil
         evil-regexp-search t
-        ;; evil-normal-state-cursor 'box ;; I do not know who is messing with my cursor
-        ;; evil-visual-state-cursor 'box ;; I do not know who is messing with my cursor
-        ;; evil-force-cursor t
         evil-normal-state-modes (append evil-motion-state-modes
                                         evil-normal-state-modes)
         evil-motion-state-modes nil
@@ -107,6 +108,7 @@ Probably copied it from stackoverflow"
                   (set-face-background 'mode-line (car color))
                   (set-face-foreground 'mode-line (cdr color)))))))
 
+;; TODO: roll your own evil-leader. This gets annoying after a while
 (use-package evil-leader
   :after evil
   :ensure t
