@@ -52,6 +52,7 @@ Assumes that it:
 (load-user-config-file "config-snippets.el")
 (load-user-config-file "config-theme.el")
 (load-user-config-file "config-git.el")
+(load-user-config-file "config-org.el")
 
 (setq gc-cons-threshold default-gc-cons-threshold)
 
@@ -355,15 +356,15 @@ SUBDIR should not have a `/` in front."
 ;;   (global-git-gutter+-mode 1)
 ;;   )
 
-(use-package helm-hunks
-  :commands (helm-hunks
-             helm-hunks-current-buffer
-             helm-hunks-staged
-             helm-hunks-staged-current-buffer)
-  :config
-  (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
-  (setq helm-hunks-preview-diffs t)
-  )
+;; (use-package helm-hunks
+;;   :commands (helm-hunks
+;;              helm-hunks-current-buffer
+;;              helm-hunks-staged
+;;              helm-hunks-staged-current-buffer)
+;;   :config
+;;   (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
+;;   (setq helm-hunks-preview-diffs t)
+;;   )
 
 ;; ;;solarized dark theme
 ;; (if (display-graphic-p)
