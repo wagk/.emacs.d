@@ -7,7 +7,7 @@
 
 ;; BEGIN LOCAL FUNCTIONS ---
 ;; TODO: figure out this
-(defun evil-paste-after-from-0 ()
+(defun -evil-paste-after-from-0 ()
   "I legitimately forgot what this does.
 Probably copied it from stackoverflow"
   (interactive)
@@ -68,7 +68,9 @@ Probably copied it from stackoverflow"
          ("gT" . -evil-gT)
          ("C-\\" . -lang-toggle) ;; binding for eng <-> jap
          :map evil-visual-state-map
-         ("p" . -evil-paste-after-from-0)) ;; NOTE: function defined *below*. Check if this loads
+         ("p" . -evil-paste-after-from-0) ;; NOTE: function defined *below*. Check if this loads
+         :map minibuffer-local-isearch-map
+         ("C-w" . evil-delete-backward-word))
 
   :config
   (fset 'evil-visual-update-x-selection 'ignore)

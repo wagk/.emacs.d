@@ -6,12 +6,23 @@
 
 (require 'config-package)
 
+(use-package color-theme
+  :ensure t)
+
 (use-package solarized-theme
+  ;; :if (display-graphic-p)
   :ensure t
   :config
   (setq  solarized-use-variable-pitch nil
-         ;; solarized-scale-org-headlines nil
+         solarized-distinct-fringe-background t
          solarized-high-contrast-mode-line t))
+
+(use-package base16-theme
+  :disabled
+  :if (not (display-graphic-p))
+  :ensure t
+  :config
+  (load-theme 'base16-solarized-dark t))
 
 (use-package highlight-indent-guides
   :ensure t
@@ -19,8 +30,7 @@
   ;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
   ;; character || column || fill
   (setq highlight-indent-guides-method 'character
-        highlight-indent-guides-character ?\|)
-  )
+        highlight-indent-guides-character ?\|))
 
 (use-package whitespace-cleanup-mode
   :ensure t
@@ -41,8 +51,21 @@
   :config
   (fci-mode 1))
 
+(use-package powerline
+  :ensure t
+  :config
+  (use-package powerline-evil
+    :ensure t
+    :config
+    (powerline-evil-vim-color-theme))
+  (powerline-default-theme))
+
+;; (if (display-graphic-p)
+;;     (load-theme 'solarized-dark t)
+;;   (load-theme 'solarized t))
+
 (load-theme 'solarized-dark t)
 
-(provide config-buffer)
+(provide 'config-buffer)
 
 ;;; config-buffer.el ends here

@@ -28,13 +28,14 @@
 (defconst user-config-dir
   (concat user-init-dir "config/"))
 
-(defun load-user-config-file (file)
-  "Load FILE as configuration file.
+(defun load-user-config-file (&rest files)
+  "Load FILES as configuration.
 Assumes that it:
 - Is a configuration file (i.e. elisp)
 - Is relative to user-init-dir"
   (interactive "f")
-  (load-file (expand-file-name file user-config-dir)))
+  (dolist (elem files)
+    (load-file (expand-file-name elem user-config-dir))))
 
 ;; Add to load path our configuration folder
 (add-to-list 'load-path user-config-dir)
@@ -44,15 +45,15 @@ Assumes that it:
 (setq gc-cons-threshold most-positive-fixnum)
 
 ;; load each config file in order
-(load-user-config-file "config-utility.el")
-(load-user-config-file "config-package.el")
-(load-user-config-file "config-common.el")
-(load-user-config-file "config-evil.el")
-(load-user-config-file "config-helm.el")
-(load-user-config-file "config-snippets.el")
-(load-user-config-file "config-buffer.el")
-(load-user-config-file "config-git.el")
-(load-user-config-file "config-org.el")
+(load-user-config-file "config-utility.el"
+                       "config-package.el"
+                       "config-common.el"
+                       "config-evil.el"
+                       "config-helm.el"
+                       "config-snippets.el"
+                       "config-buffer.el"
+                       "config-git.el"
+                       "config-org.el")
 
 (setq gc-cons-threshold default-gc-cons-threshold)
 
@@ -567,14 +568,14 @@ SUBDIR should not have a `/` in front."
   (setq emmet-move-cursor-between-quotes t) ;; default nil
   )
 
-(use-package powerline
-  :config
-  (use-package powerline-evil
-    :config
-    (powerline-evil-vim-color-theme)
-    )
-  (powerline-default-theme)
-  )
+;; (use-package powerline
+;;   :config
+;;   (use-package powerline-evil
+;;     :config
+;;     (powerline-evil-vim-color-theme)
+;;     )
+;;   (powerline-default-theme)
+;;   )
 
 (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode))
 (add-to-list 'auto-mode-alist '("\\Jenkinsfile\\'" . groovy-mode))
@@ -694,7 +695,7 @@ SUBDIR should not have a `/` in front."
   )
 
 (setq custom-file (user-emacs-subdirectory "custom.el"))
-; (load custom-file)
+(load custom-file 'noerror)
 
 ;; No startup screen
 (setq inhibit-startup-screen t)
