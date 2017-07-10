@@ -68,10 +68,11 @@ Probably copied it from stackoverflow"
          ("gT" . -evil-gT)
          ("C-\\" . -lang-toggle) ;; binding for eng <-> jap
          :map evil-visual-state-map
-         ("p" . -evil-paste-after-from-0) ;; NOTE: function defined *below*. Check if this loads
+         ("p"  . -evil-paste-after-from-0)
+         (">>" . -evil-shift-right-visual)
+         ("<<" . -evil-shift-left-visual)
          :map minibuffer-local-isearch-map
          ("C-w" . evil-delete-backward-word))
-
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
   (setq evil-want-Y-yank-to-eol t
@@ -98,29 +99,30 @@ Probably copied it from stackoverflow"
                                     (split-window-vertically)
                                     (other-window 1)))
 
-  (lexical-let ((default-color (cons (face-background 'mode-line)
-                                     (face-foreground 'mode-line))))
-    (add-hook 'post-command-hook
-              (lambda ()
-                (let ((color (cond ((minibufferp) default-color)
-                                   ((evil-insert-state-p) '("#b58900" . "#ffffff"))
-                                   ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
-                                   ((buffer-modified-p)   '("#dc322f" . "#ffffff"))
-                                   (t default-color))))
-                  (set-face-background 'mode-line (car color))
-                  (set-face-foreground 'mode-line (cdr color)))))))
+  ;; (lexical-let ((default-color (cons (face-background 'mode-line)
+  ;;                                    (face-foreground 'mode-line))))
+  ;;   (add-hook 'post-command-hook
+  ;;             (lambda ()
+  ;;               (let ((color (cond ((minibufferp) default-color)
+  ;;                                  ((evil-insert-state-p) '("#b58900" . "#ffffff"))
+  ;;                                  ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
+  ;;                                  ((buffer-modified-p)   '("#dc322f" . "#ffffff"))
+  ;;                                  (t default-color))))
+  ;;                 (set-face-background 'mode-line (car color))
+  ;;                 (set-face-foreground 'mode-line (cdr color))))))
+  )
 
 ;; TODO: roll your own evil-leader. This gets annoying after a while
 (use-package evil-leader
-  :after evil
   :ensure t
+  :after evil
   :config
   (global-evil-leader-mode)
   (evil-leader/set-leader "<SPC>"))
 
 (use-package evil-surround
-  :after evil
   :ensure t
+  :after evil
   :config
   (global-evil-surround-mode 1)
   (setq-default evil-surround-pairs-alist
@@ -128,8 +130,8 @@ Probably copied it from stackoverflow"
                       evil-surround-pairs-alist)))
 
 (use-package evil-args
-  :after evil
   :ensure t
+  :after evil
   :bind (:map evil-inner-text-objects-map
               ("i" . evil-inner-arg)
               :map evil-outer-text-objects-map
@@ -143,24 +145,24 @@ Probably copied it from stackoverflow"
               ("H" . evil-backward-arg)))
 
 (use-package evil-numbers
-  :after evil
   :ensure t
+  :after evil
   :bind (:map evil-normal-state-map
               ("C-a" . evil-numbers/inc-at-pt)
               ("C-x" . evil-numbers/dec-at-pt)))
 
 ;; alignment
 (use-package evil-lion
-  :after evil
   :ensure t
+  :after evil evil-leader
   :config
   (evil-leader/set-key
     "+" 'evil-lion-left)
   (evil-lion-mode))
 
 (use-package evil-matchit
-  :after evil
-  :ensure t)
+  :ensure t
+  :after evil)
 
 ;; (use-package evil-paredit
 ;;   :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
@@ -168,8 +170,8 @@ Probably copied it from stackoverflow"
 ;; (use-package evil-cleverparens)
 
 (use-package evil-commentary
-  :after evil
   :ensure t
+  :after evil
   :config
   (evil-commentary-mode 1))
 
@@ -180,21 +182,24 @@ Probably copied it from stackoverflow"
 ;; (use-package evil-magit)
 
 (use-package evil-indent-textobject
-  :after evil
-  :ensure t)
+  :ensure t
+  :after evil)
 
 ;; vim aesthetics
 (use-package vi-tilde-fringe
-  :after evil
   :ensure t
+  :after evil
   :config
   (global-vi-tilde-fringe-mode 1))
 
 (use-package evil-visualstar
-  :after evil
   :ensure t
+  :after evil
   :config
   (global-evil-visualstar-mode))
+
+(use-package vimish-fold
+  :ensure t)
 
 (evil-mode 1)
 

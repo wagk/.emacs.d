@@ -31,7 +31,7 @@
 (defun load-user-config-file (&rest files)
   "Load FILES as configuration.
 Assumes that it:
-- Is a configuration file (i.e. elisp)
+- Is a string path to one or more configuration fila (i.e. elisp)
 - Is relative to user-init-dir"
   (interactive "f")
   (dolist (elem files)
@@ -43,6 +43,10 @@ Assumes that it:
 ;; tweak garbage collector before
 (defvar default-gc-cons-threshold 20000000)
 (setq gc-cons-threshold most-positive-fixnum)
+
+;; Disable ANNOYING customize options
+(setq custom-file (concat user-init-dir "custom.el"))
+(load custom-file 'noerror)
 
 ;; load each config file in order
 (load-user-config-file "config-utility.el"
@@ -542,9 +546,7 @@ SUBDIR should not have a `/` in front."
 (use-package transpose-frame)
 (use-package buffer-move)
 (use-package unicode-troll-stopper)
-
 (use-package neotree)
-
 (use-package google-translate)
 
 (use-package origami
@@ -580,72 +582,72 @@ SUBDIR should not have a `/` in front."
 (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode))
 (add-to-list 'auto-mode-alist '("\\Jenkinsfile\\'" . groovy-mode))
 
-;; orgmode config BEGIN
-(require 'org)
-(org-toggle-link-display) ;;expand link displays
-; (use-package helm-org-rifle)
-(defun my-evil-org-new-item ()
-  "Insert a new item if we're in normal mode."
-  (interactive)
-  (when (org-in-item-p)
-    (end-of-line)
-    (org-insert-item)
-    (evil-append 1)
-    )
-  )
+;; ;; orgmode config BEGIN
+;; (require 'org)
+;; (org-toggle-link-display) ;;expand link displays
+;; ; (use-package helm-org-rifle)
+;; (defun my-evil-org-new-item ()
+;;   "Insert a new item if we're in normal mode."
+;;   (interactive)
+;;   (when (org-in-item-p)
+;;     (end-of-line)
+;;     (org-insert-item)
+;;     (evil-append 1)
+;;     )
+;;   )
 
-(defun my-evil-org-toggle-checkbox ()
-  "If the list element has no checkbox, add one. Do nothing otherwise."
-  (interactive)
-  (if (not (org-at-item-checkbox-p))
-      (save-excursion (org-toggle-checkbox '(4))) ;; Prefix arguments are WEIRD
-    (org-toggle-checkbox)
-    )
-  )
+;; (defun my-evil-org-toggle-checkbox ()
+;;   "If the list element has no checkbox, add one. Do nothing otherwise."
+;;   (interactive)
+;;   (if (not (org-at-item-checkbox-p))
+;;       (save-excursion (org-toggle-checkbox '(4))) ;; Prefix arguments are WEIRD
+;;     (org-toggle-checkbox)
+;;     )
+;;   )
 
-(defmacro my-evil-update-cursor-eol(func)
-  (lambda ()
-    (interactive)
-    (func)
-    (end-of-line)))
+;; (defmacro my-evil-update-cursor-eol(func)
+;;   (lambda ()
+;;     (interactive)
+;;     (func)
+;;     (end-of-line)))
 
-(defun my-evil-org-insert-heading()
-  (interactive)
-  (org-insert-heading)
-  (evil-append-line 1))
+;; (defun my-evil-org-insert-heading()
+;;   (interactive)
+;;   (org-insert-heading)
+;;   (evil-append-line 1))
 
-;; bind evil normal keymodes inside orgmode
-(evil-declare-key   'normal org-mode-map
-  (kbd "RET")       'my-evil-org-new-item
-  (kbd "M-RET")     'my-evil-org-insert-heading
-  (kbd "S-SPC")     'my-evil-org-toggle-checkbox
-  (kbd "L")         'org-shiftright
-  (kbd "H")         'org-shiftleft
-  (kbd "K")         'org-shiftup
-  (kbd "J")         'org-shiftdown
-  (kbd "M-l")       'org-metaright
-  (kbd "M-h")       'org-metaleft
-  (kbd "M-k")       'org-metaup
-  (kbd "M-j")       'org-metadown
-  (kbd "M-L")       '(my-evil-update-cursor-eol(org-shiftmetaright))
-  (kbd "M-H")       '(my-evil-update-cursor-eol(org-shiftmetaleft))
-  (kbd "M-K")       '(my-evil-update-cursor-eol(org-shiftmetaup))
-  (kbd "M-L")       '(my-evil-update-cursor-eol(org-shiftmetadown))
-  )
+;; ;; bind evil normal keymodes inside orgmode
+;; (evil-declare-key   'normal org-mode-map
+;;   (kbd "RET")       'my-evil-org-new-item
+;;   (kbd "M-RET")     'my-evil-org-insert-heading
+;;   (kbd "S-SPC")     'my-evil-org-toggle-checkbox
+;;   (kbd "L")         'org-shiftright
+;;   (kbd "H")         'org-shiftleft
+;;   (kbd "K")         'org-shiftup
+;;   (kbd "J")         'org-shiftdown
+;;   (kbd "M-l")       'org-metaright
+;;   (kbd "M-h")       'org-metaleft
+;;   (kbd "M-k")       'org-metaup
+;;   (kbd "M-j")       'org-metadown
+;;   (kbd "M-L")       '(my-evil-update-cursor-eol(org-shiftmetaright))
+;;   (kbd "M-H")       '(my-evil-update-cursor-eol(org-shiftmetaleft))
+;;   (kbd "M-K")       '(my-evil-update-cursor-eol(org-shiftmetaup))
+;;   (kbd "M-L")       '(my-evil-update-cursor-eol(org-shiftmetadown))
+;;   )
 
-(evil-declare-key 'insert org-mode-map
-  (kbd "S-RET")   'my-evil-org-new-item
-  (kbd "M-l")     'org-metaright
-  (kbd "M-h")     'org-metaleft
-  (kbd "M-k")     'org-metaup
-  (kbd "M-j")     'org-metadown
-  (kbd "M-L")     'org-shiftmetaright
-  (kbd "M-H")     'org-shiftmetaleft
-  (kbd "M-K")     'org-shiftmetaup
-  (kbd "M-L")     'org-shiftmetadown
-  )
+;; (evil-declare-key 'insert org-mode-map
+;;   (kbd "S-RET")   'my-evil-org-new-item
+;;   (kbd "M-l")     'org-metaright
+;;   (kbd "M-h")     'org-metaleft
+;;   (kbd "M-k")     'org-metaup
+;;   (kbd "M-j")     'org-metadown
+;;   (kbd "M-L")     'org-shiftmetaright
+;;   (kbd "M-H")     'org-shiftmetaleft
+;;   (kbd "M-K")     'org-shiftmetaup
+;;   (kbd "M-L")     'org-shiftmetadown
+;;   )
 
-;; orgmode config END
+;; ;; orgmode config END
 
 ;; company mode
 (use-package company
@@ -694,14 +696,14 @@ SUBDIR should not have a `/` in front."
   (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
   )
 
-(setq custom-file (user-emacs-subdirectory "custom.el"))
-(load custom-file 'noerror)
+;; (setq custom-file (user-emacs-subdirectory "custom.el"))
+;; (load custom-file 'noerror)
 
 ;; No startup screen
-(setq inhibit-startup-screen t)
+;; (setq inhibit-startup-screen t)
 
 ;; turn on line numbers
-(global-linum-mode 0) ;; THIS MIGHT HAVE PERFORMANCE ISSUES
+;; (global-linum-mode 0) ;; THIS MIGHT HAVE PERFORMANCE ISSUES
 
 ;; set default font
 ;; (add-to-list 'default-frame-alist '(font . "Consolas-11"))
@@ -712,8 +714,8 @@ SUBDIR should not have a `/` in front."
 
 ;;this should make it global. Solve japanese fonting separately
 ;; (set-default-font "Courier" nil t )
-(set-face-attribute 'default nil :font "Courier-11" )
-(set-frame-font "Courier-11" nil t)
+;; (set-face-attribute 'default nil :font "Courier-11" )
+;; (set-frame-font "Courier-11" nil t)
 
 ;; Switch to cygwin if it exists
 ;; this isn't working though
@@ -798,12 +800,10 @@ SUBDIR should not have a `/` in front."
     (if (not (get 'my-centre-window-function 'active))
         (progn
           (set-window-margins nil margin-size margin-size)
-          (put 'my-centre-window-function 'active t)
-          )
+          (put 'my-centre-window-function 'active t))
       (progn
         (set-window-margins nil 0 nil)
-        (put 'my-centre-window-function 'active nil)
-        ))))
+        (put 'my-centre-window-function 'active nil)))))
 
 (progn
   (evil-leader/set-key
@@ -814,14 +814,10 @@ SUBDIR should not have a `/` in front."
     "?"        '(lambda () (interactive) (helm-swoop :$query "" :$multiline 4))
     "."        'helm-hunks-current-buffer
     "t"        '(lambda () (interactive) (org-time-stamp '(16) t))
-    "cc"       'comment-region
-    "cu"       'uncomment-region
-    "a"        'evil-lion-left
-    "A"        'evil-lion-right
     ";"        'my-centre-window-function
     "\\"       'org-capture
     "]"        'org-projectile:template-or-project
-    ","        'magit-status
+    ;; ","        'magit-status
     "'"        'highlight-indent-guides-mode
     ;; "h"        'helm-apropos
     ;; "h"     '(lambda () (interactive) (helm-apropos nil)
@@ -830,15 +826,14 @@ SUBDIR should not have a `/` in front."
     ;; "_"        'helm-mini
     ;; command to go to last buffet in vim is <C-^> and <C-6>
     ;; "b"        'helm-bookmarks
-    "w"        'helm-projectile
-    )
+    "w"        'helm-projectile)
 
   (evil-ex-define-cmd "sh[ell]"       'shell)
   (evil-ex-define-cmd "re[cent]"      'helm-recentf)
   (evil-ex-define-cmd "pr[ojectile]"  'helm-projectile)
                                         ; (evil-ex-define-cmd "or[gsearch]"   'helm-org-rifle)
-  (evil-ex-define-cmd "goo[gle]"      'helm-google-suggest)
-  (evil-ex-define-cmd "e[dit]"        'helm-find-files)
+  ;; (evil-ex-define-cmd "goo[gle]"      'helm-google-suggest)
+  ;; (evil-ex-define-cmd "e[dit]"        'helm-find-files)
   (evil-ex-define-cmd "e!"            '(lambda() (interactive)
                                          (revert-buffer t t t)))
   (evil-ex-define-cmd "b[uffer]"      'helm-mini)
@@ -866,43 +861,44 @@ SUBDIR should not have a `/` in front."
 
   (eval-after-load 'evil-maps '(progn (evil-ex-define-cmd "h[elp]" 'my-evil-helm-apropos)))
 
-  ;; Overload shifts so that they don't lose the selection
-  (defun my-evil-shift-left-visual ()
-    "Keep visual selection after shifting left."
-    (interactive)
-    (evil-shift-left (region-beginning) (region-end))
-    (evil-normal-state)
-    (evil-visual-restore))
+  ;; ;; Overload shifts so that they don't lose the selection
+  ;; (defun my-evil-shift-left-visual ()
+  ;;   "Keep visual selection after shifting left."
+  ;;   (interactive)
+  ;;   (evil-shift-left (region-beginning) (region-end))
+  ;;   (evil-normal-state)
+  ;;   (evil-visual-restore))
 
-  (defun my-evil-shift-right-visual ()
-    "Same as my-evil-shift-left-visual, but for the right instead."
-    (interactive)
-    (evil-shift-right (region-beginning) (region-end))
-    (evil-normal-state)
-    (evil-visual-restore))
+  ;; (defun my-evil-shift-right-visual ()
+  ;;   "Same as my-evil-shift-left-visual, but for the right instead."
+  ;;   (interactive)
+  ;;   (evil-shift-right (region-beginning) (region-end))
+  ;;   (evil-normal-state)
+  ;;   (evil-visual-restore))
 
-  (define-key evil-visual-state-map (kbd ">>") 'my-evil-shift-right-visual)
-  (define-key evil-visual-state-map (kbd "<<") 'my-evil-shift-left-visual)
+  ;; (define-key evil-visual-state-map (kbd ">>") 'my-evil-shift-right-visual)
+  ;; (define-key evil-visual-state-map (kbd "<<") 'my-evil-shift-left-visual)
   )
 
-(setq require-final-newline t)
+;; (setq require-final-newline t)
 
-;; remove annoying bell sound
-(setq ring-bell-function 'ignore)
+;; ;; remove annoying bell sound
+;; (setq ring-bell-function 'ignore)
 
-;; Save buffer state
-;; (desktop-save-mode 1)
-(setq history-length 250)
-;; (add-to-list 'desktop-globals-to-save 'file-name-history)
+;; ;; Save buffer state
+;; ;; (desktop-save-mode 1)
+;; (setq history-length 250)
+;; ;; (add-to-list 'desktop-globals-to-save 'file-name-history)
 
-;; Display time
-(display-time-mode 1)
+;; ;; Display time
+;; (display-time-mode 1)
 
-;; strip whitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; ;; strip whitespace
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Remove really annoying bindings
 ;; (global-set-key (kbd "ESC") 'evil-force-normal-state)
+
 (global-set-key (kbd "M-:") nil)
 (global-set-key (kbd "M-ESC :") nil)
 

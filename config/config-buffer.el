@@ -5,6 +5,7 @@
 ;;; Code:
 
 (require 'config-package)
+(require 'config-evil)
 
 (use-package color-theme
   :ensure t)
@@ -26,11 +27,14 @@
 
 (use-package highlight-indent-guides
   :ensure t
+  :after evil-leader
   :config
   ;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
   ;; character || column || fill
   (setq highlight-indent-guides-method 'character
-        highlight-indent-guides-character ?\|))
+        highlight-indent-guides-character ?\|)
+  (evil-leader/set-key
+    "'" 'highlight-indent-guides-mode))
 
 (use-package whitespace-cleanup-mode
   :ensure t
@@ -54,17 +58,36 @@
 (use-package powerline
   :ensure t
   :config
-  (use-package powerline-evil
-    :ensure t
-    :config
-    (powerline-evil-vim-color-theme))
-  (powerline-default-theme))
-
-;; (if (display-graphic-p)
-;;     (load-theme 'solarized-dark t)
-;;   (load-theme 'solarized t))
+  ;; (use-package powerline-evil
+  ;;   :ensure t
+  ;;   :config
+  ;;   (powerline-evil-vim-color-theme))
+  (powerline-vim-theme))
 
 (load-theme 'solarized-dark t)
+
+;; no startup screen
+(setq inhibit-startup-screen t)
+
+;; set font
+;; (set-face-attribute 'default nil :font "Courier-11" )
+;; (set-frame-font "Courier-11" nil t)
+
+(setq require-final-newline t)
+
+;; remove annoying bell sound
+(setq ring-bell-function 'ignore)
+
+;; Save buffer state
+;; (desktop-save-mode 1)
+(setq history-length 250)
+;; (add-to-list 'desktop-globals-to-save 'file-name-history)
+
+;; Display time
+(display-time-mode 1)
+
+;; strip whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (provide 'config-buffer)
 

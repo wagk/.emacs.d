@@ -15,15 +15,16 @@
 ;; https://github.com/nonsequitur/git-gutter-plus
 (use-package git-gutter+
   :ensure t
-  :bind (:map evil-normal-state-map
-              ("[ c" . git-gutter+-previous-hunk)
-              ("] c" . git-gutter+-next-hunk))
+  ;; :bind (:map evil-normal-state-map
+  ;;             ("[ c" . git-gutter+-previous-hunk)
+  ;;             ("] c" . git-gutter+-next-hunk))
   :config
   ;; (evil-leader/set-key
   ;;   "hs" 'git-gutter+-stage-hunks
   ;;   "hu" 'git-gutter+-revert-hunks
   ;;   "hp" 'git-gutter+-show-hunk)
   (use-package git-gutter-fringe+
+    :if (not (display-graphic-p))
     :ensure t)
   (global-git-gutter+-mode 1))
 

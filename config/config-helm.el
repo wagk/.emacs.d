@@ -24,11 +24,11 @@
 (use-package helm
   :ensure t
   :demand t
-  :after evil
+  :after evil evil-leader
   :bind(:map helm-map
-             ("C-w" . evil-delete-backward-word)
+             ("C-w"   . evil-delete-backward-word)
              ("S-SPC" . helm-select-action)
-             ("TAB" . helm-execute-persistent-action))
+             ("TAB"   . helm-execute-persistent-action))
   :config
   (setq helm-recentf-fuzzy-match t
         helm-locate-fuzzy-match nil ;; locate fuzzy is worthless
@@ -45,13 +45,13 @@
                helm-autoresize-max-height 40))
   ;; evil-related configuration
   (evil-leader/set-key
-    "<SPC>" 'helm-M-x
+    "<SPC>"   'helm-M-x
     "S-<SPC>" 'helm-resume
-    "y" 'helm-show-kill-ring
-    "h" 'helm-apropos
-    "-" 'helm-find-files
-    "_" 'helm-mini
-    "b" 'helm-bookmarks))
+    "y"       'helm-show-kill-ring
+    "h"       'helm-apropos
+    "-"       'helm-find-files
+    "_"       'helm-mini
+    "b"       'helm-bookmarks))
 
 ;; TODO: when defining helm desckeys make sure a global binding is also presentw
 ;; C-h seems broken (We've been overwriting it to enable terminal backspace)
