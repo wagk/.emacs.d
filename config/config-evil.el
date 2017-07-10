@@ -7,38 +7,38 @@
 
 ;; BEGIN LOCAL FUNCTIONS ---
 ;; TODO: figure out this
-(defun -evil-paste-after-from-0 ()
+(defun /evil-paste-after-from-0 ()
   "I legitimately forgot what this does.
 Probably copied it from stackoverflow"
   (interactive)
   (let ((evil-this-register ?0))
     (call-interactively 'evil-paste-after)))
 
-(defun -evil-gt ()
+(defun /evil-gt ()
   "Emulating vim's `gt' using frames."
   (interactive)
   (other-frame 1))
 
-(defun -evil-gT ()
+(defun /evil-gT ()
   "Emulating vim's `gT' using frames."
   (interactive)
   (other-frame -1))
 
-(defun -lang-toggle ()
+(defun /lang-toggle ()
   "Input language toggle wrapper."
   (interactive)
   (toggle-input-method)
   (evil-append 1))
 
 ;; Overload shifts so that they don't lose the selection
-(defun -evil-shift-left-visual ()
+(defun /evil-shift-left-visual ()
   "Keep visual selection after shifting left."
   (interactive)
   (evil-shift-left (region-beginning) (region-end))
   (evil-normal-state)
   (evil-visual-restore))
 
-(defun -evil-shift-right-visual ()
+(defun /evil-shift-right-visual ()
   "Same as -evil-shift-left-visual, but for the right instead."
   (interactive)
   (evil-shift-right (region-beginning) (region-end))
@@ -47,11 +47,11 @@ Probably copied it from stackoverflow"
 ;; END LOCAL FUNCTIONS ---
 
 ;; Make my own leader keys and bake it into evil
-(defvar -mapleader "<SPC>")
+(defvar /mapleader "<SPC>")
 
-(defun -leader (keystroke)
+(defun /leader (keystroke)
   "Append our leader key onto KEYSTROKE."
-  (concat -mapleader " " keystroke))
+  (concat /mapleader " " keystroke))
 
 ;; evil config
 (use-package evil
@@ -64,13 +64,13 @@ Probably copied it from stackoverflow"
          :map evil-motion-state-map
          ("C-u" . evil-scroll-up)
          :map evil-normal-state-map
-         ("gt" . -evil-gt)
-         ("gT" . -evil-gT)
-         ("C-\\" . -lang-toggle) ;; binding for eng <-> jap
+         ("gt" . /evil-gt)
+         ("gT" . /evil-gT)
+         ("C-\\" . /lang-toggle) ;; binding for eng <-> jap
          :map evil-visual-state-map
-         ("p"  . -evil-paste-after-from-0)
-         (">>" . -evil-shift-right-visual)
-         ("<<" . -evil-shift-left-visual)
+         ("p"  . /evil-paste-after-from-0)
+         (">>" . /evil-shift-right-visual)
+         ("<<" . /evil-shift-left-visual)
          :map minibuffer-local-isearch-map
          ("C-w" . evil-delete-backward-word))
   :config

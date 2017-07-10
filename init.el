@@ -28,14 +28,14 @@
 (defconst user-config-dir
   (concat user-init-dir "config/"))
 
-(defun load-user-config-file (&rest files)
-  "Load FILES as configuration.
+(defun load-user-config-file (file &rest files)
+  "Load FILE (and FILES) as configuration.
 Assumes that it:
 - Is a string path to one or more configuration fila (i.e. elisp)
 - Is relative to user-init-dir"
   (interactive "f")
-  (dolist (elem files)
-    (load-file (expand-file-name elem user-config-dir))))
+  (dolist (elem (cons file files))
+    (load-file (expand-file-name (concat user-init-dir elem)))))
 
 ;; Add to load path our configuration folder
 (add-to-list 'load-path user-config-dir)
@@ -49,15 +49,15 @@ Assumes that it:
 (load custom-file 'noerror)
 
 ;; load each config file in order
-(load-user-config-file "config-utility.el"
-                       "config-package.el"
-                       "config-common.el"
-                       "config-evil.el"
-                       "config-helm.el"
-                       "config-snippets.el"
-                       "config-buffer.el"
-                       "config-git.el"
-                       "config-org.el")
+(load-user-config-file "config/config-utility.el"
+                       "config/config-package.el"
+                       "config/config-common.el"
+                       "config/config-evil.el"
+                       "config/config-helm.el"
+                       "config/config-snippets.el"
+                       "config/config-buffer.el"
+                       "config/config-git.el"
+                       "config/config-org.el")
 
 (setq gc-cons-threshold default-gc-cons-threshold)
 

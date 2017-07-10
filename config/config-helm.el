@@ -25,9 +25,15 @@
   :ensure t
   :demand t
   :after evil evil-leader
+  :init
+  (setq helm-idle-delay 0.0
+        helm-input-idle-delay 0.01
+        helm-quick-update t)
   :bind(:map helm-map
              ("C-w"   . evil-delete-backward-word)
              ("S-SPC" . helm-select-action)
+             ("C-u"   . evil-scroll-up)
+             ("C-d"   . evil-scroll-down)
              ("TAB"   . helm-execute-persistent-action))
   :config
   (setq helm-recentf-fuzzy-match t
@@ -45,13 +51,13 @@
                helm-autoresize-max-height 40))
   ;; evil-related configuration
   (evil-leader/set-key
-    "<SPC>"   'helm-M-x
-    "S-<SPC>" 'helm-resume
-    "y"       'helm-show-kill-ring
-    "h"       'helm-apropos
-    "-"       'helm-find-files
-    "_"       'helm-mini
-    "b"       'helm-bookmarks))
+    "<SPC>" 'helm-M-x
+    "TAB"   'helm-resume
+    "y"     'helm-show-kill-ring
+    "h h"   'helm-apropos
+    "-"     'helm-find-files
+    "_"     'helm-mini
+    "b"     'helm-bookmarks))
 
 ;; TODO: when defining helm desckeys make sure a global binding is also presentw
 ;; C-h seems broken (We've been overwriting it to enable terminal backspace)
@@ -92,15 +98,14 @@
 
 (use-package helm-hunks
   :ensure t
-  :after helm git-gutter+
+  :after (helm git-gutter+)
   :commands (helm-hunks
              helm-hunks-current-buffer
              helm-hunks-staged
              helm-hunks-staged-current-buffer)
   :config
   (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
-  (setq helm-hunks-preview-diffs t)
-  )
+  (setq helm-hunks-preview-diffs t))
 
 (helm-mode 1)
 
