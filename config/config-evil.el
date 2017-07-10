@@ -152,6 +152,8 @@ Probably copied it from stackoverflow"
   :after evil
   :ensure t
   :config
+  (evil-leader/set-key
+    "+" 'evil-lion-left)
   (evil-lion-mode))
 
 (use-package evil-matchit

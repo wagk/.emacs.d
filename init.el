@@ -50,7 +50,7 @@ Assumes that it:
 (load-user-config-file "config-evil.el")
 (load-user-config-file "config-helm.el")
 (load-user-config-file "config-snippets.el")
-(load-user-config-file "config-theme.el")
+(load-user-config-file "config-buffer.el")
 (load-user-config-file "config-git.el")
 (load-user-config-file "config-org.el")
 
@@ -385,13 +385,13 @@ SUBDIR should not have a `/` in front."
 ;;   (beacon-mode 0)
 ;;   )
 
-(use-package highlight-indent-guides
-  :config
-  ;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-  ;; character || column || fill
-  (setq highlight-indent-guides-method 'character
-        highlight-indent-guides-character ?\|)
-  )
+;; (use-package highlight-indent-guides
+;;   :config
+;;   ;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+;;   ;; character || column || fill
+;;   (setq highlight-indent-guides-method 'character
+;;         highlight-indent-guides-character ?\|)
+;;   )
 
 (if (bound-and-true-p highlight-indentation-mode)
     (highlight-indentation-mode))
@@ -487,15 +487,15 @@ SUBDIR should not have a `/` in front."
         )
   )
 
-(use-package whitespace-cleanup-mode
-  :config
-  (global-whitespace-cleanup-mode 1)
-  )
+;; (use-package whitespace-cleanup-mode
+;;   :config
+;;   (global-whitespace-cleanup-mode 1)
+;;   )
 
-(use-package aggressive-indent
-  :config
-  (global-aggressive-indent-mode 1)
-  )
+;; (use-package aggressive-indent
+;;   :config
+;;   (global-aggressive-indent-mode 1)
+;;   )
 
 (use-package spu
   :defer 5 ;; defer package loading for 5 second
@@ -659,9 +659,9 @@ SUBDIR should not have a `/` in front."
 
   (use-package company-jedi
     :config
-    (defun my/python-mode-hook ()
+    (defun -python-mode-hook ()
       (add-to-list 'python-mode-hook 'company-jedi))
-    (add-hook 'python-mode-hook 'my/python-mode-hook)
+    (add-hook 'python-mode-hook '-python-mode-hook)
     )
 
   (defvar company-mode/enable-yas t
