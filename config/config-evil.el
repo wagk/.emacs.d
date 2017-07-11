@@ -133,7 +133,7 @@ Probably copied it from stackoverflow"
   :ensure t
   :after evil
   :bind (:map evil-inner-text-objects-map
-              ("i" . evil-inner-arg)
+              ("a" . evil-inner-arg)
               :map evil-outer-text-objects-map
               ("a" . evil-outer-arg)
               :map evil-normal-state-map
@@ -197,6 +197,13 @@ Probably copied it from stackoverflow"
   :after evil
   :config
   (global-evil-visualstar-mode))
+
+;; https://github.com/edkolev/evil-goggles
+(use-package evil-goggles
+  :ensure t
+  :config
+  (evil-goggles-mode)
+  (evil-goggles-use-diff-faces))
 
 (use-package vimish-fold
   :ensure t)
