@@ -140,7 +140,7 @@ SUBDIR should not have a `/` in front."
 
 ;; TODO(pangt): figure out how this works
 (defun text-file-p (filename)
-  "Checks if the filename is a binary file"
+  "Check if the FILENAME is a binary file."
   (with-current-buffer (find-file-noselect filename :no-warn)
     (prog1 (not (eq buffer-file-coding-system 'no-conversion))
       (kill-buffer))))
@@ -774,14 +774,13 @@ SUBDIR should not have a `/` in front."
 ;; (set-face-foreground 'highlight nil)
 
 ;; Japanese mode
-(progn (setq default-input-method "japanese"
-             kkc-show-conversion-list-count 1)
-       (with-eval-after-load "kkc"
-         (define-key kkc-keymap (kbd "SPC")       'kkc-terminate)
-         (define-key kkc-keymap (kbd "<tab>")     'kkc-next)
-         (define-key kkc-keymap (kbd "<backtab>") 'kkc-prev)
-         )
-       )
+(eval-after-load "kkc"
+  (setq default-input-method "japanese"
+        kkc-show-conversion-list-count 1)
+  (define-key kkc-keymap (kbd "SPC")       'kkc-terminate)
+  (define-key kkc-keymap (kbd "<tab>")     'kkc-next)
+  (define-key kkc-keymap (kbd "<backtab>") 'kkc-prev)
+  )
 
 ;; しん おれを ワ
 
