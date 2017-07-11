@@ -57,7 +57,8 @@ Assumes that it:
                        "config/config-snippets.el"
                        "config/config-buffer.el"
                        "config/config-git.el"
-                       "config/config-org.el")
+                       "config/config-org.el"
+                       "config/config-help.el")
 
 (setq gc-cons-threshold default-gc-cons-threshold)
 
@@ -534,8 +535,15 @@ SUBDIR should not have a `/` in front."
   (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode)
   )
 
-(use-package typescript-mode)
-(use-package tide)
+(use-package typescript-mode
+  ;; :mode ("\\.ts\\" . typescript-mode)
+  :config
+  (use-package tide
+    :after typescript-mode
+    :config
+    (add-hook 'before-save-hook 'tide-format-before-save)
+    (add-hook 'typescript-mode-hook #'setup-tide)))
+
 (use-package groovy-mode)
 (use-package php-mode)
 (use-package dockerfile-mode)
@@ -826,24 +834,25 @@ SUBDIR should not have a `/` in front."
     ;; "_"        'helm-mini
     ;; command to go to last buffet in vim is <C-^> and <C-6>
     ;; "b"        'helm-bookmarks
-    "w"        'helm-projectile)
+    "p"        'helm-projectile)
 
-  (evil-ex-define-cmd "sh[ell]"       'shell)
-  (evil-ex-define-cmd "re[cent]"      'helm-recentf)
-  (evil-ex-define-cmd "pr[ojectile]"  'helm-projectile)
+  (evil-ex-define-cmd "sh[ell]"      'shell)
+  (evil-ex-define-cmd "te[rminal]"   'term)
+  (evil-ex-define-cmd "re[cent]"     'helm-recentf)
+  (evil-ex-define-cmd "pr[ojectile]" 'helm-projectile)
                                         ; (evil-ex-define-cmd "or[gsearch]"   'helm-org-rifle)
-  ;; (evil-ex-define-cmd "goo[gle]"      'helm-google-suggest)
-  ;; (evil-ex-define-cmd "e[dit]"        'helm-find-files)
-  (evil-ex-define-cmd "e!"            '(lambda() (interactive)
-                                         (revert-buffer t t t)))
-  (evil-ex-define-cmd "b[uffer]"      'helm-mini)
-  (evil-ex-define-cmd "ini[t]"        'find-user-init-file)
-  (evil-ex-define-cmd "todo"          '(lambda() (interactive)
-                                         (insert "TODO(pangt): ")
-                                         (comment-region (line-beginning-position) (line-end-position))
-                                         (indent-relative)
-                                         (end-of-line)
-                                         (evil-insert nil)))
+  ;; (evil-ex-define-cmd "goo[gle]"     'helm-google-suggest)
+  ;; (evil-ex-define-cmd "e[dit]"       'helm-find-files)
+  (evil-ex-define-cmd "e!"           '(lambda() (interactive)
+                                        (revert-buffer t t t)))
+  (evil-ex-define-cmd "b[uffer]"     'helm-mini)
+  (evil-ex-define-cmd "ini[t]"       'find-user-init-file)
+  (evil-ex-define-cmd "todo"         '(lambda() (interactive)
+                                        (insert "TODO (pangt): ")
+                                        (comment-region (line-beginning-position) (line-end-position))
+                                        (indent-relative)
+                                        (end-of-line)
+                                        (evil-insert nil)))
   ;; TODO(pangt): we fix this some day
   (evil-define-command my-evil-tabedit(arg) (interactive "<a>")
     ;; (generate-buffer-create arg)
@@ -853,13 +862,13 @@ SUBDIR should not have a `/` in front."
 
   (evil-ex-define-cmd "tabe[dit]"     'my-evil-tabedit)
 
-  (evil-define-command my-evil-helm-apropos(arg)
-    (interactive "<a>")
-    (helm-apropos arg)
-    (other-window 1)
-    )
+  ;; (evil-define-command my-evil-helm-apropos(arg)
+  ;;   (interactive "<a>")
+  ;;   (helm-apropos arg)
+  ;;   (other-window 1)
+  ;;   )
 
-  (eval-after-load 'evil-maps '(progn (evil-ex-define-cmd "h[elp]" 'my-evil-helm-apropos)))
+  ;; (eval-after-load 'evil-maps '(progn (evil-ex-define-cmd "h[elp]" 'my-evil-helm-apropos)))
 
   ;; ;; Overload shifts so that they don't lose the selection
   ;; (defun my-evil-shift-left-visual ()
@@ -878,7 +887,7 @@ SUBDIR should not have a `/` in front."
 
   ;; (define-key evil-visual-state-map (kbd ">>") 'my-evil-shift-right-visual)
   ;; (define-key evil-visual-state-map (kbd "<<") 'my-evil-shift-left-visual)
-  )
+  ) ;; progm
 
 ;; (setq require-final-newline t)
 
@@ -899,12 +908,15 @@ SUBDIR should not have a `/` in front."
 ;; Remove really annoying bindings
 ;; (global-set-key (kbd "ESC") 'evil-force-normal-state)
 
-(global-set-key (kbd "M-:") nil)
-(global-set-key (kbd "M-ESC :") nil)
+;; (global-set-key (kbd "M-:") nil)
+;; (global-set-key (kbd "M-ESC :") nil)
 
 ;; make sure backspace works on terminals
-(unless (display-graphic-p)
-  (define-key key-translation-map [?\C-h] [?\C-?]))
+;; (unless (and (or (eq system-type 'windows-nt)
+;;                  (eq system-type 'ms-dos))
+;;              (display-graphic-p))
+;;   (define-key key-translation-map [?\C-h] [?\C-?]))
+
 ;; Reduce gc threshold to more manageable values:
 (setq gc-cons-threshold default-gc-cons-threshold)
-; (evil-mode 1)
+;; (evil-mode 1)

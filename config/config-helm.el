@@ -30,11 +30,11 @@
         helm-input-idle-delay 0.01
         helm-quick-update t)
   :bind(:map helm-map
-             ("C-w"   . evil-delete-backward-word)
-             ("S-SPC" . helm-select-action)
-             ("C-u"   . evil-scroll-up)
-             ("C-d"   . evil-scroll-down)
-             ("TAB"   . helm-execute-persistent-action))
+             ("C-w" . evil-delete-backward-word)
+             ("\\"  . helm-select-action)
+             ("C-u" . evil-scroll-up)
+             ("C-d" . evil-scroll-down)
+             ("TAB" . helm-execute-persistent-action))
   :config
   (setq helm-recentf-fuzzy-match t
         helm-locate-fuzzy-match nil ;; locate fuzzy is worthless

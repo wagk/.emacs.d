@@ -5,6 +5,9 @@
 ;; configuration. This config file might get rolled into another config file
 ;; at some point in the future
 
+;; Yasnippet documentation:
+;; https://joaotavora.github.io/yasnippet/
+
 ;;; Code:
 (require 'config-package)
 

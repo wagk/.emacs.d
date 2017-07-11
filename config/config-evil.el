@@ -201,6 +201,14 @@ Probably copied it from stackoverflow"
 (use-package vimish-fold
   :ensure t)
 
+;; (evil-define-command my-evil-helm-apropos(arg)
+;;   (interactive "<a>")
+;;   (helm-apropos arg)
+;;   (other-window 1)
+;;   )
+
+;; (eval-after-load 'evil-maps '(progn (evil-ex-define-cmd "h[elp]" 'my-evil-helm-apropos)))
+
 (evil-mode 1)
 
 (provide 'config-evil)

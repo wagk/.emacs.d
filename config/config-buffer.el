@@ -53,7 +53,8 @@
   :ensure t
   :diminish t
   :config
-  (fci-mode 1))
+  (setq-default fill-column 80)
+  (add-hook 'prog-mode-hook 'turn-on-fci-mode))
 
 (use-package powerline
   :ensure t
@@ -88,6 +89,10 @@
 
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; adjust autosave and backup directories
+(setq backup-directory-alist `((".*" . ,temporary-file-directory))
+      auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
 (provide 'config-buffer)
 
