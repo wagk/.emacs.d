@@ -203,7 +203,8 @@ Probably copied it from stackoverflow"
   :ensure t
   :config
   (evil-goggles-mode)
-  (evil-goggles-use-diff-faces))
+  (evil-goggles-use-diff-faces)
+  (setq evil-goggles-duration 0.025))
 
 (use-package vimish-fold
   :ensure t)
