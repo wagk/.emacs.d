@@ -504,12 +504,13 @@ SUBDIR should not have a `/` in front."
 ;; cause loading problems. Helm seems to be a victim of this a lot
 (use-package spu
   :defer 5 ;; defer package loading for 5 second
-  :config (spu-package-upgrade-daily))
+  :config
+  ;; attempt to upgrade packages only when we're leaving
+  (add-hook 'kill-emacs-hook 'spu-package-upgrade))
 
 (use-package flycheck
   :config
-  (add-hook 'after-init-hook #'global-flycheck-mode)
-  )
+  (add-hook 'after-init-hook #'global-flycheck-mode))
 
 (require 'tramp)
 (cond ((eq system-type "windows-nt")
