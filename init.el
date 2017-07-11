@@ -773,15 +773,6 @@ SUBDIR should not have a `/` in front."
 ;; (set-face-background 'hl-line  "#073642")
 ;; (set-face-foreground 'highlight nil)
 
-;; Japanese mode
-(eval-after-load "kkc"
-  (setq default-input-method "japanese"
-        kkc-show-conversion-list-count 1)
-  (define-key kkc-keymap (kbd "SPC")       'kkc-terminate)
-  (define-key kkc-keymap (kbd "<tab>")     'kkc-next)
-  (define-key kkc-keymap (kbd "<backtab>") 'kkc-prev)
-  )
-
 ;; しん おれを ワ
 
 (use-package misc-cmds)
@@ -790,7 +781,8 @@ SUBDIR should not have a `/` in front."
     (save-excursion
       (goto-char (point-min))
       (while (not (eobp))
-        (push (- (line-end-position) (line-beginning-position))
+        (push (- (line-end-position)
+                 (line-beginning-position))
               length)
         (forward-line)))
     (copy-sequence length) ;; we return a list since this is the last form evaluated
@@ -803,7 +795,9 @@ SUBDIR should not have a `/` in front."
 
 (defun my-centre-window-function()
   (interactive)
-  (let ((margin-size (/ (- (window-width) (my-longest-line-length) ) 2)))
+  (let ((margin-size (/ (- (window-width)
+                           (my-longest-line-length) )
+                        2)))
     (if (not (get 'my-centre-window-function 'active))
         (progn
           (set-window-margins nil margin-size margin-size)
@@ -887,6 +881,15 @@ SUBDIR should not have a `/` in front."
   ;; (define-key evil-visual-state-map (kbd ">>") 'my-evil-shift-right-visual)
   ;; (define-key evil-visual-state-map (kbd "<<") 'my-evil-shift-left-visual)
   ) ;; progm
+
+;; Japanese mode
+(eval-after-load "kkc"
+  (setq default-input-method "japanese"
+        kkc-show-conversion-list-count 1)
+  (define-key kkc-keymap (kbd "SPC")       'kkc-terminate)
+  (define-key kkc-keymap (kbd "<tab>")     'kkc-next)
+  (define-key kkc-keymap (kbd "<backtab>") 'kkc-prev)
+  )
 
 ;; (setq require-final-newline t)
 
