@@ -21,9 +21,13 @@
   :ensure t
   :after ivy)
 
+(use-package counsel
+  :ensure t
+  :after ivy)
+
 (use-package helm
   :ensure t
-  :demand t
+  :demand t\s
   :after evil evil-leader
   :init
   (setq helm-idle-delay 0.0
@@ -78,9 +82,16 @@
 
 (use-package helm-swoop
   :ensure t
-  :after helm evil
+  :after (helm
+          evil
+          evil-leader)
   :bind (:map helm-swoop-map
               ("C-w" . evil-delete-backward-word))
+  :config
+  (defun /helm-swoop-vis ()
+    (helm-swoop :$query "" :$multiline 4))
+  (evil-leader/set-key
+    "/" '/helm-swoop-vis)
   ;; no annoying under mouse highlights
   ;;(setq helm-swoop-pre-input-function (lambda () nil))
   )
@@ -98,14 +109,17 @@
 
 (use-package helm-hunks
   :ensure t
-  :after (helm git-gutter+)
+  :after (helm
+          git-gutter+)
   :commands (helm-hunks
              helm-hunks-current-buffer
              helm-hunks-staged
              helm-hunks-staged-current-buffer)
   :config
   (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
-  (setq helm-hunks-preview-diffs t))
+  (setq helm-hunks-preview-diffs t)
+  (evil-leader/set-key
+    "." 'helm-hunks-current-buffer))
 
 (helm-mode 1)
 

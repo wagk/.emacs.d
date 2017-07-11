@@ -37,7 +37,8 @@
 
 (use-package org
   :ensure t
-  :after evil
+  :after (evil
+          evil-leader)
   :config
   (org-toggle-link-display)
   (evil-declare-key 'normal org-mode-map
@@ -65,7 +66,10 @@
     (kbd "M-L")     'org-shiftmetaright
     (kbd "M-H")     'org-shiftmetaleft
     (kbd "M-K")     'org-shiftmetaup
-    (kbd "M-L")     'org-shiftmetadown))
+    (kbd "M-L")     'org-shiftmetadown)
+  (evil-leader/set-key
+    "t" #'(lambda () (org-time-stamp '(16) t))
+    "\\" 'org-capture))
 
 (use-package helm-org-rifle
   :ensure t

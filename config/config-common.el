@@ -9,10 +9,13 @@
   (require 'cl))
 
 (use-package dash
-             :ensure t)
+  :ensure t)
 
 (use-package s
-             :ensure t)
+  :ensure t)
+
+(use-package misc-cmds
+  :ensure t)
 
 (provide 'config-common)
 

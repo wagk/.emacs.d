@@ -58,6 +58,7 @@ Assumes that it:
                        "config/config-buffer.el"
                        "config/config-git.el"
                        "config/config-org.el"
+                       "config/config-project.el"
                        "config/config-help.el")
 
 (setq gc-cons-threshold default-gc-cons-threshold)
@@ -443,55 +444,51 @@ SUBDIR should not have a `/` in front."
 ;;   )
 
 
-(use-package projectile
-  :config
-  (projectile-mode)
-  (add-hook 'after-init-hook #'projectile-mode)
-  ;; TODO(pangt): Figure out a way to get this function to ignore binary files
-  ;; (defun projectile-whitespace-cleanup-project-files()
-  ;;   "Run whitespace-cleanup on all project files"
-  ;;   (interactive)
-  ;;   (dolist (file (projectile-current-project-files))
-  ;;     (let ((path (concat (projectile-project-root) file)))
-  ;;       (when (and (find-file-noselect path) (text-file-p path))
-  ;;         (let ((buffer (find-file-noselect path)))
-  ;;           (when buffer
-  ;;             (with-current-buffer buffer
-  ;;               (whitespace-cleanup)
-  ;;               (save-buffer)
-  ;;               (kill-buffer)))
-  ;;           ))
-  ;;       )))
+;; (use-package projectile
+;;   :config
+;;   (projectile-mode)
+;;   (add-hook 'after-init-hook #'projectile-mode)
+;;   ;; TODO(pangt): Figure out a way to get this function to ignore binary files
+;;   ;; (defun projectile-whitespace-cleanup-project-files()
+;;   ;;   "Run whitespace-cleanup on all project files"
+;;   ;;   (interactive)
+;;   ;;   (dolist (file (projectile-current-project-files))
+;;   ;;     (let ((path (concat (projectile-project-root) file)))
+;;   ;;       (when (and (find-file-noselect path) (text-file-p path))
+;;   ;;         (let ((buffer (find-file-noselect path)))
+;;   ;;           (when buffer
+;;   ;;             (with-current-buffer buffer
+;;   ;;               (whitespace-cleanup)
+;;   ;;               (save-buffer)
+;;   ;;               (kill-buffer)))
+;;   ;;           ))
+;;   ;;       )))
+;;   ;; (defun projectile-whitespace-cleanup-project-files()
+;;   ;;   "Run whitespace-cleanup on all project files"
+;;   ;;   (interactive)
+;;   ;;   (dolist (file (projectile-current-project-files))
+;;   ;;     (let ((path (concat (projectile-project-root) file))
+;;   ;;           (buffer (find-file-noselect path)))
+;;   ;;       (when (and buffer (text-file-p path))
+;;   ;;         (with-current-buffer buffer
+;;   ;;           (whitespace-cleanup)
+;;   ;;           (save-buffer)
+;;   ;;           (kill-buffer)))
+;;   ;;       )))
+;;   )
 
-  ;; (defun projectile-whitespace-cleanup-project-files()
-  ;;   "Run whitespace-cleanup on all project files"
-  ;;   (interactive)
-  ;;   (dolist (file (projectile-current-project-files))
-  ;;     (let ((path (concat (projectile-project-root) file))
-  ;;           (buffer (find-file-noselect path)))
-  ;;       (when (and buffer (text-file-p path))
-  ;;         (with-current-buffer buffer
-  ;;           (whitespace-cleanup)
-  ;;           (save-buffer)
-  ;;           (kill-buffer)))
-  ;;       )))
-
-  )
-
-(use-package helm-projectile)
+;; (use-package helm-projectile)
 ;; perspective messes with a lot of things. Helm mini esp
 ;;(use-package perspective
 ;;  :config
 ;;  (persp-mode))
 ;;(use-package persp-projectile)
 
-(use-package org-projectile
-  :config
-  (org-projectile:per-repo)
-  (setq org-projectile:per-repo-filename ".todo.org"
-        org-agenda-files (append org-agenda-files (org-projectile:todo-files))
-        )
-  )
+;; (use-package org-projectile
+;;   :config
+;;   (org-projectile:per-repo)
+;;   (setq org-projectile:per-repo-filename ".todo.org"
+;;         org-agenda-files (append org-agenda-files (org-projectile:todo-files))))
 
 ;; (use-package whitespace-cleanup-mode
 ;;   :config
@@ -503,6 +500,8 @@ SUBDIR should not have a `/` in front."
 ;;   (global-aggressive-indent-mode 1)
 ;;   )
 
+;; be aware that updates might adjust the load path to the .el files and
+;; cause loading problems. Helm seems to be a victim of this a lot
 (use-package spu
   :defer 5 ;; defer package loading for 5 second
   :config (spu-package-upgrade-daily))
@@ -513,7 +512,8 @@ SUBDIR should not have a `/` in front."
   )
 
 (require 'tramp)
-(cond ((eq system-type "windows-nt") (progn (setq tramp-default-method "plink"))))
+(cond ((eq system-type "windows-nt")
+       (progn (setq tramp-default-method "plink"))))
 
 (use-package tramp-term)
 
@@ -549,13 +549,13 @@ SUBDIR should not have a `/` in front."
 (use-package dockerfile-mode)
 (use-package json-mode)
 (use-package markdown-mode)
-(use-package minimap)
-(use-package multiple-cursors)
+;; (use-package minimap)
+;; (use-package multiple-cursors)
 (use-package transpose-frame)
 (use-package buffer-move)
 (use-package unicode-troll-stopper)
-(use-package neotree)
-(use-package google-translate)
+;; (use-package neotree)
+;; (use-package google-translate)
 
 (use-package origami
   :config
@@ -775,120 +775,125 @@ SUBDIR should not have a `/` in front."
 
 ;; しん おれを ワ
 
-(use-package misc-cmds)
-(defun my-line-lengths()
-  (let (length)
-    (save-excursion
-      (goto-char (point-min))
-      (while (not (eobp))
-        (push (- (line-end-position)
-                 (line-beginning-position))
-              length)
-        (forward-line)))
-    (copy-sequence length) ;; we return a list since this is the last form evaluated
-    ))
+;; (use-package misc-cmds)
+;; (defun my-line-lengths()
+;;   (let (length)
+;;     (save-excursion
+;;       (goto-char (point-min))
+;;       (while (not (eobp))
+;;         (push (- (line-end-position)
+;;                  (line-beginning-position))
+;;               length)
+;;         (forward-line)))
+;;     ;; we return a list since this is the last form evaluated
+;;     (copy-sequence length)))
 
-(defun my-longest-line-length()
-  (let ((lines (my-line-lengths)))
-    (nth 0 (sort lines '>)) ;; return the first element, which should be the largest
-    ))
+;; (defun my-longest-line-length()
+;;   (let ((lines (my-line-lengths)))
+;;     ;; return the first element, which should be the largest
+;;     (nth 0 (sort lines '>))))
 
-(defun my-centre-window-function()
-  (interactive)
-  (let ((margin-size (/ (- (window-width)
-                           (my-longest-line-length) )
-                        2)))
-    (if (not (get 'my-centre-window-function 'active))
-        (progn
-          (set-window-margins nil margin-size margin-size)
-          (put 'my-centre-window-function 'active t))
-      (progn
-        (set-window-margins nil 0 nil)
-        (put 'my-centre-window-function 'active nil)))))
+;; (defun my-centre-window-function()
+;;   (interactive)
+;;   (let ((margin-size (/ (- (window-width)
+;;                            (my-longest-line-length))
+;;                         2)))
+;;     (if (not (get 'my-centre-window-function 'active))
+;;         (progn
+;;           (set-window-margins nil margin-size margin-size)
+;;           (put 'my-centre-window-function 'active t))
+;;       (progn
+;;         (set-window-margins nil 0 nil)
+;;         (put 'my-centre-window-function 'active nil)))))
 
-(progn
-  (evil-leader/set-key
-    ;; "<SPC>"    'helm-M-x
-    ;; "S-<SPC>"  'helm-resume
-    ;; "y"        'helm-show-kill-ring
-    "/"        '(lambda () (interactive) (helm-swoop :$query "" :$multiline 4))
-    "?"        '(lambda () (interactive) (helm-swoop :$query "" :$multiline 4))
-    "."        'helm-hunks-current-buffer
-    "t"        '(lambda () (interactive) (org-time-stamp '(16) t))
-    ";"        'my-centre-window-function
-    "\\"       'org-capture
-    "]"        'org-projectile:template-or-project
-    ;; ","        'magit-status
-    "'"        'highlight-indent-guides-mode
-    ;; "h"        'helm-apropos
-    ;; "h"     '(lambda () (interactive) (helm-apropos nil)
-    ;;            (switch-to-buffer-other-window "*Help*"))
-    ;; "-"        'helm-find-files
-    ;; "_"        'helm-mini
-    ;; command to go to last buffet in vim is <C-^> and <C-6>
-    ;; "b"        'helm-bookmarks
-    "p"        'helm-projectile)
+;; (progn
+;;   (evil-leader/set-key
+;; "<SPC>"    'helm-M-x
+;; "S-<SPC>"  'helm-resume
+;; "y"        'helm-show-kill-ring
+;; "/"        '(lambda () (interactive) (helm-swoop :$query "" :$multiline 4))
+;; "?"        '(lambda () (interactive) (helm-swoop :$query "" :$multiline 4))
+;; "."        'helm-hunks-current-buffer
+;; "t"        '(lambda () (interactive) (org-time-stamp '(16) t))
+;; ";"        'my-centre-window-function
+;; "\\"       'org-capture
+;; "]"        'org-projectile:template-or-project
+;; ","        'magit-status
+;; "'"        'highlight-indent-guides-mode
+;; "h"        'helm-apropos
+;; "h"     '(lambda () (interactive) (helm-apropos nil)
+;;            (switch-to-buffer-other-window "*Help*"))
+;; "-"        'helm-find-files
+;; "_"        'helm-mini
+;; command to go to last buffet in vim is <C-^> and <C-6>
+;; "b"        'helm-bookmarks
+;; "p"        'helm-projectile
+;; )
 
-  (evil-ex-define-cmd "sh[ell]"      'shell)
-  (evil-ex-define-cmd "te[rminal]"   'term)
-  (evil-ex-define-cmd "re[cent]"     'helm-recentf)
-  (evil-ex-define-cmd "pr[ojectile]" 'helm-projectile)
+;; (evil-ex-define-cmd "sh[ell]"      'shell)
+;; (evil-ex-define-cmd "te[rminal]"   'term)
+;; (evil-ex-define-cmd "re[cent]"     'helm-recentf)
+;; (evil-ex-define-cmd "pr[ojectile]" 'helm-projectile)
                                         ; (evil-ex-define-cmd "or[gsearch]"   'helm-org-rifle)
-  ;; (evil-ex-define-cmd "goo[gle]"     'helm-google-suggest)
-  ;; (evil-ex-define-cmd "e[dit]"       'helm-find-files)
-  (evil-ex-define-cmd "e!"           '(lambda() (interactive)
-                                        (revert-buffer t t t)))
-  (evil-ex-define-cmd "b[uffer]"     'helm-mini)
-  (evil-ex-define-cmd "ini[t]"       'find-user-init-file)
-  (evil-ex-define-cmd "todo"         '(lambda() (interactive)
-                                        (insert "TODO (pangt): ")
-                                        (comment-region (line-beginning-position) (line-end-position))
-                                        (indent-relative)
-                                        (end-of-line)
-                                        (evil-insert nil)))
-  ;; TODO(pangt): we fix this some day
-  (evil-define-command my-evil-tabedit(arg) (interactive "<a>")
-    ;; (generate-buffer-create arg)
-    ;; (make-frame ((buffer-list . arg)))
-    (make-frame)
-    )
+;; (evil-ex-define-cmd "goo[gle]"     'helm-google-suggest)
+;; (evil-ex-define-cmd "e[dit]"       'helm-find-files)
+;; (evil-ex-define-cmd "e!"           '(lambda() (interactive)
+;;                                       (revert-buffer t t t)))
+;; (evil-ex-define-cmd "b[uffer]"     'helm-mini)
+;; (evil-ex;; -define-cmd "ini[t]"       'find-user-init-file)
+;; (evil-ex-define-cmd "todo"         '(lambda() (interactive)
+;;                                       (insert "TODO (pangt): ")
+;;                                       (comment-region (line-beginning-position) (line-end-position))
+;;                                       (indent-relative)
+;;                                       (end-of-line)
+;;                                       (evil-insert nil)))
+;; ;; TODO(pangt): we fix this some day
 
-  (evil-ex-define-cmd "tabe[dit]"     'my-evil-tabedit)
+;; (evil-define-command my-evil-tabedit(arg) (interactive "<a>")
+;;   ;; (generate-buffer-create arg)
+;;   ;; (make-frame ((buffer-list . arg)))
+;;   (make-frame)
+;;   )
 
-  ;; (evil-define-command my-evil-helm-apropos(arg)
-  ;;   (interactive "<a>")
-  ;;   (helm-apropos arg)
-  ;;   (other-window 1)
-  ;;   )
+;; (evil-ex-define-cmd "tabe[dit]"     'my-evil-tabedit)
 
-  ;; (eval-after-load 'evil-maps '(progn (evil-ex-define-cmd "h[elp]" 'my-evil-helm-apropos)))
+;; (evil-define-command my-evil-helm-apropos(arg)
+;;   (interactive "<a>")
+;;   (helm-apropos arg)
+;;   (other-window 1)
+;;   )
 
-  ;; ;; Overload shifts so that they don't lose the selection
-  ;; (defun my-evil-shift-left-visual ()
-  ;;   "Keep visual selection after shifting left."
-  ;;   (interactive)
-  ;;   (evil-shift-left (region-beginning) (region-end))
-  ;;   (evil-normal-state)
-  ;;   (evil-visual-restore))
+;; (eval-after-load 'evil-maps '(progn (evil-ex-define-cmd "h[elp]" 'my-evil-helm-apropos)))
 
-  ;; (defun my-evil-shift-right-visual ()
-  ;;   "Same as my-evil-shift-left-visual, but for the right instead."
-  ;;   (interactive)
-  ;;   (evil-shift-right (region-beginning) (region-end))
-  ;;   (evil-normal-state)
-  ;;   (evil-visual-restore))
+;; ;; Overload shifts so that they don't lose the selection
+;; (defun my-evil-shift-left-visual ()
+;;   "Keep visual selection after shifting left."
+;;   (interactive)
+;;   (evil-shift-left (region-beginning) (region-end))
+;;   (evil-normal-state)
+;;   (evil-visual-restore))
 
-  ;; (define-key evil-visual-state-map (kbd ">>") 'my-evil-shift-right-visual)
-  ;; (define-key evil-visual-state-map (kbd "<<") 'my-evil-shift-left-visual)
-  ) ;; progm
+;; (defun my-evil-shift-right-visual ()
+;;   "Same as my-evil-shift-left-visual, but for the right instead."
+;;   (interactive)
+;;   (evil-shift-right (region-beginning) (region-end))
+;;   (evil-normal-state)
+;;   (evil-visual-restore))
+
+;; (define-key evil-visual-state-map (kbd ">>") 'my-evil-shift-right-visual)
+;; (define-key evil-visual-state-map (kbd "<<") 'my-evil-shift-left-visual)
+;; ) ;; progm
 
 ;; Japanese mode
+(require 'kkc)
 (eval-after-load "kkc"
-  (setq default-input-method "japanese"
-        kkc-show-conversion-list-count 1)
-  (define-key kkc-keymap (kbd "SPC")       'kkc-terminate)
-  (define-key kkc-keymap (kbd "<tab>")     'kkc-next)
-  (define-key kkc-keymap (kbd "<backtab>") 'kkc-prev)
+  (progn
+    (setq default-input-method "japanese"
+          kkc-show-conversion-list-count 1)
+    ;; (define-key kkc-keymap (kbd "SPC")       'kkc-terminate)
+    ;; (define-key kkc-keymap (kbd "<tab>")     'kkc-next)
+    ;; (define-key kkc-keymap (kbd "<backtab>") 'kkc-prev)
+    )
   )
 
 ;; (setq require-final-newline t)

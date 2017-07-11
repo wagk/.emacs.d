@@ -5,7 +5,6 @@
 ;;; Code:
 (require 'config-package)
 
-;; BEGIN LOCAL FUNCTIONS ---
 ;; TODO: figure out this
 (defun /evil-paste-after-from-0 ()
   "I legitimately forgot what this does.
@@ -44,7 +43,6 @@ Probably copied it from stackoverflow"
   (evil-shift-right (region-beginning) (region-end))
   (evil-normal-state)
   (evil-visual-restore))
-;; END LOCAL FUNCTIONS ---
 
 ;; Make my own leader keys and bake it into evil
 (defvar /mapleader "<SPC>")
@@ -56,6 +54,7 @@ Probably copied it from stackoverflow"
 ;; evil config
 (use-package evil
   :ensure t
+  :after misearch ;; isearch-mode
   :bind (("C-f" . universal-argument)
          ("C-u" . kill-whole-line)
          :map universal-argument-map
@@ -64,15 +63,21 @@ Probably copied it from stackoverflow"
          :map evil-motion-state-map
          ("C-u" . evil-scroll-up)
          :map evil-normal-state-map
-         ("gt" . /evil-gt)
-         ("gT" . /evil-gT)
+         ("gt"   . /evil-gt)
+         ("gT"   . /evil-gT)
          ("C-\\" . /lang-toggle) ;; binding for eng <-> jap
          :map evil-visual-state-map
-         ("p"  . /evil-paste-after-from-0)
+         ;; ("p"  . /evil-paste-after-from-0)
          (">>" . /evil-shift-right-visual)
          ("<<" . /evil-shift-left-visual)
-         :map minibuffer-local-isearch-map
-         ("C-w" . evil-delete-backward-word))
+         :map evil-inner-text-objects-map
+         ("/" . /inner-forward-slash)
+         :map evil-outer-text-objects-map
+         ("/" . /a-forward-slash)
+         :map isearch-mode-map
+         ("C-w" . nil)
+         :map minibuffer-local-map
+         ("C-w" . backward-kill-word))
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
   (setq evil-want-Y-yank-to-eol t
@@ -85,19 +90,32 @@ Probably copied it from stackoverflow"
 
   (add-hook 'view-mode-hook 'evil-motion-state)
 
+  (evil-define-text-object /a-forward-slash (count &optional beg end type)
+    "Select forward slash (/)"
+    :extend-selection t
+    (evil-select-quote ?/ beg end type count))
+
+  (evil-define-text-object /inner-forward-slash (count &optional beg end type)
+    "Select forward slash (/)"
+    :extend-selection nil
+    (evil-select-quote ?/ beg end type count))
+
   ;; Let `_` be considered part of a word, like vim does
   (defadvice evil-inner-word (around underscore-as-word activate)
     (let ((table (copy-syntax-table (syntax-table))))
       (modify-syntax-entry ?_ "w" table)
       (with-syntax-table table ad-do-it)))
 
+  (evil-ex-define-cmd "te[rminal]" 'term)
   (evil-ex-define-cmd "tabn[ew]" 'make-frame)
-  (evil-ex-define-cmd "vsp[lit]" #'(lambda() (interactive)
+  (evil-ex-define-cmd "tabe[dit]" 'make-frame)
+  (evil-ex-define-cmd "vsp[lit]" #'(lambda()
                                      (split-window-horizontally)
                                      (other-window 1)))
-  (evil-ex-define-cmd "sp[lit]" #'(lambda() (interactive)
+  (evil-ex-define-cmd "sp[lit]" #'(lambda()
                                     (split-window-vertically)
                                     (other-window 1)))
+  (evil-ex-define-cmd "e!" #'(lambda() (revert-buffer t t t)))
 
   ;; (lexical-let ((default-color (cons (face-background 'mode-line)
   ;;                                    (face-foreground 'mode-line))))
@@ -142,7 +160,10 @@ Probably copied it from stackoverflow"
               ("K" . evil-jump-out-args)
               :map evil-motion-state-map
               ("L" . evil-forward-arg)
-              ("H" . evil-backward-arg)))
+              ("H" . evil-backward-arg))
+  :config
+  ;; consider spaces as argument delimiters
+  (add-to-list 'evil-args-delimiters " "))
 
 (use-package evil-numbers
   :ensure t
@@ -200,7 +221,9 @@ Probably copied it from stackoverflow"
 
 ;; https://github.com/edkolev/evil-goggles
 (use-package evil-goggles
+  :disabled ;; melpa is complaining that they can't find this package
   :ensure t
+  :after evil
   :config
   (evil-goggles-mode)
   (evil-goggles-use-diff-faces)

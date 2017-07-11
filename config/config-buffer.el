@@ -6,6 +6,7 @@
 
 (require 'config-package)
 (require 'config-evil)
+(require 'config-common)
 
 (use-package color-theme
   :ensure t)
@@ -54,6 +55,7 @@
   :diminish t
   :config
   (setq-default fill-column 80)
+  (setq fci-rule-width 23)
   (add-hook 'prog-mode-hook 'turn-on-fci-mode))
 
 (use-package powerline
@@ -64,6 +66,38 @@
   ;;   :config
   ;;   (powerline-evil-vim-color-theme))
   (powerline-vim-theme))
+
+(defun /line-lengths()
+  (let (length)
+    (save-excursion
+      (goto-char (point-min))
+      (while (not (eobp))
+        (push (- (line-end-position)
+                 (line-beginning-position))
+              length)
+        (forward-line)))
+    ;; we return a list since this is the last form evaluated
+    (copy-sequence length)))
+
+(defun /longest-line-length()
+  (let ((lines (/line-lengths)))
+    ;; return the first element, which should be the largest
+    (nth 0 (sort lines '>))))
+
+(defun /centre-window-function()
+  (interactive)
+  (let ((margin-size (/ (- (window-width) (/longest-line-length))
+                        2)))
+    (if (not (get '/centre-window-function 'active))
+        (progn
+          (set-window-margins nil margin-size margin-size)
+          (put '/centre-window-function 'active t))
+      (progn
+        (set-window-margins nil 0 nil)
+        (put '/centre-window-function 'active nil)))))
+
+(evil-leader/set-key
+  ";" '/centre-window-function)
 
 (load-theme 'solarized-dark t)
 
