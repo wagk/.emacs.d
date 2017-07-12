@@ -135,6 +135,22 @@
 ;; automatically refresh buffer when changed outside
 (global-auto-revert-mode t)
 
+;; Remove toolbar
+(progn (tool-bar-mode -1)
+       (menu-bar-mode -1)
+       (scroll-bar-mode -1)
+       (window-divider-mode -1))
+
+(setq truncate-lines    t ;; no wrap
+      tab-width         8
+      auto-hscroll-mode t)
+
+;; do not use tabs when indenting
+(setq-default indent-tabs-mode nil)
+
+;; autopairing
+(electric-pair-mode 1)
+
 ;; Frame-related functions
 (add-hook 'after-make-frame-functions 'select-frame)
 

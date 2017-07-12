@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: new-el-file
+# key: ;;;;
+# --
+;;; ${1:`(file-name-nondirectory buffer-file-name)`} --- $2
+
+;;; Commentary:
+
+;;; Code:
+$0
+
+(provide '$3)
+
+;;; {$1} ends here

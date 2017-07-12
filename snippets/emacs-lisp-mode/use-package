@@ -1,8 +1,7 @@
 # -*- mode: snippet -*-
 # name: use-package
-# key: upkg
+# key: (use
 # --
-(use-package ${1:package}
-  :init ${2}
-  :config ${3}
-  )
+(use-package $1
+             :ensure ${2:t}
+             :config $0)

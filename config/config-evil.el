@@ -60,6 +60,8 @@ Probably copied it from stackoverflow"
          :map universal-argument-map
          ("C-u" . nil)
          ("C-f" . universal-argument-more)
+         :map evil-insert-state-map
+         ("C-l" . evil-complete-next-line)
          :map evil-motion-state-map
          ("C-u" . evil-scroll-up)
          :map evil-normal-state-map

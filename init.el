@@ -54,11 +54,11 @@ Assumes that it:
                        "config/config-common.el"
                        "config/config-evil.el"
                        "config/config-helm.el"
-                       "config/config-snippets.el"
                        "config/config-buffer.el"
                        "config/config-git.el"
                        "config/config-org.el"
                        "config/config-project.el"
+                       "config/config-completion.el"
                        "config/config-help.el")
 
 (setq gc-cons-threshold default-gc-cons-threshold)
@@ -515,9 +515,7 @@ SUBDIR should not have a `/` in front."
 (require 'tramp)
 (cond ((eq system-type "windows-nt")
        (progn (setq tramp-default-method "plink"))))
-
 (use-package tramp-term)
-
 (use-package docker-tramp)
 
 ;; (use-package linum-relative)
@@ -659,51 +657,51 @@ SUBDIR should not have a `/` in front."
 ;; ;; orgmode config END
 
 ;; company mode
-(use-package company
-  :config
-  (global-company-mode)
+;; (use-package company
+;;   :config
+;;   (global-company-mode)
 
-  (use-package company-quickhelp
-    :config
-    (company-quickhelp-mode 0)
-    (setq company-quickhelp-delay 1)
-    )
+;;   (use-package company-quickhelp
+;;     :config
+;;     (company-quickhelp-mode 0)
+;;     (setq company-quickhelp-delay 1)
+;;     )
 
-  (use-package company-jedi
-    :config
-    (defun -python-mode-hook ()
-      (add-to-list 'python-mode-hook 'company-jedi))
-    (add-hook 'python-mode-hook '-python-mode-hook)
-    )
+;;   (use-package company-jedi
+;;     :config
+;;     (defun -python-mode-hook ()
+;;       (add-to-list 'python-mode-hook 'company-jedi))
+;;     (add-hook 'python-mode-hook '-python-mode-hook)
+;;     )
 
-  (defvar company-mode/enable-yas t
-    "Enable yasnippet for all backends.")
-  (defun company-mode/backend-with-yas (backend)
-    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-        backend
-      (append (if (consp backend) backend (list backend))
-              '(:with company-yasnippet))))
-  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+;;   (defvar company-mode/enable-yas t
+;;     "Enable yasnippet for all backends.")
+;;   (defun company-mode/backend-with-yas (backend)
+;;     (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+;;         backend
+;;       (append (if (consp backend) backend (list backend))
+;;               '(:with company-yasnippet))))
+;;   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
 
-  (use-package helm-company
-    :config
-    (evil-declare-key 'insert company-mode-map (kbd "C-SPC") 'helm-company)
-    (evil-declare-key 'insert company-active-map (kbd "C-SPC") 'helm-company)
-    )
+;;   (use-package helm-company
+;;     :config
+;;     (evil-declare-key 'insert company-mode-map (kbd "C-SPC") 'helm-company)
+;;     (evil-declare-key 'insert company-active-map (kbd "C-SPC") 'helm-company)
+;;     )
 
-  (setq company-dabbrev-downcase nil
-        company-dabbrev-ignore-case nil
-        company-idle-delay 1
-        company-require-match nil
-        company-selection-wrap-around t)
+;;   (setq company-dabbrev-downcase nil
+;;         company-dabbrev-ignore-case nil
+;;         company-idle-delay 1
+;;         company-require-match nil
+;;         company-selection-wrap-around t)
 
-  (define-key company-active-map (kbd "C-h") 'company-quickhelp-manual-begin)
-  (define-key company-active-map (kbd "C-n") 'company-select-next)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+;;   (define-key company-active-map (kbd "C-h") 'company-quickhelp-manual-begin)
+;;   (define-key company-active-map (kbd "C-n") 'company-select-next)
+;;   (define-key company-active-map (kbd "C-p") 'company-select-previous)
 
-  ;; (define-key company-active-map (kbd "TAB") 'helm-company)
-  (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
-  )
+;;   ;; (define-key company-active-map (kbd "TAB") 'helm-company)
+;;   (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
+;;   )
 
 ;; (setq custom-file (user-emacs-subdirectory "custom.el"))
 ;; (load custom-file 'noerror)
@@ -741,34 +739,35 @@ SUBDIR should not have a `/` in front."
 ;;     )
 ;;   )
 
-(let ((msys-path "C:/msys/1.0/bin"))
-  (when (and (string-equal system-type "windows-nt")
-             (file-directory-p msys-path))
-    (setq exec-path (append exec-path '(msys-path)))
-    )
-  )
+;; (let ((msys-path "C:/msys/1.0/bin"))
+;;   (when (and (string-equal system-type "windows-nt")
+;;              (file-directory-p msys-path))
+;;     (setq exec-path (append exec-path '(msys-path)))
+;;     )
+;;   )
 
 ;; startup maximised
 (custom-set-variables
  '(initial-frame-alist (quote ((fullscreen . maximized)))))
 
-;; autopairing
-(electric-pair-mode 1)
+;; ;; autopairing
+;; (electric-pair-mode 1)
+
 
 ;; indentation
-(electric-indent-mode 1)
-(setq-default indent-tabs-mode nil)
+;; (electric-indent-mode 1)
+;; (setq-default indent-tabs-mode nil)
 
-;; Remove toolbar
-(progn
-  (tool-bar-mode -1)
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
-  (window-divider-mode -1))
+;; ;; Remove toolbar
+;; (progn
+;;   (tool-bar-mode -1)
+;;   (menu-bar-mode -1)
+;;   (scroll-bar-mode -1)
+;;   (window-divider-mode -1))
 
-(setq truncate-lines    t
-      tab-width         8
-      auto-hscroll-mode t)
+;; (setq truncate-lines    t
+;;       tab-width         8
+;;       auto-hscroll-mode t)
 
 ;; (global-hl-line-mode 1)
 ;; (set-face-background 'hl-line  "#073642")
