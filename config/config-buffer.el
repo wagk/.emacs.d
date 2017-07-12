@@ -67,6 +67,14 @@
   ;;   (powerline-evil-vim-color-theme))
   (powerline-vim-theme))
 
+(use-package multi-term
+  :ensure t
+  :if (not (or (eq system-type "windows-nt")
+               (eq system-type "ms-dos")))
+  :config
+  (setq multi-term-program "/bin/bash")
+  (evil-ex-define-cmd "te[rminal]" 'multi-term))
+
 (defun /line-lengths()
   (let (length)
     (save-excursion
@@ -123,6 +131,12 @@
 
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; automatically refresh buffer when changed outside
+(global-auto-revert-mode t)
+
+;; Frame-related functions
+(add-hook 'after-make-frame-functions 'select-frame)
 
 ;; adjust autosave and backup directories
 (setq backup-directory-alist `((".*" . ,temporary-file-directory))

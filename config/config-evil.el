@@ -74,8 +74,8 @@ Probably copied it from stackoverflow"
          ("/" . /inner-forward-slash)
          :map evil-outer-text-objects-map
          ("/" . /a-forward-slash)
-         :map isearch-mode-map
-         ("C-w" . nil)
+         ;; :map isearch-mode-map
+         ;; ("C-w" . nil)
          :map minibuffer-local-map
          ("C-w" . backward-kill-word))
   :config
@@ -109,13 +109,14 @@ Probably copied it from stackoverflow"
   (evil-ex-define-cmd "te[rminal]" 'term)
   (evil-ex-define-cmd "tabn[ew]" 'make-frame)
   (evil-ex-define-cmd "tabe[dit]" 'make-frame)
-  (evil-ex-define-cmd "vsp[lit]" #'(lambda()
+  (evil-ex-define-cmd "vsp[lit]" #'(lambda() (interactive)
                                      (split-window-horizontally)
                                      (other-window 1)))
-  (evil-ex-define-cmd "sp[lit]" #'(lambda()
+  (evil-ex-define-cmd "sp[lit]" #'(lambda() (interactive)
                                     (split-window-vertically)
                                     (other-window 1)))
-  (evil-ex-define-cmd "e!" #'(lambda() (revert-buffer t t t)))
+  (evil-ex-define-cmd "e!" #'(lambda() (interactive)
+                               (revert-buffer t t t)))
 
   ;; (lexical-let ((default-color (cons (face-background 'mode-line)
   ;;                                    (face-foreground 'mode-line))))

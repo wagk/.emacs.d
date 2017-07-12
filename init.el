@@ -543,7 +543,7 @@ SUBDIR should not have a `/` in front."
     :after typescript-mode
     :config
     (add-hook 'before-save-hook 'tide-format-before-save)
-    (add-hook 'typescript-mode-hook #'setup-tide)))
+    (add-hook 'typescript-mode-hook 'tide-setup)))
 
 (use-package groovy-mode)
 (use-package php-mode)
