@@ -133,7 +133,6 @@ Probably copied it from stackoverflow"
   ;;                 (set-face-foreground 'mode-line (cdr color))))))
   )
 
-;; TODO: roll your own evil-leader. This gets annoying after a while
 (use-package evil-leader
   :ensure t
   :after evil
@@ -240,8 +239,6 @@ Probably copied it from stackoverflow"
 ;;   (helm-apropos arg)
 ;;   (other-window 1)
 ;;   )
-
-;; (eval-after-load 'evil-maps '(progn (evil-ex-define-cmd "h[elp]" 'my-evil-helm-apropos)))
 
 (evil-mode 1)
 
