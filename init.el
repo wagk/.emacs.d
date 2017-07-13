@@ -18,10 +18,8 @@
 ;; (package-initialize)
 
 (defconst user-init-dir
-  (cond ((boundp 'user-emacs-directory)
-         user-emacs-directory)
-        ((boundp 'user-init-directory)
-         user-init-directory)
+  (cond ((boundp 'user-emacs-directory) user-emacs-directory)
+        ((boundp 'user-init-directory) user-init-directory)
         (t "~/.emacs.d/"))
   "Sets up the startup directory.")
 
@@ -59,6 +57,7 @@ Assumes that it:
                        "config/config-org.el"
                        "config/config-project.el"
                        "config/config-completion.el"
+                       "config/config-webdev.el"
                        "config/config-help.el")
 
 (setq gc-cons-threshold default-gc-cons-threshold)
@@ -508,9 +507,9 @@ SUBDIR should not have a `/` in front."
   ;; attempt to upgrade packages only when we're leaving
   (add-hook 'kill-emacs-hook 'spu-package-upgrade))
 
-(use-package flycheck
-  :config
-  (add-hook 'after-init-hook #'global-flycheck-mode))
+;; (use-package flycheck
+;;   :config
+;;   (add-hook 'after-init-hook #'global-flycheck-mode))
 
 (require 'tramp)
 (cond ((eq system-type "windows-nt")
@@ -534,20 +533,20 @@ SUBDIR should not have a `/` in front."
   (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode)
   )
 
-(use-package typescript-mode
-  ;; :mode ("\\.ts\\" . typescript-mode)
-  :config
-  (use-package tide
-    :after typescript-mode
-    :config
-    (add-hook 'before-save-hook 'tide-format-before-save)
-    (add-hook 'typescript-mode-hook 'tide-setup)))
+;; (use-package typescript-mode
+;;   ;; :mode ("\\.ts\\" . typescript-mode)
+;;   :config
+;;   (use-package tide
+;;     :after typescript-mode
+;;     :config
+;;     (add-hook 'before-save-hook 'tide-format-before-save)
+;;     (add-hook 'typescript-mode-hook 'tide-setup)))
 
-(use-package groovy-mode)
-(use-package php-mode)
-(use-package dockerfile-mode)
-(use-package json-mode)
-(use-package markdown-mode)
+;; (use-package groovy-mode)
+;; (use-package php-mode)
+;; (use-package dockerfile-mode)
+;; (use-package json-mode)
+;; (use-package markdown-mode)
 ;; (use-package minimap)
 ;; (use-package multiple-cursors)
 (use-package transpose-frame)
@@ -556,26 +555,26 @@ SUBDIR should not have a `/` in front."
 ;; (use-package neotree)
 ;; (use-package google-translate)
 
-(use-package origami
-  :config
-  (setq origami-show-fold-header t)
-  (global-origami-mode 1)
-  ) ;; todo: map z-a, z-r, and z-m to these functions. i want folding dammit
+;; (use-package origami
+;;   :config
+;;   (setq origami-show-fold-header t)
+;;   (global-origami-mode 1)
+;;   ) ;; todo: map z-a, z-r, and z-m to these functions. i want folding dammit
 
 ;; (use-package centered-window-mode
 ;;   :config
 ;;   (centered-window-mode t)
 ;;   )
 
-(use-package emmet-mode
-  :bind (:map emmet-mode-keymap
-              ("<tab>" . emmet-next-edit-point)
-              ("<backtab>" . emmet-prev-edit-point))
-  :config
-  (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
-  (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.
-  (setq emmet-move-cursor-between-quotes t) ;; default nil
-  )
+;; (use-package emmet-mode
+;;   :bind (:map emmet-mode-keymap
+;;               ("<tab>" . emmet-next-edit-point)
+;;               ("<backtab>" . emmet-prev-edit-point))
+;;   :config
+;;   (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
+;;   (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.
+;;   (setq emmet-move-cursor-between-quotes t) ;; default nil
+;;   )
 
 ;; (use-package powerline
 ;;   :config

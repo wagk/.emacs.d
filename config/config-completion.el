@@ -13,23 +13,33 @@
              ("C-j" . yas-next-field-or-maybe-expand)
              ("C-k" . yas-prev-field))
   :config
-  (yas-global-mode 1))
+  (yas-global-mode)
+  (setq yas-indent-line 'auto
+        yas-also-auto-indent-first-line t)
+  ;; evil-leader keybinds
+  (require 'evil-leader)
+  (evil-leader/set-key
+    "s s" 'yas-new-snippet
+    "s a" 'yas-insert-snippet
+    "s f" 'yas-visit-snippet-file)
+  )
 
 (use-package company
   :ensure t
-  :bind(:map evil-insert-state-map
-             ("C-p" . company-complete)
-             ("C-p" . company-complete)
-             ("C-n" . company-complete)
-             :map company-active-map
-             ("C-n" . company-select-next)
-             ("C-p" . company-select-previous)
+  :bind(
+        ;; :map evil-insert-state-map
+        ;;      ("C-p" . company-complete)
+        ;;      ("C-n" . company-complete)
+        :map company-active-map
+             ("C-j" . company-select-next)
+             ("C-k" . company-select-previous)
              ("C-w" . evil-delete-backward-word))
   :config
   (global-company-mode)
 
   ;; yasnippet integration
   ;; https://emacs.stackexchange.com/questions/10431/get-company-to-show-suggestions-for-yasnippet-names
+  (require 'yasnippet)
   (progn (defvar company-mode/enable-yas t
            "Enable yasnippet for all backends.")
          (defun company-mode/backend-with-yas (backend)
@@ -66,9 +76,10 @@
 
   (setq company-dabbrev-downcase nil
         company-dabbrev-ignore-case nil
-        company-idle-delay 0
+        company-idle-delay 0.5
         company-require-match nil
-        company-selection-wrap-around t))
+        company-selection-wrap-around t)
+  )
 
 ;; (use-package helm-company
 ;;   :config
