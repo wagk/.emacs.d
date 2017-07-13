@@ -1,0 +1,5 @@
+* TODO Learn orgmode
+  This was created through org-capture. With proper bindings I think I can get used to this
+* TODO Remove uses of ~:after~ from use-packages
+  [2017-07-14 Fri 01:56]
+  ~(require '*)~ is better and probably what I actually want

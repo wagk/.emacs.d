@@ -62,6 +62,7 @@ Probably copied it from stackoverflow"
          ("C-f" . universal-argument-more)
          :map evil-insert-state-map
          ("C-l" . evil-complete-next-line)
+         ("C-L" . evil-complete-previous-line)
          ("C-k" . nil)
          :map evil-motion-state-map
          ("C-u" . evil-scroll-up)

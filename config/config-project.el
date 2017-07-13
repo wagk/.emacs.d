@@ -16,12 +16,23 @@
 
 (use-package helm-projectile
   :ensure t
-  :after (helm
-          evil
-          evil-leader)
   :config
+  (require 'evil-leader)
   (evil-leader/set-key
-    "p" 'helm-projectile))
+    "p" 'helm-projectile)
+  )
+
+(use-package org-projectile
+  :ensure t
+  :config
+  (org-projectile:per-repo)
+  (setq org-projectile:per-repo-filename ".todo.org"
+        org-agenda-files (append org-agenda-files (org-projectile:todo-files)))
+  (add-to-list 'org-capture-templates (org-projectile:project-todo-entry "p"))
+  (require 'evil-leader)
+  (evil-leader/set-key
+    "o p" 'org-projectile:project-todo-completing-read)
+  )
 
 ;; For when we're more comfortable with org
 ;; (use-package org-projectile

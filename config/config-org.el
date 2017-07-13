@@ -37,10 +37,10 @@
 
 (use-package org
   :ensure t
-  :after (evil
-          evil-leader)
   :config
   (org-toggle-link-display)
+  (setq org-default-notes-file (concat org-directory "/TODO.org"))
+  (require 'evil)
   (evil-declare-key 'normal org-mode-map
     (kbd "RET")     '/evil-org-new-item
     (kbd "M-RET")   '/evil-org-insert-heading
@@ -67,9 +67,15 @@
     (kbd "M-H")     'org-shiftmetaleft
     (kbd "M-K")     'org-shiftmetaup
     (kbd "M-L")     'org-shiftmetadown)
+  ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
+  (define-key org-capture-mode-map [remap evil-save-and-close]          'org-capture-finalize)
+  (define-key org-capture-mode-map [remap evil-save-modified-and-close] 'org-capture-finalize)
+  (define-key org-capture-mode-map [remap evil-quit]                    'org-capture-kill)
+  (require 'evil-leader)
   (evil-leader/set-key
-    "t" #'(lambda () (org-time-stamp '(16) t))
-    "\\" 'org-capture))
+    "t" #'(lambda () (interactive) (org-time-stamp '(16) t))
+    "o o" 'org-capture)
+  )
 
 (use-package helm-org-rifle
   :ensure t
