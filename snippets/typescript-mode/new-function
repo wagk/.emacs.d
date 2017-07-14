@@ -2,6 +2,8 @@
 # name: function
 # key: function
 # --
+/**
+*/
 function ${1:foo}(${2:args}): ${3:return} {
 $0
 }
