@@ -39,8 +39,8 @@
 
   ;; yasnippet integration
   ;; https://emacs.stackexchange.com/questions/10431/get-company-to-show-suggestions-for-yasnippet-names
-  (require 'yasnippet)
-  (progn (defvar company-mode/enable-yas t
+  (progn (require 'yasnippet)
+         (defvar company-mode/enable-yas t
            "Enable yasnippet for all backends.")
          (defun company-mode/backend-with-yas (backend)
            (if (or (not company-mode/enable-yas)
