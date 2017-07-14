@@ -7,6 +7,18 @@
 (require 'config-package)
 (require 'config-evil)
 (require 'config-helm)
+(require 'config-buffer)
+
+(defun /evil-org-new-item-or-header ()
+  "Inserts a new item or a header, depending"
+  (interactive)
+  (cond ((org-at-item-p) (progn (end-of-line)
+                                (org-insert-item)
+                                (evil-append 1)))
+        ((org-at-heading-p) (progn (end-of-line)
+                                   (org-insert-heading-respect-content)
+                                   (evil-append 1)))))
+
 
 (defun /evil-org-new-item ()
   "Insert a new item if we're in normal mode."
@@ -38,45 +50,58 @@
 (use-package org
   :ensure t
   :config
-  (org-toggle-link-display)
-  (setq org-default-notes-file (concat org-directory "/TODO.org"))
-  (require 'evil)
-  (evil-declare-key 'normal org-mode-map
-    (kbd "TAB")     'org-cycle
-    (kbd "RET")     '/evil-org-new-item
-    (kbd "M-RET")   '/evil-org-insert-heading
-    (kbd "S-SPC")   '/evil-org-toggle-checkbox
-    (kbd "L")       'org-shiftright
-    (kbd "H")       'org-shiftleft
-    (kbd "K")       'org-shiftup
-    (kbd "J")       'org-shiftdown
-    (kbd "M-l")     'org-metaright
-    (kbd "M-h")     'org-metaleft
-    (kbd "M-k")     'org-metaup
-    (kbd "M-j")     'org-metadown
-    (kbd "M-L")     '(/evil-update-cursor-eol(org-shiftmetaright))
-    (kbd "M-H")     '(/evil-update-cursor-eol(org-shiftmetaleft))
-    (kbd "M-K")     '(/evil-update-cursor-eol(org-shiftmetaup))
-    (kbd "M-L")     '(/evil-update-cursor-eol(org-shiftmetadown)))
-  (evil-declare-key 'insert org-mode-map
-    (kbd "S-RET")   '/evil-org-new-item
-    (kbd "M-l")     'org-metaright
-    (kbd "M-h")     'org-metaleft
-    (kbd "M-k")     'org-metaup
-    (kbd "M-j")     'org-metadown
-    (kbd "M-L")     'org-shiftmetaright
-    (kbd "M-H")     'org-shiftmetaleft
-    (kbd "M-K")     'org-shiftmetaup
-    (kbd "M-L")     'org-shiftmetadown)
+  (progn (org-toggle-link-display)
+         (setq org-default-notes-file (concat org-directory "/TODO.org"))
+         (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
+         )
+  (progn (require'aggressive-indent)
+         (add-hook 'org-mode-hook #'aggressive-indent-mode)
+         )
+  (progn (require 'evil)
+         (evil-declare-key    'normal org-mode-map
+           (kbd "TAB")        'org-cycle
+           (kbd "RET")        '/evil-org-new-item-or-header
+           ;; [(shift return)]      '/evil-org-new-item-or-header
+           ;; (kbd "S-RET")      '/evil-org-new-item-or-header
+           ;; (kbd "S-<return>") '/evil-org-new-item-or-header
+           (kbd "S-SPC")      '/evil-org-toggle-checkbox
+           (kbd "L")          'org-shiftright
+           (kbd "H")          'org-shiftleft
+           (kbd "K")          'org-shiftup
+           (kbd "J")          'org-shiftdown
+           (kbd "M-l")        'org-metaright
+           (kbd "M-h")        'org-metaleft
+           (kbd "M-k")        'org-metaup
+           (kbd "M-j")        'org-metadown
+           (kbd "M-L")        '(/evil-update-cursor-eol(org-shiftmetaright))
+           (kbd "M-H")        '(/evil-update-cursor-eol(org-shiftmetaleft))
+           (kbd "M-K")        '(/evil-update-cursor-eol(org-shiftmetaup))
+           (kbd "M-L")        '(/evil-update-cursor-eol(org-shiftmetadown)))
+         (evil-declare-key    'insert org-mode-map
+           ;; (kbd "S-RET")      '/evil-org-new-item
+           (kbd "M-l")        'org-metaright
+           (kbd "M-h")        'org-metaleft
+           (kbd "M-k")        'org-metaup
+           (kbd "M-j")        'org-metadown
+           (kbd "M-L")        'org-shiftmetaright
+           (kbd "M-H")        'org-shiftmetaleft
+           (kbd "M-K")        'org-shiftmetaup
+           (kbd "M-L")        'org-shiftmetadown)
+         )
   ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
-  (require 'org-capture)
-  (define-key org-capture-mode-map [remap evil-save-and-close]          'org-capture-finalize)
-  (define-key org-capture-mode-map [remap evil-save-modified-and-close] 'org-capture-finalize)
-  (define-key org-capture-mode-map [remap evil-quit]                    'org-capture-kill)
-  (require 'evil-leader)
-  (evil-leader/set-key
-    "t" #'(lambda () (interactive) (org-time-stamp '(16) t))
-    "o o" 'org-capture)
+  (progn (require 'org-capture)
+         (define-key org-capture-mode-map [remap evil-save-and-close]
+           'org-capture-finalize)
+         (define-key org-capture-mode-map [remap evil-save-modified-and-close]
+           'org-capture-finalize)
+         (define-key org-capture-mode-map [remap evil-quit]
+           'org-capture-kill)
+         )
+  (progn (require 'evil-leader)
+         (evil-leader/set-key
+           "t" #'(lambda () (interactive) (org-time-stamp '(16) t))
+           "o o" 'org-capture)
+         )
   )
 
 (use-package helm-org-rifle
