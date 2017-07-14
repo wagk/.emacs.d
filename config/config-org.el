@@ -42,6 +42,7 @@
   (setq org-default-notes-file (concat org-directory "/TODO.org"))
   (require 'evil)
   (evil-declare-key 'normal org-mode-map
+    (kbd "TAB")     'org-cycle
     (kbd "RET")     '/evil-org-new-item
     (kbd "M-RET")   '/evil-org-insert-heading
     (kbd "S-SPC")   '/evil-org-toggle-checkbox
@@ -68,6 +69,7 @@
     (kbd "M-K")     'org-shiftmetaup
     (kbd "M-L")     'org-shiftmetadown)
   ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
+  (require 'org-capture)
   (define-key org-capture-mode-map [remap evil-save-and-close]          'org-capture-finalize)
   (define-key org-capture-mode-map [remap evil-save-modified-and-close] 'org-capture-finalize)
   (define-key org-capture-mode-map [remap evil-quit]                    'org-capture-kill)
