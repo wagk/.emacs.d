@@ -28,14 +28,13 @@
 
 (use-package highlight-indent-guides
   :ensure t
-  :after evil-leader
   :config
-  ;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-  ;; character || column || fill
   (setq highlight-indent-guides-method 'character
         highlight-indent-guides-character ?\|)
-  (evil-leader/set-key
-    "'" 'highlight-indent-guides-mode))
+  (progn (require 'evil-leader)
+         (evil-leader/set-key
+           "'" 'highlight-indent-guides-mode))
+  )
 
 (use-package whitespace-cleanup-mode
   :ensure t
@@ -61,18 +60,14 @@
 (use-package powerline
   :ensure t
   :config
-  ;; (use-package powerline-evil
-  ;;   :ensure t
-  ;;   :config
-  ;;   (powerline-evil-vim-color-theme))
   (powerline-vim-theme))
 
 (use-package multi-term
   :ensure t
-  :if (not (or (eq system-type "windows-nt")
-               (eq system-type "ms-dos")))
   :config
-  (setq multi-term-program "/bin/bash")
+  (cond ((or (eq system-type 'ms-dos)
+             (eq system-type 'windows-nt)) (setq multi-term-program "cmd"))
+        (t (setq multi-term-program "/bin/bash")))
   (evil-ex-define-cmd "te[rminal]" 'multi-term))
 
 (defun /line-lengths()
