@@ -1,8 +1,8 @@
-* TODO Learn orgmode
-  This was created through org-capture. With proper bindings I think I can get used to this
 * TODO Remove uses of `:after` from use-packages
   [2017-07-14 Fri 01:56]
   `(require '*)` is better and probably what I actually want
-* TODO Delete commented old configs in init.el
+* DONE Delete commented old configs in init.el
 * DONE Get orgmode to recognise C-RET to insert headings in normal mode
   Rebound "RET" instead, since in terminals C-RET gets aliased to RET anyway
+* TODO Bind org-capture-refile to a key
+* TODO Figure out `org-agenda`

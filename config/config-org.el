@@ -10,7 +10,8 @@
 (require 'config-buffer)
 
 (defun /evil-org-new-item-or-header ()
-  "Inserts a new item or a header, depending"
+  "Inserts a new item or a header if you are currently on an item or header.
+Automatically puts you into insert mode."
   (interactive)
   (cond ((org-at-item-p) (progn (end-of-line)
                                 (org-insert-item)
@@ -18,15 +19,6 @@
         ((org-at-heading-p) (progn (end-of-line)
                                    (org-insert-heading-respect-content)
                                    (evil-append 1)))))
-
-
-(defun /evil-org-new-item ()
-  "Insert a new item if we're in normal mode."
-  (interactive)
-  (when (org-in-item-p)
-    (end-of-line)
-    (org-insert-item)
-    (evil-append 1)))
 
 (defun /evil-org-toggle-checkbox ()
   "If the list element has no checkbox, add one. Do nothing otherwise."
@@ -78,7 +70,6 @@
            (kbd "M-K")        '(/evil-update-cursor-eol(org-shiftmetaup))
            (kbd "M-L")        '(/evil-update-cursor-eol(org-shiftmetadown)))
          (evil-declare-key    'insert org-mode-map
-           ;; (kbd "S-RET")      '/evil-org-new-item
            (kbd "M-l")        'org-metaright
            (kbd "M-h")        'org-metaleft
            (kbd "M-k")        'org-metaup
@@ -100,13 +91,18 @@
   (progn (require 'evil-leader)
          (evil-leader/set-key
            "t" #'(lambda () (interactive) (org-time-stamp '(16) t))
-           "o o" 'org-capture)
+           "o o" 'org-capture
+           "o i" 'org-refile)
          )
   )
 
 (use-package helm-org-rifle
   :ensure t
-  :after org helm)
+  :config
+  (progn (require 'evil-leader)
+         (evil-leader/set-key
+           "o -" 'helm-org-rifle))
+  )
 
 (provide 'config-org)
 

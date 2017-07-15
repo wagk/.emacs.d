@@ -12,7 +12,6 @@
   :ensure t)
 
 (use-package solarized-theme
-  ;; :if (display-graphic-p)
   :ensure t
   :config
   (setq  solarized-use-variable-pitch nil
@@ -54,7 +53,7 @@
   :diminish t
   :config
   (setq-default fill-column 80)
-  (setq fci-rule-width 23)
+  ;; (setq fci-rule-width 23)
   (add-hook 'prog-mode-hook 'turn-on-fci-mode))
 
 (use-package powerline
@@ -68,7 +67,9 @@
   (cond ((or (eq system-type 'ms-dos)
              (eq system-type 'windows-nt)) (setq multi-term-program "cmd"))
         (t (setq multi-term-program "/bin/bash")))
-  (evil-ex-define-cmd "te[rminal]" 'multi-term))
+  (progn (require 'evil)
+         (evil-ex-define-cmd "te[rminal]" 'multi-term))
+  )
 
 (defun /line-lengths()
   (let (length)

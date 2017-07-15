@@ -28,7 +28,6 @@
 (use-package helm
   :ensure t
   :demand t\s
-  :after evil evil-leader
   :init
   (setq helm-idle-delay 0.0
         helm-input-idle-delay 0.01
@@ -54,21 +53,22 @@
          (setq helm-autoresize-min-height 40 ;; these values are %
                helm-autoresize-max-height 40))
   ;; evil-related configuration
-  (evil-leader/set-key
-    "<SPC>" 'helm-M-x
-    "TAB"   'helm-resume
-    "y"     'helm-show-kill-ring
-    "h h"   'helm-apropos
-    "-"     'helm-find-files
-    "_"     'helm-mini
-    "b"     'helm-bookmarks))
+  (progn (require 'evil-leader)
+         (evil-leader/set-key
+           "<SPC>" 'helm-M-x
+           "TAB"   'helm-resume
+           "y"     'helm-show-kill-ring
+           "h h"   'helm-apropos
+           "-"     'helm-find-files
+           "_"     'helm-mini
+           "b"     'helm-bookmarks))
+  )
 
 ;; TODO: when defining helm desckeys make sure a global binding is also presentw
 ;; C-h seems broken (We've been overwriting it to enable terminal backspace)
 
 (use-package helm-describe-modes
   :ensure t
-  :after helm
   :bind (("C-h m" . helm-describe-modes))
   ;; :config
   ;; (evil-leader/set-key "m" 'helm-describe-modes)
@@ -76,7 +76,6 @@
 
 (use-package helm-descbinds
   :ensure t
-  :after helm
   :config
   (helm-descbinds-mode))
 
@@ -88,35 +87,36 @@
   :bind (:map helm-swoop-map
               ("C-w" . evil-delete-backward-word))
   :config
-  (defun /helm-swoop-vis ()
-    (helm-swoop :$query "" :$multiline 4))
-  (evil-leader/set-key
-    "/" '/helm-swoop-vis)
+  (defun /helm-swoop-vis () (interactive)
+         (helm-swoop :$query "" :$multiline 4))
+
+  (progn (require 'evil-leader)
+         (evil-leader/set-key
+           "/" '/helm-swoop-vis)
+         )
   ;; no annoying under mouse highlights
   ;;(setq helm-swoop-pre-input-function (lambda () nil))
   )
 
 (use-package helm-fuzzier
   :ensure t
-  :after helm
   :config
   (helm-fuzzier-mode 1))
 
 (use-package helm-flx
   :ensure t
-  :after helm
   :config (helm-flx-mode 1))
 
 (use-package helm-hunks
   :ensure t
-  :after (helm
-          git-gutter+)
   :commands (helm-hunks
              helm-hunks-current-buffer
              helm-hunks-staged
              helm-hunks-staged-current-buffer)
   :config
-  (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
+  (progn (require 'git-gutter+)
+         (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
+         )
   (setq helm-hunks-preview-diffs t)
   (evil-leader/set-key
     "." 'helm-hunks-current-buffer))
