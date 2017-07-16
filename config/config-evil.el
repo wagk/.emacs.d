@@ -204,7 +204,8 @@ Probably copied it from stackoverflow"
 
 ;; (use-package evil-text-object-python)
 
-;; (use-package evil-magit)
+(use-package evil-magit
+  :ensure t)
 
 (use-package evil-indent-textobject
   :ensure t
