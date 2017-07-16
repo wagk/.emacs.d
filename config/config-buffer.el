@@ -154,11 +154,11 @@
 (add-hook 'after-make-frame-functions 'select-frame)
 
 ;; adjust autosave and backup directories
-(setq backup-directory-alist '(("." . (concat user-init-dir "/backups")))
+(setq backup-directory-alist `(("." . ,(concat user-init-dir "/backups/")))
       delete-old-versions -1
       version-control t
       vc-make-backup-files t
-      auto-save-file-name-transforms '((".*" (concat user-init-dir "/autosave") t)))
+      auto-save-file-name-transforms `((".*" ,(concat user-init-dir "/autosave/") t)))
 
 (provide 'config-buffer)
 

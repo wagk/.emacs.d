@@ -1,6 +1,7 @@
 auto-save-list/*
 elpa/*
 backups/*
+autosave/*
 server/*
 el-get/*
 spu_log/*

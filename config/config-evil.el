@@ -233,6 +233,11 @@ Probably copied it from stackoverflow"
   (evil-goggles-use-diff-faces)
   (setq evil-goggles-duration 0.025))
 
+(use-package evil-snipe
+  :ensure t
+  :config
+  (evil-snipe-override-mode))
+
 (use-package vimish-fold
   :ensure t)
 
