@@ -147,12 +147,18 @@
 ;; autopairing
 (electric-pair-mode 1)
 
+;; Change "yes or no" to "y or n"
+(fset 'yes-or-no-p 'y-or-n-p)
+
 ;; Frame-related functions
 (add-hook 'after-make-frame-functions 'select-frame)
 
 ;; adjust autosave and backup directories
-(setq backup-directory-alist `((".*" . ,temporary-file-directory))
-      auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+(setq backup-directory-alist '(("." . (concat user-init-dir "/backups")))
+      delete-old-versions -1
+      version-control t
+      vc-make-backup-files t
+      auto-save-file-name-transforms '((".*" (concat user-init-dir "/autosave") t)))
 
 (provide 'config-buffer)
 

@@ -43,7 +43,8 @@ Automatically puts you into insert mode."
   :ensure t
   :config
   (progn (org-toggle-link-display)
-         (setq org-default-notes-file (concat org-directory "/TODO.org"))
+         (setq org-default-notes-file (concat org-directory "/TODO.org")
+               org-M-RET-may-split-line '(default . nil))
          (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
          )
   (progn (require'aggressive-indent)

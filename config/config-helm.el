@@ -27,7 +27,7 @@
 
 (use-package helm
   :ensure t
-  :demand t\s
+  :diminish helm-mode
   :init
   (setq helm-idle-delay 0.0
         helm-input-idle-delay 0.01

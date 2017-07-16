@@ -54,7 +54,7 @@ Probably copied it from stackoverflow"
 ;; evil config
 (use-package evil
   :ensure t
-  :after misearch ;; isearch-mode
+  :demand t
   :bind (("C-f" . universal-argument)
          ("C-u" . kill-whole-line)
          :map universal-argument-map
