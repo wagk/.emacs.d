@@ -24,6 +24,15 @@
     "s f" 'yas-visit-snippet-file)
   )
 
+;; this package doesn't seem to be doing anything
+;; (use-package org-sync-snippets
+;;   :ensure t
+;;   :config
+;;   (progn (require 'org)
+;;          (add-hook 'yas-after-reload-hook 'org-sync-snippets-snippets-to-org)
+;;          )
+;;   )
+
 (use-package company
   :ensure t
   :bind(
@@ -70,7 +79,6 @@
          (add-hook 'company-completion-finished-hook 'company-maybe-turn-on-fci)
          (add-hook 'company-completion-cancelled-hook 'company-maybe-turn-on-fci)
          )
-
   (setq company-dabbrev-downcase nil
         company-dabbrev-ignore-case nil
         company-idle-delay 0.5
