@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: require
+# key: (req
+# Note that in our config we auto-close the paren, so a matching
+# brace should be generated
+# --
+(require '$0

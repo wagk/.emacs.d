@@ -58,111 +58,22 @@ Assumes that it:
                        "config/config-project.el"
                        "config/config-completion.el"
                        "config/config-webdev.el"
-                       "config/config-help.el")
+                       "config/config-help.el"
+                       "config/config-lisp.el"
+                       )
 
 (setq gc-cons-threshold default-gc-cons-threshold)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-;;; package --- Summary
-;;; Commentary:
-;;; Code:
-;; TODO(pangt): chunk the config file into separate packages
-
-
-;; (defvar default-gc-cons-threshold gc-cons-threshold)
-
-(defvar default-gc-cons-threshold 20000000)
-
-(defun my-minibuffer-setup-hook ()
-  "Set the garbage collection threshold to the maximum."
-  (setq gc-cons-threshold most-positive-fixnum)
-  )
-
-(defun my-minibuffer-exit-hook ()
-  "Set the garbage collection threshold to the default."
-  (setq gc-cons-threshold default-gc-cons-threshold)
-  )
-
-(add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
-(add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
-
-;; While initing, max out gc threshold
-(setq gc-cons-threshold most-positive-fixnum)
-
-(defun user-emacs-subdirectory (subdir)
-  "Not sure if needed, but I don't like how arbitrary `~/.emacs.d/` is.
-SUBDIR should not have a `/` in front."
-  (concat user-emacs-directory subdir)
-  )
-
+;; -----------------------------------------------------------------------------
+;; UNCONFIGURED CONFIGURATION CODE BELOW
+;; -----------------------------------------------------------------------------
 (setq use-package-always-ensure t)
-
-;; TODO(pangt): figure out how this works
-(defun text-file-p (filename)
-  "Check if the FILENAME is a binary file."
-  (with-current-buffer (find-file-noselect filename :no-warn)
-    (prog1 (not (eq buffer-file-coding-system 'no-conversion))
-      (kill-buffer))))
-
-(use-package rainbow-delimiters
-  :config
-  ;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-  )
-
-(use-package undo-tree)
-(use-package goto-chg)
 
 ;; crypto
 (require 'epa-file)
 (epa-file-enable)
 
-(use-package helm-emmet)
-
 (use-package powershell)
-
-(if (bound-and-true-p highlight-indentation-mode)
-    (highlight-indentation-mode))
 
 ;; be aware that updates might adjust the load path to the .el files and
 ;; cause loading problems. Helm seems to be a victim of this a lot
@@ -171,37 +82,6 @@ SUBDIR should not have a `/` in front."
   :config
   ;; attempt to upgrade packages only when we're leaving
   (add-hook 'kill-emacs-hook 'spu-package-upgrade))
-
-(require 'tramp)
-(cond ((eq system-type "windows-nt")
-       (progn (setq tramp-default-method "plink"))))
-(use-package tramp-term)
-(use-package docker-tramp)
-
-(use-package which-key
-  :config
-  ;; (setq which-key-popup-type 'minibuffer)
-  (which-key-mode 0)
-  )
-
-(use-package elisp-slime-nav
-  :config
-  (defun my-elisp-mode()
-    (elisp-slime-nav-mode)
-    (turn-on-eldoc-mode))
-  (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode)
-  )
-
-(use-package transpose-frame)
-(use-package buffer-move)
-(use-package unicode-troll-stopper)
-
-(add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode))
-(add-to-list 'auto-mode-alist '("\\Jenkinsfile\\'" . groovy-mode))
-
-;; startup maximised
-(custom-set-variables
- '(initial-frame-alist (quote ((fullscreen . maximized)))))
 
 ;; Japanese mode
 (require 'kkc)

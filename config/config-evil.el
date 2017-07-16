@@ -147,9 +147,7 @@ Probably copied it from stackoverflow"
   :after evil
   :config
   (global-evil-surround-mode 1)
-  (setq-default evil-surround-pairs-alist
-                (cons '(?~ . ("~" . "~"))
-                      evil-surround-pairs-alist)))
+  )
 
 (use-package evil-args
   :ensure t
@@ -241,12 +239,6 @@ Probably copied it from stackoverflow"
 
 (use-package vimish-fold
   :ensure t)
-
-;; (evil-define-command my-evil-helm-apropos(arg)
-;;   (interactive "<a>")
-;;   (helm-apropos arg)
-;;   (other-window 1)
-;;   )
 
 (evil-mode 1)
 

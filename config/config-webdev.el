@@ -4,6 +4,7 @@
 
 ;;; Code:
 (require 'config-package)
+(require 'config-helm)
 
 (use-package typescript-mode
   :ensure t)
@@ -40,6 +41,12 @@
 
 (use-package markdown-mode
   :ensure t)
+
+(use-package helm-emmet
+  :ensure t)
+
+(add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode))
+(add-to-list 'auto-mode-alist '("\\Jenkinsfile\\'" . groovy-mode))
 
 (provide 'config-webdev)
 

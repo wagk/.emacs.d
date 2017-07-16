@@ -8,8 +8,6 @@
 (require 'config-evil)
 (require 'config-git)
 
-;; BEGIN CONTINGENCIES
-
 ;; Install ivy as a contingency
 (use-package ivy
   :ensure t
@@ -35,8 +33,12 @@
   :bind(:map helm-map
              ("C-w" . evil-delete-backward-word)
              ("\\"  . helm-select-action)
-             ("C-u" . evil-scroll-up)
-             ("C-d" . evil-scroll-down)
+             ("C-j" . helm-next-line)
+             ("C-k" . helm-previous-line)
+             ("C-n" . helm-next-page)
+             ("C-p" . helm-previous-page)
+             ("C-l" . helm-next-source)
+             ("C-h" . helm-previous-source)
              ("TAB" . helm-execute-persistent-action))
   :config
   (setq helm-recentf-fuzzy-match t
@@ -107,19 +109,20 @@
   :ensure t
   :config (helm-flx-mode 1))
 
-(use-package helm-hunks
-  :ensure t
-  :commands (helm-hunks
-             helm-hunks-current-buffer
-             helm-hunks-staged
-             helm-hunks-staged-current-buffer)
-  :config
-  (progn (require 'git-gutter+)
-         (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
-         )
-  (setq helm-hunks-preview-diffs t)
-  (evil-leader/set-key
-    "." 'helm-hunks-current-buffer))
+;; commenting it out because it has conflicting bindings in its own map
+;; (use-package helm-hunks
+;;   :ensure t
+;;   :commands (helm-hunks
+;;              helm-hunks-current-buffer
+;;              helm-hunks-staged
+;;              helm-hunks-staged-current-buffer)
+;;   :config
+;;   (progn (require 'git-gutter+)
+;;          (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
+;;          )
+;;   (setq helm-hunks-preview-diffs t)
+;;   (evil-leader/set-key
+;;     "." 'helm-hunks-current-buffer))
 
 (helm-mode 1)
 

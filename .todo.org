@@ -6,3 +6,6 @@
   Rebound "RET" instead, since in terminals C-RET gets aliased to RET anyway
 * TODO Bind org-capture-refile to a key
 * TODO Figure out `org-agenda`
+* TODO look into elfeed
+  https://github.com/skeeto/elfeed
+* TODO Pass arguments to helm search functions in `:vsp`

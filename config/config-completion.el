@@ -36,7 +36,6 @@
              ("C-w" . evil-delete-backward-word))
   :config
   (global-company-mode)
-
   ;; yasnippet integration
   ;; https://emacs.stackexchange.com/questions/10431/get-company-to-show-suggestions-for-yasnippet-names
   (progn (require 'yasnippet)
@@ -55,12 +54,10 @@
                (mapcar #'company-mode/backend-with-yas
                        company-backends))
          )
-
   ;; fci-mode makes the completion popup spaz.
   ;; this is an attempted workaround
   ;; https://github.com/company-mode/company-mode/issues/180
   (progn (defvar-local company-fci-mode-on-p nil)
-
          (defun company-turn-off-fci (&rest ignore)
            (when (boundp 'fci-mode)
              (setq company-fci-mode-on-p fci-mode)

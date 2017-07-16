@@ -71,6 +71,15 @@
          (evil-ex-define-cmd "te[rminal]" 'multi-term))
   )
 
+(use-package unicode-troll-stopper
+  :ensure t)
+
+(use-package transpose-frame
+  :ensure t)
+
+(use-package buffer-move
+  :ensure t)
+
 (defun /line-lengths()
   (let (length)
     (save-excursion
@@ -107,6 +116,10 @@
 
 ;; no startup screen
 (setq inhibit-startup-screen t)
+
+;; startup maximised
+(custom-set-variables
+ '(initial-frame-alist (quote ((fullscreen . maximized)))))
 
 ;; set font
 ;; (set-face-attribute 'default nil :font "Courier-11" )
