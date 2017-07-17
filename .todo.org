@@ -15,3 +15,4 @@ we can't enter commands)
 * TODO Look at https://github.com/abo-abo/pamparam
 * TODO Look at https://github.com/pashky/restclient.el
 * TODO Look at http://jblevins.org/projects/deft/
+* TODO Look at https://github.com/rranelli/auto-package-update.el
