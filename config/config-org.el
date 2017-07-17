@@ -91,7 +91,7 @@ Automatically puts you into insert mode."
          )
   (progn (require 'evil-leader)
          (evil-leader/set-key
-           "t" #'(lambda () (interactive) (org-time-stamp '(16) t))
+           "o t" #'(lambda () (interactive) (org-time-stamp '(16) t))
            "o o" 'org-capture
            "o i" 'org-refile)
          )
