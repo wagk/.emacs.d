@@ -63,7 +63,6 @@
 
 (use-package multi-term
   :ensure t
-  :disabled
   :config
   (cond ((or (eq system-type 'ms-dos)
              (eq system-type 'windows-nt)) (setq multi-term-program "cmd"))
