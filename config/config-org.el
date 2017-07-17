@@ -53,7 +53,7 @@ Automatically puts you into insert mode."
   (progn (require 'evil)
          (evil-declare-key    'normal org-mode-map
            (kbd "TAB")        'org-cycle
-           (kbd "RET")        '/evil-org-new-item-or-header
+           ;; (kbd "RET")        '/evil-org-new-item-or-header
            ;; [(shift return)]      '/evil-org-new-item-or-header
            ;; (kbd "S-RET")      '/evil-org-new-item-or-header
            ;; (kbd "S-<return>") '/evil-org-new-item-or-header
