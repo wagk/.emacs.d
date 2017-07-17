@@ -237,6 +237,11 @@ Probably copied it from stackoverflow"
   :config
   (evil-snipe-override-mode))
 
+;; (use-package evil-tabs
+;;   :ensure t
+;;   :config
+;;   (global-evil-tabs-mode t))
+
 (use-package vimish-fold
   :ensure t)
 
