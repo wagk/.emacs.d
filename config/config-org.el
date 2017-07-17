@@ -46,9 +46,9 @@ Automatically puts you into insert mode."
          (setq org-default-notes-file (concat org-directory "/TODO.org")
                org-M-RET-may-split-line '(default . nil))
          (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
+         (add-hook 'org-mode-hook 'org-indent-mode)
          )
   (progn (require'aggressive-indent)
-         (add-hook 'org-mode-hook #'aggressive-indent-mode)
          )
   (progn (require 'evil)
          (evil-declare-key    'normal org-mode-map
@@ -95,6 +95,8 @@ Automatically puts you into insert mode."
            "o o" 'org-capture
            "o i" 'org-refile)
          )
+  (progn (require 'fill-column-indicator)
+         (add-hook 'org-mode-hook 'turn-on-fci-mode))
   )
 
 (use-package helm-org-rifle

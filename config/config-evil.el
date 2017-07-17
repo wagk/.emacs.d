@@ -64,6 +64,7 @@ Probably copied it from stackoverflow"
          ("C-l" . evil-complete-next-line)
          ("C-L" . evil-complete-previous-line)
          ("C-k" . nil)
+         ;; ("RET" . newline-and-indent) ;; this detonates term-mode
          :map evil-motion-state-map
          ("C-u" . evil-scroll-up)
          :map evil-normal-state-map
@@ -110,7 +111,6 @@ Probably copied it from stackoverflow"
       (modify-syntax-entry ?_ "w" table)
       (with-syntax-table table ad-do-it)))
 
-  (evil-ex-define-cmd "te[rminal]" 'term)
   (evil-ex-define-cmd "tabn[ew]" 'make-frame)
   (evil-ex-define-cmd "tabe[dit]" 'make-frame)
   (evil-ex-define-cmd "vsp[lit]" #'(lambda() (interactive)

@@ -63,12 +63,14 @@
 
 (use-package multi-term
   :ensure t
+  :disabled
   :config
   (cond ((or (eq system-type 'ms-dos)
              (eq system-type 'windows-nt)) (setq multi-term-program "cmd"))
         (t (setq multi-term-program "/bin/bash")))
   (progn (require 'evil)
-         (evil-ex-define-cmd "te[rminal]" 'multi-term))
+         (evil-ex-define-cmd "te[rminal]" 'multi-term)
+         )
   )
 
 (use-package unicode-troll-stopper

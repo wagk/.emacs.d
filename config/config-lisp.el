@@ -7,7 +7,7 @@
 
 (use-package rainbow-delimiters
   :config
-  ;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
   )
 
 (use-package elisp-slime-nav

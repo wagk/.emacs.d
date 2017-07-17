@@ -9,3 +9,6 @@
 * TODO look into elfeed
   https://github.com/skeeto/elfeed
 * TODO Pass arguments to helm search functions in `:vsp`
+* TODO Figure out newline-and-indent
+It seems more reliable for what I want, *but* it breaks term-mode (makes it so
+we can't enter commands)
