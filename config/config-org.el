@@ -101,7 +101,14 @@ Automatically puts you into insert mode."
          )
   (progn (require 'fill-column-indicator)
          (add-hook 'org-mode-hook 'turn-on-fci-mode))
+  (progn (require 'aggressive-fill-paragraph)
+         (add-hook 'org-mode-hook #'aggressive-fill-paragraph-mode))
   )
+
+;; (use-package evil-org
+;;   :ensure t
+;;   :config
+;;   (evil-org-set-key-theme '(textobject additional)))
 
 (use-package helm-org-rifle
   :ensure t

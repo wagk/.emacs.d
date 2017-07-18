@@ -145,6 +145,14 @@ Probably copied it from stackoverflow"
   (global-evil-surround-mode 1)
   )
 
+(use-package evil-embrace
+  :ensure t
+  :config
+  (progn (require 'evil-surround)
+         (evil-embrace-enable-evil-surround-integration)
+         (setq evil-embrace-show-help-p nil)
+         ))
+
 (use-package evil-args
   :ensure t
   :after evil
@@ -180,13 +188,13 @@ Probably copied it from stackoverflow"
   (evil-lion-mode))
 
 (use-package evil-matchit
-  :ensure t
-  :after evil)
+  :ensure t)
 
 ;; (use-package evil-paredit
 ;;   :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
 
-;; (use-package evil-cleverparens)
+;;(use-package evil-cleverparens
+  ;; :ensure t)
 
 (use-package evil-commentary
   :ensure t

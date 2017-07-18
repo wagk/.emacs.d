@@ -47,6 +47,11 @@
   :config
   (global-aggressive-indent-mode 1))
 
+(use-package aggressive-fill-paragraph
+  :ensure t
+  :config
+  (afp-setup-recommended-hooks))
+
 ;; https://github.com/alpaker/Fill-Column-Indicator
 (use-package fill-column-indicator
   :ensure t

@@ -1,28 +1,48 @@
+#+TODO: TODO | DONE HOLD
+
 * TODO Remove uses of `:after` from use-packages
   [2017-07-14 Fri 01:56]
   `(require '*)` is better and probably what I actually want
+** TODO Figure out `:ensure`
+Bad documentation imo
+
 * DONE Delete commented old configs in init.el
 * DONE Get orgmode to recognise C-RET to insert headings in normal mode
   Rebound "RET" instead, since in terminals C-RET gets aliased to RET anyway
-* TODO Bind org-capture-refile to a key
+* TODO Bind org-capture-refile to an ex-command
 * TODO Figure out `org-agenda`
-* TODO look into elfeed
-  https://github.com/skeeto/elfeed
 * TODO Pass arguments to helm search functions in `:vsp`
 * TODO Figure out newline-and-indent
 It seems more reliable for what I want, *but* it breaks term-mode (makes it so
 we can't enter commands)
-* TODO Look at https://github.com/abo-abo/pamparam
-* TODO Look at https://github.com/pashky/restclient.el
-* TODO Look at http://jblevins.org/projects/deft/
-* TODO Look at https://github.com/rranelli/auto-package-update.el
-* TODO gtypist-mode
+* DONE gtypist-mode
 This might prove useful in the future (along with the flash cards)
-* TODO Look at evil-cleverparens
+<2017-07-19 Wed> Apparently it's just a mode for editing tutorial files. Not
+just the real thing.
+
+* HOLD Look at evil-cleverparens
 * TODO Get `/` and `?` searches to work with `C-w`
 I read somewhere that isearch was the backend and that isearch cheats using
 the echo area, instead of the minibuffer. This might be a problem
-* TODO Customise org
-Look through the variables once or something and set up some defaults
+
+
 * DONE `setf` vs `setq`
 https://stackoverflow.com/questions/869529/difference-between-set-setq-and-setf-in-common-lisp
+
+* TODO Customise org
+Look through the variables once or something and set up some defaults
+
+* New Extensions
+** TODO Look at https://github.com/rranelli/auto-package-update.el
+** TODO Look at http://jblevins.org/projects/deft/
+** TODO Look at https://github.com/pashky/restclient.el
+** TODO Look at https://github.com/abo-abo/pamparam
+** TODO look into elfeed
+https://github.com/skeeto/elfeed
+** TODO Examples for `org-mode` and `evil-mode`
+
+* A.Table
+| something | else  | here   |
+|-----------+-------+--------|
+| saodjughf | rojhg | wriohg |
+|           |       |        |

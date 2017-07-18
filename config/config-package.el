@@ -30,18 +30,18 @@
 ;; this is disabled because I feel that verbose is better
 ;; (setq use-package-always-ensure t)
 
-;; el-get stuff
-(add-to-list 'load-path
-             (concat user-init-dir "/el-get/el-get"))
+;; ;; el-get stuff
+;; (add-to-list 'load-path
+;;              (concat user-init-dir "/el-get/el-get"))
 
-(unless (require 'el-get nil 'noerror)
-  (package-install 'el-get)
-  (require 'el-get))
+;; (unless (require 'el-get nil 'noerror)
+;;   (package-install 'el-get)
+;;   (require 'el-get))
 
-(eval-after-load 'el-get
-  '(progn
-     (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-     (el-get 'sync)))
+;; (eval-after-load 'el-get
+;;   '(progn
+;;      (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+;;      (el-get 'sync)))
 
 
 (provide 'config-package)
