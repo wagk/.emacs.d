@@ -83,6 +83,8 @@ Probably copied it from stackoverflow"
          ;; ("C-w" . nil)
          :map minibuffer-local-map
          ("C-w" . backward-kill-word))
+  :init
+  (setq evil-want-C-u-scroll t)
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
   (setq evil-want-Y-yank-to-eol t

@@ -18,3 +18,10 @@ we can't enter commands)
 * TODO Look at https://github.com/rranelli/auto-package-update.el
 * TODO gtypist-mode
 This might prove useful in the future (along with the flash cards)
+* TODO Look at evil-cleverparens
+* TODO Get `/` and `?` searches to work with `C-w`
+I read somewhere that isearch was the backend and that isearch cheats using
+the echo area, instead of the minibuffer. This might be a problem
+* TODO Customise org
+Look through the variables once or something and set up some defaults
+* TODO `setf` vs `setq`

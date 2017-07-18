@@ -28,7 +28,11 @@
   )
 
 (use-package groovy-mode
-  :ensure t)
+  :ensure t
+  :config
+  (progn (require 'fill-column-indicator)
+         (add-hook 'groovy-mode-hook 'turn-on-fci-mode))
+  )
 
 (use-package php-mode
   :ensure t)
@@ -40,6 +44,9 @@
   :ensure t)
 
 (use-package markdown-mode
+  :ensure t)
+
+(use-package yaml-mode
   :ensure t)
 
 (use-package helm-emmet

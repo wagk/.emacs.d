@@ -44,11 +44,13 @@ Automatically puts you into insert mode."
   :config
   (progn (org-toggle-link-display)
          (setq org-default-notes-file (concat org-directory "/TODO.org")
-               org-M-RET-may-split-line '(default . nil))
+               org-M-RET-may-split-line '(default . nil)
+               org-startup-indented t
+               org-list-empty-line-terminates-plain-lists t)
          (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
-         (add-hook 'org-mode-hook 'org-indent-mode)
-         )
-  (progn (require'aggressive-indent)
+         (add-hook 'org-mode-hook '(lambda ()
+                                     (setq paragraph-start "\\|[     ]*$"
+                                           paragraph-separate "[       ]*$")))
          )
   (progn (require 'evil)
          (evil-declare-key    'normal org-mode-map
@@ -91,7 +93,8 @@ Automatically puts you into insert mode."
          )
   (progn (require 'evil-leader)
          (evil-leader/set-key
-           "o t" #'(lambda () (interactive) (org-time-stamp '(16) t))
+           "o t" 'org-time-stamp
+           "o T" #'(lambda () (interactive) (org-time-stamp '(16) t))
            "o o" 'org-capture
            "o i" 'org-refile)
          )
