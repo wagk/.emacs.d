@@ -47,6 +47,7 @@ Automatically puts you into insert mode."
                org-M-RET-may-split-line '(default . nil)
                org-startup-indented t
                org-list-empty-line-terminates-plain-lists t)
+         (setf org-blank-before-new-entry '((heading . nil) (plain-list-item . auto)))
          (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
          (add-hook 'org-mode-hook '(lambda ()
                                      (setq paragraph-start "\\|[     ]*$"

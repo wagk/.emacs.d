@@ -24,4 +24,5 @@ I read somewhere that isearch was the backend and that isearch cheats using
 the echo area, instead of the minibuffer. This might be a problem
 * TODO Customise org
 Look through the variables once or something and set up some defaults
-* TODO `setf` vs `setq`
+* DONE `setf` vs `setq`
+https://stackoverflow.com/questions/869529/difference-between-set-setq-and-setf-in-common-lisp
