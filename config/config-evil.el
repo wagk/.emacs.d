@@ -116,35 +116,6 @@ Probably copied it from stackoverflow"
   (evil-ex-define-cmd "tabn[ew]" 'make-frame)
   (evil-ex-define-cmd "tabe[dit]" 'make-frame)
 
-  ;; (evil-define-command /vsplit (&optional count file)
-  ;;   (interactive "P<f>")
-  ;;   (evil-window-vsplit count file)
-  ;;   (other-window 1))
-
-  ;; (evil-define-command /split (&optional count file)
-  ;;   (interactive "P<f>")
-  ;;   (evil-window-split count file)
-  ;;   (other-window 1))
-
-  ;; (defadvice evil-window-vsplit (around /make-active-window-maybe activate)
-  ;;   "Switches to new window immediately upon vsplit"
-  ;;   (let ((this-buffer (buffer-name)))
-  ;;     (progn (message "<DEBUG> buffer was called %s" this-buffer)
-  ;;            (message "<DEBUG> buffer was called %s" (buffer-name))
-  ;;            )
-  ;;     ad-do-it
-  ;;     (progn (message "<DEBUG> this-buffer is now called %s and (buffer-name) is called %s" this-buffer (buffer-name))
-  ;;            (message "<DEBUG> buffer name check reports %s" (eq (buffer-name) this-buffer))
-  ;;            (if (eq (buffer-name) this-buffer)
-  ;;                (other-window 1)
-  ;;              (other-window 0)))))
-
-
-  ;; (evil-ex-define-cmd "vsp[lit]" '/vsplit)
-  ;; (evil-ex-define-cmd "sp[lit]" '/split)
-  ;; (evil-ex-define-cmd "e!" #'(lambda() (interactive)
-  ;;                              (revert-buffer t t t)))
-
   ;; (lexical-let ((default-color (cons (face-background 'mode-line)
   ;;                                    (face-foreground 'mode-line))))
   ;;   (add-hook 'post-command-hook
