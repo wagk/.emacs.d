@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 # name: new personal configuration file empty template
 # key: ;;;;
-# -*- --
+# --
 ;;; ${2:`(file-name-nondirectory buffer-file-name)`} --- $1
 
 ;;; Commentary:

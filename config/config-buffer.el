@@ -41,18 +41,9 @@
   :config
   (global-whitespace-cleanup-mode 1))
 
-(use-package aggressive-indent
+(use-package hl-todo
   :ensure t
-  :diminish t
-  :config
-  (global-aggressive-indent-mode 1))
-
-(use-package aggressive-fill-paragraph
-  :ensure t
-  :commands (aggressive-fill-paragraph-mode
-             afp-setup-recommended-hooks)
-  :config
-  (afp-setup-recommended-hooks))
+  :config (global-hl-todo-mode))
 
 ;; https://github.com/alpaker/Fill-Column-Indicator
 (use-package fill-column-indicator
@@ -75,9 +66,7 @@
              (eq system-type 'windows-nt)) (setq multi-term-program "cmd"))
         (t (setq multi-term-program "/bin/bash")))
   (progn (require 'evil)
-         (evil-ex-define-cmd "te[rminal]" 'multi-term)
-         )
-  )
+         (evil-ex-define-cmd "te[rminal]" 'multi-term)))
 
 (use-package unicode-troll-stopper
   :ensure t)
@@ -129,19 +118,13 @@
 (custom-set-variables
  '(initial-frame-alist (quote ((fullscreen . maximized)))))
 
-;; set font
-;; (set-face-attribute 'default nil :font "Courier-11" )
-;; (set-frame-font "Courier-11" nil t)
-
 (setq require-final-newline t)
 
 ;; remove annoying bell sound
 (setq ring-bell-function 'ignore)
 
 ;; Save buffer state
-;; (desktop-save-mode 1)
 (setq history-length 250)
-;; (add-to-list 'desktop-globals-to-save 'file-name-history)
 
 ;; Display time
 (display-time-mode 1)

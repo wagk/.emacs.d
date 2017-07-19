@@ -209,9 +209,10 @@ Probably copied it from stackoverflow"
 (use-package evil-magit
   :ensure t)
 
-(use-package evil-indent-textobject
+(use-package evil-indent-plus
   :ensure t
-  :after evil)
+  :config
+  (evil-indent-plus-default-bindings))
 
 ;; vim aesthetics
 (use-package vi-tilde-fringe
@@ -248,6 +249,9 @@ Probably copied it from stackoverflow"
 
 (use-package vimish-fold
   :ensure t)
+
+;; activate folding
+(add-hook 'prog-mode-hook 'hs-minor-mode)
 
 (evil-mode 1)
 

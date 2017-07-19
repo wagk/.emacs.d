@@ -15,16 +15,9 @@ Bad documentation imo
 * TODO Figure out newline-and-indent
 It seems more reliable for what I want, *but* it breaks term-mode (makes it so
 we can't enter commands)
-* DONE gtypist-mode
-This might prove useful in the future (along with the flash cards)
-<2017-07-19 Wed> Apparently it's just a mode for editing tutorial files. Not
-just the real thing.
-
-* HOLD Look at evil-cleverparens
 * TODO Get `/` and `?` searches to work with `C-w`
 I read somewhere that isearch was the backend and that isearch cheats using
 the echo area, instead of the minibuffer. This might be a problem
-
 
 * DONE `setf` vs `setq`
 https://stackoverflow.com/questions/869529/difference-between-set-setq-and-setf-in-common-lisp
@@ -35,11 +28,17 @@ Look through the variables once or something and set up some defaults
 * TODO Configure aggressive-fill-paragraph properly
 Things to fix:
 - It's activated in snippet buffers
-* New Extensions
-** TODO Look at https://github.com/rranelli/auto-package-update.el
+* Extensions
+** DONE Look at https://github.com/rranelli/auto-package-update.el
 ** TODO Look at http://jblevins.org/projects/deft/
 ** TODO Look at https://github.com/pashky/restclient.el
 ** TODO Look at https://github.com/abo-abo/pamparam
 ** TODO look into elfeed
 https://github.com/skeeto/elfeed
+** TODO Install the Emacs JSON serialisation package
 ** TODO Examples for `org-mode` and `evil-mode`
+** HOLD Look at evil-cleverparens
+** DONE gtypist-mode
+This might prove useful in the future (along with the flash cards)
+<2017-07-19 Wed> Apparently it's just a mode for editing tutorial files. Not
+just the real thing.

@@ -54,6 +54,7 @@ Assumes that it:
                        "config/config-evil.el"
                        "config/config-helm.el"
                        "config/config-buffer.el"
+                       "config/config-indent.el"
                        "config/config-git.el"
                        "config/config-org.el"
                        "config/config-project.el"
