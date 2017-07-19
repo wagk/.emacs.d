@@ -50,6 +50,7 @@ Assumes that it:
 (load-user-config-file "config/config-utility.el"
                        "config/config-package.el"
                        "config/config-common.el"
+                       "config/config-help.el"
                        "config/config-evil.el"
                        "config/config-helm.el"
                        "config/config-buffer.el"
@@ -58,8 +59,9 @@ Assumes that it:
                        "config/config-project.el"
                        "config/config-completion.el"
                        "config/config-webdev.el"
-                       "config/config-help.el"
                        "config/config-lisp.el"
+                       "config/config-cygwin.el"
+                       "config/config-tramp.el"
                        )
 
 (setq gc-cons-threshold default-gc-cons-threshold)

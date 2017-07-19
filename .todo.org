@@ -32,6 +32,9 @@ https://stackoverflow.com/questions/869529/difference-between-set-setq-and-setf-
 * TODO Customise org
 Look through the variables once or something and set up some defaults
 
+* TODO Configure aggressive-fill-paragraph properly
+Things to fix:
+- It's activated in snippet buffers
 * New Extensions
 ** TODO Look at https://github.com/rranelli/auto-package-update.el
 ** TODO Look at http://jblevins.org/projects/deft/
@@ -40,9 +43,3 @@ Look through the variables once or something and set up some defaults
 ** TODO look into elfeed
 https://github.com/skeeto/elfeed
 ** TODO Examples for `org-mode` and `evil-mode`
-
-* A.Table
-| something | else  | here   |
-|-----------+-------+--------|
-| saodjughf | rojhg | wriohg |
-|           |       |        |

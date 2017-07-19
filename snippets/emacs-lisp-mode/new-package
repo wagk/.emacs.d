@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-# name: new .el configuration file
+# name: new personal configuration file empty template
 # key: ;;;;
-# --
-;;; ${1:`(file-name-nondirectory buffer-file-name)`} --- $2
+# -*- --
+;;; ${2:`(file-name-nondirectory buffer-file-name)`} --- $1
 
 ;;; Commentary:
 
@@ -13,4 +13,4 @@ $0
 
 (provide '`(file-name-base buffer-file-name)`)
 
-;;; $1 ends here
+;;; $2 ends here

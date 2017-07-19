@@ -49,6 +49,8 @@
 
 (use-package aggressive-fill-paragraph
   :ensure t
+  :commands (aggressive-fill-paragraph-mode
+             afp-setup-recommended-hooks)
   :config
   (afp-setup-recommended-hooks))
 
