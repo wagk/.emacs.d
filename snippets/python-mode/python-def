@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: def-python
+# key: def
+# --
+def ${1:foo}(${2:params}):
+    """${3:docstring for $1}
+    """
+    $0

@@ -43,7 +43,9 @@
 
 (use-package hl-todo
   :ensure t
-  :config (global-hl-todo-mode))
+  :config
+  (add-to-list 'hl-todo-keyword-faces '("DEBUG" . "#d0bf8f"))
+  (global-hl-todo-mode))
 
 ;; https://github.com/alpaker/Fill-Column-Indicator
 (use-package fill-column-indicator

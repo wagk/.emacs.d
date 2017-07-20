@@ -43,3 +43,6 @@ This might prove useful in the future (along with the flash cards)
 <2017-07-19 Wed> Apparently it's just a mode for editing tutorial files. Not
 just the real thing.
 ** TODO Look into evil-quickscope to replace evil-snipe
+** TODO ~evil-nerd-commenter~ defines comment text objects
+Though we probably need to perform a lot of rebinding because it does not use
+~gc~ as its default unlike commentary
