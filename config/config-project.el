@@ -19,7 +19,7 @@
   :config
   (require 'evil-leader)
   (evil-leader/set-key
-    "p" 'helm-projectile)
+    "p p" 'helm-projectile)
   )
 
 (use-package org-projectile

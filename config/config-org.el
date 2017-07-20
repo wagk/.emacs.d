@@ -113,10 +113,20 @@ Automatically puts you into insert mode."
 
 (use-package helm-org-rifle
   :ensure t
+  :bind(:map helm-org-rifle-map
+             ("C-w" . evil-delete-backward-word)
+             ("\\"  . helm-select-action)
+             ("C-j" . helm-next-line)
+             ("C-k" . helm-previous-line)
+             ("C-n" . helm-next-page)
+             ("C-p" . helm-previous-page)
+             ("C-l" . helm-next-source)
+             ("C-h" . helm-previous-source)
+             ("TAB" . helm-execute-persistent-action))
   :config
   (progn (require 'evil-leader)
          (evil-leader/set-key
-           "o -" 'helm-org-rifle))
+           "o O" 'helm-org-rifle))
   )
 
 (provide 'config-org)
