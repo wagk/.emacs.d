@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: python-if
+# key: if
+# --
+if ${1:pred}:
+   $0

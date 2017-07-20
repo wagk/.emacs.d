@@ -17,11 +17,19 @@
   (setq yas-indent-line 'auto
         yas-also-auto-indent-first-line t)
   ;; evil-leader keybinds
-  (require 'evil-leader)
-  (evil-leader/set-key
-    "s s" 'yas-new-snippet
-    "s a" 'yas-insert-snippet
-    "s f" 'yas-visit-snippet-file)
+  (progn (require 'evil-leader)
+         (evil-leader/set-key
+           "s s" 'yas-new-snippet
+           "s a" 'yas-insert-snippet
+           "s f" 'yas-visit-snippet-file)
+         )
+  (progn (require 'evil)
+         (define-key snippet-mode-map [remap evil-save-and-close]
+           'yas-load-snippet-buffer-and-close)
+         (define-key snippet-mode-map [remap evil-save-modified-and-close]
+           'yas-load-snippet-buffer-and-close)
+         (define-key snippet-mode-map [remap evil-quit]
+           'kill-buffer))
   )
 
 ;; this package doesn't seem to be doing anything
