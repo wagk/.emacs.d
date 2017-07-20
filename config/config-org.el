@@ -46,7 +46,12 @@ Automatically puts you into insert mode."
          (setq org-default-notes-file (concat org-directory "/TODO.org")
                org-M-RET-may-split-line '(default . nil)
                org-startup-indented t
-               org-list-empty-line-terminates-plain-lists t)
+               org-list-empty-line-terminates-plain-lists t
+               org-enforce-todo-checkbox-dependencies t
+               org-enforce-todo-dependencies t
+               org-log-done 'time
+               org-log-redeadline 'time
+               org-log-reschedule 'time)
          (setf org-blank-before-new-entry '((heading . t)
                                             (plain-list-item . auto)))
          (add-to-list 'org-emphasis-alist '("`" org-code verbatim))

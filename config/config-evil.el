@@ -110,11 +110,13 @@ Probably copied it from stackoverflow"
     :extend-selection nil
     (evil-select-quote ?/ beg end type count))
 
-  ;; Let `_` be considered part of a word, like vim does
-  (defadvice evil-inner-word (around underscore-as-word activate)
-    (let ((table (copy-syntax-table (syntax-table))))
-      (modify-syntax-entry ?_ "w" table)
-      (with-syntax-table table ad-do-it)))
+  (modify-syntax-entry ?_ "w")
+
+  ;; ;; Let `_` be considered part of a word, like vim does
+  ;; (defadvice evil-inner-word (around underscore-as-word activate)
+  ;;   (let ((table (copy-syntax-table (syntax-table))))
+  ;;     (modify-syntax-entry ?_ "w" table)
+  ;;     (with-syntax-table table ad-do-it)))
 
   (evil-ex-define-cmd "tabn[ew]" 'make-frame)
   (evil-ex-define-cmd "tabe[dit]" 'make-frame)
@@ -194,14 +196,39 @@ Probably copied it from stackoverflow"
 ;; (use-package evil-paredit
 ;;   :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
 
-;;(use-package evil-cleverparens
-  ;; :ensure t)
+(use-package evil-cleverparens
+  :ensure t
+  :bind(:map evil-inner-text-objects-map
+             ("c" . evil-cp-inner-comment)
+             :map evil-outer-text-objects-map
+             ("c" . evil-cp-a-comment)
+             )
+  :config
+  ;; (progn (require 'evil-cleverparens-text-objects)
+  ;;        (define-key evil-inner-text-objects-map "c" 'evil-cp-inner-comment)
+  ;;        (define-key evil-outer-text-objects-map "c" 'evil-cp-a-comment))
+  (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode))
 
 (use-package evil-commentary
   :ensure t
-  :after evil
   :config
   (evil-commentary-mode 1))
+
+;; (use-package evil-nerd-commenter
+;;   :ensure t
+;;   :bind(
+;;         ;; :map evil-normal-state-map
+;;         ;;      ("gc" . evilnc-comment-operator)
+;;         ;;      ("gy" . evilnc-copy-and-comment-operator)
+;;         ;;      :map evil-visual-state-map
+;;         ;;      ("gc" . evilnc-comment-operator)
+;;         ;;      ("gy" . evilnc-copy-and-comment-operator)
+;;         :map evil-inner-text-objects-map
+;;              ("c" . evilnc-inner-comment)
+;;              :map evil-outer-text-objects-map
+;;              ("c" . evilnc-outer-commenter)
+;;              )
+;;   )
 
 ;; (use-package evil-replace-with-register)
 
