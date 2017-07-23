@@ -257,16 +257,16 @@ Probably copied it from stackoverflow"
 ;;   (evil-goggles-use-diff-faces)
 ;;   (setq evil-goggles-duration 0.025))
 
-;; (use-package evil-snipe
-;;   :ensure t
-;;   :config
-;;   (evil-snipe-override-mode))
+(use-package evil-snipe
+  :ensure t
+  :config
+  (evil-snipe-override-mode))
 
 (use-package evil-quickscope
   :ensure t
   :config
-  (global-evil-quickscope-always-mode t)
-  ;; (global-evil-quickscope-mode 1)
+  ;; (global-evil-quickscope-always-mode t)
+  (global-evil-quickscope-mode 1)
   )
 
 ;; (use-package evil-visual-mark-mode
