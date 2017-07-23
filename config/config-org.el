@@ -99,12 +99,10 @@ Automatically puts you into insert mode."
            'org-capture-kill)
          )
   (progn (require 'evil-leader)
-
          (defun /this-time ()
            "Prints the time and date."
            (interactive)
            (org-time-stamp '(16) t))
-
          (evil-leader/set-key
            "o t" 'org-time-stamp
            "o T" #'/this-time
@@ -121,6 +119,15 @@ Automatically puts you into insert mode."
 ;;   :ensure t
 ;;   :config
 ;;   (evil-org-set-key-theme '(textobject additional)))
+
+(use-package worf
+  :ensure t
+  :config
+  )
+
+(use-package org-journal
+  :ensure t
+  )
 
 (use-package helm-org-rifle
   :ensure t

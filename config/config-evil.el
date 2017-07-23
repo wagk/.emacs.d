@@ -196,18 +196,18 @@ Probably copied it from stackoverflow"
 ;; (use-package evil-paredit
 ;;   :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
 
-(use-package evil-cleverparens
-  :ensure t
-  :bind(:map evil-inner-text-objects-map
-             ("c" . evil-cp-inner-comment)
-             :map evil-outer-text-objects-map
-             ("c" . evil-cp-a-comment)
-             )
-  :config
-  ;; (progn (require 'evil-cleverparens-text-objects)
-  ;;        (define-key evil-inner-text-objects-map "c" 'evil-cp-inner-comment)
-  ;;        (define-key evil-outer-text-objects-map "c" 'evil-cp-a-comment))
-  (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode))
+;; (use-package evil-cleverparens
+;;   :ensure t
+;;   :bind(:map evil-inner-text-objects-map
+;;              ("c" . evil-cp-inner-comment)
+;;              :map evil-outer-text-objects-map
+;;              ("c" . evil-cp-a-comment)
+;;              )
+;;   :config
+;;   ;; (progn (require 'evil-cleverparens-text-objects)
+;;   ;;        (define-key evil-inner-text-objects-map "c" 'evil-cp-inner-comment)
+;;   ;;        (define-key evil-outer-text-objects-map "c" 'evil-cp-a-comment))
+;;   (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode))
 
 (use-package evil-commentary
   :ensure t
@@ -216,19 +216,11 @@ Probably copied it from stackoverflow"
 
 ;; (use-package evil-nerd-commenter
 ;;   :ensure t
-;;   :bind(
-;;         ;; :map evil-normal-state-map
-;;         ;;      ("gc" . evilnc-comment-operator)
-;;         ;;      ("gy" . evilnc-copy-and-comment-operator)
-;;         ;;      :map evil-visual-state-map
-;;         ;;      ("gc" . evilnc-comment-operator)
-;;         ;;      ("gy" . evilnc-copy-and-comment-operator)
-;;         :map evil-inner-text-objects-map
+;;   :bind(:map evil-inner-text-objects-map
 ;;              ("c" . evilnc-inner-comment)
 ;;              :map evil-outer-text-objects-map
 ;;              ("c" . evilnc-outer-commenter)
-;;              )
-;;   )
+;;              ))
 
 ;; (use-package evil-replace-with-register)
 
@@ -255,20 +247,32 @@ Probably copied it from stackoverflow"
   :config
   (global-evil-visualstar-mode))
 
-;; https://github.com/edkolev/evil-goggles
-(use-package evil-goggles
-  :disabled ;; melpa is complaining that they can't find this package
-  :ensure t
-  :after evil
-  :config
-  (evil-goggles-mode)
-  (evil-goggles-use-diff-faces)
-  (setq evil-goggles-duration 0.025))
+;; ;; https://github.com/edkolev/evil-goggles
+;; (use-package evil-goggles
+;;   :disabled ;; melpa is complaining that they can't find this package
+;;   :ensure t
+;;   :after evil
+;;   :config
+;;   (evil-goggles-mode)
+;;   (evil-goggles-use-diff-faces)
+;;   (setq evil-goggles-duration 0.025))
 
-(use-package evil-snipe
+;; (use-package evil-snipe
+;;   :ensure t
+;;   :config
+;;   (evil-snipe-override-mode))
+
+(use-package evil-quickscope
   :ensure t
   :config
-  (evil-snipe-override-mode))
+  (global-evil-quickscope-always-mode t)
+  ;; (global-evil-quickscope-mode 1)
+  )
+
+;; (use-package evil-visual-mark-mode
+;;   :ensure t
+;;   :config
+;;   (evil-visual-mark-mode))
 
 ;; (use-package evil-tabs
 ;;   :ensure t
@@ -276,6 +280,9 @@ Probably copied it from stackoverflow"
 ;;   (global-evil-tabs-mode t))
 
 (use-package vimish-fold
+  :ensure t)
+
+(use-package evil-tutor
   :ensure t)
 
 ;; activate folding

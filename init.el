@@ -61,6 +61,7 @@ Assumes that it:
                        "config/config-completion.el"
                        "config/config-webdev.el"
                        "config/config-lisp.el"
+                       "config/config-cpp.el"
                        "config/config-cygwin.el"
                        "config/config-tramp.el"
                        )

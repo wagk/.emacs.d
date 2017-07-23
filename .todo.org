@@ -22,9 +22,10 @@ the echo area, instead of the minibuffer. This might be a problem
 * DONE `setf` vs `setq`
 https://stackoverflow.com/questions/869529/difference-between-set-setq-and-setf-in-common-lisp
 
-* TODO Customise org
+* TODO Customise org-mode
 Look through the variables once or something and set up some defaults
 
+* TODO Customise evil-mode
 * TODO Configure aggressive-fill-paragraph properly
 Things to fix:
 - It's activated in snippet buffers
@@ -43,6 +44,8 @@ This might prove useful in the future (along with the flash cards)
 <2017-07-19 Wed> Apparently it's just a mode for editing tutorial files. Not
 just the real thing.
 ** TODO Look into evil-quickscope to replace evil-snipe
-** TODO ~evil-nerd-commenter~ defines comment text objects
+** DONE ~evil-nerd-commenter~ defines comment text objects
+CLOSED: [2017-07-24 Mon 01:08]
 Though we probably need to perform a lot of rebinding because it does not use
 ~gc~ as its default unlike commentary
+** TODO Implement your own comment text object
