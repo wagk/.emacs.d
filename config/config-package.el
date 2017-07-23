@@ -26,6 +26,14 @@
        (require 'diminish) ;; in case we use :diminish in use-package
        (require 'bind-key));; in case we use :bind in use-package
 
+;; be aware that updates might adjust the load path to the .el files and
+;; cause loading problems. Helm seems to be a victim of this a lot
+(use-package spu
+  :defer 5 ;; defer package loading for 5 second
+  :config
+  ;; attempt to upgrade packages only when we're leaving
+  (add-hook 'kill-emacs-hook 'spu-package-upgrade))
+
 ;; download packages if needed
 ;; this is disabled because I feel that verbose is better
 ;; (setq use-package-always-ensure t)

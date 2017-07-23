@@ -42,10 +42,6 @@ Assumes that it:
 (defvar default-gc-cons-threshold 20000000)
 (setq gc-cons-threshold most-positive-fixnum)
 
-;; Disable ANNOYING customize options
-(setq custom-file (concat user-init-dir "custom.el"))
-(load custom-file 'noerror)
-
 ;; load each config file in order
 (load-user-config-file "config/config-utility.el"
                        "config/config-package.el"
@@ -62,39 +58,14 @@ Assumes that it:
                        "config/config-webdev.el"
                        "config/config-lisp.el"
                        "config/config-cpp.el"
-                       "config/config-cygwin.el"
+                       "config/config-shell.el"
                        "config/config-tramp.el"
+                       "config/config-japanese.el"
+                       "config/config-crypto.el"
                        )
 
+;; Disable ANNOYING customize options
+(setq custom-file (concat user-init-dir "custom.el"))
+(load custom-file 'noerror)
+
 (setq gc-cons-threshold default-gc-cons-threshold)
-
-;; -----------------------------------------------------------------------------
-;; UNCONFIGURED CONFIGURATION CODE BELOW
-;; -----------------------------------------------------------------------------
-(setq use-package-always-ensure t)
-
-;; crypto
-(require 'epa-file)
-(epa-file-enable)
-
-(use-package powershell)
-
-;; be aware that updates might adjust the load path to the .el files and
-;; cause loading problems. Helm seems to be a victim of this a lot
-(use-package spu
-  :defer 5 ;; defer package loading for 5 second
-  :config
-  ;; attempt to upgrade packages only when we're leaving
-  (add-hook 'kill-emacs-hook 'spu-package-upgrade))
-
-;; Japanese mode
-(require 'kkc)
-(eval-after-load "kkc"
-  (progn
-    (setq default-input-method "japanese"
-          kkc-show-conversion-list-count 1)
-    ;; (define-key kkc-keymap (kbd "SPC")       'kkc-terminate)
-    ;; (define-key kkc-keymap (kbd "<tab>")     'kkc-next)
-    ;; (define-key kkc-keymap (kbd "<backtab>") 'kkc-prev)
-    )
-  )

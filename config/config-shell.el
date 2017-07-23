@@ -1,4 +1,4 @@
-;;; config-cygwin.el --- cygwin configuration for windows
+;;; config-shell.el --- shell configuration
 
 ;;; Commentary:
 
@@ -12,6 +12,8 @@
   (add-to-list 'exec-path "c:/cygwin64/bin")
   )
 
-(provide 'config-cygwin)
+(use-package powershell)
 
-;;; config-cygwin.el ends here
+(provide 'config-shell)
+
+;;; config-shell.el ends here

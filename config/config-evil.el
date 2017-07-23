@@ -6,6 +6,7 @@
 (require 'config-package)
 
 ;; TODO: figure out this
+;; https://github.com/syl20bnr/spacemacs/issues/5070
 (defun /evil-paste-after-from-0 ()
   "I legitimately forgot what this does.
 Probably copied it from stackoverflow"
