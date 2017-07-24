@@ -98,12 +98,16 @@ Automatically puts you into insert mode."
          (define-key org-capture-mode-map [remap evil-quit]
            'org-capture-kill)
          )
+  (progn (require 'org-agenda)
+         ;; TODO: rebind org-agenda keymaps
+         )
   (progn (require 'evil-leader)
          (defun /this-time ()
            "Prints the time and date."
            (interactive)
            (org-time-stamp '(16) t))
          (evil-leader/set-key
+           "O O" 'org-agenda
            "o t" 'org-time-stamp
            "o T" #'/this-time
            "o o" 'org-capture
@@ -122,7 +126,6 @@ Automatically puts you into insert mode."
 
 (use-package worf
   :ensure t
-  :config
   )
 
 (use-package org-journal

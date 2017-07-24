@@ -63,7 +63,7 @@
            "h h"   'helm-apropos
            "-"     'helm-find-files
            "_"     'helm-mini
-           "b"     'helm-bookmarks))
+           "b b"     'helm-bookmarks))
   )
 
 ;; TODO: when defining helm desckeys make sure a global binding is also presentw
