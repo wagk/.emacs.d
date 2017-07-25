@@ -26,6 +26,8 @@ https://stackoverflow.com/questions/869529/difference-between-set-setq-and-setf-
 Look through the variables once or something and set up some defaults
 
 * TODO Customise evil-mode
+** TODO '/' text object not working correctly
+Try using it on http://localhost:80/path/?query
 * TODO Configure aggressive-fill-paragraph properly
 Things to fix:
 - It's activated in snippet buffers
@@ -49,3 +51,4 @@ CLOSED: [2017-07-24 Mon 01:08]
 Though we probably need to perform a lot of rebinding because it does not use
 ~gc~ as its default unlike commentary
 ** TODO Implement your own comment text object
+** TODO Figure out tagging implementations

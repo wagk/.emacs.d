@@ -58,11 +58,11 @@ Probably copied it from stackoverflow"
   :demand t
   :bind (("C-f" . universal-argument)
          ("C-u" . kill-whole-line)
+         ("C-j" . newline-and-indent)
          :map universal-argument-map
          ("C-u" . nil)
          ("C-f" . universal-argument-more)
          :map evil-insert-state-map
-         ("C-j" . newline-and-indent)
          ("C-l" . evil-complete-next-line)
          ("C-L" . evil-complete-previous-line)
          ("C-k" . nil)
@@ -235,7 +235,7 @@ Probably copied it from stackoverflow"
   :config
   (evil-indent-plus-default-bindings))
 
-;; vim aesthetics
+;; vim A E S T H E T H I C S
 (use-package vi-tilde-fringe
   :ensure t
   :after evil
@@ -258,17 +258,18 @@ Probably copied it from stackoverflow"
 ;;   (evil-goggles-use-diff-faces)
 ;;   (setq evil-goggles-duration 0.025))
 
+;; ;; Disabled because it conflicts with evil-snipe-override-mode
+;; (use-package evil-quickscope
+;;   :ensure t
+;;   :config
+;;   ;; (global-evil-quickscope-always-mode t)
+;;   (global-evil-quickscope-mode 1)
+;;   )
+
 (use-package evil-snipe
   :ensure t
   :config
   (evil-snipe-override-mode))
-
-(use-package evil-quickscope
-  :ensure t
-  :config
-  ;; (global-evil-quickscope-always-mode t)
-  (global-evil-quickscope-mode 1)
-  )
 
 ;; (use-package evil-visual-mark-mode
 ;;   :ensure t

@@ -43,6 +43,8 @@ Assumes that it:
 (setq gc-cons-threshold most-positive-fixnum)
 
 ;; load each config file in order
+;; config loading should prioritise most necessary bits, so in eventuality of
+;; bad loads we can fix it from inside emacs
 (load-user-config-file "config/config-utility.el"
                        "config/config-package.el"
                        "config/config-common.el"

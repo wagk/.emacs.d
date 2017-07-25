@@ -9,16 +9,12 @@
 (require 'config-helm)
 (require 'config-buffer)
 
-(defun /evil-org-new-item-or-header ()
-  "Inserts a new item or a header if you are currently on an item or header.
-Automatically puts you into insert mode."
+(defun /org-insert-item-or-header-respect-content ()
+  "Basically org-insert-heading-respect-content, except when you're on an item,
+then insert a new item instead"
   (interactive)
-  (cond ((org-at-item-p) (progn (end-of-line)
-                                (org-insert-item)
-                                (evil-append 1)))
-        ((org-at-heading-p) (progn (end-of-line)
-                                   (org-insert-heading-respect-content)
-                                   (evil-append 1)))))
+  (cond ((org-at-item-p) (org-insert-item))
+        (t (org-insert-heading-respect-content))))
 
 (defun /evil-org-toggle-checkbox ()
   "If the list element has no checkbox, add one. Do nothing otherwise."
@@ -45,16 +41,17 @@ Automatically puts you into insert mode."
   (progn (org-toggle-link-display)
          (setq org-default-notes-file (concat org-directory "/TODO.org")
                org-M-RET-may-split-line '(default . nil)
-               org-startup-indented t
+               ;; org-startup-indented nil
                org-list-empty-line-terminates-plain-lists t
                org-enforce-todo-checkbox-dependencies t
                org-enforce-todo-dependencies t
                org-log-done 'time
                org-log-redeadline 'time
-               org-log-reschedule 'time)
-         (setf org-blank-before-new-entry '((heading . t)
+               org-log-reschedule 'time
+               org-blank-before-new-entry '((heading . t)
                                             (plain-list-item . auto)))
-         (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
+         ;; (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
+         ;; make it vim-compatitable
          (add-hook 'org-mode-hook '(lambda ()
                                      (setq paragraph-start "\\|[     ]*$"
                                            paragraph-separate "[       ]*$")))
