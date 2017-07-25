@@ -57,13 +57,18 @@ Assumes that it:
                        "config/config-org.el"
                        "config/config-project.el"
                        "config/config-completion.el"
+
+                       "config/config-prog.el" ;; program-related configs
                        "config/config-webdev.el"
                        "config/config-lisp.el"
                        "config/config-cpp.el"
+                       "config/config-python.el"
+
                        "config/config-shell.el"
                        "config/config-tramp.el"
-                       "config/config-japanese.el"
                        "config/config-crypto.el"
+
+                       "config/config-japanese.el"
                        )
 
 ;; Disable ANNOYING customize options

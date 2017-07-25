@@ -44,6 +44,7 @@
 (use-package hl-todo
   :ensure t
   :config
+  (add-to-list 'hl-todo-keyword-faces '("BUG" . "#d0bf8f"))
   (add-to-list 'hl-todo-keyword-faces '("DEBUG" . "#d0bf8f"))
   (global-hl-todo-mode))
 

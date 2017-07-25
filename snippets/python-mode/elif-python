@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: elif-python
+# key: elif
+# --
+elif ${1:cond}:
+     $0
