@@ -49,7 +49,11 @@ then insert a new item instead"
                org-log-redeadline 'time
                org-log-reschedule 'time
                org-blank-before-new-entry '((heading . t)
-                                            (plain-list-item . auto)))
+                                            (plain-list-item . auto))
+               org-refile-targets '((nil . (:maxlevel . 9)))
+               org-refile-use-outline-path t
+               org-outline-path-complete-in-steps nil
+               org-refile-allow-creating-parent-nodes 'confirm)
          ;; (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
          ;; make it vim-compatitable
          (add-hook 'org-mode-hook '(lambda ()
@@ -59,6 +63,7 @@ then insert a new item instead"
   (progn (require 'evil)
          (evil-declare-key    'normal org-mode-map
            (kbd "TAB")        'org-cycle
+           (kbd "z a")        'org-cycle
            ;; (kbd "RET")        '/evil-org-new-item-or-header
            ;; [(shift return)]      '/evil-org-new-item-or-header
            ;; (kbd "S-RET")      '/evil-org-new-item-or-header
@@ -115,11 +120,6 @@ then insert a new item instead"
   (progn (require 'aggressive-fill-paragraph)
          (add-hook 'org-mode-hook #'aggressive-fill-paragraph-mode))
   )
-
-;; (use-package evil-org
-;;   :ensure t
-;;   :config
-;;   (evil-org-set-key-theme '(textobject additional)))
 
 (use-package worf
   :ensure t

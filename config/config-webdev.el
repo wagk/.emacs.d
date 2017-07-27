@@ -6,15 +6,7 @@
 (require 'config-package)
 (require 'config-helm)
 
-(use-package typescript-mode
-  :ensure t)
-
-(use-package tide
-  :ensure t
-  :after typescript-mode
-  :config
-  (add-hook 'before-save-hook 'tide-format-before-save)
-  (add-hook 'typescript-mode-hook 'tide-setup))
+(load-file "./config-typescript.el")
 
 (use-package emmet-mode
   :ensure t

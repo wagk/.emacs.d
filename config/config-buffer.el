@@ -33,6 +33,7 @@
   (progn (require 'evil-leader)
          (evil-leader/set-key
            "'" 'highlight-indent-guides-mode))
+  (highlight-indent-guides-mode)
   )
 
 (use-package whitespace-cleanup-mode
@@ -111,6 +112,8 @@
 
 (evil-leader/set-key
   ";" '/centre-window-function)
+
+(add-hook 'prog-mode-hook 'hs-minor-mode)
 
 (load-theme 'solarized-dark t)
 

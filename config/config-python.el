@@ -13,6 +13,7 @@
 ;;   (elpy-enable))
 
 ;; (add-hook 'python-mode-hook 'turn-on-ctags-auto-update-mode)
+(add-hook 'python-mode-hook 'highlight-indent-guides-mode)
 
 (provide 'config-python)
 
