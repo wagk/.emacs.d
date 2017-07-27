@@ -12,7 +12,7 @@
   (global-aggressive-indent-mode 1))
 
 (use-package aggressive-fill-paragraph
-  :disabled ;; this package annoys me. Probably needs more config
+  ;; :disabled ;; this package annoys me. Probably needs more config
   :ensure t
   :commands (aggressive-fill-paragraph-mode
              afp-setup-recommended-hooks)
