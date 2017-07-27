@@ -15,7 +15,6 @@
   (add-hook 'before-save-hook 'tide-format-before-save)
   (add-hook 'typescript-mode-hook 'tide-setup))
 
-
 (provide 'config-typescript)
 
 ;;; config-typescript.el ends here

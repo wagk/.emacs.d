@@ -185,10 +185,8 @@ Probably copied it from stackoverflow"
 ;; alignment
 (use-package evil-lion
   :ensure t
-  :after evil evil-leader
   :config
-  (evil-leader/set-key
-    "+" 'evil-lion-left)
+  ;; use gl and gL
   (evil-lion-mode))
 
 (use-package evil-matchit

@@ -43,11 +43,11 @@ then insert a new item instead"
                org-M-RET-may-split-line '(default . nil)
                ;; org-startup-indented nil
                org-list-empty-line-terminates-plain-lists t
-               org-enforce-todo-checkbox-dependencies t
-               org-enforce-todo-dependencies t
-               org-log-done 'time
-               org-log-redeadline 'time
-               org-log-reschedule 'time
+               org-enforce-todo-checkbox-dependencies     t
+               org-enforce-todo-dependencies              t
+               org-log-done                               'time
+               org-log-redeadline                         'time
+               org-log-reschedule                         'time
                org-blank-before-new-entry '((heading . t)
                                             (plain-list-item . auto))
                org-refile-targets '((nil . (:maxlevel . 9)))
