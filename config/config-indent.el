@@ -17,7 +17,8 @@
   :commands (aggressive-fill-paragraph-mode
              afp-setup-recommended-hooks)
   :config
-  (add-hook 'text-mode-hook #'aggressive-fill-paragraph-mode))
+  ;; (add-hook 'text-mode-hook #'aggressive-fill-paragraph-mode)
+  )
 
 (provide 'config-indent)
 

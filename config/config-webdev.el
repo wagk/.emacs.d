@@ -6,7 +6,7 @@
 (require 'config-package)
 (require 'config-helm)
 
-(load-file "./config-typescript.el")
+(load-user-config-file "./config/config-typescript.el")
 
 (use-package emmet-mode
   :ensure t
