@@ -21,11 +21,15 @@
   (setq emmet-move-cursor-between-quotes t) ;; default nil
   )
 
+;; not sure if this inherits from prog-mode
 (use-package groovy-mode
   :ensure t
   :config
   (progn (require 'fill-column-indicator)
          (add-hook 'groovy-mode-hook 'turn-on-fci-mode))
+  (progn (require 'evil-core)
+         (evil-define-key 'insert 'groovy-mode-map
+           (kbd "RET") 'comment-indent-new-line))
   )
 
 (use-package php-mode
