@@ -75,6 +75,8 @@ Assumes that it:
                        "./config/config-crypto.el"
 
                        "./config/config-japanese.el"
+                       "./config/config-finance.el"
+                       "./config/config-journal.el"
                        )
 
 ;; Disable ANNOYING customize options

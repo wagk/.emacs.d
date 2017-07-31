@@ -125,10 +125,6 @@ then insert a new item instead"
   :ensure t
   )
 
-(use-package org-journal
-  :ensure t
-  )
-
 (use-package helm-org-rifle
   :ensure t
   :bind(:map helm-org-rifle-map
