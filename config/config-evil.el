@@ -173,7 +173,8 @@ Probably copied it from stackoverflow"
               ("H" . evil-backward-arg))
   :config
   ;; consider spaces as argument delimiters
-  (add-to-list 'evil-args-delimiters " "))
+  ;; (add-to-list 'evil-args-delimiters " ")
+  )
 
 (use-package evil-numbers
   :ensure t

@@ -41,7 +41,6 @@ then insert a new item instead"
   (progn (org-toggle-link-display)
          (setq org-default-notes-file (concat org-directory "/TODO.org")
                org-M-RET-may-split-line '(default . nil)
-               ;; org-startup-indented nil
                org-list-empty-line-terminates-plain-lists t
                org-enforce-todo-checkbox-dependencies     t
                org-enforce-todo-dependencies              t
@@ -82,6 +81,7 @@ then insert a new item instead"
            (kbd "M-K")        '(/evil-update-cursor-eol(org-shiftmetaup))
            (kbd "M-L")        '(/evil-update-cursor-eol(org-shiftmetadown)))
          (evil-declare-key    'insert org-mode-map
+           (kbd "RET")        'newline-and-indent
            (kbd "M-l")        'org-metaright
            (kbd "M-h")        'org-metaleft
            (kbd "M-k")        'org-metaup

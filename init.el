@@ -26,6 +26,7 @@
 (defconst user-config-dir
   (concat user-init-dir "config/"))
 
+;; TODO(pangt): make this take in relative paths
 (defun load-user-config-file (file &rest files)
   "Load FILE (and FILES) as configuration.
 Assumes that it:
@@ -33,10 +34,25 @@ Assumes that it:
 - Is relative to user-init-dir"
   (interactive "f")
   (dolist (elem (cons file files))
-    (load-file (expand-file-name (concat user-init-dir elem)))))
+    (let ((path (expand-file-name (concat user-init-dir elem))))
+      (load-file path)
+      (message "Loaded %s" path))))
+
+; (defun load-user-config-file (file &rest files)
+;   "Load FILE (and FILES) as configuration.
+; Assumes that it:
+; - Is a string path to one or more configuration fila (i.e. elisp)
+; - Is relative to the file calling this function"
+;   (interactive "f")
+;   (dolist (elem (cons file files))
+;     (let ((path (expand-file-name elem)))
+;       (load-file path)
+;       (message "Loaded %s" path))))
 
 ;; Add to load path our configuration folder
 (add-to-list 'load-path user-config-dir)
+
+(message "init.el has the path of" (expand-file-name "."))
 
 ;; tweak garbage collector before
 (defvar default-gc-cons-threshold 20000000)
@@ -45,30 +61,30 @@ Assumes that it:
 ;; load each config file in order
 ;; config loading should prioritise most necessary bits, so in eventuality of
 ;; bad loads we can fix it from inside emacs
-(load-user-config-file "config/config-utility.el"
-                       "config/config-package.el"
-                       "config/config-common.el"
-                       "config/config-help.el"
-                       "config/config-evil.el"
-                       "config/config-helm.el"
-                       "config/config-buffer.el"
-                       "config/config-indent.el"
-                       "config/config-git.el"
-                       "config/config-org.el"
-                       "config/config-project.el"
-                       "config/config-completion.el"
+(load-user-config-file "./config/config-utility.el"
+                       "./config/config-package.el"
+                       "./config/config-common.el"
+                       "./config/config-help.el"
+                       "./config/config-evil.el"
+                       "./config/config-helm.el"
+                       "./config/config-buffer.el"
+                       "./config/config-indent.el"
+                       "./config/config-git.el"
+                       "./config/config-org.el"
+                       "./config/config-project.el"
+                       "./config/config-completion.el"
 
-                       "config/config-prog.el" ;; program-related configs
-                       "config/config-webdev.el"
-                       "config/config-lisp.el"
-                       "config/config-cpp.el"
-                       "config/config-python.el"
+                       "./config/config-prog.el" ;; program-related configs
+                       "./config/config-webdev.el"
+                       "./config/config-lisp.el"
+                       "./config/config-cpp.el"
+                       "./config/config-python.el"
 
-                       "config/config-shell.el"
-                       "config/config-tramp.el"
-                       "config/config-crypto.el"
+                       "./config/config-shell.el"
+                       "./config/config-tramp.el"
+                       "./config/config-crypto.el"
 
-                       "config/config-japanese.el"
+                       "./config/config-japanese.el"
                        )
 
 ;; Disable ANNOYING customize options
