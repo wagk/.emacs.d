@@ -25,6 +25,19 @@ https://stackoverflow.com/questions/869529/difference-between-set-setq-and-setf-
 * TODO Customise org-mode
 Look through the variables once or something and set up some defaults
 
+** TODO Unify insert heading and insert item keybinds
+   Currently the insert heading keybinds look like this:
+
+   - C-RET :: New heading, insert below subtree (respect content)
+   - M-RET :: New heading, insert before subtree (don't respect content)
+
+
+   And the insert item keybinds look like this:
+
+   - M-RET :: Insert new item
+
+
+   We should unify insert headings onto C-RET
 * TODO Customise evil-mode
 ** TODO '/' text object not working correctly
 Try using it on http://localhost:80/path/?query
