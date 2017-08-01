@@ -65,3 +65,5 @@ Though we probably need to perform a lot of rebinding because it does not use
 ~gc~ as its default unlike commentary
 ** TODO Implement your own comment text object
 ** TODO Figure out tagging implementations
+** TODO Look at =imenu-anywhere=
+   We really need to find a gd that works
