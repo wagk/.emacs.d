@@ -30,6 +30,8 @@
   (progn (require 'evil-core)
          (evil-define-key 'insert 'groovy-mode-map
            (kbd "RET") 'comment-indent-new-line))
+  (progn (require 'hl-todo)
+         (add-hook 'groovy-mode-hook 'hl-todo-mode))
   )
 
 (use-package php-mode
