@@ -150,6 +150,8 @@
        (scroll-bar-mode -1)
        (window-divider-mode -1))
 
+(setq tab-always-indent 'complete)
+
 (setq-default truncate-lines    t  ;; no wrap
               indent-tabs-mode nil ;; do not use tabs when indenting
               tab-width         4
