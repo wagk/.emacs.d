@@ -70,6 +70,7 @@ Assumes that it:
                        "./config/config-cpp.el"
                        "./config/config-python.el"
 
+                       "./config/config-diff.el"
                        "./config/config-shell.el"
                        "./config/config-tramp.el"
                        "./config/config-crypto.el"

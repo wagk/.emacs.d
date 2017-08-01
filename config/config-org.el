@@ -44,6 +44,7 @@ then insert a new item instead"
                org-list-empty-line-terminates-plain-lists t
                org-enforce-todo-checkbox-dependencies     t
                org-enforce-todo-dependencies              t
+               org-pretty-entities                        t
                org-log-done                               'time
                org-log-redeadline                         'time
                org-log-reschedule                         'time

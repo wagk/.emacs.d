@@ -137,6 +137,9 @@
 
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(progn (require 'evil-leader)
+       (evil-leader/set-key
+         "." 'whitespace-mode))
 
 ;; automatically refresh buffer when changed outside
 (global-auto-revert-mode t)
@@ -147,12 +150,10 @@
        (scroll-bar-mode -1)
        (window-divider-mode -1))
 
-(setq truncate-lines    t ;; no wrap
-      tab-width         8
-      auto-hscroll-mode t)
-
-;; do not use tabs when indenting
-(setq-default indent-tabs-mode nil)
+(setq-default truncate-lines    t  ;; no wrap
+              indent-tabs-mode nil ;; do not use tabs when indenting
+              tab-width         4
+              auto-hscroll-mode t)
 
 ;; autopairing
 (electric-pair-mode 1)
