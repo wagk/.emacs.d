@@ -289,6 +289,12 @@ Probably copied it from stackoverflow"
 ;; activate folding
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
+;; make _ be recognised as part of a word
+(defun /treat-underscore-as-word ()
+  "Make underscore be considered part of a word, just like vim. Add this to
+whichever mode you want when you want it to treat underscore as a word"
+  (modify-syntax-entry ?_ "w"))
+
 (evil-mode 1)
 
 (provide 'config-evil)
