@@ -5,6 +5,7 @@
 ;;; Code:
 (require 'config-package)
 (require 'config-helm)
+(require 'config-evil)
 
 ;; TODO(pangt): when this takes a relative path, give a relative path
 ;; (currently it's only relative to user-init-dir)
@@ -32,13 +33,17 @@
            (kbd "RET") 'comment-indent-new-line))
   (progn (require 'hl-todo)
          (add-hook 'groovy-mode-hook 'hl-todo-mode))
+  (add-hook 'groovy-mode-hook #'/treat-underscore-as-word)
+  (add-to-list 'auto-mode-alist '("\\Jenkinsfile\\'" . groovy-mode))
   )
 
 (use-package php-mode
   :ensure t)
 
 (use-package dockerfile-mode
-  :ensure t)
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode)))
 
 (use-package json-mode
   :ensure t)
@@ -51,9 +56,6 @@
 
 (use-package helm-emmet
   :ensure t)
-
-(add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode))
-(add-to-list 'auto-mode-alist '("\\Jenkinsfile\\'" . groovy-mode))
 
 (provide 'config-webdev)
 
