@@ -14,8 +14,8 @@
 (use-package emmet-mode
   :ensure t
   :bind (:map emmet-mode-keymap
-              ("<tab>" . emmet-next-edit-point)
-              ("<backtab>" . emmet-prev-edit-point))
+              ("C-j" . emmet-next-edit-point)
+              ("C-k" . emmet-prev-edit-point))
   :config
   (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.
