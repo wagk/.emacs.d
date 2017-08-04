@@ -99,15 +99,17 @@
     (nth 0 (sort lines '>))))
 
 (defun /centre-window-function()
+  ""
   (interactive)
-  (let ((margin-size (/ (- (window-width) (/longest-line-length))
-                        2)))
+  (let ((margin-size (/ (abs (- (window-width) (/longest-line-length))) 2)))
     (if (not (get '/centre-window-function 'active))
         (progn
           (set-window-margins nil margin-size margin-size)
+          (fringe-mode '(1 . 1))
           (put '/centre-window-function 'active t))
       (progn
-        (set-window-margins nil 0 nil)
+        (set-window-margins nil nil nil)
+        (fringe-mode nil)
         (put '/centre-window-function 'active nil)))))
 
 (evil-leader/set-key

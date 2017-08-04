@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: groovy-if
+# key: if
+# --
+if (${1:pred}) {
+   $0
+}

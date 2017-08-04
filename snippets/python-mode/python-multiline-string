@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: python-multiline-string
+# key: """
+# --
+"""
+$0
+"""

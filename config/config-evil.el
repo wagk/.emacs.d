@@ -70,6 +70,7 @@ Probably copied it from stackoverflow"
          :map evil-motion-state-map
          ("C-u" . evil-scroll-up)
          :map evil-normal-state-map
+         ("Y"    . /evil-copy-to-end-of-line)
          ("gt"   . /evil-gt)
          ("gT"   . /evil-gT)
          ("C-\\" . /lang-toggle) ;; binding for eng <-> jap
@@ -133,6 +134,12 @@ Probably copied it from stackoverflow"
   ;;                                  (t default-color))))
   ;;                 (set-face-background 'mode-line (car color))
   ;;                 (set-face-foreground 'mode-line (cdr color))))))
+
+  ;; nmap Y y$
+  (defun /evil-copy-to-end-of-line ()
+    "Yanks everything from point to the end of the line"
+    (interactive)
+    (evil-yank (point) (point-at-eol)))
   )
 
 (use-package evil-leader
