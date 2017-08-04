@@ -7,11 +7,6 @@
 Bad documentation imo
 
 * DONE Delete commented old configs in init.el
-* DONE Get orgmode to recognise C-RET to insert headings in normal mode
-  Rebound "RET" instead, since in terminals C-RET gets aliased to RET anyway
-* TODO Bind org-capture-refile to an ex-command
-* TODO Figure out `org-agenda`
-* TODO Pass arguments to helm search functions in `:vsp`
 * TODO Figure out newline-and-indent
 It seems more reliable for what I want, *but* it breaks term-mode (makes it so
 we can't enter commands)
@@ -28,19 +23,28 @@ Look through the variables once or something and set up some defaults
 ** TODO Unify insert heading and insert item keybinds
    Currently the insert heading keybinds look like this:
 
-   - C-RET :: New heading, insert below subtree (respect content)
-   - M-RET :: New heading, insert before subtree (don't respect content)
-
+   - C-RET   :: New heading, insert below subtree (respect content)
+   - S-C-RET :: New heading, insert below subtree (respect content), with TODO
+   - M-RET   :: New heading, insert before subtree (don't respect content)
+   - S-M-RET :: New heading, insert before subtree (don't respect content), with
+                TODO
 
    And the insert item keybinds look like this:
 
-   - M-RET :: Insert new item
+   - M-RET   :: Insert new item
+   - S-M-RET :: Insert new item with checkbox
 
 
    We should unify insert headings onto C-RET
+** TODO create folder for linking to google drive or something
+** TODO Figure out `org-agenda`
+** DONE Get orgmode to recognise C-RET to insert headings in normal mode
+   Rebound "RET" instead, since in terminals C-RET gets aliased to RET anyway
+** TODO Bind org-capture-refile to an ex-command
 * TODO Customise evil-mode
 ** TODO '/' text object not working correctly
 Try using it on http://localhost:80/path/?query
+** TODO Pass arguments to helm search functions in `:vsp`
 * TODO Configure aggressive-fill-paragraph properly
 Things to fix:
 - It's activated in snippet buffers
