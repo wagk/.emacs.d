@@ -1,0 +1,11 @@
+# key: addarg
+# name: python-argparse-add_argument
+# --
+${1:parser}.add_argument(
+  '-${2:short arg}',
+  '--${3:long arg}',
+  help='''${4:argument description}
+  ''',
+  default=${5:None},
+  dest='${6:$3}'
+)
