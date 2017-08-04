@@ -154,7 +154,7 @@
 
 (setq-default truncate-lines    t  ;; no wrap
               indent-tabs-mode nil ;; do not use tabs when indenting
-              tab-width         4
+              tab-width         2
               auto-hscroll-mode t)
 
 ;; autopairing

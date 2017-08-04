@@ -14,7 +14,7 @@
   (progn (require 'aggressive-fill-paragraph)
          (add-hook 'git-commit-setup-hook 'aggressive-fill-paragraph-mode))
   (evil-leader/set-key
-    "," 'magit-status))
+    ", ," 'magit-status))
 
 ;; https://github.com/nonsequitur/git-gutter-plus
 (use-package git-gutter+
