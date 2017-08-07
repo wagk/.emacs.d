@@ -24,6 +24,12 @@ then insert a new item instead"
     (org-toggle-checkbox)
     ))
 
+(defun /org-toggle-checkbox-or-table-down (n)
+  (interactive "p")
+  (if (org-table-p)
+      (org-table-copy-down n)
+    (org-toggle-checkbox)))
+
 (defmacro /evil-update-cursor-eol(func)
   (lambda ()
     (interactive)
