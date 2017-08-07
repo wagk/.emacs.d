@@ -110,6 +110,10 @@
 ;;   (add-hook 'python-mode-hook 'company-jedi)
 ;;   )
 
+;; (use-package auto-insert
+;;   :ensure t
+;;   )
+
 (provide 'config-completion)
 
 ;;; config-completion.el ends here

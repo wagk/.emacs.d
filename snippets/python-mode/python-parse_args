@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: python-parse_args
+# key: pargs
+# --
+def parse_args():
+    """${1:Docstring for parse_args}
+    params:
+
+    """
+    parser = argparse.ArgumentParser(${2:})
+
+    $0
+
+    return parser.parse_args()

@@ -115,6 +115,12 @@
 (evil-leader/set-key
   ";" '/centre-window-function)
 
+;; Set transparency of emacs
+(defun /set-frame-transparency (value)
+  "Sets the transparency of the frame window. 0=transparent/100=opaque"
+  (interactive "nTransparency Value 0 - 100 opaque:")
+  (set-frame-parameter (selected-frame) 'alpha value))
+
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
 (load-theme 'solarized-dark t)
