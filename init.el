@@ -35,8 +35,10 @@ Assumes that it:
   (interactive "f")
   (dolist (elem (cons file files))
     (let ((path (expand-file-name (concat user-init-dir elem))))
-      (load-file path)
-      (message "Loaded %s" path))))
+      (if (file-exists-p path)
+          (progn (load-file path)
+                 (message "Loaded %s" path))
+        (message "Failed to load %s" path)))))
 
 ;; Add to load path our configuration folder
 (add-to-list 'load-path user-config-dir)
@@ -55,6 +57,9 @@ Assumes that it:
                        "./config/config-package.el"
                        "./config/config-common.el"
                        "./config/config-help.el"
+
+                       "./local.el" ;; local configuration variables
+
                        "./config/config-evil.el"
                        "./config/config-helm.el"
                        "./config/config-buffer.el"

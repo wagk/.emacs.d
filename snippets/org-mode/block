@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: org-mode-literal-block
+# key: #
+# --
+#+BEGIN_${1:SRC} $2
+
+$0
+
+#+END_$1

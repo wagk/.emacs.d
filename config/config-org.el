@@ -45,6 +45,11 @@ then insert a new item instead"
   :ensure t
   :config
   (progn (org-toggle-link-display)
+
+         ;;Use google drive if available
+         (when (boundp '/g-drive-folder)
+           (setq org-directory (concat /g-drive-folder "/org")))
+
          (setq org-default-notes-file (concat org-directory "/TODO.org")
                org-M-RET-may-split-line '(default . nil)
                org-list-empty-line-terminates-plain-lists t
