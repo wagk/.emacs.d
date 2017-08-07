@@ -2,7 +2,7 @@
 # name: def-python
 # key: def
 # --
-def ${1:foo}(${2:params}):
+def ${1:foo}($2):
     """${3:docstring for $1}
     """
     $0
