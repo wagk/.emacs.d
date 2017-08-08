@@ -1,24 +1,4 @@
-import argparse
+#!python
 
-def parse_args():
-    """
-    params:
-
-    returns:
-
-    """
-    parser = argparse.ArgumentParser()
-
-    return parser.parse_args()
-
-
-def main():
-    """
-    """
-    args = parse_args()
-
-    $0
-
-
-if __name__ == '__main__':
-    main()
+"""$0
+"""
