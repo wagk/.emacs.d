@@ -45,13 +45,6 @@ Probably copied it from stackoverflow"
   (evil-normal-state)
   (evil-visual-restore))
 
-;; Make my own leader keys and bake it into evil
-(defvar /mapleader "<SPC>")
-
-(defun /leader (keystroke)
-  "Append our leader key onto KEYSTROKE."
-  (concat /mapleader " " keystroke))
-
 ;; evil config
 (use-package evil
   :ensure t
@@ -102,23 +95,22 @@ Probably copied it from stackoverflow"
 
   (add-hook 'view-mode-hook 'evil-motion-state)
 
-  (evil-define-text-object /a-forward-slash (count &optional beg end type)
-    "Select forward slash (/)"
-    :extend-selection t
-    (evil-select-quote ?/ beg end type count))
+  ;; (evil-define-text-object /a-forward-slash (count &optional beg end type)
+  ;;   "Select forward slash (/)"
+  ;;   :extend-selection t
+  ;;   (evil-select-quote ?/ beg end type count))
 
-  (evil-define-text-object /inner-forward-slash (count &optional beg end type)
-    "Select forward slash (/)"
-    :extend-selection nil
-    (evil-select-quote ?/ beg end type count))
-
-  (modify-syntax-entry ?_ "w")
+  ;; (evil-define-text-object /inner-forward-slash (count &optional beg end type)
+  ;;   "Select forward slash (/)"
+  ;;   :extend-selection nil
+  ;;   (evil-select-quote ?/ beg end type count))
 
   ;; ;; Let `_` be considered part of a word, like vim does
   ;; (defadvice evil-inner-word (around underscore-as-word activate)
   ;;   (let ((table (copy-syntax-table (syntax-table))))
   ;;     (modify-syntax-entry ?_ "w" table)
   ;;     (with-syntax-table table ad-do-it)))
+  (modify-syntax-entry ?_ "w")
 
   (evil-ex-define-cmd "tabn[ew]" 'make-frame)
   (evil-ex-define-cmd "tabe[dit]" 'make-frame)
@@ -140,6 +132,24 @@ Probably copied it from stackoverflow"
     "Yanks everything from point to the end of the line"
     (interactive)
     (evil-yank (point) (point-at-eol)))
+
+  ;; https://stackoverflow.com/questions/18102004/emacs-evil-mode-how-to-create-a-new-text-object-to-select-words-with-any-non-sp/22418983#22418983
+  (defmacro /evil-define-and-bind-text-object (key start-regex end-regex)
+    (let ((inner-name (make-symbol "inner-name"))
+          (outer-name (make-symbol "outer-name")))
+      `(progn
+         (evil-define-text-object ,inner-name (count &optional beg end type)
+           (evil-select-paren ,start-regex ,end-regex beg end type count nil))
+         (evil-define-text-object ,outer-name (count &optional beg end type)
+           (evil-select-paren ,start-regex ,end-regex beg end type count t))
+         (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
+         (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
+
+  ;; https://www.emacswiki.org/emacs/RegularExpression
+  (/evil-define-and-bind-text-object "/" "/" "/")
+  (/evil-define-and-bind-text-object "|" "|" "|")
+  (/evil-define-and-bind-text-object "l" "^\\s-*" "\\s-*$") ;; line textobj
+  (/evil-define-and-bind-text-object "e" "\\`\\s-*" "\\s-*$") ;; buffer textobj
   )
 
 (use-package evil-leader
