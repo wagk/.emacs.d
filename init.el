@@ -50,6 +50,9 @@ Assumes that it:
 (defvar default-gc-cons-threshold 20000000)
 (setq gc-cons-threshold most-positive-fixnum)
 
+;; local configuration variables
+(load-user-config-file "./local.el")
+
 ;; load each config file in order
 ;; config loading should prioritise most necessary bits, so in eventuality of
 ;; bad loads we can fix it from inside emacs
@@ -57,8 +60,6 @@ Assumes that it:
                        "./config/config-package.el"
                        "./config/config-common.el"
                        "./config/config-help.el"
-
-                       "./local.el" ;; local configuration variables
 
                        "./config/config-evil.el"
                        "./config/config-helm.el"

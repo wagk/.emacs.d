@@ -1,0 +1,12 @@
+;;; `(file-name-nondirectory buffer-file-name)` --- $1
+
+;;; Commentary:
+
+;;; Code:
+(require 'config-package)
+
+$0
+
+(provide '`(file-name-base buffer-file-name)`)
+
+;;; `(file-name-nondirectory buffer-file-name)` ends here

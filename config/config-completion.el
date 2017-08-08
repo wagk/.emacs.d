@@ -21,16 +21,30 @@
          (evil-leader/set-key
            "s s" 'yas-new-snippet
            "s a" 'yas-insert-snippet
-           "s f" 'yas-visit-snippet-file)
-         )
+           "s f" 'yas-visit-snippet-file))
   (progn (require 'evil)
          (define-key snippet-mode-map [remap evil-save-and-close]
            'yas-load-snippet-buffer-and-close)
          (define-key snippet-mode-map [remap evil-save-modified-and-close]
            'yas-load-snippet-buffer-and-close)
          (define-key snippet-mode-map [remap evil-quit]
-           'kill-buffer))
-  )
+           'kill-buffer)))
+
+;; auto-insert yasnippets
+;; www.howardism.org/Technical/Emacs/templates-tutorial.html
+(progn (require 'yasnippet)
+       ;; (setq yas-snippet-dirs (append yas-snippet-dirs ))
+       (defun /auto-insert-yasnippet ()
+         "Replace text in buffer with snippet. Used for auto-insert"
+         (yas-expand-snippet (buffer-string) (point-min) (point-max)))
+       (setq-default auto-insert-directory (concat user-init-dir "./auto-insert/"))
+       (auto-insert-mode 1)
+       (setq-default auto-insert-query nil
+                     auto-insert 'other)
+       (define-auto-insert "\\.el$" ["elisp-template" /auto-insert-yasnippet])
+       (define-auto-insert "\\.py$" ["python-template" /auto-insert-yasnippet])
+       )
+
 
 ;; this package doesn't seem to be doing anything
 ;; (use-package org-sync-snippets
