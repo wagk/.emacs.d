@@ -14,6 +14,12 @@ Probably copied it from stackoverflow"
   (let ((evil-this-register ?0))
     (call-interactively 'evil-paste-after)))
 
+;; make _ be recognised as part of a word
+(defun /treat-underscore-as-word ()
+  "Make underscore be considered part of a word, just like vim. Add this to
+whichever mode you want when you want it to treat underscore as a word"
+  (modify-syntax-entry ?_ "w"))
+
 (defun /evil-gt ()
   "Emulating vim's `gt' using frames."
   (interactive)
@@ -59,7 +65,6 @@ Probably copied it from stackoverflow"
          ("C-l" . evil-complete-next-line)
          ("C-L" . evil-complete-previous-line)
          ("C-k" . nil)
-         ;; ("RET" . newline-and-indent) ;; this detonates term-mode
          :map evil-motion-state-map
          ("C-u" . evil-scroll-up)
          :map evil-normal-state-map
@@ -110,7 +115,7 @@ Probably copied it from stackoverflow"
   ;;   (let ((table (copy-syntax-table (syntax-table))))
   ;;     (modify-syntax-entry ?_ "w" table)
   ;;     (with-syntax-table table ad-do-it)))
-  (modify-syntax-entry ?_ "w")
+  (/treat-underscore-as-word)
 
   (evil-ex-define-cmd "tabn[ew]" 'make-frame)
   (evil-ex-define-cmd "tabe[dit]" 'make-frame)
@@ -193,6 +198,15 @@ Probably copied it from stackoverflow"
   ;; (add-to-list 'evil-args-delimiters " ")
   )
 
+;; more like evil-textobj-kolumn
+(use-package evil-textobj-column
+  :ensure t
+  :bind (:map evil-inner-text-objects-map
+              ("k" . evil-textobj-column-word)
+              ("K" . evil-textobj-column-WORD))
+  :config
+  nil)
+
 (use-package evil-numbers
   :ensure t
   :after evil
@@ -225,6 +239,24 @@ Probably copied it from stackoverflow"
 ;;   ;;        (define-key evil-inner-text-objects-map "c" 'evil-cp-inner-comment)
 ;;   ;;        (define-key evil-outer-text-objects-map "c" 'evil-cp-a-comment))
 ;;   (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode))
+
+;; (use-package evil-cleverparens-text-objects
+;;   :ensure t
+;;   :init
+;;   (use-package evil-cleverparens :ensure t)
+;;   :config
+;;   nil)
+
+(use-package evil-cleverparens
+  :ensure t
+  :init nil
+  :bind(:map evil-inner-text-objects-map
+             ("c" . evil-cp-inner-comment)
+             :map evil-outer-text-objects-map
+             ("c" . evil-cp-a-comment))
+  :config
+  (require 'evil-cleverparens-text-objects)
+  nil)
 
 (use-package evil-commentary
   :ensure t
@@ -305,12 +337,6 @@ Probably copied it from stackoverflow"
 
 ;; activate folding
 (add-hook 'prog-mode-hook 'hs-minor-mode)
-
-;; make _ be recognised as part of a word
-(defun /treat-underscore-as-word ()
-  "Make underscore be considered part of a word, just like vim. Add this to
-whichever mode you want when you want it to treat underscore as a word"
-  (modify-syntax-entry ?_ "w"))
 
 (evil-mode 1)
 
