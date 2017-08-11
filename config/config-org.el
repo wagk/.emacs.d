@@ -65,6 +65,19 @@ then insert a new item instead"
                org-refile-use-outline-path t
                org-outline-path-complete-in-steps nil
                org-refile-allow-creating-parent-nodes 'confirm)
+
+         (defun /org-mode-face-no-resize ()
+           "Stop the org-level headers from increasing in height relative to the
+other text."
+           (when (eq major-mode 'org-mode)
+             (dolist (face '(org-level-1
+                             org-level-2
+                             org-level-3
+                             org-level-4
+                             org-level-5))
+               (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
+
+         (add-hook 'org-mode-hook '/org-mode-face-no-resize)
          ;; (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
          ;; make it vim-compatitable
          (add-hook 'org-mode-hook '(lambda ()
