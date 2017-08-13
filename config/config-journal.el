@@ -14,8 +14,7 @@
   (when (boundp '/g-drive-folder)
     (setq org-journal-dir (concat /g-drive-folder "/journal")))
 
-  (setq org-journal-date-format "%d%m%Y"
-        org-journal-file-format "%d%m%Y")
+  (setq org-journal-file-format "%d%m%Y")
   (progn (require 'evil-leader)
          (evil-leader/set-key
            "d d" 'org-journal-new-entry))

@@ -41,6 +41,17 @@ then insert a new item instead"
   (org-insert-heading)
   (evil-append-line 1))
 
+(defun /org-mode-face-no-resize ()
+  "Stop the org-level headers from increasing in height relative to the other
+text."
+  (when (eq major-mode 'org-mode)
+    (dolist (face '(org-level-1
+                    org-level-2
+                    org-level-3
+                    org-level-4
+                    org-level-5))
+      (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
+
 (use-package org
   :ensure t
   :config
@@ -56,6 +67,7 @@ then insert a new item instead"
                org-enforce-todo-checkbox-dependencies     t
                org-enforce-todo-dependencies              t
                org-pretty-entities                        t
+               org-insert-heading-respect-content t
                org-log-done                               'time
                org-log-redeadline                         'time
                org-log-reschedule                         'time
@@ -65,17 +77,6 @@ then insert a new item instead"
                org-refile-use-outline-path t
                org-outline-path-complete-in-steps nil
                org-refile-allow-creating-parent-nodes 'confirm)
-
-         (defun /org-mode-face-no-resize ()
-           "Stop the org-level headers from increasing in height relative to the
-other text."
-           (when (eq major-mode 'org-mode)
-             (dolist (face '(org-level-1
-                             org-level-2
-                             org-level-3
-                             org-level-4
-                             org-level-5))
-               (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
 
          (add-hook 'org-mode-hook '/org-mode-face-no-resize)
          ;; (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
