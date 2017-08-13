@@ -81,6 +81,8 @@ Assumes that it:
                        "./config/config-tramp.el"
                        "./config/config-crypto.el"
 
+                       "./config/config-draw.el"
+
                        "./config/config-japanese.el"
                        "./config/config-finance.el"
                        "./config/config-journal.el"
