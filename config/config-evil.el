@@ -357,8 +357,13 @@ whichever mode you want when you want it to treat underscore as a word"
 
 (use-package evil-indent-plus
   :ensure t
-  :config
-  (evil-indent-plus-default-bindings))
+  :bind(:map evil-inner-text-objects-map
+             ("i" . evil-indent-plus-i-indent)
+             ("I" . evil-indent-plus-a-indent)
+             :map evil-outer-text-objects-map
+             ("i" . evil-indent-plus-i-indent-up)
+             ("I" . evil-indent-plus-a-indent-up))
+  )
 
 ;; vim A E S T H E T H I C S
 (use-package vi-tilde-fringe
@@ -385,6 +390,7 @@ whichever mode you want when you want it to treat underscore as a word"
 
 ;; Disabled because it conflicts with evil-snipe-override-mode
 (use-package evil-quickscope
+  :disabled
   :ensure t
   :config
   ;; (global-evil-quickscope-always-mode t)
@@ -392,7 +398,6 @@ whichever mode you want when you want it to treat underscore as a word"
   )
 
 (use-package evil-snipe
-  :disabled
   :ensure t
   :config
   (evil-snipe-override-mode))
