@@ -7,6 +7,11 @@
 (require 'config-org)
 (require 'config-evil)
 
+(defun /new-org-journal-entry ()
+  "Creates a org journal entry with a timestamp"
+  (interactive)
+  (org-journal-new-entry 't))
+
 (use-package org-journal
   :ensure t
   :config
@@ -17,7 +22,7 @@
   (setq org-journal-file-format "%d%m%Y")
   (progn (require 'evil-leader)
          (evil-leader/set-key
-           "d d" 'org-journal-new-entry))
+           "d d" '/new-org-journal-entry))
   )
 
 (provide 'config-journal)

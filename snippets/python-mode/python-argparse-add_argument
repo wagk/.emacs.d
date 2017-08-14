@@ -5,7 +5,8 @@
 ${1:parser}.add_argument(
   '-${2:short arg}',
   '--${3:long arg}',
-  help='''${4:argument description}
+  help='''
+  ${4:argument description}
   ''',
   action=${5:store},
   type=${6:str},
