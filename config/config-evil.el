@@ -383,15 +383,16 @@ whichever mode you want when you want it to treat underscore as a word"
 ;;   (evil-goggles-use-diff-faces)
 ;;   (setq evil-goggles-duration 0.025))
 
-;; ;; Disabled because it conflicts with evil-snipe-override-mode
-;; (use-package evil-quickscope
-;;   :ensure t
-;;   :config
-;;   ;; (global-evil-quickscope-always-mode t)
-;;   (global-evil-quickscope-mode 1)
-;;   )
+;; Disabled because it conflicts with evil-snipe-override-mode
+(use-package evil-quickscope
+  :ensure t
+  :config
+  ;; (global-evil-quickscope-always-mode t)
+  (global-evil-quickscope-mode 1)
+  )
 
 (use-package evil-snipe
+  :disabled
   :ensure t
   :config
   (evil-snipe-override-mode))
