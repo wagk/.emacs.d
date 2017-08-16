@@ -67,7 +67,7 @@ text."
                org-enforce-todo-checkbox-dependencies     t
                org-enforce-todo-dependencies              t
                org-pretty-entities                        t
-               org-insert-heading-respect-content t
+               ;; org-insert-heading-respect-content t
                org-log-done                               'time
                org-log-redeadline                         'time
                org-log-reschedule                         'time
