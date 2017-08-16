@@ -21,3 +21,4 @@ recentf
 server/*
 session.*
 spu_log/*
+.python-environments/*

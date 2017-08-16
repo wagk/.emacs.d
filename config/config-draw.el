@@ -11,9 +11,11 @@
   :ensure t
   :mode "\\.plantuml\\'"
   :config
-  (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
   (when (boundp '/plantuml-jar)
     (setq plantuml-jar-path /plantuml-jar))
+  (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((plantuml . t)))
   )
 
 (provide 'config-draw)

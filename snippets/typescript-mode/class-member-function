@@ -1,11 +1,11 @@
 # -*- mode: snippet -*-
 # name: class member function
-# key: memfunc
+# key: defm
 # --
 /**
 @function $1
-@return   {$3}
+@return   $3
 */
-${1:foo}($2): ${3:void} {
+${4:public} ${1:foo}($2): ${3:void} {
 $0
 }
