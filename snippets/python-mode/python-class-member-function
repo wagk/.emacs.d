@@ -1,11 +1,11 @@
 # key: defm
 # name: python class member function
 # --
-def ${1:mfoo}(self${2:}):
+def ${1:mfoo}(self${2:})${3:-> ${4:None}}:
     """Docstring for member function $1
     params:
 
     returns:
 
     """
-    $0
+    raise NotImplementedError()

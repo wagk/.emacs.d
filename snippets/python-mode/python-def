@@ -2,11 +2,11 @@
 # name: def-python
 # key: def
 # --
-def ${1:foo}($2):
-    """${3:docstring for $1}
+def ${1:foo}($2)${3:-> ${4:None}}:
+    """${5:docstring for $1}
     params:
 
     returns:
 
     """
-    $0
+    raise NotImplementedError()

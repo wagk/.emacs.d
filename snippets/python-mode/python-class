@@ -2,7 +2,7 @@
 # name: python-class
 # key: class
 # --
-class ${1:Bar}($2):
+class ${1:Bar}(${2:object}):
     """${3:Docstring for $1}
     """
 
