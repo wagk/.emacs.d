@@ -3,11 +3,4 @@
 # key: class
 # --
 class ${1:Bar}(${2:object}):
-    """${3:Docstring for $1}
-    """
-
-    def __init__(self${4:}):
-        """${5: Docstring for __init__}
-        """
-        $0
-        pass
+    $0

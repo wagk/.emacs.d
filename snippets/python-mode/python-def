@@ -3,10 +3,4 @@
 # key: def
 # --
 def ${1:foo}($2)${3:-> ${4:None}}:
-    """${5:docstring for $1}
-    params:
-
-    returns:
-
-    """
     raise NotImplementedError()
