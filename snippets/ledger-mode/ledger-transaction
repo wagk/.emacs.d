@@ -2,6 +2,4 @@
 # name: ledger-transaction
 # expand-env: ((yas-indent-line 'fixed))
 # --
-`(format-time-string "%Y-%m-%d")` * ${1:transaction}
-  ${2:from:category}
-  ${3:to:category}  $0
+`(format-time-string "%Y-%m-%d")` * $0
