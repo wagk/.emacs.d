@@ -1,0 +1,5 @@
+# key: docs
+# name: python-docstring
+# --
+"""$0
+"""

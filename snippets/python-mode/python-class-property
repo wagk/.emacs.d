@@ -1,0 +1,6 @@
+# key: pro
+# name: python-class-property
+# --
+@property
+def ${1:prop}(self)${2:-> ${3:None}}:
+    ${4:raise NotImplementedError()}$0

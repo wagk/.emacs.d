@@ -3,4 +3,4 @@
 # key: elif
 # --
 elif ${1:cond}:
-     $0
+    $0

@@ -2,4 +2,4 @@
 # name: python class member function
 # --
 def ${1:mfoo}(self${2:})${3:-> ${4:None}}:
-    raise NotImplementedError()
+    ${5:raise NotImplementedError()}$0

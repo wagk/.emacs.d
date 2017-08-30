@@ -81,6 +81,9 @@
 (use-package buffer-move
   :ensure t)
 
+(use-package crosshairs
+  :ensure t)
+
 (defun /line-lengths()
   (let (length)
     (save-excursion
@@ -104,7 +107,7 @@
   (let ((margin-size (/ (abs (- (window-width) (/longest-line-length))) 2)))
     (if (not (get '/centre-window-function 'active))
         (progn
-          (set-window-margins nil margin-size margin-size)
+          (set-window-margins nil margin-size nil)
           (fringe-mode '(1 . 1))
           (put '/centre-window-function 'active t))
       (progn
