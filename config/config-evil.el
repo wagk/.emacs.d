@@ -398,6 +398,7 @@ whichever mode you want when you want it to treat underscore as a word"
   )
 
 (use-package evil-snipe
+  :disabled ; mostly so I can practice the ; and , keys
   :ensure t
   :config
   (evil-snipe-override-mode))
