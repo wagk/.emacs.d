@@ -88,6 +88,7 @@ whichever mode you want when you want it to treat underscore as a word"
   (setq evil-want-C-u-scroll t)
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
+  (evil-select-search-module 'evil-search-module 'evil-search)
   (setq evil-want-Y-yank-to-eol t
         sentence-end-double-space nil
         evil-regexp-search t
