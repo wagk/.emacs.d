@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: hack
+# key: hh
+# --
+`(yas-with-comment "HACK: ")`
