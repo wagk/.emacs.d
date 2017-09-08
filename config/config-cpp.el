@@ -8,10 +8,12 @@
 (use-package irony
   :ensure t
   :config
+  (setq w32-pipe-read-delay 0)
   (add-hook 'c++-mode-hook 'irony-mode)
   (add-hook 'c-mode-hook 'irony-mode)
   (add-hook 'objc-mode-hook 'irony-mode)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+
 
 (provide 'config-cpp)
 
