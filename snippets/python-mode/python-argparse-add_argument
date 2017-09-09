@@ -8,7 +8,7 @@ ${1:parser}.add_argument(
   help='''
   ${4:argument description}
   ''',
-  action=${5:store},
+  action='${5:store}',
   type=${6:str},
   default=${7:None},
   dest='${8:$3}'
