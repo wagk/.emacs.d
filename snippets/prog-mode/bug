@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: bug
+# key: bb
+# --
+`(yas-with-comment "BUG: ")`
