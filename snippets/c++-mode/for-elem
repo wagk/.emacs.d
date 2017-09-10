@@ -1,0 +1,6 @@
+# key: forr
+# name: for-range
+# --
+for (${1:const auto&} ${2:elem} : ${3:range}) {
+    $0
+}

@@ -14,6 +14,8 @@
   (add-hook 'objc-mode-hook 'irony-mode)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
 
+;; treat .h files as cpp files
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 (provide 'config-cpp)
 

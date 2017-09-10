@@ -72,6 +72,7 @@ whichever mode you want when you want it to treat underscore as a word"
          ("gt"   . /evil-gt)
          ("gT"   . /evil-gT)
          ("C-\\" . /lang-toggle) ;; binding for eng <-> jap
+         ("g o"  . ff-find-other-file)
          :map evil-visual-state-map
          ;; ("p"  . /evil-paste-after-from-0)
          (">>" . /evil-shift-right-visual)

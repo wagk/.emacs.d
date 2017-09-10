@@ -4,6 +4,7 @@
 ;; Useful resources:
 ;; https://bling.github.io/blog/2013/10/27/emacs-as-my-leader-vim-survival-guide/
 ;; https://github.com/bbatsov/emacs-lisp-style-guide
+;; https://github.com/noctuid/evil-guide
 
 ;; https://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
 
