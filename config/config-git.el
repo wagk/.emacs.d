@@ -11,8 +11,10 @@
   :ensure t
   :after evil-leader
   :config
-  (progn (require 'aggressive-fill-paragraph)
-         (add-hook 'git-commit-setup-hook 'aggressive-fill-paragraph-mode))
+  (eval-after-load 'aggressive-fill-paragraph
+    '(add-hook 'git-commit-setup-hook 'aggressive-fill-paragraph-mode))
+  (eval-after-load 'fill-column-indicator
+    '(add-hook 'git-commit-setup-hook 'turn-on-fci-mode))
   (evil-leader/set-key
     ", ," 'magit-status))
 
