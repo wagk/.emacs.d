@@ -21,7 +21,6 @@
 
 (use-package whitespace-cleanup-mode
   :ensure t
-  :delight
   :config
   (global-whitespace-cleanup-mode 1))
 
@@ -47,7 +46,6 @@
 (use-package fill-column-indicator
   :ensure t
   ;; :diminish (fci-mode . "fci")
-  :delight
   :config
   (setq-default fill-column 80)
   ;; (setq fci-rule-width 23)
