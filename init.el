@@ -64,6 +64,7 @@ Assumes that it:
 
                        "./config/config-evil.el"
                        "./config/config-helm.el"
+                       "./config/config-colors.el"
                        "./config/config-buffer.el"
                        "./config/config-indent.el"
                        "./config/config-git.el"
