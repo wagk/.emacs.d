@@ -27,6 +27,9 @@
 
 (use-package hl-todo
   :ensure t
+  :bind (:map evil-normal-state-map
+              ("[ t" . hl-todo-previous)
+              ("] t" . hl-todo-next))
   :config
   (customize-set-variable 'hl-todo-keyword-faces
                           `(("TODO"  . ,$solarized-dark-yellow)
@@ -36,6 +39,8 @@
                             ("NOTE"  . ,$solarized-dark-base1)
                             ("HACK"  . ,$solarized-dark-violet)
                             ("FIXME" . ,$solarized-dark-orange)))
+  (evil-leader/set-key
+    "t t" 'hl-todo-occur)
   (global-hl-todo-mode))
 
 ;; https://github.com/alpaker/Fill-Column-Indicator

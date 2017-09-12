@@ -21,10 +21,9 @@
 ;; https://github.com/nonsequitur/git-gutter-plus
 (use-package git-gutter+
   :ensure t
-  :after evil evil-leader
   :bind (:map evil-normal-state-map
-              ("[ c" . git-gutter+-previous-hunk)
-              ("] c" . git-gutter+-next-hunk))
+              ("[ h" . git-gutter+-previous-hunk)
+              ("] h" . git-gutter+-next-hunk))
   :config
   (evil-leader/set-key
     "h s" 'git-gutter+-stage-hunks

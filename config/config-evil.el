@@ -204,11 +204,11 @@ whichever mode you want when you want it to treat underscore as a word"
 
        (defun evil-unimpaired/next-frame ()
          (interactive)
-         (raise-frame (next-frame)))
+         (/evil-gt))
 
        (defun evil-unimpaired/previous-frame ()
          (interactive)
-         (raise-frame (previous-frame)))
+         (/evil-gT))
 
        ;; from tpope's unimpaired
        (define-key evil-normal-state-map (kbd "[ SPC")
@@ -225,8 +225,8 @@ whichever mode you want when you want it to treat underscore as a word"
        (define-key evil-normal-state-map (kbd "] b") 'next-buffer)
        (define-key evil-normal-state-map (kbd "[ f") 'evil-unimpaired/previous-file)
        (define-key evil-normal-state-map (kbd "] f") 'evil-unimpaired/next-file)
-       (define-key evil-normal-state-map (kbd "[ t") 'evil-unimpaired/previous-frame)
-       (define-key evil-normal-state-map (kbd "] t") 'evil-unimpaired/next-frame)
+       ;; (define-key evil-normal-state-map (kbd "[ t") 'evil-unimpaired/previous-frame)
+       ;; (define-key evil-normal-state-map (kbd "] t") 'evil-unimpaired/next-frame)
        (define-key evil-normal-state-map (kbd "[ w") 'previous-multiframe-window)
        (define-key evil-normal-state-map (kbd "] w") 'next-multiframe-window)
        ;; select pasted text
