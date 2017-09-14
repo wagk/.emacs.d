@@ -6,7 +6,3 @@ not closing this sexp seems to deliver the desired output
 # --
 (use-package $1
              :ensure ${2:t}
-             :init ${3:nil}
-             :bind ${4:nil}
-             :config
-             ${5:nil}
