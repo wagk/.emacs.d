@@ -41,9 +41,10 @@
        (auto-insert-mode 1)
        (setq-default auto-insert-query nil
                      auto-insert 'other)
-       (define-auto-insert "\\.el$" ["elisp-template" /auto-insert-yasnippet])
-       (define-auto-insert "\\.py$" ["python-template" /auto-insert-yasnippet])
-       (define-auto-insert "\\.h$" ["cpp-template" /auto-insert-yasnippet])
+       (define-auto-insert "\\.el$"  ["elisp-template" /auto-insert-yasnippet])
+       (define-auto-insert "\\.py$"  ["python-template" /auto-insert-yasnippet])
+       (define-auto-insert "\\.h$"   ["cpp-h-template" /auto-insert-yasnippet])
+       (define-auto-insert "\\.cpp$" ["cpp-template" /auto-insert-yasnippet])
        )
 
 

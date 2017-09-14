@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: cpp-class
+# key: class
+# --
+class ${1:Bar}
+{
+public:
+
+  $1() = default;
+  ~$1() = default;
+
+private:
+}

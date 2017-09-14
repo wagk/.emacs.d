@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: cpp-include
+# key: inc
+# --
+#include $0

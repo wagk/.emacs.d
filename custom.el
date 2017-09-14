@@ -16,6 +16,7 @@
      ("HACK" . "#6c71c4")
      ("FIXME" . "#cb4b16"))))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
+ '(minimap-window-location (quote right))
  '(org-emphasis-alist
    (quote
     (("`" org-code verbatim)
