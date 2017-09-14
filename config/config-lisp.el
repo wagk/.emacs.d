@@ -11,6 +11,12 @@
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
   )
 
+(use-package suggest
+  :ensure t)
+
+(use-package elmacro
+  :ensure t)
+
 (use-package elisp-slime-nav
   :ensure t
   :bind

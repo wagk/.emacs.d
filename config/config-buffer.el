@@ -56,6 +56,19 @@
   :config
   (powerline-vim-theme))
 
+;; https://github.com/larstvei/Focus
+(use-package focus
+  :ensure t)
+
+(use-package minimap
+  :ensure t
+  :config
+  (customize-set-variable 'minimap-window-location 'right))
+
+(use-package no-littering
+  :disabled ;; melpa says it doesnt exist?
+  :ensure t)
+
 (use-package multi-term
   :ensure t
   :config
