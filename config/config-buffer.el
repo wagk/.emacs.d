@@ -90,6 +90,10 @@
 (use-package crosshairs
   :ensure t)
 
+(use-package which-key
+  :ensure t)
+
+;;;###autoload
 (defun /line-lengths()
   (let (length)
     (save-excursion
@@ -102,11 +106,13 @@
     ;; we return a list since this is the last form evaluated
     (copy-sequence length)))
 
+;;;###autoload
 (defun /longest-line-length()
   (let ((lines (/line-lengths)))
     ;; return the first element, which should be the largest
     (nth 0 (sort lines '>))))
 
+;;;###autoload
 (defun /centre-window-function()
   ""
   (interactive)
@@ -124,7 +130,7 @@
 (evil-leader/set-key
   ";" '/centre-window-function)
 
-;; Set transparency of emacs
+;;;###autoload
 (defun /set-frame-transparency (value)
   "Sets the transparency of the frame window. 0=transparent/100=opaque"
   (interactive "nTransparency Value 0 - 100 opaque:")
