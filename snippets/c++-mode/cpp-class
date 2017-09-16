@@ -10,4 +10,4 @@ public:
   ~$1() = default;
 
 private:
-}
+};
