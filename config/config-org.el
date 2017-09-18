@@ -76,7 +76,8 @@ text."
                org-refile-targets '((nil . (:maxlevel . 9)))
                org-refile-use-outline-path t
                org-outline-path-complete-in-steps nil
-               org-refile-allow-creating-parent-nodes 'confirm)
+               org-refile-allow-creating-parent-nodes 'confirm
+               org-highlight-latex-and-related '(latex))
 
          (add-hook 'org-mode-hook '/org-mode-face-no-resize)
          ;; (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
@@ -118,14 +119,13 @@ text."
            (kbd "M-L")        'org-shiftmetadown)
          )
   ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
-  (progn (require 'org-capture)
-         (define-key org-capture-mode-map [remap evil-save-and-close]
-           'org-capture-finalize)
-         (define-key org-capture-mode-map [remap evil-save-modified-and-close]
-           'org-capture-finalize)
-         (define-key org-capture-mode-map [remap evil-quit]
-           'org-capture-kill)
-         )
+  (with-eval-after-load "org-capture"
+    (define-key org-capture-mode-map [remap evil-save-and-close]
+      'org-capture-finalize)
+    (define-key org-capture-mode-map [remap evil-save-modified-and-close]
+      'org-capture-finalize)
+    (define-key org-capture-mode-map [remap evil-quit]
+      'org-capture-kill))
   (progn (require 'org-agenda)
          ;; TODO: rebind org-agenda keymaps
          )

@@ -57,39 +57,40 @@ Assumes that it:
 ;; load each config file in order
 ;; config loading should prioritise most necessary bits, so in eventuality of
 ;; bad loads we can fix it from inside emacs
-(load-user-config-file "./config/config-utility.el"
-                       "./config/config-package.el"
-                       "./config/config-common.el"
-                       "./config/config-help.el"
+(load-user-config-file
+ "./config/config-utility.el"
+ "./config/config-package.el"
+ "./config/config-common.el"
+ "./config/config-help.el"
 
-                       "./config/config-evil.el"
-                       "./config/config-helm.el"
-                       "./config/config-colors.el"
-                       "./config/config-buffer.el"
-                       "./config/config-indent.el"
-                       "./config/config-git.el"
-                       "./config/config-org.el"
-                       "./config/config-project.el"
-                       "./config/config-completion.el"
+ "./config/config-evil.el"
+ "./config/config-helm.el"
+ "./config/config-colors.el"
+ "./config/config-buffer.el"
+ "./config/config-indent.el"
+ "./config/config-git.el"
+ "./config/config-org.el"
+ "./config/config-project.el"
+ "./config/config-completion.el"
 
-                       "./config/config-prog.el" ;; program-related configs
-                       "./config/config-webdev.el"
-                       "./config/config-lisp.el"
-                       "./config/config-cpp.el"
-                       "./config/config-python.el"
+ "./config/config-prog.el" ;; program-related configs
+ "./config/config-webdev.el"
+ "./config/config-lisp.el"
+ "./config/config-cpp.el"
+ "./config/config-python.el"
 
-                       "./config/config-diff.el"
-                       "./config/config-shell.el"
-                       "./config/config-tramp.el"
-                       "./config/config-crypto.el"
+ "./config/config-diff.el"
+ "./config/config-shell.el"
+ "./config/config-tramp.el"
+ "./config/config-crypto.el"
 
-                       "./config/config-draw.el"
-                       "./config/config-visualise.el"
+ "./config/config-draw.el"
+ "./config/config-visualise.el"
 
-                       "./config/config-japanese.el"
-                       "./config/config-finance.el"
-                       "./config/config-journal.el"
-                       )
+ "./config/config-japanese.el"
+ "./config/config-finance.el"
+ "./config/config-journal.el"
+ )
 
 ;; Disable ANNOYING customize options
 (setq custom-file (concat user-init-dir "custom.el"))
