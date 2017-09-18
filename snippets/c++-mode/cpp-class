@@ -8,6 +8,7 @@ public:
 
   $1() = default;
   ~$1() = default;
+  $1& operator=(const $1& rhs) = default;
 
 private:
 };
