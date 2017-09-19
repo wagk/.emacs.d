@@ -35,6 +35,7 @@
          (add-hook 'groovy-mode-hook 'hl-todo-mode))
   (add-hook 'groovy-mode-hook #'/treat-underscore-as-word)
   (add-to-list 'auto-mode-alist '("\\Jenkinsfile\\'" . groovy-mode))
+  (add-hook 'groovy-mode-hook 'hl-todo-mode)
   )
 
 (use-package php-mode
@@ -43,7 +44,8 @@
 (use-package dockerfile-mode
   :ensure t
   :config
-  (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode)))
+  (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode))
+  (add-hook 'dockerfile-mode-hook 'hl-todo-mode))
 
 (use-package json-mode
   :ensure t)
