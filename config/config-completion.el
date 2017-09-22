@@ -45,6 +45,7 @@
        (define-auto-insert "\\.py$"  ["python-template" /auto-insert-yasnippet])
        (define-auto-insert "\\.h$"   ["cpp-h-template" /auto-insert-yasnippet])
        (define-auto-insert "\\.cpp$" ["cpp-template" /auto-insert-yasnippet])
+       (define-auto-insert "\\.sh$"  ["sh-template" /auto-insert-yasnippet])
        )
 
 
