@@ -2,4 +2,7 @@
 # key: def
 # name: cpp-function
 # --
-${2:void} ${1:foo}(${3:vars});
+${3:void} ${1:foo}(${2:vars})${4:
+{
+  $0
+}}

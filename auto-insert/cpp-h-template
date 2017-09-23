@@ -3,4 +3,4 @@
 
 $0
 
-#endif /* `(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))` */
+#endif /* `(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))`_h__ */

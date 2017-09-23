@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# key: c
+# name: comment
+# --
+`(yas-with-comment "")`

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: cpp-member-function
+# key: defm
+# --
+${4:void} ${1:class}::${2:foo}(${3:params})
+{
+  $0
+}

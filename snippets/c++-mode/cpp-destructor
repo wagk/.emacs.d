@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: cpp-destructor
+# key: dtor
+# --
+${1:class}::~$1()
+{
+  $0
+}

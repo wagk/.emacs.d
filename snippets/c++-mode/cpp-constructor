@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# key: ctor
+# name: cpp-constructor
+# --
+${1:class}::$1(${2:params})
+{
+  $0
+}
