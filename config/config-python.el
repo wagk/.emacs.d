@@ -28,6 +28,8 @@
   (add-hook 'python-mode-hook #'(lambda ()
                                   (add-to-list 'flycheck-disabled-checkers 'python-flake8)
                                   (add-to-list 'flycheck-disabled-checkers 'python-pylint)
+                                  (add-to-list 'flycheck-disabled-checkers 'python-pycompile)
+                                  (add-to-list 'flycheck-python-mypy-args "--ignore-missing-imports")
                                   (flycheck-mode))))
 
 ;; remove really dumb indentation rule when inside docstring
@@ -40,6 +42,6 @@
       'noindent))
   (advice-add 'python-indent-line :before-until #'$python-mode-noindent-docstring))
 
-  (provide 'config-python)
+(provide 'config-python)
 
 ;;; config-python.el ends here
