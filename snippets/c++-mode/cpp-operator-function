@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# key: defo
+# name: cpp-operator-function
+# --
+${1:class::}operator${2: opr}(${3:params}) ${4:const
+{
+  $0
+}}
