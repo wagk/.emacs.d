@@ -51,6 +51,13 @@
   ;; (setq fci-rule-width 23)
   (add-hook 'prog-mode-hook 'turn-on-fci-mode))
 
+(use-package golden-ratio
+  :disabled t
+  :ensure t
+  :config
+  (golden-ratio-mode 1)
+  (add-hook 'buffer-list-update-hook #'golden-ratio))
+
 (use-package powerline
   :ensure t
   :config
