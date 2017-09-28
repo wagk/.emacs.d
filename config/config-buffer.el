@@ -153,6 +153,10 @@
 ;; startup maximised
 (custom-set-variables
  '(initial-frame-alist (quote ((fullscreen . maximized)))))
+(custom-set-variables
+ '(default-frame-alist (add-to-list 'default-frame-alist
+                                    '(fullscreen . maximized))))
+
 
 (setq require-final-newline t)
 
