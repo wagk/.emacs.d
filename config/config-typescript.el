@@ -6,7 +6,10 @@
 (require 'config-package)
 
 (use-package typescript-mode
-  :ensure t)
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
+  )
 
 (use-package tide
   :ensure t
