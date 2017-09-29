@@ -85,6 +85,13 @@
   (progn (require 'evil)
          (evil-ex-define-cmd "te[rminal]" 'multi-term)))
 
+(use-package mmm-mode
+  :disabled
+  :ensure t
+  :commands mmm-mode
+  :config
+  (setq mmm-parse-when-idle 't))
+
 (use-package unicode-troll-stopper
   :ensure t)
 
