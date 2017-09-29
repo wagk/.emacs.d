@@ -62,7 +62,9 @@
   :ensure t)
 
 (use-package markdown-mode
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'markdown-mode-hook 'orgtbl-mode))
 
 (use-package yaml-mode
   :ensure t)
