@@ -1,5 +1,6 @@
 # key: docs
 # name: python-docstring
+# expand-env: ((yas-indent-line 'fixed))
 # --
 """$0
 """
