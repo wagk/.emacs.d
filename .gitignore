@@ -22,3 +22,7 @@ server/*
 session.*
 spu_log/*
 .python-environments/*
+/emacs_backtrace.txt
+/kkcrc
+/some_wcustom.el
+/url/cookies
