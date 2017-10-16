@@ -3,4 +3,4 @@
 # key: def
 # --
 def ${1:foo}($2)${3:-> ${4:None}}:
-    ${5:raise NotImplementedError()}$0
+    ${5:raise NotImplementedError()}

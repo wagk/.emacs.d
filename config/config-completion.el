@@ -12,16 +12,19 @@
   :bind(:map yas-keymap
              ("C-j" . yas-next-field-or-maybe-expand)
              ("C-k" . yas-prev-field))
+  :init
+  (let ((my-snippet-dir (concat user-init-dir "snippets")))
+    (setq-default yas-snippet-dirs `(,my-snippet-dir)))
   :config
   (yas-global-mode)
   (setq yas-indent-line 'auto
         yas-also-auto-indent-first-line t)
-  ;; evil-leader keybinds
   (progn (require 'evil-leader)
          (evil-leader/set-key
            "s s" 'yas-new-snippet
            "s a" 'yas-insert-snippet
            "s f" 'yas-visit-snippet-file))
+  ;; evil-leader keybinds
   (progn (require 'evil)
          (define-key snippet-mode-map [remap evil-save-and-close]
            'yas-load-snippet-buffer-and-close)
@@ -46,6 +49,9 @@
        (define-auto-insert "\\.h$"   ["cpp-h-template" /auto-insert-yasnippet])
        (define-auto-insert "\\.cpp$" ["cpp-template" /auto-insert-yasnippet])
        (define-auto-insert "\\.sh$"  ["sh-template" /auto-insert-yasnippet])
+
+       (defun yas-with-comment (str)
+         (format "%s%s%s" comment-start str comment-end))
        )
 
 

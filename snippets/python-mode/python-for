@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: python-for
+# key: for
+# --
+for ${1:elem} in ${2:container}:
+    $0

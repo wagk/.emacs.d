@@ -1,4 +1,4 @@
-# key: docs
+# key: d
 # name: python-docstring
 # expand-env: ((yas-indent-line 'fixed))
 # --

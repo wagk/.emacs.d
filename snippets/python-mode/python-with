@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: python-with
+# key: with
+# --
+with ${1:context}${2: as ${3:alias}}:
+     $0
