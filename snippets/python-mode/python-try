@@ -1,0 +1,7 @@
+# key: try
+# name: python-try
+# --
+try:
+    ${2:pass}
+except ${1:Exception as e}:
+    raise e

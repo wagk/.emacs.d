@@ -1,5 +1,5 @@
 # key: defm
 # name: python class member function
 # --
-def ${1:mfoo}(self${2:})${3:-> ${4:None}}:
-    ${5:raise NotImplementedError()}$0
+def ${1:foo}(self$2)${3:-> ${4:None}}:
+    ${5:raise NotImplementedError()}

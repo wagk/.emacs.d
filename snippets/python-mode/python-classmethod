@@ -1,0 +1,6 @@
+# key: defc
+# name: python-classmethod
+# --
+@classmethod
+def ${1:foo}(cls$2)${3:-> ${4:None}}:
+    ${5:raise NotImplementedError()}
