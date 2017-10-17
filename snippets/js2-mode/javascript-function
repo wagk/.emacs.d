@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: javascript-function
+# key: def
+# --
+function ${1:foo}($2){
+  $0
+}
