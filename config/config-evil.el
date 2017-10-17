@@ -154,6 +154,7 @@ whichever mode you want when you want it to treat underscore as a word"
 
   ;; https://www.emacswiki.org/emacs/RegularExpression
   (/evil-define-and-bind-text-object "/" "/" "/")
+  (/evil-define-and-bind-text-object "\\" "\\" "\\")
   (/evil-define-and-bind-text-object "|" "|" "|")
   (/evil-define-and-bind-text-object "l" "^\\s-*" "\\s-*$") ;; line textobj
   (/evil-define-and-bind-text-object "e" "\\`\\s-*" "\\s-*$") ;; buffer textobj

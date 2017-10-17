@@ -24,7 +24,9 @@
 
 (use-package js2-mode
   :ensure t
-  :pin gnu)
+  :pin gnu
+  :config
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
 
 (use-package emmet-mode
   :ensure t
