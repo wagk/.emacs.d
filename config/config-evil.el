@@ -400,8 +400,8 @@ whichever mode you want when you want it to treat underscore as a word"
   (global-evil-quickscope-mode 1)
   )
 
-(use-package evil-snipe
-  ;; :disabled ; mostly so I can practice the ; and , keys
+(use-package evil-nipe
+  :disabled ; mostly so I can practice the ; and , keys
   :ensure t
   :config
   (evil-snipe-override-mode))
