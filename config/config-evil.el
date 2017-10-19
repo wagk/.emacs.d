@@ -158,6 +158,8 @@ whichever mode you want when you want it to treat underscore as a word"
   (/evil-define-and-bind-text-object "|" "|" "|")
   (/evil-define-and-bind-text-object "l" "^\\s-*" "\\s-*$") ;; line textobj
   (/evil-define-and-bind-text-object "e" "\\`\\s-*" "\\s-*$") ;; buffer textobj
+
+  (add-hook 'evil-normal-state-entry-hook 'evil-ex-nohighlight)
   )
 
 ;; https://github.com/syl20bnr/spacemacs/blob/c788da709bb1c74344f5ab1b6f18cfdf6b930df8/layers/%2Bspacemacs/spacemacs-evil/local/evil-unimpaired/evil-unimpaired.el
@@ -397,8 +399,7 @@ whichever mode you want when you want it to treat underscore as a word"
   :ensure t
   :config
   ;; (global-evil-quickscope-always-mode t)
-  (global-evil-quickscope-mode)
-  )
+  (global-evil-quickscope-mode t))
 
 (use-package evil-nipe
   :disabled ; mostly so I can practice the ; and , keys
