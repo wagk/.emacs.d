@@ -397,7 +397,7 @@ whichever mode you want when you want it to treat underscore as a word"
   :ensure t
   :config
   ;; (global-evil-quickscope-always-mode t)
-  (global-evil-quickscope-mode 1)
+  (global-evil-quickscope-mode)
   )
 
 (use-package evil-nipe
