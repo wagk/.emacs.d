@@ -40,7 +40,8 @@
                             ("FIXME" . ,$solarized-dark-orange)))
   (evil-leader/set-key
     "t t" 'hl-todo-occur)
-  (global-hl-todo-mode))
+  (global-hl-todo-mode)
+  (add-hook 'yaml-mode-hook 'hl-todo-mode))
 
 ;; https://github.com/alpaker/Fill-Column-Indicator
 (use-package fill-column-indicator

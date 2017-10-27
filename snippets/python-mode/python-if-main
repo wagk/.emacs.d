@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: python-if-main
+# key: ifm
+# --
+if __name__ == "__main__":
+   $0
