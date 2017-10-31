@@ -5,22 +5,27 @@
 ;;; Code:
 (require 'config-package)
 
-(use-package color-theme
-  :ensure t)
+;; (use-package base16-theme
+;;   :disabled
+;;   :if (not (display-graphic-p))
+;;   :ensure t
+;;   :config
+;;   (load-theme 'base16-solarized-dark t))
+
+(use-package moe-theme
+  :ensure t
+  :if (not (display-graphic-p))
+  :config
+  (moe-dark))
 
 (use-package solarized-theme
   :ensure t
+  :if (display-graphic-p)
   :config
   (setq solarized-use-variable-pitch nil
         solarized-distinct-fringe-background t
-        solarized-high-contrast-mode-line t))
-
-(use-package base16-theme
-  :disabled
-  :if (not (display-graphic-p))
-  :ensure t
-  :config
-  (load-theme 'base16-solarized-dark t))
+        solarized-high-contrast-mode-line t)
+  (load-theme 'solarized-dark t))
 
 (defconst $solarized-dark-base03   "#002b36")
 (defconst $solarized-dark-base02   "#073642")

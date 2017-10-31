@@ -153,8 +153,6 @@
 
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
-(load-theme 'solarized-dark t)
-
 ;; no startup screen
 (setq inhibit-startup-screen t)
 
