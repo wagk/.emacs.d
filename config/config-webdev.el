@@ -70,10 +70,13 @@
 (use-package markdown-mode
   :ensure t
   :config
-  (add-hook 'markdown-mode-hook 'orgtbl-mode))
+  (add-hook 'markdown-mode-hook 'orgtbl-mode)
+  (add-hook 'markdown-mode-hook 'turn-on-fci-mode))
 
 (use-package yaml-mode
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'yaml-mode-hook 'turn-on-fci-mode))
 
 (use-package helm-emmet
   :ensure t)
