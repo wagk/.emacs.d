@@ -90,6 +90,7 @@ Assumes that it:
  "./config/config-japanese.el"
  "./config/config-finance.el"
  "./config/config-journal.el"
+ "./config/config-web-browsing.el"
  )
 
 ;; Disable ANNOYING customize options
