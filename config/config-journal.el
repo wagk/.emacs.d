@@ -10,10 +10,9 @@
 (defun /new-org-journal-entry ()
   "Creates a org journal entry with a timestamp"
   (interactive)
-  (org-journal-new-entry 't))
+  (org-journal-new-entry 't nil))
 
 (defun /new-org-journal-entry-on-enter ()
-  (org-mode)
   (aggressive-fill-paragraph-mode))
 
 (use-package org-journal
@@ -30,9 +29,10 @@
   (setq org-journal-file-format "%d%m%Y")
   (progn (require 'evil-leader)
          (evil-leader/set-key
+           ;; "d d" '/new-org-journal-entry))
            "d d" '/new-org-journal-entry))
   )
 
-(provide 'config-journal)
+         (provide 'config-journal)
 
 ;;; config-journal.el ends here
