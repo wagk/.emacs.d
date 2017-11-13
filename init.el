@@ -72,6 +72,7 @@ Assumes that it:
  "./config/config-org.el"
  "./config/config-project.el"
  "./config/config-completion.el"
+ "./config/config-tags.el"
 
  "./config/config-prog.el" ;; program-related configs
  "./config/config-webdev.el"

@@ -13,7 +13,8 @@
   (org-journal-new-entry 't))
 
 (defun /new-org-journal-entry-on-enter ()
-  (org-mode))
+  (org-mode)
+  (aggressive-fill-paragraph-mode))
 
 (use-package org-journal
   :ensure t

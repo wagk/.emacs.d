@@ -26,3 +26,5 @@ spu_log/*
 /kkcrc
 /some_wcustom.el
 /url/cookies
+/local-packages/evil-cleverparens/
+/srecode-map.el
