@@ -13,13 +13,13 @@
 ;;   (load-theme 'base16-solarized-dark t))
 
 (use-package moe-theme
-  :ensure t
+  :demand t
   :if (not (display-graphic-p))
   :config
   (moe-dark))
 
 (use-package solarized-theme
-  :ensure t
+  :demand t
   :if (display-graphic-p)
   :config
   (setq solarized-use-variable-pitch nil

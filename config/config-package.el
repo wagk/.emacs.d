@@ -37,6 +37,9 @@
 ;; download packages if needed
 ;; this is disabled because I feel that verbose is better
 ;; (setq use-package-always-ensure t)
+(setq use-package-always-defer t
+      use-package-always-ensure t
+      use-package-verbose t)
 
 ;; ;; el-get stuff
 ;; (add-to-list 'load-path
