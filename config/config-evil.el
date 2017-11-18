@@ -341,9 +341,9 @@ whichever mode you want when you want it to treat underscore as a word"
   nil)
 
 (use-package evil-commentary
-  :ensure t
+  :after evil
   :config
-  (evil-commentary-mode 1))
+  (evil-commentary-mode))
 
 ;; (use-package evil-nerd-commenter
 ;;   :ensure t

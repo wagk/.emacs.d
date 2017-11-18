@@ -10,7 +10,6 @@
 (require 'config-colors)
 
 (use-package highlight-indent-guides
-  :ensure t
   :config
   (setq highlight-indent-guides-method 'character
         highlight-indent-guides-character ?\|)
@@ -20,12 +19,10 @@
   (highlight-indent-guides-mode))
 
 (use-package whitespace-cleanup-mode
-  :ensure t
   :config
   (global-whitespace-cleanup-mode 1))
 
 (use-package hl-todo
-  :ensure t
   :bind (:map evil-normal-state-map
               ("[ t" . hl-todo-previous)
               ("] t" . hl-todo-next))
@@ -45,7 +42,6 @@
 
 ;; https://github.com/alpaker/Fill-Column-Indicator
 (use-package fill-column-indicator
-  :ensure t
   ;; :diminish (fci-mode . "fci")
   :config
   (setq-default fill-column 80)
@@ -54,13 +50,12 @@
 
 (use-package golden-ratio
   :disabled t
-  :ensure t
   :config
   (golden-ratio-mode 1)
   (add-hook 'buffer-list-update-hook #'golden-ratio))
 
 (use-package powerline
-  :ensure t
+  :demand t
   :config
   (powerline-vim-theme))
 
@@ -69,16 +64,12 @@
   :ensure t)
 
 (use-package minimap
-  :ensure t
   :config
   (customize-set-variable 'minimap-window-location 'right))
 
-(use-package no-littering
-  :disabled ;; melpa says it doesnt exist?
-  :ensure t)
+(use-package no-littering)
 
 (use-package multi-term
-  :ensure t
   :config
   (cond ((or (eq system-type 'ms-dos)
              (eq system-type 'windows-nt)) (setq multi-term-program "cmd"))
@@ -93,20 +84,15 @@
   :config
   (setq mmm-parse-when-idle 't))
 
-(use-package unicode-troll-stopper
-  :ensure t)
+(use-package unicode-troll-stopper)
 
-(use-package transpose-frame
-  :ensure t)
+(use-package transpose-frame)
 
-(use-package buffer-move
-  :ensure t)
+(use-package buffer-move)
 
-(use-package crosshairs
-  :ensure t)
+(use-package crosshairs)
 
-(use-package which-key
-  :ensure t)
+(use-package which-key)
 
 ;;;###autoload
 (defun /line-lengths()
