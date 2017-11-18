@@ -6,11 +6,14 @@
 
 (require 'config-package)
 
-(use-package help+)
+(use-package help+
+  :demand t)
 
-(use-package help-mode+)
+(use-package help-mode+
+  :demand t)
 
-(use-package help-fns+)
+(use-package help-fns+
+  :demand t)
 
 (provide 'config-help)
 

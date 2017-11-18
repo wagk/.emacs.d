@@ -5,7 +5,6 @@
 ;;; Code:
 (require 'config-package)
 (require 'config-evil)
-(require 'config-indent)
 
 (use-package magit
   :commands magit-status
@@ -26,16 +25,19 @@
 (use-package git-gutter+
   :bind (:map evil-normal-state-map
               ("[ h" . git-gutter+-previous-hunk)
-              ("] h" . git-gutter+-next-hunk))
+              ("] h" . git-gutter+-next-hunk)
+              ("g h s" . git-gutter+-stage-hunks)
+              ("g h u" . git-gutter+-revert-hunks)
+              ("g h p" . git-gutter+-show-hunk)
+              )
   :init
-  (evil-leader/set-key
-    "h s" 'git-gutter+-stage-hunks
-    "h u" 'git-gutter+-revert-hunks
-    "h p" 'git-gutter+-show-hunk)
-  (global-git-gutter+-mode))
+  (global-git-gutter+-mode)
+  )
 
 (use-package git-gutter-fringe+
-  :after git-gutter+)
+  :if (display-graphic-p)
+  :after git-gutter+
+  )
 
 (provide 'config-git)
 

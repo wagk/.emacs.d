@@ -4,6 +4,7 @@
 
 ;;; Code:
 (require 'config-package)
+(require 'config-lint)
 
 (use-package rainbow-delimiters
   :init
@@ -21,7 +22,8 @@
   :init
   (defun my-elisp-mode ()
     (elisp-slime-nav-mode)
-    (turn-on-eldoc-mode))
+    (turn-on-eldoc-mode)
+    (flycheck-mode-on-safe))
   (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode)
   )
 

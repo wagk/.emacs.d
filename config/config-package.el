@@ -22,16 +22,19 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(progn (eval-when-compile (require 'use-package))
-       (require 'diminish) ;; in case we use :diminish in use-package
-       (require 'bind-key));; in case we use :bind in use-package
+(progn (eval-when-compile (require 'use-package)))
+;; (require 'diminish) ;; in case we use :diminish in use-package
+;; (require 'bind-key));; in case we use :bind in use-package
 
 ;; download packages if needed
 ;; this is disabled because I feel that verbose is better
 ;; (setq use-package-always-ensure t)
-(setq use-package-always-defer t
-      use-package-always-ensure t
+(setq use-package-always-defer t ;; always lazy load
+      use-package-always-ensure t ;; always make sure it never skips if not found
       use-package-verbose t)
+
+(use-package diminish)
+(use-package bind-key)
 
 ;; be aware that updates might adjust the load path to the .el files and
 ;; cause loading problems. Helm seems to be a victim of this a lot
@@ -43,7 +46,7 @@
 
 ;; https://github.com/emacscollective/auto-compile
 (use-package auto-compile
-  :ensure t
+  :demand t
   :init
   (setq load-prefer-newer t)
   :config

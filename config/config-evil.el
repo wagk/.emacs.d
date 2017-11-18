@@ -421,7 +421,7 @@ whichever mode you want when you want it to treat underscore as a word"
 
 ;; activate folding
 (add-hook 'prog-mode-hook 'hs-minor-mode)
-(evil-mode 1)
+(evil-mode)
 
 (provide 'config-evil)
 

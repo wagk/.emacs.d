@@ -24,8 +24,8 @@
   (global-whitespace-cleanup-mode 1))
 
 (use-package hl-todo
+  :demand t
   :init
-  (require 'evil-leader)
   (evil-leader/set-key
     "t t" 'hl-todo-occur)
   :bind (:map evil-normal-state-map
@@ -167,9 +167,8 @@
 
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(progn (require 'evil-leader)
-       (evil-leader/set-key
-         "." 'whitespace-mode))
+(evil-leader/set-key
+  "." 'whitespace-mode)
 
 ;; automatically refresh buffer when changed outside
 (global-auto-revert-mode t)

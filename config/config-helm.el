@@ -6,7 +6,6 @@
 ;;; Code:
 (require 'config-package)
 (require 'config-evil)
-(require 'config-git)
 
 ;; Install ivy as a contingency
 (use-package ivy
@@ -19,12 +18,10 @@
 (use-package counsel)
 
 (use-package helm
-  :diminish helm-mode
   :init
   (setq helm-idle-delay 0.0
         helm-input-idle-delay 0.01
         helm-quick-update t)
-  (require 'evil-leader)
   (evil-leader/set-key
     "<SPC>" 'helm-M-x
     "TAB"   'helm-resume
@@ -74,17 +71,16 @@
 
 (use-package helm-swoop
   :init
-  (require 'evil-leader)
-  (evil-leader/set-key
-    "/" '/helm-swoop-vis)
-  :after (helm
-          evil
-          evil-leader)
-  :bind (:map helm-swoop-map
-              ("C-w" . evil-delete-backward-word))
-  :config
+;;;###autoload
   (defun /helm-swoop-vis () (interactive)
          (helm-swoop :$query "" :$multiline 4))
+  (evil-leader/set-key
+    "/" '/helm-swoop-vis)
+  :bind (:map helm-swoop-map
+              ("C-w" . evil-delete-backward-word))
+  ;; :config
+  ;; (defun /helm-swoop-vis () (interactive)
+  ;;        (helm-swoop :$query "" :$multiline 4))
   ;; no annoying under mouse highlights
   ;;(setq helm-swoop-pre-input-function (lambda () nil))
   )
@@ -92,11 +88,15 @@
 (use-package helm-fuzzier
   :after helm
   :config
-  (helm-fuzzier-mode 1))
+  (helm-fuzzier-mode))
 
 (use-package helm-flx
   :after helm
-  :config (helm-flx-mode 1))
+  :config
+  (helm-flx-mode)
+  (setq helm-flx-for-helm-find-files t
+        helm-flx-for-helm-locate t))
+
 
 ;; commenting it out because it has conflicting bindings in its own map
 ;; (use-package helm-hunks
@@ -112,7 +112,7 @@
 ;;   (evil-leader/set-key
 ;;     "." 'helm-hunks-current-buffer))
 
-(helm-mode 1)
+;; (helm-mode 1)
 
 (provide 'config-helm)
 

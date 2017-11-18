@@ -40,18 +40,19 @@ Assumes that it:
 - Is a string path to one or more configuration fila (i.e. elisp)
 - Is relative to user-init-dir"
   (interactive "f")
-  (dolist (elem (cons file files))
-    (let ((path (expand-file-name (concat user-init-dir elem))))
-      (if (file-exists-p path)
-          (progn (measure-time (load-file path))
-                 (message "Loaded %s" path))
-        (message "Failed to load %s" path)))))
+  (measure-time
+   (dolist (elem (cons file files))
+     (let ((path (expand-file-name (concat user-init-dir elem))))
+       (if (file-exists-p path)
+           (progn (measure-time (load-file path))
+                  (message "Loaded %s" path))
+         (message "Failed to load %s" path))))))
 
 ;; Add to load path our configuration folder
 (add-to-list 'load-path user-config-dir)
 
 ;; TODO: this prints nothing apparently.
-(message "init.el has the path of" (expand-file-name "."))
+(message "init.el has the path of %s" (expand-file-name "."))
 
 ;; tweak garbage collector before
 (defvar default-gc-cons-threshold 20000000)
