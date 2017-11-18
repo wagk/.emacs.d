@@ -357,9 +357,6 @@ whichever mode you want when you want it to treat underscore as a word"
 
 ;; (use-package evil-text-object-python)
 
-(use-package evil-magit
-  :ensure t)
-
 (use-package evil-indent-plus
   :ensure t
   :bind(:map evil-inner-text-objects-map

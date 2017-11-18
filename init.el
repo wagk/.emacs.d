@@ -62,6 +62,7 @@ Assumes that it:
  "./config/config-package.el"
  "./config/config-common.el"
  "./config/config-help.el"
+ "./config/config-emacs.el"
 
  "./config/config-evil.el"
  "./config/config-helm.el"

@@ -7,20 +7,24 @@
 (require 'config-evil)
 (require 'config-indent)
 
+(use-package evil-magit)
+
 (use-package magit
-  :ensure t
-  :after evil-leader
+  :commands magit-status
+  :init
+  (require 'evil-leader)
+  (evil-leader/set-key
+    ", ," 'magit-status)
   :config
+  (require 'evil-magit)
   (eval-after-load 'aggressive-fill-paragraph
     '(add-hook 'git-commit-setup-hook 'aggressive-fill-paragraph-mode))
   (eval-after-load 'fill-column-indicator
     '(add-hook 'git-commit-setup-hook 'turn-on-fci-mode))
-  (evil-leader/set-key
-    ", ," 'magit-status))
+  )
 
 ;; https://github.com/nonsequitur/git-gutter-plus
 (use-package git-gutter+
-  :ensure t
   :bind (:map evil-normal-state-map
               ("[ h" . git-gutter+-previous-hunk)
               ("] h" . git-gutter+-next-hunk))
@@ -29,9 +33,7 @@
     "h s" 'git-gutter+-stage-hunks
     "h u" 'git-gutter+-revert-hunks
     "h p" 'git-gutter+-show-hunk)
-  (use-package git-gutter-fringe+
-    ;; :if (not (display-graphic-p))
-    :ensure t)
+  (use-package git-gutter-fringe+)
   (global-git-gutter+-mode 1))
 
 (provide 'config-git)

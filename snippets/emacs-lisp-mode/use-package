@@ -5,4 +5,3 @@ Note that because our current config performs auto matching of parens,
 not closing this sexp seems to deliver the desired output
 # --
 (use-package $1
-             :ensure ${2:t}
