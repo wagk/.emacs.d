@@ -8,14 +8,13 @@
 (with-no-warnings
   (require 'cl))
 
-(use-package dash
-  :ensure t)
+(use-package dash)
 
-(use-package s
-  :ensure t)
+(use-package s)
 
-(use-package misc-cmds
-  :ensure t)
+(use-package f)
+
+(use-package misc-cmds)
 
 (provide 'config-common)
 

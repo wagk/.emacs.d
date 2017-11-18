@@ -6,6 +6,7 @@
 ;;; Code:
 (require 'config-package)
 
+;; NOTE: kkc isn't in any package repo so don't use-package this
 (require 'kkc)
 (eval-after-load "kkc"
   (progn

@@ -5,8 +5,7 @@
 ;;; Code:
 (require 'config-package)
 
-(use-package eww
-  :ensure t)
+(use-package eww)
 
 (provide 'config-web-browsing)
 

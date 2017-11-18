@@ -6,8 +6,7 @@
 (require 'config-package)
 
 (use-package flycheck
-  :ensure t
-  :config
+  :init
   (add-hook 'after-init-hook #'global-flycheck-mode))
 
 (provide 'config-lint)

@@ -27,6 +27,12 @@
 (defconst user-config-dir
   (concat user-init-dir "config/"))
 
+(defmacro measure-time (&rest body)
+  "Measure the time it takes to evaluate BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (message "%.06f" (float-time (time-since time)))))
+
 ;; TODO(pangt): make this take in relative paths
 (defun load-user-config-file (file &rest files)
   "Load FILE (and FILES) as configuration.
@@ -37,7 +43,7 @@ Assumes that it:
   (dolist (elem (cons file files))
     (let ((path (expand-file-name (concat user-init-dir elem))))
       (if (file-exists-p path)
-          (progn (load-file path)
+          (progn (measure-time (load-file path))
                  (message "Loaded %s" path))
         (message "Failed to load %s" path)))))
 

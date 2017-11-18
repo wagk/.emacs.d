@@ -6,17 +6,16 @@
 (require 'config-package)
 
 (use-package typescript-mode
-  :ensure t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
+  :mode ("\\.tsx\\'" . typescript-mode)
   )
 
 (use-package tide
-  :ensure t
   :after typescript-mode
+  :init
+  (add-hook 'typescript-mode-hook 'tide-setup)
   :config
   (add-hook 'before-save-hook 'tide-format-before-save)
-  (add-hook 'typescript-mode-hook 'tide-setup))
+  )
 
 (provide 'config-typescript)
 

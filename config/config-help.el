@@ -6,14 +6,11 @@
 
 (require 'config-package)
 
-(use-package help+
-  :ensure t)
+(use-package help+)
 
-(use-package help-mode+
-  :ensure t)
+(use-package help-mode+)
 
-(use-package help-fns+
-  :ensure t)
+(use-package help-fns+)
 
 (provide 'config-help)
 

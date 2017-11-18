@@ -5,8 +5,7 @@
 ;;; Code:
 (require 'config-package)
 
-(use-package counsel-etags
-  :ensure t)
+(use-package counsel-etags)
 
 (provide 'config-tags)
 

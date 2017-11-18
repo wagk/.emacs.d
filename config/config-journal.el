@@ -12,27 +12,20 @@
   (interactive)
   (org-journal-new-entry 't nil))
 
-(defun /new-org-journal-entry-on-enter ()
-  (aggressive-fill-paragraph-mode))
-
 (use-package org-journal
-  :ensure t
+  :init
+  (evil-leader/set-key
+    "d d" '/new-org-journal-entry)
   :config
   ;; use google drive if available
   (when (boundp '/g-drive-folder)
     (setq org-journal-dir (concat /g-drive-folder "/journal")))
-
   ;; make sure it enters in orgmode
   (add-hook 'org-journal-after-entry-create-hook
-            '/new-org-journal-entry-on-enter)
-
+            'aggressive-fill-paragraph-mode)
   (setq org-journal-file-format "%d%m%Y")
-  (progn (require 'evil-leader)
-         (evil-leader/set-key
-           ;; "d d" '/new-org-journal-entry))
-           "d d" '/new-org-journal-entry))
   )
 
-         (provide 'config-journal)
+(provide 'config-journal)
 
 ;;; config-journal.el ends here

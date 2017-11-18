@@ -10,12 +10,13 @@
 (require 'config-colors)
 
 (use-package highlight-indent-guides
+  :init
+  (require 'evil-leader)
+  (evil-leader/set-key
+    "'" 'highlight-indent-guides-mode)
   :config
   (setq highlight-indent-guides-method 'character
         highlight-indent-guides-character ?\|)
-  (progn (require 'evil-leader)
-         (evil-leader/set-key
-           "'" 'highlight-indent-guides-mode))
   (highlight-indent-guides-mode))
 
 (use-package whitespace-cleanup-mode
@@ -23,6 +24,10 @@
   (global-whitespace-cleanup-mode 1))
 
 (use-package hl-todo
+  :init
+  (require 'evil-leader)
+  (evil-leader/set-key
+    "t t" 'hl-todo-occur)
   :bind (:map evil-normal-state-map
               ("[ t" . hl-todo-previous)
               ("] t" . hl-todo-next))
@@ -35,8 +40,6 @@
                             ("NOTE"  . ,$solarized-dark-base1)
                             ("HACK"  . ,$solarized-dark-violet)
                             ("FIXME" . ,$solarized-dark-orange)))
-  (evil-leader/set-key
-    "t t" 'hl-todo-occur)
   (global-hl-todo-mode)
   (add-hook 'yaml-mode-hook 'hl-todo-mode))
 
@@ -60,26 +63,27 @@
   (powerline-vim-theme))
 
 ;; https://github.com/larstvei/Focus
-(use-package focus
-  :ensure t)
+(use-package focus)
 
 (use-package minimap
+  :commands minimap-mode
   :config
   (customize-set-variable 'minimap-window-location 'right))
 
 (use-package no-littering)
 
 (use-package multi-term
+  :init
+  (require 'evil)
+  (evil-ex-define-cmd "te[rminal]" 'multi-term)
   :config
   (cond ((or (eq system-type 'ms-dos)
              (eq system-type 'windows-nt)) (setq multi-term-program "cmd"))
         (t (setq multi-term-program "/bin/bash")))
-  (progn (require 'evil)
-         (evil-ex-define-cmd "te[rminal]" 'multi-term)))
+  )
 
 (use-package mmm-mode
   :disabled
-  :ensure t
   :commands mmm-mode
   :config
   (setq mmm-parse-when-idle 't))

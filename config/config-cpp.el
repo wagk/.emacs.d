@@ -6,13 +6,13 @@
 (require 'config-package)
 
 (use-package irony
-  :ensure t
-  :config
-  (setq w32-pipe-read-delay 0)
+  :init
   (add-hook 'c++-mode-hook 'irony-mode)
   (add-hook 'c-mode-hook 'irony-mode)
   (add-hook 'objc-mode-hook 'irony-mode)
-  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+  :config
+  (setq w32-pipe-read-delay 0))
 
 ;; treat .h files as cpp files
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))

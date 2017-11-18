@@ -7,6 +7,7 @@
 
 ;; TODO: figure out this
 ;; https://github.com/syl20bnr/spacemacs/issues/5070
+;;;###autoload
 (defun /evil-paste-after-from-0 ()
   "I legitimately forgot what this does.
 Probably copied it from stackoverflow"
@@ -14,22 +15,25 @@ Probably copied it from stackoverflow"
   (let ((evil-this-register ?0))
     (call-interactively 'evil-paste-after)))
 
-;; make _ be recognised as part of a word
+;;;###autoload
 (defun /treat-underscore-as-word ()
   "Make underscore be considered part of a word, just like vim. Add this to
 whichever mode you want when you want it to treat underscore as a word"
   (modify-syntax-entry ?_ "w"))
 
+;;;###autoload
 (defun /evil-gt ()
   "Emulating vim's `gt' using frames."
   (interactive)
   (other-frame 1))
 
+;;;###autoload
 (defun /evil-gT ()
   "Emulating vim's `gT' using frames."
   (interactive)
   (other-frame -1))
 
+;;;###autoload
 (defun /lang-toggle ()
   "Input language toggle wrapper."
   (interactive)
@@ -37,6 +41,7 @@ whichever mode you want when you want it to treat underscore as a word"
   (evil-append 1))
 
 ;; Overload shifts so that they don't lose the selection
+;;;###autoload
 (defun /evil-shift-left-visual ()
   "Keep visual selection after shifting left."
   (interactive)
@@ -44,6 +49,7 @@ whichever mode you want when you want it to treat underscore as a word"
   (evil-normal-state)
   (evil-visual-restore))
 
+;;;###autoload
 (defun /evil-shift-right-visual ()
   "Same as -evil-shift-left-visual, but for the right instead."
   (interactive)
@@ -163,107 +169,111 @@ whichever mode you want when you want it to treat underscore as a word"
   )
 
 ;; https://github.com/syl20bnr/spacemacs/blob/c788da709bb1c74344f5ab1b6f18cfdf6b930df8/layers/%2Bspacemacs/spacemacs-evil/local/evil-unimpaired/evil-unimpaired.el
-(progn (require 'dash)
-       (require 'f)
+;; (require 'dash)
+;; (require 'f)
 
-       (defun evil-unimpaired//find-relative-filename (offset)
-         (when buffer-file-name
-           (let* ((directory (f-dirname buffer-file-name))
-                  (files (f--files directory (not (s-matches? "^\\.?#" it))))
-                  (index (+ (-elem-index buffer-file-name files) offset))
-                  (file (and (>= index 0) (nth index files))))
-             (when file
-               (f-expand file directory)))))
+;;;###autoload
+(defun evil-unimpaired//find-relative-filename (offset)
+  (when buffer-file-name
+    (let* ((directory (f-dirname buffer-file-name))
+           (files (f--files directory (not (s-matches? "^\\.?#" it))))
+           (index (+ (-elem-index buffer-file-name files) offset))
+           (file (and (>= index 0) (nth index files))))
+      (when file
+        (f-expand file directory)))))
 
-       (defun evil-unimpaired/previous-file ()
-         (interactive)
-         (-if-let (filename (evil-unimpaired//find-relative-filename -1))
-             (find-file filename)
-           (user-error "No previous file")))
+;;;###autoload
+(defun evil-unimpaired/previous-file ()
+  (interactive)
+  (-if-let (filename (evil-unimpaired//find-relative-filename -1))
+      (find-file filename)
+    (user-error "No previous file")))
 
-       (defun evil-unimpaired/next-file ()
-         (interactive)
-         (-if-let (filename (evil-unimpaired//find-relative-filename 1))
-             (find-file filename)
-           (user-error "No next file")))
+;;;###autoload
+(defun evil-unimpaired/next-file ()
+  (interactive)
+  (-if-let (filename (evil-unimpaired//find-relative-filename 1))
+      (find-file filename)
+    (user-error "No next file")))
 
-       (defun evil-unimpaired/paste-above ()
-         (interactive)
-         (evil-insert-newline-above)
-         (evil-paste-after 1))
+;;;###autoload
+(defun evil-unimpaired/paste-above ()
+  (interactive)
+  (evil-insert-newline-above)
+  (evil-paste-after 1))
 
-       (defun evil-unimpaired/paste-below ()
-         (interactive)
-         (evil-insert-newline-below)
-         (evil-paste-after 1))
+;;;###autoload
+(defun evil-unimpaired/paste-below ()
+  (interactive)
+  (evil-insert-newline-below)
+  (evil-paste-after 1))
 
-       (defun evil-unimpaired/insert-space-above (count)
-         (interactive "p")
-         (dotimes (_ count) (save-excursion (evil-insert-newline-above))))
+;;;###autoload
+(defun evil-unimpaired/insert-space-above (count)
+  (interactive "p")
+  (dotimes (_ count) (save-excursion (evil-insert-newline-above))))
 
-       (defun evil-unimpaired/insert-space-below (count)
-         (interactive "p")
-         (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
+;;;###autoload
+(defun evil-unimpaired/insert-space-below (count)
+  (interactive "p")
+  (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
 
-       (defun evil-unimpaired/next-frame ()
-         (interactive)
-         (/evil-gt))
+;;;###autoload
+(defun evil-unimpaired/next-frame ()
+  (interactive)
+  (/evil-gt))
 
-       (defun evil-unimpaired/previous-frame ()
-         (interactive)
-         (/evil-gT))
+;;;###autoload
+(defun evil-unimpaired/previous-frame ()
+  (interactive)
+  (/evil-gT))
 
-       ;; from tpope's unimpaired
-       (define-key evil-normal-state-map (kbd "[ SPC")
-         'evil-unimpaired/insert-space-above)
-       (define-key evil-normal-state-map (kbd "] SPC")
-         'evil-unimpaired/insert-space-below)
-       (define-key evil-normal-state-map (kbd "[ e") 'move-text-up)
-       (define-key evil-normal-state-map (kbd "] e") 'move-text-down)
-       (define-key evil-visual-state-map (kbd "[ e") ":move'<--1")
-       (define-key evil-visual-state-map (kbd "] e") ":move'>+1")
-       ;; (define-key evil-visual-state-map (kbd "[ e") 'move-text-up)
-       ;; (define-key evil-visual-state-map (kbd "] e") 'move-text-down)
-       (define-key evil-normal-state-map (kbd "[ b") 'previous-buffer)
-       (define-key evil-normal-state-map (kbd "] b") 'next-buffer)
-       (define-key evil-normal-state-map (kbd "[ f") 'evil-unimpaired/previous-file)
-       (define-key evil-normal-state-map (kbd "] f") 'evil-unimpaired/next-file)
-       ;; (define-key evil-normal-state-map (kbd "[ t") 'evil-unimpaired/previous-frame)
-       ;; (define-key evil-normal-state-map (kbd "] t") 'evil-unimpaired/next-frame)
-       (define-key evil-normal-state-map (kbd "[ w") 'previous-multiframe-window)
-       (define-key evil-normal-state-map (kbd "] w") 'next-multiframe-window)
-       ;; select pasted text
-       (define-key evil-normal-state-map (kbd "g p") (kbd "` [ v ` ]"))
-       ;; paste above or below with newline
-       (define-key evil-normal-state-map (kbd "[ p") 'evil-unimpaired/paste-above)
-       (define-key evil-normal-state-map (kbd "] p") 'evil-unimpaired/paste-below)
-       )
+;; from tpope's unimpaired
+(define-key evil-normal-state-map (kbd "[ SPC")
+  'evil-unimpaired/insert-space-above)
+(define-key evil-normal-state-map (kbd "] SPC")
+  'evil-unimpaired/insert-space-below)
+;; (define-key evil-normal-state-map (kbd "[ e") 'move-text-up)
+;; (define-key evil-normal-state-map (kbd "] e") 'move-text-down)
+(define-key evil-visual-state-map (kbd "[ e") ":move'<--1")
+(define-key evil-visual-state-map (kbd "] e") ":move'>+1")
+;; (define-key evil-visual-state-map (kbd "[ e") 'move-text-up)
+;; (define-key evil-visual-state-map (kbd "] e") 'move-text-down)
+(define-key evil-normal-state-map (kbd "[ b") 'previous-buffer)
+(define-key evil-normal-state-map (kbd "] b") 'next-buffer)
+(define-key evil-normal-state-map (kbd "[ f") 'evil-unimpaired/previous-file)
+(define-key evil-normal-state-map (kbd "] f") 'evil-unimpaired/next-file)
+;; (define-key evil-normal-state-map (kbd "[ t") 'evil-unimpaired/previous-frame)
+;; (define-key evil-normal-state-map (kbd "] t") 'evil-unimpaired/next-frame)
+(define-key evil-normal-state-map (kbd "[ w") 'previous-multiframe-window)
+(define-key evil-normal-state-map (kbd "] w") 'next-multiframe-window)
+;; select pasted text
+(define-key evil-normal-state-map (kbd "g p") (kbd "` [ v ` ]"))
+;; paste above or below with newline
+(define-key evil-normal-state-map (kbd "[ p") 'evil-unimpaired/paste-above)
+(define-key evil-normal-state-map (kbd "] p") 'evil-unimpaired/paste-below)
+
 
 (use-package evil-leader
-  :ensure t
   :after evil
   :config
   (global-evil-leader-mode)
   (evil-leader/set-leader "<SPC>"))
 
 (use-package evil-surround
-  :ensure t
   :after evil
-  :config
-  (global-evil-surround-mode 1)
+  :init
+  (global-evil-surround-mode)
   )
 
 (use-package evil-embrace
-  :ensure t
+  :after evil-surround
   :config
-  (progn (require 'evil-surround)
-         (evil-embrace-enable-evil-surround-integration)
-         (setq evil-embrace-show-help-p nil)
-         ))
+  (evil-embrace-enable-evil-surround-integration)
+  (setq evil-embrace-show-help-p nil)
+  )
 
 (use-package evil-args
-  :ensure t
-  :after evil
   :bind (:map evil-inner-text-objects-map
               ("a" . evil-inner-arg)
               :map evil-outer-text-objects-map
@@ -275,36 +285,31 @@ whichever mode you want when you want it to treat underscore as a word"
               :map evil-motion-state-map
               ("L" . evil-forward-arg)
               ("H" . evil-backward-arg))
-  :config
+  ;; :config
   ;; consider spaces as argument delimiters
   ;; (add-to-list 'evil-args-delimiters " ")
   )
 
 ;; more like evil-textobj-kolumn
 (use-package evil-textobj-column
-  :ensure t
   :bind (:map evil-inner-text-objects-map
               ("k" . evil-textobj-column-word)
               ("K" . evil-textobj-column-WORD))
-  :config
-  nil)
+  )
 
 (use-package evil-numbers
-  :ensure t
-  :after evil
   :bind (:map evil-normal-state-map
               ("C-a" . evil-numbers/inc-at-pt)
               ("C-x" . evil-numbers/dec-at-pt)))
 
 ;; alignment
 (use-package evil-lion
-  :ensure t
+  :after evil
   :config
-  ;; use gl and gL
-  (evil-lion-mode))
+  (evil-lion-mode)
+  )
 
-(use-package evil-matchit
-  :ensure t)
+(use-package evil-matchit)
 
 ;; (use-package evil-paredit
 ;;   :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
@@ -330,20 +335,19 @@ whichever mode you want when you want it to treat underscore as a word"
 ;;   nil)
 
 (use-package evil-cleverparens
-  :ensure t
-  :init nil
   :bind(:map evil-inner-text-objects-map
              ("c" . evil-cp-inner-comment)
              :map evil-outer-text-objects-map
              ("c" . evil-cp-a-comment))
-  :config
-  (require 'evil-cleverparens-text-objects)
-  nil)
+  ;; :config
+  ;; (require 'evil-cleverparens-text-objects)
+  )
 
 (use-package evil-commentary
   :after evil
   :config
-  (evil-commentary-mode))
+  (evil-commentary-mode)
+  )
 
 ;; (use-package evil-nerd-commenter
 ;;   :ensure t
@@ -358,7 +362,6 @@ whichever mode you want when you want it to treat underscore as a word"
 ;; (use-package evil-text-object-python)
 
 (use-package evil-indent-plus
-  :ensure t
   :bind(:map evil-inner-text-objects-map
              ("i" . evil-indent-plus-i-indent)
              ("I" . evil-indent-plus-a-indent)
@@ -369,13 +372,11 @@ whichever mode you want when you want it to treat underscore as a word"
 
 ;; vim A E S T H E T H I C S
 (use-package vi-tilde-fringe
-  :ensure t
   :after evil
   :config
   (global-vi-tilde-fringe-mode 1))
 
 (use-package evil-visualstar
-  :ensure t
   :after evil
   :config
   (global-evil-visualstar-mode))
@@ -393,17 +394,16 @@ whichever mode you want when you want it to treat underscore as a word"
 ;; Disabled because it conflicts with evil-snipe-override-mode
 (use-package evil-quickscope
   :disabled
-  :ensure t
-  :config
+  ;; :config
   ;; (global-evil-quickscope-always-mode t)
   ;; (global-evil-quickscope-mode t)
   )
 
-(use-package evil-nipe
+(use-package evil-snipe
   :disabled ; mostly so I can practice the ; and , keys
-  :ensure t
-  :config
-  (evil-snipe-override-mode))
+  ;; :config
+  ;; (evil-snipe-override-mode)
+  )
 
 ;; (use-package evil-visual-mark-mode
 ;;   :ensure t
@@ -415,15 +415,12 @@ whichever mode you want when you want it to treat underscore as a word"
 ;;   :config
 ;;   (global-evil-tabs-mode t))
 
-(use-package vimish-fold
-  :ensure t)
+(use-package vimish-fold)
 
-(use-package evil-tutor
-  :ensure t)
+(use-package evil-tutor)
 
 ;; activate folding
 (add-hook 'prog-mode-hook 'hs-minor-mode)
-
 (evil-mode 1)
 
 (provide 'config-evil)

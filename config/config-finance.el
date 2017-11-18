@@ -7,7 +7,6 @@
 (require 'config-evil)
 
 (use-package ledger-mode
-  :ensure t
   :init
   (setq ledger-clear-whole-transactions 1)
   :config
@@ -16,10 +15,7 @@
          "\\.ledger\\'")
   )
 
-(use-package flycheck-ledger
-  :ensure t
-  :config
-  )
+(use-package flycheck-ledger)
 
 (provide 'config-finance)
 

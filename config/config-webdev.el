@@ -12,36 +12,34 @@
 (load-user-config-file "./config/config-typescript.el")
 
 (use-package web-mode
-  :ensure t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode)))
+  :mode (("\\.phtml\\'" . web-mode)
+         ("\\.tpl\\.php\\'" . web-mode)
+         ("\\.[agj]sp\\'" . web-mode)
+         ("\\.as[cp]x\\'" . web-mode)
+         ("\\.erb\\'" . web-mode)
+         ("\\.mustache\\'" . web-mode)
+         ("\\.djhtml\\'" . web-mode))
+  )
 
 (use-package js2-mode
-  :ensure t
   :pin gnu
-  :config
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+  :mode ("\\.js\\'" . js2-mode)
+  )
 
 (use-package emmet-mode
-  :ensure t
   :bind (:map emmet-mode-keymap
               ("C-j" . emmet-next-edit-point)
               ("C-k" . emmet-prev-edit-point))
-  :config
+  :init
   (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.
+  :config
   (setq emmet-move-cursor-between-quotes t) ;; default nil
   )
 
 ;; not sure if this inherits from prog-mode
 (use-package groovy-mode
-  :ensure t
+  :mode ("\\Jenkinsfile\\'" . groovy-mode)
   :config
   (progn (require 'fill-column-indicator)
          (add-hook 'groovy-mode-hook 'turn-on-fci-mode))
@@ -51,35 +49,27 @@
   (progn (require 'hl-todo)
          (add-hook 'groovy-mode-hook 'hl-todo-mode))
   (add-hook 'groovy-mode-hook #'/treat-underscore-as-word)
-  (add-to-list 'auto-mode-alist '("\\Jenkinsfile\\'" . groovy-mode))
-  (add-hook 'groovy-mode-hook 'hl-todo-mode)
   )
 
-(use-package php-mode
-  :ensure t)
+(use-package php-mode)
 
 (use-package dockerfile-mode
-  :ensure t
+  :mode ("\\Dockerfile\\'" . dockerfile-mode)
   :config
-  (add-to-list 'auto-mode-alist '("\\Dockerfile\\'" . dockerfile-mode))
   (add-hook 'dockerfile-mode-hook 'hl-todo-mode))
 
-(use-package json-mode
-  :ensure t)
+(use-package json-mode)
 
 (use-package markdown-mode
-  :ensure t
   :config
   (add-hook 'markdown-mode-hook 'orgtbl-mode)
   (add-hook 'markdown-mode-hook 'turn-on-fci-mode))
 
 (use-package yaml-mode
-  :ensure t
   :config
   (add-hook 'yaml-mode-hook 'turn-on-fci-mode))
 
-(use-package helm-emmet
-  :ensure t)
+(use-package helm-emmet)
 
 (provide 'config-webdev)
 

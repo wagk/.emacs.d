@@ -6,17 +6,15 @@
 (require 'config-package)
 
 (use-package aggressive-indent
-  :ensure t
   :diminish t
-  :config
-  (global-aggressive-indent-mode 1))
+  :init
+  (global-aggressive-indent-mode))
 
 (use-package aggressive-fill-paragraph
   ;; :disabled ;; this package annoys me. Probably needs more config
-  :ensure t
   :commands (aggressive-fill-paragraph-mode
              afp-setup-recommended-hooks)
-  :config
+  ;; :config
   ;; (add-hook 'text-mode-hook #'aggressive-fill-paragraph-mode)
   )
 

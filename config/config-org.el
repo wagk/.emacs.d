@@ -9,6 +9,7 @@
 (require 'config-helm)
 (require 'config-buffer)
 
+;;;###autoload
 (defun /org-insert-item-or-header-respect-content ()
   "Basically org-insert-heading-respect-content, except when you're on an item,
 then insert a new item instead"
@@ -16,6 +17,7 @@ then insert a new item instead"
   (cond ((org-at-item-p) (org-insert-item))
         (t (org-insert-heading-respect-content))))
 
+;;;###autoload
 (defun /evil-org-toggle-checkbox ()
   "If the list element has no checkbox, add one. Do nothing otherwise."
   (interactive)
@@ -24,6 +26,7 @@ then insert a new item instead"
     (org-toggle-checkbox)
     ))
 
+;;;###autoload
 (defun /org-toggle-checkbox-or-table-down (n)
   (interactive "p")
   (if (org-table-p)
@@ -36,11 +39,13 @@ then insert a new item instead"
     (func)
     (end-of-line)))
 
+;;;###autoload
 (defun /org-insert-heading()
   (interactive)
   (org-insert-heading)
   (evil-append-line 1))
 
+;;;###autoload
 (defun /org-mode-face-no-resize ()
   "Stop the org-level headers from increasing in height relative to the other
 text."
@@ -53,10 +58,15 @@ text."
       (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
 
 (use-package org
-  :ensure t
+  :init
+  (evil-leader/set-key
+    "O O" 'org-agenda
+    "o t" 'org-time-stamp
+    "o T" #'/this-time
+    "o o" 'org-capture
+    "o i" 'org-refile)
   :config
   (progn (org-toggle-link-display)
-
          ;;Use google drive if available
          (when (boundp '/g-drive-folder)
            (setq org-directory (concat /g-drive-folder "/org")))
@@ -129,30 +139,22 @@ text."
   (progn (require 'org-agenda)
          ;; TODO: rebind org-agenda keymaps
          )
-  (progn (require 'evil-leader)
-         (defun /this-time ()
-           "Prints the time and date."
-           (interactive)
-           (org-time-stamp '(16) t))
-         (evil-leader/set-key
-           "O O" 'org-agenda
-           "o t" 'org-time-stamp
-           "o T" #'/this-time
-           "o o" 'org-capture
-           "o i" 'org-refile)
-         )
+  (defun /this-time ()
+    "Prints the time and date."
+    (interactive)
+    (org-time-stamp '(16) t))
   (progn (require 'fill-column-indicator)
          (add-hook 'org-mode-hook 'turn-on-fci-mode))
   ;; (progn (require 'aggressive-fill-paragraph)
   ;;        (add-hook 'org-mode-hook #'aggressive-fill-paragraph-mode))
   )
 
-(use-package worf
-  :ensure t
-  )
+(use-package worf)
 
 (use-package helm-org-rifle
-  :ensure t
+  :init
+  (evil-leader/set-key
+    "o O" 'helm-org-rifle)
   :bind(:map helm-org-rifle-map
              ("C-w" . evil-delete-backward-word)
              ("\\"  . helm-select-action)
@@ -163,10 +165,6 @@ text."
              ("C-l" . helm-next-source)
              ("C-h" . helm-previous-source)
              ("TAB" . helm-execute-persistent-action))
-  :config
-  (progn (require 'evil-leader)
-         (evil-leader/set-key
-           "o O" 'helm-org-rifle))
   )
 
 (provide 'config-org)

@@ -12,7 +12,6 @@
 (use-package magit
   :commands magit-status
   :init
-  (require 'evil-leader)
   (evil-leader/set-key
     ", ," 'magit-status)
   :config
@@ -28,13 +27,15 @@
   :bind (:map evil-normal-state-map
               ("[ h" . git-gutter+-previous-hunk)
               ("] h" . git-gutter+-next-hunk))
-  :config
+  :init
   (evil-leader/set-key
     "h s" 'git-gutter+-stage-hunks
     "h u" 'git-gutter+-revert-hunks
     "h p" 'git-gutter+-show-hunk)
-  (use-package git-gutter-fringe+)
   (global-git-gutter+-mode 1))
+
+(use-package git-gutter-fringe+
+  :after git-gutter+)
 
 (provide 'config-git)
 

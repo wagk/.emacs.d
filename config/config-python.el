@@ -17,14 +17,12 @@
 (add-hook 'python-mode-hook 'highlight-indent-guides-mode)
 
 (use-package company-jedi
-  :ensure t
-  :config
+  :init
   (add-hook 'python-mode-hook #'(lambda ()
                                   (add-to-list 'company-backends 'company-jedi))))
 
 (use-package flycheck-mypy
-  :ensure t
-  :config
+  :init
   (add-hook 'python-mode-hook #'(lambda ()
                                   (add-to-list 'flycheck-disabled-checkers 'python-flake8)
                                   (add-to-list 'flycheck-disabled-checkers 'python-pylint)

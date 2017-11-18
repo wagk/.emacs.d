@@ -8,7 +8,6 @@
 
 ;; https://github.com/skuro/plantuml-mode
 (use-package plantuml-mode
-  :ensure t
   :mode "\\.plantuml\\'"
   :config
   (when (boundp '/plantuml-jar)
