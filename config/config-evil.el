@@ -86,7 +86,10 @@ word"
          ("<<" . /evil-shift-left-visual)
          :map evil-inner-text-objects-map
          ("/" . /inner-forward-slash)
+         ("l" . /evil-inner-line)
          :map evil-outer-text-objects-map
+         ("e" . /evil-a-buffer)
+         ("l" . /evil-a-line)
          ("/" . /a-forward-slash)
          ;; :map isearch-mode-map
          ;; ("C-w" . nil)
@@ -163,8 +166,20 @@ word"
   (/evil-define-and-bind-text-object "/" "/" "/")
   (/evil-define-and-bind-text-object "\\" "\\" "\\")
   (/evil-define-and-bind-text-object "|" "|" "|")
-  (/evil-define-and-bind-text-object "l" "^\\s-*" "\\s-*$") ;; line textobj
-  (/evil-define-and-bind-text-object "e" "\\`\\s-*" "\\s-*$") ;; buffer textobj
+  ;; (/evil-define-and-bind-text-object "l" "^\\s-*" "\\s-*$") ;; line textobj
+  ;; (/evil-define-and-bind-text-object "e" "\\`\\s-*" "\\s-*$") ;; buffer textobj
+
+  (evil-define-text-object /evil-a-buffer (count &optional beg end type)
+    "Select entire buffer"
+    (evil-range (point-min) (point-max)))
+
+  (evil-define-text-object /evil-a-line (count &optional beg end type)
+    "Select entire buffer"
+    (evil-range (beginning-of-line) (end-of-line)))
+
+  (evil-define-text-object /evil-inner-line (count &optional beg end type)
+    "Select entire buffer"
+    (evil-range (beginning-of-line) (end-of-line)))
 
   (add-hook 'evil-normal-state-entry-hook 'evil-ex-nohighlight)
   )
@@ -405,6 +420,8 @@ word"
   ;; :config
   ;; (evil-snipe-override-mode)
   )
+
+(use-package evil-expat)
 
 ;; (use-package evil-visual-mark-mode
 ;;   :ensure t
