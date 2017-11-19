@@ -318,6 +318,11 @@ word"
               ("C-a" . evil-numbers/inc-at-pt)
               ("C-x" . evil-numbers/dec-at-pt)))
 
+(use-package evil-rsi
+  :after evil
+  :config
+  (evil-rsi-mode))
+
 ;; alignment
 (use-package evil-lion
   :after evil
