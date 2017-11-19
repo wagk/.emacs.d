@@ -17,8 +17,9 @@ Probably copied it from stackoverflow"
 
 ;;;###autoload
 (defun /treat-underscore-as-word ()
-  "Make underscore be considered part of a word, just like vim. Add this to
-whichever mode you want when you want it to treat underscore as a word"
+  "Make underscore be considered part of a word, just like vim.
+Add this to whichever mode you want when you want it to treat underscore as a
+word"
   (modify-syntax-entry ?_ "w"))
 
 ;;;###autoload
@@ -334,14 +335,14 @@ whichever mode you want when you want it to treat underscore as a word"
 ;;   :config
 ;;   nil)
 
-(use-package evil-cleverparens
-  :bind(:map evil-inner-text-objects-map
-             ("c" . evil-cp-inner-comment)
-             :map evil-outer-text-objects-map
-             ("c" . evil-cp-a-comment))
-  ;; :config
-  ;; (require 'evil-cleverparens-text-objects)
-  )
+;; (use-package evil-cleverparens
+;;   :bind(:map evil-inner-text-objects-map
+;;              ("c" . evil-cp-inner-comment)
+;;              :map evil-outer-text-objects-map
+;;              ("c" . evil-cp-a-comment))
+;;   ;; :config
+;;   ;; (require 'evil-cleverparens-text-objects)
+;;   )
 
 (use-package evil-commentary
   :after evil
@@ -349,13 +350,13 @@ whichever mode you want when you want it to treat underscore as a word"
   (evil-commentary-mode)
   )
 
-;; (use-package evil-nerd-commenter
-;;   :ensure t
-;;   :bind(:map evil-inner-text-objects-map
-;;              ("c" . evilnc-inner-comment)
-;;              :map evil-outer-text-objects-map
-;;              ("c" . evilnc-outer-commenter)
-;;              ))
+(use-package evil-nerd-commenter
+  :bind(:map evil-inner-text-objects-map
+             ("c" . evilnc-inner-comment)
+             :map evil-outer-text-objects-map
+             ("c" . evilnc-outer-commenter)
+             )
+  )
 
 ;; (use-package evil-replace-with-register)
 
