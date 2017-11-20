@@ -9,7 +9,6 @@ auto-save-list/*
 autosave/*
 backups/*
 bookmarks
-custom.el
 el-get/*
 elpa/*
 eshell/*
