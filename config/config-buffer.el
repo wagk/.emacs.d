@@ -24,10 +24,10 @@
   (global-whitespace-cleanup-mode 1))
 
 (use-package hl-todo
-  :demand t
   :init
   (evil-leader/set-key
     "t t" 'hl-todo-occur)
+  (global-hl-todo-mode)
   :bind (:map evil-normal-state-map
               ("[ t" . hl-todo-previous)
               ("] t" . hl-todo-next))
@@ -40,16 +40,17 @@
                             ("NOTE"  . ,$solarized-dark-base1)
                             ("HACK"  . ,$solarized-dark-violet)
                             ("FIXME" . ,$solarized-dark-orange)))
-  (global-hl-todo-mode)
   (add-hook 'yaml-mode-hook 'hl-todo-mode))
 
 ;; https://github.com/alpaker/Fill-Column-Indicator
 (use-package fill-column-indicator
   ;; :diminish (fci-mode . "fci")
+  :init
+  (add-hook 'prog-mode-hook 'turn-on-fci-mode)
   :config
   (setq-default fill-column 80)
   ;; (setq fci-rule-width 23)
-  (add-hook 'prog-mode-hook 'turn-on-fci-mode))
+  )
 
 (use-package golden-ratio
   :disabled t
@@ -58,7 +59,7 @@
   (add-hook 'buffer-list-update-hook #'golden-ratio))
 
 (use-package powerline
-  :demand t
+  :after evil
   :config
   (powerline-vim-theme))
 
@@ -73,8 +74,8 @@
 (use-package no-littering)
 
 (use-package multi-term
+  :after evil
   :init
-  (require 'evil)
   (evil-ex-define-cmd "te[rminal]" 'multi-term)
   :config
   (cond ((or (eq system-type 'ms-dos)
@@ -137,7 +138,8 @@
 
 ;;;###autoload
 (defun /set-frame-transparency (value)
-  "Sets the transparency of the frame window. 0=transparent/100=opaque"
+  "Set the transparency of the frame window.
+0=transparent/100=opaque"
   (interactive "nTransparency Value 0 - 100 opaque:")
   (set-frame-parameter (selected-frame) 'alpha value))
 

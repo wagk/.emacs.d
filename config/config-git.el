@@ -31,7 +31,7 @@
               ("g h p" . git-gutter+-show-hunk)
               )
   :init
-  (global-git-gutter+-mode)
+  (add-hook 'prog-mode-hook 'git-gutter+-mode)
   )
 
 (use-package git-gutter-fringe+

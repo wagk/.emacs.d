@@ -1,4 +1,4 @@
 # key: dd
 # name: debug
 # --
-`(yas-with-comment "DEBUG: ")`
+`(yas-with-comment "DEBUG: ")`$0

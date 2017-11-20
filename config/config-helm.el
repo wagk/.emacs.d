@@ -15,7 +15,8 @@
 
 (use-package swiper)
 
-(use-package counsel)
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)))
 
 (use-package helm
   :init

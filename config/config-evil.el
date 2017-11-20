@@ -58,7 +58,6 @@ word"
   (evil-normal-state)
   (evil-visual-restore))
 
-;; evil config
 (use-package evil
   :demand t
   :bind (("C-f" . universal-argument)
@@ -93,12 +92,11 @@ word"
          :map minibuffer-local-map
          ("C-w" . backward-kill-word))
   :init
-  (evil-mode)
+  (setq evil-want-C-u-scroll t)
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
   (evil-select-search-module 'evil-search-module 'evil-search)
   (setq evil-want-Y-yank-to-eol t
-        evil-want-C-u-scroll t
         sentence-end-double-space nil
         evil-regexp-search t
         evil-normal-state-modes (append evil-motion-state-modes
@@ -109,8 +107,6 @@ word"
         evil-vsplit-window-right t)
 
   (add-hook 'view-mode-hook 'evil-motion-state)
-
-  (evil-update-insert-state-bindings)
 
   ;; (evil-define-text-object /a-forward-slash (count &optional beg end type)
   ;;   "Select forward slash (/)"
@@ -182,6 +178,7 @@ word"
     (evil-range (beginning-of-line) (end-of-line)))
 
   (add-hook 'evil-normal-state-entry-hook 'evil-ex-nohighlight)
+  ;; (add-hook 'after-init-hook 'evil-update-insert-state-bindings)
   )
 
 ;; https://github.com/syl20bnr/spacemacs/blob/c788da709bb1c74344f5ab1b6f18cfdf6b930df8/layers/%2Bspacemacs/spacemacs-evil/local/evil-unimpaired/evil-unimpaired.el
@@ -319,6 +316,7 @@ word"
               ("C-x" . evil-numbers/dec-at-pt)))
 
 (use-package evil-rsi
+  :disabled
   :after evil
   :config
   (evil-rsi-mode))
@@ -444,6 +442,7 @@ word"
 
 ;; activate folding
 (add-hook 'prog-mode-hook 'hs-minor-mode)
+(evil-mode)
 
 (provide 'config-evil)
 
