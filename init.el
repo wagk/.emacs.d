@@ -31,7 +31,7 @@
   "Measure the time it takes to evaluate BODY."
   `(let ((time (current-time)))
      ,@body
-     (message "%.06f" (float-time (time-since time)))))
+     (message "%.06f seconds." (float-time (time-since time)))))
 
 ;; TODO(pangt): make this take in relative paths
 (defun load-user-config-file (file &rest files)
