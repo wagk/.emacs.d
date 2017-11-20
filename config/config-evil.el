@@ -60,7 +60,6 @@ word"
 
 ;; evil config
 (use-package evil
-  :ensure t
   :demand t
   :bind (("C-f" . universal-argument)
          ("C-u" . kill-whole-line)
@@ -91,16 +90,15 @@ word"
          ("e" . /evil-a-buffer)
          ("l" . /evil-a-line)
          ("/" . /a-forward-slash)
-         ;; :map isearch-mode-map
-         ;; ("C-w" . nil)
          :map minibuffer-local-map
          ("C-w" . backward-kill-word))
   :init
-  (setq evil-want-C-u-scroll t)
+  (evil-mode)
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
   (evil-select-search-module 'evil-search-module 'evil-search)
   (setq evil-want-Y-yank-to-eol t
+        evil-want-C-u-scroll t
         sentence-end-double-space nil
         evil-regexp-search t
         evil-normal-state-modes (append evil-motion-state-modes
@@ -111,6 +109,8 @@ word"
         evil-vsplit-window-right t)
 
   (add-hook 'view-mode-hook 'evil-motion-state)
+
+  (evil-update-insert-state-bindings)
 
   ;; (evil-define-text-object /a-forward-slash (count &optional beg end type)
   ;;   "Select forward slash (/)"
@@ -444,7 +444,6 @@ word"
 
 ;; activate folding
 (add-hook 'prog-mode-hook 'hs-minor-mode)
-(evil-mode)
 
 (provide 'config-evil)
 

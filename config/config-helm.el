@@ -19,9 +19,6 @@
 
 (use-package helm
   :init
-  (setq helm-idle-delay 0.0
-        helm-input-idle-delay 0.01
-        helm-quick-update t)
   (evil-leader/set-key
     "<SPC>" 'helm-M-x
     "TAB"   'helm-resume
@@ -41,6 +38,9 @@
              ("C-h" . helm-previous-source)
              ("TAB" . helm-execute-persistent-action))
   :config
+  (setq helm-idle-delay 0.0
+        helm-input-idle-delay 0.01
+        helm-quick-update t)
   (setq helm-recentf-fuzzy-match t
         helm-locate-fuzzy-match nil ;; locate fuzzy is worthless
         helm-M-x-fuzzy-match t
