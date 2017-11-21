@@ -55,6 +55,7 @@
   (progn (helm-autoresize-mode)
          (setq helm-autoresize-min-height 40 ;; these values are %
                helm-autoresize-max-height 40))
+  (helm-mode)
   )
 
 ;; TODO: when defining helm desckeys make sure a global binding is also presentw
