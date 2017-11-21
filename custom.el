@@ -35,12 +35,18 @@
  '(package-selected-packages
    (quote
     (evil-rsi evil-expat auto-compile restart-emacs moe-theme counsel-etags js2-mode elmacro suggest no-littering focus crosshairs plantuml-mode evil-textobj-column evil-cleverparens-text-objects elpy ctags-update hl-todo yaml-mode multi-term evil-goggles help-fns+ help-mode+ help+ vimish-fold base16-theme yasnippet whitespace-cleanup-mode which-key vi-tilde-fringe use-package unicode-troll-stopper transpose-frame tramp-term tide spu solarized-theme rainbow-delimiters powershell powerline-evil php-mode origami org-projectile neotree multiple-cursors misc-cmds minimap markdown-mode json-mode highlight-indent-guides helm-swoop helm-projectile helm-org-rifle helm-hunks helm-fuzzier helm-flx helm-emmet helm-describe-modes helm-descbinds helm-company groovy-mode google-translate git-gutter-fringe+ fill-column-indicator evil-visualstar evil-text-object-python evil-surround evil-replace-with-register evil-numbers evil-mc evil-matchit evil-magit evil-lion evil-leader evil-indent-textobject evil-commentary evil-cleverparens evil-args elisp-slime-nav dockerfile-mode docker-tramp counsel company-quickhelp company-jedi color-theme-solarized buffer-move aggressive-indent))))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(default ((((background dark) (type graphic)) (:foreground "#839496" :background "#002b36")) (((background dark) (type tty) (min-colors 256)) (:foreground "brightblue" :background "brightblack")) (((background dark) (type tty) (min-colors 16)) (:foreground "brightblue" :background "brightblack")) (((background dark) (type tty) (min-colors 8)) (:foreground nil :background nil)) (((background light) (type graphic)) (:foreground "#657b83" :background "#fdf6e3")) (((background light) (type tty) (min-colors 256)) (:foreground "brightyellow" :background "brightwhite")) (((background light) (type tty) (min-colors 16)) (:foreground "brightyellow" :background "brightwhite")) (((background light) (type tty) (min-colors 8)) (:foreground nil :background nil))))
+;;  '(evil-goggles-delete-face ((t (:inherit (quote diff-removed)))))
+;;  '(evil-goggles-paste-face ((t (:inherit (quote diff-added)))))
+;;  '(evil-goggles-yank-face ((t (:inherit (quote diff-changed))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((((background dark) (type graphic)) (:foreground "#839496" :background "#002b36")) (((background dark) (type tty) (min-colors 256)) (:foreground "brightblue" :background "brightblack")) (((background dark) (type tty) (min-colors 16)) (:foreground "brightblue" :background "brightblack")) (((background dark) (type tty) (min-colors 8)) (:foreground nil :background nil)) (((background light) (type graphic)) (:foreground "#657b83" :background "#fdf6e3")) (((background light) (type tty) (min-colors 256)) (:foreground "brightyellow" :background "brightwhite")) (((background light) (type tty) (min-colors 16)) (:foreground "brightyellow" :background "brightwhite")) (((background light) (type tty) (min-colors 8)) (:foreground nil :background nil))))
- '(evil-goggles-delete-face ((t (:inherit (quote diff-removed)))))
- '(evil-goggles-paste-face ((t (:inherit (quote diff-added)))))
- '(evil-goggles-yank-face ((t (:inherit (quote diff-changed))))))
+ )

@@ -11,7 +11,6 @@
 
 (use-package highlight-indent-guides
   :init
-  (require 'evil-leader)
   (evil-leader/set-key
     "'" 'highlight-indent-guides-mode)
   :config

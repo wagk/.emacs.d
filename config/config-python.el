@@ -6,6 +6,7 @@
 (require 'config-package)
 (require 'config-prog)
 (require 'config-completion)
+(require 'config-lint)
 
 ;; ;; https://github.com/jorgenschaefer/elpy
 ;; (use-package elpy
@@ -22,6 +23,7 @@
                                   (add-to-list 'company-backends 'company-jedi))))
 
 (use-package flycheck-mypy
+  :after flycheck
   :init
   (add-hook 'python-mode-hook #'(lambda ()
                                   (add-to-list 'flycheck-disabled-checkers 'python-flake8)
