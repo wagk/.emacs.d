@@ -9,7 +9,7 @@
   :commands restart-emacs)
 
 ;; call desktop-clear to reset the desktop file
-(desktop-save-mode 1)
+;; (desktop-save-mode 1)
 
 (provide 'config-emacs)
 

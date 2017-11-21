@@ -26,6 +26,7 @@
   :after flycheck
   :init
   (add-hook 'python-mode-hook #'(lambda ()
+                                  (require 'flycheck)
                                   (add-to-list 'flycheck-disabled-checkers 'python-flake8)
                                   (add-to-list 'flycheck-disabled-checkers 'python-pylint)
                                   (add-to-list 'flycheck-disabled-checkers 'python-pycompile)

@@ -80,6 +80,7 @@ Assumes that it:
  "./config/config-git.el"
  "./config/config-org.el"
  "./config/config-project.el"
+ "./config/config-lint.el"
  "./config/config-completion.el"
  "./config/config-tags.el"
 
