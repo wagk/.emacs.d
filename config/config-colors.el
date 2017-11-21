@@ -9,35 +9,33 @@
 (set-terminal-parameter nil 'background-mode 'dark)
 
 ;; (use-package base16-theme
-;;   :disabled
 ;;   :if (not (display-graphic-p))
-;;   :ensure t
 ;;   :config
 ;;   (load-theme 'base16-solarized-dark t))
 
 ;; (use-package moe-theme
-;;   :disabled t
 ;;   :demand t
-;;   ;; :if (not (display-graphic-p))
+;;   :if (not (display-graphic-p))
 ;;   :config
 ;;   (moe-dark))
 
-(use-package color-theme-solarized
-  :demand t
-  :config
-  (color-theme-solarized)
-  (setq solarized-termcolors 256)
-  (load-theme 'solarized t)
-  )
-
-;; (use-package solarized-theme
+;; (use-package color-theme-solarized
 ;;   :demand t
 ;;   ;; :if (display-graphic-p)
 ;;   :config
-;;   (setq solarized-use-variable-pitch nil
-;;         solarized-distinct-fringe-background t
-;;         solarized-high-contrast-mode-line t)
-;;   (load-theme 'solarized-dark t))
+;;   (color-theme-solarized)
+;;   (setq solarized-termcolors 256)
+;;   (load-theme 'solarized t)
+;;   )
+
+(use-package solarized-theme
+  :demand t
+  ;; :if (display-graphic-p)
+  :config
+  (setq solarized-use-variable-pitch nil
+        solarized-distinct-fringe-background t
+        solarized-high-contrast-mode-line t)
+  (load-theme 'solarized-dark t))
 
 (defconst $solarized-dark-base03   "#002b36")
 (defconst $solarized-dark-base02   "#073642")
