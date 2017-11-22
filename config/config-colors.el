@@ -44,14 +44,6 @@
         solarized-height-plus-3 1.0
         solarized-height-plus-4 1.0
         )
-  ;; set background to default terminal one if in terminal
-  ;; https://stackoverflow.com/questions/19054228/emacs-disable-theme-background-color-in-terminal
-  (add-hook 'window-setup-hook
-            '(lambda ()
-               (unless (display-graphic-p (selected-frame))
-                 (set-face-background 'default
-                                      "unspecified-bg"
-                                      (selected-frame)))))
   (load-theme 'solarized-dark t))
 
 (defconst $solarized-dark-base03   "#002b36")
@@ -71,6 +63,14 @@
 (defconst $solarized-dark-cyan     "#2aa198")
 (defconst $solarized-dark-green    "#859900")
 
+;; set background to default terminal one if in terminal
+;; https://stackoverflow.com/questions/19054228/emacs-disable-theme-background-color-in-terminal
+(add-hook 'window-setup-hook
+          '(lambda ()
+             (unless (display-graphic-p (selected-frame))
+               (set-face-background 'default
+                                    "unspecified-bg"
+                                    (selected-frame)))))
 
 (provide 'config-colors)
 
