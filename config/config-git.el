@@ -43,6 +43,10 @@
     (set-face-foreground 'git-gutter+-deleted "red")
     (set-face-background 'git-gutter+-deleted nil))
   (setq git-gutter+-hide-gutter t)
+  ;; use git-gutter+-diffinfo-at-point to get the range of the hunk,
+  ;; extract the range beg-end,
+  ;; then set the textobject to that range
+  ;; (require 'evil)
   )
 
 (use-package git-gutter-fringe+
