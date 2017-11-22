@@ -40,6 +40,7 @@
     (set-face-background 'git-gutter+-added nil)
     (set-face-foreground 'git-gutter+-deleted "red")
     (set-face-background 'git-gutter+-deleted nil))
+  (setq git-gutter+-hide-gutter t)
   )
 
 (use-package git-gutter-fringe+
