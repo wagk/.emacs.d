@@ -33,6 +33,8 @@
   :init
   (add-hook 'prog-mode-hook 'git-gutter+-mode)
   :config
+  ;; refer to the hacks made in config-colors.el.
+  ;; We do this to make the gutter things look nice
   (unless (display-graphic-p)
     (set-face-foreground 'git-gutter+-modified "magenta")
     (set-face-background 'git-gutter+-modified nil)
