@@ -33,8 +33,17 @@
   ;; :if (display-graphic-p)
   :config
   (setq solarized-use-variable-pitch nil
-        solarized-distinct-fringe-background t
-        solarized-high-contrast-mode-line t)
+        solarized-distinct-fringe-background nil
+        solarized-high-contrast-mode-line nil
+        solarized-use-less-bold t
+        solarized-use-more-italic nil
+        solarized-scale-org-headlines nil
+        solarized-height-minus-1 1.0
+        solarized-height-plus-1 1.0
+        solarized-height-plus-2 1.0
+        solarized-height-plus-3 1.0
+        solarized-height-plus-4 1.0
+        )
   (load-theme 'solarized-dark t))
 
 (defconst $solarized-dark-base03   "#002b36")
