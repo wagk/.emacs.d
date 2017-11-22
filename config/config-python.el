@@ -15,7 +15,7 @@
 ;;   (elpy-enable))
 
 ;; (add-hook 'python-mode-hook 'turn-on-ctags-auto-update-mode)
-(add-hook 'python-mode-hook 'highlight-indent-guides-mode)
+;; (add-hook 'python-mode-hook 'highlight-indent-guides-mode)
 
 (use-package company-jedi
   :init

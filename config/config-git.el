@@ -32,6 +32,14 @@
               )
   :init
   (add-hook 'prog-mode-hook 'git-gutter+-mode)
+  :config
+  (unless (display-graphic-p)
+    (set-face-foreground 'git-gutter+-modified "magenta")
+    (set-face-background 'git-gutter+-modified nil)
+    (set-face-foreground 'git-gutter+-added "green")
+    (set-face-background 'git-gutter+-added nil)
+    (set-face-foreground 'git-gutter+-deleted "red")
+    (set-face-background 'git-gutter+-deleted nil))
   )
 
 (use-package git-gutter-fringe+

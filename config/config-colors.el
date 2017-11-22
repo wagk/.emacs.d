@@ -65,6 +65,12 @@
 
 ;; set background to default terminal one if in terminal
 ;; https://stackoverflow.com/questions/19054228/emacs-disable-theme-background-color-in-terminal
+(add-to-list 'after-make-frame-functions
+             '(lambda (frame)
+                (unless (display-graphic-p frame)
+                  (set-face-background 'default
+                                       "unspecified-bg"
+                                       frame))))
 (add-hook 'window-setup-hook
           '(lambda ()
              (unless (display-graphic-p (selected-frame))
