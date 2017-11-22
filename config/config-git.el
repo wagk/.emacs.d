@@ -28,7 +28,7 @@
               ("] h" . git-gutter+-next-hunk)
               ("g h s" . git-gutter+-stage-hunks)
               ("g h u" . git-gutter+-revert-hunks)
-              ("g h p" . git-gutter+-show-hunk)
+              ("g h p" . git-gutter+-show-hunk-inline-at-point)
               )
   :init
   (add-hook 'prog-mode-hook 'git-gutter+-mode)
@@ -49,6 +49,8 @@
   :if (display-graphic-p)
   :after git-gutter+
   )
+
+;;TODO: either find or implement some kind of git hunk textobject
 
 (provide 'config-git)
 
