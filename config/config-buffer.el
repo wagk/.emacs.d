@@ -16,7 +16,8 @@
   :config
   (setq highlight-indent-guides-method 'character
         highlight-indent-guides-character ?\|)
-  (highlight-indent-guides-mode))
+  ;; (highlight-indent-guides-mode)
+  )
 
 (use-package whitespace-cleanup-mode
   :config

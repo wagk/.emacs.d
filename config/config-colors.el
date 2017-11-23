@@ -63,6 +63,21 @@
 (defconst $solarized-dark-cyan     "#2aa198")
 (defconst $solarized-dark-green    "#859900")
 
+;; set background to default terminal one if in terminal
+;; We only get away with this because our terminal uses solarized
+;; https://stackoverflow.com/questions/19054228/emacs-disable-theme-background-color-in-terminal
+(add-to-list 'after-make-frame-functions
+             '(lambda (frame)
+                (unless (display-graphic-p frame)
+                  (set-face-background 'default
+                                       "unspecified-bg"
+                                       frame))))
+(add-hook 'window-setup-hook
+          '(lambda ()
+             (unless (display-graphic-p (selected-frame))
+               (set-face-background 'default
+                                    "unspecified-bg"
+                                    (selected-frame)))))
 
 (provide 'config-colors)
 
