@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: cpp-for-range
+# key: forr
+# --
+for(${1:const auto& elem}: ${2:container}) {
+$0
+}
