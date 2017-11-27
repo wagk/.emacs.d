@@ -16,7 +16,7 @@
   (evil-leader/set-key
     "s s" 'yas-new-snippet
     "s a" 'yas-insert-snippet
-    "s f" 'helm-yas-visit-snippet-file)
+    "s f" 'yas-visit-snippet-file)
   :config
   (let ((my-snippet-dir (concat user-init-dir "snippets")))
     (setq-default yas-snippet-dirs `(,my-snippet-dir)))

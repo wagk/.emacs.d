@@ -1,0 +1,8 @@
+# key: deft
+# name: cpp-template-function
+# --
+template<${4:typename T}>
+${3:void} ${1:foo}(${2:void})${5:
+{
+  $0
+}}

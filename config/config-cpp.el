@@ -17,6 +17,9 @@
 ;; treat .h files as cpp files
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
+;; gnu indent style is mildly retarded
+(setq-default c-default-style "k&r")
+
 ;; we don't electric pair <> because it interferes with << operators
 
 ;; ;; add < > electric pairing
