@@ -90,6 +90,7 @@ Assumes that it:
  "./config/config-lisp.el"
  "./config/config-cpp.el"
  "./config/config-python.el"
+ "./config/config-rust.el"
 
  "./config/config-diff.el"
  "./config/config-shell.el"
