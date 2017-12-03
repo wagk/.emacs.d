@@ -19,7 +19,9 @@
   )
 
 (use-package evil-magit
-  :after magit)
+  :after magit
+  :init
+  (evil-magit-init))
 
 ;; https://github.com/nonsequitur/git-gutter-plus
 (use-package git-gutter+
