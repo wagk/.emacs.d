@@ -10,7 +10,6 @@ autosave/*
 backups/*
 bookmarks
 el-get/*
-elpa/*
 eshell/*
 flycheck_init.el
 network-security.data
