@@ -52,7 +52,7 @@ word"
 
 ;;;###autoload
 (defun /evil-shift-right-visual ()
-  "Same as -evil-shift-left-visual, but for the right instead."
+  "Same as /evil-shift-left-visual, but for the right instead."
   (interactive)
   (evil-shift-right (region-beginning) (region-end))
   (evil-normal-state)
