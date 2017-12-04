@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: function
+# key: def
+# group: definitions
+# --
+def ${1:foo}(${2:args}):
+    """${3:docstring}
+    params:
+    returns:
+    """
+    $0

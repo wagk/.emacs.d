@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# expand-env: ((yas-indent-line 'fixed))
+# name: doc
+# key: d
+# --
+"""$0
+"""

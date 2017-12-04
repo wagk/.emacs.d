@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: with
+# key: with
+# group : control structure
+# --
+with ${1:expr} as ${2:${3:alias}}:
+    $0
