@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: python-class-static-method
+# key: defs
+# --
+@staticmethod
+def ${1:foo}($2)${3:-> ${4:None}}:
+    ${5:raise NotImplementedError()}
