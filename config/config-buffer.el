@@ -73,16 +73,6 @@
 
 (use-package no-littering)
 
-(use-package multi-term
-  :after evil
-  :init
-  (evil-ex-define-cmd "te[rminal]" 'multi-term)
-  :config
-  (cond ((or (eq system-type 'ms-dos)
-             (eq system-type 'windows-nt)) (setq multi-term-program "cmd"))
-        (t (setq multi-term-program "/bin/bash")))
-  )
-
 (use-package mmm-mode
   :disabled
   :commands mmm-mode

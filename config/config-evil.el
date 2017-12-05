@@ -103,8 +103,8 @@ word"
                                         evil-normal-state-modes)
         evil-motion-state-modes nil
         evil-want-C-u-scroll t
-        evil-split-window-below t
-        evil-vsplit-window-right t)
+        evil-split-window-below nil
+        evil-vsplit-window-right nil)
 
   (add-hook 'view-mode-hook 'evil-motion-state)
 

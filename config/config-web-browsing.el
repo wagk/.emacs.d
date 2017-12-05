@@ -7,6 +7,8 @@
 
 (use-package eww
   :config
+  (require 'config-evil)
+
   ;; https://github.com/GriffinSchneider/emacs-config/blob/master/eww-customizations.el
   (defvar gcs-shr-width 110)
 
@@ -44,11 +46,9 @@
   (define-key eww-mode-map (read-kbd-macro "d") 'evil-scroll-down)
   (define-key eww-mode-map (read-kbd-macro "u") 'evil-scroll-up)
 
-
   ;; Use sane keybindings for forward/back
-  (define-key eww-mode-map (read-kbd-macro "b") 'eww-back-url)
-  (define-key eww-mode-map (read-kbd-macro "<backspace>") 'eww-back-url)
-  (define-key eww-mode-map (read-kbd-macro "S-<backspace>") 'eww-forward-url))
+  (evil-define-key 'normal 'eww-mode-map "H" 'eww-back-url)
+  (evil-define-key 'normal 'eww-mode-map "L" 'eww-forward-url))
 
 (provide 'config-web-browsing)
 
