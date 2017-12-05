@@ -6,6 +6,9 @@
 (require 'config-package)
 
 (use-package eww
+  :init
+  (evil-leader/set-key
+    "w w w" 'eww)
   :config
   (require 'config-evil)
 
