@@ -99,6 +99,7 @@
   (setq helm-flx-for-helm-find-files t
         helm-flx-for-helm-locate t))
 
+(use-package helm-dash)
 
 ;; commenting it out because it has conflicting bindings in its own map
 ;; (use-package helm-hunks
