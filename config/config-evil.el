@@ -275,7 +275,7 @@ word"
 
 (use-package evil-surround
   :after evil
-  :init
+  :config
   (global-evil-surround-mode)
   )
 
