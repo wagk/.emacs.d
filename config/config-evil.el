@@ -393,7 +393,7 @@ word"
 (use-package vi-tilde-fringe
   :after evil
   :config
-  (global-vi-tilde-fringe-mode 1))
+  (global-vi-tilde-fringe-mode))
 
 (use-package evil-visualstar
   :after evil
