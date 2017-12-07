@@ -59,7 +59,7 @@
   (add-hook 'buffer-list-update-hook #'golden-ratio))
 
 (use-package powerline
-  :after evil
+  :demand
   :config
   (powerline-vim-theme))
 
