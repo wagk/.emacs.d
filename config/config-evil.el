@@ -268,19 +268,21 @@ word"
 
 
 (use-package evil-leader
-  :after evil
+  :after (evil)
   :config
   (global-evil-leader-mode)
   (evil-leader/set-leader "<SPC>"))
 
 (use-package evil-surround
-  :after evil
+  :after (evil)
+  :demand t
   :config
-  (global-evil-surround-mode 1)
+  (global-evil-surround-mode)
   )
 
 (use-package evil-embrace
-  :after evil-surround
+  :after (evil-surround)
+  :demand t
   :config
   (evil-embrace-enable-evil-surround-integration)
   (setq evil-embrace-show-help-p nil)
@@ -317,13 +319,14 @@ word"
 
 (use-package evil-rsi
   :disabled
-  :after evil
+  :after (evil)
   :config
   (evil-rsi-mode))
 
 ;; alignment
 (use-package evil-lion
-  :after evil
+  :after (evil)
+  :demand t
   :config
   (evil-lion-mode)
   )
@@ -363,7 +366,8 @@ word"
 ;;   )
 
 (use-package evil-commentary
-  :after evil
+  :after (evil)
+  :demand t
   :config
   (evil-commentary-mode)
   )
@@ -391,12 +395,14 @@ word"
 
 ;; vim A E S T H E T H I C S
 (use-package vi-tilde-fringe
-  :after evil
+  :after (evil)
+  :demand t
   :config
   (global-vi-tilde-fringe-mode))
 
 (use-package evil-visualstar
-  :after evil
+  :after (evil)
+  :demand t
   :config
   (global-evil-visualstar-mode))
 
