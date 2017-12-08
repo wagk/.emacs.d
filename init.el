@@ -85,6 +85,8 @@ Assumes that it:
  "./config/config-completion.el"
  "./config/config-tags.el"
 
+ "./config/config-fs.el"
+
  "./config/config-prog.el" ;; program-related configs
  "./config/config-webdev.el"
  "./config/config-lisp.el"

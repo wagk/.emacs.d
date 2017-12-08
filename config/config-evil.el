@@ -276,7 +276,7 @@ word"
 (use-package evil-surround
   :after evil
   :config
-  (global-evil-surround-mode)
+  (global-evil-surround-mode 1)
   )
 
 (use-package evil-embrace

@@ -72,6 +72,7 @@
   (helm-descbinds-mode))
 
 (use-package helm-swoop
+  :disabled
   :init
 ;;;###autoload
   (defun /helm-swoop-vis () (interactive)
