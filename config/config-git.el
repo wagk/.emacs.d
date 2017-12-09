@@ -20,7 +20,8 @@
 
 (use-package evil-magit
   :after magit
-  :init
+  :demand t
+  :config
   (evil-magit-init))
 
 ;; https://github.com/nonsequitur/git-gutter-plus
@@ -32,8 +33,7 @@
               ("g h u" . git-gutter+-revert-hunks)
               ("g h p" . git-gutter+-show-hunk-inline-at-point)
               )
-  :init
-  (add-hook 'prog-mode-hook 'git-gutter+-mode)
+  :hook prog-mode
   :config
   ;; refer to the hacks made in config-colors.el.
   ;; We do this to make the gutter things look nice
@@ -54,6 +54,7 @@
 (use-package git-gutter-fringe+
   :if (display-graphic-p)
   :after git-gutter+
+  :demand t
   )
 
 ;;TODO: either find or implement some kind of git hunk textobject
