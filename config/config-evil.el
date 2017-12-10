@@ -293,13 +293,14 @@ word"
               ("a" . evil-inner-arg)
               :map evil-outer-text-objects-map
               ("a" . evil-outer-arg)
-              :map evil-normal-state-map
-              ("L" . evil-forward-arg)
-              ("H" . evil-backward-arg)
-              ("K" . evil-jump-out-args)
-              :map evil-motion-state-map
-              ("L" . evil-forward-arg)
-              ("H" . evil-backward-arg))
+              ;; :map evil-normal-state-map
+              ;; ("L" . evil-forward-arg)
+              ;; ("H" . evil-backward-arg)
+              ;; ("K" . evil-jump-out-args)
+              ;; :map evil-motion-state-map
+              ;; ("L" . evil-forward-arg)
+              ;; ("H" . evil-backward-arg)
+              )
   ;; :config
   ;; consider spaces as argument delimiters
   ;; (add-to-list 'evil-args-delimiters " ")
@@ -378,6 +379,7 @@ word"
              :map evil-outer-text-objects-map
              ("c" . evilnc-outer-commenter)
              )
+  :demand t
   )
 
 ;; (use-package evil-replace-with-register)

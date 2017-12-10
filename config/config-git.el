@@ -33,7 +33,7 @@
               ("g h u" . git-gutter+-revert-hunks)
               ("g h p" . git-gutter+-show-hunk-inline-at-point)
               )
-  :hook prog-mode
+  :hook (prog-mode . git-gutter+-mode)
   :config
   ;; refer to the hacks made in config-colors.el.
   ;; We do this to make the gutter things look nice
