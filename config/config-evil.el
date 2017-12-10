@@ -374,12 +374,12 @@ word"
   )
 
 (use-package evil-nerd-commenter
+  :after (evil)
   :bind(:map evil-inner-text-objects-map
              ("c" . evilnc-inner-comment)
              :map evil-outer-text-objects-map
              ("c" . evilnc-outer-commenter)
              )
-  :demand t
   )
 
 ;; (use-package evil-replace-with-register)
@@ -387,6 +387,7 @@ word"
 ;; (use-package evil-text-object-python)
 
 (use-package evil-indent-plus
+  :after (evil)
   :bind(:map evil-inner-text-objects-map
              ("i" . evil-indent-plus-i-indent)
              ("I" . evil-indent-plus-a-indent)
