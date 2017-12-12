@@ -33,7 +33,8 @@
               ("g h u" . git-gutter+-revert-hunks)
               ("g h p" . git-gutter+-show-hunk-inline-at-point)
               )
-  :hook (prog-mode . git-gutter+-mode)
+  :defer 1
+  ;; :hook (prog-mode . git-gutter+-mode)
   :config
   ;; refer to the hacks made in config-colors.el.
   ;; We do this to make the gutter things look nice
@@ -49,12 +50,15 @@
   ;; extract the range beg-end,
   ;; then set the textobject to that range
   ;; (require 'evil)
-  )
 
-(use-package git-gutter-fringe+
-  :if (display-graphic-p)
-  :after git-gutter+
-  :demand t
+  ;; we're forced to put it here because the global mode must be done afterwards (??)
+  (use-package git-gutter-fringe+
+    :if (display-graphic-p)
+    :after git-gutter+
+    :demand t
+    )
+
+  (global-git-gutter+-mode)
   )
 
 ;;TODO: either find or implement some kind of git hunk textobject

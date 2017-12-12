@@ -84,7 +84,6 @@ Assumes that it:
  "./config/config-lint.el"
  "./config/config-completion.el"
  "./config/config-tags.el"
-
  "./config/config-fs.el"
 
  "./config/config-prog.el" ;; program-related configs

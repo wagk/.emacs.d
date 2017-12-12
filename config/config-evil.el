@@ -179,6 +179,7 @@ word"
 
   (add-hook 'evil-normal-state-entry-hook 'evil-ex-nohighlight)
   ;; (add-hook 'after-init-hook 'evil-update-insert-state-bindings)
+  (evil-mode)
   )
 
 ;; https://github.com/syl20bnr/spacemacs/blob/c788da709bb1c74344f5ab1b6f18cfdf6b930df8/layers/%2Bspacemacs/spacemacs-evil/local/evil-unimpaired/evil-unimpaired.el
@@ -265,7 +266,6 @@ word"
 ;; paste above or below with newline
 (define-key evil-normal-state-map (kbd "[ p") 'evil-unimpaired/paste-above)
 (define-key evil-normal-state-map (kbd "] p") 'evil-unimpaired/paste-below)
-
 
 (use-package evil-leader
   :after (evil)
@@ -451,7 +451,7 @@ word"
 
 ;; activate folding
 (add-hook 'prog-mode-hook 'hs-minor-mode)
-(evil-mode)
+;; (evil-mode)
 
 (provide 'config-evil)
 

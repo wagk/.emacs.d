@@ -10,24 +10,26 @@
 (require 'config-colors)
 
 (use-package highlight-indent-guides
-  :init
+  :hook (prog-mode . highlight-indent-guides-mode)
+  :config
   (evil-leader/set-key
     "'" 'highlight-indent-guides-mode)
-  :config
   (setq highlight-indent-guides-method 'character
         highlight-indent-guides-character ?\|)
   ;; (highlight-indent-guides-mode)
   )
 
 (use-package whitespace-cleanup-mode
+  :demand t
   :config
   (global-whitespace-cleanup-mode 1))
 
 (use-package hl-todo
+  :defer 1
   :init
   (evil-leader/set-key
     "t t" 'hl-todo-occur)
-  (global-hl-todo-mode)
+  ;; :hook (prog-mode . hl-todo-mode)
   :bind (:map evil-normal-state-map
               ("[ t" . hl-todo-previous)
               ("] t" . hl-todo-next))
@@ -40,13 +42,12 @@
                             ("NOTE"  . ,$solarized-dark-base1)
                             ("HACK"  . ,$solarized-dark-violet)
                             ("FIXME" . ,$solarized-dark-orange)))
+  (global-hl-todo-mode)
   (add-hook 'yaml-mode-hook 'hl-todo-mode))
 
 ;; https://github.com/alpaker/Fill-Column-Indicator
 (use-package fill-column-indicator
-  ;; :diminish (fci-mode . "fci")
-  :init
-  (add-hook 'prog-mode-hook 'turn-on-fci-mode)
+  :hook (prog-mode . turn-on-fci-mode)
   :config
   (setq-default fill-column 80)
   ;; (setq fci-rule-width 23)
@@ -59,7 +60,7 @@
   (add-hook 'buffer-list-update-hook #'golden-ratio))
 
 (use-package powerline
-  :demand
+  :demand t
   :config
   (powerline-vim-theme))
 
@@ -87,7 +88,8 @@
 
 (use-package crosshairs)
 
-(use-package which-key)
+(use-package which-key
+  :demand t)
 
 ;;;###autoload
 (defun /line-lengths()

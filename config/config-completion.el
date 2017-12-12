@@ -72,9 +72,9 @@ Used for 'auto-insert'"
              ("C-j" . company-select-next)
              ("C-k" . company-select-previous)
              ("C-w" . evil-delete-backward-word))
-  :init
-  (global-company-mode)
+  :hook (prog-mode . company-mode)
   :config
+  (global-company-mode)
   ;; yasnippet integration
   ;; https://emacs.stackexchange.com/questions/10431/get-company-to-show-suggestions-for-yasnippet-names
   (progn (require 'yasnippet)

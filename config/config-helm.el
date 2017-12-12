@@ -19,6 +19,7 @@
   :bind (("M-x" . counsel-M-x)))
 
 (use-package helm
+  :after evil-leader
   :init
   (evil-leader/set-key
     "<SPC>" 'helm-M-x
@@ -90,11 +91,13 @@
 
 (use-package helm-fuzzier
   :after helm
+  :demand t
   :config
   (helm-fuzzier-mode))
 
 (use-package helm-flx
   :after helm
+  :demand t
   :config
   (helm-flx-mode)
   (setq helm-flx-for-helm-find-files t

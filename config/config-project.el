@@ -11,7 +11,7 @@
 (use-package projectile
   :config
   (projectile-mode)
-  (add-hook 'after-init-hook #'projectile-mode))
+  )
 
 (use-package helm-projectile
   :init
