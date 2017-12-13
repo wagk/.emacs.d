@@ -102,6 +102,7 @@ Assumes that it:
  "./config/config-visualise.el"
 
  "./config/config-japanese.el"
+ "./config/config-chinese.el"
  "./config/config-finance.el"
  "./config/config-journal.el"
  "./config/config-web-browsing.el"
