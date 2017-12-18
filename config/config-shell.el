@@ -15,9 +15,6 @@
 
 (use-package multi-term
   :after evil
-  :bind (:map term-mode-map
-              ("RET" . term-send-input)
-              )
   :init
   (evil-ex-define-cmd "te[rminal]" 'multi-term)
   :config

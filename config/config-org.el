@@ -66,36 +66,35 @@ text."
     "o o" 'org-capture
     "o i" 'org-refile)
   :config
-  (progn (org-toggle-link-display)
-         ;;Use google drive if available
-         (when (boundp '/g-drive-folder)
-           (setq org-directory (concat /g-drive-folder "/org")))
+  (org-toggle-link-display)
+  ;;Use google drive if available
+  (when (boundp '/g-drive-folder)
+    (setq org-directory (concat /g-drive-folder "/org")))
 
-         (setq org-default-notes-file (concat org-directory "/TODO.org")
-               org-M-RET-may-split-line '(default . nil)
-               org-list-empty-line-terminates-plain-lists t
-               org-enforce-todo-checkbox-dependencies     t
-               org-enforce-todo-dependencies              t
-               org-pretty-entities                        t
-               ;; org-insert-heading-respect-content t
-               org-log-done                               'time
-               org-log-redeadline                         'time
-               org-log-reschedule                         'time
-               org-blank-before-new-entry '((heading . t)
-                                            (plain-list-item . auto))
-               org-refile-targets '((nil . (:maxlevel . 9)))
-               org-refile-use-outline-path t
-               org-outline-path-complete-in-steps nil
-               org-refile-allow-creating-parent-nodes 'confirm
-               org-highlight-latex-and-related '(latex))
+  (setq org-default-notes-file (concat org-directory "/TODO.org")
+        org-M-RET-may-split-line '(default . nil)
+        org-list-empty-line-terminates-plain-lists t
+        org-enforce-todo-checkbox-dependencies     t
+        org-enforce-todo-dependencies              t
+        org-pretty-entities                        t
+        ;; org-insert-heading-respect-content t
+        org-log-done                               'time
+        org-log-redeadline                         'time
+        org-log-reschedule                         'time
+        org-blank-before-new-entry '((heading . t)
+                                     (plain-list-item . auto))
+        org-refile-targets '((nil . (:maxlevel . 9)))
+        org-refile-use-outline-path t
+        org-outline-path-complete-in-steps nil
+        org-refile-allow-creating-parent-nodes 'confirm
+        org-highlight-latex-and-related '(latex))
 
-         (add-hook 'org-mode-hook '/org-mode-face-no-resize)
-         ;; (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
-         ;; make it vim-compatitable
-         (add-hook 'org-mode-hook '(lambda ()
-                                     (setq paragraph-start "\\|[     ]*$"
-                                           paragraph-separate "[       ]*$")))
-         )
+  (add-hook 'org-mode-hook '/org-mode-face-no-resize)
+  ;; (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
+  ;; make it vim-compatitable
+  ;; (add-hook 'org-mode-hook '(lambda ()
+  ;;                             (setq paragraph-start "\\|[     ]*$"
+  ;;                                   paragraph-separate "[       ]*$")))
   ;; (progn (require 'evil)
   ;;        (evil-declare-key    'normal org-mode-map
   ;;          (kbd "TAB")        'org-cycle
