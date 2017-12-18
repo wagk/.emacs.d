@@ -24,13 +24,15 @@
   (cond ((or (eq system-type 'ms-dos)
              (eq system-type 'windows-nt)) (setq multi-term-program "cmd"))
         (t (setq multi-term-program "/bin/bash")))
-
-  (add-to-list 'evil-emacs-state-modes 'term-mode)
-  (evil-define-key 'emacs 'term-mode-map "RET" 'term-send-input)
   )
 
-
 (use-package powershell)
+
+(evil-define-key 'normal term-mode
+  "RET" 'term-send-input)
+
+(evil-define-key 'insert term-mode
+  "RET" 'term-send-input)
 
 (provide 'config-shell)
 
