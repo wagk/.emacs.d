@@ -12,8 +12,8 @@
 (use-package highlight-indent-guides
   :hook (prog-mode . highlight-indent-guides-mode)
   :config
-  (evil-leader/set-key
-    "'" 'highlight-indent-guides-mode)
+  (general-define-key :prefix my-default-evil-leader-key
+                      "'" 'highlight-indent-guides-mode)
   (setq highlight-indent-guides-method 'character
         highlight-indent-guides-character ?\|)
   ;; (highlight-indent-guides-mode)
@@ -27,8 +27,8 @@
 (use-package hl-todo
   :defer 1
   :init
-  (evil-leader/set-key
-    "t t" 'hl-todo-occur)
+  (general-define-key :prefix my-default-evil-leader-key
+                      "t t" 'hl-todo-occur)
   ;; :hook (prog-mode . hl-todo-mode)
   :bind (:map evil-normal-state-map
               ("[ t" . hl-todo-previous)
@@ -125,8 +125,8 @@
         (fringe-mode nil)
         (put '/centre-window-function 'active nil)))))
 
-(evil-leader/set-key
-  ";" '/centre-window-function)
+(general-define-key :prefix my-default-evil-leader-key
+                    ";" '/centre-window-function)
 
 ;;;###autoload
 (defun /set-frame-transparency (value)
@@ -161,8 +161,8 @@
 
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(evil-leader/set-key
-  "." 'whitespace-mode)
+(general-define-key :prefix my-default-evil-leader-key
+                    "." 'whitespace-mode)
 
 ;; automatically refresh buffer when changed outside
 (global-auto-revert-mode t)

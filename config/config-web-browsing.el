@@ -7,8 +7,8 @@
 
 (use-package eww
   :init
-  (evil-leader/set-key
-    "w w w" 'eww)
+  (general-define-key :prefix my-default-evil-leader-key
+                      "w w w" 'eww)
   :config
   (require 'config-evil)
 

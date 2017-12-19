@@ -59,12 +59,12 @@ text."
 
 (use-package org
   :init
-  (evil-leader/set-key
-    "O O" 'org-agenda
-    "o t" 'org-time-stamp
-    "o T" #'/this-time
-    "o o" 'org-capture
-    "o i" 'org-refile)
+  (general-define-key :prefix my-default-evil-leader-key
+                      "O O" 'org-agenda
+                      "o t" 'org-time-stamp
+                      "o T" #'/this-time
+                      "o o" 'org-capture
+                      "o i" 'org-refile)
   :config
   (org-toggle-link-display)
   ;;Use google drive if available
@@ -156,8 +156,8 @@ text."
 
 (use-package helm-org-rifle
   :init
-  (evil-leader/set-key
-    "o O" 'helm-org-rifle)
+  (general-define-key :prefix my-default-evil-leader-key
+                      "o O" 'helm-org-rifle)
   :bind(:map helm-org-rifle-map
              ("C-w" . evil-delete-backward-word)
              ("\\"  . helm-select-action)

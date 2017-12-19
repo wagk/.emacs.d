@@ -268,10 +268,21 @@ word"
 (define-key evil-normal-state-map (kbd "] p") 'evil-unimpaired/paste-below)
 
 (use-package evil-leader
+  :disabled t
   :after (evil)
   :config
   (global-evil-leader-mode)
-  (evil-leader/set-leader "<SPC>"))
+  (evil-leader/set-leader "g <SPC>"))
+
+(use-package general
+  :after (evil)
+  :demand t
+  :commands (general-define-key)
+  :config
+  (setq general-default-states '(normal emacs))
+  ;; (setq general-default-prefix )
+  (setq my-default-evil-leader-key "<SPC>")
+  )
 
 (use-package evil-surround
   :after (evil)

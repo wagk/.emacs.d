@@ -19,16 +19,17 @@
   :bind (("M-x" . counsel-M-x)))
 
 (use-package helm
-  :after evil-leader
+  :after (general)
+  :demand t
   :init
-  (evil-leader/set-key
-    "<SPC>" 'helm-M-x
-    "TAB"   'helm-resume
-    "y"     'helm-show-kill-ring
-    "h h"   'helm-apropos
-    "-"     'helm-find-files
-    "_"     'helm-mini
-    "b b"   'helm-bookmarks)
+  (general-define-key :prefix my-default-evil-leader-key
+                      "<SPC>" 'helm-M-x
+                      "TAB"   'helm-resume
+                      "y"     'helm-show-kill-ring
+                      "h h"   'helm-apropos
+                      "-"     'helm-find-files
+                      "_"     'helm-mini
+                      "b b"   'helm-bookmarks)
   :bind(:map helm-map
              ("C-w" . evil-delete-backward-word)
              ("\\"  . helm-select-action)
@@ -69,6 +70,7 @@
   )
 
 (use-package helm-descbinds
+  :bind (("C-h b" . helm-descbinds))
   :config
   (helm-descbinds-mode))
 
@@ -78,8 +80,6 @@
 ;;;###autoload
   (defun /helm-swoop-vis () (interactive)
          (helm-swoop :$query "" :$multiline 4))
-  (evil-leader/set-key
-    "/" '/helm-swoop-vis)
   :bind (:map helm-swoop-map
               ("C-w" . evil-delete-backward-word))
   ;; :config

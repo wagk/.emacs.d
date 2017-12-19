@@ -9,8 +9,8 @@
 (use-package magit
   :commands magit-status
   :init
-  (evil-leader/set-key
-    ", ," 'magit-status)
+  (general-define-key :prefix my-default-evil-leader-key
+                      ", ," 'magit-status)
   :config
   (eval-after-load 'aggressive-fill-paragraph
     '(add-hook 'git-commit-setup-hook 'aggressive-fill-paragraph-mode))

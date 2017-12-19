@@ -13,17 +13,16 @@
              ("C-j" . yas-next-field-or-maybe-expand)
              ("C-k" . yas-prev-field))
   :init
-  (evil-leader/set-key
-    "s s" 'yas-new-snippet
-    "s a" 'yas-insert-snippet
-    "s f" 'yas-visit-snippet-file)
+  (general-define-key :prefix my-default-evil-leader-key
+                      "s s" 'yas-new-snippet
+                      "s a" 'yas-insert-snippet
+                      "s f" 'yas-visit-snippet-file)
   :config
   (let ((my-snippet-dir (concat user-init-dir "snippets")))
     (setq-default yas-snippet-dirs `(,my-snippet-dir)))
   (yas-global-mode)
   (setq yas-indent-line 'auto
         yas-also-auto-indent-first-line t)
-  ;; evil-leader keybinds
   (define-key snippet-mode-map [remap evil-save-and-close]
     'yas-load-snippet-buffer-and-close)
   (define-key snippet-mode-map [remap evil-save-modified-and-close]
