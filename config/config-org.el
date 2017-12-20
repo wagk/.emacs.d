@@ -150,7 +150,15 @@ text."
 
 (use-package evil-org
   :after org
-  :demand t)
+  :demand t
+  :config
+  (evil-org-set-key-theme '(textobjects
+                            insert
+                            navigation
+                            additional
+                            shift
+                            todo
+                            heading)))
 
 (use-package worf)
 
