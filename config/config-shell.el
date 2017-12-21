@@ -22,12 +22,10 @@
              (eq system-type 'windows-nt)) (setq multi-term-program "cmd"))
         (t (setq multi-term-program "/bin/bash")))
 
-  ;; (add-hook 'term-mode-hook
-  ;;           #'(lambda () (evil-make-overriding-map term-mode-map)))
   (add-hook 'term-mode-hook
             #'(lambda ()
-                (evil-local-set-key 'motion (kbd "RET") 'term-send-input)
-                (evil-local-set-key 'normal (kbd "RET") 'term-send-input)
+                (evil-local-set-key 'motion (kbd "RET") nil)
+                (evil-local-set-key 'normal (kbd "RET") nil)
                 (evil-local-set-key 'insert (kbd "RET") 'term-send-input)
                 ))
   )
