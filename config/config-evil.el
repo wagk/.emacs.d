@@ -60,12 +60,12 @@ word"
 
 (use-package evil
   :demand t
-  :bind (("C-f" . universal-argument)
+  :bind (;; ("C-f" . universal-argument)
          ("C-u" . kill-whole-line)
          ("C-j" . newline-and-indent)
-         :map universal-argument-map
-         ("C-u" . nil)
-         ("C-f" . universal-argument-more)
+         ;; :map universal-argument-map
+         ;; ("C-u" . nil)
+         ;; ("C-f" . universal-argument-more)
          :map evil-insert-state-map
          ("C-l" . evil-complete-next-line)
          ("C-L" . evil-complete-previous-line)
