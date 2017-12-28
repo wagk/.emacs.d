@@ -6,7 +6,8 @@
 (require 'config-package)
 
 (use-package rust-mode
-  :mode ("\\.rs\\'" . rust-mode))
+  :mode (("\\.rs\\'" . rust-mode)
+         ("\\.toml\\'" . rust-mode)))
 
 (provide 'config-rust)
 
