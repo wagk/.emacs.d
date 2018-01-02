@@ -4,8 +4,8 @@
 
 ;;; Code:
 (require 'config-package)
-(require 'config-org)
-(require 'config-evil)
+;; (require 'config-org)
+;; (require 'config-evil)
 
 ;; (defun /new-org-journal-entry ()
 ;;   "Creates a org journal entry with a timestamp"
