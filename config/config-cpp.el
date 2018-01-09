@@ -4,6 +4,7 @@
 
 ;;; Code:
 (require 'config-package)
+(require 'config-buffer)
 
 (use-package irony
   :init
@@ -32,6 +33,16 @@
 ;;   (setq-local electric-pair-text-pairs electric-pair-pairs))
 
 ;; (add-hook 'c++-mode-hook #'$c++-mode-add-pairs)
+
+(use-package cmake-mode
+  :mode ("\\cmakelists.txt\\'" . cmake-mode)
+  :config
+  (add-hook 'cmake-mode-hook 'hl-todo-mode)
+  )
+
+(use-package cmake-font-lock
+  :after cmake-mode
+  :demand t)
 
 (provide 'config-cpp)
 
