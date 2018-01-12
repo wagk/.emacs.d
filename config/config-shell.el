@@ -18,17 +18,14 @@
   :init
   (evil-ex-define-cmd "te[rminal]" 'multi-term)
   :config
-  (cond ((or (eq system-type 'ms-dos)
-             (eq system-type 'windows-nt)) (setq multi-term-program "cmd"))
-        (t (setq multi-term-program "/bin/bash")))
+  ;; (cond ((or (eq system-type 'ms-dos)
+  ;;            (eq system-type 'windows-nt)) (setq multi-term-program "cmd"))
+  ;;       (t (setq multi-term-program "/bin/bash")))
 
-  (add-hook 'term-mode-hook
-            #'(lambda ()
-                (evil-local-set-key 'motion (kbd "RET") nil)
-                (evil-local-set-key 'normal (kbd "RET") nil)
-                (evil-local-set-key 'insert (kbd "RET") 'term-send-input)
-                ))
+  (add-hook 'term-mode-hook 'turn-off-evil-mode)
   )
+
+(add-hook 'eshell-mode-hook 'turn-off-evil-mode)
 
 (use-package powershell)
 (provide 'config-shell)

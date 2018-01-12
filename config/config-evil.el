@@ -106,7 +106,7 @@ word"
         evil-split-window-below nil
         evil-vsplit-window-right nil)
 
-  (add-hook 'view-mode-hook 'evil-motion-state)
+  ;; (add-hook 'view-mode-hook 'evil-motion-state)
 
   ;; (evil-define-text-object /a-forward-slash (count &optional beg end type)
   ;;   "Select forward slash (/)"
