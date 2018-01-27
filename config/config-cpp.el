@@ -15,6 +15,13 @@
   :config
   (setq w32-pipe-read-delay 0))
 
+(use-package company-irony
+  :after company
+  :defer nil
+  :config
+  (add-to-list 'company-backends 'company-irony)
+  )
+
 ;; treat .h files as cpp files
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 

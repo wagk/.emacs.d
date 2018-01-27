@@ -1,9 +1,6 @@
 # -*- mode: snippet -*-
 # name: cpp-comment-block
 # key: d
-#
-# Basically a docstring, so.....
-#
 # --
 /*
   $0
