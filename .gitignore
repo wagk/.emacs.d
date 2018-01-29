@@ -25,6 +25,7 @@ spu_log/*
 /emacs_backtrace.txt
 /kkcrc
 /some_wcustom.el
+/url/*
 /url/cookies
 /local-packages/evil-cleverparens/
 /srecode-map.el
