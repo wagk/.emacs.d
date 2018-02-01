@@ -89,7 +89,9 @@
 (use-package crosshairs)
 
 (use-package which-key
-  :demand t)
+  :demand t
+  :config
+  (which-key-mode))
 
 ;;;###autoload
 (defun /line-lengths()

@@ -2,6 +2,6 @@
 # name: javascript-function
 # key: def
 # --
-function ${1:foo}($2){
+function$1($2){
   $0
-}
+};
