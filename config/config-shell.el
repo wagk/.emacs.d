@@ -15,6 +15,13 @@
 
 (add-hook 'comint-mode-hook 'turn-off-evil-mode)
 
+;; (evil-make-overriding-map term-mode-map 'motion)
+
+(general-define-key
+ :states '(normal insert motion)
+ :keymaps 'term-mode-map
+ "RET" 'term-send-input)
+
 (use-package multi-term
   :after evil
   :init
