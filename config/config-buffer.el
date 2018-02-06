@@ -9,8 +9,70 @@
 (require 'config-common)
 (require 'config-colors)
 
+
+(add-hook 'prog-mode-hook 'hs-minor-mode)
+
+;; no startup screen
+(setq inhibit-startup-screen t)
+
+;; startup maximised
+(custom-set-variables
+ '(initial-frame-alist (quote ((fullscreen . maximized)))))
+(custom-set-variables
+ '(default-frame-alist (add-to-list 'default-frame-alist
+                                    '(fullscreen . maximized))))
+
+
+(setq require-final-newline t)
+
+;; remove annoying bell sound
+(setq ring-bell-function 'ignore)
+
+;; Save buffer state
+(setq history-length 250)
+
+;; Display time
+(display-time-mode 1)
+
+;; strip whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(general-define-key :prefix my-default-evil-leader-key
+                    "." 'whitespace-mode)
+
+;; automatically refresh buffer when changed outside
+(global-auto-revert-mode t)
+
+;; Remove toolbar
+(progn (tool-bar-mode -1)
+       (menu-bar-mode -1)
+       (scroll-bar-mode -1)
+       (window-divider-mode -1))
+
+(setq tab-always-indent 'complete)
+
+(setq-default truncate-lines    t  ;; no wrap
+              indent-tabs-mode nil ;; do not use tabs when indenting
+              tab-width         2
+              auto-hscroll-mode t)
+
+;; autopairing
+(electric-pair-mode 1)
+
+;; Change "yes or no" to "y or n"
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Frame-related functions
+(add-hook 'after-make-frame-functions 'select-frame)
+
+;; adjust autosave and backup directories
+(setq backup-directory-alist `(("." . ,(concat user-init-dir "/backups/")))
+      delete-old-versions -1
+      version-control t
+      vc-make-backup-files t
+      auto-save-file-name-transforms `((".*" ,(concat user-init-dir "/autosave/") t)))
+
 (use-package highlight-indent-guides
-  :hook (prog-mode . highlight-indent-guides-mode)
+  ;; :hook (prog-mode . highlight-indent-guides-mode)
   :config
   (general-define-key :prefix my-default-evil-leader-key
                       "'" 'highlight-indent-guides-mode)
@@ -127,8 +189,14 @@
         (fringe-mode nil)
         (put '/centre-window-function 'active nil)))))
 
-(general-define-key :prefix my-default-evil-leader-key
-                    ";" '/centre-window-function)
+;; (general-define-key :prefix my-default-evil-leader-key
+;;                     ";" '/centre-window-function)
+
+(use-package centered-window-mode
+  :disabled t
+  :ensure t
+  :config
+  (centered-window-mode t))
 
 ;;;###autoload
 (defun /set-frame-transparency (value)
@@ -136,67 +204,6 @@
 0=transparent/100=opaque"
   (interactive "nTransparency Value 0 - 100 opaque:")
   (set-frame-parameter (selected-frame) 'alpha value))
-
-(add-hook 'prog-mode-hook 'hs-minor-mode)
-
-;; no startup screen
-(setq inhibit-startup-screen t)
-
-;; startup maximised
-(custom-set-variables
- '(initial-frame-alist (quote ((fullscreen . maximized)))))
-(custom-set-variables
- '(default-frame-alist (add-to-list 'default-frame-alist
-                                    '(fullscreen . maximized))))
-
-
-(setq require-final-newline t)
-
-;; remove annoying bell sound
-(setq ring-bell-function 'ignore)
-
-;; Save buffer state
-(setq history-length 250)
-
-;; Display time
-(display-time-mode 1)
-
-;; strip whitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(general-define-key :prefix my-default-evil-leader-key
-                    "." 'whitespace-mode)
-
-;; automatically refresh buffer when changed outside
-(global-auto-revert-mode t)
-
-;; Remove toolbar
-(progn (tool-bar-mode -1)
-       (menu-bar-mode -1)
-       (scroll-bar-mode -1)
-       (window-divider-mode -1))
-
-(setq tab-always-indent 'complete)
-
-(setq-default truncate-lines    t  ;; no wrap
-              indent-tabs-mode nil ;; do not use tabs when indenting
-              tab-width         2
-              auto-hscroll-mode t)
-
-;; autopairing
-(electric-pair-mode 1)
-
-;; Change "yes or no" to "y or n"
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; Frame-related functions
-(add-hook 'after-make-frame-functions 'select-frame)
-
-;; adjust autosave and backup directories
-(setq backup-directory-alist `(("." . ,(concat user-init-dir "/backups/")))
-      delete-old-versions -1
-      version-control t
-      vc-make-backup-files t
-      auto-save-file-name-transforms `((".*" ,(concat user-init-dir "/autosave/") t)))
 
 (provide 'config-buffer)
 

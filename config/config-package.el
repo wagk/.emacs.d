@@ -11,7 +11,7 @@
 (add-to-list 'package-archives '("melpa-2" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
 
