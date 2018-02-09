@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: plantuml-state
+# key: state
+# --
+state "${1:foo}" as $2$0

@@ -14,11 +14,27 @@
 ;;   )
 
 (add-hook 'comint-mode-hook 'turn-off-evil-mode)
+;; (add-hook 'term-mode-hook 'turn-off-evil-mode)
 
 (use-package multi-term
   :after evil
   :init
   (evil-ex-define-cmd "te[rminal]" 'multi-term)
+  ;; I do not understand how this works, and it worries me some.
+  (add-hook 'term-mode-hook #'(lambda ()
+                                (evil-local-set-key 'motion (kbd "RET") 'term-send-input)
+                                (evil-local-set-key 'insert (kbd "RET") 'term-send-input)
+                                ))
+  :config
+  (evil-make-overriding-map term-mode-map)
+
+  ;; I do not understand why this does *not* work and yet the lambda one does,
+  ;; and it worries me quite a bit
+
+  ;; (general-define-key
+  ;;  :states '(motion insert)
+  ;;  :keymaps 'local
+  ;;  "RET" 'term-send-input)
   )
 
 (use-package powershell)
