@@ -18,6 +18,19 @@
 ;; TODO; figure out what this does
 (package-initialize)
 
+;; el-get stuff
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(el-get 'sync)
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -34,6 +47,14 @@
 
 (use-package diminish)
 (use-package bind-key)
+
+(use-package use-package-el-get
+  :demand t
+  :config
+  (use-package-el-get-setup))
+
+(use-package use-package-ensure-system-package
+  :demand t)
 
 ;; be aware that updates might adjust the load path to the .el files and
 ;; cause loading problems. Helm seems to be a victim of this a lot
@@ -52,19 +73,6 @@
   (auto-compile-on-load-mode)
   (auto-compile-on-save-mode)
   )
-
-;; el-get stuff
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(el-get 'sync)
 
 (provide 'config-package)
 

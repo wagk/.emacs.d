@@ -194,7 +194,7 @@
 
 (use-package centered-window-mode
   :disabled t
-  :ensure t
+  :el-get centered-window-mode
   :config
   (centered-window-mode t))
 
