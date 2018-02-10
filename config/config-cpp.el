@@ -12,8 +12,6 @@
   (add-hook 'c-mode-hook 'irony-mode)
   (add-hook 'objc-mode-hook 'irony-mode)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-  :custom
-  ;; (c-syntactic-indentation nil)
   :config
   (setq w32-pipe-read-delay 0))
 
@@ -42,6 +40,15 @@
 ;;   (setq-local electric-pair-text-pairs electric-pair-pairs))
 
 ;; (add-hook 'c++-mode-hook #'$c++-mode-add-pairs)
+
+(use-package clang-format
+  :commands (clang-format-region
+             clang-format-buffer
+             clang-format)
+  :init
+  (add-hook 'c++-mode-hook 'clang-format-buffer)
+  :custom
+  (clang-format-style-option "file" "read from .clang-format"))
 
 (use-package cmake-mode
   :mode ("\\cmakelists.txt\\'" . cmake-mode)
