@@ -55,6 +55,9 @@
               tab-width         2
               auto-hscroll-mode t)
 
+;; buffer encoding systems
+(prefer-coding-system 'utf-8)
+
 ;; autopairing
 (electric-pair-mode 1)
 

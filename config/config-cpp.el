@@ -28,7 +28,14 @@
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;; gnu indent style is mildly retarded
-(setq-default c-default-style "k&r")
+(setq-default c-default-style "k&r"
+              c-basic-offset 4)
+
+(defun my-cpp-mode-configs ()
+  "Configurations for c++-mode, since it doesn't have"
+  (setq tab-width 4))
+
+(add-hook 'c++-mode-hook 'my-cpp-mode-configs)
 
 ;; we don't electric pair <> because it interferes with << operators
 
@@ -43,6 +50,7 @@
 
 ;; (add-hook 'c++-mode-hook #'$c++-mode-add-pairs)
 
+;; make sure that this is running clang-format 7 or something. A newer version
 (use-package clang-format
   :commands (clang-format-region
              clang-format-buffer
@@ -52,9 +60,9 @@
   (defun my-clang-format-before-save ()
     (require 'projectile)
     (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
-      (add-hook 'before-save-hook 'clang-format-buffer nil t)))
+      (add-hook 'before-save-hook 'clang-format-buffer t t)))
   (add-hook 'c++-mode-hook #'my-clang-format-before-save)
-  (add-to-list 'aggressive-indent-excluded-modes 'c++-mode)
+  ;; (add-to-list 'aggressive-indent-excluded-modes 'c++-mode)
   :custom
   (clang-format-style-option "file" "read from .clang-format"))
 
