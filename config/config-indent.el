@@ -7,8 +7,10 @@
 
 (use-package aggressive-indent
   :diminish t
-  :init
-  (global-aggressive-indent-mode))
+  :demand t
+  :config
+  (global-aggressive-indent-mode)
+  )
 
 (use-package aggressive-fill-paragraph
   ;; :disabled ;; this package annoys me. Probably needs more config

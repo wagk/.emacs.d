@@ -5,6 +5,8 @@
 ;;; Code:
 (require 'config-package)
 (require 'config-buffer)
+(require 'config-project)
+(require 'config-indent)
 
 (use-package irony
   :init
@@ -46,7 +48,13 @@
              clang-format-buffer
              clang-format)
   :init
-  (add-hook 'c++-mode-hook 'clang-format-buffer)
+  ;; IF there is a .clang-format, then use that to format before saving
+  (defun my-clang-format-before-save ()
+    (require 'projectile)
+    (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
+      (add-hook 'before-save-hook 'clang-format-buffer nil t)))
+  (add-hook 'c++-mode-hook #'my-clang-format-before-save)
+  (add-to-list 'aggressive-indent-excluded-modes 'c++-mode)
   :custom
   (clang-format-style-option "file" "read from .clang-format"))
 
