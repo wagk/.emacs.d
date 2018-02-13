@@ -14,11 +14,11 @@
   (add-hook 'c-mode-hook 'irony-mode)
   (add-hook 'objc-mode-hook 'irony-mode)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-  :config
-  (setq w32-pipe-read-delay 0))
+  :custom
+  (w32-pipe-read-delay 0))
 
 (use-package company-irony
-  :after company
+  :after (company irony)
   :defer nil
   :config
   (add-to-list 'company-backends 'company-irony)
