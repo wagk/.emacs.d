@@ -6,6 +6,7 @@
 ;; https://github.com/bbatsov/emacs-lisp-style-guide
 ;; https://github.com/noctuid/evil-guide
 
+;; Latest builds can be found at:: alpha.gnu.org/gnu/emacs/pretest/windows/
 ;; https://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
 
 ;;; Code:
