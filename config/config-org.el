@@ -64,7 +64,7 @@ text."
                       "o t" 'org-time-stamp
                       "o T" #'/this-time
                       "o o" 'org-capture
-                      "o i" 'org-refile)
+                      "o r" 'org-refile)
   :config
   (org-toggle-link-display)
   ;;Use google drive if available
@@ -95,40 +95,30 @@ text."
   (add-hook 'org-mode-hook '(lambda ()
                               (setq paragraph-start "\\|[     ]*$"
                                     paragraph-separate "[       ]*$")))
-  (progn (require                'evil)
-         (evil-declare-key       'normal org-mode-map
-           (kbd "TAB")           'org-cycle
-           (kbd "z a")           'org-cycle
-           ;; (kbd "RET")        '/evil-org-new-item-or-header
-           ;; [(shift return)]   '/evil-org-new-item-or-header
-           ;; (kbd "S-RET")      '/evil-org-new-item-or-header
-           ;; (kbd "S-<return>") '/evil-org-new-item-or-header
-           (kbd "S-SPC")         '/evil-org-toggle-checkbox
-           (kbd "L")             'org-shiftright
-           (kbd "H")             'org-shiftleft
-           (kbd "K")             'org-shiftup
-           (kbd "J")             'org-shiftdown
-           (kbd "M-l")           'org-metaright
-           (kbd "M-h")           'org-metaleft
-           (kbd "M-k")           'org-metaup
-           (kbd "M-j")           'org-metadown
-           (kbd "C-M-RET")       'org-insert-subheading
-           (kbd "M-L")           '(/evil-update-cursor-eol(org-shiftmetaright))
-           (kbd "M-H")           '(/evil-update-cursor-eol(org-shiftmetaleft))
-           (kbd "M-K")           '(/evil-update-cursor-eol(org-shiftmetaup))
-           (kbd "M-L")           '(/evil-update-cursor-eol(org-shiftmetadown)))
-         (evil-declare-key       'insert org-mode-map
-           (kbd "RET")           'newline-and-indent
-           (kbd "C-M-RET")       'org-insert-subheading
-           (kbd "M-l")           'org-metaright
-           (kbd "M-h")           'org-metaleft
-           (kbd "M-k")           'org-metaup
-           (kbd "M-j")           'org-metadown
-           (kbd "M-L")           'org-shiftmetaright
-           (kbd "M-H")           'org-shiftmetaleft
-           (kbd "M-K")           'org-shiftmetaup
-           (kbd "M-L")           'org-shiftmetadown)
-         )
+  (general-define-key :keymap 'org-mode-map
+                      :states '(normal insert)
+                      "M-l"     'org-metaright
+                      "M-h"     'org-metaleft
+                      "M-k"     'org-metaup
+                      "M-j"     'org-metadown
+                      "C-M-RET" 'org-insert-subheading
+                      "M-L"     '(/evil-update-cursor-eol(org-shiftmetaright))
+                      "M-H"     '(/evil-update-cursor-eol(org-shiftmetaleft))
+                      "M-K"     '(/evil-update-cursor-eol(org-shiftmetaup))
+                      "M-L"     '(/evil-update-cursor-eol(org-shiftmetadown)))
+  (general-define-key :keymap 'org-mode-map
+                      :states 'normal
+                      "TAB"     'org-cycle
+                      "z a"     'org-cycle
+                      "S-SPC"   '/evil-org-toggle-checkbox
+                      "L"       'org-shiftright
+                      "H"       'org-shiftleft
+                      "K"       'org-shiftup
+                      "J"       'org-shiftdown)
+  (general-define-key :keymap 'org-mode-map
+                      :states 'insert
+                      "RET"     'newline-and-indent)
+
   ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
   (with-eval-after-load "org-capture"
     (define-key org-capture-mode-map [remap evil-save-and-close]

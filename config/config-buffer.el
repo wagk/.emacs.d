@@ -29,7 +29,7 @@
 (setq ring-bell-function 'ignore)
 
 ;; Save buffer state
-(setq history-length 250)
+(setq history-length 1000)
 
 ;; Display time
 (display-time-mode 1)
@@ -164,6 +164,7 @@
 
 ;;;###autoload
 (defun /line-lengths()
+  "Return a list of line lengths for all the lines in the buffer."
   (let (length)
     (save-excursion
       (goto-char (point-min))
@@ -177,13 +178,15 @@
 
 ;;;###autoload
 (defun /longest-line-length()
+  "Return the longest line from the list of lines given."
   (let ((lines (/line-lengths)))
     ;; return the first element, which should be the largest
     (nth 0 (sort lines '>))))
 
 ;;;###autoload
 (defun /centre-window-function()
-  ""
+  "Offset the window margins based on the longest line in the buffer.
+This effectively centers it."
   (interactive)
   (let ((margin-size (/ (abs (- (window-width) (/longest-line-length))) 2)))
     (if (not (get '/centre-window-function 'active))
@@ -207,7 +210,7 @@
 
 ;;;###autoload
 (defun /set-frame-transparency (value)
-  "Set the transparency of the frame window.
+  "Set the transparency of the frame window to VALUE.
 0=transparent/100=opaque"
   (interactive "nTransparency Value 0 - 100 opaque:")
   (set-frame-parameter (selected-frame) 'alpha value))
