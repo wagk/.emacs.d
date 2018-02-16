@@ -8,17 +8,27 @@
 (require 'config-project)
 (require 'config-indent)
 
+;; We are disabling this for the moment because the irony server is crashing all
+;; the time and the input lag is annoying
 (use-package irony
+  :disabled t
   :init
   (add-hook 'c++-mode-hook 'irony-mode)
   (add-hook 'c-mode-hook 'irony-mode)
   (add-hook 'objc-mode-hook 'irony-mode)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-  :custom
-  (w32-pipe-read-delay 0))
+  :config
+  ;; Windows performance tweaks
+  ;;
+  (when (boundp 'w32-pipe-read-delay)
+    (setq w32-pipe-read-delay 0))
+  ;; Set the buffer size to 64K on Windows (from the original 4K)
+  (when (boundp 'w32-pipe-buffer-size)
+    (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
+  )
 
 (use-package company-irony
-  :after (company irony)
+  :after (:all company irony)
   :defer nil
   :config
   (add-to-list 'company-backends 'company-irony)
@@ -33,7 +43,13 @@
 
 (defun my-cpp-mode-configs ()
   "Configurations for c++-mode, since it doesn't have"
-  (setq tab-width 4))
+  (setq tab-width 4)
+  (when (featurep 'flycheck)
+    (defun my-disable-clang-checker ()
+      ;;We disable the clang checker for pretty much the same reason we disabled
+      ;;irony
+      (setq flycheck-c/c++-clang-executable nil))
+    (add-hook 'flycheck-mode-hook 'my-disable-clang-checker)))
 
 (add-hook 'c++-mode-hook 'my-cpp-mode-configs)
 
