@@ -95,7 +95,7 @@ text."
   (add-hook 'org-mode-hook '(lambda ()
                               (setq paragraph-start "\\|[     ]*$"
                                     paragraph-separate "[       ]*$")))
-  (general-define-key :keymap 'org-mode-map
+  (general-define-key :keymaps 'org-mode-map
                       :states '(normal insert)
                       "M-l"     'org-metaright
                       "M-h"     'org-metaleft
@@ -106,7 +106,7 @@ text."
                       "M-H"     '(/evil-update-cursor-eol(org-shiftmetaleft))
                       "M-K"     '(/evil-update-cursor-eol(org-shiftmetaup))
                       "M-L"     '(/evil-update-cursor-eol(org-shiftmetadown)))
-  (general-define-key :keymap 'org-mode-map
+  (general-define-key :keymaps 'org-mode-map
                       :states 'normal
                       "TAB"     'org-cycle
                       "z a"     'org-cycle
@@ -115,7 +115,7 @@ text."
                       "H"       'org-shiftleft
                       "K"       'org-shiftup
                       "J"       'org-shiftdown)
-  (general-define-key :keymap 'org-mode-map
+  (general-define-key :keymaps 'org-mode-map
                       :states 'insert
                       "RET"     'newline-and-indent)
 

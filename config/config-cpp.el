@@ -44,12 +44,18 @@
 (defun my-cpp-mode-configs ()
   "Configurations for c++-mode, since it doesn't have"
   (setq tab-width 4)
-  (when (featurep 'flycheck)
-    (defun my-disable-clang-checker ()
+  (with-eval-after-load 'flycheck
+    (defun my-disable-flycheck-clang-checker ()
       ;;We disable the clang checker for pretty much the same reason we disabled
       ;;irony
-      (setq flycheck-c/c++-clang-executable nil))
-    (add-hook 'flycheck-mode-hook 'my-disable-clang-checker)))
+      (add-to-list 'flycheck-disabled-checkers 'c/c++-clang))
+    (add-hook 'flycheck-mode-hook 'my-disable-flycheck-clang-checker))
+  (with-eval-after-load 'company
+    (defun my-disable-company-clang-backend ()
+      (make-local-variable 'company-backends)
+      (setq company-backends (delete 'company-clang company-backends))))
+  (add-hook 'c++-mode-hook 'my-disable-company-clang-backend)
+  )
 
 (add-hook 'c++-mode-hook 'my-cpp-mode-configs)
 
