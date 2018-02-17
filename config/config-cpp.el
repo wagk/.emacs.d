@@ -51,11 +51,13 @@
       (add-to-list 'flycheck-disabled-checkers 'c/c++-clang))
     (add-hook 'flycheck-mode-hook 'my-disable-flycheck-clang-checker))
   (with-eval-after-load 'company
-    (defun my-disable-company-clang-backend ()
-      (make-local-variable 'company-backends)
-      (setq company-backends (delete 'company-clang company-backends))))
-  (add-hook 'c++-mode-hook 'my-disable-company-clang-backend)
-  )
+    (make-local-variable 'company-backends)
+    (let ((curr-backends company-backends)
+          (new-backends (list)))
+      (dolist (backend curr-backends)
+        (unless (equal (car backend) 'company-clang)
+          (add-to-list 'new-backends backend)))
+      (setq company-backends new-backends))))
 
 (add-hook 'c++-mode-hook 'my-cpp-mode-configs)
 
