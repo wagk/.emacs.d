@@ -28,6 +28,7 @@
   )
 
 (use-package company-irony
+  :disabled t
   :after (:all company irony)
   :defer nil
   :config
@@ -49,7 +50,8 @@
       ;;We disable the clang checker for pretty much the same reason we disabled
       ;;irony
       (add-to-list 'flycheck-disabled-checkers 'c/c++-clang))
-    (add-hook 'flycheck-mode-hook 'my-disable-flycheck-clang-checker))
+    (add-hook 'flycheck-mode-hook 'my-disable-flycheck-clang-checker)
+    (flycheck-mode -1))
   (with-eval-after-load 'company
     (make-local-variable 'company-backends)
     (let ((curr-backends company-backends)
@@ -57,7 +59,10 @@
       (dolist (backend curr-backends)
         (unless (equal (car backend) 'company-clang)
           (add-to-list 'new-backends backend)))
-      (setq company-backends new-backends))))
+      (setq company-backends new-backends))
+    (company-mode -1)
+    (global-company-mode -1))
+  )
 
 (add-hook 'c++-mode-hook 'my-cpp-mode-configs)
 

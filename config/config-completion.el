@@ -136,6 +136,8 @@ Used for 'auto-insert'"
 ;;   :ensure t
 ;;   )
 
+(add-hook 'prog-mode-hook #'(lambda () (abbrev-mode -1)))
+
 (provide 'config-completion)
 
 ;;; config-completion.el ends here
