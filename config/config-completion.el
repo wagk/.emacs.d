@@ -63,14 +63,15 @@ Used for 'auto-insert'"
 ;;   )
 
 (use-package company
+  :disabled t
   :bind(
         ;; :map evil-insert-state-map
         ;;      ("C-p" . company-complete)
         ;;      ("C-n" . company-complete)
         :map company-active-map
-             ("C-j" . company-select-next)
-             ("C-k" . company-select-previous)
-             ("C-w" . evil-delete-backward-word))
+        ("C-j" . company-select-next)
+        ("C-k" . company-select-previous)
+        ("C-w" . evil-delete-backward-word))
   :hook (prog-mode . company-mode)
   :config
   (global-company-mode)

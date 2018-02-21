@@ -140,6 +140,18 @@ text."
          (add-hook 'org-mode-hook #'aggressive-fill-paragraph-mode))
   )
 
+
+(use-package org-wiki
+  :preface
+  (let ((url "https://raw.githubusercontent.com/caiorss/org-wiki/master/org-wiki.el"))
+    (with-current-buffer (url-retrieve-synchronously url)
+      (goto-char (point-min))
+      (re-search-forward "^$")
+      (delete-region (point) (point-min))
+      (kill-whole-line)
+      (package-install-from-buffer)))
+  )
+
 (use-package evil-org
   :disabled t
   :after org
