@@ -50,6 +50,7 @@ Used for 'auto-insert'"
 (define-auto-insert "\\.h$"   ["cpp-h-template" /auto-insert-yasnippet])
 (define-auto-insert "\\.cpp$" ["cpp-template" /auto-insert-yasnippet])
 (define-auto-insert "\\.sh$"  ["sh-template" /auto-insert-yasnippet])
+(define-auto-insert "\\.php$" ["php-template" /auto-insert-yasnippet])
 
 (defun yas-with-comment (str)
   (format "%s%s%s" comment-start str comment-end))

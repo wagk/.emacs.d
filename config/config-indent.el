@@ -9,7 +9,8 @@
   :diminish t
   :demand t
   :config
-  (global-aggressive-indent-mode)
+  (add-hook 'python-mode-hook 'aggressive-indent-mode)
+  ;; (global-aggressive-indent-mode)
   )
 
 (use-package aggressive-fill-paragraph

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: php-member-function
+# key: defm
+# --
+${3:public} function ${1:foo}($2)
+{
+  $0
+}
