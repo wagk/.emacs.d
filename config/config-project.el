@@ -9,17 +9,20 @@
 (require 'config-evil)
 
 (use-package projectile
+  :demand t
   :config
   (projectile-mode)
   )
 
 (use-package helm-projectile
+  :after (projectile)
   :init
   (general-define-key :prefix my-default-evil-leader-key
                       "p p" 'helm-projectile)
   )
 
 (use-package org-projectile
+  :after (projectile)
   :init
   (general-define-key :prefix my-default-evil-leader-key
                       "o p" 'org-projectile:project-todo-completing-read)

@@ -8,6 +8,7 @@
 (require 'config-helm)
 
 (use-package yasnippet
+  :demand t
   :commands yas-expand-snippet
   :bind(:map yas-keymap
              ("C-j" . yas-next-field-or-maybe-expand)
