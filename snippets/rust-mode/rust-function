@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: rust-function
+# key: def
+# --
+fn ${1:foo}($2) $3
+{
+  $0
+}
