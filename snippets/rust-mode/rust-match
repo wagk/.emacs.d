@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: rust-match
+# key: match
+# --
+match $1 {
+      $0
+}

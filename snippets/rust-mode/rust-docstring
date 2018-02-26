@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rust-docstring
+# key: C
+# --
+/// $0
