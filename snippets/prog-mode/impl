@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: impl
+# key: ii
+# --
+`(yas-with-comment "IMPL: ")`

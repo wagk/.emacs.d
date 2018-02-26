@@ -107,7 +107,7 @@
                           `(("TODO"  . ,$solarized-dark-yellow)
                             ("DEBUG" . ,$solarized-dark-magenta)
                             ("BUG"   . ,$solarized-dark-red)
-                            ("DONE"  . ,$solarized-dark-green)
+                            ("IMPL"  . ,$solarized-dark-green)
                             ("NOTE"  . ,$solarized-dark-base1)
                             ("HACK"  . ,$solarized-dark-violet)
                             ("FIXME" . ,$solarized-dark-orange)))

@@ -1,0 +1,6 @@
+# key: elif
+# name: php-elseif
+# --
+elseif ($1) {
+       $0
+} 
