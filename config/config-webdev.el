@@ -51,7 +51,8 @@
   (add-hook 'groovy-mode-hook #'/treat-underscore-as-word)
   )
 
-(use-package php-mode)
+(use-package php-mode
+  :mode ("\\.php\\'" . php-mode))
 
 (use-package dockerfile-mode
   :mode ("\\Dockerfile\\'" . dockerfile-mode)

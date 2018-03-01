@@ -28,8 +28,8 @@
                       "y"     'helm-show-kill-ring
                       "h h"   'helm-apropos
                       "-"     'helm-find-files
-                      "_"     'helm-mini
-                      "b b"   'helm-bookmarks)
+                      "b"     'helm-mini
+                      "B"     'helm-bookmarks)
   :bind(:map helm-map
              ("C-w" . evil-delete-backward-word)
              ("\\"  . helm-select-action)
