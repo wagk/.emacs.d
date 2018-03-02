@@ -6,9 +6,9 @@
 (require 'config-package)
 
 (use-package flycheck
-  :disabled t
+  :disabled
   ;; :demand t ;; this is very important
-  :hook (prog-mode . flycheck-mode-on-safe)
+  ;; :hook (prog-mode . flycheck-mode-on-safe)
   ;; (add-hook 'prog-mode-hook 'flycheck-mode-on-safe)
   )
 

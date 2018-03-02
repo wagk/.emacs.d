@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: json-key
+# key: k
+# --
+"$1" : ${2:null}$0

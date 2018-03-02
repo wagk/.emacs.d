@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: elisp-function
+# key: def
+# --
+(defun ${1:foo} ($2)
+       "${3:docstring for $1}"
+       $0)
