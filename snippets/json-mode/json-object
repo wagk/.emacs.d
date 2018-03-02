@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: json-object
+# key: d
+# --
+{
+  $0
+}

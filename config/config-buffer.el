@@ -78,6 +78,16 @@
       vc-make-backup-files t
       auto-save-file-name-transforms `((".*" ,(concat user-init-dir "/autosave/") t)))
 
+(defun my-goto-scratch-buffer ()
+  "When called goes to the scratch buffer.
+TODO: Make it take an argument that specifies which mode it should enter the
+buffer in."
+  (interactive)
+  (switch-to-buffer "*scratch*")
+  )
+
+(evil-ex-define-cmd "sc[ratch]" 'my-goto-scratch-buffer)
+
 (use-package highlight-indent-guides
   ;; :hook (prog-mode . highlight-indent-guides-mode)
   :config
@@ -134,7 +144,9 @@
   (powerline-vim-theme))
 
 ;; https://github.com/larstvei/Focus
-(use-package focus)
+(use-package focus
+  :init
+  (evil-ex-define-cmd "fo[cus]" 'focus-mode))
 
 (use-package minimap
   :commands minimap-mode
