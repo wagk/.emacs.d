@@ -71,6 +71,10 @@
 ;; Frame-related functions
 (add-hook 'after-make-frame-functions 'select-frame)
 
+;; speed optimisation
+;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
+(setq-default auto-window-vscroll nil)
+
 ;; adjust autosave and backup directories
 (setq backup-directory-alist `(("." . ,(concat user-init-dir "/backups/")))
       delete-old-versions -1
@@ -87,6 +91,16 @@ buffer in."
   )
 
 (evil-ex-define-cmd "sc[ratch]" 'my-goto-scratch-buffer)
+
+(defun my-goto-messages-buffer ()
+  "When called goes to the Messages buffer.
+TODO: Make it take an argument that specifies which mode it should enter the
+buffer in."
+  (interactive)
+  (switch-to-buffer "*Messages*")
+  )
+
+(evil-ex-define-cmd "me[ssages]" 'my-goto-messages-buffer)
 
 (use-package highlight-indent-guides
   ;; :hook (prog-mode . highlight-indent-guides-mode)
@@ -146,6 +160,8 @@ buffer in."
 ;; https://github.com/larstvei/Focus
 (use-package focus
   :init
+  (general-define-key :prefix my-default-evil-leader-key
+                      "f f" 'focus-mode)
   (evil-ex-define-cmd "fo[cus]" 'focus-mode))
 
 (use-package minimap
