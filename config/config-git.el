@@ -31,7 +31,7 @@
               ("] h" . git-gutter+-next-hunk)
               ("g h s" . git-gutter+-stage-hunks)
               ("g h u" . git-gutter+-revert-hunks)
-              ("g h p" . git-gutter+-show-hunk-inline-at-point)
+              ("g h h" . git-gutter+-show-hunk-inline-at-point)
               )
   :defer 1
   ;; :hook (prog-mode . git-gutter+-mode)
