@@ -26,10 +26,13 @@
   :mode ("\\.js\\'" . js2-mode)
   )
 
+;; https://github.com/smihica/emmet-mode
+;; ;TODO: Write down the cheatsheet or something
 (use-package emmet-mode
-  :bind (:map emmet-mode-keymap
-              ("C-j" . emmet-next-edit-point)
-              ("C-k" . emmet-prev-edit-point))
+  :bind (("<C-tab>" . emmet-expand-line)
+         :map emmet-mode-keymap
+         ("C-j" . emmet-next-edit-point)
+         ("C-k" . emmet-prev-edit-point))
   :init
   (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.
