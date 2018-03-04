@@ -29,3 +29,5 @@ spu_log/*
 /url/cookies
 /local-packages/evil-cleverparens/
 /srecode-map.el
+*.exe
+/elpa/gnupg/pubring.bak
