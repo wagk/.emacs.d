@@ -23,8 +23,8 @@ then insert a new item instead"
   (interactive)
   (if (not (org-at-item-checkbox-p))
       (save-excursion (org-toggle-checkbox '(4))) ;; Prefix arguments are WEIRD
-    (org-toggle-checkbox)
-    ))
+    (org-toggle-checkbox))
+    (end-of-line))
 
 ;;;###autoload
 (defun /org-toggle-checkbox-or-table-down (n)
@@ -101,6 +101,7 @@ text."
                       "M-h"     'org-metaleft
                       "M-k"     'org-metaup
                       "M-j"     'org-metadown
+                      "S-SPC"   '/evil-org-toggle-checkbox
                       "C-M-RET" 'org-insert-subheading
                       "M-L"     '(/evil-update-cursor-eol(org-shiftmetaright))
                       "M-H"     '(/evil-update-cursor-eol(org-shiftmetaleft))
@@ -110,7 +111,6 @@ text."
                       :states 'normal
                       "TAB"     'org-cycle
                       "z a"     'org-cycle
-                      "S-SPC"   '/evil-org-toggle-checkbox
                       "L"       'org-shiftright
                       "H"       'org-shiftleft
                       "K"       'org-shiftup

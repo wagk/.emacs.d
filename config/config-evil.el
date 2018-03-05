@@ -58,6 +58,8 @@ word"
   (evil-normal-state)
   (evil-visual-restore))
 
+;; Note that all the evil flags are documented in `evil.info' in the evil
+;; directory
 (use-package evil
   :demand t
   :bind (;; ("C-f" . universal-argument)
@@ -124,6 +126,14 @@ word"
   ;;     (modify-syntax-entry ?_ "w" table)
   ;;     (with-syntax-table table ad-do-it)))
   (/treat-underscore-as-word)
+
+  ;; (defun my-evil-make-frame-with-params (file)
+  ;;   "Tries to emulate evil tab creation using `make-frame'"
+  ;;   (interactive "<f>")
+  ;;   (if file
+  ;;       ;; Finds the file and loads it into the frame
+  ;;       )
+  ;;   )
 
   (evil-ex-define-cmd "tabn[ew]" 'make-frame)
   (evil-ex-define-cmd "tabe[dit]" 'make-frame)

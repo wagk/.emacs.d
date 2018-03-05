@@ -227,8 +227,8 @@ This effectively centers it."
         (fringe-mode nil)
         (put '/centre-window-function 'active nil)))))
 
-;; (general-define-key :prefix my-default-evil-leader-key
-;;                     ";" '/centre-window-function)
+(general-define-key :prefix my-default-evil-leader-key
+                    "W" '/centre-window-function)
 
 (use-package centered-window-mode
   :disabled t
