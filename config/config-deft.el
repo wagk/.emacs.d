@@ -31,9 +31,9 @@
   ;; `kill-buffer' to NOT bring up a helm search everytime we call it
   ;; TODO: See if this method can be applied to eshell hacks
   (define-key deft-mode-map [remap evil-quit]
-    'kill-buffer)
+    'kill-this-buffer)
   (define-key deft-mode-map [remap evil-save-modified-and-close]
-    'kill-buffer)
+    'kill-this-buffer)
   (define-key deft-mode-map [remap evil-ret]
     'deft-complete)
   ;; (defun my-overwrite-evil-ret-in-deft ()

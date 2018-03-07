@@ -29,7 +29,7 @@
   (define-key snippet-mode-map [remap evil-save-modified-and-close]
     'yas-load-snippet-buffer-and-close)
   (define-key snippet-mode-map [remap evil-quit]
-    'kill-buffer)
+    'kill-this-buffer)
   )
 
 ;; auto-insert yasnippets
