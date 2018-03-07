@@ -37,19 +37,25 @@
   ;;  "RET" 'term-send-input)
   )
 
-(defun my-overwrite-evil-ret-in-eshell ()
-  "attempts to make evil-ret in shell modes do things like send input"
-  (message "Attempting to overwrite RET for eshell")
-  ;; (with-eval-after-load 'evil-config
-  ;;   (define-))
-  (evil-local-set-key 'insert
-    (kbd "RET") 'eshell-send-input)
-  (evil-local-set-key 'normal
-    (kbd "RET") 'eshell-send-input)
-  (evil-local-set-key 'motion
-    (kbd "RET") 'eshell-send-input)
-  )
-(add-hook 'eshell-mode-hook 'my-overwrite-evil-ret-in-eshell)
+(eval-after-load 'eshell
+ (defun my-overwrite-evil-ret-in-eshell ()
+   "attempts to make evil-ret in shell modes do things like send input"
+   (message "Attempting to overwrite RET for eshell")
+   ;; (with-eval-after-load 'evil-config
+   ;;   (define-))
+   (evil-local-set-key 'insert
+                       (kbd "RET") 'eshell-send-input)
+   (evil-local-set-key 'normal
+                       (kbd "RET") 'eshell-send-input)
+   (evil-local-set-key 'motion
+                       (kbd "RET") 'eshell-send-input)
+   )
+ (add-hook 'eshell-mode-hook 'my-overwrite-evil-ret-in-eshell)
+ )
+
+;; (eval-after-load 'eshell
+;;  (define-key eshell-mode-map [remap evil-ret] 'eshell-send-input)
+;;  )
 
 (use-package powershell)
 

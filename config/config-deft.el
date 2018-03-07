@@ -27,13 +27,12 @@
   ;;                     :keymaps 'deft-mode-map
   ;;                     "RET" 'deft-complete)
   (add-hook 'deft-open-file-hook 'org-mode)
-  ;; TODO: find a way to call a command with saved arguments, we want
-  ;; `kill-buffer' to NOT bring up a helm search everytime we call it
-  ;; TODO: See if this method can be applied to eshell hacks
   (define-key deft-mode-map [remap evil-quit]
     'kill-this-buffer)
   (define-key deft-mode-map [remap evil-save-modified-and-close]
     'kill-this-buffer)
+  ;; TODO: See if this method can be applied to eshell hacks
+  ;; TODO: This isn't working for some reason
   (define-key deft-mode-map [remap evil-ret]
     'deft-complete)
   ;; (defun my-overwrite-evil-ret-in-deft ()
