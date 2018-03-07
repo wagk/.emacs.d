@@ -81,6 +81,7 @@ Assumes that it:
  "./config/config-indent.el"
  "./config/config-git.el"
  "./config/config-org.el"
+ "./config/config-deft.el"
  "./config/config-project.el"
  "./config/config-lint.el"
  "./config/config-completion.el"

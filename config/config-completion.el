@@ -39,6 +39,8 @@
 (defun /auto-insert-yasnippet ()
   "Replace text in buffer with snippet.
 Used for 'auto-insert'"
+  (require 'yasnippet)
+  (yas-minor-mode)
   (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
 (setq-default auto-insert-directory (concat user-init-dir "./auto-insert/"))

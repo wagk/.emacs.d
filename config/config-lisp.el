@@ -22,8 +22,7 @@
   :init
   (defun my-elisp-mode ()
     (elisp-slime-nav-mode)
-    (turn-on-eldoc-mode)
-    (flycheck-mode-on-safe))
+    (turn-on-eldoc-mode))
   (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode)
   )
 
