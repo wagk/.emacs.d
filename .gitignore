@@ -31,3 +31,4 @@ spu_log/*
 /srecode-map.el
 *.exe
 /elpa/gnupg/pubring.bak
+/history

@@ -22,14 +22,22 @@
  '(default-frame-alist (add-to-list 'default-frame-alist
                                     '(fullscreen . maximized))))
 
-
 (setq require-final-newline t)
 
-;; remove annoying bell sound
+;; remove annoying bell sounds
 (setq ring-bell-function 'ignore)
 
 ;; Save buffer state
-(setq history-length 1000)
+(setq savehist-file (concat user-init-dir "history")
+      savehist-save-minibuffer-history 1
+      savehist-additional-variables
+      '(kill-ring
+        search-ring
+        regexp-search-ring))
+(savehist-mode 1)
+(setq history-length t
+      history-delete-duplicates t)
+
 
 ;; Display time
 (display-time-mode 1)
@@ -63,6 +71,7 @@
   (global-display-line-numbers-mode))
 
 ;; autopairing
+;; We're currently trying out smartparens
 (electric-pair-mode -1)
 
 ;; Change "yes or no" to "y or n"
@@ -244,7 +253,24 @@ This effectively centers it."
 (use-package smartparens
   :demand t
   :config
-  (smartparens-global-mode))
+  (require 'smartparens-config)
+  (smartparens-global-mode)
+  (show-smartparens-global-mode t)
+  ;; define some helper functions
+  (defun my-add-newline-and-indent-braces (&rest _)
+    "With the cursor as |, makes {|} turn into {
+    |
+}"
+    (newline)
+    (indent-according-to-mode)
+    (forward-line -1)
+    (indent-according-to-mode))
+  ;; Update the global definitions with some indenting
+  ;; I think that the nil is the flag that controls property inheritance
+  (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
+  (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
+  (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
+  )
 
 ;;;###autoload
 (defun /set-frame-transparency (value)

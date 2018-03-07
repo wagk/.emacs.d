@@ -16,6 +16,13 @@
 
 (use-package misc-cmds)
 
+(defun my-find-parent-major-modes ()
+  "docstring for my-find-parent-major-modes"
+  (let ((parents (list major-mode)))
+    (while (get (car parents) 'derived-mode-parent)
+      (push (get (car parents) 'derived-mode-parent) parents))
+    parents))
+
 (provide 'config-common)
 
 ;;; config-common.el ends here

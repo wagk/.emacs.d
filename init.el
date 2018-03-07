@@ -19,6 +19,9 @@
 ;; You may delete these explanatory comments.
 ;; (package-initialize)
 
+(setq user-full-name "Pang Tun Jiang"
+      user-mail-address "pang.tun.jiang@gmail.com")
+
 (defconst user-init-dir
   (cond ((boundp 'user-emacs-directory) user-emacs-directory)
         ((boundp 'user-init-directory) user-init-directory)
