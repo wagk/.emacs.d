@@ -38,10 +38,16 @@
 ;; https://emacs.stackexchange.com/questions/26435/how-can-i-disable-indentation-rules-within-docstrings-in-python-mode
 (when (and (>= emacs-major-version 25)
            (>= emacs-minor-version 1))
-  (defun $python-mode-noindent-docstring (&optional _previous)
+  (defun my-python-mode-noindent-docstring (&optional _previous)
     (when (eq (car (python-indent-context)) :inside-docstring)
       'noindent))
-  (advice-add 'python-indent-line :before-until #'$python-mode-noindent-docstring))
+  (advice-add 'python-indent-line :before-until #'my-python-mode-noindent-docstring))
+
+(with-eval-after-load 'python
+  (general-define-key :states 'insert
+                      :keymaps 'python-mode-map
+                      "RET" 'comment-indent-new-line))
+
 
 ;; ;; https://github.com/jorgenschaefer/elpy/issues/498
 ;; (progn

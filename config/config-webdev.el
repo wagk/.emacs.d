@@ -46,16 +46,20 @@
   :config
   (progn (require 'fill-column-indicator)
          (add-hook 'groovy-mode-hook 'turn-on-fci-mode))
-  (progn (require 'evil-core)
-         (evil-define-key 'insert 'groovy-mode-map
-           (kbd "RET") 'comment-indent-new-line))
+  (general-define-key :states 'insert
+                      :keymaps 'groovy-mode-map
+                      "RET" 'comment-indent-new-line)
   (progn (require 'hl-todo)
          (add-hook 'groovy-mode-hook 'hl-todo-mode))
   (add-hook 'groovy-mode-hook #'/treat-underscore-as-word)
   )
 
 (use-package php-mode
-  :mode ("\\.php\\'" . php-mode))
+  :mode ("\\.php\\'" . php-mode)
+  :config
+  (general-define-key :states 'insert
+                      :keymaps 'php-mode-map
+                      "RET" 'comment-indent-new-line))
 
 (use-package dockerfile-mode
   :mode ("\\Dockerfile\\'" . dockerfile-mode)

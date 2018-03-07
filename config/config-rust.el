@@ -4,10 +4,14 @@
 
 ;;; Code:
 (require 'config-package)
+(require 'config-evil)
 
 (use-package rust-mode
-  :mode (("\\.rs\\'" . rust-mode)
-         ("\\.toml\\'" . rust-mode)))
+  :mode ("\\.rs\\'" . rust-mode)
+  :config
+  (general-define-key :states 'insert
+                      :keymaps 'rust-mode-map
+                      "RET" 'comment-indent-new-line))
 
 (provide 'config-rust)
 

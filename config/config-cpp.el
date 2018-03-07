@@ -66,6 +66,11 @@
 
 (add-hook 'c++-mode-hook 'my-cpp-mode-configs)
 
+(general-define-key :states 'insert
+                    :keymaps 'c-mode-base-map
+                    "RET" 'comment-indent-new-line)
+
+
 ;; we don't electric pair <> because it interferes with << operators
 
 ;; ;; add < > electric pairing

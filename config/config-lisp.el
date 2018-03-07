@@ -26,6 +26,11 @@
   (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode)
   )
 
+(with-eval-after-load 'elisp-mode
+  (general-define-key :states 'insert
+                      :keymaps 'emacs-lisp-mode-map
+                      "RET" 'comment-indent-new-line))
+
 (provide 'config-lisp)
 
 ;;; config-lisp.el ends here
