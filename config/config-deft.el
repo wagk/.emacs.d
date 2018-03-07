@@ -8,7 +8,6 @@
 
 ;; https://jblevins.org/projects/deft/
 (use-package deft
-  :demand t
   :commands (deft)
   :custom
   (deft-directory (concat /dropbox-folder "/notes")
