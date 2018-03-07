@@ -63,7 +63,7 @@
   (global-display-line-numbers-mode))
 
 ;; autopairing
-(electric-pair-mode 1)
+(electric-pair-mode -1)
 
 ;; Change "yes or no" to "y or n"
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -235,6 +235,16 @@ This effectively centers it."
   :el-get centered-window-mode
   :config
   (centered-window-mode t))
+
+(use-package autopair
+  :disabled t
+  :config
+  (autopair-global-mode))
+
+(use-package smartparens
+  :demand t
+  :config
+  (smartparens-global-mode))
 
 ;;;###autoload
 (defun /set-frame-transparency (value)
