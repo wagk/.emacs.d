@@ -6,6 +6,7 @@
 (require 'config-package)
 
 (use-package dashboard
+  :disabled t
   :init
   (dashboard-setup-startup-hook)
   :config

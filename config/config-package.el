@@ -61,6 +61,7 @@
 ;; be aware that updates might adjust the load path to the .el files and
 ;; cause loading problems. Helm seems to be a victim of this a lot
 (use-package spu
+  :disabled t
   :defer 5 ;; defer package loading for 5 second
   :config
   ;; attempt to upgrade packages only when we're leaving
