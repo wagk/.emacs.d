@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: elisp-autoload
+# key: autoload
+# expand-env: ((yas-indent-line 'fixed))
+# --
+;;;###autoload

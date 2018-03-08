@@ -27,14 +27,16 @@
   :after (general)
   :demand t
   :init
+  (general-define-key "C-h C-<SPC>" 'helm-apropos
+                      "C-h <SPC>" 'helm-apropos)
   (general-define-key :prefix my-default-evil-leader-key
                       "<SPC>" 'helm-M-x
                       "TAB"   'helm-resume
                       "y"     'helm-show-kill-ring
-                      "h h"   'helm-apropos
+                      ;; "h h"   'helm-apropos
                       "-"     'helm-find-files
                       "b"     'helm-mini
-                      "B"     'helm-bookmarks)
+                      "m"     'helm-bookmarks)
   :bind(:map helm-map
              ("C-w" . evil-delete-backward-word)
              ("\\"  . helm-select-action)

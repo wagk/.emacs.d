@@ -18,20 +18,23 @@
                       "o o" 'org-capture
                       "o r" 'org-refile)
   :config
-
+;;;###autoload
   (defun /org-insert-item-or-header-respect-content ()
-    "Basically org-insert-heading-respect-content, except when you're on an item,
-then insert a new item instead"
+    "Basically org-insert-heading-respect-content, except when you're on an
+item, then insert a new item instead"
     (interactive)
     (cond ((org-at-item-p) (org-insert-item))
           (t (org-insert-heading-respect-content))))
 
+;;;###autoload
   (defun my-org-add-checkbox ()
     "adds a checkbox if the cursor is on a list"
     (interactive)
     (when (org-at-item-p)
-        (org-toggle-checkbox '(4))))
+        (org-toggle-checkbox '(4))
+        (evil-move-end-of-line)))
 
+;;;###autoload
   (defun /evil-org-toggle-checkbox ()
     "If the list element has no checkbox, add one. Do nothing otherwise."
     (interactive)
@@ -44,6 +47,7 @@ then insert a new item instead"
     ;; (end-of-line)
     )
 
+;;;###autoload
   (defun /org-toggle-checkbox-or-table-down (n)
     (interactive "p")
     (if (org-table-p)
@@ -54,13 +58,15 @@ then insert a new item instead"
     (lambda ()
       (interactive)
       (func)
-      (end-of-line)))
+      (org-end-of-line)))
 
+;;;###autoload
   (defun /org-insert-heading()
     (interactive)
     (org-insert-heading)
     (evil-append-line 1))
 
+;;;###autoload
   (defun /org-mode-face-no-resize ()
     "Stop the org-level headers from increasing in height relative to the other
 text."
@@ -124,6 +130,19 @@ text."
   (general-define-key :keymaps 'org-mode-map
                       :states 'insert
                       "RET"     'newline-and-indent)
+
+  ;; TODO: Figure out why sometimes when calling org-meta-return the cursor
+  ;; positions are all out of whack
+
+  ;; (advice-add 'org-meta-return :after #'evil-refresh-cursor)
+  ;; (defun my-refresh-insert-cursor (&rest _)
+  ;;   "docstring for my-refresh-insert-cursor"
+  ;;   (interactive)
+  ;;   ;; (evil-adjust-cursor t)
+  ;;   ;; (evil-move-cursor-back t)
+  ;;   (evil-refresh-cursor 'insert)
+  ;;   )
+  ;; (add-hook 'org-metareturn-hook #'my-refresh-insert-cursor)
 
   ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
   (with-eval-after-load "org-capture"

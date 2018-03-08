@@ -10,6 +10,7 @@
 (use-package deft
   :commands (deft)
   :custom
+  (deft-auto-save-interval 0.0 "Disable autosave because of permissions issues")
   (deft-directory (concat /dropbox-folder "/notes")
     "Set the directory to dropbox")
   (deft-extensions '("org" "md")
@@ -26,6 +27,10 @@
   ;;                     :keymaps 'deft-mode-map
   ;;                     "RET" 'deft-complete)
   (add-hook 'deft-open-file-hook 'org-mode)
+  (general-define-key :states 'insert
+                      :keymaps 'deft-mode-map
+                      "C-w" 'deft-filter-decrement-word
+                      "C-u" 'deft-filter-clear)
   (define-key deft-mode-map [remap evil-quit]
     'kill-this-buffer)
   (define-key deft-mode-map [remap evil-save-modified-and-close]

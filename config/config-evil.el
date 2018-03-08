@@ -5,59 +5,6 @@
 ;;; Code:
 (require 'config-package)
 
-;; TODO: figure out this
-;; https://github.com/syl20bnr/spacemacs/issues/5070
-;;;###autoload
-(defun /evil-paste-after-from-0 ()
-  "I legitimately forgot what this does.
-Probably copied it from stackoverflow"
-  (interactive)
-  (let ((evil-this-register ?0))
-    (call-interactively 'evil-paste-after)))
-
-;;;###autoload
-(defun /treat-underscore-as-word ()
-  "Make underscore be considered part of a word, just like vim.
-Add this to whichever mode you want when you want it to treat underscore as a
-word"
-  (modify-syntax-entry ?_ "w"))
-
-;;;###autoload
-(defun /evil-gt ()
-  "Emulating vim's `gt' using frames."
-  (interactive)
-  (other-frame 1))
-
-;;;###autoload
-(defun /evil-gT ()
-  "Emulating vim's `gT' using frames."
-  (interactive)
-  (other-frame -1))
-
-;;;###autoload
-(defun /lang-toggle ()
-  "Input language toggle wrapper."
-  (interactive)
-  (toggle-input-method)
-  (evil-append 1))
-
-;; Overload shifts so that they don't lose the selection
-;;;###autoload
-(defun /evil-shift-left-visual ()
-  "Keep visual selection after shifting left."
-  (interactive)
-  (evil-shift-left (region-beginning) (region-end))
-  (evil-normal-state)
-  (evil-visual-restore))
-
-;;;###autoload
-(defun /evil-shift-right-visual ()
-  "Same as /evil-shift-left-visual, but for the right instead."
-  (interactive)
-  (evil-shift-right (region-beginning) (region-end))
-  (evil-normal-state)
-  (evil-visual-restore))
-
 ;; Note that all the evil flags are documented in `evil.info' in the evil
 ;; directory
 (use-package evil
@@ -97,6 +44,142 @@ word"
   (setq evil-want-C-u-scroll t)
   (setq evil-want-integration nil)
   :config
+
+  ;; TODO: figure out this
+  ;; https://github.com/syl20bnr/spacemacs/issues/5070
+;;;###autoload
+  (defun /evil-paste-after-from-0 ()
+    "I legitimately forgot what this does.
+Probably copied it from stackoverflow"
+    (interactive)
+    (let ((evil-this-register ?0))
+      (call-interactively 'evil-paste-after)))
+
+;;;###autoload
+  (defun /treat-underscore-as-word ()
+    "Make underscore be considered part of a word, just like vim.
+Add this to whichever mode you want when you want it to treat underscore as a
+word"
+    (modify-syntax-entry ?_ "w"))
+
+;;;###autoload
+  (defun /evil-gt ()
+    "Emulating vim's `gt' using frames."
+    (interactive)
+    (other-frame 1))
+
+;;;###autoload
+  (defun /evil-gT ()
+    "Emulating vim's `gT' using frames."
+    (interactive)
+    (other-frame -1))
+
+;;;###autoload
+  (defun /lang-toggle ()
+    "Input language toggle wrapper."
+    (interactive)
+    (toggle-input-method)
+    (evil-append 1))
+
+  ;; Overload shifts so that they don't lose the selection
+;;;###autoload
+  (defun /evil-shift-left-visual ()
+    "Keep visual selection after shifting left."
+    (interactive)
+    (evil-shift-left (region-beginning) (region-end))
+    (evil-normal-state)
+    (evil-visual-restore))
+
+;;;###autoload
+  (defun /evil-shift-right-visual ()
+    "Same as /evil-shift-left-visual, but for the right instead."
+    (interactive)
+    (evil-shift-right (region-beginning) (region-end))
+    (evil-normal-state)
+    (evil-visual-restore))
+
+;;;###autoload
+  (defun evil-unimpaired//find-relative-filename (offset)
+    (when buffer-file-name
+      (let* ((directory (f-dirname buffer-file-name))
+             (files (f--files directory (not (s-matches? "^\\.?#" it))))
+             (index (+ (-elem-index buffer-file-name files) offset))
+             (file (and (>= index 0) (nth index files))))
+        (when file
+          (f-expand file directory)))))
+
+;;;###autoload
+  (defun evil-unimpaired/previous-file ()
+    (interactive)
+    (-if-let (filename (evil-unimpaired//find-relative-filename -1))
+        (find-file filename)
+      (user-error "No previous file")))
+
+;;;###autoload
+  (defun evil-unimpaired/next-file ()
+    (interactive)
+    (-if-let (filename (evil-unimpaired//find-relative-filename 1))
+        (find-file filename)
+      (user-error "No next file")))
+
+;;;###autoload
+  (defun evil-unimpaired/paste-above ()
+    (interactive)
+    (evil-insert-newline-above)
+    (evil-paste-after 1))
+
+;;;###autoload
+  (defun evil-unimpaired/paste-below ()
+    (interactive)
+    (evil-insert-newline-below)
+    (evil-paste-after 1))
+
+;;;###autoload
+  (defun evil-unimpaired/insert-space-above (count)
+    (interactive "p")
+    (dotimes (_ count) (save-excursion (evil-insert-newline-above))))
+
+;;;###autoload
+  (defun evil-unimpaired/insert-space-below (count)
+    (interactive "p")
+    (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
+
+;;;###autoload
+  (defun evil-unimpaired/next-frame ()
+    (interactive)
+    (/evil-gt))
+
+;;;###autoload
+  (defun evil-unimpaired/previous-frame ()
+    (interactive)
+    (/evil-gT))
+
+  ;; from tpope's unimpaired
+  (define-key evil-normal-state-map (kbd "[ SPC")
+    'evil-unimpaired/insert-space-above)
+  (define-key evil-normal-state-map (kbd "] SPC")
+    'evil-unimpaired/insert-space-below)
+  ;; (define-key evil-normal-state-map (kbd "[ e") 'move-text-up)
+  ;; (define-key evil-normal-state-map (kbd "] e") 'move-text-down)
+  (define-key evil-visual-state-map (kbd "[ e") ":move'<--1")
+  (define-key evil-visual-state-map (kbd "] e") ":move'>+1")
+  ;; (define-key evil-visual-state-map (kbd "[ e") 'move-text-up)
+  ;; (define-key evil-visual-state-map (kbd "] e") 'move-text-down)
+  (define-key evil-normal-state-map (kbd "[ b") 'previous-buffer)
+  (define-key evil-normal-state-map (kbd "] b") 'next-buffer)
+  (define-key evil-normal-state-map (kbd "[ f") 'evil-unimpaired/previous-file)
+  (define-key evil-normal-state-map (kbd "] f") 'evil-unimpaired/next-file)
+  ;; (define-key evil-normal-state-map (kbd "[ t") 'evil-unimpaired/previous-frame)
+  ;; (define-key evil-normal-state-map (kbd "] t") 'evil-unimpaired/next-frame)
+  (define-key evil-normal-state-map (kbd "[ w") 'previous-multiframe-window)
+  (define-key evil-normal-state-map (kbd "] w") 'next-multiframe-window)
+  ;; select pasted text
+  (define-key evil-normal-state-map (kbd "g p") (kbd "` [ v ` ]"))
+  ;; paste above or below with newline
+  (define-key evil-normal-state-map (kbd "[ p") 'evil-unimpaired/paste-above)
+  (define-key evil-normal-state-map (kbd "] p") 'evil-unimpaired/paste-below)
+
+;; Back to our regularly scheduled programming
   (fset 'evil-visual-update-x-selection 'ignore)
   (evil-select-search-module 'evil-search-module 'evil-search)
   (setq evil-want-Y-yank-to-eol t
@@ -198,7 +281,7 @@ word"
 
 (use-package evil-collection
   :after evil
-  :ensure t
+  :demand t
   :config
   ;;NOTE: note that this REQUIRES the var `evil-want-integration' to be NIL
   (evil-collection-init))
@@ -206,88 +289,6 @@ word"
 ;; https://github.com/syl20bnr/spacemacs/blob/c788da709bb1c74344f5ab1b6f18cfdf6b930df8/layers/%2Bspacemacs/spacemacs-evil/local/evil-unimpaired/evil-unimpaired.el
 ;; (require 'dash)
 ;; (require 'f)
-
-;;;###autoload
-(defun evil-unimpaired//find-relative-filename (offset)
-  (when buffer-file-name
-    (let* ((directory (f-dirname buffer-file-name))
-           (files (f--files directory (not (s-matches? "^\\.?#" it))))
-           (index (+ (-elem-index buffer-file-name files) offset))
-           (file (and (>= index 0) (nth index files))))
-      (when file
-        (f-expand file directory)))))
-
-;;;###autoload
-(defun evil-unimpaired/previous-file ()
-  (interactive)
-  (-if-let (filename (evil-unimpaired//find-relative-filename -1))
-      (find-file filename)
-    (user-error "No previous file")))
-
-;;;###autoload
-(defun evil-unimpaired/next-file ()
-  (interactive)
-  (-if-let (filename (evil-unimpaired//find-relative-filename 1))
-      (find-file filename)
-    (user-error "No next file")))
-
-;;;###autoload
-(defun evil-unimpaired/paste-above ()
-  (interactive)
-  (evil-insert-newline-above)
-  (evil-paste-after 1))
-
-;;;###autoload
-(defun evil-unimpaired/paste-below ()
-  (interactive)
-  (evil-insert-newline-below)
-  (evil-paste-after 1))
-
-;;;###autoload
-(defun evil-unimpaired/insert-space-above (count)
-  (interactive "p")
-  (dotimes (_ count) (save-excursion (evil-insert-newline-above))))
-
-;;;###autoload
-(defun evil-unimpaired/insert-space-below (count)
-  (interactive "p")
-  (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
-
-;;;###autoload
-(defun evil-unimpaired/next-frame ()
-  (interactive)
-  (/evil-gt))
-
-;;;###autoload
-(defun evil-unimpaired/previous-frame ()
-  (interactive)
-  (/evil-gT))
-
-;; from tpope's unimpaired
-(define-key evil-normal-state-map (kbd "[ SPC")
-  'evil-unimpaired/insert-space-above)
-(define-key evil-normal-state-map (kbd "] SPC")
-  'evil-unimpaired/insert-space-below)
-;; (define-key evil-normal-state-map (kbd "[ e") 'move-text-up)
-;; (define-key evil-normal-state-map (kbd "] e") 'move-text-down)
-(define-key evil-visual-state-map (kbd "[ e") ":move'<--1")
-(define-key evil-visual-state-map (kbd "] e") ":move'>+1")
-;; (define-key evil-visual-state-map (kbd "[ e") 'move-text-up)
-;; (define-key evil-visual-state-map (kbd "] e") 'move-text-down)
-(define-key evil-normal-state-map (kbd "[ b") 'previous-buffer)
-(define-key evil-normal-state-map (kbd "] b") 'next-buffer)
-(define-key evil-normal-state-map (kbd "[ f") 'evil-unimpaired/previous-file)
-(define-key evil-normal-state-map (kbd "] f") 'evil-unimpaired/next-file)
-;; (define-key evil-normal-state-map (kbd "[ t") 'evil-unimpaired/previous-frame)
-;; (define-key evil-normal-state-map (kbd "] t") 'evil-unimpaired/next-frame)
-(define-key evil-normal-state-map (kbd "[ w") 'previous-multiframe-window)
-(define-key evil-normal-state-map (kbd "] w") 'next-multiframe-window)
-;; select pasted text
-(define-key evil-normal-state-map (kbd "g p") (kbd "` [ v ` ]"))
-;; paste above or below with newline
-(define-key evil-normal-state-map (kbd "[ p") 'evil-unimpaired/paste-above)
-(define-key evil-normal-state-map (kbd "] p") 'evil-unimpaired/paste-below)
-
 (use-package evil-leader
   :disabled t
   :after (evil)
