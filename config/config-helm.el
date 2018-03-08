@@ -9,6 +9,11 @@
 
 ;; Install ivy as a contingency
 (use-package ivy
+  :bind (:map ivy-minibuffer-map
+              ("C-w" . ivy-backward-kill-word)
+              ("C-u" . ivy-backward-kill-line)
+              ("C-j" . ivy-next-line)
+              ("C-k" . ivy-previous-line))
   :config
   (setq ivy-use-virtual-buffers t
         enable-recursive-minibuffers t))
