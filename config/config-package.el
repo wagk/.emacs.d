@@ -15,9 +15,6 @@
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
 
-;; TODO; figure out what this does
-(package-initialize)
-
 ;; el-get stuff
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
@@ -30,6 +27,11 @@
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
+
+; Got a warning regarding golden-ratio when I loaded this before el-get, for
+;; some reason
+;; TODO; figure out what this does
+(package-initialize)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -73,6 +75,12 @@
   (auto-compile-on-load-mode)
   (auto-compile-on-save-mode)
   )
+
+(use-package auto-package-update
+  :demand t
+  :custom
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-interval 14 "update once every 2 weeks (the count is in days)"))
 
 (provide 'config-package)
 
