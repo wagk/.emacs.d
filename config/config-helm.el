@@ -58,7 +58,8 @@
         helm-imenu-fuzzy-match t
         helm-lisp-fuzzy-completion t
         helm-completion-in-region-fuzzy-match t
-        helm-split-window-in-side-p t)
+        helm-split-window-in-side-p t
+        helm-use-frame-when-more-than-two-windows nil)
   (progn (helm-autoresize-mode)
          (setq helm-autoresize-min-height 40 ;; these values are %
                helm-autoresize-max-height 40))
