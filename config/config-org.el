@@ -21,6 +21,9 @@ then insert a new item instead"
 (defun /evil-org-toggle-checkbox ()
   "If the list element has no checkbox, add one. Do nothing otherwise."
   (interactive)
+  ;; (cond
+  ;;  ((org-at-item-p)
+  ;;   ))
   (if (not (org-at-item-checkbox-p))
       (save-excursion (org-toggle-checkbox '(4))) ;; Prefix arguments are WEIRD
     (org-toggle-checkbox))

@@ -137,7 +137,7 @@ word"
 
   (evil-ex-define-cmd "tabn[ew]" 'make-frame)
   (evil-ex-define-cmd "tabe[dit]" 'make-frame)
-
+  (evil-ex-define-cmd "restart" 'restart-emacs)
   ;; (lexical-let ((default-color (cons (face-background 'mode-line)
   ;;                                    (face-foreground 'mode-line))))
   ;;   (add-hook 'post-command-hook
