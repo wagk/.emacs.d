@@ -126,7 +126,7 @@ word"
   ;;   (let ((table (copy-syntax-table (syntax-table))))
   ;;     (modify-syntax-entry ?_ "w" table)
   ;;     (with-syntax-table table ad-do-it)))
-  (/treat-underscore-as-word)
+  (/treat-underscore-as-word) ;TODO: Not sure if this is required if we're hooking into prog-mode
 
   ;; (defun my-evil-make-frame-with-params (file)
   ;;   "Tries to emulate evil tab creation using `make-frame'"
@@ -136,9 +136,12 @@ word"
   ;;       )
   ;;   )
 
-  (evil-ex-define-cmd "tabn[ew]" 'make-frame)
+  (evil-ex-define-cmd "sh[ell]"   'eshell)
+  (evil-ex-define-cmd "tabn[ew]"  'make-frame)
   (evil-ex-define-cmd "tabe[dit]" 'make-frame)
-  (evil-ex-define-cmd "restart" 'restart-emacs)
+  (evil-ex-define-cmd "restart"   'restart-emacs)
+  (evil-ex-define-cmd "init"      'find-user-init-file)
+
   ;; (lexical-let ((default-color (cons (face-background 'mode-line)
   ;;                                    (face-foreground 'mode-line))))
   ;;   (add-hook 'post-command-hook

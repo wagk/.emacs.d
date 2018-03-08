@@ -9,57 +9,6 @@
 (require 'config-helm)
 (require 'config-buffer)
 
-;;;###autoload
-(defun /org-insert-item-or-header-respect-content ()
-  "Basically org-insert-heading-respect-content, except when you're on an item,
-then insert a new item instead"
-  (interactive)
-  (cond ((org-at-item-p) (org-insert-item))
-        (t (org-insert-heading-respect-content))))
-
-;;;###autoload
-(defun /evil-org-toggle-checkbox ()
-  "If the list element has no checkbox, add one. Do nothing otherwise."
-  (interactive)
-  ;; (cond
-  ;;  ((org-at-item-p)
-  ;;   ))
-  (if (not (org-at-item-checkbox-p))
-      (save-excursion (org-toggle-checkbox '(4))) ;; Prefix arguments are WEIRD
-    (org-toggle-checkbox))
-    (end-of-line))
-
-;;;###autoload
-(defun /org-toggle-checkbox-or-table-down (n)
-  (interactive "p")
-  (if (org-table-p)
-      (org-table-copy-down n)
-    (org-toggle-checkbox)))
-
-(defmacro /evil-update-cursor-eol(func)
-  (lambda ()
-    (interactive)
-    (func)
-    (end-of-line)))
-
-;;;###autoload
-(defun /org-insert-heading()
-  (interactive)
-  (org-insert-heading)
-  (evil-append-line 1))
-
-;;;###autoload
-(defun /org-mode-face-no-resize ()
-  "Stop the org-level headers from increasing in height relative to the other
-text."
-  (when (eq major-mode 'org-mode)
-    (dolist (face '(org-level-1
-                    org-level-2
-                    org-level-3
-                    org-level-4
-                    org-level-5))
-      (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
-
 (use-package org
   :init
   (general-define-key :prefix my-default-evil-leader-key
@@ -69,10 +18,64 @@ text."
                       "o o" 'org-capture
                       "o r" 'org-refile)
   :config
+
+  (defun /org-insert-item-or-header-respect-content ()
+    "Basically org-insert-heading-respect-content, except when you're on an item,
+then insert a new item instead"
+    (interactive)
+    (cond ((org-at-item-p) (org-insert-item))
+          (t (org-insert-heading-respect-content))))
+
+  (defun my-org-add-checkbox ()
+    "adds a checkbox if the cursor is on a list"
+    (interactive)
+    (when (org-at-item-p)
+        (org-toggle-checkbox '(4))))
+
+  (defun /evil-org-toggle-checkbox ()
+    "If the list element has no checkbox, add one. Do nothing otherwise."
+    (interactive)
+    ;; (cond
+    ;;  ((org-at-item-p)
+    ;;   ))
+    (if (not (org-at-item-checkbox-p))
+        (org-toggle-checkbox '(4)) ;; Prefix arguments are WEIRD
+      (org-toggle-checkbox))
+    ;; (end-of-line)
+    )
+
+  (defun /org-toggle-checkbox-or-table-down (n)
+    (interactive "p")
+    (if (org-table-p)
+        (org-table-copy-down n)
+      (org-toggle-checkbox)))
+
+  (defmacro /evil-update-cursor-eol(func)
+    (lambda ()
+      (interactive)
+      (func)
+      (end-of-line)))
+
+  (defun /org-insert-heading()
+    (interactive)
+    (org-insert-heading)
+    (evil-append-line 1))
+
+  (defun /org-mode-face-no-resize ()
+    "Stop the org-level headers from increasing in height relative to the other
+text."
+    (when (eq major-mode 'org-mode)
+      (dolist (face '(org-level-1
+                      org-level-2
+                      org-level-3
+                      org-level-4
+                      org-level-5))
+        (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
+
   (org-toggle-link-display)
   ;;Use google drive if available
-  (when (boundp '/g-drive-folder)
-    (setq org-directory (concat /g-drive-folder "/org")))
+  ;; (when (boundp '/g-drive-folder)
+  ;;   (setq org-directory (concat /g-drive-folder "/org")))
 
   (setq org-default-notes-file (concat org-directory "/TODO.org")
         org-M-RET-may-split-line '(default . nil)

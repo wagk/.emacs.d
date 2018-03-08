@@ -18,12 +18,5 @@ Uses `current-date-time-format' for the formatting the date/time."
   (interactive)
   (insert (format-time-string current-date-time-format (current-time))))
 
-;;;###autoload
-(defun find-user-init-file ()
-  "Edit `user-init-file` without opening a new window."
-  (interactive)
-  (find-file user-init-file)
-  )
-
 (provide 'config/utility)
 ;;; config/utility.el ends here

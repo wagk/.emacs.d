@@ -3,5 +3,5 @@
 # key: if
 # --
 (if ${1:cond}
-  $0
-)
+    ${2:then}
+  ${3:else})

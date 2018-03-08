@@ -28,8 +28,20 @@
         (t "~/.emacs.d/"))
   "Sets up the startup directory.")
 
+(defconst user-init-file
+  (concat user-init-dir "init.el")
+  "Points to init.el")
+
 (defconst user-config-dir
-  (concat user-init-dir "config/"))
+  (concat user-init-dir "config/")
+  "Directory where all the user configuration files are stored")
+
+;;;###autoload
+(defun find-user-init-file ()
+  "Edit `user-init-file` without opening a new window."
+  (interactive)
+  (find-file user-init-file)
+  )
 
 (defmacro measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."
