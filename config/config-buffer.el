@@ -253,20 +253,20 @@ This effectively centers it."
 (use-package smartparens
   :demand t
   :config
-  (require 'smartparens-config)
+  (require 'smartparens-config) ;; load some default configurations
   (smartparens-global-mode)
   (show-smartparens-global-mode t)
   ;; define some helper functions
   (defun my-add-newline-and-indent-braces (&rest _)
-    "With the cursor as |, makes {|} turn into {
-    |
-}"
+    "Adds that cool vim indent thing we always wanted"
     (newline)
     (indent-according-to-mode)
     (forward-line -1)
     (indent-according-to-mode))
   ;; Update the global definitions with some indenting
   ;; I think that the nil is the flag that controls property inheritance
+  ;;NOTE: For some reason TAB isn't recognised. Might be yasnippet intefering.
+  ;;Learn to use ret for now
   (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
   (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
   (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
