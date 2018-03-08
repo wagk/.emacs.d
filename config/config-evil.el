@@ -95,6 +95,7 @@ word"
          ("C-w" . backward-kill-word))
   :init
   (setq evil-want-C-u-scroll t)
+  (setq evil-want-integration nil)
   :config
   (fset 'evil-visual-update-x-selection 'ignore)
   (evil-select-search-module 'evil-search-module 'evil-search)
@@ -191,6 +192,13 @@ word"
   ;; (add-hook 'after-init-hook 'evil-update-insert-state-bindings)
   (evil-mode)
   )
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  ;;NOTE: note that this REQUIRES the var `evil-want-integration' to be NIL
+  (evil-collection-init))
 
 ;; https://github.com/syl20bnr/spacemacs/blob/c788da709bb1c74344f5ab1b6f18cfdf6b930df8/layers/%2Bspacemacs/spacemacs-evil/local/evil-unimpaired/evil-unimpaired.el
 ;; (require 'dash)
