@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: php-block-comment
-# key: d
+# key: C
 # --
 /*
   $0

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: js-arrow-function
+# key: defl
+# --
+$1 => $0

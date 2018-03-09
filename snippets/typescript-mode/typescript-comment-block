@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: jsdoc comment block
-# key: /**
+# key: d
 # --
 /** $0
 */

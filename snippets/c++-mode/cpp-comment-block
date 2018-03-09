@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: cpp-comment-block
-# key: d
+# key: C
 # --
 /*
   $0

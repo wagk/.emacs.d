@@ -120,13 +120,14 @@ text."
                       "M-K"     '(/evil-update-cursor-eol(org-shiftmetaup))
                       "M-L"     '(/evil-update-cursor-eol(org-shiftmetadown)))
   (general-define-key :keymaps 'org-mode-map
-                      :states 'normal
-                      "TAB"     'org-cycle
-                      "z a"     'org-cycle
-                      "L"       'org-shiftright
-                      "H"       'org-shiftleft
-                      "K"       'org-shiftup
-                      "J"       'org-shiftdown)
+                      :states  'normal
+                      "TAB"    'org-cycle
+                      "<tab>"  'org-cycle
+                      "z a"    'org-cycle
+                      "L"      'org-shiftright
+                      "H"      'org-shiftleft
+                      "K"      'org-shiftup
+                      "J"      'org-shiftdown)
   (general-define-key :keymaps 'org-mode-map
                       :states 'insert
                       "RET"     'newline-and-indent)

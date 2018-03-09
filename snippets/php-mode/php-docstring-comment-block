@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: php-docstring-comment-block
-# key: D
+# key: d
 # --
 /** $0
 */

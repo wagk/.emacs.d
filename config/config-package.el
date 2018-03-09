@@ -58,14 +58,14 @@
 (use-package use-package-ensure-system-package
   :demand t)
 
-;; be aware that updates might adjust the load path to the .el files and
-;; cause loading problems. Helm seems to be a victim of this a lot
-(use-package spu
-  :disabled t
-  :defer 5 ;; defer package loading for 5 second
-  :config
-  ;; attempt to upgrade packages only when we're leaving
-  (add-hook 'kill-emacs-hook 'spu-package-upgrade))
+;; ;; be aware that updates might adjust the load path to the .el files and
+;; ;; cause loading problems. Helm seems to be a victim of this a lot
+;; (use-package spu
+;;   :disabled t
+;;   :defer 5 ;; defer package loading for 5 second
+;;   :config
+;;   ;; attempt to upgrade packages only when we're leaving
+;;   (add-hook 'kill-emacs-hook 'spu-package-upgrade))
 
 ;; https://github.com/emacscollective/auto-compile
 (use-package auto-compile
@@ -79,8 +79,12 @@
 
 (use-package auto-package-update
   :demand t
+  :commands (auto-package-update-now
+             auto-package-update-at-time
+             auto-package-update-maybe)
   :custom
-  (auto-package-update-prompt-before-update t)
+  (auto-package-update-delete-old-versions t "We already version them on git")
+  (auto-package-update-prompt-before-update t "NO SURPRISES")
   (auto-package-update-interval 14 "update once every 2 weeks (the count is in days)"))
 
 (provide 'config-package)

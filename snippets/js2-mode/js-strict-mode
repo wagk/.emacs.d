@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: js-strict-mode
+# key: strict
+# --
+'use strict';$0

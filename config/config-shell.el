@@ -13,7 +13,7 @@
 ;;   (add-to-list 'exec-path "c:/cygwin64/bin")
 ;;   )
 
-(add-hook 'comint-mode-hook 'turn-off-evil-mode)
+;; (add-hook 'comint-mode-hook 'turn-off-evil-mode)
 ;; (add-hook 'term-mode-hook 'turn-off-evil-mode)
 
 (use-package multi-term
@@ -21,12 +21,12 @@
   :init
   (evil-ex-define-cmd "te[rminal]" 'multi-term)
   ;; I do not understand how this works, and it worries me some.
-  (add-hook 'term-mode-hook #'(lambda ()
-                                (evil-local-set-key 'motion (kbd "RET") 'term-send-input)
-                                (evil-local-set-key 'insert (kbd "RET") 'term-send-input)
-                                ))
-  :config
-  (evil-make-overriding-map term-mode-map)
+  ;; (add-hook 'term-mode-hook #'(lambda ()
+  ;;                               (evil-local-set-key 'motion (kbd "RET") 'term-send-input)
+  ;;                               (evil-local-set-key 'insert (kbd "RET") 'term-send-input)
+  ;;                               ))
+  ;; :config
+  ;; (evil-make-overriding-map term-mode-map)
 
   ;; I do not understand why this does *not* work and yet the lambda one does,
   ;; and it worries me quite a bit
@@ -39,19 +39,23 @@
 
 (with-eval-after-load 'eshell
   (evil-set-initial-state 'eshell-mode 'insert)
-  (defun my-overwrite-evil-ret-in-eshell ()
-    "attempts to make evil-ret in shell modes do things like send input"
-    (message "Attempting to overwrite RET for eshell")
-    ;; (with-eval-after-load 'evil-config
-    ;;   (define-))
-    (evil-local-set-key 'insert
-                        (kbd "RET") 'eshell-send-input)
-    (evil-local-set-key 'normal
-                        (kbd "RET") 'eshell-send-input)
-    (evil-local-set-key 'motion
-                        (kbd "RET") 'eshell-send-input)
+  ;; (defun my-overwrite-evil-ret-in-eshell ()
+  ;;   "attempts to make evil-ret in shell modes do things like send input"
+  ;;   (message "Attempting to overwrite RET for eshell")
+  ;;   ;; (with-eval-after-load 'evil-config
+  ;;   ;;   (define-))
+  ;;   (evil-local-set-key 'insert
+  ;;                       (kbd "RET") 'eshell-send-input)
+  ;;   (evil-local-set-key 'normal
+  ;;                       (kbd "RET") 'eshell-send-input)
+  ;;   (evil-local-set-key 'motion
+  ;;                       (kbd "RET") 'eshell-send-input)
+  ;;   )
+  ;; (add-hook 'eshell-mode-hook 'my-overwrite-evil-ret-in-eshell)
+  (defun my-evil-shell-hook ()
+    "Whenever we enter insert mode we go to the end of line"
     )
-  (add-hook 'eshell-mode-hook 'my-overwrite-evil-ret-in-eshell)
+  ;; (add-hook 'evil-insert-state-entry-hook 'evil-goto-line)
  )
 
 ;; (eval-after-load 'eshell

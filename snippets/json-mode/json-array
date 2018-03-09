@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: json-array
-# key: a
-# --
-[
-  $0
-]

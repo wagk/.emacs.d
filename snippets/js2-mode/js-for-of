@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: js-for-of
+# key: foro
+# for-of statements iterate through the values of the array, not the key
+# (or index)
+# --
+for($1 of $2) {
+       $0
+}
