@@ -66,6 +66,23 @@ Used for 'auto-insert'"
 ;;          )
 ;;   )
 
+;; https://github.com/smihica/emmet-mode
+;; ;TODO: Write down the cheatsheet or something
+;; https://docs.emmet.io/cheat-sheet/
+(use-package emmet-mode
+  :bind (:map emmet-mode-keymap
+              ;; ("TAB" . emmet-expand-yas) ;; uses deprecated yas functions
+              ("TAB" . emmet-expand-line)
+              ("C-j" . emmet-next-edit-point)
+              ("C-k" . emmet-prev-edit-point))
+  :init
+  (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
+  (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.
+  (add-hook 'js2-mode-hook 'emmet-mode) ;; REACT and jsx
+  :config
+  (setq emmet-move-cursor-between-quotes t) ;; default nil
+  )
+
 (use-package company
   :disabled t
   :bind(

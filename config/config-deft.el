@@ -15,7 +15,11 @@
     "Set the directory to dropbox")
   (deft-extensions '("org" "md")
     "Set the extensions for deft notes")
-  (deft-use-filename-as-title t)
+  (deft-use-filter-string-for-filename t)
+  (deft-file-naming-rules '((noslash . "-")
+                            (nospace . "-")
+                            (case-fn . downcase)))
+  (deft-org-mode-title-prefix t)
   :init
   (general-define-key :prefix my-default-evil-leader-key
                       "n" 'deft)
@@ -26,19 +30,30 @@
   ;; (general-define-key :states '(insert motion normal)
   ;;                     :keymaps 'deft-mode-map
   ;;                     "RET" 'deft-complete)
+  (add-hook 'deft-mode-hook #'(lambda ()
+                                (require 'org)
+                                (add-to-list 'org-agenda-files deft-directory)))
   (add-hook 'deft-open-file-hook 'org-mode)
+  (general-define-key :keymaps 'deft-mode-map
+                      :states '(insert normal motion)
+                      "C-j" 'widget-forward
+                      "C-k" 'widget-backward)
+  (general-define-key :keymaps 'deft-mode-map
+                      :states 'normal
+                      "p" 'deft-filter-yank
+                      "d d" 'deft-delete-file)
   (general-define-key :states 'insert
                       :keymaps 'deft-mode-map
                       "C-w" 'deft-filter-decrement-word
                       "C-u" 'deft-filter-clear)
-  (define-key deft-mode-map [remap evil-quit]
-    'kill-this-buffer)
-  (define-key deft-mode-map [remap evil-save-modified-and-close]
-    'kill-this-buffer)
+  ;; (define-key deft-mode-map [remap evil-quit]
+  ;;   'kill-this-buffer)
+  ;; (define-key deft-mode-map [remap evil-save-modified-and-close]
+  ;;   'kill-this-buffer)
   ;; TODO: See if this method can be applied to eshell hacks
   ;; TODO: This isn't working for some reason
-  (define-key deft-mode-map [remap evil-ret]
-    'deft-complete)
+  ;; (define-key deft-mode-map [remap evil-ret]
+  ;;   'deft-complete)
   ;; (defun my-overwrite-evil-ret-in-deft ()
   ;;   "attempts to make evil-ret in deft do things like send input"
   ;;   (message "Attempting to overwrite RET for deft")

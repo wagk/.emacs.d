@@ -26,20 +26,6 @@
   :mode ("\\.js\\'" . js2-mode)
   )
 
-;; https://github.com/smihica/emmet-mode
-;; ;TODO: Write down the cheatsheet or something
-(use-package emmet-mode
-  :bind (("<C-tab>" . emmet-expand-line)
-         :map emmet-mode-keymap
-         ("C-j" . emmet-next-edit-point)
-         ("C-k" . emmet-prev-edit-point))
-  :init
-  (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
-  (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.
-  :config
-  (setq emmet-move-cursor-between-quotes t) ;; default nil
-  )
-
 ;; not sure if this inherits from prog-mode
 (use-package groovy-mode
   :mode ("\\Jenkinsfile\\'" . groovy-mode)
@@ -70,6 +56,7 @@
 
 (use-package markdown-mode
   :config
+  (require 'org)
   (add-hook 'markdown-mode-hook 'orgtbl-mode)
   (add-hook 'markdown-mode-hook 'turn-on-fci-mode))
 

@@ -47,24 +47,18 @@ item, then insert a new item instead"
     ;; (end-of-line)
     )
 
-;;;###autoload
-  (defun /org-toggle-checkbox-or-table-down (n)
-    (interactive "p")
-    (if (org-table-p)
-        (org-table-copy-down n)
-      (org-toggle-checkbox)))
+  ;; ;;;###autoload
+  ;;   (defun /org-toggle-checkbox-or-table-down (n)
+  ;;     (interactive "p")
+  ;;     (if (org-table-p)
+  ;;         (org-table-copy-down n)
+  ;;       (org-toggle-checkbox)))
 
-  (defmacro /evil-update-cursor-eol(func)
-    (lambda ()
-      (interactive)
-      (func)
-      (org-end-of-line)))
-
-;;;###autoload
-  (defun /org-insert-heading()
-    (interactive)
-    (org-insert-heading)
-    (evil-append-line 1))
+  ;; (defmacro /evil-update-cursor-eol (func)
+  ;;   (lambda ()
+  ;;     (interactive)
+  ;;     (func)
+  ;;     (org-end-of-line)))
 
 ;;;###autoload
   (defun /org-mode-face-no-resize ()
@@ -77,11 +71,15 @@ text."
                       org-level-4
                       org-level-5))
         (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
+  (add-hook 'org-mode-hook '/org-mode-face-no-resize)
 
   (org-toggle-link-display)
   ;;Use google drive if available
   ;; (when (boundp '/g-drive-folder)
   ;;   (setq org-directory (concat /g-drive-folder "/org")))
+
+  ;; initialize org agenda things
+  (add-to-list 'org-agenda-files org-directory)
 
   (setq org-default-notes-file (concat org-directory "/TODO.org")
         org-M-RET-may-split-line '(default . nil)
@@ -93,7 +91,7 @@ text."
         org-log-done                               'time
         org-log-redeadline                         'time
         org-log-reschedule                         'time
-        org-blank-before-new-entry '((heading . t)
+        org-blank-before-new-entry '((heading . auto)
                                      (plain-list-item . auto))
         org-refile-targets '((nil . (:maxlevel . 9)))
         org-refile-use-outline-path t
@@ -101,7 +99,9 @@ text."
         org-refile-allow-creating-parent-nodes 'confirm
         org-highlight-latex-and-related '(latex))
 
-  (add-hook 'org-mode-hook '/org-mode-face-no-resize)
+  ;; when inserting a heading immediately go into insert mode
+  (add-hook 'org-insert-heading-hook 'evil-insert)
+
   (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
   ;; make it vim-compatitable
   (add-hook 'org-mode-hook '(lambda ()
@@ -115,10 +115,10 @@ text."
                       "M-j"     'org-metadown
                       "S-SPC"   '/evil-org-toggle-checkbox
                       "C-M-RET" 'org-insert-subheading
-                      "M-L"     '(/evil-update-cursor-eol(org-shiftmetaright))
-                      "M-H"     '(/evil-update-cursor-eol(org-shiftmetaleft))
-                      "M-K"     '(/evil-update-cursor-eol(org-shiftmetaup))
-                      "M-L"     '(/evil-update-cursor-eol(org-shiftmetadown)))
+                      "M-L"     '(org-shiftmetaright)
+                      "M-H"     '(org-shiftmetaleft)
+                      "M-K"     '(org-shiftmetaup)
+                      "M-L"     '(org-shiftmetadown))
   (general-define-key :keymaps 'org-mode-map
                       :states  'normal
                       "TAB"    'org-cycle
@@ -131,6 +131,10 @@ text."
   (general-define-key :keymaps 'org-mode-map
                       :states 'insert
                       "RET"     'newline-and-indent)
+
+  ;; make smartparen autoskip "" because org-mode treats it as a string
+  (require 'smartparens)
+  (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
 
   ;; TODO: Figure out why sometimes when calling org-meta-return the cursor
   ;; positions are all out of whack

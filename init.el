@@ -88,8 +88,6 @@ Assumes that it:
    "./config/config-utility.el"
    "./config/config-package.el"
    "./config/config-common.el"
-   "./config/config-help.el"
-   "./config/config-emacs.el"
 
    "./config/config-colors.el"
 
@@ -127,7 +125,10 @@ Assumes that it:
    "./config/config-finance.el"
    "./config/config-journal.el"
    "./config/config-web-browsing.el"
-   )
+
+   "./config/config-help.el"
+   "./config/config-emacs.el"
+    )
 
   ;; Disable ANNOYING customize options
   (setq custom-file (concat user-init-dir "custom.el"))
