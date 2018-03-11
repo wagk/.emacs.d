@@ -10,10 +10,11 @@
 (use-package deft
   :commands (deft)
   :custom
-  (deft-auto-save-interval 0.0 "Disable autosave because of permissions issues")
-  (deft-directory (concat /dropbox-folder "/notes")
+  (deft-auto-save-interval 0.0
+    "Disable autosave because of permissions issues")
+  (deft-directory my-notes-directory
     "Set the directory to dropbox")
-  (deft-extensions '("org" "md")
+  (deft-extensions '("org")
     "Set the extensions for deft notes")
   (deft-use-filter-string-for-filename t)
   (deft-file-naming-rules '((noslash . "-")

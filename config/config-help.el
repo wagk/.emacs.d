@@ -21,6 +21,12 @@
                     "C-t" 'help-go-back
                     "C-]" 'help-follow)
 
+(general-define-key :states 'normal
+                    :keymaps 'Info-mode-map
+                    "[ [" 'Info-prev
+                    "] ]" 'Info-next
+                    "SPC" nil)
+
 (provide 'config-help)
 
 ;;; config-help.el ends here

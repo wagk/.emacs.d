@@ -26,6 +26,7 @@
 
 ;; https://github.com/nonsequitur/git-gutter-plus
 (use-package git-gutter+
+  :diminish t
   :bind (:map evil-normal-state-map
               ("[ h" . git-gutter+-previous-hunk)
               ("] h" . git-gutter+-next-hunk)
@@ -51,7 +52,8 @@
   ;; then set the textobject to that range
   ;; (require 'evil)
 
-  ;; we're forced to put it here because the global mode must be done afterwards (??)
+  ;; we're forced to put it here because the global mode must be done afterwards
+  ;; (??)
   (use-package git-gutter-fringe+
     :if (display-graphic-p)
     :after git-gutter+

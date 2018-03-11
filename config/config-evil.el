@@ -191,6 +191,7 @@ word"
         evil-want-C-u-scroll t
         evil-split-window-below t
         evil-vsplit-window-right t)
+  (setq-default evil-auto-indent t)
 
   ;; (add-hook 'view-mode-hook 'evil-motion-state)
 

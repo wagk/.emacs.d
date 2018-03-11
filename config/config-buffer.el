@@ -128,6 +128,7 @@ buffer in."
 
 (use-package hl-todo
   :defer 1
+  :diminish t
   :init
   (general-define-key :prefix my-default-evil-leader-key
                       "t t" 'hl-todo-occur)
@@ -150,6 +151,7 @@ buffer in."
 ;; https://github.com/alpaker/Fill-Column-Indicator
 (use-package fill-column-indicator
   :hook (prog-mode . turn-on-fci-mode)
+  :diminish t
   :config
   (setq-default fill-column 80)
   ;; (setq fci-rule-width 23)
@@ -250,8 +252,11 @@ This effectively centers it."
   :config
   (autopair-global-mode))
 
+(use-package polymode)
+
 (use-package smartparens
   :demand t
+  :diminish t
   :config
   (require 'smartparens-config) ;; load some default configurations
   (smartparens-global-mode)

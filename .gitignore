@@ -32,3 +32,4 @@ spu_log/*
 *.exe
 /elpa/gnupg/pubring.bak
 /history
+*.org-id-locations

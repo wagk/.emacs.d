@@ -79,9 +79,9 @@ text."
   ;;   (setq org-directory (concat /g-drive-folder "/org")))
 
   ;; initialize org agenda things
-  (add-to-list 'org-agenda-files org-directory)
+  (add-to-list 'org-agenda-files my-org-directory)
 
-  (setq org-default-notes-file (concat org-directory "/TODO.org")
+  (setq org-default-notes-file (concat my-org-directory "/TODO.org")
         org-M-RET-may-split-line '(default . nil)
         org-list-empty-line-terminates-plain-lists t
         org-enforce-todo-checkbox-dependencies     t
@@ -100,7 +100,7 @@ text."
         org-highlight-latex-and-related '(latex))
 
   ;; when inserting a heading immediately go into insert mode
-  (add-hook 'org-insert-heading-hook 'evil-insert)
+  (add-hook 'org-insert-heading-hook 'evil-insert-state)
 
   (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
   ;; make it vim-compatitable
@@ -180,7 +180,16 @@ text."
 ;;       (kill-whole-line)
 ;;       (package-install-from-buffer))))
 
-(use-package org-brain)
+(use-package org-brain
+  :custom
+  (org-brain-path my-notes-directory
+                  "Share the same path as deft.")
+  :init
+  (with-eval-after-load 'evil
+    (evil-set-initial-state 'org-brain-visualise-mode 'emacs))
+  (general-define-key :prefix my-default-evil-leader-key
+                      "N" 'org-brain-visualise)
+  )
 
 (use-package evil-org
   :disabled t

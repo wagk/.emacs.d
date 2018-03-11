@@ -23,17 +23,19 @@
       user-mail-address "pang.tun.jiang@gmail.com")
 
 (defconst user-init-dir
-  (cond ((boundp 'user-emacs-directory) user-emacs-directory)
-        ((boundp 'user-init-directory) user-init-directory)
-        (t "~/.emacs.d/"))
+  (directory-file-name
+   (cond ((boundp 'user-emacs-directory) user-emacs-directory)
+         ((boundp 'user-init-directory) user-init-directory)
+         (t "~/.emacs.d/"))
+   )
   "Sets up the startup directory.")
 
 (defconst user-init-file
-  (concat user-init-dir "init.el")
+  (concat user-init-dir "/init.el")
   "Points to init.el")
 
 (defconst user-config-dir
-  (concat user-init-dir "config/")
+  (concat user-init-dir "/config/")
   "Directory where all the user configuration files are stored")
 
 ;;;###autoload
@@ -88,6 +90,7 @@ Assumes that it:
    "./config/config-utility.el"
    "./config/config-package.el"
    "./config/config-common.el"
+   "./config/config-vars.el"
 
    "./config/config-colors.el"
 
@@ -112,6 +115,8 @@ Assumes that it:
    "./config/config-python.el"
    "./config/config-rust.el"
 
+   "./config/config-tex.el"
+
    "./config/config-diff.el"
    "./config/config-shell.el"
    "./config/config-tramp.el"
@@ -128,7 +133,7 @@ Assumes that it:
 
    "./config/config-help.el"
    "./config/config-emacs.el"
-    )
+   )
 
   ;; Disable ANNOYING customize options
   (setq custom-file (concat user-init-dir "custom.el"))
