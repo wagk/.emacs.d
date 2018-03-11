@@ -26,6 +26,15 @@ This is different from the org-directory because these documents are more for
 snippets and smaller things"
   )
 
+(defconst my-wiki-directory
+  (file-name-as-directory
+   (if (boundp '/dropbox-folder)
+      (concat (directory-file-name /dropbox-folder) "/wiki")
+    "~/wiki"))
+  "Used for org-brain. This is basically the wiki directory"
+  )
+
+
 
 (provide 'config-vars)
 

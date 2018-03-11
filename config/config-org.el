@@ -182,13 +182,18 @@ text."
 
 (use-package org-brain
   :custom
-  (org-brain-path my-notes-directory
+  (org-brain-path my-wiki-directory
                   "Share the same path as deft.")
   :init
   (with-eval-after-load 'evil
-    (evil-set-initial-state 'org-brain-visualise-mode 'emacs))
+    (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
   (general-define-key :prefix my-default-evil-leader-key
-                      "N" 'org-brain-visualise)
+                      "N" 'org-brain-visualize)
+  ;; :config
+  ;; (general-define-key :keymaps 'org-brain-visualize-mode-map
+  ;;                     :states 'normal
+  ;;                     "C-j" 'forward-button
+  ;;                     "C-k" 'backward-button)
   )
 
 (use-package evil-org

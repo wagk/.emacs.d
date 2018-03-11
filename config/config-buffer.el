@@ -165,8 +165,17 @@ buffer in."
 
 (use-package powerline
   :demand t
+  ;; :config
+  ;; (powerline-vim-theme)
+  )
+
+(use-package powerline-evil
+  :after powerline
+  :demand t
   :config
-  (powerline-vim-theme))
+  (setq powerline-evil-tag-style 'verbose)
+  (powerline-evil-vim-theme)
+  )
 
 ;; https://github.com/larstvei/Focus
 (use-package focus
