@@ -1,4 +1,5 @@
+# -*- mode: snippet -*-
 # key: dd
 # name: debug
 # --
-`(yas-with-comment "DEBUG: ")`$0
+`(yas-with-comment "DEBUG: ")`

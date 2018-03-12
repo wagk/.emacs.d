@@ -19,7 +19,8 @@
                       "s a" 'yas-insert-snippet
                       "s f" 'yas-visit-snippet-file)
   :config
-  (let ((my-snippet-dir (concat user-init-dir "snippets")))
+  (let ((my-snippet-dir (directory-file-name
+                         (concat user-init-dir "/snippets"))))
     (setq-default yas-snippet-dirs `(,my-snippet-dir)))
   (yas-global-mode)
   (setq yas-indent-line 'auto
@@ -43,7 +44,8 @@ Used for 'auto-insert'"
   (yas-minor-mode)
   (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
-(setq-default auto-insert-directory (concat user-init-dir "./auto-insert/"))
+(setq-default auto-insert-directory
+              (directory-file-name (concat user-init-dir "/auto-insert/")))
 (auto-insert-mode 1)
 (setq-default auto-insert-query nil
               auto-insert 'other)
@@ -73,8 +75,9 @@ Used for 'auto-insert'"
   :bind (:map emmet-mode-keymap
               ;; ("TAB" . emmet-expand-yas) ;; uses deprecated yas functions
               ("TAB" . emmet-expand-line)
-              ("C-j" . emmet-next-edit-point)
-              ("C-k" . emmet-prev-edit-point))
+              ;; ("C-j" . emmet-next-edit-point)
+              ;; ("C-k" . emmet-prev-edit-point)
+              )
   :init
   (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
   (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.

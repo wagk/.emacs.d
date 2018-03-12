@@ -12,10 +12,11 @@
   (general-define-key :prefix my-default-evil-leader-key
                       ", ," 'magit-status)
   :config
-  (eval-after-load 'aggressive-fill-paragraph
-    '(add-hook 'git-commit-setup-hook 'aggressive-fill-paragraph-mode))
-  (eval-after-load 'fill-column-indicator
-    '(add-hook 'git-commit-setup-hook 'turn-on-fci-mode))
+  (with-eval-after-load 'aggressive-fill-paragraph
+    (add-hook 'git-commit-setup-hook 'aggressive-fill-paragraph-mode))
+  (with-eval-after-load 'fill-column-indicator
+    (add-hook 'git-commit-setup-hook 'turn-on-fci-mode))
+  (add-hook 'magit-popup-mode-hook #'(lambda () (display-line-numbers-mode -1)))
   )
 
 (use-package evil-magit
@@ -26,7 +27,7 @@
 
 ;; https://github.com/nonsequitur/git-gutter-plus
 (use-package git-gutter+
-  :diminish t
+  :diminish git-gutter+-mode
   :bind (:map evil-normal-state-map
               ("[ h" . git-gutter+-previous-hunk)
               ("] h" . git-gutter+-next-hunk)

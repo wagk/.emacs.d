@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: jsdoc comment block
+# name: js-docstring
 # key: d
 # --
 /** $0

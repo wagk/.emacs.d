@@ -140,4 +140,5 @@ Assumes that it:
   (load custom-file 'noerror)
   )
 
-(setq gc-cons-threshold 20000000)
+(setq garbage-collection-messages t)
+;; (setq gc-cons-threshold 20000000)

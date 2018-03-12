@@ -13,6 +13,7 @@
 ;;   (add-to-list 'exec-path "c:/cygwin64/bin")
 ;;   )
 
+(add-hook 'comint-mode-hook #'(lambda () (display-line-numbers-mode -1)))
 ;; (add-hook 'comint-mode-hook 'turn-off-evil-mode)
 ;; (add-hook 'term-mode-hook 'turn-off-evil-mode)
 
@@ -52,9 +53,9 @@
   ;;                       (kbd "RET") 'eshell-send-input)
   ;;   )
   ;; (add-hook 'eshell-mode-hook 'my-overwrite-evil-ret-in-eshell)
-  (defun my-evil-shell-hook ()
-    "Whenever we enter insert mode we go to the end of line"
-    )
+  ;; (defun my-evil-shell-hook ()
+  ;;   "Whenever we enter insert mode we go to the end of line"
+  ;;   )
   ;; (add-hook 'evil-insert-state-entry-hook 'evil-goto-line)
  )
 

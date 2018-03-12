@@ -16,6 +16,7 @@
 (use-package elmacro)
 
 (use-package elisp-slime-nav
+  :diminish elisp-slime-nav-mode
   :bind
   (:map elisp-slime-nav-mode-map
         ("C-:" . eval-last-sexp))

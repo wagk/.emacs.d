@@ -265,7 +265,7 @@ This effectively centers it."
 
 (use-package smartparens
   :demand t
-  :diminish t
+  :diminish smartparens-mode
   :config
   (require 'smartparens-config) ;; load some default configurations
   (smartparens-global-mode)
@@ -287,7 +287,7 @@ This effectively centers it."
   )
 
 ;;;###autoload
-(defun /set-frame-transparency (value)
+(defun my-set-frame-transparency (value)
   "Set the transparency of the frame window to VALUE.
 0=transparent/100=opaque"
   (interactive "nTransparency Value 0 - 100 opaque:")
