@@ -138,7 +138,9 @@ Assumes that it:
   ;; Disable ANNOYING customize options
   (setq custom-file (concat user-init-dir "custom.el"))
   (load custom-file 'noerror)
+  ;; (garbage-collect)
   )
 
-(setq garbage-collection-messages t)
-;; (setq gc-cons-threshold 20000000)
+;; (setq garbage-collection-messages t)
+;; (add-hook 'focus-out-hook 'garbage-collect)
+;; (setq gc-cons-threshold 20000)
