@@ -70,6 +70,11 @@
 (when (>= emacs-major-version 26)
   (global-display-line-numbers-mode))
 
+(defun my-disable-line-numbers ()
+  "For modes that doesn't need line numbers in their buffers"
+  (display-line-numbers-mode -1)
+  )
+
 ;; autopairing
 ;; We're currently trying out smartparens
 (electric-pair-mode -1)

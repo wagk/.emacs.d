@@ -16,7 +16,7 @@
     (add-hook 'git-commit-setup-hook 'aggressive-fill-paragraph-mode))
   (with-eval-after-load 'fill-column-indicator
     (add-hook 'git-commit-setup-hook 'turn-on-fci-mode))
-  (add-hook 'magit-popup-mode-hook #'(lambda () (display-line-numbers-mode -1)))
+  (add-hook 'magit-popup-mode-hook #'my-disable-line-numbers)
   )
 
 (use-package evil-magit

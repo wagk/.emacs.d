@@ -11,7 +11,7 @@
   :commands (deft)
   :custom
   (deft-auto-save-interval 0.0
-    "Disable autosave because of permissions issues")
+    "Disable autosave because of permissions issues causing massive lag")
   (deft-directory my-notes-directory
     "Set the directory to dropbox")
   (deft-extensions '("org")
@@ -31,9 +31,10 @@
   ;; (general-define-key :states '(insert motion normal)
   ;;                     :keymaps 'deft-mode-map
   ;;                     "RET" 'deft-complete)
-  (add-hook 'deft-mode-hook #'(lambda ()
-                                (require 'org)
-                                (add-to-list 'org-agenda-files deft-directory)))
+  (add-hook 'deft-mode-hook
+            #'(lambda ()
+                (require 'org)
+                (add-to-list 'org-agenda-files deft-directory)))
   (add-hook 'deft-open-file-hook 'org-mode)
   (general-define-key :keymaps 'deft-mode-map
                       :states '(insert normal motion)

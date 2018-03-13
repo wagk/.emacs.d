@@ -13,7 +13,7 @@
 ;;   (add-to-list 'exec-path "c:/cygwin64/bin")
 ;;   )
 
-(add-hook 'comint-mode-hook #'(lambda () (display-line-numbers-mode -1)))
+(add-hook 'comint-mode-hook #'my-disable-line-numbers)
 ;; (add-hook 'comint-mode-hook 'turn-off-evil-mode)
 ;; (add-hook 'term-mode-hook 'turn-off-evil-mode)
 
@@ -40,7 +40,7 @@
 
 (with-eval-after-load 'eshell
   (evil-set-initial-state 'eshell-mode 'insert)
-  (add-hook 'eshell-mode-hook #'(lambda () (display-line-numbers-mode -1)))
+  (add-hook 'eshell-mode-hook #'my-disable-line-numbers)
   ;; (defun my-overwrite-evil-ret-in-eshell ()
   ;;   "attempts to make evil-ret in shell modes do things like send input"
   ;;   (message "Attempting to overwrite RET for eshell")

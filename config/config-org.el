@@ -184,6 +184,9 @@ text."
   :custom
   (org-brain-path my-wiki-directory
                   "Share the same path as deft.")
+  (org-brain-file-entries-use-title nil
+                                    "Speed optimisation since our filenames and
+                                    title should match anyway")
   :init
   (with-eval-after-load 'evil
     (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
