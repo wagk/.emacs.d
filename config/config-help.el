@@ -8,12 +8,19 @@
 (require 'config-evil)
 
 (use-package help+
+  :load-path "local-packages/"
+  :demand t)
+
+(use-package help-macro+
+  :load-path "local-packages/"
   :demand t)
 
 (use-package help-mode+
+  :load-path "local-packages/"
   :demand t)
 
 (use-package help-fns+
+  :load-path "local-packages/"
   :demand t)
 
 (general-define-key :states 'normal
