@@ -12,15 +12,17 @@
   :custom
   (deft-auto-save-interval 0.0
     "Disable autosave because of permissions issues causing massive lag")
-  (deft-directory my-notes-directory
+  (deft-directory my-wiki-directory
     "Set the directory to dropbox")
   (deft-extensions '("org")
     "Set the extensions for deft notes")
+  (deft-recursive t
+    "Recursively search so we can organise by folders")
   (deft-use-filter-string-for-filename t)
   (deft-file-naming-rules '((noslash . "-")
                             (nospace . "-")
                             (case-fn . downcase)))
-  (deft-org-mode-title-prefix t)
+  (deft-org-mode-title-prefix nil)
   :init
   (general-define-key :prefix my-default-evil-leader-key
                       "n" 'deft)

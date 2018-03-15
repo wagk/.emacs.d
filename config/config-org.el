@@ -18,34 +18,35 @@
                       "o o" 'org-capture
                       "o r" 'org-refile)
   :config
-;;;###autoload
-  (defun /org-insert-item-or-header-respect-content ()
-    "Basically org-insert-heading-respect-content, except when you're on an
-item, then insert a new item instead"
-    (interactive)
-    (cond ((org-at-item-p) (org-insert-item))
-          (t (org-insert-heading-respect-content))))
 
-;;;###autoload
-  (defun my-org-add-checkbox ()
-    "adds a checkbox if the cursor is on a list"
-    (interactive)
-    (when (org-at-item-p)
-        (org-toggle-checkbox '(4))
-        (evil-move-end-of-line)))
+;; ;;;###autoload
+;;   (defun /org-insert-item-or-header-respect-content ()
+;;     "Basically org-insert-heading-respect-content, except when you're on an
+;; item, then insert a new item instead"
+;;     (interactive)
+;;     (cond ((org-at-item-p) (org-insert-item))
+;;           (t (org-insert-heading-respect-content))))
 
-;;;###autoload
-  (defun /evil-org-toggle-checkbox ()
-    "If the list element has no checkbox, add one. Do nothing otherwise."
-    (interactive)
-    ;; (cond
-    ;;  ((org-at-item-p)
-    ;;   ))
-    (if (not (org-at-item-checkbox-p))
-        (org-toggle-checkbox '(4)) ;; Prefix arguments are WEIRD
-      (org-toggle-checkbox))
-    ;; (end-of-line)
-    )
+;; ;;;###autoload
+;;   (defun my-org-add-checkbox ()
+;;     "adds a checkbox if the cursor is on a list"
+;;     (interactive)
+;;     (when (org-at-item-p)
+;;         (org-toggle-checkbox '(4))
+;;         (evil-move-end-of-line)))
+
+;; ;;;###autoload
+;;   (defun /evil-org-toggle-checkbox ()
+;;     "If the list element has no checkbox, add one. Do nothing otherwise."
+;;     (interactive)
+;;     ;; (cond
+;;     ;;  ((org-at-item-p)
+;;     ;;   ))
+;;     (if (not (org-at-item-checkbox-p))
+;;         (org-toggle-checkbox '(4)) ;; Prefix arguments are WEIRD
+;;       (org-toggle-checkbox))
+;;     ;; (end-of-line)
+;;     )
 
   ;; ;;;###autoload
   ;;   (defun /org-toggle-checkbox-or-table-down (n)
@@ -81,7 +82,7 @@ text."
   ;; initialize org agenda things
   (add-to-list 'org-agenda-files my-org-directory)
 
-  (setq org-default-notes-file (concat my-org-directory "/TODO.org")
+  (setq org-default-notes-file "~/TODO.org"
         org-M-RET-may-split-line '(default . nil)
         org-list-empty-line-terminates-plain-lists t
         org-enforce-todo-checkbox-dependencies     t
@@ -102,23 +103,23 @@ text."
   ;; when inserting a heading immediately go into insert mode
   (add-hook 'org-insert-heading-hook 'evil-insert-state)
 
-  (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
+  ;; (add-to-list 'org-emphasis-alist '("`" org-code verbatim))
   ;; make it vim-compatitable
-  (add-hook 'org-mode-hook '(lambda ()
-                              (setq paragraph-start "\\|[     ]*$"
-                                    paragraph-separate "[       ]*$")))
+  ;; (add-hook 'org-mode-hook '(lambda ()
+  ;;                             (setq paragraph-start "\\|[     ]*$"
+  ;;                                   paragraph-separate "[       ]*$")))
   (general-define-key :keymaps 'org-mode-map
                       :states '(normal insert)
                       "M-l"     'org-metaright
                       "M-h"     'org-metaleft
                       "M-k"     'org-metaup
                       "M-j"     'org-metadown
-                      "S-SPC"   '/evil-org-toggle-checkbox
+                      ;; "S-SPC"   '/evil-org-toggle-checkbox
                       "C-M-RET" 'org-insert-subheading
-                      "M-L"     '(org-shiftmetaright)
-                      "M-H"     '(org-shiftmetaleft)
-                      "M-K"     '(org-shiftmetaup)
-                      "M-L"     '(org-shiftmetadown))
+                      "M-L"     'org-shiftmetaright
+                      "M-H"     'org-shiftmetaleft
+                      "M-K"     'org-shiftmetaup
+                      "M-L"     'org-shiftmetadown)
   (general-define-key :keymaps 'org-mode-map
                       :states  'normal
                       "TAB"    'org-cycle
@@ -150,24 +151,30 @@ text."
   ;; (add-hook 'org-metareturn-hook #'my-refresh-insert-cursor)
 
   ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
-  (with-eval-after-load "org-capture"
+  (with-eval-after-load 'org-capture
     (define-key org-capture-mode-map [remap evil-save-and-close]
       'org-capture-finalize)
     (define-key org-capture-mode-map [remap evil-save-modified-and-close]
       'org-capture-finalize)
     (define-key org-capture-mode-map [remap evil-quit]
       'org-capture-kill))
-  (progn (require 'org-agenda)
-         ;; TODO: rebind org-agenda keymaps
-         )
+  ;; (progn (require 'org-agenda)
+  ;;        ;; TODO: rebind org-agenda keymaps
+  ;;        )
   (defun /this-time ()
     "Prints the time and date."
     (interactive)
     (org-time-stamp '(16) t))
-  (progn (require 'fill-column-indicator)
-         (add-hook 'org-mode-hook 'turn-on-fci-mode))
-  (progn (require 'aggressive-fill-paragraph)
-         (add-hook 'org-mode-hook #'aggressive-fill-paragraph-mode))
+
+  (defun my-org-hook-configs ()
+    "docstring for my-org-hook-configs"
+    ;; NOTE: We turn this off because it is causing the cursor to do really
+    ;; fucking weird things
+    ;; (require 'fill-column-indicator)
+    ;; (turn-on-fci-mode)
+    (require 'aggressive-fill-paragraph)
+    (aggressive-fill-paragraph-mode))
+  (add-hook 'org-mode-hook #'my-org-hook-configs)
   )
 
 ;; ;; TODO: Figure out how to make this work
@@ -219,16 +226,17 @@ text."
   :init
   (general-define-key :prefix my-default-evil-leader-key
                       "o O" 'helm-org-rifle)
-  :bind(:map helm-org-rifle-map
-             ("C-w" . evil-delete-backward-word)
-             ("\\"  . helm-select-action)
-             ("C-j" . helm-next-line)
-             ("C-k" . helm-previous-line)
-             ("C-n" . helm-next-page)
-             ("C-p" . helm-previous-page)
-             ("C-l" . helm-next-source)
-             ("C-h" . helm-previous-source)
-             ("TAB" . helm-execute-persistent-action))
+  :bind
+  (:map helm-org-rifle-map
+        ("C-w" . evil-delete-backward-word)
+        ("\\"  . helm-select-action)
+        ("C-j" . helm-next-line)
+        ("C-k" . helm-previous-line)
+        ("C-n" . helm-next-page)
+        ("C-p" . helm-previous-page)
+        ("C-l" . helm-next-source)
+        ("C-h" . helm-previous-source)
+        ("TAB" . helm-execute-persistent-action))
   )
 
 (provide 'config-org)
