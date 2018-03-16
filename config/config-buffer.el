@@ -170,15 +170,14 @@ buffer in."
 
 (use-package powerline
   :demand t
-  ;; :config
-  ;; (powerline-vim-theme)
   )
 
 (use-package powerline-evil
   :after powerline
   :demand t
+  :custom
+  (powerline-evil-tag-style 'verbose)
   :config
-  (setq powerline-evil-tag-style 'verbose)
   (powerline-evil-vim-theme)
   )
 
@@ -197,7 +196,7 @@ buffer in."
 (use-package no-littering)
 
 (use-package mmm-mode
-  :disabled
+  :disabled t ; looking at polymode instead
   :commands mmm-mode
   :config
   (setq mmm-parse-when-idle 't))
@@ -208,7 +207,8 @@ buffer in."
 
 (use-package buffer-move)
 
-(use-package crosshairs)
+(use-package crosshairs
+  :disabled t)
 
 (use-package which-key
   :demand t

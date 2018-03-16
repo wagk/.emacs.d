@@ -83,7 +83,8 @@ word"
     "Input language toggle wrapper."
     (interactive)
     (toggle-input-method)
-    (evil-append 1))
+    ;; (evil-append 1)
+    )
 
   ;; Overload shifts so that they don't lose the selection
 ;;;###autoload

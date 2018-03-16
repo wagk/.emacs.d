@@ -22,6 +22,10 @@
 (setq user-full-name    "Pang Tun Jiang"
       user-mail-address "pang.tun.jiang@gmail.com")
 
+;; buffer encoding systems
+;; We do this here because the package system might need to know our preferences
+(prefer-coding-system 'utf-8)
+
 (defconst user-init-dir
   (directory-file-name
    (cond ((boundp 'user-emacs-directory) user-emacs-directory)
