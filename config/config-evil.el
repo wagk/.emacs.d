@@ -5,17 +5,21 @@
 ;;; Code:
 (require 'config-package)
 
+;; activate folding
+(add-hook 'prog-mode-hook 'hs-minor-mode)
+;; (evil-mode)
+
 ;; Note that all the evil flags are documented in `evil.info' in the evil
 ;; directory
 (use-package evil
   :demand t
   :bind (;; ("C-f" . universal-argument)
-         ("C-u" . kill-whole-line)
-         ("C-j" . newline-and-indent)
+         ;; ("C-j" . newline-and-indent) ;; emacs uses M-j
          ;; :map universal-argument-map
          ;; ("C-u" . nil)
          ;; ("C-f" . universal-argument-more)
          :map evil-insert-state-map
+         ("C-u" . kill-whole-line)
          ("C-l" . evil-complete-next-line)
          ("C-L" . evil-complete-previous-line)
          ("C-k" . nil)
@@ -482,10 +486,6 @@ word"
 (use-package vimish-fold)
 
 (use-package evil-tutor)
-
-;; activate folding
-(add-hook 'prog-mode-hook 'hs-minor-mode)
-;; (evil-mode)
 
 (provide 'config-evil)
 

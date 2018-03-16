@@ -146,7 +146,7 @@ buffer in."
                           `(("TODO"  . ,$solarized-dark-yellow)
                             ("DEBUG" . ,$solarized-dark-magenta)
                             ("BUG"   . ,$solarized-dark-red)
-                            ("IMPL"  . ,$solarized-dark-green)
+                            ("STUB"  . ,$solarized-dark-green)
                             ("NOTE"  . ,$solarized-dark-base1)
                             ("HACK"  . ,$solarized-dark-violet)
                             ("FIXME" . ,$solarized-dark-orange)))
