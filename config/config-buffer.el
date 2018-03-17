@@ -63,9 +63,6 @@
               tab-width         2
               auto-hscroll-mode t)
 
-;; buffer encoding systems
-(prefer-coding-system 'utf-8)
-
 ;; use optimised linum mode if we can
 (when (>= emacs-major-version 26)
   (global-display-line-numbers-mode))
