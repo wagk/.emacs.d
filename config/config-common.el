@@ -14,7 +14,8 @@
 
 (use-package f)
 
-(use-package misc-cmds)
+(use-package misc-cmds
+  :disabled t)
 
 (defun my-find-parent-major-modes ()
   "docstring for my-find-parent-major-modes"

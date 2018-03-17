@@ -72,6 +72,7 @@ Used for 'auto-insert'"
 ;; ;TODO: Write down the cheatsheet or something
 ;; https://docs.emmet.io/cheat-sheet/
 (use-package emmet-mode
+  :diminish emmet-mode
   :bind (:map emmet-mode-keymap
               ;; ("TAB" . emmet-expand-yas) ;; uses deprecated yas functions
               ("TAB" . emmet-expand-line)

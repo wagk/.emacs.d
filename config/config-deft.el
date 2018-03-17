@@ -33,10 +33,6 @@
   ;; (general-define-key :states '(insert motion normal)
   ;;                     :keymaps 'deft-mode-map
   ;;                     "RET" 'deft-complete)
-  (add-hook 'deft-mode-hook
-            #'(lambda ()
-                (require 'org)
-                (add-to-list 'org-agenda-files deft-directory)))
   (add-hook 'deft-open-file-hook 'org-mode)
   (general-define-key :keymaps 'deft-mode-map
                       :states '(insert normal motion)
