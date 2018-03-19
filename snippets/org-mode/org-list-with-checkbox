@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# key: --
+# name: org-list-with-checkbox
+# --
+- [ ] $0

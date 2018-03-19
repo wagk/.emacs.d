@@ -41,6 +41,7 @@
 (with-eval-after-load 'eshell
   (evil-set-initial-state 'eshell-mode 'insert)
   (add-hook 'eshell-mode-hook #'my-disable-line-numbers)
+  (add-hook 'eshell-mode-hook #'/treat-underscore-as-word)
   ;; (defun my-overwrite-evil-ret-in-eshell ()
   ;;   "attempts to make evil-ret in shell modes do things like send input"
   ;;   (message "Attempting to overwrite RET for eshell")

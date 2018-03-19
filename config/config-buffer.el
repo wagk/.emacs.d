@@ -252,6 +252,15 @@ This effectively centers it."
 (general-define-key :prefix my-default-evil-leader-key
                     "W" '/centre-window-function)
 
+;; (use-package switch-window
+;;   :custom
+;;   (switch-window-shortcut-apppearance 'asciiart))
+
+(use-package ace-window
+  :bind
+  (:map evil-window-map
+        ("SPC" . ace-window)))
+
 (use-package centered-window-mode
   :disabled t
   :el-get centered-window-mode
