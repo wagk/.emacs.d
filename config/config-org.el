@@ -82,6 +82,10 @@ text."
   ;; initialize org agenda things
   (add-to-list 'org-agenda-files my-org-directory)
 
+  (setq org-startup-indented t
+        org-src-tab-acts-natively t
+        org-src-window-setup 'current-window)
+
   (setq org-default-notes-file "~/TODO.org"
         org-M-RET-may-split-line '(default . nil)
         org-list-empty-line-terminates-plain-lists t

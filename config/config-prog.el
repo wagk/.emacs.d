@@ -11,6 +11,10 @@
   (autoload 'turn-on-ctags-auto-update-mode "ctags-update"
     "turn on 'ctags-auto-update-mode'." t))
 
+(use-package dumb-jump
+  :demand t
+  :diminish dumb-jump-mode)
+
 ;; We don't use this global binding and run it per programming mode because
 ;; nearly everyone inherits from prog-mode for whatever goddammed reason and
 ;; it's shadowing some pretty important binds

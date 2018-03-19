@@ -17,6 +17,11 @@
 ;; (add-hook 'comint-mode-hook 'turn-off-evil-mode)
 ;; (add-hook 'term-mode-hook 'turn-off-evil-mode)
 
+;; (use-package exec-path-from-shell
+;;   :demand t
+;;   :config
+;;   (exec-path-from-shell-initialize))
+
 (use-package multi-term
   :after evil
   :init

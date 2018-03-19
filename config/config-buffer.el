@@ -88,10 +88,15 @@
 
 ;; adjust autosave and backup directories
 (setq backup-directory-alist `(("." . ,(concat user-init-dir "/backups/")))
-      delete-old-versions -1
+      delete-old-versions t
+      backup-by-copying t
       version-control t
+      kept-new-versions 20
+      kept-old-versions 5
       vc-make-backup-files t
       auto-save-file-name-transforms `((".*" ,(concat user-init-dir "/autosave/") t)))
+
+(global-hl-line-mode)
 
 (defun my-goto-scratch-buffer ()
   "When called goes to the scratch buffer.
@@ -209,8 +214,15 @@ buffer in."
 
 (use-package which-key
   :demand t
+  :diminish which-key-mode
   :config
   (which-key-mode))
+
+(use-package undo-tree
+  :demand t
+  :diminish undo-tree-mode
+  :config
+  (global-undo-tree-mode))
 
 ;;;###autoload
 (defun /line-lengths()
@@ -259,7 +271,13 @@ This effectively centers it."
 (use-package ace-window
   :bind
   (:map evil-window-map
-        ("SPC" . ace-window)))
+        ("SPC" . ace-window))
+  :custom
+  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  )
+
+;; er/expand-region
+(use-package expand-region)
 
 (use-package centered-window-mode
   :disabled t
