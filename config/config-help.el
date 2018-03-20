@@ -23,15 +23,18 @@
   :load-path "local-packages/"
   :demand t)
 
-(general-define-key :states 'normal
+(require 'ace-link)
+(general-define-key :states  'normal
                     :keymaps 'help-mode-map
-                    "C-t" 'help-go-back
-                    "C-]" 'help-follow)
+                    "C-t"    'help-go-back
+                    "C-]"    'help-follow
+                    "f"      'ace-link-help)
 
-(general-define-key :states 'normal
+(general-define-key :states  'normal
                     :keymaps 'Info-mode-map
-                    "[ [" 'Info-prev
-                    "] ]" 'Info-next
+                    "[ ["    'Info-prev
+                    "] ]"    'Info-next
+                    "f"      'ace-link-info
                     "SPC" nil)
 
 (provide 'config-help)

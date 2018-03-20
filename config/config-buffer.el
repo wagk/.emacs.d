@@ -268,6 +268,12 @@ This effectively centers it."
 ;;   :custom
 ;;   (switch-window-shortcut-apppearance 'asciiart))
 
+;; Used in help mode and eww
+(use-package ace-link
+  :commands (ace-link-help
+             ace-link-info
+             ace-link-eww))
+
 (use-package ace-window
   :bind
   (:map evil-window-map

@@ -82,7 +82,8 @@ text."
   ;; initialize org agenda things
   (add-to-list 'org-agenda-files my-org-directory)
 
-  (setq org-startup-indented t
+  (setq org-startup-indented nil
+        org-indent-mode-turns-on-hiding-stars nil
         org-src-tab-acts-natively t
         org-src-window-setup 'current-window)
 

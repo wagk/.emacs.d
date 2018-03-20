@@ -12,6 +12,10 @@
                       "w w w" 'eww)
   :config
 
+  (require 'ace-link)
+  (general-define-key :keymaps eww-mode-map
+                      "f" 'ace-link-eww)
+
   ;; https://github.com/GriffinSchneider/emacs-config/blob/master/eww-customizations.el
   (defvar gcs-shr-width 110)
 
@@ -52,13 +56,6 @@
   ;; Use sane keybindings for forward/back
   (evil-define-key 'normal 'eww-mode-map "H" 'eww-back-url)
   (evil-define-key 'normal 'eww-mode-map "L" 'eww-forward-url))
-
-(use-package ace-link
-  :demand t
-  :after (eww)
-  :bind
-  (:map eww-mode-map
-        ("f" . ace-link-eww)))
 
 (provide 'config-web-browsing)
 
