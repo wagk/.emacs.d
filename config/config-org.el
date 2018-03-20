@@ -14,7 +14,7 @@
   (general-define-key :prefix my-default-evil-leader-key
                       "O O" 'org-agenda
                       "o t" 'org-time-stamp
-                      "o T" #'/this-time
+                      "o T" #'my-time-stamp
                       "o o" 'org-capture
                       "o r" 'org-refile)
   :config
@@ -120,7 +120,7 @@ text."
                       "M-k"     'org-metaup
                       "M-j"     'org-metadown
                       ;; "S-SPC"   '/evil-org-toggle-checkbox
-                      "C-M-RET" 'org-insert-subheading
+                      "C-M-return" 'org-insert-subheading
                       "M-L"     'org-shiftmetaright
                       "M-H"     'org-shiftmetaleft
                       "M-K"     'org-shiftmetaup
@@ -166,10 +166,10 @@ text."
   ;; (progn (require 'org-agenda)
   ;;        ;; TODO: rebind org-agenda keymaps
   ;;        )
-  (defun /this-time ()
+  (defun my-time-stamp ()
     "Prints the time and date."
     (interactive)
-    (org-time-stamp '(16) t))
+    (org-time-stamp-inactive '(16) t))
 
   (defun my-org-hook-configs ()
     "docstring for my-org-hook-configs"
