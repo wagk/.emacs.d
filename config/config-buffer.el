@@ -136,9 +136,12 @@ buffer in."
 (use-package hl-todo
   :defer 1
   :diminish t
+  :general
+  (:prefix my-default-evil-leader-key
+           "t t" 'hl-todo-occur)
   :init
-  (general-define-key :prefix my-default-evil-leader-key
-                      "t t" 'hl-todo-occur)
+  ;; (general-define-key :prefix my-default-evil-leader-key
+  ;;                     "t t" 'hl-todo-occur)
   ;; :hook (prog-mode . hl-todo-mode)
   :bind (:map evil-normal-state-map
               ("[ t" . hl-todo-previous)

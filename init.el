@@ -27,7 +27,7 @@
 (prefer-coding-system 'utf-8)
 
 (defconst user-init-dir
-  (directory-file-name
+  (file-name-as-directory
    (cond ((boundp 'user-emacs-directory) user-emacs-directory)
          ((boundp 'user-init-directory) user-init-directory)
          (t "~/.emacs.d/"))
@@ -35,11 +35,12 @@
   "Sets up the startup directory.")
 
 (defconst user-init-file
-  (concat user-init-dir "/init.el")
+  (concat user-init-dir "init.el")
   "Points to init.el")
 
 (defconst user-config-dir
-  (concat user-init-dir "/config/")
+  (file-name-as-directory
+   (concat user-init-dir "config"))
   "Directory where all the user configuration files are stored")
 
 ;;;###autoload

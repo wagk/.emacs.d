@@ -286,11 +286,24 @@ word"
   )
 
 (use-package evil-collection
-  :after evil
+  :after (evil)
   :demand t
   :config
   ;;NOTE: note that this REQUIRES the var `evil-want-integration' to be NIL
   (evil-collection-init))
+
+;; defaults to g~
+(use-package evil-string-inflection
+  :after (evil))
+
+;; defaults to x, so dax, dix, etc
+;; This package is about xml attribute objects, the t textobj handles tags, not
+;; attributes, which are inside tags
+(use-package exato
+  :after (evil))
+
+;; https://github.com/gridaphobe/evil-god-state
+(use-package evil-god-state)
 
 ;; https://github.com/syl20bnr/spacemacs/blob/c788da709bb1c74344f5ab1b6f18cfdf6b930df8/layers/%2Bspacemacs/spacemacs-evil/local/evil-unimpaired/evil-unimpaired.el
 ;; (require 'dash)
@@ -467,9 +480,11 @@ word"
   )
 
 (use-package evil-snipe
-  :disabled ; mostly so I can practice the ; and , keys
-  ;; :config
-  ;; (evil-snipe-override-mode)
+  ;; :disabled ; mostly so I can practice the ; and , keys
+  :after (evil)
+  :demand t
+  :config
+  (evil-snipe-override-mode)
   )
 
 (use-package evil-expat)

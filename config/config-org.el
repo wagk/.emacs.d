@@ -218,6 +218,11 @@ text."
 
 (use-package org-radiobutton)
 
+;; Export orgfiles as anki decks!
+;; Looks great for jap study and just study in general
+;; https://github.com/louietan/anki-editor
+(use-package anki-editor)
+
 (use-package evil-org
   :disabled t
   :after org
@@ -235,9 +240,9 @@ text."
 
 (use-package helm-org-rifle
   :disabled t
-  :init
-  (general-define-key :prefix my-default-evil-leader-key
-                      "o O" 'helm-org-rifle)
+  :general
+  (:prefix my-default-evil-leader-key
+           "o O" 'helm-org-rifle)
   :bind
   (:map helm-org-rifle-map
         ("C-w" . evil-delete-backward-word)
@@ -250,6 +255,27 @@ text."
         ("C-h" . helm-previous-source)
         ("TAB" . helm-execute-persistent-action))
   )
+
+(use-package ob-async
+  :after (org))
+
+(use-package ob-clojurescript
+  :after (org))
+
+(use-package ob-http
+  :after (org))
+
+(use-package ob-browser
+  :after (org))
+
+(use-package ob-restclient
+  :after (org))
+
+(use-package ob-rust
+  :after (org))
+
+(use-package ob-translate
+  :after (org))
 
 (provide 'config-org)
 
