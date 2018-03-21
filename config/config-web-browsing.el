@@ -8,7 +8,9 @@
 
 (use-package eww ;TODO: Bind eww-mode-map to be more vimium-like
   :init
-  (general-define-key :prefix my-default-evil-leader-key
+  (general-define-key
+   :states 'normal
+   :prefix my-default-evil-leader-key
                       "w w w" 'eww)
   :config
 

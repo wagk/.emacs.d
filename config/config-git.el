@@ -9,7 +9,9 @@
 (use-package magit
   :commands magit-status
   :init
-  (general-define-key :prefix my-default-evil-leader-key
+  (general-define-key
+   :states 'normal
+   :prefix my-default-evil-leader-key
                       ", ," 'magit-status)
   :config
   (with-eval-after-load 'aggressive-fill-paragraph
@@ -35,7 +37,7 @@
               ("g h u" . git-gutter+-revert-hunks)
               ("g h h" . git-gutter+-show-hunk-inline-at-point)
               )
-  :defer 1
+  :defer 5
   ;; :hook (prog-mode . git-gutter+-mode)
   :config
   ;; refer to the hacks made in config-colors.el.
@@ -58,9 +60,7 @@
   (use-package git-gutter-fringe+
     :if (display-graphic-p)
     :after git-gutter+
-    :demand t
-    )
-
+    :demand t)
   (global-git-gutter+-mode)
   )
 

@@ -49,6 +49,12 @@
 
 (use-package diminish)
 (use-package bind-key)
+(use-package general
+  :demand t
+  :commands (general-define-key)
+  :init
+  (defconst my-default-evil-leader-key "SPC")
+  )
 
 (use-package use-package-el-get
   :demand t
@@ -83,9 +89,12 @@
              auto-package-update-at-time
              auto-package-update-maybe)
   :custom
-  (auto-package-update-delete-old-versions t "We already version them on git")
-  (auto-package-update-prompt-before-update t "NO SURPRISES")
-  (auto-package-update-interval 14 "update once every 2 weeks (the count is in days)"))
+  (auto-package-update-delete-old-versions t
+                                           "We already version them on git")
+  (auto-package-update-prompt-before-update t
+                                            "NO SURPRISES")
+  (auto-package-update-interval 14
+                                "update once every 2 weeks (the count is in days)"))
 
 (provide 'config-package)
 

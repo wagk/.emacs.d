@@ -98,7 +98,8 @@
   (add-hook 'c++-mode-hook #'my-clang-format-before-save)
   ;; (add-to-list 'aggressive-indent-excluded-modes 'c++-mode)
   :custom
-  (clang-format-style-option "file" "read from .clang-format"))
+  (clang-format-style-option "file"
+                             "read from .clang-format"))
 
 (use-package cmake-mode
   :mode ("\\cmakelists.txt\\'" . cmake-mode)

@@ -9,7 +9,7 @@
 
 ;; TODO(pangt): when this takes a relative path, give a relative path
 ;; (currently it's only relative to user-init-dir)
-(load-user-config-file "./config/config-typescript.el")
+(load-user-config-file "config-typescript.el")
 
 (use-package web-mode
   :mode (("\\.phtml\\'" . web-mode)

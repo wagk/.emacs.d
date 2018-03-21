@@ -31,7 +31,9 @@
                       "C-h h" 'helm-apropos)
   (general-define-key :states 'normal
                       "-" 'helm-find-files) ;; emulate vim-vinegar
-  (general-define-key :prefix my-default-evil-leader-key
+  (general-define-key
+   :states 'normal
+   :prefix my-default-evil-leader-key
                       "<SPC>" 'helm-M-x
                       "TAB"   'helm-resume
                       "y"     'helm-show-kill-ring

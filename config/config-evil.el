@@ -13,40 +13,39 @@
 ;; directory
 (use-package evil
   :demand t
-  :bind (;; ("C-f" . universal-argument)
-         ;; ("C-j" . newline-and-indent) ;; emacs uses M-j
-         ;; :map universal-argument-map
-         ;; ("C-u" . nil)
-         ;; ("C-f" . universal-argument-more)
-         :map evil-insert-state-map
-         ("C-u" . kill-whole-line)
-         ("C-l" . evil-complete-next-line)
-         ("C-L" . evil-complete-previous-line)
-         ("C-k" . nil)
-         :map evil-motion-state-map
-         ("C-u" . evil-scroll-up)
-         :map evil-normal-state-map
-         ("Y"    . /evil-copy-to-end-of-line)
-         ("gt"   . /evil-gt)
-         ("gT"   . /evil-gT)
-         ("C-\\" . /lang-toggle) ;; binding for eng <-> jap
-         ("g o"  . ff-find-other-file)
-         :map evil-visual-state-map
-         ;; ("p"  . /evil-paste-after-from-0)
-         (">>" . /evil-shift-right-visual)
-         ("<<" . /evil-shift-left-visual)
-         :map evil-inner-text-objects-map
-         ("/" . /inner-forward-slash)
-         ("l" . /evil-inner-line)
-         :map evil-outer-text-objects-map
-         ("e" . /evil-a-buffer)
-         ("l" . /evil-a-line)
-         ("/" . /a-forward-slash)
-         :map minibuffer-local-map
-         ("C-w" . backward-kill-word))
-  :init
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-integration nil)
+  :general
+  (:keymaps 'insert
+   "C-u"  'kill-whole-line
+   "C-l"  'evil-complete-next-line
+   "C-L"  'evil-complete-previous-line
+   "C-k"  nil)
+  (:keymaps 'motion
+   "C-u"  'evil-scroll-up)
+  (:keymaps 'normal
+   "Y"     '/evil-copy-to-end-of-line
+   "gt"    '/evil-gt
+   "gT"    '/evil-gT
+   "C-\\"  '/lang-toggle ;; binding for eng <-> jap
+   "g o"   'ff-find-other-file)
+  (:keymaps 'visual
+   ">>"  '/evil-shift-right-visual
+   "<<"  '/evil-shift-left-visual)
+  (:keymaps 'inner
+   "/"  '/inner-forward-slash
+   "l"  '/evil-inner-line)
+  (:keymaps 'outer
+   "e"  '/evil-a-buffer
+   "l"  '/evil-a-line
+   "/"  '/a-forward-slash)
+  (:keymaps 'minibuffer-local-map
+   "C-w" 'backward-kill-word)
+  :custom
+  (evil-want-C-u-scroll t
+                        "Emacs uses `C-u' for its `universal-argument' function.
+                        It conflicts with scroll up in evil-mode")
+  (evil-want-integration nil
+                         "`evil-collections' demands that this be disabled to
+                         work")
   :config
 
   ;; TODO: figure out this
@@ -281,7 +280,6 @@ word"
     (evil-range (beginning-of-line) (end-of-line)))
 
   (add-hook 'evil-normal-state-entry-hook 'evil-ex-nohighlight)
-  ;; (add-hook 'after-init-hook 'evil-update-insert-state-bindings)
   (evil-mode)
   )
 
@@ -303,7 +301,10 @@ word"
   :after (evil))
 
 ;; https://github.com/gridaphobe/evil-god-state
-(use-package evil-god-state)
+(use-package evil-god-state
+  :general
+  (:states 'normal
+   "g <SPC>" 'evil-execute-in-god-state))
 
 ;; https://github.com/syl20bnr/spacemacs/blob/c788da709bb1c74344f5ab1b6f18cfdf6b930df8/layers/%2Bspacemacs/spacemacs-evil/local/evil-unimpaired/evil-unimpaired.el
 ;; (require 'dash)
@@ -314,16 +315,6 @@ word"
   :config
   (global-evil-leader-mode)
   (evil-leader/set-leader "g <SPC>"))
-
-(use-package general
-  :after (evil)
-  :demand t
-  :commands (general-define-key)
-  :config
-  (setq general-default-states '(normal emacs))
-  ;; (setq general-default-prefix )
-  (setq my-default-evil-leader-key "<SPC>")
-  )
 
 (use-package evil-surround
   :after (evil)
@@ -342,17 +333,17 @@ word"
 
 (use-package evil-args
   :bind (:map evil-inner-text-objects-map
-              ("a" . evil-inner-arg)
-              :map evil-outer-text-objects-map
-              ("a" . evil-outer-arg)
-              ;; :map evil-normal-state-map
-              ;; ("L" . evil-forward-arg)
-              ;; ("H" . evil-backward-arg)
-              ;; ("K" . evil-jump-out-args)
-              ;; :map evil-motion-state-map
-              ;; ("L" . evil-forward-arg)
-              ;; ("H" . evil-backward-arg)
-              )
+         ("a" . evil-inner-arg)
+         :map evil-outer-text-objects-map
+         ("a" . evil-outer-arg)
+         ;; :map evil-normal-state-map
+         ;; ("L" . evil-forward-arg)
+         ;; ("H" . evil-backward-arg)
+         ;; ("K" . evil-jump-out-args)
+         ;; :map evil-motion-state-map
+         ;; ("L" . evil-forward-arg)
+         ;; ("H" . evil-backward-arg)
+         )
   ;; :config
   ;; consider spaces as argument delimiters
   ;; (add-to-list 'evil-args-delimiters " ")

@@ -16,7 +16,8 @@
    org-refile
    org-agenda)
   :init
-  (general-define-key :prefix my-default-evil-leader-key
+  (general-define-key :states 'normal
+                      :prefix my-default-evil-leader-key
                       "O O" 'org-agenda
                       "o t" 'org-time-stamp-inactive
                       "o T" #'my-time-stamp
@@ -207,7 +208,8 @@ text."
   :init
   (with-eval-after-load 'evil
     (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
-  (general-define-key :prefix my-default-evil-leader-key
+  (general-define-key :states 'normal
+                      :prefix my-default-evil-leader-key
                       "N" 'org-brain-visualize)
   ;; :config
   ;; (general-define-key :keymaps 'org-brain-visualize-mode-map
@@ -241,8 +243,9 @@ text."
 (use-package helm-org-rifle
   :disabled t
   :general
-  (:prefix my-default-evil-leader-key
-           "o O" 'helm-org-rifle)
+  (:states 'normal
+   :prefix my-default-evil-leader-key
+   "o O" 'helm-org-rifle)
   :bind
   (:map helm-org-rifle-map
         ("C-w" . evil-delete-backward-word)

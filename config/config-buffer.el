@@ -44,7 +44,9 @@
 
 ;; strip whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(general-define-key :prefix my-default-evil-leader-key
+(general-define-key
+ :states 'normal
+ :prefix my-default-evil-leader-key
                     "." 'whitespace-mode)
 
 ;; automatically refresh buffer when changed outside
@@ -121,7 +123,9 @@ buffer in."
 (use-package highlight-indent-guides
   ;; :hook (prog-mode . highlight-indent-guides-mode)
   :config
-  (general-define-key :prefix my-default-evil-leader-key
+  (general-define-key
+   :states 'normal
+   :prefix my-default-evil-leader-key
                       "'" 'highlight-indent-guides-mode)
   (setq highlight-indent-guides-method 'character
         highlight-indent-guides-character ?\|)
@@ -137,7 +141,8 @@ buffer in."
   :defer 1
   :diminish t
   :general
-  (:prefix my-default-evil-leader-key
+  (:states 'normal
+   :prefix my-default-evil-leader-key
            "t t" 'hl-todo-occur)
   :init
   ;; (general-define-key :prefix my-default-evil-leader-key
@@ -162,9 +167,9 @@ buffer in."
 (use-package fill-column-indicator
   :hook (prog-mode . turn-on-fci-mode)
   :diminish t
-  :config
-  (setq-default fill-column 80)
-  ;; (setq fci-rule-width 23)
+  :custom
+  (fill-column 80)
+  (always-use-textual-rule t)
   )
 
 (use-package golden-ratio
@@ -174,22 +179,24 @@ buffer in."
   (add-hook 'buffer-list-update-hook #'golden-ratio))
 
 (use-package powerline
-  :demand t
-  )
+  :demand t)
 
 (use-package powerline-evil
-  :after powerline
+  :after (powerline)
   :demand t
   :custom
-  (powerline-evil-tag-style 'verbose)
+  (powerline-evil-tag-style 'verbose
+                            "Print out the full name of the state instead of <S>
+                            abbreviations.")
   :config
-  (powerline-evil-vim-theme)
-  )
+  (powerline-evil-vim-theme))
 
 ;; https://github.com/larstvei/Focus
 (use-package focus
   :init
-  (general-define-key :prefix my-default-evil-leader-key
+  (general-define-key
+   :states 'normal
+   :prefix my-default-evil-leader-key
                       "f f" 'focus-mode)
   (evil-ex-define-cmd "fo[cus]" 'focus-mode))
 
@@ -264,7 +271,9 @@ This effectively centers it."
         (fringe-mode nil)
         (put '/centre-window-function 'active nil)))))
 
-(general-define-key :prefix my-default-evil-leader-key
+(general-define-key
+ :states 'normal
+ :prefix my-default-evil-leader-key
                     "W" '/centre-window-function)
 
 ;; (use-package switch-window

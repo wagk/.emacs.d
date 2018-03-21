@@ -14,7 +14,9 @@
              ("C-j" . yas-next-field-or-maybe-expand)
              ("C-k" . yas-prev-field))
   :init
-  (general-define-key :prefix my-default-evil-leader-key
+  (general-define-key
+   :states 'normal
+   :prefix my-default-evil-leader-key
                       "s s" 'yas-new-snippet
                       "s a" 'yas-insert-snippet
                       "s f" 'yas-visit-snippet-file)

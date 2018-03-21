@@ -24,7 +24,8 @@
                             (case-fn . downcase)))
   (deft-org-mode-title-prefix nil)
   :init
-  (general-define-key :prefix my-default-evil-leader-key
+  (general-define-key :states 'normal
+		      :prefix my-default-evil-leader-key
                       "n" 'deft)
   :config
   ;; (evil-make-overriding-map deft-mode-map nil)
