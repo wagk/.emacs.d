@@ -62,7 +62,7 @@
 Assumes that it:
 - Is a string path to one or more configuration fila (i.e. elisp)
 - Is relative to user-init-dir"
-  (interactive "f")
+  (interactive "fConfig file: ")
   (measure-time
    (dolist (elem (cons file files))
      (let ((path (expand-file-name (concat user-config-dir elem))))
@@ -86,7 +86,7 @@ Assumes that it:
 
 (let ((gc-cons-threshold most-positive-fixnum))
   ;; local configuration variables
-  (load-user-config-file "local.el")
+  (load (concat user-init-dir "local.el"))
 
   ;; load each config file in order
   ;; config loading should prioritise most necessary bits, so in eventuality of
@@ -136,8 +136,7 @@ Assumes that it:
                          "config-web-browsing.el"
 
                          "config-help.el"
-                         "config-emacs.el"
-   )
+                         "config-emacs.el")
 
   ;; Disable ANNOYING customize options
   (setq custom-file (concat user-init-dir "custom.el"))

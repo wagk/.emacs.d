@@ -333,6 +333,10 @@ This effectively centers it."
   (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
   )
 
+(use-package evil-smartparens
+  :after smartparens
+  :demand t)
+
 ;;;###autoload
 (defun my-set-frame-transparency (value)
   "Set the transparency of the frame window to VALUE.

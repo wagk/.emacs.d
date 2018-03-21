@@ -17,6 +17,8 @@
 (use-package misc-cmds
   :disabled t)
 
+(use-package async)
+
 (defun my-find-parent-major-modes ()
   "docstring for my-find-parent-major-modes"
   (let ((parents (list major-mode)))

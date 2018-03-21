@@ -6,7 +6,9 @@
 (require 'config-package)
 (require 'config-evil)
 
-(use-package evil-ediff)
+(use-package evil-ediff
+  :after (evil)
+  :demand t)
 
 (provide 'config-diff)
 

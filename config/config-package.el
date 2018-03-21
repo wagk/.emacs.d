@@ -89,12 +89,19 @@
              auto-package-update-at-time
              auto-package-update-maybe)
   :custom
-  (auto-package-update-delete-old-versions t
-                                           "We already version them on git")
-  (auto-package-update-prompt-before-update t
-                                            "NO SURPRISES")
-  (auto-package-update-interval 14
-                                "update once every 2 weeks (the count is in days)"))
+  (auto-package-update-delete-old-versions t "We already version them on git")
+  (auto-package-update-prompt-before-update t "NO SURPRISES")
+  (auto-package-update-interval 14 "update once every 2 weeks (the count is in days)"))
+
+;; Not that useful because I split up my config into smaller files
+(use-package esup
+  :disabled t
+  :commands (esup)
+  :init
+  (defun my-profile-config-file (file)
+    "gets esup to profile this file"
+    (interactive "fFile: ")
+    (esup file)))
 
 (provide 'config-package)
 

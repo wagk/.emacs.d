@@ -23,6 +23,8 @@
   :load-path "local-packages/"
   :demand t)
 
+(use-package macrostep)
+
 (require 'ace-link)
 (general-define-key :states  'normal
                     :keymaps 'help-mode-map

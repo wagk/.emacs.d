@@ -15,6 +15,14 @@
          "\\.ledger\\'")
   )
 
+;; Adds a transaction text object bound to `x' by default
+;; https://github.com/atheriel/evil-ledger
+(use-package evil-ledger
+  :after (:all evil ledger-mode)
+  :demand t
+  :config
+  (add-hook 'ledger-mode-hook #'evil-ledger-mode))
+
 (use-package flycheck-ledger)
 
 (provide 'config-finance)

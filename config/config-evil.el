@@ -32,10 +32,10 @@
    "<<"  '/evil-shift-left-visual)
   (:keymaps 'inner
    "/"  '/inner-forward-slash
-   "l"  '/evil-inner-line)
+   "l"  'my-evil-inner-line)
   (:keymaps 'outer
-   "e"  '/evil-a-buffer
-   "l"  '/evil-a-line
+   "e"  'my-evil-a-buffer
+   "l"  'my-evil-a-line
    "/"  '/a-forward-slash)
   (:keymaps 'minibuffer-local-map
    "C-w" 'backward-kill-word)
@@ -267,17 +267,31 @@ word"
   ;; (/evil-define-and-bind-text-object "l" "^\\s-*" "\\s-*$") ;; line textobj
   ;; (/evil-define-and-bind-text-object "e" "\\`\\s-*" "\\s-*$") ;; buffer textobj
 
-  (evil-define-text-object /evil-a-buffer (count &optional beg end type)
+  (evil-define-text-object my-evil-a-buffer (count &optional beg end type)
     "Select entire buffer"
     (evil-range (point-min) (point-max)))
 
-  (evil-define-text-object /evil-a-line (count &optional beg end type)
-    "Select entire buffer"
-    (evil-range (beginning-of-line) (end-of-line)))
+  ;; shamelessly stolen from
+  ;; https://github.com/syohex/evil-textobj-line/blob/master/evil-textobj-line.el
+  (defun my-evil-line-range (count beg end type &optional inclusive)
+    (if inclusive
+        (evil-range (line-beginning-position) (line-end-position))
+      (let ((start (save-excursion
+                     (back-to-indentation)
+                     (point)))
+            (end (save-excursion
+                   (goto-char (line-end-position))
+                   (skip-syntax-backward " " (line-beginning-position))
+                   (point))))
+        (evil-range start end))))
 
-  (evil-define-text-object /evil-inner-line (count &optional beg end type)
-    "Select entire buffer"
-    (evil-range (beginning-of-line) (end-of-line)))
+  (evil-define-text-object my-evil-a-line (count &optional beg end type)
+    "Select entire line"
+    (my-evil-line-range count beg end type t))
+
+  (evil-define-text-object my-evil-inner-line (count &optional beg end type)
+    "Select an inner line"
+    (my-evil-line-range count beg end type))
 
   (add-hook 'evil-normal-state-entry-hook 'evil-ex-nohighlight)
   (evil-mode)
@@ -306,16 +320,8 @@ word"
   (:states 'normal
    "g <SPC>" 'evil-execute-in-god-state))
 
-;; https://github.com/syl20bnr/spacemacs/blob/c788da709bb1c74344f5ab1b6f18cfdf6b930df8/layers/%2Bspacemacs/spacemacs-evil/local/evil-unimpaired/evil-unimpaired.el
-;; (require 'dash)
-;; (require 'f)
-(use-package evil-leader
-  :disabled t
-  :after (evil)
-  :config
-  (global-evil-leader-mode)
-  (evil-leader/set-leader "g <SPC>"))
-
+;;; TODO: Org-mode has some pairs that are not handled by surround. We would
+;;; need to fix that.
 (use-package evil-surround
   :after (evil)
   :demand t
@@ -323,6 +329,8 @@ word"
   (global-evil-surround-mode)
   )
 
+;;; Evil-embrace is like a souped up addon of surround, this time they have
+;;; things like function surround and probably more features.
 (use-package evil-embrace
   :after (evil-surround)
   :demand t
@@ -352,14 +360,18 @@ word"
 ;; more like evil-textobj-kolumn
 (use-package evil-textobj-column
   :bind (:map evil-inner-text-objects-map
-              ("k" . evil-textobj-column-word)
-              ("K" . evil-textobj-column-WORD))
-  )
+         ("k" . evil-textobj-column-word)
+         ("K" . evil-textobj-column-WORD)))
 
 (use-package evil-numbers
-  :bind (:map evil-normal-state-map
-              ("C-a" . evil-numbers/inc-at-pt)
-              ("C-x" . evil-numbers/dec-at-pt)))
+  :general
+  (:keymaps 'normal
+   "C-a"  'evil-numbers/inc-at-pt
+   "C-x"  'evil-numbers/dec-at-pt)
+  ;; :bind (:map evil-normal-state-map
+  ;;        ("C-a" . evil-numbers/inc-at-pt)
+  ;;        ("C-x" . evil-numbers/dec-at-pt))
+  )
 
 (use-package evil-rsi
   :disabled
@@ -372,8 +384,7 @@ word"
   :after (evil)
   :demand t
   :config
-  (evil-lion-mode)
-  )
+  (evil-lion-mode))
 
 (use-package evil-matchit)
 
@@ -409,6 +420,7 @@ word"
 ;;   ;; (require 'evil-cleverparens-text-objects)
 ;;   )
 
+;; Adds textobjects that comments
 (use-package evil-commentary
   :after (evil)
   :demand t
@@ -418,67 +430,99 @@ word"
 
 (use-package evil-nerd-commenter
   :after (evil)
-  :bind(:map evil-inner-text-objects-map
-             ("c" . evilnc-inner-comment)
-             :map evil-outer-text-objects-map
-             ("c" . evilnc-outer-commenter)
-             )
-  )
+  :bind (:map evil-inner-text-objects-map
+         ("c" . evilnc-inner-comment)
+         :map evil-outer-text-objects-map
+         ("c" . evilnc-outer-commenter)))
 
 ;; (use-package evil-replace-with-register)
 
 ;; (use-package evil-text-object-python)
 
+;;; Indentation text object for evil
 (use-package evil-indent-plus
-  :after (evil)
   :bind(:map evil-inner-text-objects-map
-             ("i" . evil-indent-plus-i-indent)
-             ("I" . evil-indent-plus-a-indent)
-             :map evil-outer-text-objects-map
-             ("i" . evil-indent-plus-i-indent-up)
-             ("I" . evil-indent-plus-a-indent-up))
-  )
+        ("i" . evil-indent-plus-i-indent)
+        ("I" . evil-indent-plus-a-indent)
+        :map evil-outer-text-objects-map
+        ("i" . evil-indent-plus-i-indent-up)
+        ("I" . evil-indent-plus-a-indent-up)))
 
 ;; vim A E S T H E T H I C S
+;; Puts tildes in the fringe, just like vim.
 (use-package vi-tilde-fringe
   :after (evil)
   :demand t
   :config
   (global-vi-tilde-fringe-mode))
 
+;;; Allows for * and # commands. which originally only worked on WORDs, to
+;;; work on a visual selection too
 (use-package evil-visualstar
   :after (evil)
   :demand t
   :config
   (global-evil-visualstar-mode))
 
-;; ;; https://github.com/edkolev/evil-goggles
-;; (use-package evil-goggles
-;;   :disabled ;; melpa is complaining that they can't find this package
-;;   :ensure t
-;;   :after evil
-;;   :config
-;;   (evil-goggles-mode)
-;;   (evil-goggles-use-diff-faces)
-;;   (setq evil-goggles-duration 0.025))
+;; TODO: Document GNU Readline bindings
+(use-package evil-rsi
+  :demand t
+  :after (evil)
+  :diminish (evil-rsi-mode)
+  :config
+  (evil-rsi-mode))
 
-;; Disabled because it conflicts with evil-snipe-override-mode
+;; Flashes the selection you made. I honestly don't need this and am just
+;; turning it on for shits and giggles, until it starts to annoy me
+;; https://github.com/edkolev/evil-goggles
+(use-package evil-goggles
+  :after (evil)
+  :diminish (evil-goggles-mode)
+  :demand t
+  :custom
+  (evil-goggles-duration 0.05
+                         "Sometimes the default of 0.2 is too slow")
+  :config
+  (evil-goggles-mode)
+  (evil-goggles-use-diff-faces))
+
+;;; Disabled because it conflicts with evil-snipe-override-mode
 (use-package evil-quickscope
-  :disabled
+  :disabled t
   ;; :config
   ;; (global-evil-quickscope-always-mode t)
   ;; (global-evil-quickscope-mode t)
   )
 
+;;; Basically does what Clever-F did in vim, letting you repeatedly press
+;;; f, F, t, and T instead of using ; and ,
 (use-package evil-snipe
-  ;; :disabled ; mostly so I can practice the ; and , keys
   :after (evil)
   :demand t
+  :diminish (evil-snipe-override-mode
+             evil-snipe-override-local-mode)
   :config
-  (evil-snipe-override-mode)
-  )
+  (evil-snipe-override-mode))
 
+;;; Adds the following ex commands:
+;; | :reverse           | reverse visually selected lines
+;; | :remove            | remove current file and its buffer
+;; | :rename NEW-PATH   | rename or move current file and its buffer
+;; | :colorscheme THEME | change emacs color theme
+;; | :diff-orig         | get a diff of unsaved changes, like vim's common :DiffOrig
+;; | :gdiff             | BRANCH git-diff current file, requires magit and vdiff-magit
+;; | :gblame            | git-blame current file, requires magit
+;; | :gremove           | git remove current file, requires magit
+;; | :tyank             | copy range into tmux paste buffer, requires running under tmux
+;; | :tput              | paste from tmux paste buffer, requires running under tmux
 (use-package evil-expat)
+
+;;; Adds an operator `gx' that, when called again, swaps both selections
+;; currently DISABLED because it conflicts with the default `g x', which
+;; goes to the link under the cursor (`browse-url-at-point'), something
+;; which I feel is probably cooler than evil-exchange
+(use-package evil-exchange
+  :disabled t)
 
 ;; (use-package evil-visual-mark-mode
 ;;   :ensure t
