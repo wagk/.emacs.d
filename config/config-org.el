@@ -10,10 +10,15 @@
 (require 'config-buffer)
 
 (use-package org
+  :commands
+  (org-time-stamp-inactive
+   org-capture
+   org-refile
+   org-agenda)
   :init
   (general-define-key :prefix my-default-evil-leader-key
                       "O O" 'org-agenda
-                      "o t" 'org-time-stamp
+                      "o t" 'org-time-stamp-inactive
                       "o T" #'my-time-stamp
                       "o o" 'org-capture
                       "o r" 'org-refile)
@@ -120,7 +125,7 @@ text."
                       "M-k"     'org-metaup
                       "M-j"     'org-metadown
                       ;; "S-SPC"   '/evil-org-toggle-checkbox
-                      "C-M-return" 'org-insert-subheading
+                      ;; "C-M-return" 'org-insert-subheading ;; there a warning when this is turned on
                       "M-L"     'org-shiftmetaright
                       "M-H"     'org-shiftmetaleft
                       "M-K"     'org-shiftmetaup
@@ -169,7 +174,7 @@ text."
   (defun my-time-stamp ()
     "Prints the time and date."
     (interactive)
-    (org-time-stamp-inactive '(16) t))
+    (org-time-stamp-inactive '(16)))
 
   (defun my-org-hook-configs ()
     "docstring for my-org-hook-configs"

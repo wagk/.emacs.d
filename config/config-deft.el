@@ -35,17 +35,18 @@
   ;;                     "RET" 'deft-complete)
   (add-hook 'deft-open-file-hook 'org-mode)
   (general-define-key :keymaps 'deft-mode-map
-                      :states '(insert normal motion)
-                      "C-j" 'widget-forward
-                      "C-k" 'widget-backward)
+                      :states  '(insert normal motion)
+                      "C-j"    'widget-forward
+                      "C-k"    'widget-backward)
   (general-define-key :keymaps 'deft-mode-map
-                      :states 'normal
-                      "p" 'deft-filter-yank
-                      "d d" 'deft-delete-file)
-  (general-define-key :states 'insert
+                      :states  'normal
+                      "q"      'quit-window ;; first emacsy binding in a vim state [2018-03-21 Wed]
+                      "p"      'deft-filter-yank
+                      "d d"    'deft-delete-file)
+  (general-define-key :states  'insert
                       :keymaps 'deft-mode-map
-                      "C-w" 'deft-filter-decrement-word
-                      "C-u" 'deft-filter-clear)
+                      "C-w"    'deft-filter-decrement-word
+                      "C-u"    'deft-filter-clear)
   ;; (define-key deft-mode-map [remap evil-quit]
   ;;   'kill-this-buffer)
   ;; (define-key deft-mode-map [remap evil-save-modified-and-close]
