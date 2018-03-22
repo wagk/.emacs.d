@@ -40,7 +40,7 @@
   (org-log-done                               'time)
   (org-log-redeadline                         'time)
   (org-log-reschedule                         'time)
-  (org-blank-before-new-entry '((heading . auto)
+  (org-blank-before-new-entry '((heading         . auto)
                                 (plain-list-item . auto)))
   (org-refile-targets '((nil . (:maxlevel . 9))))
   (org-refile-use-outline-path t)
@@ -113,10 +113,8 @@ text."
 ;;; This is like a concept map, but in org-files
 (use-package org-brain
   :custom
-  (org-brain-path
-   my-wiki-directory "Share the same path as deft.")
-  (org-brain-file-entries-use-title
-   nil "Speed optimisation since our filenames and title should match anyway")
+  (org-brain-path my-wiki-directory "Share the same path as deft.")
+  (org-brain-file-entries-use-title nil "Speed optimisation since our filenames and title should match anyway")
   :general
   (:states 'normal
    :prefix my-default-evil-leader-key
@@ -143,14 +141,20 @@ text."
   :after (org)
   :demand t
   :diminish (evil-org-mode)
+  :custom
+  (evil-org-retain-visual-state-on-shift t
+                                         "Let us chain < and > calls")
   :config
   (evil-org-set-key-theme '(textobjects
                             insert
                             navigation
                             additional
                             shift
+                            return
+                            operators
                             ;; todo
                             ;; heading
+                            calendar
                             ))
   (add-hook 'org-mode-hook 'evil-org-mode)
   (require 'evil-org-agenda)

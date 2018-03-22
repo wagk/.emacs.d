@@ -6,9 +6,11 @@
 (require 'config-package)
 (require 'config-evil)
 
-(define-key dired-mode-map (kbd "C-l") 'dired-up-directory)
-(general-define-key :keymaps 'dired-mode-map
-                    "<SPC>" nil) ;; was shadowing leader key bindings
+(general-define-key
+ :states 'normal
+ :keymaps 'dired-mode-map
+  "<SPC>" nil ; was shadowing leader key bindings
+  "C-l" 'dired-up-directory)
 
 ;;TODO: Make bind this to work like netrw or something
 

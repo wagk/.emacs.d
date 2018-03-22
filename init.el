@@ -61,7 +61,7 @@
   "Load FILE (and FILES) as configuration.
 Assumes that it:
 - Is a string path to one or more configuration fila (i.e. elisp)
-- Is relative to user-init-dir"
+- Is relative to user-config-dir"
   (interactive "fConfig file: ")
   (measure-time
    (dolist (elem (cons file files))
@@ -112,7 +112,8 @@ Assumes that it:
                          "config-tags.el"
                          "config-fs.el"
 
-                         "config-prog.el" ;; program-related configs
+                         ;; program-related configs. This configures general program mode things
+                         "config-prog.el"
                          "config-webdev.el"
                          "config-lisp.el"
                          "config-cpp.el"

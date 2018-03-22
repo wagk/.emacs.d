@@ -26,31 +26,29 @@
 (use-package helm
   :after (general)
   :demand t
-  :init
-  (general-define-key "C-h C-h" 'helm-apropos
-                      "C-h h" 'helm-apropos)
-  (general-define-key :states 'normal
-                      "-" 'helm-find-files) ;; emulate vim-vinegar
-  (general-define-key
-   :states 'normal
+  :general
+  ("C-h C-h" 'helm-apropos
+   "C-h h"   'helm-apropos)
+  (:states 'normal
+   "-"     'helm-find-files) ;; emulate vim-vinegar
+  (:states  'normal
    :prefix my-default-evil-leader-key
-                      "<SPC>" 'helm-M-x
-                      "TAB"   'helm-resume
-                      "y"     'helm-show-kill-ring
-                      ;; "h h"   'helm-apropos
-                      "-"     'helm-find-files
-                      "b"     'helm-mini
-                      "m m"     'helm-bookmarks)
-  :bind(:map helm-map
-             ("C-w" . evil-delete-backward-word)
-             ("\\"  . helm-select-action)
-             ("C-j" . helm-next-line)
-             ("C-k" . helm-previous-line)
-             ("C-n" . helm-next-page)
-             ("C-p" . helm-previous-page)
-             ("C-l" . helm-next-source)
-             ("C-h" . helm-previous-source)
-             ("TAB" . helm-execute-persistent-action))
+   "<SPC>"  'helm-M-x
+   "TAB"    'helm-resume
+   "y"      'helm-show-kill-ring
+   "-"      'helm-find-files
+   "b"      'helm-mini
+   "m m"    'helm-bookmarks)
+  (:keymaps helm-map
+   "C-w" 'evil-delete-backward-word
+   "\\"  'helm-select-action
+   "C-j" 'helm-next-line
+   "C-k" 'helm-previous-line
+   "C-n" 'helm-next-page
+   "C-p" 'helm-previous-page
+   "C-l" 'helm-next-source
+   "C-h" 'helm-previous-source
+   "TAB" 'helm-execute-persistent-action)
   :config
   (setq helm-idle-delay 0.0
         helm-input-idle-delay 0.01
