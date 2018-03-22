@@ -39,7 +39,7 @@
    "-"      'helm-find-files
    "b"      'helm-mini
    "m m"    'helm-bookmarks)
-  (:keymaps helm-map
+  (:keymaps 'helm-map
    "C-w" 'evil-delete-backward-word
    "\\"  'helm-select-action
    "C-j" 'helm-next-line

@@ -316,6 +316,7 @@ This effectively centers it."
   :config
   (require 'smartparens-config) ;; load some default configurations
   (smartparens-global-mode)
+  (smartparens-global-strict-mode)
   (show-smartparens-global-mode t)
   ;; define some helper functions
   (defun my-add-newline-and-indent-braces (&rest _)
@@ -335,7 +336,10 @@ This effectively centers it."
 
 (use-package evil-smartparens
   :after smartparens
-  :demand t)
+  :demand t
+  :diminish (evil-smartparens-mode)
+  :config
+  (evil-smartparens-mode))
 
 ;;;###autoload
 (defun my-set-frame-transparency (value)

@@ -15,6 +15,7 @@
    org-capture
    org-refile
    org-agenda)
+
   :general
   (:states 'normal
    :prefix my-default-evil-leader-key
@@ -23,6 +24,13 @@
    "o T" #'my-time-stamp
    "o o" 'org-capture
    "o r" 'org-refile)
+  (:states 'insert
+   :keymaps 'org-mode-map
+   "M-h" 'org-metaleft
+   "M-j" 'org-metadown
+   "M-k" 'org-metaup
+   "M-l" 'org-metaright)
+
   :custom
   (org-support-shift-select t
                             "Let me use J in org-mode please.")
@@ -47,6 +55,7 @@
   (org-outline-path-complete-in-steps nil)
   (org-refile-allow-creating-parent-nodes 'confirm)
   (org-highlight-latex-and-related '(latex))
+
   :config
 
 ;;;###autoload
