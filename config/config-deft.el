@@ -22,11 +22,24 @@
   (deft-file-naming-rules '((noslash . "-")
                             (nospace . "-")
                             (case-fn . downcase)))
-  (deft-org-mode-title-prefix nil)
-  :init
-  (general-define-key :states 'normal
-		      :prefix my-default-evil-leader-key
-                      "n" 'deft)
+  (deft-org-mode-title-prefix t)
+  :general
+  (:states 'normal
+   :prefix my-default-evil-leader-key
+   "n" 'deft)
+  (:keymaps 'deft-mode-map
+   :states  '(insert normal motion)
+   "C-j"    'widget-forward
+   "C-k"    'widget-backward)
+  (:keymaps 'deft-mode-map
+   :states  'normal
+   "q"      'quit-window ;; first emacsy binding in a vim state [2018-03-21 Wed]
+   "p"      'deft-filter-yank
+   "d d"    'deft-delete-file)
+  (:keymaps 'deft-mode-map
+   :states  'insert
+   "C-w"    'deft-filter-decrement-word
+   "C-u"    'deft-filter-clear)
   :config
   ;; (evil-make-overriding-map deft-mode-map nil)
   (evil-set-initial-state 'deft-mode 'insert)
@@ -35,19 +48,12 @@
   ;;                     :keymaps 'deft-mode-map
   ;;                     "RET" 'deft-complete)
   (add-hook 'deft-open-file-hook 'org-mode)
-  (general-define-key :keymaps 'deft-mode-map
-                      :states  '(insert normal motion)
-                      "C-j"    'widget-forward
-                      "C-k"    'widget-backward)
-  (general-define-key :keymaps 'deft-mode-map
-                      :states  'normal
-                      "q"      'quit-window ;; first emacsy binding in a vim state [2018-03-21 Wed]
-                      "p"      'deft-filter-yank
-                      "d d"    'deft-delete-file)
-  (general-define-key :states  'insert
-                      :keymaps 'deft-mode-map
-                      "C-w"    'deft-filter-decrement-word
-                      "C-u"    'deft-filter-clear)
+
+  ;; We explicitly disable evil-rsi-mode because some of its keybinds conflicts
+  ;; with existing deft mode keybinds
+  (with-eval-after-load 'evil-rsi
+    (add-hook 'deft-mode-hook '(lambda () (evil-rsi-mode -1))))
+
   ;; (define-key deft-mode-map [remap evil-quit]
   ;;   'kill-this-buffer)
   ;; (define-key deft-mode-map [remap evil-save-modified-and-close]

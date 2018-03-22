@@ -24,12 +24,6 @@
    "o T" #'my-time-stamp
    "o o" 'org-capture
    "o r" 'org-refile)
-  (:states 'insert
-   :keymaps 'org-mode-map
-   "M-h" 'org-metaleft
-   "M-j" 'org-metadown
-   "M-k" 'org-metaup
-   "M-l" 'org-metaright)
 
   :custom
   (org-support-shift-select t
@@ -39,8 +33,8 @@
   (org-src-tab-acts-natively t)
   (org-src-window-setup 'current-window)
   (org-default-notes-file "~/TODO.org")
-  (org-M-RET-may-split-line '(default . nil))
-  (org-list-empty-line-terminates-plain-lists t)
+  ;; (org-M-RET-may-split-line '((default . nil)))
+  (org-M-RET-may-split-line nil)
   (org-enforce-todo-checkbox-dependencies     t)
   (org-enforce-todo-dependencies              t)
   (org-pretty-entities                        nil)
@@ -57,7 +51,6 @@
   (org-highlight-latex-and-related '(latex))
 
   :config
-
 ;;;###autoload
   (defun /org-mode-face-no-resize ()
     "Stop the org-level headers from increasing in height relative to the other
@@ -151,8 +144,15 @@ text."
   :demand t
   :diminish (evil-org-mode)
   :custom
-  (evil-org-retain-visual-state-on-shift t
-                                         "Let us chain < and > calls")
+  (evil-org-retain-visual-state-on-shift
+   t
+   "Let us chain < and > calls")
+  (evil-org-use-additional-insert
+   t
+   "Add things like M-j to insert")
+  (evil-org-special-o/O
+   '(table-row)
+   "Do not let o/O affect list items, throws me off")
   :config
   (evil-org-set-key-theme '(textobjects
                             insert

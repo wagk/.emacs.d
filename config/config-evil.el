@@ -15,30 +15,32 @@
   :demand t
   :general
   (:keymaps 'insert
-   "C-u"  'kill-whole-line
-   "C-l"  'evil-complete-next-line
-   "C-L"  'evil-complete-previous-line
-   "C-k"  nil)
+   "C-u"    'kill-whole-line
+   "C-l"    'evil-complete-next-line
+   "C-L"    'evil-complete-previous-line
+   "C-p"    'evil-complete-next
+   "C-n"    'evil-complete-previous
+   "C-k"    nil)
   (:keymaps 'motion
-   "C-u"  'evil-scroll-up)
+   "C-u"    'evil-scroll-up)
   (:keymaps 'normal
-   "Y"     '/evil-copy-to-end-of-line
-   "gt"    '/evil-gt
-   "gT"    '/evil-gT
-   "C-\\"  '/lang-toggle ;; binding for eng <-> jap
-   "g o"   'ff-find-other-file)
+   "Y"      '/evil-copy-to-end-of-line
+   "gt"     '/evil-gt
+   "gT"     '/evil-gT
+   "C-\\"   '/lang-toggle ;; binding for eng <-> jap
+   "g o"    'ff-find-other-file)
   (:keymaps 'visual
-   ">>"  '/evil-shift-right-visual
-   "<<"  '/evil-shift-left-visual)
+   ">>"     '/evil-shift-right-visual
+   "<<"     '/evil-shift-left-visual)
   (:keymaps 'inner
-   "/"  '/inner-forward-slash
-   "l"  'my-evil-inner-line)
+   "/"      '/inner-forward-slash
+   "l"      'my-evil-inner-line)
   (:keymaps 'outer
-   "e"  'my-evil-a-buffer
-   "l"  'my-evil-a-line
-   "/"  '/a-forward-slash)
+   "e"      'my-evil-a-buffer
+   "l"      'my-evil-a-line
+   "/"      '/a-forward-slash)
   (:keymaps 'minibuffer-local-map
-   "C-w" 'backward-kill-word)
+   "C-w"    'backward-kill-word)
   :custom
   (evil-want-C-u-scroll t
                         "Emacs uses `C-u' for its `universal-argument' function.
