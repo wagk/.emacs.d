@@ -96,9 +96,6 @@ Lisp function does not specify a special indentation."
 
 (use-package elmacro)
 
-;; namespacing macros for elisp
-(use-package names)
-
 (use-package elisp-slime-nav
   :diminish elisp-slime-nav-mode
   :bind

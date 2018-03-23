@@ -107,6 +107,8 @@ text."
     ;; fucking weird things
     ;; (require 'fill-column-indicator)
     ;; (turn-on-fci-mode)
+    (with-eval-after-load 'display-line-numbers
+      (display-line-numbers-mode -1))
     (require 'aggressive-fill-paragraph)
     (aggressive-fill-paragraph-mode))
   (add-hook 'org-mode-hook #'my-org-hook-configs)

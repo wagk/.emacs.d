@@ -8,32 +8,35 @@
 
 ;;; Code:
 
-(defconst my-org-directory
+(define-namespace my-
+
+(defconst org-directory
   (file-name-as-directory
    (if (boundp '/dropbox-folder)
        (concat (directory-file-name /dropbox-folder) "/org")
-    "~/org"))
+     "~/org"))
   "orgmode directory."
   )
 
-(defconst my-notes-directory
+(defconst notes-directory
   (file-name-as-directory
    (if (boundp '/dropbox-folder)
-      (concat (directory-file-name /dropbox-folder) "/notes")
-    "~/notes"))
+       (concat (directory-file-name /dropbox-folder) "/notes")
+     "~/notes"))
   "Notes directory. Mostly used for `deft-directory'.
 This is different from the org-directory because these documents are more for
 snippets and smaller things"
   )
 
-(defconst my-wiki-directory
+(defconst wiki-directory
   (file-name-as-directory
    (if (boundp '/dropbox-folder)
-      (concat (directory-file-name /dropbox-folder) "/wiki")
-    "~/wiki"))
+       (concat (directory-file-name /dropbox-folder) "/wiki")
+     "~/wiki"))
   "Used for org-brain. This is basically the wiki directory"
   )
 
+)
 
 
 (provide 'config-vars)

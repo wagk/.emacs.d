@@ -19,6 +19,8 @@
 
 (use-package async)
 
+(use-package names)
+
 (defun my-find-parent-major-modes ()
   "docstring for my-find-parent-major-modes"
   (let ((parents (list major-mode)))

@@ -88,16 +88,30 @@
 ;; https://emacs.stackexchange.com/questions/28736/emacs-pointcursor-movement-lag/28746
 (setq-default auto-window-vscroll nil)
 
+(defconst my-user-temp-dir
+  "tempfiles/"
+  "Directory used to store temporary files that shouldn't be versioned")
+
 ;; adjust autosave and backup directories
-(setq backup-directory-alist `(("." . ,(concat user-init-dir "/backups/")))
+(setq backup-directory-alist `(("." . ,(concat user-init-dir
+                                               my-user-temp-dir
+                                               "backups/")))
       delete-old-versions t
       backup-by-copying t
       version-control t
       kept-new-versions 20
       kept-old-versions 5
       vc-make-backup-files t
-      auto-save-file-name-transforms `((".*" ,(concat user-init-dir "/autosave/") t)))
+      auto-save-list-file-prefix (concat user-init-dir
+                                         my-user-temp-dir
+                                         "auto-save-list/.saves-")
+      ;; auto-save-file-name-transforms `((".*" ,(concat user-init-dir
+      ;;                                                 my-user-temp-dir
+      ;;                                                 "autosave/")
+      ;;                                   t))
+      )
 
+;; look cool
 (global-hl-line-mode)
 
 (defun my-goto-scratch-buffer ()
@@ -144,13 +158,14 @@ buffer in."
   (:states 'normal
    :prefix my-default-evil-leader-key
            "t t" 'hl-todo-occur)
+  (:keymaps 'evil-normal-state-map
+   "[ t"  'hl-todo-previous
+   "] t"  'hl-todo-next)
   :init
   ;; (general-define-key :prefix my-default-evil-leader-key
   ;;                     "t t" 'hl-todo-occur)
   ;; :hook (prog-mode . hl-todo-mode)
-  :bind (:map evil-normal-state-map
-              ("[ t" . hl-todo-previous)
-              ("] t" . hl-todo-next))
+  :bind
   :config
   (customize-set-variable 'hl-todo-keyword-faces
                           `(("TODO"  . ,$solarized-dark-yellow)
@@ -313,6 +328,11 @@ This effectively centers it."
 (use-package smartparens
   :demand t
   :diminish smartparens-mode
+  :custom
+  (sp-cancel-autoskip-on-backward-movement
+   nil "We want to maintain the chomp-like behavior of electric-pair")
+  (sp-autoskip-closing-pair
+   'always "Maintain chomp-like behavior of electric-pair")
   :config
   (require 'smartparens-config) ;; load some default configurations
   (smartparens-global-mode)

@@ -7,17 +7,15 @@
 (require 'config-evil)
 
 (use-package eww ;TODO: Bind eww-mode-map to be more vimium-like
-  :init
-  (general-define-key
-   :states 'normal
+  :general
+  (:states 'normal
    :prefix my-default-evil-leader-key
                       "w w w" 'eww)
+  (:keymaps 'eww-mode-map
+   :states 'normal
+   "f" 'ace-link-eww)
+
   :config
-
-  (require 'ace-link)
-  (general-define-key :keymaps eww-mode-map
-                      "f" 'ace-link-eww)
-
   ;; https://github.com/GriffinSchneider/emacs-config/blob/master/eww-customizations.el
   (defvar gcs-shr-width 110)
 
@@ -57,7 +55,13 @@
 
   ;; Use sane keybindings for forward/back
   (evil-define-key 'normal 'eww-mode-map "H" 'eww-back-url)
-  (evil-define-key 'normal 'eww-mode-map "L" 'eww-forward-url))
+  (evil-define-key 'normal 'eww-mode-map "L" 'eww-forward-url)
+
+  ;; (defun my-eww-init-hook ()
+  ;;    "docstring for foo"
+  ;;    (evil-snipe-override-mode -1))
+  ;; (add-hook 'eww-mode-hook 'my-eww-init-hook)
+  )
 
 (provide 'config-web-browsing)
 
