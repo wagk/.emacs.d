@@ -1,6 +1,10 @@
 ;;; config-org.el --- org-mode configuration
 
 ;;; Commentary:
+;; NOTE: Sometimes when calling org-meta-return the cursor
+;; positions are all out of whack
+;; Answer: fci-mode is fucking things up. Same issue as japanese languge input
+
 
 ;;; Code:
 
@@ -12,17 +16,13 @@
 (use-package org
   :commands
   (org-time-stamp-inactive
-   org-capture
-   org-refile
-   org-agenda)
+   org-refile)
 
   :general
   (:states 'normal
    :prefix my-default-evil-leader-key
-   "O O" 'org-agenda
    "o t" 'org-time-stamp-inactive
    "o T" #'my-time-stamp
-   "o o" 'org-capture
    "o r" 'org-refile)
 
   :custom
@@ -80,22 +80,6 @@ text."
   (require 'smartparens)
   (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
 
-  ;; TODO: Figure out why sometimes when calling org-meta-return the cursor
-  ;; positions are all out of whack
-  ;; Answer: fci-mode is fucking things up. Same issue as japanese languge input
-
-  ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
-  (with-eval-after-load 'org-capture
-    (define-key org-capture-mode-map [remap evil-save-and-close]
-      'org-capture-finalize)
-    (define-key org-capture-mode-map [remap evil-save-modified-and-close]
-      'org-capture-finalize)
-    (define-key org-capture-mode-map [remap evil-quit]
-      'org-capture-kill))
-  ;; (progn (require 'org-agenda)
-  ;;        ;; TODO: rebind org-agenda keymaps
-  ;;        )
-
   (defun my-time-stamp ()
     "Prints the time and date."
     (interactive)
@@ -115,7 +99,7 @@ text."
   (add-hook 'org-mode-hook 'my-add-org-evil-embrace-pairs)
 
   (defun my-org-hook-configs ()
-    "docstring for my-org-hook-configs"
+    "Hacks to make org-mode less cancer when run"
     ;; NOTE: We turn this off because it is causing the cursor to do really
     ;; fucking weird things
     ;; (require 'fill-column-indicator)
@@ -126,6 +110,31 @@ text."
     (aggressive-fill-paragraph-mode))
   (add-hook 'org-mode-hook #'my-org-hook-configs)
   )
+
+;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
+(use-package org-capture
+  :ensure nil ;; because org-capture is from org
+  :after (org)
+  :general
+  (:prefix my-default-evil-leader-key
+   :states 'normal
+   "o o" 'org-capture)
+  :config
+  (define-key org-capture-mode-map [remap evil-save-and-close]
+    'org-capture-finalize)
+  (define-key org-capture-mode-map [remap evil-save-modified-and-close]
+    'org-capture-finalize)
+  (define-key org-capture-mode-map [remap evil-quit]
+    'org-capture-kill)
+  )
+
+(use-package org-agenda
+  :ensure nil ;; because org-agenda is from org
+  :after (org)
+  :general
+  (:prefix my-default-evil-leader-key
+   :states 'normal
+   "O O" 'org-agenda))
 
 ;;; This is like a concept map, but in org-files
 (use-package org-brain
@@ -189,11 +198,10 @@ text."
 (use-package worf)
 
 (use-package helm-org-rifle
-  :disabled t
   :general
   (:states 'normal
    :prefix my-default-evil-leader-key
-   "o O" 'helm-org-rifle)
+   "o <SPC>" 'helm-org-rifle)
   :bind
   (:map helm-org-rifle-map
         ("C-w" . evil-delete-backward-word)

@@ -112,7 +112,8 @@
       )
 
 ;; look cool
-(global-hl-line-mode)
+(when window-system
+  (global-hl-line-mode))
 
 (defun my-goto-scratch-buffer ()
   "When called goes to the scratch buffer.
