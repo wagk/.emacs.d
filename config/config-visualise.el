@@ -11,6 +11,14 @@
   ;; (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
   )
 
+;;TODO: Configure this. Evil is shadowing most of the binds
+;; https://github.com/TatriX/pomidor
+(use-package pomidor
+  :config
+  (evil-set-initial-state 'pomidor-mode 'emacs)
+  :custom
+  (pomidor-default-alert 'mode-line))
+
 (provide 'config-visualise)
 
 ;;; config-visualise.el ends here

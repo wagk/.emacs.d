@@ -42,8 +42,8 @@
   (org-log-done                               'time)
   (org-log-redeadline                         'time)
   (org-log-reschedule                         'time)
-  (org-blank-before-new-entry '((heading         . auto)
-                                (plain-list-item . auto)))
+  (org-blank-before-new-entry '((heading         . nil)
+                                (plain-list-item . nil)))
   (org-refile-targets '((nil . (:maxlevel . 9))))
   (org-refile-use-outline-path t)
   (org-outline-path-complete-in-steps nil)
@@ -101,6 +101,19 @@ text."
     (interactive)
     (org-time-stamp-inactive '(16)))
 
+  (require 'evil-embrace)
+  (defun my-add-org-evil-embrace-pairs ()
+    "Add additional pairings that evil-surround doesn't cover"
+    (let ((org-pairs '((?= "=" . "=") ;; verbatim
+                       (?* "*" . "*") ;; bold
+                       (?_ "_" . "_") ;; underline
+                       (?+ "+" . "+") ;; strikethrough
+                       (?~ "~" . "~") ;; code
+                       (?/ "/" . "/")))) ;; italic
+      (dolist (pair org-pairs)
+        (embrace-add-pair (car pair) (cadr pair) (cddr pair)))))
+  (add-hook 'org-mode-hook 'my-add-org-evil-embrace-pairs)
+
   (defun my-org-hook-configs ()
     "docstring for my-org-hook-configs"
     ;; NOTE: We turn this off because it is causing the cursor to do really
@@ -118,7 +131,9 @@ text."
 (use-package org-brain
   :custom
   (org-brain-path my-wiki-directory "Share the same path as deft.")
-  (org-brain-file-entries-use-title nil "Speed optimisation since our filenames and title should match anyway")
+  (org-brain-file-entries-use-title nil
+                                    "Speed optimisation since our filenames and
+                                    title should match anyway")
   :general
   (:states 'normal
    :prefix my-default-evil-leader-key
@@ -193,24 +208,31 @@ text."
   )
 
 (use-package ob-async
+  :demand t
   :after (org))
 
 (use-package ob-clojurescript
+  :demand t
   :after (org))
 
 (use-package ob-http
+  :demand t
   :after (org))
 
 (use-package ob-browser
+  :demand t
   :after (org))
 
 (use-package ob-restclient
+  :demand t
   :after (org))
 
 (use-package ob-rust
+  :demand t
   :after (org))
 
 (use-package ob-translate
+  :demand t
   :after (org))
 
 (provide 'config-org)

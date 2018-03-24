@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: elisp-add-hoook
+# name: elisp-add-hook
 # key: hook
 # --
-(add-hook '$1 '$0
+(add-hook '$1 '$0)
