@@ -1,9 +1,7 @@
 # -*- mode: snippet -*-
-# key: src
 # name: org-mode-code-block
+# key: src
 # --
 #+BEGIN_SRC $1
-
-    $0
-
+$0
 #+END_SRC

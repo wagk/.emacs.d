@@ -5,7 +5,6 @@
 ;; positions are all out of whack
 ;; Answer: fci-mode is fucking things up. Same issue as japanese languge input
 
-
 ;;; Code:
 
 (require 'config-package)
@@ -31,7 +30,8 @@
   (org-startup-indented nil)
   (org-indent-mode-turns-on-hiding-stars nil)
   (org-src-tab-acts-natively t)
-  (org-src-window-setup 'current-window)
+  ;; (org-src-window-setup 'current-window)
+  (org-src-fontify-natively t)
   (org-default-notes-file "~/TODO.org")
   ;; (org-M-RET-may-split-line '((default . nil)))
   (org-M-RET-may-split-line nil)
@@ -42,7 +42,7 @@
   (org-log-done                               'time)
   (org-log-redeadline                         'time)
   (org-log-reschedule                         'time)
-  (org-blank-before-new-entry '((heading         . nil)
+  (org-blank-before-new-entry '((heading         . t)
                                 (plain-list-item . nil)))
   (org-refile-targets '((nil . (:maxlevel . 9))))
   (org-refile-use-outline-path t)
@@ -64,10 +64,7 @@ text."
         (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
   (add-hook 'org-mode-hook '/org-mode-face-no-resize)
 
-  (org-toggle-link-display)
-
-  ;; initialize org agenda things
-  (add-to-list 'org-agenda-files my-org-directory)
+  ;; (org-toggle-link-display)
 
   ;; when inserting a heading immediately go into insert mode
   (add-hook 'org-insert-heading-hook 'evil-insert-state)
@@ -134,7 +131,11 @@ text."
   :general
   (:prefix my-default-evil-leader-key
    :states 'normal
-   "O O" 'org-agenda))
+   "O O" 'org-agenda)
+  :config
+  ;; initialize org agenda things
+  (add-to-list 'org-agenda-files my-org-directory)
+  )
 
 ;;; This is like a concept map, but in org-files
 (use-package org-brain
@@ -169,6 +170,10 @@ text."
   :after (org)
   :demand t
   :diminish (evil-org-mode)
+  ;; :general
+  ;; (:states '(emacs insert)
+  ;;  :keymaps 'org-mode-map
+  ;;  "RET" 'evil-org-return)
   :custom
   (evil-org-retain-visual-state-on-shift
    t

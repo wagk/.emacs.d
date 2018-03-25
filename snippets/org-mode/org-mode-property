@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: org-mode-property
+# key: prop
+# --
+#+PROPERTY: $0

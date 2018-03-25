@@ -14,6 +14,10 @@
 ;;TODO: Configure this. Evil is shadowing most of the binds
 ;; https://github.com/TatriX/pomidor
 (use-package pomidor
+  :general
+  (:states 'normal
+   :prefix my-default-evil-leader-key
+   "c" 'pomidor)
   :config
   (evil-set-initial-state 'pomidor-mode 'emacs)
   :custom
