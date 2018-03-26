@@ -337,7 +337,7 @@ This effectively centers it."
   :config
   (require 'smartparens-config) ;; load some default configurations
   (smartparens-global-mode)
-  (smartparens-global-strict-mode)
+  ;; (smartparens-global-strict-mode) ;; disable this because the chomping issue is solved
   (show-smartparens-global-mode t)
   ;; define some helper functions
   (defun my-add-newline-and-indent-braces (&rest _)

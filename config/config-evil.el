@@ -105,7 +105,7 @@ word"
     (evil-visual-restore))
 
 ;;;###autoload
-  (defun evil-unimpaired//find-relative-filename (offset)
+ (defun evil-unimpaired//find-relative-filename (offset)
     (when buffer-file-name
       (let* ((directory (f-dirname buffer-file-name))
              (files (f--files directory (not (s-matches? "^\\.?#" it))))
@@ -226,7 +226,8 @@ word"
   ;;       )
   ;;   )
 
-  (evil-ex-define-cmd "sh[ell]"   'eshell)
+  ;; (evil-ex-define-cmd "sh[ell]"   'eshell)
+  (evil-ex-define-cmd "sh[ell]"   'shell) ;; at least shell shows its keymaps
   (evil-ex-define-cmd "tabn[ew]"  'make-frame)
   (evil-ex-define-cmd "tabe[dit]" 'make-frame)
   (evil-ex-define-cmd "restart"   'restart-emacs)
@@ -308,6 +309,7 @@ word"
 
 ;; defaults to g~
 (use-package evil-string-inflection
+  :disabled
   :after (evil))
 
 ;; defaults to x, so dax, dix, etc
