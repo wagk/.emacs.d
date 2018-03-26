@@ -203,6 +203,7 @@ text."
 (use-package worf)
 
 (use-package helm-org-rifle
+  :hook (org-mode)
   :general
   (:states 'normal
    :prefix my-default-evil-leader-key

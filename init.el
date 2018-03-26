@@ -139,6 +139,9 @@ Assumes that it:
                          "config-help.el"
                          "config-emacs.el")
 
+  (org-babel-load-file
+   (expand-file-name (concat user-init-dir "config.org")) t)
+
   ;; Disable ANNOYING customize options
   (setq custom-file (concat user-init-dir "custom.el"))
   (load custom-file 'noerror)

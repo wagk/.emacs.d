@@ -1,0 +1,10 @@
+Configuration settings for my Emacs
+
+The intent is for this file to take over most of the configuration while leaving
+the most critical configurations to a bootstrap file (or files).
+
+* Config
+
+  #+BEGIN_SRC emacs-lisp
+    (message "I'm in an org file!")
+  #+END_SRC
