@@ -34,3 +34,4 @@ spu_log/*
 /history
 *.org-id-locations
 tempfiles/*
+/config.el

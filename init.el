@@ -38,6 +38,10 @@
   (concat user-init-dir "init.el")
   "Points to init.el")
 
+(defconst user-config-file
+  (concat user-init-dir "config.org")
+  "Points to config.org")
+
 (defconst user-config-dir
   (file-name-as-directory
    (concat user-init-dir "config"))
@@ -48,6 +52,13 @@
   "Edit `user-init-file` without opening a new window."
   (interactive)
   (find-file user-init-file)
+  )
+
+;;;###autoload
+(defun find-user-config-file ()
+  "Edit `user-config-file` without opening a new window."
+  (interactive)
+  (find-file user-config-file)
   )
 
 (defmacro measure-time (&rest body)
@@ -91,56 +102,60 @@ Assumes that it:
   ;; load each config file in order
   ;; config loading should prioritise most necessary bits, so in eventuality of
   ;; bad loads we can fix it from inside emacs
-  (load-user-config-file "config-utility.el"
-                         "config-package.el"
-                         "config-common.el"
-                         "config-vars.el"
+  (load-user-config-file "config-bootstrap.el"
+                         ;; "config-utility.el"
+                         ;; "config-package.el"
+                         ;; "config-common.el"
+                         ;; "config-vars.el"
 
-                         "config-colors.el"
+                         ;; "config-colors.el"
 
-                         "config-evil.el"
-                         "config-helm.el"
-                         "config-buffer.el"
-                         "config-startup.el"
-                         "config-indent.el"
-                         "config-git.el"
-                         "config-org.el"
-                         "config-deft.el"
-                         "config-project.el"
-                         "config-lint.el"
-                         "config-completion.el"
-                         "config-tags.el"
-                         "config-fs.el"
+                         ;; "config-evil.el"
+                         ;; "config-helm.el"
+                         ;; "config-buffer.el"
+                         ;; "config-startup.el"
+                         ;; "config-indent.el"
+                         ;; "config-git.el"
+                         ;; "config-org.el"
+                         ;; "config-deft.el"
+                         ;; "config-project.el"
+                         ;; "config-lint.el"
+                         ;; "config-completion.el"
+                         ;; "config-tags.el"
+                         ;; "config-fs.el"
 
                          ;; program-related configs. This configures general program mode things
-                         "config-prog.el"
-                         "config-webdev.el"
-                         "config-lisp.el"
-                         "config-cpp.el"
-                         "config-python.el"
-                         "config-rust.el"
+                         ;; "config-prog.el"
+                         ;; "config-webdev.el"
+                         ;; "config-lisp.el"
+                         ;; "config-cpp.el"
+                         ;; "config-python.el"
+                         ;; "config-rust.el"
 
-                         "config-tex.el"
+                         ;; "config-tex.el"
 
-                         "config-diff.el"
-                         "config-shell.el"
-                         "config-tramp.el"
-                         "config-crypto.el"
+                         ;; "config-diff.el"
+                         ;; "config-shell.el"
+                         ;; "config-tramp.el"
+                         ;; "config-crypto.el"
 
-                         "config-draw.el"
-                         "config-visualise.el"
+                         ;; "config-draw.el"
+                         ;; "config-visualise.el"
 
-                         "config-japanese.el"
-                         "config-chinese.el"
-                         "config-finance.el"
-                         "config-journal.el"
-                         "config-web-browsing.el"
+                         ;; "config-japanese.el"
+                         ;; "config-chinese.el"
+                         ;; "config-finance.el"
+                         ;; "config-journal.el"
+                         ;; "config-web-browsing.el"
 
-                         "config-help.el"
-                         "config-emacs.el")
+                         ;; "config-help.el"
+                         ;; "config-emacs.el"
+                         )
 
+  ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
+  ;;and the init load will fail
   (org-babel-load-file
-   (expand-file-name (concat user-init-dir "config.org")) t)
+   (expand-file-name (concat user-init-dir "config.org")))
 
   ;; Disable ANNOYING customize options
   (setq custom-file (concat user-init-dir "custom.el"))

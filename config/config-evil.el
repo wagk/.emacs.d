@@ -226,12 +226,13 @@ word"
   ;;       )
   ;;   )
 
-  ;; (evil-ex-define-cmd "sh[ell]"   'eshell)
-  (evil-ex-define-cmd "sh[ell]"   'shell) ;; at least shell shows its keymaps
-  (evil-ex-define-cmd "tabn[ew]"  'make-frame)
-  (evil-ex-define-cmd "tabe[dit]" 'make-frame)
-  (evil-ex-define-cmd "restart"   'restart-emacs)
-  (evil-ex-define-cmd "init"      'find-user-init-file)
+  ;; (evil-ex-define-cmd "sh[ell]" 'eshell)
+  (evil-ex-define-cmd "sh[ell]"    'shell) ;; at least shell shows its keymaps
+  (evil-ex-define-cmd "tabn[ew]"   'make-frame)
+  (evil-ex-define-cmd "tabe[dit]"  'make-frame)
+  (evil-ex-define-cmd "restart"    'restart-emacs)
+  (evil-ex-define-cmd "init"       'find-user-init-file)
+  (evil-ex-define-cmd "config"     'find-user-config-file)
 
   ;; (lexical-let ((default-color (cons (face-background 'mode-line)
   ;;                                    (face-foreground 'mode-line))))

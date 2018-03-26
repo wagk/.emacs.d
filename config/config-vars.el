@@ -8,9 +8,7 @@
 
 ;;; Code:
 
-(define-namespace my-
-
-(defconst org-directory
+(defconst my-org-directory
   (file-name-as-directory
    (if (boundp '/dropbox-folder)
        (concat (directory-file-name /dropbox-folder) "/org")
@@ -18,7 +16,7 @@
   "orgmode directory."
   )
 
-(defconst notes-directory
+(defconst my-notes-directory
   (file-name-as-directory
    (if (boundp '/dropbox-folder)
        (concat (directory-file-name /dropbox-folder) "/notes")
@@ -28,15 +26,13 @@ This is different from the org-directory because these documents are more for
 snippets and smaller things"
   )
 
-(defconst wiki-directory
+(defconst my-wiki-directory
   (file-name-as-directory
    (if (boundp '/dropbox-folder)
        (concat (directory-file-name /dropbox-folder) "/wiki")
      "~/wiki"))
   "Used for org-brain. This is basically the wiki directory"
   )
-
-)
 
 
 (provide 'config-vars)
