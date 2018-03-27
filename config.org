@@ -1,40 +1,74 @@
-Configuration settings for my Emacs
+#+TITLE: Emacs Configuration
 
-The intent is for this file to take over most of the configuration while leaving
-the most critical configurations to a bootstrap file (or files).
+* Introduction
+  Configuration settings for my Emacs
 
-Note that the tangling process first dumps everything into one =.el= file, so
-each src block, while recommended to be self-contained evaluable elisp, doesn't
-actually have to be. It is possible to split into multiple elisp src blocks.
+  The intent is for this file to take over most of the configuration while leaving
+  the most critical configurations to a bootstrap file (or files).
 
-A few things MUST be assumed:
-- The following code blocks *MUST* be executed in order
-- This code block isn't compiled
+  Note that the tangling process first dumps everything into one =.el= file, so
+  each src block, while recommended to be self-contained evaluable elisp, doesn't
+  actually have to be. It is possible to split into multiple elisp src blocks.
 
+  A few things MUST be assumed:
+  - The following code blocks *MUST* be executed in order
+  - This code block isn't compiled
 
-#+BEGIN_SRC emacs-lisp
-  (require 'config-bootstrap)
-#+END_SRC
-
-
-* Common
   #+BEGIN_SRC emacs-lisp
+    (require 'config-bootstrap)
+  #+END_SRC
 
-    (with-no-warnings
-      (require 'cl))
+* Developer Libraries
+  Packages that are useful for development but might not actually make the emacs
+  user experience nice.
 
-    (use-package dash)
+** CL
+   Common Lisp library
 
+   #+BEGIN_SRC emacs-lisp
+
+     (with-no-warnings
+       (require 'cl))
+
+   #+END_SRC
+
+** Dash
+   Utility library
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package dash)
+   #+END_SRC
+
+** S
+
+   #+BEGIN_SRC emacs-lisp
     (use-package s)
+   #+END_SRC
 
-    (use-package f)
+** F
 
-    (use-package misc-cmds
-      :disabled t)
+   #+BEGIN_SRC emacs-lisp
+    (use-package s)
+   #+END_SRC
 
-    (use-package async)
+** Async
 
-    (use-package names)
+   #+BEGIN_SRC emacs-lisp
+     (use-package async)
+   #+END_SRC
+
+** Names
+   :PROPERTIES:
+   :SOURCE:   https://github.com/Malabarba/names
+   :END:
+   Namespacing libary
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package names)
+   #+END_SRC
+
+** Other Helper Functions
+   #+BEGIN_SRC emacs-lisp
 
     (defun my-find-parent-major-modes ()
       "docstring for my-find-parent-major-modes"
@@ -43,9 +77,15 @@ A few things MUST be assumed:
           (push (get (car parents) 'derived-mode-parent) parents))
         parents))
 
-  #+END_SRC
+   #+END_SRC
 * Key Variables
-  #+BEGIN_SRC emacs-lisp
+  Some of these variables come from =local.el= and would be used later on by
+  other configurations. It's critical that these constants are defined as early
+  as possible.
+
+** Default Org Directory
+
+   #+BEGIN_SRC emacs-lisp
 
     (defconst my-org-directory
       (file-name-as-directory
@@ -55,15 +95,27 @@ A few things MUST be assumed:
       "orgmode directory."
       )
 
-    (defconst my-notes-directory
-      (file-name-as-directory
-       (if (boundp '/dropbox-folder)
-           (concat (directory-file-name /dropbox-folder) "/notes")
-         "~/notes"))
-      "Notes directory. Mostly used for `deft-directory'.
-    This is different from the org-directory because these documents are more for
-    snippets and smaller things"
-      )
+   #+END_SRC
+
+** Default Notes Directory
+
+   #+BEGIN_SRC emacs-lisp
+
+     (defconst my-notes-directory
+       (file-name-as-directory
+        (if (boundp '/dropbox-folder)
+            (concat (directory-file-name /dropbox-folder) "/notes")
+          "~/notes"))
+       "Notes directory. Mostly used for `deft-directory'.
+     This is different from the org-directory because these documents are more for
+     snippets and smaller things"
+       )
+
+   #+END_SRC
+
+** Default Wiki Directory
+
+   #+BEGIN_SRC emacs-lisp
 
     (defconst my-wiki-directory
       (file-name-as-directory
@@ -73,7 +125,7 @@ A few things MUST be assumed:
       "Used for org-brain. This is basically the wiki directory"
       )
 
-  #+END_SRC
+   #+END_SRC
 * Color
   #+BEGIN_SRC emacs-lisp
 
@@ -187,7 +239,8 @@ A few things MUST be assumed:
        "gt"     '/evil-gt
        "gT"     '/evil-gT
        "C-\\"   '/lang-toggle ;; binding for eng <-> jap
-       "g o"    'ff-find-other-file)
+       "g o"    'ff-find-other-file
+       "g a"    'describe-char)
       (:keymaps 'visual
        ">>"     '/evil-shift-right-visual
        "<<"     '/evil-shift-left-visual)
@@ -203,42 +256,42 @@ A few things MUST be assumed:
       :custom
       (evil-want-C-u-scroll t
                             "Emacs uses `C-u' for its `universal-argument' function.
-                            It conflicts with scroll up in evil-mode")
+                                It conflicts with scroll up in evil-mode")
       (evil-want-integration nil
                              "`evil-collections' demands that this be disabled to
-                             work")
+                                 work")
       :config
 
       ;; TODO: figure out this
       ;; https://github.com/syl20bnr/spacemacs/issues/5070
-    ;;;###autoload
+        ;;;###autoload
       (defun /evil-paste-after-from-0 ()
         "I legitimately forgot what this does.
-    Probably copied it from stackoverflow"
+        Probably copied it from stackoverflow"
         (interactive)
         (let ((evil-this-register ?0))
           (call-interactively 'evil-paste-after)))
 
-    ;;;###autoload
+        ;;;###autoload
       (defun /treat-underscore-as-word ()
         "Make underscore be considered part of a word, just like vim.
-    Add this to whichever mode you want when you want it to treat underscore as a
-    word"
+        Add this to whichever mode you want when you want it to treat underscore as a
+        word"
         (modify-syntax-entry ?_ "w"))
 
-    ;;;###autoload
+        ;;;###autoload
       (defun /evil-gt ()
         "Emulating vim's `gt' using frames."
         (interactive)
         (other-frame 1))
 
-    ;;;###autoload
+        ;;;###autoload
       (defun /evil-gT ()
         "Emulating vim's `gT' using frames."
         (interactive)
         (other-frame -1))
 
-    ;;;###autoload
+        ;;;###autoload
       (defun /lang-toggle ()
         "Input language toggle wrapper."
         (interactive)
@@ -247,7 +300,7 @@ A few things MUST be assumed:
         )
 
       ;; Overload shifts so that they don't lose the selection
-    ;;;###autoload
+        ;;;###autoload
       (defun /evil-shift-left-visual ()
         "Keep visual selection after shifting left."
         (interactive)
@@ -255,7 +308,7 @@ A few things MUST be assumed:
         (evil-normal-state)
         (evil-visual-restore))
 
-    ;;;###autoload
+        ;;;###autoload
       (defun /evil-shift-right-visual ()
         "Same as /evil-shift-left-visual, but for the right instead."
         (interactive)
@@ -263,8 +316,8 @@ A few things MUST be assumed:
         (evil-normal-state)
         (evil-visual-restore))
 
-    ;;;###autoload
-     (defun evil-unimpaired//find-relative-filename (offset)
+        ;;;###autoload
+      (defun evil-unimpaired//find-relative-filename (offset)
         (when buffer-file-name
           (let* ((directory (f-dirname buffer-file-name))
                  (files (f--files directory (not (s-matches? "^\\.?#" it))))
@@ -273,48 +326,48 @@ A few things MUST be assumed:
             (when file
               (f-expand file directory)))))
 
-    ;;;###autoload
+        ;;;###autoload
       (defun evil-unimpaired/previous-file ()
         (interactive)
         (-if-let (filename (evil-unimpaired//find-relative-filename -1))
             (find-file filename)
           (user-error "No previous file")))
 
-    ;;;###autoload
+        ;;;###autoload
       (defun evil-unimpaired/next-file ()
         (interactive)
         (-if-let (filename (evil-unimpaired//find-relative-filename 1))
             (find-file filename)
           (user-error "No next file")))
 
-    ;;;###autoload
+        ;;;###autoload
       (defun evil-unimpaired/paste-above ()
         (interactive)
         (evil-insert-newline-above)
         (evil-paste-after 1))
 
-    ;;;###autoload
+        ;;;###autoload
       (defun evil-unimpaired/paste-below ()
         (interactive)
         (evil-insert-newline-below)
         (evil-paste-after 1))
 
-    ;;;###autoload
+        ;;;###autoload
       (defun evil-unimpaired/insert-space-above (count)
         (interactive "p")
         (dotimes (_ count) (save-excursion (evil-insert-newline-above))))
 
-    ;;;###autoload
+        ;;;###autoload
       (defun evil-unimpaired/insert-space-below (count)
         (interactive "p")
         (dotimes (_ count) (save-excursion (evil-insert-newline-below))))
 
-    ;;;###autoload
+        ;;;###autoload
       (defun evil-unimpaired/next-frame ()
         (interactive)
         (/evil-gt))
 
-    ;;;###autoload
+        ;;;###autoload
       (defun evil-unimpaired/previous-frame ()
         (interactive)
         (/evil-gT))
@@ -344,7 +397,7 @@ A few things MUST be assumed:
       (define-key evil-normal-state-map (kbd "[ p") 'evil-unimpaired/paste-above)
       (define-key evil-normal-state-map (kbd "] p") 'evil-unimpaired/paste-below)
 
-    ;; Back to our regularly scheduled programming
+      ;; Back to our regularly scheduled programming
       (fset 'evil-visual-update-x-selection 'ignore)
       (evil-select-search-module 'evil-search-module 'evil-search)
       (setq evil-want-Y-yank-to-eol t
@@ -477,8 +530,8 @@ A few things MUST be assumed:
       (:states 'normal
        "g <SPC>" 'evil-execute-in-god-state))
 
-    ;;; TODO: Org-mode has some pairs that are not handled by surround. We would
-    ;;; need to fix that.
+        ;;; TODO: Org-mode has some pairs that are not handled by surround. We would
+        ;;; need to fix that.
     (use-package evil-surround
       :after (evil)
       :demand t
@@ -486,8 +539,8 @@ A few things MUST be assumed:
       (global-evil-surround-mode)
       )
 
-    ;;; Evil-embrace is like a souped up addon of surround, this time they have
-    ;;; things like function surround and probably more features.
+        ;;; Evil-embrace is like a souped up addon of surround, this time they have
+        ;;; things like function surround and probably more features.
     (use-package evil-embrace
       :after (evil-surround)
       :demand t
@@ -596,7 +649,7 @@ A few things MUST be assumed:
 
     ;; (use-package evil-text-object-python)
 
-    ;;; Indentation text object for evil
+        ;;; Indentation text object for evil
     (use-package evil-indent-plus
       :bind(:map evil-inner-text-objects-map
             ("i" . evil-indent-plus-i-indent)
@@ -613,8 +666,8 @@ A few things MUST be assumed:
       :config
       (global-vi-tilde-fringe-mode))
 
-    ;;; Allows for * and # commands. which originally only worked on WORDs, to
-    ;;; work on a visual selection too
+        ;;; Allows for * and # commands. which originally only worked on WORDs, to
+        ;;; work on a visual selection too
     (use-package evil-visualstar
       :after (evil)
       :demand t
@@ -643,7 +696,7 @@ A few things MUST be assumed:
       (evil-goggles-mode)
       (evil-goggles-use-diff-faces))
 
-    ;;; Disabled because it conflicts with evil-snipe-override-mode
+        ;;; Disabled because it conflicts with evil-snipe-override-mode
     (use-package evil-quickscope
       :disabled t
       ;; :config
@@ -651,8 +704,8 @@ A few things MUST be assumed:
       ;; (global-evil-quickscope-mode t)
       )
 
-    ;;; Basically does what Clever-F did in vim, letting you repeatedly press
-    ;;; f, F, t, and T instead of using ; and ,
+        ;;; Basically does what Clever-F did in vim, letting you repeatedly press
+        ;;; f, F, t, and T instead of using ; and ,
     (use-package evil-snipe
       :after (evil)
       :demand t
@@ -661,7 +714,7 @@ A few things MUST be assumed:
       :config
       (evil-snipe-override-mode))
 
-    ;;; Adds the following ex commands:
+        ;;; Adds the following ex commands:
     ;; | :reverse           | reverse visually selected lines
     ;; | :remove            | remove current file and its buffer
     ;; | :rename NEW-PATH   | rename or move current file and its buffer
@@ -674,7 +727,7 @@ A few things MUST be assumed:
     ;; | :tput              | paste from tmux paste buffer, requires running under tmux
     (use-package evil-expat)
 
-    ;;; Adds an operator `gx' that, when called again, swaps both selections
+        ;;; Adds an operator `gx' that, when called again, swaps both selections
     ;; currently DISABLED because it conflicts with the default `g x', which
     ;; goes to the link under the cursor (`browse-url-at-point'), something
     ;; which I feel is probably cooler than evil-exchange
@@ -696,16 +749,18 @@ A few things MUST be assumed:
     (use-package evil-tutor)
 
   #+END_SRC
+
+** TODO vim-argwrap for evil
 * Helm
   #+BEGIN_SRC emacs-lisp
 
     ;; Install ivy as a contingency
     (use-package ivy
       :bind (:map ivy-minibuffer-map
-                  ("C-w" . ivy-backward-kill-word)
-                  ("C-u" . ivy-backward-kill-line)
-                  ("C-j" . ivy-next-line)
-                  ("C-k" . ivy-previous-line))
+             ("C-w" . ivy-backward-kill-word)
+             ("C-u" . ivy-backward-kill-line)
+             ("C-j" . ivy-next-line)
+             ("C-k" . ivy-previous-line))
       :config
       (setq ivy-use-virtual-buffers t
             enable-recursive-minibuffers t))
@@ -727,9 +782,8 @@ A few things MUST be assumed:
        :prefix my-default-evil-leader-key
        "<SPC>"  'helm-M-x
        "TAB"    'helm-resume
-       "y"      'helm-show-kill-ring
-       "-"      'helm-find-files
-       "b"      'helm-mini
+       "y y" 'helm-show-kill-ring
+       "b b" 'helm-mini
        "m m"    'helm-bookmarks)
       (:keymaps 'helm-map
        "C-w" 'evil-delete-backward-word
@@ -783,7 +837,7 @@ A few things MUST be assumed:
       (defun /helm-swoop-vis () (interactive)
              (helm-swoop :$query "" :$multiline 4))
       :bind (:map helm-swoop-map
-                  ("C-w" . evil-delete-backward-word))
+             ("C-w" . evil-delete-backward-word))
       ;; :config
       ;; (defun /helm-swoop-vis () (interactive)
       ;;        (helm-swoop :$query "" :$multiline 4))
@@ -1279,249 +1333,249 @@ A few things MUST be assumed:
       (global-git-gutter+-mode)
       )
 
-    ;;TODO: either find or implement some kind of git hunk textobject
-
   #+END_SRC
+
+** TODO Git Hunk textobjects
 * Org
   #+BEGIN_SRC emacs-lisp
 
-    (use-package org
-      :commands
-      (org-time-stamp-inactive
-       org-refile)
+        (use-package org
+          :commands
+          (org-time-stamp-inactive
+           org-refile)
 
-      :general
-      (:states 'normal
-       :prefix my-default-evil-leader-key
-       "o t" 'org-time-stamp-inactive
-       "o T" #'my-time-stamp
-       "o r" 'org-refile)
+          :general
+          (:states 'normal
+           :prefix my-default-evil-leader-key
+           "o t" 'org-time-stamp-inactive
+           "o T" #'my-time-stamp
+           "o r" 'org-refile)
 
-      :custom
-      (org-support-shift-select t
-                                "Let me use J in org-mode please.")
-      (org-startup-indented nil)
-      (org-indent-mode-turns-on-hiding-stars nil)
-      (org-src-tab-acts-natively t)
-      ;; (org-src-window-setup 'current-window)
-      (org-src-fontify-natively t)
-      (org-default-notes-file "~/TODO.org")
-      ;; (org-M-RET-may-split-line '((default . nil)))
-      (org-M-RET-may-split-line nil)
-      (org-enforce-todo-checkbox-dependencies     t)
-      (org-enforce-todo-dependencies              t)
-      (org-pretty-entities                        nil)
-      ;; (org-insert-heading-respect-content t)
-      (org-log-done                               'time)
-      (org-log-redeadline                         'time)
-      (org-log-reschedule                         'time)
-      (org-blank-before-new-entry '((heading         . t)
-                                    (plain-list-item . nil)))
-      (org-refile-targets '((nil . (:maxlevel . 9))))
-      (org-refile-use-outline-path t)
-      (org-outline-path-complete-in-steps nil)
-      (org-refile-allow-creating-parent-nodes 'confirm)
-      (org-highlight-latex-and-related '(latex))
+          :custom
+          (org-support-shift-select t
+                                    "Let me use J in org-mode please.")
+          (org-startup-indented nil)
+          (org-indent-mode-turns-on-hiding-stars nil)
+          (org-src-tab-acts-natively t)
+          ;; (org-src-window-setup 'current-window)
+          (org-src-fontify-natively t)
+          (org-default-notes-file "~/TODO.org")
+          ;; (org-M-RET-may-split-line '((default . nil)))
+          (org-M-RET-may-split-line nil)
+          (org-enforce-todo-checkbox-dependencies     t)
+          (org-enforce-todo-dependencies              t)
+          (org-pretty-entities                        nil)
+          ;; (org-insert-heading-respect-content t)
+          (org-log-done                               'time)
+          (org-log-redeadline                         'time)
+          (org-log-reschedule                         'time)
+          (org-blank-before-new-entry '((heading         . t)
+                                        (plain-list-item . nil)))
+          (org-refile-targets '((nil . (:maxlevel . 9))))
+          (org-refile-use-outline-path t)
+          (org-outline-path-complete-in-steps nil)
+          (org-refile-allow-creating-parent-nodes 'confirm)
+          (org-highlight-latex-and-related '(latex))
+          (org-src-block-faces '(("emacs-lisp" (:foreground "#839496"))))
 
-      :config
-    ;;;###autoload
-      (defun /org-mode-face-no-resize ()
-        "Stop the org-level headers from increasing in height relative to the other
-    text."
-        (when (eq major-mode 'org-mode)
-          (dolist (face '(org-level-1
-                          org-level-2
-                          org-level-3
-                          org-level-4
-                          org-level-5))
-            (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
-      (add-hook 'org-mode-hook '/org-mode-face-no-resize)
+          :config
+        ;;;###autoload
+          (defun /org-mode-face-no-resize ()
+            "Stop the org-level headers from increasing in height relative to the other
+        text."
+            (when (eq major-mode 'org-mode)
+              (dolist (face '(org-level-1
+                              org-level-2
+                              org-level-3
+                              org-level-4
+                              org-level-5))
+                (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
+          (add-hook 'org-mode-hook '/org-mode-face-no-resize)
 
-      ;; (org-toggle-link-display)
+          ;; (org-toggle-link-display)
 
-      ;; when inserting a heading immediately go into insert mode
-      (add-hook 'org-insert-heading-hook 'evil-insert-state)
+          ;; when inserting a heading immediately go into insert mode
+          (add-hook 'org-insert-heading-hook 'evil-insert-state)
 
-      ;; (general-define-key :keymaps 'org-mode-map
-      ;;                     :states 'insert
-      ;;                     "RET"     'newline-and-indent)
+          ;; (general-define-key :keymaps 'org-mode-map
+          ;;                     :states 'insert
+          ;;                     "RET"     'newline-and-indent)
 
-      ;; make smartparen autoskip "" because org-mode treats it as a string
-      (require 'smartparens)
-      (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
+          ;; make smartparen autoskip "" because org-mode treats it as a string
+          (require 'smartparens)
+          (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
 
-      (defun my-time-stamp ()
-        "Prints the time and date."
-        (interactive)
-        (org-time-stamp-inactive '(16)))
+          (defun my-time-stamp ()
+            "Prints the time and date."
+            (interactive)
+            (org-time-stamp-inactive '(16)))
 
-      (require 'evil-embrace)
-      (defun my-add-org-evil-embrace-pairs ()
-        "Add additional pairings that evil-surround doesn't cover"
-        (let ((org-pairs '((?= "=" . "=") ;; verbatim
-                           (?* "*" . "*") ;; bold
-                           (?_ "_" . "_") ;; underline
-                           (?+ "+" . "+") ;; strikethrough
-                           (?~ "~" . "~") ;; code
-                           (?/ "/" . "/")))) ;; italic
-          (dolist (pair org-pairs)
-            (embrace-add-pair (car pair) (cadr pair) (cddr pair)))))
-      (add-hook 'org-mode-hook 'my-add-org-evil-embrace-pairs)
+          (require 'evil-embrace)
+          (defun my-add-org-evil-embrace-pairs ()
+            "Add additional pairings that evil-surround doesn't cover"
+            (let ((org-pairs '((?= "=" . "=") ;; verbatim
+                               (?* "*" . "*") ;; bold
+                               (?_ "_" . "_") ;; underline
+                               (?+ "+" . "+") ;; strikethrough
+                               (?~ "~" . "~") ;; code
+                               (?/ "/" . "/")))) ;; italic
+              (dolist (pair org-pairs)
+                (embrace-add-pair (car pair) (cadr pair) (cddr pair)))))
+          (add-hook 'org-mode-hook 'my-add-org-evil-embrace-pairs)
 
-      (defun my-org-hook-configs ()
-        "Hacks to make org-mode less cancer when run"
-        ;; NOTE: We turn this off because it is causing the cursor to do really
-        ;; fucking weird things
-        ;; (require 'fill-column-indicator)
-        ;; (turn-on-fci-mode)
-        (with-eval-after-load 'display-line-numbers
-          (display-line-numbers-mode -1))
-        (require 'aggressive-fill-paragraph)
-        (aggressive-fill-paragraph-mode))
-      (add-hook 'org-mode-hook #'my-org-hook-configs)
-      )
+          (defun my-org-hook-configs ()
+            "Hacks to make org-mode less cancer when run"
+            ;; NOTE: We turn this off because it is causing the cursor to do really
+            ;; fucking weird things
+            ;; (require 'fill-column-indicator)
+            ;; (turn-on-fci-mode)
+            (with-eval-after-load 'display-line-numbers
+              (display-line-numbers-mode -1))
+            (require 'aggressive-fill-paragraph)
+            (aggressive-fill-paragraph-mode))
+          (add-hook 'org-mode-hook #'my-org-hook-configs)
+          )
 
-    ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
-    (use-package org-capture
-      :ensure nil ;; because org-capture is from org
-      :after (org)
-      :general
-      (:prefix my-default-evil-leader-key
-       :states 'normal
-       "o o" 'org-capture)
-      :config
-      (define-key org-capture-mode-map [remap evil-save-and-close]
-        'org-capture-finalize)
-      (define-key org-capture-mode-map [remap evil-save-modified-and-close]
-        'org-capture-finalize)
-      (define-key org-capture-mode-map [remap evil-quit]
-        'org-capture-kill)
-      )
+        ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
+        (use-package org-capture
+          :ensure nil ;; because org-capture is from org
+          :after (org)
+          :general
+          (:prefix my-default-evil-leader-key
+           :states 'normal
+           "o o" 'org-capture)
+          :config
+          (define-key org-capture-mode-map [remap evil-save-and-close]
+            'org-capture-finalize)
+          (define-key org-capture-mode-map [remap evil-save-modified-and-close]
+            'org-capture-finalize)
+          (define-key org-capture-mode-map [remap evil-quit]
+            'org-capture-kill)
+          )
 
-    (use-package org-agenda
-      :ensure nil ;; because org-agenda is from org
-      :after (org)
-      :general
-      (:prefix my-default-evil-leader-key
-       :states 'normal
-       "O O" 'org-agenda)
-      :config
-      ;; initialize org agenda things
-      (add-to-list 'org-agenda-files my-org-directory)
-      )
+        (use-package org-agenda
+          :ensure nil ;; because org-agenda is from org
+          :after (org)
+          :general
+          (:prefix my-default-evil-leader-key
+           :states 'normal
+           "O O" 'org-agenda)
+          :config
+          ;; initialize org agenda things
+          (add-to-list 'org-agenda-files my-org-directory)
+          )
 
-    ;;; This is like a concept map, but in org-files
-    (use-package org-brain
-      :custom
-      (org-brain-path my-wiki-directory "Share the same path as deft.")
-      (org-brain-file-entries-use-title nil
-                                        "Speed optimisation since our filenames and
-                                        title should match anyway")
-      :general
-      (:states 'normal
-       :prefix my-default-evil-leader-key
-       "N" 'org-brain-visualize)
-      :init
-      (with-eval-after-load 'evil
-        (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
-      )
+        ;;; This is like a concept map, but in org-files
+        (use-package org-brain
+          :custom
+          (org-brain-path my-wiki-directory "Share the same path as deft.")
+          (org-brain-file-entries-use-title nil
+                                            "Speed optimisation since our filenames and
+                                            title should match anyway")
+          :general
+          (:states 'normal
+           :prefix my-default-evil-leader-key
+           "N" 'org-brain-visualize)
+          :init
+          (with-eval-after-load 'evil
+            (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+          )
 
-    (use-package org-radiobutton)
+        (use-package org-radiobutton)
 
-    ;; Export orgfiles as anki decks!
-    ;; Looks great for jap study and just study in general
-    ;; https://github.com/louietan/anki-editor
-    ;; Requires that the anki plugin `anki-connect' is installed
-    (use-package anki-editor)
+        ;; Export orgfiles as anki decks!
+        ;; Looks great for jap study and just study in general
+        ;; https://github.com/louietan/anki-editor
+        ;; Requires that the anki plugin `anki-connect' is installed
+        (use-package anki-editor)
 
-    ;; Prepackaged evil bindings for org-mode
-    ;; https://github.com/Somelauw/evil-org-mode
-    ;; Full keybindings:
-    ;; https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
-    (use-package evil-org
-      ;; :disabled t
-      :after (org)
-      :demand t
-      :diminish (evil-org-mode)
-      ;; :general
-      ;; (:states '(emacs insert)
-      ;;  :keymaps 'org-mode-map
-      ;;  "RET" 'evil-org-return)
-      :custom
-      (evil-org-retain-visual-state-on-shift
-       t
-       "Let us chain < and > calls")
-      (evil-org-use-additional-insert
-       t
-       "Add things like M-j to insert")
-      (evil-org-special-o/O
-       '(table-row)
-       "Do not let o/O affect list items, throws me off")
-      :config
-      (evil-org-set-key-theme '(textobjects
-                                insert
-                                navigation
-                                additional
-                                shift
-                                return
-                                operators
-                                ;; todo
-                                ;; heading
-                                calendar
-                                ))
-      (add-hook 'org-mode-hook 'evil-org-mode)
-      (require 'evil-org-agenda)
-      (evil-org-agenda-set-keys))
+        ;; Prepackaged evil bindings for org-mode
+        ;; https://github.com/Somelauw/evil-org-mode
+        ;; Full keybindings:
+        ;; https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
+        (use-package evil-org
+          ;; :disabled t
+          :after (org)
+          :demand t
+          :diminish (evil-org-mode)
+          ;; :general
+          ;; (:states '(emacs insert)
+          ;;  :keymaps 'org-mode-map
+          ;;  "RET" 'evil-org-return)
+          :custom
+          (evil-org-retain-visual-state-on-shift
+           t
+           "Let us chain < and > calls")
+          (evil-org-use-additional-insert
+           t
+           "Add things like M-j to insert")
+          (evil-org-special-o/O
+           '(table-row)
+           "Do not let o/O affect list items, throws me off")
+          :config
+          (evil-org-set-key-theme '(textobjects
+                                    insert
+                                    navigation
+                                    additional
+                                    shift
+                                    return
+                                    operators
+                                    ;; todo
+                                    ;; heading
+                                    calendar
+                                    ))
+          (add-hook 'org-mode-hook 'evil-org-mode)
+          (require 'evil-org-agenda)
+          (evil-org-agenda-set-keys))
 
-    (use-package worf)
+        (use-package worf)
 
-    (use-package helm-org-rifle
-      :hook (org-mode)
-      :general
-      (:states 'normal
-       :prefix my-default-evil-leader-key
-       "o <SPC>" 'helm-org-rifle)
-      :bind
-      (:map helm-org-rifle-map
-       ("C-w" . evil-delete-backward-word)
-       ("\\"  . helm-select-action)
-       ("C-j" . helm-next-line)
-       ("C-k" . helm-previous-line)
-       ("C-n" . helm-next-page)
-       ("C-p" . helm-previous-page)
-       ("C-l" . helm-next-source)
-       ("C-h" . helm-previous-source)
-       ("TAB" . helm-execute-persistent-action))
-      )
+        (use-package helm-org-rifle
+          :hook (org-mode)
+          :general
+          (:states 'normal
+           :prefix my-default-evil-leader-key
+           "o <SPC>" 'helm-org-rifle)
+          :bind
+          (:map helm-org-rifle-map
+           ("C-w" . evil-delete-backward-word)
+           ("\\"  . helm-select-action)
+           ("C-j" . helm-next-line)
+           ("C-k" . helm-previous-line)
+           ("C-n" . helm-next-page)
+           ("C-p" . helm-previous-page)
+           ("C-l" . helm-next-source)
+           ("C-h" . helm-previous-source)
+           ("TAB" . helm-execute-persistent-action))
+          )
 
-    (use-package ob-async
-      :demand t
-      :after (org))
+        (use-package ob-async
+          :demand t
+          :after (org))
 
-    (use-package ob-clojurescript
-      :demand t
-      :after (org))
+        (use-package ob-clojurescript
+          :demand t
+          :after (org))
 
-    (use-package ob-http
-      :demand t
-      :after (org))
+        (use-package ob-http
+          :demand t
+          :after (org))
 
-    (use-package ob-browser
-      :demand t
-      :after (org))
+        (use-package ob-browser
+          :demand t
+          :after (org))
 
-    (use-package ob-restclient
-      :demand t
-      :after (org))
+        (use-package ob-restclient
+          :demand t
+          :after (org))
 
-    (use-package ob-rust
-      :demand t
-      :after (org))
+        (use-package ob-rust
+          :demand t
+          :after (org))
 
-    (use-package ob-translate
-      :demand t
-      :after (org))
-
+        (use-package ob-translate
+          :demand t
+          :after (org))
   #+END_SRC
 * Deft
   :PROPERTIES:
