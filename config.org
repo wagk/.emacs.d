@@ -58,9 +58,9 @@
    #+END_SRC
 
 ** Names
-   :PROPERTIES:
-   :SOURCE:   https://github.com/Malabarba/names
-   :END:
+   - Github :: https://github.com/Malabarba/names
+
+
    Namespacing libary
 
    #+BEGIN_SRC emacs-lisp
@@ -78,6 +78,7 @@
         parents))
 
    #+END_SRC
+
 * Key Variables
   Some of these variables come from =local.el= and would be used later on by
   other configurations. It's critical that these constants are defined as early
@@ -1578,9 +1579,9 @@
           :after (org))
   #+END_SRC
 * Deft
-  :PROPERTIES:
-  :SOURCE:   https://jblevins.org/projects/deft/
-  :END:
+  - Homepage :: https://jblevins.org/projects/deft/
+
+
   #+BEGIN_SRC emacs-lisp
 
     (use-package deft
@@ -2388,10 +2389,10 @@
    #+END_SRC
 
 *** Evil Configuration
-    :PROPERTIES:
-    :SOURCE:   https://github.com/atheriel/evil-ledger
-    :END:
     Evilify ledger-mode
+
+    - Github :: https://github.com/atheriel/evil-ledger
+
 
     #+BEGIN_SRC emacs-lisp
       ;; Adds a transaction text object bound to `x' by default
@@ -2518,9 +2519,8 @@
    #+END_SRC
 
 ** Pomodoro
-   :PROPERTIES:
-   :SOURCE:   https://github.com/TatriX/pomidor
-   :END:
+   - Github :: https://github.com/TatriX/pomidor
+
 
    #+BEGIN_SRC emacs-lisp
      (use-package pomidor
@@ -2535,9 +2535,8 @@
    #+END_SRC
 
 ** PlantUML
-   :PROPERTIES:
-   :SOURCE:   https://github.com/skuro/plantuml-mode
-   :END:
+   - Github :: https://github.com/skuro/plantuml-mode
+
 
    #+BEGIN_SRC emacs-lisp
      (use-package plantuml-mode
@@ -2554,12 +2553,13 @@
 * Help
 
 ** Help+
+   - Emacswiki :: https://www.emacswiki.org/emacs/HelpPlus
+
+
    These packages are from emacswiki, and are currently not being maintained.
 
    They are being stored and loaded locally, since they are not on melpa or any
    package manager
-
-   [[https://www.emacswiki.org/emacs/HelpPlus][Emacswiki Link]]
 
    #+BEGIN_SRC emacs-lisp
      (use-package help+
@@ -2580,8 +2580,8 @@
    #+END_SRC
 
 ** Macrostep
+   - Github :: https://github.com/joddie/macrostep
 
-   [[https://github.com/joddie/macrostep][Github Link]]
 
    This lets you step through macro invocations.
 
