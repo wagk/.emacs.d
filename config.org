@@ -131,7 +131,7 @@
 * Color
   #+BEGIN_SRC emacs-lisp
 
-    (customize-set-variable frame-background-mode 'dark)
+    (customize-set-variable 'frame-background-mode 'dark)
     (set-terminal-parameter nil 'background-mode 'dark)
 
     ;; (use-package base16-theme

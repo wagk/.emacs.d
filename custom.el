@@ -14,6 +14,7 @@
      (quote default-frame-alist)
      (quote
       (fullscreen . maximized))))
+ '(frame-background-mode (quote dark))
  '(hl-todo-keyword-faces
    (quote
     (("TODO" . "#b58900")
