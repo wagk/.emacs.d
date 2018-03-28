@@ -752,7 +752,64 @@
 
   #+END_SRC
 
-** TODO vim-argwrap for evil
+** TODO evil-argwrap
+
+   I want to replicate [[https://github.com/FooSoft/vim-argwrap][vim-argwrap]] in evil-mode.
+
+   For reference, since I would expect the implementation to be something similar:
+   #+BEGIN_SRC emacs-lisp :exports none
+
+     (defun my-add-newline-and-indent-braces (&rest _)
+       "Adds that cool vim indent thing we always wanted"
+       (newline)
+       (indent-according-to-mode)
+       (forward-line -1)
+       (indent-according-to-mode))
+
+   #+END_SRC
+
+   - Indent whole region by line
+   - Assume that beg and end are both on wrapping characters
+   - Only indent the top level commas, meaning we need to skip commas inside parentheses
+     - consider using =evil-jump-item= since it looks like it does what we want.
+     - inspect evil-args for possible solutions on implementation. Initial
+       impressions are not good, mostly because it's totally undocumented.
+
+   #+BEGIN_SRC emacs-lisp :exports none
+     (defun my-evil-argwrap-region (beg end)
+       ;; find , (eventually we'll support other delimiters)
+       (while )
+       (evil-rot13 beg end))
+
+     (evil-define-operator my-evil-argwrap (beg end)
+       "docstring for evil-argwrap"
+       (my-evil-argwrap-region beg end))
+
+     ;; So this works
+     (define-key evil-normal-state-map (kbd "\\") 'my-evil-argwrap)
+   #+END_SRC
+
+   It appears that calling something defined by =evil-define-operator= puts
+   emacs into operator pending mode, which is expected. Then evil passes in a
+   range and the operation starts.
+
+*** DONE What are the acceptable values for =evil-operator-range-type=?
+    CLOSED: [2018-03-28 Wed 22:24]
+
+    Covered by noctuid [[https://github.com/noctuid/evil-guide#type][here]].
+
+    It's defined in =evil-define-motion=. The allowed characters are:
+    - inclusive :: The range is the start point up to and including the ending
+                   position.
+    - line      :: The range is set to the beginning and end of the line
+    - block     :: The range is blockwise like in =C-v=
+    - exclusive :: Default. The range is exactly like ~inclusive~ except that it
+                   does not include the ending position.
+
+*** Test cases
+
+    { a, b, c } { foo{a, b} , b, c }
+
 * TODO Helm
   #+BEGIN_SRC emacs-lisp
 
@@ -833,8 +890,10 @@
       (helm-descbinds-mode))
 
     (use-package helm-swoop
-      :disabled t
-      :init
+      :general
+      (:states 'normal
+       :prefix my-default-evil-leader-key
+       "f f" 'helm-swoop) :init
     ;;;###autoload
       (defun /helm-swoop-vis () (interactive)
              (helm-swoop :$query "" :$multiline 4))
@@ -1590,6 +1649,8 @@
       :demand t
       :after (org))
   #+END_SRC
+
+** TODO Bind <C-M-return> to smart insert subitem or subheader
 * Deft
   - Homepage :: https://jblevins.org/projects/deft/
 
