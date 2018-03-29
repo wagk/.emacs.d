@@ -884,6 +884,25 @@
 
    #+END_SRC
 
+** Evil-cleverparens
+   - Github :: https://github.com/luxbock/evil-cleverparens
+
+
+   We're not using it because it's conflicting with too many keybinds
+
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package evil-cleverparens
+       :disabled t
+       :demand t
+       :config
+       ;; (progn (require 'evil-cleverparens-text-objects)
+       ;;        (define-key evil-inner-text-objects-map "c" 'evil-cp-inner-comment)
+       ;;        (define-key evil-outer-text-objects-map "c" 'evil-cp-a-comment))
+       (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode))
+
+   #+END_SRC
+
 ** Old Configuration
    These configurations are old and left here in case we ever need it
 
@@ -892,19 +911,6 @@
 
     ;; (use-package evil-paredit
     ;;   :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
-
-    ;; (use-package evil-cleverparens
-    ;;   :ensure t
-    ;;   :bind(:map evil-inner-text-objects-map
-    ;;              ("c" . evil-cp-inner-comment)
-    ;;              :map evil-outer-text-objects-map
-    ;;              ("c" . evil-cp-a-comment)
-    ;;              )
-    ;;   :config
-    ;;   ;; (progn (require 'evil-cleverparens-text-objects)
-    ;;   ;;        (define-key evil-inner-text-objects-map "c" 'evil-cp-inner-comment)
-    ;;   ;;        (define-key evil-outer-text-objects-map "c" 'evil-cp-a-comment))
-    ;;   (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode))
 
     ;; (use-package evil-cleverparens-text-objects
     ;;   :ensure t
@@ -936,11 +942,9 @@
     ;;   :config
     ;;   (global-evil-tabs-mode t))
 
-
-
   #+END_SRC
 
-** TODO COMMENT Evil-argwrap
+** TODO COMMENT evil-argwrap
 
    I want to replicate [[https://github.com/FooSoft/vim-argwrap][vim-argwrap]] in evil-mode.
 
@@ -963,11 +967,51 @@
      - inspect evil-args for possible solutions on implementation. Initial
        impressions are not good, mostly because it's totally undocumented.
 
+
+   - Find delimiters in the outer-most parentheses (or wrapping characters)
+   - We will want to look at =forward-sexp=, even though that it might mean that
+     we will need to adjust the syntax table a bit
+     - We specifically want to look at the syntax classes
+       - Open parenthesis characters
+
+
+   The current issue is how the range isn't long enough, because of the
+   insertions the end point isn't being updated similarly and the range is
+   shorter than what is expected
+
    #+BEGIN_SRC emacs-lisp :exports none
      (defun my-evil-argwrap-region (beg end)
        ;; find , (eventually we'll support other delimiters)
-       (while )
-       (evil-rot13 beg end))
+       (save-excursion
+        (let* ((delimiters    ",")
+               (paren-openers "[[{(]")
+               (unwrap-arg (lambda ()
+                             (save-excursion
+                               (forward-char)
+                               (newline)
+                               (indent-according-to-mode))))
+               )
+          ;; update syntax table entries with all the parens stuff
+          (debug)
+          (goto-char beg)
+          (while (< (point) end)
+            (cond
+             ;; when we find a comma, we break the line
+             ((looking-at delimiters)
+              (message "unwrap-arg")
+              (funcall unwrap-arg))
+             ;; when we find a open paren syntax descriptor we forward by
+             ;; sexp. TODO: this is still hardcoded
+             ((looking-at paren-openers)
+              (message "forward-sexp")
+              (forward-sexp))
+             )
+            (message "forward-char")
+            (forward-char)
+            )
+          )))
+
+     ;; ( { [ ] } )
 
      (evil-define-operator my-evil-argwrap (beg end)
        "docstring for evil-argwrap"
@@ -981,6 +1025,10 @@
    emacs into operator pending mode, which is expected. Then evil passes in a
    range and the operation starts.
 
+*** Test cases
+
+    ={ a, b, c } { foo<a, {b}> , b, c }=
+
 *** DONE What are the acceptable values for =evil-operator-range-type=?
     CLOSED: [2018-03-28 Wed 22:24]
 
@@ -993,10 +1041,6 @@
     - block     :: The range is blockwise like in =C-v=
     - exclusive :: Default. The range is exactly like ~inclusive~ except that it
                    does not include the ending position.
-
-*** Test cases
-
-    { a, b, c } { foo{a, b} , b, c }
 
 * TODO Helm
 
@@ -1599,245 +1643,247 @@
 * TODO Org
   #+BEGIN_SRC emacs-lisp
 
-    (use-package org
-      :commands
-      (org-time-stamp-inactive
-       org-refile)
+        (use-package org
+          :commands
+          (org-time-stamp-inactive
+           org-refile)
 
-      :general
-      (:states 'normal
-       :prefix my-default-evil-leader-key
-       "o t" 'org-time-stamp-inactive
-       "o T" #'my-time-stamp
-       "o r" 'org-refile)
-      (org-mode-map
-        "C-c C-'" 'org-edit-special)
-      (org-src-mode-map
-        "C-c C-'" 'org-src-edit-exit)
-      :custom
-      (org-support-shift-select t
-                                "Let me use J in org-mode please.")
-      (org-startup-indented nil)
-      (org-indent-mode-turns-on-hiding-stars nil)
-      (org-src-tab-acts-natively t)
-      ;; (org-src-window-setup 'current-window)
-      (org-src-fontify-natively t)
-      (org-default-notes-file "~/TODO.org")
-      ;; (org-M-RET-may-split-line '((default . nil)))
-      (org-M-RET-may-split-line nil)
-      (org-enforce-todo-checkbox-dependencies     t)
-      (org-enforce-todo-dependencies              t)
-      (org-pretty-entities                        nil)
-      ;; (org-insert-heading-respect-content t)
-      (org-log-done                               'time)
-      (org-log-redeadline                         'time)
-      (org-log-reschedule                         'time)
-      (org-blank-before-new-entry '((heading         . t)
-                                    (plain-list-item . nil)))
-      (org-refile-targets '((nil . (:maxlevel . 9))))
-      (org-refile-use-outline-path t)
-      (org-outline-path-complete-in-steps nil)
-      (org-refile-allow-creating-parent-nodes 'confirm)
-      (org-highlight-latex-and-related '(latex))
-      (org-src-block-faces '(("emacs-lisp" (:foreground "#839496"))))
+          :general
+          (:states 'normal
+           :prefix my-default-evil-leader-key
+           "o t" 'org-time-stamp-inactive
+           "o T" #'my-time-stamp
+           "o r" 'org-refile)
+          (org-mode-map
+            "C-c C-'" 'org-edit-special)
+          (org-src-mode-map
+            "C-c C-'" 'org-src-edit-exit)
+          :custom
+          (org-support-shift-select t
+                                    "Let me use J in org-mode please.")
+          (org-startup-indented nil)
+          (org-indent-mode-turns-on-hiding-stars nil)
+          (org-src-tab-acts-natively t)
+          (org-src-window-setup 'current-window
+                                "I tend to have documentation/other things on
+                                adjacent windows")
+          (org-src-fontify-natively t)
+          (org-default-notes-file "~/TODO.org")
+          ;; (org-M-RET-may-split-line '((default . nil)))
+          (org-M-RET-may-split-line nil)
+          (org-enforce-todo-checkbox-dependencies     t)
+          (org-enforce-todo-dependencies              t)
+          (org-pretty-entities                        nil)
+          ;; (org-insert-heading-respect-content t)
+          (org-log-done                               'time)
+          (org-log-redeadline                         'time)
+          (org-log-reschedule                         'time)
+          (org-blank-before-new-entry '((heading         . t)
+                                        (plain-list-item . nil)))
+          (org-refile-targets '((nil . (:maxlevel . 9))))
+          (org-refile-use-outline-path t)
+          (org-outline-path-complete-in-steps nil)
+          (org-refile-allow-creating-parent-nodes 'confirm)
+          (org-highlight-latex-and-related '(latex))
+          (org-src-block-faces '(("emacs-lisp" (:foreground "#839496"))))
 
-      :config
-    ;;;###autoload
-      (defun /org-mode-face-no-resize ()
-        "Stop the org-level headers from increasing in height relative to the other
-    text."
-        (when (eq major-mode 'org-mode)
-          (dolist (face '(org-level-1
-                          org-level-2
-                          org-level-3
-                          org-level-4
-                          org-level-5))
-            (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
-      (add-hook 'org-mode-hook '/org-mode-face-no-resize)
+          :config
+        ;;;###autoload
+          (defun /org-mode-face-no-resize ()
+            "Stop the org-level headers from increasing in height relative to the other
+        text."
+            (when (eq major-mode 'org-mode)
+              (dolist (face '(org-level-1
+                              org-level-2
+                              org-level-3
+                              org-level-4
+                              org-level-5))
+                (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
+          (add-hook 'org-mode-hook '/org-mode-face-no-resize)
 
-      ;; (org-toggle-link-display)
+          ;; (org-toggle-link-display)
 
-      ;; when inserting a heading immediately go into insert mode
-      (add-hook 'org-insert-heading-hook 'evil-insert-state)
+          ;; when inserting a heading immediately go into insert mode
+          (add-hook 'org-insert-heading-hook 'evil-insert-state)
 
-      ;; (general-define-key :keymaps 'org-mode-map
-      ;;                     :states 'insert
-      ;;                     "RET"     'newline-and-indent)
+          ;; (general-define-key :keymaps 'org-mode-map
+          ;;                     :states 'insert
+          ;;                     "RET"     'newline-and-indent)
 
-      ;; make smartparen autoskip "" because org-mode treats it as a string
-      (require 'smartparens)
-      (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
+          ;; make smartparen autoskip "" because org-mode treats it as a string
+          (require 'smartparens)
+          (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
 
-      (defun my-time-stamp ()
-        "Prints the time and date."
-        (interactive)
-        (org-time-stamp-inactive '(16)))
+          (defun my-time-stamp ()
+            "Prints the time and date."
+            (interactive)
+            (org-time-stamp-inactive '(16)))
 
-      (require 'evil-embrace)
-      (defun my-add-org-evil-embrace-pairs ()
-        "Add additional pairings that evil-surround doesn't cover"
-        (let ((org-pairs '((?= "=" . "=") ;; verbatim
-                           (?* "*" . "*") ;; bold
-                           (?_ "_" . "_") ;; underline
-                           (?+ "+" . "+") ;; strikethrough
-                           (?~ "~" . "~") ;; code
-                           (?/ "/" . "/")))) ;; italic
-          (dolist (pair org-pairs)
-            (embrace-add-pair (car pair) (cadr pair) (cddr pair)))))
-      (add-hook 'org-mode-hook 'my-add-org-evil-embrace-pairs)
+          (require 'evil-embrace)
+          (defun my-add-org-evil-embrace-pairs ()
+            "Add additional pairings that evil-surround doesn't cover"
+            (let ((org-pairs '((?= "=" . "=") ;; verbatim
+                               (?* "*" . "*") ;; bold
+                               (?_ "_" . "_") ;; underline
+                               (?+ "+" . "+") ;; strikethrough
+                               (?~ "~" . "~") ;; code
+                               (?/ "/" . "/")))) ;; italic
+              (dolist (pair org-pairs)
+                (embrace-add-pair (car pair) (cadr pair) (cddr pair)))))
+          (add-hook 'org-mode-hook 'my-add-org-evil-embrace-pairs)
 
-      (defun my-org-hook-configs ()
-        "Hacks to make org-mode less cancer when run"
-        ;; NOTE: We turn this off because it is causing the cursor to do really
-        ;; fucking weird things
-        ;; (require 'fill-column-indicator)
-        ;; (turn-on-fci-mode)
-        (with-eval-after-load 'display-line-numbers
-          (display-line-numbers-mode -1))
-        (require 'aggressive-fill-paragraph)
-        (aggressive-fill-paragraph-mode))
-      (add-hook 'org-mode-hook #'my-org-hook-configs)
-      )
+          (defun my-org-hook-configs ()
+            "Hacks to make org-mode less cancer when run"
+            ;; NOTE: We turn this off because it is causing the cursor to do really
+            ;; fucking weird things
+            ;; (require 'fill-column-indicator)
+            ;; (turn-on-fci-mode)
+            (with-eval-after-load 'display-line-numbers
+              (display-line-numbers-mode -1))
+            (require 'aggressive-fill-paragraph)
+            (aggressive-fill-paragraph-mode))
+          (add-hook 'org-mode-hook #'my-org-hook-configs)
+          )
 
-    ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
-    (use-package org-capture
-      :ensure nil ;; because org-capture is from org
-      :after (org)
-      :general
-      (:prefix my-default-evil-leader-key
-       :states 'normal
-       "c c" 'org-capture) :config
-      (define-key org-capture-mode-map [remap evil-save-and-close]
-        'org-capture-finalize)
-      (define-key org-capture-mode-map [remap evil-save-modified-and-close]
-        'org-capture-finalize)
-      (define-key org-capture-mode-map [remap evil-quit]
-        'org-capture-kill)
-      )
+        ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
+        (use-package org-capture
+          :ensure nil ;; because org-capture is from org
+          :after (org)
+          :general
+          (:prefix my-default-evil-leader-key
+           :states 'normal
+           "c c" 'org-capture) :config
+          (define-key org-capture-mode-map [remap evil-save-and-close]
+            'org-capture-finalize)
+          (define-key org-capture-mode-map [remap evil-save-modified-and-close]
+            'org-capture-finalize)
+          (define-key org-capture-mode-map [remap evil-quit]
+            'org-capture-kill)
+          )
 
-    (use-package org-agenda
-      :ensure nil ;; because org-agenda is from org
-      :after (org)
-      :general
-      (:prefix my-default-evil-leader-key
-       :states 'normal
-       "O O" 'org-agenda)
-      :config
-      ;; initialize org agenda things
-      (add-to-list 'org-agenda-files my-org-directory)
-      )
+        (use-package org-agenda
+          :ensure nil ;; because org-agenda is from org
+          :after (org)
+          :general
+          (:prefix my-default-evil-leader-key
+           :states 'normal
+           "O O" 'org-agenda)
+          :config
+          ;; initialize org agenda things
+          (add-to-list 'org-agenda-files my-org-directory)
+          )
 
-    ;;; This is like a concept map, but in org-files
-    (use-package org-brain
-      :custom
-      (org-brain-path my-wiki-directory "Share the same path as deft.")
-      (org-brain-file-entries-use-title nil
-                                        "Speed optimisation since our filenames and
-                                        title should match anyway")
-      :general
-      (:states 'normal
-       :prefix my-default-evil-leader-key
-       "N" 'org-brain-visualize)
-      :init
-      (with-eval-after-load 'evil
-        (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
-      )
+        ;;; This is like a concept map, but in org-files
+        (use-package org-brain
+          :custom
+          (org-brain-path my-wiki-directory "Share the same path as deft.")
+          (org-brain-file-entries-use-title nil
+                                            "Speed optimisation since our filenames and
+                                            title should match anyway")
+          :general
+          (:states 'normal
+           :prefix my-default-evil-leader-key
+           "N" 'org-brain-visualize)
+          :init
+          (with-eval-after-load 'evil
+            (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+          )
 
-    (use-package org-radiobutton)
+        (use-package org-radiobutton)
 
-    ;; Export orgfiles as anki decks!
-    ;; Looks great for jap study and just study in general
-    ;; https://github.com/louietan/anki-editor
-    ;; Requires that the anki plugin `anki-connect' is installed
-    (use-package anki-editor)
+        ;; Export orgfiles as anki decks!
+        ;; Looks great for jap study and just study in general
+        ;; https://github.com/louietan/anki-editor
+        ;; Requires that the anki plugin `anki-connect' is installed
+        (use-package anki-editor)
 
-    ;; Prepackaged evil bindings for org-mode
-    ;; https://github.com/Somelauw/evil-org-mode
-    ;; Full keybindings:
-    ;; https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
-    (use-package evil-org
-      ;; :disabled t
-      :after (org)
-      :demand t
-      :diminish (evil-org-mode)
-      ;; :general
-      ;; (:states '(emacs insert)
-      ;;  :keymaps 'org-mode-map
-      ;;  "RET" 'evil-org-return)
-      :custom
-      (evil-org-retain-visual-state-on-shift
-       t
-       "Let us chain < and > calls")
-      (evil-org-use-additional-insert
-       t
-       "Add things like M-j to insert")
-      (evil-org-special-o/O
-       '(table-row)
-       "Do not let o/O affect list items, throws me off")
-      :config
-      (evil-org-set-key-theme '(textobjects
-                                insert
-                                navigation
-                                additional
-                                shift
-                                return
-                                operators
-                                ;; todo
-                                ;; heading
-                                calendar
-                                ))
-      (add-hook 'org-mode-hook 'evil-org-mode)
-      (require 'evil-org-agenda)
-      (evil-org-agenda-set-keys))
+        ;; Prepackaged evil bindings for org-mode
+        ;; https://github.com/Somelauw/evil-org-mode
+        ;; Full keybindings:
+        ;; https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
+        (use-package evil-org
+          ;; :disabled t
+          :after (org)
+          :demand t
+          :diminish (evil-org-mode)
+          ;; :general
+          ;; (:states '(emacs insert)
+          ;;  :keymaps 'org-mode-map
+          ;;  "RET" 'evil-org-return)
+          :custom
+          (evil-org-retain-visual-state-on-shift
+           t
+           "Let us chain < and > calls")
+          (evil-org-use-additional-insert
+           t
+           "Add things like M-j to insert")
+          (evil-org-special-o/O
+           '(table-row)
+           "Do not let o/O affect list items, throws me off")
+          :config
+          (evil-org-set-key-theme '(textobjects
+                                    insert
+                                    navigation
+                                    additional
+                                    shift
+                                    return
+                                    operators
+                                    ;; todo
+                                    ;; heading
+                                    calendar
+                                    ))
+          (add-hook 'org-mode-hook 'evil-org-mode)
+          (require 'evil-org-agenda)
+          (evil-org-agenda-set-keys))
 
-    (use-package worf)
+        (use-package worf)
 
-    (use-package helm-org-rifle
-      :after (org)
-      :general
-      (:states 'normal
-       :prefix my-default-evil-leader-key
-       "o o" 'helm-org-rifle)
-      :bind
-      (:map helm-org-rifle-map
-       ("C-w" . evil-delete-backward-word)
-       ("\\"  . helm-select-action)
-       ("C-j" . helm-next-line)
-       ("C-k" . helm-previous-line)
-       ("C-n" . helm-next-page)
-       ("C-p" . helm-previous-page)
-       ("C-l" . helm-next-source)
-       ("C-h" . helm-previous-source)
-       ("TAB" . helm-execute-persistent-action))
-      )
+        (use-package helm-org-rifle
+          :after (org)
+          :general
+          (:states 'normal
+           :prefix my-default-evil-leader-key
+           "o o" 'helm-org-rifle)
+          :bind
+          (:map helm-org-rifle-map
+           ("C-w" . evil-delete-backward-word)
+           ("\\"  . helm-select-action)
+           ("C-j" . helm-next-line)
+           ("C-k" . helm-previous-line)
+           ("C-n" . helm-next-page)
+           ("C-p" . helm-previous-page)
+           ("C-l" . helm-next-source)
+           ("C-h" . helm-previous-source)
+           ("TAB" . helm-execute-persistent-action))
+          )
 
-    (use-package ob-async
-      :demand t
-      :after (org))
+        (use-package ob-async
+          :demand t
+          :after (org))
 
-    (use-package ob-clojurescript
-      :demand t
-      :after (org))
+        (use-package ob-clojurescript
+          :demand t
+          :after (org))
 
-    (use-package ob-http
-      :demand t
-      :after (org))
+        (use-package ob-http
+          :demand t
+          :after (org))
 
-    (use-package ob-browser
-      :demand t
-      :after (org))
+        (use-package ob-browser
+          :demand t
+          :after (org))
 
-    (use-package ob-restclient
-      :demand t
-      :after (org))
+        (use-package ob-restclient
+          :demand t
+          :after (org))
 
-    (use-package ob-rust
-      :demand t
-      :after (org))
+        (use-package ob-rust
+          :demand t
+          :after (org))
 
-    (use-package ob-translate
-      :demand t
-      :after (org))
+        (use-package ob-translate
+          :demand t
+          :after (org))
   #+END_SRC
 
 ** TODO Bind <C-M-return> to smart insert subitem or subheader
@@ -2508,6 +2554,8 @@
        (general-define-key :states 'insert
                            :keymaps 'emacs-lisp-mode-map
                            "RET" 'comment-indent-new-line))
+
+     (evil-set-initial-state 'debugger-mode 'emacs)
    #+END_SRC
 
 * TODO Shell
