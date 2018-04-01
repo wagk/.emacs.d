@@ -58,10 +58,10 @@
    #+END_SRC
 
 ** Names
+   Namespacing libary
+
    - Github :: https://github.com/Malabarba/names
 
-
-   Namespacing libary
 
    #+BEGIN_SRC emacs-lisp
      (use-package names)
@@ -209,7 +209,7 @@
 
   #+END_SRC
 
-* TODO Evil
+* Evil
 
   Enable folding for all programming major modes
 
@@ -888,20 +888,148 @@
    - Github :: https://github.com/luxbock/evil-cleverparens
 
 
-   We're not using it because it's conflicting with too many keybinds
-
    #+BEGIN_SRC emacs-lisp
 
      (use-package evil-cleverparens
-       :disabled t
-       :demand t
-       :config
-       ;; (progn (require 'evil-cleverparens-text-objects)
-       ;;        (define-key evil-inner-text-objects-map "c" 'evil-cp-inner-comment)
-       ;;        (define-key evil-outer-text-objects-map "c" 'evil-cp-a-comment))
-       (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode))
+       :hook (lisp-mode)
+       :general
+       (:states 'normal
+        :keymaps 'evil-cleverparens-mode-map
+        "{" nil
+        "}" nil)) ;; I want my paragraphs dammit
 
    #+END_SRC
+
+** Evil-argwrap
+
+   I want to replicate [[https://github.com/FooSoft/vim-argwrap][vim-argwrap]] in evil-mode.
+
+   The current issue is how the range isn't long enough, because of the
+   insertions the end point isn't being updated similarly and the range is
+   shorter than what is expected
+
+   The manual is advising using [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Markers.html#Markers][markers]] which are like ranges but relative to a
+   point or something. That worked well
+
+   Currently there is a few edge cases we need to handle. The most important one
+   being how to normalize between i/a textobjects.
+
+   Never knew that the emacs regex syntax lets you access the syntax table.
+   Coolio.
+
+   Now we need to figure out when something is already exploded and should be
+   joined, or something that should be exploded. I'm thinking that if a brace
+   isn't on their own line we'll just assume that it's not exploded and explode
+   it (join then explode)
+
+   #+BEGIN_SRC emacs-lisp
+     (defun my-evil-argwrap-join-region (beg end)
+       "Joins a parentheses-delimited region bounded by BEG and END.
+     Joins every argument into one line, so something like:
+     {
+         a,
+         b,
+         c
+     }
+     would be transformed into:
+     {a, b, c}"
+       (let ((start (copy-marker beg))
+             (stop (copy-marker end)))
+         (while (< (point) stop)
+           (when (eolp)
+             (join-line t)
+             )
+           (forward-char)
+           )
+         ))
+
+     (defun my--evil-argwrap-explode-inner-region-recursive (beg end)
+       "Implementation of `my-evil-argwrap-explode-region'"
+       (let ((start (copy-marker beg))
+             (stop (copy-marker end))
+             (paren-openers "\\s(")        ; Using syntax table
+             (delimiters    ",")           ;TODO: make customizable
+             )
+         (goto-char start)
+         (newline-and-indent)
+         (while  (< (point) stop)
+           (cond
+            ;; when we find a comma, we break the line
+            ((looking-back delimiters)
+             (newline-and-indent))
+            ((looking-at paren-openers)
+             (let ((sub-start (1+ (point)))
+                   (sub-stop (1- (forward-list))))
+               (my--evil-argwrap-explode-inner-region-recursive sub-start
+                                                                sub-stop)
+               ))
+            (t (forward-char))
+            ))
+         (newline-and-indent)
+         ))
+
+     (defun my-evil-argwrap-explode-region (beg end)
+       "Explodes a parentheses-delimited region bounded by BEG and END.
+     Put every argument in a range into its own line, so something like:
+     {a, b, c}
+     would be transformed into:
+     {
+         a,
+         b,
+         c
+     }
+     Nested parentheses will also be exploded"
+       ;; adjust for the range so that they're always inside braces
+       (when (and (progn (goto-char beg)
+                         (looking-at "\\s("))
+                  (= (forward-list) end))
+         (setq beg (1+ beg)
+               end (1- end)))
+       (my--evil-argwrap-explode-inner-region-recursive beg end)
+       )
+
+     (evil-define-operator my-evil-argwrap-operator (beg end)
+       "docstring for evil-argwrap"
+       (save-excursion
+         (goto-char beg)
+         (if (looking-at "\\s(")
+             (forward-char)
+           (skip-syntax-backward "^\\s(")) ;; stops right before match
+         (if (eolp)
+             (my-evil-argwrap-join-region beg end)
+           (my-evil-argwrap-explode-region beg end))))
+
+     ;; So this works
+     (define-key evil-normal-state-map (kbd "\\") 'my-evil-argwrap-operator)
+   #+END_SRC
+
+   It appears that calling something defined by =evil-define-operator= puts
+   emacs into operator pending mode, which is expected. Then evil passes in a
+   range and the operation starts.
+
+*** Test cases
+
+    ={ a, b, c } { foo<a, {b}> , b, c }=
+*** DONE What are the acceptable values for =evil-operator-range-type=?
+    CLOSED: [2018-03-28 Wed 22:24]
+
+    Covered by noctuid [[https://github.com/noctuid/evil-guide#type][here]].
+
+    It's defined in =evil-define-motion=. The allowed characters are:
+    - inclusive :: The range is the start point up to and including the ending
+                   position.
+    - line      :: The range is set to the beginning and end of the line
+    - block     :: The range is blockwise like in =C-v=
+    - exclusive :: Default. The range is exactly like ~inclusive~ except that it
+                   does not include the ending position.
+
+*** What I learnt
+
+    I learnt that emacs has terrible regex.
+
+    I also learnt that lisp-2's are pretty horrible.
+
+    Lisp coding is surprisingly not cancer tho. It could be the hype however.
 
 ** Old Configuration
    These configurations are old and left here in case we ever need it
@@ -944,108 +1072,10 @@
 
   #+END_SRC
 
-** TODO COMMENT evil-argwrap
+* Helm
+** Ivy
 
-   I want to replicate [[https://github.com/FooSoft/vim-argwrap][vim-argwrap]] in evil-mode.
-
-   For reference, since I would expect the implementation to be something similar:
-   #+BEGIN_SRC emacs-lisp :exports none
-
-     (defun my-add-newline-and-indent-braces (&rest _)
-       "Adds that cool vim indent thing we always wanted"
-       (newline)
-       (indent-according-to-mode)
-       (forward-line -1)
-       (indent-according-to-mode))
-
-   #+END_SRC
-
-   - Indent whole region by line
-   - Assume that beg and end are both on wrapping characters
-   - Only indent the top level commas, meaning we need to skip commas inside parentheses
-     - consider using =evil-jump-item= since it looks like it does what we want.
-     - inspect evil-args for possible solutions on implementation. Initial
-       impressions are not good, mostly because it's totally undocumented.
-
-
-   - Find delimiters in the outer-most parentheses (or wrapping characters)
-   - We will want to look at =forward-sexp=, even though that it might mean that
-     we will need to adjust the syntax table a bit
-     - We specifically want to look at the syntax classes
-       - Open parenthesis characters
-
-
-   The current issue is how the range isn't long enough, because of the
-   insertions the end point isn't being updated similarly and the range is
-   shorter than what is expected
-
-   #+BEGIN_SRC emacs-lisp :exports none
-     (defun my-evil-argwrap-region (beg end)
-       ;; find , (eventually we'll support other delimiters)
-       (save-excursion
-        (let* ((delimiters    ",")
-               (paren-openers "[[{(]")
-               (unwrap-arg (lambda ()
-                             (save-excursion
-                               (forward-char)
-                               (newline)
-                               (indent-according-to-mode))))
-               )
-          ;; update syntax table entries with all the parens stuff
-          (debug)
-          (goto-char beg)
-          (while (< (point) end)
-            (cond
-             ;; when we find a comma, we break the line
-             ((looking-at delimiters)
-              (message "unwrap-arg")
-              (funcall unwrap-arg))
-             ;; when we find a open paren syntax descriptor we forward by
-             ;; sexp. TODO: this is still hardcoded
-             ((looking-at paren-openers)
-              (message "forward-sexp")
-              (forward-sexp))
-             )
-            (message "forward-char")
-            (forward-char)
-            )
-          )))
-
-     ;; ( { [ ] } )
-
-     (evil-define-operator my-evil-argwrap (beg end)
-       "docstring for evil-argwrap"
-       (my-evil-argwrap-region beg end))
-
-     ;; So this works
-     (define-key evil-normal-state-map (kbd "\\") 'my-evil-argwrap)
-   #+END_SRC
-
-   It appears that calling something defined by =evil-define-operator= puts
-   emacs into operator pending mode, which is expected. Then evil passes in a
-   range and the operation starts.
-
-*** Test cases
-
-    ={ a, b, c } { foo<a, {b}> , b, c }=
-
-*** DONE What are the acceptable values for =evil-operator-range-type=?
-    CLOSED: [2018-03-28 Wed 22:24]
-
-    Covered by noctuid [[https://github.com/noctuid/evil-guide#type][here]].
-
-    It's defined in =evil-define-motion=. The allowed characters are:
-    - inclusive :: The range is the start point up to and including the ending
-                   position.
-    - line      :: The range is set to the beginning and end of the line
-    - block     :: The range is blockwise like in =C-v=
-    - exclusive :: Default. The range is exactly like ~inclusive~ except that it
-                   does not include the ending position.
-
-* TODO Helm
-
-** TODO Others
-    #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 
       ;; Install ivy as a contingency
       (use-package ivy
@@ -1058,10 +1088,28 @@
         (setq ivy-use-virtual-buffers t
               enable-recursive-minibuffers t))
 
+   #+END_SRC
+
+*** Swiper
+
+    #+BEGIN_SRC emacs-lisp
+
       (use-package swiper)
+
+    #+END_SRC
+
+*** Counsel
+
+    #+BEGIN_SRC emacs-lisp
 
       (use-package counsel
         :bind (("M-x" . counsel-M-x)))
+
+    #+END_SRC
+
+** Helm
+
+   #+BEGIN_SRC emacs-lisp
 
       (use-package helm
         :after (general)
@@ -1109,8 +1157,11 @@
         (helm-mode)
         )
 
-      ;; TODO: when defining helm desckeys make sure a global binding is also presentw
-      ;; C-h seems broken (We've been overwriting it to enable terminal backspace)
+   #+END_SRC
+
+** Helm-describe-modes
+
+   #+BEGIN_SRC emacs-lisp
 
       (use-package helm-describe-modes
         :bind (("C-h m" . helm-describe-modes))
@@ -1118,10 +1169,22 @@
         ;; (evil-leader/set-key "m" 'helm-describe-modes)
         )
 
+   #+END_SRC
+
+** Helm-descbinds
+
+   #+BEGIN_SRC emacs-lisp
+
       (use-package helm-descbinds
         :bind (("C-h b" . helm-descbinds))
         :config
         (helm-descbinds-mode))
+
+   #+END_SRC
+
+** Helm-swoop
+
+   #+BEGIN_SRC emacs-lisp
 
       (use-package helm-swoop
         :general
@@ -1140,11 +1203,23 @@
         ;;(setq helm-swoop-pre-input-function (lambda () nil))
         )
 
+   #+END_SRC
+
+** Helm-fuzzier
+
+   #+BEGIN_SRC emacs-lisp
+
       (use-package helm-fuzzier
         :after helm
         :demand t
         :config
         (helm-fuzzier-mode))
+
+   #+END_SRC
+
+** Helm-flx
+
+   #+BEGIN_SRC emacs-lisp
 
       (use-package helm-flx
         :after helm
@@ -1154,7 +1229,19 @@
         (setq helm-flx-for-helm-find-files t
               helm-flx-for-helm-locate t))
 
+   #+END_SRC
+
+** Helm-dash
+
+   #+BEGIN_SRC emacs-lisp
+
       (use-package helm-dash)
+
+   #+END_SRC
+
+** Helm-hunks
+
+   #+BEGIN_SRC emacs-lisp
 
       ;; commenting it out because it has conflicting bindings in its own map
       ;; (use-package helm-hunks
@@ -1169,6 +1256,15 @@
       ;;   (setq helm-hunks-preview-diffs t)
       ;;   (evil-leader/set-key
       ;;     "." 'helm-hunks-current-buffer))
+
+   #+END_SRC
+
+** Others
+    #+BEGIN_SRC emacs-lisp
+
+
+      ;; TODO: when defining helm desckeys make sure a global binding is also presentw
+      ;; C-h seems broken (We've been overwriting it to enable terminal backspace)
 
       ;; (helm-mode 1)
     #+END_SRC
@@ -1212,7 +1308,7 @@
     (general-define-key
      :states 'normal
      :prefix my-default-evil-leader-key
-                        "." 'whitespace-mode)
+     "." 'whitespace-mode)
 
     ;; automatically refresh buffer when changed outside
     (global-auto-revert-mode t)
@@ -1300,241 +1396,282 @@
 
     (evil-ex-define-cmd "me[ssages]" 'my-goto-messages-buffer)
 
-    (use-package highlight-indent-guides
-      ;; :hook (prog-mode . highlight-indent-guides-mode)
-      :config
-      (general-define-key
-       :states 'normal
-       :prefix my-default-evil-leader-key
-                          "'" 'highlight-indent-guides-mode)
-      (setq highlight-indent-guides-method 'character
-            highlight-indent-guides-character ?\|)
-      ;; (highlight-indent-guides-mode)
-      )
-
-    (use-package whitespace-cleanup-mode
-      :demand t
-      :config
-      (global-whitespace-cleanup-mode 1))
-
-    (use-package hl-todo
-      :defer 1
-      :diminish t
-      :general
-      (:states 'normal
-       :prefix my-default-evil-leader-key
-               "t t" 'hl-todo-occur)
-      (:keymaps 'evil-normal-state-map
-       "[ t"  'hl-todo-previous
-       "] t"  'hl-todo-next)
-      :init
-      ;; (general-define-key :prefix my-default-evil-leader-key
-      ;;                     "t t" 'hl-todo-occur)
-      ;; :hook (prog-mode . hl-todo-mode)
-      :bind
-      :config
-      (customize-set-variable 'hl-todo-keyword-faces
-                              `(("TODO"  . ,$solarized-dark-yellow)
-                                ("DEBUG" . ,$solarized-dark-magenta)
-                                ("BUG"   . ,$solarized-dark-red)
-                                ("STUB"  . ,$solarized-dark-green)
-                                ("NOTE"  . ,$solarized-dark-base1)
-                                ("HACK"  . ,$solarized-dark-violet)
-                                ("FIXME" . ,$solarized-dark-orange)))
-      (global-hl-todo-mode)
-      (add-hook 'yaml-mode-hook 'hl-todo-mode))
-
-    ;; https://github.com/alpaker/Fill-Column-Indicator
-    (use-package fill-column-indicator
-      :hook (prog-mode . turn-on-fci-mode)
-      :diminish t
-      :custom
-      (fill-column 80)
-      (always-use-textual-rule t)
-      )
-
-    (use-package golden-ratio
-      :disabled t
-      :config
-      (golden-ratio-mode 1)
-      (add-hook 'buffer-list-update-hook #'golden-ratio))
-
-    (use-package powerline
-      :demand t)
-
-    (use-package powerline-evil
-      :after (powerline)
-      :demand t
-      :custom
-      (powerline-evil-tag-style 'verbose
-                                "Print out the full name of the state instead of <S>
-                                abbreviations.")
-      :config
-      (powerline-evil-vim-theme))
-
-    ;; https://github.com/larstvei/Focus
-    (use-package focus
-      :init
-      (general-define-key
-       :states 'normal
-       :prefix my-default-evil-leader-key
-                          "f f" 'focus-mode)
-      (evil-ex-define-cmd "fo[cus]" 'focus-mode))
-
-    (use-package minimap
-      :commands minimap-mode
-      :config
-      (customize-set-variable 'minimap-window-location 'right))
-
-    (use-package no-littering)
-
-    (use-package mmm-mode
-      :disabled t ; looking at polymode instead
-      :commands mmm-mode
-      :config
-      (setq mmm-parse-when-idle 't))
-
-    (use-package unicode-troll-stopper)
-
-    (use-package transpose-frame)
-
-    (use-package buffer-move)
-
-    (use-package crosshairs
-      :disabled t)
-
-    (use-package which-key
-      :demand t
-      :diminish which-key-mode
-      :config
-      (which-key-mode))
-
-    (use-package undo-tree
-      :demand t
-      :diminish undo-tree-mode
-      :config
-      (global-undo-tree-mode))
-
-    ;;;###autoload
-    (defun /line-lengths()
-      "Return a list of line lengths for all the lines in the buffer."
-      (let (length)
-        (save-excursion
-          (goto-char (point-min))
-          (while (not (eobp))
-            (push (- (line-end-position)
-                     (line-beginning-position))
-                  length)
-            (forward-line)))
-        ;; we return a list since this is the last form evaluated
-        (copy-sequence length)))
-
-    ;;;###autoload
-    (defun /longest-line-length()
-      "Return the longest line from the list of lines given."
-      (let ((lines (/line-lengths)))
-        ;; return the first element, which should be the largest
-        (nth 0 (sort lines '>))))
-
-    ;;;###autoload
-    (defun /centre-window-function()
-      "Offset the window margins based on the longest line in the buffer.
-    This effectively centers it."
-      (interactive)
-      (let ((margin-size (/ (abs (- (window-width) (/longest-line-length))) 2)))
-        (if (not (get '/centre-window-function 'active))
-            (progn
-              (set-window-margins nil margin-size nil)
-              (fringe-mode '(1 . 1))
-              (put '/centre-window-function 'active t))
-          (progn
-            (set-window-margins nil nil nil)
-            (fringe-mode nil)
-            (put '/centre-window-function 'active nil)))))
-
-    (general-define-key
-     :states 'normal
-     :prefix my-default-evil-leader-key
-                        "W" '/centre-window-function)
-
-    ;; (use-package switch-window
-    ;;   :custom
-    ;;   (switch-window-shortcut-apppearance 'asciiart))
-
-    ;; Used in help mode and eww
-    (use-package ace-link
-      :commands (ace-link-help
-                 ace-link-info
-                 ace-link-eww))
-
-    (use-package ace-window
-      :bind
-      (:map evil-window-map
-            ("SPC" . ace-window))
-      :custom
-      (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-      )
-
-    ;; er/expand-region
-    (use-package expand-region)
-
-    (use-package centered-window-mode
-      :disabled t
-      :el-get centered-window-mode
-      :config
-      (centered-window-mode t))
-
-    (use-package autopair
-      :disabled t
-      :config
-      (autopair-global-mode))
-
-    (use-package polymode)
-
-    (use-package smartparens
-      :demand t
-      :diminish smartparens-mode
-      :custom
-      (sp-cancel-autoskip-on-backward-movement
-       nil "We want to maintain the chomp-like behavior of electric-pair")
-      (sp-autoskip-closing-pair
-       'always "Maintain chomp-like behavior of electric-pair")
-      :config
-      (require 'smartparens-config) ;; load some default configurations
-      (smartparens-global-mode)
-      ;; (smartparens-global-strict-mode) ;; disable this because the chomping issue is solved
-      (show-smartparens-global-mode t)
-      ;; define some helper functions
-      (defun my-add-newline-and-indent-braces (&rest _)
-        "Adds that cool vim indent thing we always wanted"
-        (newline)
-        (indent-according-to-mode)
-        (forward-line -1)
-        (indent-according-to-mode))
-      ;; Update the global definitions with some indenting
-      ;; I think that the nil is the flag that controls property inheritance
-      ;;NOTE: For some reason TAB isn't recognised. Might be yasnippet intefering.
-      ;;Learn to use ret for now
-      (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-      (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-      (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-      )
-
-    (use-package evil-smartparens
-      :after smartparens
-      :demand t
-      :diminish (evil-smartparens-mode)
-      :config
-      (evil-smartparens-mode))
-
-    ;;;###autoload
-    (defun my-set-frame-transparency (value)
-      "Set the transparency of the frame window to VALUE.
-    0=transparent/100=opaque"
-      (interactive "nTransparency Value 0 - 100 opaque:")
-      (set-frame-parameter (selected-frame) 'alpha value))
-
   #+END_SRC
+
+
+** Highlight-indent-guides
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package highlight-indent-guides
+       ;; :hook (prog-mode . highlight-indent-guides-mode)
+       :config
+       (general-define-key
+        :states 'normal
+        :prefix my-default-evil-leader-key
+        "'" 'highlight-indent-guides-mode)
+       (setq highlight-indent-guides-method 'character
+             highlight-indent-guides-character ?\|)
+       ;; (highlight-indent-guides-mode)
+       )
+
+   #+END_SRC
+
+** Whitespace-cleanup-mode
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package whitespace-cleanup-mode
+       :demand t
+       :config
+       (global-whitespace-cleanup-mode 1))
+
+   #+END_SRC
+
+** Hl-todo
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package hl-todo
+       :defer 1
+       :diminish t
+       :general
+       (:states 'normal
+        :prefix my-default-evil-leader-key
+                "t t" 'hl-todo-occur)
+       (:keymaps 'evil-normal-state-map
+        "[ t"  'hl-todo-previous
+        "] t"  'hl-todo-next)
+       :init
+       ;; (general-define-key :prefix my-default-evil-leader-key
+       ;;                     "t t" 'hl-todo-occur)
+       ;; :hook (prog-mode . hl-todo-mode)
+       :bind
+       :config
+       (customize-set-variable 'hl-todo-keyword-faces
+                               `(("TODO"  . ,$solarized-dark-yellow)
+                                 ("DEBUG" . ,$solarized-dark-magenta)
+                                 ("BUG"   . ,$solarized-dark-red)
+                                 ("STUB"  . ,$solarized-dark-green)
+                                 ("NOTE"  . ,$solarized-dark-base1)
+                                 ("HACK"  . ,$solarized-dark-violet)
+                                 ("FIXME" . ,$solarized-dark-orange)))
+       (global-hl-todo-mode)
+       (add-hook 'yaml-mode-hook 'hl-todo-mode))
+
+   #+END_SRC
+
+** Fill-column-indicator
+   #+BEGIN_SRC emacs-lisp
+
+     ;; https://github.com/alpaker/Fill-Column-Indicator
+     (use-package fill-column-indicator
+       :hook (prog-mode . turn-on-fci-mode)
+       :diminish t
+       :custom
+       (fill-column 80)
+       (always-use-textual-rule t)
+       )
+
+   #+END_SRC
+
+** Golden-ratio
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package golden-ratio
+       :disabled t
+       :config
+       (golden-ratio-mode 1)
+       (add-hook 'buffer-list-update-hook #'golden-ratio))
+
+   #+END_SRC
+
+** Powerline
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package powerline
+       :demand t)
+
+   #+END_SRC
+
+*** Powerline-evil
+    #+BEGIN_SRC emacs-lisp
+
+      (use-package powerline-evil
+        :after (powerline)
+        :demand t
+        :custom
+        (powerline-evil-tag-style 'verbose
+                                  "Print out the full name of the state instead of <S>
+                                  abbreviations.")
+        :config
+        (powerline-evil-vim-theme))
+
+    #+END_SRC
+
+** Unsorted
+   #+BEGIN_SRC emacs-lisp
+
+         ;; https://github.com/larstvei/Focus
+         (use-package focus
+           :init
+           (general-define-key
+            :states 'normal
+            :prefix my-default-evil-leader-key
+                               "f f" 'focus-mode)
+           (evil-ex-define-cmd "fo[cus]" 'focus-mode))
+
+         (use-package minimap
+           :commands minimap-mode
+           :config
+           (customize-set-variable 'minimap-window-location 'right))
+
+         (use-package no-littering)
+
+         (use-package mmm-mode
+           :disabled t ; looking at polymode instead
+           :commands mmm-mode
+           :config
+           (setq mmm-parse-when-idle 't))
+
+         (use-package unicode-troll-stopper)
+
+         (use-package transpose-frame)
+
+         (use-package buffer-move)
+
+         (use-package crosshairs
+           :disabled t)
+
+         (use-package which-key
+           :demand t
+           :diminish which-key-mode
+           :config
+           (which-key-mode))
+
+         (use-package undo-tree
+           :demand t
+           :diminish undo-tree-mode
+           :config
+           (global-undo-tree-mode))
+
+         ;;;###autoload
+         (defun /line-lengths()
+           "Return a list of line lengths for all the lines in the buffer."
+           (let (length)
+             (save-excursion
+               (goto-char (point-min))
+               (while (not (eobp))
+                 (push (- (line-end-position)
+                          (line-beginning-position))
+                       length)
+                 (forward-line)))
+             ;; we return a list since this is the last form evaluated
+             (copy-sequence length)))
+
+         ;;;###autoload
+         (defun /longest-line-length()
+           "Return the longest line from the list of lines given."
+           (let ((lines (/line-lengths)))
+             ;; return the first element, which should be the largest
+             (nth 0 (sort lines '>))))
+
+         ;;;###autoload
+         (defun /centre-window-function()
+           "Offset the window margins based on the longest line in the buffer.
+         This effectively centers it."
+           (interactive)
+           (let ((margin-size (/ (abs (- (window-width) (/longest-line-length))) 2)))
+             (if (not (get '/centre-window-function 'active))
+                 (progn
+                   (set-window-margins nil margin-size nil)
+                   (fringe-mode '(1 . 1))
+                   (put '/centre-window-function 'active t))
+               (progn
+                 (set-window-margins nil nil nil)
+                 (fringe-mode nil)
+                 (put '/centre-window-function 'active nil)))))
+
+         (general-define-key
+          :states 'normal
+          :prefix my-default-evil-leader-key
+                             "W" '/centre-window-function)
+
+         ;; (use-package switch-window
+         ;;   :custom
+         ;;   (switch-window-shortcut-apppearance 'asciiart))
+
+         ;; Used in help mode and eww
+         (use-package ace-link
+           :commands (ace-link-help
+                      ace-link-info
+                      ace-link-eww))
+
+         (use-package ace-window
+           :bind
+           (:map evil-window-map
+                 ("SPC" . ace-window))
+           :custom
+           (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+           )
+
+         ;; er/expand-region
+         (use-package expand-region)
+
+         (use-package centered-window-mode
+           :disabled t
+           :el-get centered-window-mode
+           :config
+           (centered-window-mode t))
+
+         (use-package autopair
+           :disabled t
+           :config
+           (autopair-global-mode))
+
+         (use-package polymode)
+
+         (use-package smartparens
+           :demand t
+           :diminish smartparens-mode
+           :custom
+           (sp-cancel-autoskip-on-backward-movement
+            nil "We want to maintain the chomp-like behavior of electric-pair")
+           (sp-autoskip-closing-pair
+            'always "Maintain chomp-like behavior of electric-pair")
+           :config
+           (require 'smartparens-config) ;; load some default configurations
+           (smartparens-global-mode)
+           (smartparens-global-strict-mode)
+           (show-smartparens-global-mode)
+           ;; define some helper functions
+           (defun my-add-newline-and-indent-braces (&rest _)
+             "Adds that cool vim indent thing we always wanted"
+             (newline)
+             (indent-according-to-mode)
+             (forward-line -1)
+             (indent-according-to-mode))
+           ;; Update the global definitions with some indenting
+           ;; I think that the nil is the flag that controls property inheritance
+           ;;NOTE: For some reason TAB isn't recognised. Might be yasnippet intefering.
+           ;;Learn to use ret for now
+           (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
+           (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
+           (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
+           )
+
+         (use-package evil-smartparens
+           :after (smartparens)
+           :demand t
+           :diminish (evil-smartparens-mode)
+           :config
+           (evil-smartparens-mode))
+
+         ;;;###autoload
+         (defun my-set-frame-transparency (value)
+           "Set the transparency of the frame window to VALUE.
+         0=transparent/100=opaque"
+           (interactive "nTransparency Value 0 - 100 opaque:")
+           (set-frame-parameter (selected-frame) 'alpha value))
+
+   #+END_SRC
 ** Hungry Deletion (of whitespace)
    - Homepage :: http://endlessparentheses.com/hungry-delete-mode.html
 
@@ -1556,8 +1693,11 @@
       (setq dashboard-startup-banner nil))
 
   #+END_SRC
-* TODO Aggressive Indent/Fill paragraph
-  #+BEGIN_SRC emacs-lisp
+
+* Aggressive Indent/Fill paragraph
+
+** Aggressive-indent
+   #+BEGIN_SRC emacs-lisp
 
     (use-package aggressive-indent
       :diminish t
@@ -1567,6 +1707,11 @@
       ;; (global-aggressive-indent-mode)
       )
 
+   #+END_SRC
+
+** Aggressive-fill-paragraph
+   #+BEGIN_SRC emacs-lisp
+
     (use-package aggressive-fill-paragraph
       ;; :disabled ;; this package annoys me. Probably needs more config
       :commands (aggressive-fill-paragraph-mode
@@ -1575,8 +1720,11 @@
       ;; (add-hook 'text-mode-hook #'aggressive-fill-paragraph-mode)
       )
 
-  #+END_SRC
+   #+END_SRC
 * TODO Magit
+
+  - We need to remove/fix the calls to =with-eval-after-load=
+
   #+BEGIN_SRC emacs-lisp
 
     (use-package magit
@@ -1594,11 +1742,21 @@
       (add-hook 'magit-popup-mode-hook #'my-disable-line-numbers)
       )
 
+  #+END_SRC
+
+** Evil-magit
+   #+BEGIN_SRC emacs-lisp
+
     (use-package evil-magit
       :after magit
       :demand t
       :config
       (evil-magit-init))
+
+   #+END_SRC
+
+** Git-gutter+
+   #+BEGIN_SRC emacs-lisp
 
     ;; https://github.com/nonsequitur/git-gutter-plus
     (use-package git-gutter+
@@ -1637,7 +1795,7 @@
       (global-git-gutter+-mode)
       )
 
-  #+END_SRC
+   #+END_SRC
 
 ** TODO Git Hunk textobjects
 * TODO Org
@@ -2262,7 +2420,9 @@
        :config
        (add-hook 'dockerfile-mode-hook 'hl-todo-mode))
 
-     (use-package json-mode)
+     (use-package json-mode
+       :mode ("\\.json\\'" . json-mode)
+       )
 
      (use-package markdown-mode
        :config
@@ -2275,7 +2435,6 @@
        (add-hook 'yaml-mode-hook 'turn-on-fci-mode))
 
      (use-package helm-emmet)
-
    #+END_SRC
 ** TODO Rust
    #+BEGIN_SRC emacs-lisp
@@ -2558,7 +2717,7 @@
      (evil-set-initial-state 'debugger-mode 'emacs)
    #+END_SRC
 
-* TODO Shell
+* Shell
 
   No line numbers in shell emulations, it makes no sense.
   #+BEGIN_SRC emacs-lisp
@@ -2669,7 +2828,7 @@
 
    #+END_SRC
 
-* TODO Japanese
+* Japanese
   The kkc-mode is packaged with emacs, and isn't a package on elpa or anything
 
   - [ ] Bind a separate keybind instead of using =default-input-method=
@@ -2725,9 +2884,9 @@
 
     #+END_SRC
 
-* TODO Web Browsing
+* Web Browsing
 
-** TODO Emacs Web Wowser
+** Emacs Web Wowser
    This is a web browser that lives as an emacs buffer.
 
    I still need to configure it to be more vimium-like
@@ -2791,7 +2950,7 @@
        )
    #+END_SRC
 
-* TODO Utility
+* Utility
 
 ** Datetime
    These code was written by Kenny Liu a long ass time ago, I don't think it's
