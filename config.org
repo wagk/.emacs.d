@@ -32,32 +32,32 @@
 
    #+END_SRC
 
-** Dash
+** Dash                                                             :package:
    Utility library
 
    #+BEGIN_SRC emacs-lisp
      (use-package dash)
    #+END_SRC
 
-** S
+** S                                                                :package:
 
    #+BEGIN_SRC emacs-lisp
     (use-package s)
    #+END_SRC
 
-** F
+** F                                                                :package:
 
    #+BEGIN_SRC emacs-lisp
     (use-package s)
    #+END_SRC
 
-** Async
+** Async                                                            :package:
 
    #+BEGIN_SRC emacs-lisp
      (use-package async)
    #+END_SRC
 
-** Names
+** Names                                                            :package:
    Namespacing libary
 
    - Github :: https://github.com/Malabarba/names
@@ -139,75 +139,76 @@
 
   #+END_SRC
 
-  I'm a huge fan of solarized dark.
+** Solarized-theme                                                  :package:
+    I'm a huge fan of solarized dark.
 
-  #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 
-    (use-package solarized-theme
-      :demand t
-      ;; :if (display-graphic-p)
-      :config
-      (setq solarized-use-variable-pitch nil
-            solarized-distinct-fringe-background nil
-            solarized-high-contrast-mode-line nil
-            solarized-use-less-bold t
-            solarized-use-more-italic nil
-            solarized-scale-org-headlines nil
-            solarized-height-minus-1 1.0
-            solarized-height-plus-1 1.0
-            solarized-height-plus-2 1.0
-            solarized-height-plus-3 1.0
-            solarized-height-plus-4 1.0
-            )
-      (load-theme 'solarized-dark t))
+     (use-package solarized-theme
+       :demand t
+       ;; :if (display-graphic-p)
+       :config
+       (setq solarized-use-variable-pitch nil
+             solarized-distinct-fringe-background nil
+             solarized-high-contrast-mode-line nil
+             solarized-use-less-bold t
+             solarized-use-more-italic nil
+             solarized-scale-org-headlines nil
+             solarized-height-minus-1 1.0
+             solarized-height-plus-1 1.0
+             solarized-height-plus-2 1.0
+             solarized-height-plus-3 1.0
+             solarized-height-plus-4 1.0
+             )
+       (load-theme 'solarized-dark t))
 
-  #+END_SRC
+   #+END_SRC
 
-  Hacks otherwise in PuTTY the background will be a very unpleasant shade of blue
+   Hacks otherwise in PuTTY the background will be a very unpleasant shade of blue
 
-  - StackOverflow :: https://stackoverflow.com/questions/19054228/emacs-disable-theme-background-color-in-terminal
+   - StackOverflow :: https://stackoverflow.com/questions/19054228/emacs-disable-theme-background-color-in-terminal
 
-  #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 
-    ;; set background to default terminal one if in terminal
-    ;; We only get away with this because our terminal uses solarized
-    (add-to-list 'after-make-frame-functions
-                 '(lambda (frame)
-                    (unless (display-graphic-p frame)
-                      (set-face-background 'default
-                                           "unspecified-bg"
-                                           frame))))
-    (add-hook 'window-setup-hook
-              '(lambda ()
-                 (unless (display-graphic-p (selected-frame))
-                   (set-face-background 'default
-                                        "unspecified-bg"
-                                        (selected-frame)))))
+     ;; set background to default terminal one if in terminal
+     ;; We only get away with this because our terminal uses solarized
+     (add-to-list 'after-make-frame-functions
+                  '(lambda (frame)
+                     (unless (display-graphic-p frame)
+                       (set-face-background 'default
+                                            "unspecified-bg"
+                                            frame))))
+     (add-hook 'window-setup-hook
+               '(lambda ()
+                  (unless (display-graphic-p (selected-frame))
+                    (set-face-background 'default
+                                         "unspecified-bg"
+                                         (selected-frame)))))
 
-  #+END_SRC
+   #+END_SRC
 
-  Define a few variables that later packages can use
+   Define a few variables that later packages can use
 
-  #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 
-    (defconst $solarized-dark-base03   "#002b36")
-    (defconst $solarized-dark-base02   "#073642")
-    (defconst $solarized-dark-base01   "#586e75")
-    (defconst $solarized-dark-base00   "#657b83")
-    (defconst $solarized-dark-base0    "#839496")
-    (defconst $solarized-dark-base1    "#93a1a1")
-    (defconst $solarized-dark-base2    "#eee8d5")
-    (defconst $solarized-dark-base3    "#fdf6e3")
-    (defconst $solarized-dark-yellow   "#b58900")
-    (defconst $solarized-dark-orange   "#cb4b16")
-    (defconst $solarized-dark-red      "#dc322f")
-    (defconst $solarized-dark-magenta  "#d33682")
-    (defconst $solarized-dark-violet   "#6c71c4")
-    (defconst $solarized-dark-blue     "#268bd2")
-    (defconst $solarized-dark-cyan     "#2aa198")
-    (defconst $solarized-dark-green    "#859900")
+     (defconst $solarized-dark-base03   "#002b36")
+     (defconst $solarized-dark-base02   "#073642")
+     (defconst $solarized-dark-base01   "#586e75")
+     (defconst $solarized-dark-base00   "#657b83")
+     (defconst $solarized-dark-base0    "#839496")
+     (defconst $solarized-dark-base1    "#93a1a1")
+     (defconst $solarized-dark-base2    "#eee8d5")
+     (defconst $solarized-dark-base3    "#fdf6e3")
+     (defconst $solarized-dark-yellow   "#b58900")
+     (defconst $solarized-dark-orange   "#cb4b16")
+     (defconst $solarized-dark-red      "#dc322f")
+     (defconst $solarized-dark-magenta  "#d33682")
+     (defconst $solarized-dark-violet   "#6c71c4")
+     (defconst $solarized-dark-blue     "#268bd2")
+     (defconst $solarized-dark-cyan     "#2aa198")
+     (defconst $solarized-dark-green    "#859900")
 
-  #+END_SRC
+   #+END_SRC
 
 * Evil
 
@@ -219,7 +220,7 @@
 
   #+END_SRC
 
-** Evil-collection
+** Evil-collection                                                  :package:
    - Github :: https://github.com/emacs-evil/evil-collection
 
 
@@ -236,7 +237,7 @@
 
    #+END_SRC
 
-** Evil-mode
+** Evil-mode                                                        :package:
    - Github :: https://github.com/emacs-evil/evil
 
 
@@ -542,7 +543,7 @@
       (define-key evil-normal-state-map (kbd "] p") 'evil-unimpaired/paste-below)
     #+END_SRC
 
-** Evil-string-inflection
+** Evil-string-inflection                                           :package:
    - Github :: https://github.com/ninrod/evil-string-inflection
 
 
@@ -555,7 +556,7 @@
 
    #+END_SRC
 
-** Exato
+** Exato                                                            :package:
    - Github :: https://github.com/ninrod/exato
 
 
@@ -569,7 +570,7 @@
 
    #+END_SRC
 
-** Evil-god-state
+** Evil-god-state                                                   :package:
    - Github :: https://github.com/gridaphobe/evil-god-state
 
 
@@ -583,7 +584,7 @@
 
    #+END_SRC
 
-** Evil-surround
+** Evil-surround                                                    :package:
    - Github :: https://github.com/emacs-evil/evil-surround
 
 
@@ -598,7 +599,7 @@
 
    #+END_SRC
 
-*** Evil-embrace
+*** Evil-embrace                                                    :package:
    - Github :: https://github.com/cute-jumper/evil-embrace.el
 
 
@@ -616,7 +617,7 @@
 
    #+END_SRC
 
-** Evil-args
+** Evil-args                                                        :package:
    - Github :: https://github.com/wcsmith/evil-args
 
 
@@ -642,7 +643,7 @@
 
    #+END_SRC
 
-** Evil-textobj-column
+** Evil-textobj-column                                              :package:
    - Github :: https://github.com/noctuid/evil-textobj-column
 
 
@@ -656,7 +657,7 @@
 
    #+END_SRC
 
-** Evil-numbers
+** Evil-numbers                                                     :package:
    - Github :: https://github.com/cofi/evil-numbers
 
 
@@ -674,7 +675,7 @@
 
    #+END_SRC
 
-** Evil-rsi
+** Evil-rsi                                                         :package:
    - Github :: https://github.com/linktohack/evil-rsi
 
 
@@ -688,7 +689,7 @@
 
    #+END_SRC
 
-** Evil-lion
+** Evil-lion                                                        :package:
    - Github :: https://github.com/edkolev/evil-lion
 
 
@@ -703,7 +704,7 @@
 
    #+END_SRC
 
-** Evil-matchit
+** Evil-matchit                                                     :package:
    - Github :: https://github.com/redguardtoo/evil-matchit
 
 
@@ -712,7 +713,7 @@
     (use-package evil-matchit)
 
    #+END_SRC
-** Evil-commentary
+** Evil-commentary                                                  :package:
 
    #+BEGIN_SRC emacs-lisp
 
@@ -726,7 +727,7 @@
 
    #+END_SRC
 
-** Evil-nerd-commenter
+** Evil-nerd-commenter                                              :package:
    #+BEGIN_SRC emacs-lisp
 
     (use-package evil-nerd-commenter
@@ -738,7 +739,7 @@
 
    #+END_SRC
 
-** Evil-indent-plus
+** Evil-indent-plus                                                 :package:
    #+BEGIN_SRC emacs-lisp
 
         ;;; Indentation text object for evil
@@ -752,7 +753,7 @@
 
    #+END_SRC
 
-** Evil-tilde-fringe
+** Evil-tilde-fringe                                                :package:
    #+BEGIN_SRC emacs-lisp
 
     ;; vim A E S T H E T H I C S
@@ -765,7 +766,7 @@
 
    #+END_SRC
 
-** Evil-visualstar
+** Evil-visualstar                                                  :package:
    #+BEGIN_SRC emacs-lisp
 
      ;; Allows for * and # commands. which originally only worked on WORDs, to
@@ -778,7 +779,7 @@
 
    #+END_SRC
 
-** Evil-rsi
+** Evil-rsi                                                         :package:
    #+BEGIN_SRC emacs-lisp
 
     ;; TODO: Document GNU Readline bindings
@@ -791,7 +792,7 @@
 
    #+END_SRC
 
-** Evil-goggles
+** Evil-goggles                                                     :package:
    #+BEGIN_SRC emacs-lisp
 
     ;; Flashes the selection you made. I honestly don't need this and am just
@@ -810,7 +811,7 @@
 
    #+END_SRC
 
-** Evil-quickscope
+** Evil-quickscope                                         :package:disabled:
    #+BEGIN_SRC emacs-lisp
 
      ;; Disabled because it conflicts with evil-snipe-override-mode
@@ -823,7 +824,7 @@
 
    #+END_SRC
 
-** Evil-snipe
+** Evil-snipe                                                       :package:
    #+BEGIN_SRC emacs-lisp
 
      ;; Basically does what Clever-F did in vim, letting you repeatedly press
@@ -838,7 +839,7 @@
 
    #+END_SRC
 
-** Evil-expat
+** Evil-expat                                                       :package:
    Adds the following ex commands:
 
    | :reverse           | reverse visually selected lines                                |
@@ -858,7 +859,7 @@
 
    #+END_SRC
 
-** Evil-exchange
+** Evil-exchange                                           :package:disabled:
    #+BEGIN_SRC emacs-lisp
 
      ;; Adds an operator `gx' that, when called again, swaps both selections
@@ -870,21 +871,21 @@
 
    #+END_SRC
 
-** Vimish-fold
+** Vimish-fold :[ackage:
    #+BEGIN_SRC emacs-lisp
 
      (use-package vimish-fold)
 
    #+END_SRC
 
-** Evil-tutor
+** Evil-tutor                                                       :package:
    #+BEGIN_SRC emacs-lisp
 
      (use-package evil-tutor)
 
    #+END_SRC
 
-** Evil-cleverparens
+** Evil-cleverparens                                                :package:
    - Github :: https://github.com/luxbock/evil-cleverparens
 
 
@@ -1073,7 +1074,7 @@
   #+END_SRC
 
 * Helm
-** Ivy
+** Ivy                                                              :package:
 
    #+BEGIN_SRC emacs-lisp
 
@@ -1090,7 +1091,7 @@
 
    #+END_SRC
 
-*** Swiper
+*** Swiper                                                          :package:
 
     #+BEGIN_SRC emacs-lisp
 
@@ -1098,7 +1099,7 @@
 
     #+END_SRC
 
-*** Counsel
+*** Counsel                                                         :package:
 
     #+BEGIN_SRC emacs-lisp
 
@@ -1107,7 +1108,7 @@
 
     #+END_SRC
 
-** Helm
+** Helm                                                             :package:
 
    #+BEGIN_SRC emacs-lisp
 
@@ -1159,7 +1160,7 @@
 
    #+END_SRC
 
-** Helm-describe-modes
+** Helm-describe-modes                                              :package:
 
    #+BEGIN_SRC emacs-lisp
 
@@ -1171,7 +1172,7 @@
 
    #+END_SRC
 
-** Helm-descbinds
+** Helm-descbinds                                                   :package:
 
    #+BEGIN_SRC emacs-lisp
 
@@ -1182,7 +1183,7 @@
 
    #+END_SRC
 
-** Helm-swoop
+** Helm-swoop                                                       :package:
 
    #+BEGIN_SRC emacs-lisp
 
@@ -1205,7 +1206,7 @@
 
    #+END_SRC
 
-** Helm-fuzzier
+** Helm-fuzzier                                                     :package:
 
    #+BEGIN_SRC emacs-lisp
 
@@ -1217,7 +1218,7 @@
 
    #+END_SRC
 
-** Helm-flx
+** Helm-flx                                                         :package:
 
    #+BEGIN_SRC emacs-lisp
 
@@ -1231,7 +1232,7 @@
 
    #+END_SRC
 
-** Helm-dash
+** Helm-dash                                                        :package:
 
    #+BEGIN_SRC emacs-lisp
 
@@ -1239,24 +1240,24 @@
 
    #+END_SRC
 
-** Helm-hunks
+** Helm-hunks                                              :package:disabled:
 
    #+BEGIN_SRC emacs-lisp
 
-      ;; commenting it out because it has conflicting bindings in its own map
-      ;; (use-package helm-hunks
-      ;;   :commands (helm-hunks
-      ;;              helm-hunks-current-buffer
-      ;;              helm-hunks-staged
-      ;;              helm-hunks-staged-current-buffer)
-      ;;   :config
-      ;;   (progn (require 'git-gutter+)
-      ;;          (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
-      ;;          )
-      ;;   (setq helm-hunks-preview-diffs t)
-      ;;   (evil-leader/set-key
-      ;;     "." 'helm-hunks-current-buffer))
-
+     ;; commenting it out because it has conflicting bindings in its own map
+     (use-package helm-hunks
+       :disabled t
+       :commands (helm-hunks
+                  helm-hunks-current-buffer
+                  helm-hunks-staged
+                  helm-hunks-staged-current-buffer)
+       :config
+       (progn (require 'git-gutter+)
+              (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
+              )
+       (setq helm-hunks-preview-diffs t)
+       (evil-leader/set-key
+         "." 'helm-hunks-current-buffer))
    #+END_SRC
 
 ** Others
@@ -1268,7 +1269,7 @@
 
       ;; (helm-mode 1)
     #+END_SRC
-* TODO Buffer
+* Buffer
   #+BEGIN_SRC emacs-lisp
 
     (add-hook 'prog-mode-hook 'hs-minor-mode)
@@ -1398,8 +1399,7 @@
 
   #+END_SRC
 
-
-** Highlight-indent-guides
+** Highlight-indent-guides                                          :package:
    #+BEGIN_SRC emacs-lisp
 
      (use-package highlight-indent-guides
@@ -1416,7 +1416,7 @@
 
    #+END_SRC
 
-** Whitespace-cleanup-mode
+** Whitespace-cleanup-mode                                          :package:
    #+BEGIN_SRC emacs-lisp
 
      (use-package whitespace-cleanup-mode
@@ -1426,7 +1426,7 @@
 
    #+END_SRC
 
-** Hl-todo
+** Hl-todo                                                           :ackage:
    #+BEGIN_SRC emacs-lisp
 
      (use-package hl-todo
@@ -1458,7 +1458,7 @@
 
    #+END_SRC
 
-** Fill-column-indicator
+** Fill-column-indicator                                            :package:
    #+BEGIN_SRC emacs-lisp
 
      ;; https://github.com/alpaker/Fill-Column-Indicator
@@ -1472,7 +1472,7 @@
 
    #+END_SRC
 
-** Golden-ratio
+** Golden-ratio                                            :package:disabled:
    #+BEGIN_SRC emacs-lisp
 
      (use-package golden-ratio
@@ -1483,7 +1483,7 @@
 
    #+END_SRC
 
-** Powerline
+** Powerline                                                        :package:
    #+BEGIN_SRC emacs-lisp
 
      (use-package powerline
@@ -1491,7 +1491,7 @@
 
    #+END_SRC
 
-*** Powerline-evil
+*** Powerline-evil                                                  :package:
     #+BEGIN_SRC emacs-lisp
 
       (use-package powerline-evil
@@ -1506,51 +1506,91 @@
 
     #+END_SRC
 
-** Unsorted
+** Focus                                                            :package:
    #+BEGIN_SRC emacs-lisp
 
-         ;; https://github.com/larstvei/Focus
-         (use-package focus
-           :init
-           (general-define-key
-            :states 'normal
-            :prefix my-default-evil-leader-key
-                               "f f" 'focus-mode)
-           (evil-ex-define-cmd "fo[cus]" 'focus-mode))
+     ;; https://github.com/larstvei/Focus
+     (use-package focus
+       :init
+       (general-define-key
+        :states 'normal
+        :prefix my-default-evil-leader-key
+        "f f" 'focus-mode)
+       (evil-ex-define-cmd "fo[cus]" 'focus-mode))
 
-         (use-package minimap
-           :commands minimap-mode
-           :config
-           (customize-set-variable 'minimap-window-location 'right))
+   #+END_SRC
 
-         (use-package no-littering)
+** Minimap                                                          :package:
+   #+BEGIN_SRC emacs-lisp
 
-         (use-package mmm-mode
-           :disabled t ; looking at polymode instead
-           :commands mmm-mode
-           :config
-           (setq mmm-parse-when-idle 't))
+     (use-package minimap
+       :commands minimap-mode
+       :config
+       (customize-set-variable 'minimap-window-location 'right))
 
-         (use-package unicode-troll-stopper)
+   #+END_SRC
 
-         (use-package transpose-frame)
+** No-littering                                                     :package:
+   #+BEGIN_SRC emacs-lisp
 
-         (use-package buffer-move)
+     (use-package no-littering
+       :demand t)
 
-         (use-package crosshairs
-           :disabled t)
+   #+END_SRC
 
-         (use-package which-key
-           :demand t
-           :diminish which-key-mode
-           :config
-           (which-key-mode))
+** Unicode-troll-stopper                                            :package:
+   #+BEGIN_SRC emacs-lisp
 
-         (use-package undo-tree
-           :demand t
-           :diminish undo-tree-mode
-           :config
-           (global-undo-tree-mode))
+     (use-package unicode-troll-stopper)
+
+   #+END_SRC
+
+** Transpose-frame                                                  :package:
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package transpose-frame)
+
+   #+END_SRC
+
+** Buffer-move                                                      :package:
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package buffer-move)
+
+   #+END_SRC
+
+** Crosshairs                                                       :package:
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package crosshairs
+       :disabled t)
+
+   #+END_SRC
+
+** Which-key                                                        :package:
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package which-key
+       :demand t
+       :diminish which-key-mode
+       :config
+       (which-key-mode))
+
+   #+END_SRC
+
+** Undo-tree                                                        :package:
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package undo-tree
+       :demand t
+       :diminish undo-tree-mode
+       :config
+       (global-undo-tree-mode))
+
+   #+END_SRC
+
+** Window-centering functions
+   #+BEGIN_SRC emacs-lisp
 
          ;;;###autoload
          (defun /line-lengths()
@@ -1594,15 +1634,21 @@
           :prefix my-default-evil-leader-key
                              "W" '/centre-window-function)
 
-         ;; (use-package switch-window
-         ;;   :custom
-         ;;   (switch-window-shortcut-apppearance 'asciiart))
+   #+END_SRC
 
-         ;; Used in help mode and eww
-         (use-package ace-link
-           :commands (ace-link-help
-                      ace-link-info
-                      ace-link-eww))
+** Ace-link                                                         :package:
+   #+BEGIN_SRC emacs-lisp
+
+     ;; Used in help mode and eww
+     (use-package ace-link
+       :commands (ace-link-help
+                  ace-link-info
+                  ace-link-eww))
+
+   #+END_SRC
+
+** Ace-window                                                       :package:
+   #+BEGIN_SRC emacs-lisp
 
          (use-package ace-window
            :bind
@@ -1612,67 +1658,102 @@
            (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
            )
 
-         ;; er/expand-region
-         (use-package expand-region)
+   #+END_SRC
 
-         (use-package centered-window-mode
-           :disabled t
-           :el-get centered-window-mode
-           :config
-           (centered-window-mode t))
+** Expand-region                                                    :package:
+   #+BEGIN_SRC emacs-lisp
 
-         (use-package autopair
-           :disabled t
-           :config
-           (autopair-global-mode))
-
-         (use-package polymode)
-
-         (use-package smartparens
-           :demand t
-           :diminish smartparens-mode
-           :custom
-           (sp-cancel-autoskip-on-backward-movement
-            nil "We want to maintain the chomp-like behavior of electric-pair")
-           (sp-autoskip-closing-pair
-            'always "Maintain chomp-like behavior of electric-pair")
-           :config
-           (require 'smartparens-config) ;; load some default configurations
-           (smartparens-global-mode)
-           (smartparens-global-strict-mode)
-           (show-smartparens-global-mode)
-           ;; define some helper functions
-           (defun my-add-newline-and-indent-braces (&rest _)
-             "Adds that cool vim indent thing we always wanted"
-             (newline)
-             (indent-according-to-mode)
-             (forward-line -1)
-             (indent-according-to-mode))
-           ;; Update the global definitions with some indenting
-           ;; I think that the nil is the flag that controls property inheritance
-           ;;NOTE: For some reason TAB isn't recognised. Might be yasnippet intefering.
-           ;;Learn to use ret for now
-           (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-           (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-           (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-           )
-
-         (use-package evil-smartparens
-           :after (smartparens)
-           :demand t
-           :diminish (evil-smartparens-mode)
-           :config
-           (evil-smartparens-mode))
-
-         ;;;###autoload
-         (defun my-set-frame-transparency (value)
-           "Set the transparency of the frame window to VALUE.
-         0=transparent/100=opaque"
-           (interactive "nTransparency Value 0 - 100 opaque:")
-           (set-frame-parameter (selected-frame) 'alpha value))
+     ;; er/expand-region
+     (use-package expand-region)
 
    #+END_SRC
-** Hungry Deletion (of whitespace)
+
+** Centered-window-mode                                    :package:disabled:
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package centered-window-mode
+       :disabled t
+       :el-get centered-window-mode
+       :config
+       (centered-window-mode t))
+
+   #+END_SRC
+
+** Autopair                                                :package:disabled:
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package autopair
+       :disabled t
+       :config
+       (autopair-global-mode))
+
+   #+END_SRC
+
+** Polymode                                                         :package:
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package polymode)
+
+   #+END_SRC
+
+** Smartparens                                                      :package:
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package smartparens
+       :demand t
+       :diminish smartparens-mode
+       :custom
+       (sp-cancel-autoskip-on-backward-movement
+        nil "We want to maintain the chomp-like behavior of electric-pair")
+       (sp-autoskip-closing-pair
+        'always "Maintain chomp-like behavior of electric-pair")
+       :config
+       (require 'smartparens-config) ;; load some default configurations
+       (smartparens-global-mode)
+       (smartparens-global-strict-mode)
+       (show-smartparens-global-mode)
+       ;; define some helper functions
+       (defun my-add-newline-and-indent-braces (&rest _)
+         "Adds that cool vim indent thing we always wanted"
+         (newline)
+         (indent-according-to-mode)
+         (forward-line -1)
+         (indent-according-to-mode))
+       ;; Update the global definitions with some indenting
+       ;; I think that the nil is the flag that controls property inheritance
+       ;;NOTE: For some reason TAB isn't recognised. Might be yasnippet intefering.
+       ;;Learn to use ret for now
+       (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
+       (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
+       (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
+       )
+
+   #+END_SRC
+
+*** Evil-smartparens                                                :package:
+    #+BEGIN_SRC emacs-lisp
+
+      (use-package evil-smartparens
+        :after (smartparens)
+        :demand t
+        :diminish (evil-smartparens-mode)
+        :config
+        (evil-smartparens-mode))
+
+    #+END_SRC
+
+** Frame Transparency
+   #+BEGIN_SRC emacs-lisp
+
+     ;;;###autoload
+     (defun my-set-frame-transparency (value)
+       "Set the transparency of the frame window to VALUE.
+     0=transparent/100=opaque"
+       (interactive "nTransparency Value 0 - 100 opaque:")
+       (set-frame-parameter (selected-frame) 'alpha value))
+
+   #+END_SRC
+** Hungry Deletion (of whitespace)                                  :package:
    - Homepage :: http://endlessparentheses.com/hungry-delete-mode.html
 
    #+BEGIN_SRC emacs-lisp
@@ -1682,7 +1763,7 @@
        (global-hungry-delete-mode))
    #+END_SRC
 
-* Dashboard
+* Dashboard                                                :package:disabled:
   #+BEGIN_SRC emacs-lisp
 
     (use-package dashboard
@@ -1696,32 +1777,32 @@
 
 * Aggressive Indent/Fill paragraph
 
-** Aggressive-indent
+** Aggressive-indent                                                :package:
    #+BEGIN_SRC emacs-lisp
 
-    (use-package aggressive-indent
-      :diminish t
-      :demand t
-      :config
-      (add-hook 'python-mode-hook 'aggressive-indent-mode)
-      ;; (global-aggressive-indent-mode)
-      )
+     (use-package aggressive-indent
+       :diminish t
+       :demand t
+       :config
+       (add-hook 'python-mode-hook 'aggressive-indent-mode)
+       ;; (global-aggressive-indent-mode)
+       )
 
    #+END_SRC
 
-** Aggressive-fill-paragraph
+** Aggressive-fill-paragraph                                        :package:
    #+BEGIN_SRC emacs-lisp
 
-    (use-package aggressive-fill-paragraph
-      ;; :disabled ;; this package annoys me. Probably needs more config
-      :commands (aggressive-fill-paragraph-mode
-                 afp-setup-recommended-hooks)
-      ;; :config
-      ;; (add-hook 'text-mode-hook #'aggressive-fill-paragraph-mode)
-      )
+     (use-package aggressive-fill-paragraph
+       ;; :disabled ;; this package annoys me. Probably needs more config
+       :commands (aggressive-fill-paragraph-mode
+                  afp-setup-recommended-hooks)
+       ;; :config
+       ;; (add-hook 'text-mode-hook #'aggressive-fill-paragraph-mode)
+       )
 
    #+END_SRC
-* TODO Magit
+* Magit                                                             :package:
 
   - We need to remove/fix the calls to =with-eval-after-load=
 
@@ -1744,164 +1825,170 @@
 
   #+END_SRC
 
-** Evil-magit
+** Evil-magit                                                       :package:
    #+BEGIN_SRC emacs-lisp
 
-    (use-package evil-magit
-      :after magit
-      :demand t
-      :config
-      (evil-magit-init))
+     (use-package evil-magit
+       :after magit
+       :demand t
+       :config
+       (evil-magit-init))
 
    #+END_SRC
 
-** Git-gutter+
+** Git-gutter+                                                      :package:
    #+BEGIN_SRC emacs-lisp
 
-    ;; https://github.com/nonsequitur/git-gutter-plus
-    (use-package git-gutter+
-      :diminish git-gutter+-mode
-      :bind (:map evil-normal-state-map
-             ("[ h" . git-gutter+-previous-hunk)
-             ("] h" . git-gutter+-next-hunk)
-             ("g h s" . git-gutter+-stage-hunks)
-             ("g h u" . git-gutter+-revert-hunks)
-             ("g h h" . git-gutter+-show-hunk-inline-at-point)
-             )
-      :defer 5
-      ;; :hook (prog-mode . git-gutter+-mode)
-      :config
-      ;; refer to the hacks made in config-colors.el.
-      ;; We do this to make the gutter things look nice
-      (unless (display-graphic-p)
-        (set-face-foreground 'git-gutter+-modified "magenta")
-        (set-face-background 'git-gutter+-modified nil)
-        (set-face-foreground 'git-gutter+-added "green")
-        (set-face-background 'git-gutter+-added nil)
-        (set-face-foreground 'git-gutter+-deleted "red")
-        (set-face-background 'git-gutter+-deleted nil))
-      (setq git-gutter+-hide-gutter t)
-      ;; use git-gutter+-diffinfo-at-point to get the range of the hunk,
-      ;; extract the range beg-end,
-      ;; then set the textobject to that range
-      ;; (require 'evil)
+     ;; https://github.com/nonsequitur/git-gutter-plus
+     (use-package git-gutter+
+       :diminish git-gutter+-mode
+       :bind (:map evil-normal-state-map
+              ("[ h" . git-gutter+-previous-hunk)
+              ("] h" . git-gutter+-next-hunk)
+              ("g h s" . git-gutter+-stage-hunks)
+              ("g h u" . git-gutter+-revert-hunks)
+              ("g h h" . git-gutter+-show-hunk-inline-at-point)
+              )
+       :defer 5
+       ;; :hook (prog-mode . git-gutter+-mode)
+       :config
+       ;; refer to the hacks made in config-colors.el.
+       ;; We do this to make the gutter things look nice
+       (unless (display-graphic-p)
+         (set-face-foreground 'git-gutter+-modified "magenta")
+         (set-face-background 'git-gutter+-modified nil)
+         (set-face-foreground 'git-gutter+-added "green")
+         (set-face-background 'git-gutter+-added nil)
+         (set-face-foreground 'git-gutter+-deleted "red")
+         (set-face-background 'git-gutter+-deleted nil))
+       (setq git-gutter+-hide-gutter t)
+       ;; use git-gutter+-diffinfo-at-point to get the range of the hunk,
+       ;; extract the range beg-end,
+       ;; then set the textobject to that range
+       ;; (require 'evil)
 
-      ;; we're forced to put it here because the global mode must be done afterwards
-      ;; (??)
-      (use-package git-gutter-fringe+
-        :if (display-graphic-p)
-        :after git-gutter+
-        :demand t)
-      (global-git-gutter+-mode)
-      )
+       ;; we're forced to put it here because the global mode must be done afterwards
+       ;; (??)
+       (use-package git-gutter-fringe+
+         :if (display-graphic-p)
+         :after git-gutter+
+         :demand t)
+       (global-git-gutter+-mode)
+       )
 
    #+END_SRC
 
 ** TODO Git Hunk textobjects
-* TODO Org
+   I want to be able to select git hunks in a textobject way
+* Org                                                               :package:
   #+BEGIN_SRC emacs-lisp
 
-        (use-package org
-          :commands
-          (org-time-stamp-inactive
-           org-refile)
+    (use-package org
+      :commands
+      (org-time-stamp-inactive
+       org-refile)
 
-          :general
-          (:states 'normal
-           :prefix my-default-evil-leader-key
-           "o t" 'org-time-stamp-inactive
-           "o T" #'my-time-stamp
-           "o r" 'org-refile)
-          (org-mode-map
-            "C-c C-'" 'org-edit-special)
-          (org-src-mode-map
-            "C-c C-'" 'org-src-edit-exit)
-          :custom
-          (org-support-shift-select t
-                                    "Let me use J in org-mode please.")
-          (org-startup-indented nil)
-          (org-indent-mode-turns-on-hiding-stars nil)
-          (org-src-tab-acts-natively t)
-          (org-src-window-setup 'current-window
-                                "I tend to have documentation/other things on
-                                adjacent windows")
-          (org-src-fontify-natively t)
-          (org-default-notes-file "~/TODO.org")
-          ;; (org-M-RET-may-split-line '((default . nil)))
-          (org-M-RET-may-split-line nil)
-          (org-enforce-todo-checkbox-dependencies     t)
-          (org-enforce-todo-dependencies              t)
-          (org-pretty-entities                        nil)
-          ;; (org-insert-heading-respect-content t)
-          (org-log-done                               'time)
-          (org-log-redeadline                         'time)
-          (org-log-reschedule                         'time)
-          (org-blank-before-new-entry '((heading         . t)
-                                        (plain-list-item . nil)))
-          (org-refile-targets '((nil . (:maxlevel . 9))))
-          (org-refile-use-outline-path t)
-          (org-outline-path-complete-in-steps nil)
-          (org-refile-allow-creating-parent-nodes 'confirm)
-          (org-highlight-latex-and-related '(latex))
-          (org-src-block-faces '(("emacs-lisp" (:foreground "#839496"))))
+      :general
+      (:states 'normal
+       :prefix my-default-evil-leader-key
+       "o t" 'org-time-stamp-inactive
+       "o T" #'my-time-stamp
+       "o r" 'org-refile)
+      (org-mode-map
+       "C-c C-'" 'org-edit-special)
+      (org-src-mode-map
+       "C-c C-'" 'org-src-edit-exit)
+      :custom
+      (org-support-shift-select t
+                                "Let me use J in org-mode please.")
+      (org-startup-indented nil)
+      (org-indent-mode-turns-on-hiding-stars nil)
+      (org-src-tab-acts-natively t)
+      (org-src-window-setup 'current-window
+                            "I tend to have documentation/other things on
+                            adjacent windows")
+      (org-src-fontify-natively t)
+      (org-default-notes-file "~/TODO.org")
+      ;; (org-M-RET-may-split-line '((default . nil)))
+      (org-M-RET-may-split-line nil)
+      (org-enforce-todo-checkbox-dependencies     t)
+      (org-enforce-todo-dependencies              t)
+      (org-pretty-entities                        nil)
+      ;; (org-insert-heading-respect-content t)
+      (org-log-done                               'time)
+      (org-log-redeadline                         'time)
+      (org-log-reschedule                         'time)
+      (org-blank-before-new-entry '((heading         . t)
+                                    (plain-list-item . nil)))
+      (org-refile-targets '((nil . (:maxlevel . 9))))
+      (org-refile-use-outline-path t)
+      (org-outline-path-complete-in-steps nil)
+      (org-refile-allow-creating-parent-nodes 'confirm)
+      (org-highlight-latex-and-related '(latex))
+      (org-src-block-faces '(("emacs-lisp" (:foreground "#839496"))))
 
-          :config
-        ;;;###autoload
-          (defun /org-mode-face-no-resize ()
-            "Stop the org-level headers from increasing in height relative to the other
-        text."
-            (when (eq major-mode 'org-mode)
-              (dolist (face '(org-level-1
-                              org-level-2
-                              org-level-3
-                              org-level-4
-                              org-level-5))
-                (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
-          (add-hook 'org-mode-hook '/org-mode-face-no-resize)
+      :config
+    ;;;###autoload
+      (defun /org-mode-face-no-resize ()
+        "Stop the org-level headers from increasing in height relative to the other
+    text."
+        (when (eq major-mode 'org-mode)
+          (dolist (face '(org-level-1
+                          org-level-2
+                          org-level-3
+                          org-level-4
+                          org-level-5))
+            (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
+      (add-hook 'org-mode-hook '/org-mode-face-no-resize)
 
-          ;; (org-toggle-link-display)
+      ;; (org-toggle-link-display)
 
-          ;; when inserting a heading immediately go into insert mode
-          (add-hook 'org-insert-heading-hook 'evil-insert-state)
+      ;; when inserting a heading immediately go into insert mode
+      (add-hook 'org-insert-heading-hook 'evil-insert-state)
 
-          ;; (general-define-key :keymaps 'org-mode-map
-          ;;                     :states 'insert
-          ;;                     "RET"     'newline-and-indent)
+      ;; (general-define-key :keymaps 'org-mode-map
+      ;;                     :states 'insert
+      ;;                     "RET"     'newline-and-indent)
 
-          ;; make smartparen autoskip "" because org-mode treats it as a string
-          (require 'smartparens)
-          (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
+      ;; make smartparen autoskip "" because org-mode treats it as a string
+      (require 'smartparens)
+      (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
 
-          (defun my-time-stamp ()
-            "Prints the time and date."
-            (interactive)
-            (org-time-stamp-inactive '(16)))
+      (defun my-time-stamp ()
+        "Prints the time and date."
+        (interactive)
+        (org-time-stamp-inactive '(16)))
 
-          (require 'evil-embrace)
-          (defun my-add-org-evil-embrace-pairs ()
-            "Add additional pairings that evil-surround doesn't cover"
-            (let ((org-pairs '((?= "=" . "=") ;; verbatim
-                               (?* "*" . "*") ;; bold
-                               (?_ "_" . "_") ;; underline
-                               (?+ "+" . "+") ;; strikethrough
-                               (?~ "~" . "~") ;; code
-                               (?/ "/" . "/")))) ;; italic
-              (dolist (pair org-pairs)
-                (embrace-add-pair (car pair) (cadr pair) (cddr pair)))))
-          (add-hook 'org-mode-hook 'my-add-org-evil-embrace-pairs)
+      (require 'evil-embrace)
+      (defun my-add-org-evil-embrace-pairs ()
+        "Add additional pairings that evil-surround doesn't cover"
+        (let ((org-pairs '((?= "=" . "=") ;; verbatim
+                           (?* "*" . "*") ;; bold
+                           (?_ "_" . "_") ;; underline
+                           (?+ "+" . "+") ;; strikethrough
+                           (?~ "~" . "~") ;; code
+                           (?/ "/" . "/")))) ;; italic
+          (dolist (pair org-pairs)
+            (embrace-add-pair (car pair) (cadr pair) (cddr pair)))))
+      (add-hook 'org-mode-hook 'my-add-org-evil-embrace-pairs)
 
-          (defun my-org-hook-configs ()
-            "Hacks to make org-mode less cancer when run"
-            ;; NOTE: We turn this off because it is causing the cursor to do really
-            ;; fucking weird things
-            ;; (require 'fill-column-indicator)
-            ;; (turn-on-fci-mode)
-            (with-eval-after-load 'display-line-numbers
-              (display-line-numbers-mode -1))
-            (require 'aggressive-fill-paragraph)
-            (aggressive-fill-paragraph-mode))
-          (add-hook 'org-mode-hook #'my-org-hook-configs)
-          )
+      (defun my-org-hook-configs ()
+        "Hacks to make org-mode less cancer when run"
+        ;; NOTE: We turn this off because it is causing the cursor to do really
+        ;; fucking weird things
+        ;; (require 'fill-column-indicator)
+        ;; (turn-on-fci-mode)
+        (with-eval-after-load 'display-line-numbers
+          (display-line-numbers-mode -1))
+        (require 'aggressive-fill-paragraph)
+        (aggressive-fill-paragraph-mode))
+      (add-hook 'org-mode-hook #'my-org-hook-configs)
+      )
+
+  #+END_SRC
+
+** Org-capture                                                      :package:
+   #+BEGIN_SRC emacs-lisp
 
         ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
         (use-package org-capture
@@ -1919,133 +2006,190 @@
             'org-capture-kill)
           )
 
-        (use-package org-agenda
-          :ensure nil ;; because org-agenda is from org
-          :after (org)
-          :general
-          (:prefix my-default-evil-leader-key
-           :states 'normal
-           "O O" 'org-agenda)
-          :config
-          ;; initialize org agenda things
-          (add-to-list 'org-agenda-files my-org-directory)
-          )
+   #+END_SRC
+** Org-agenda                                                       :package:
+   #+BEGIN_SRC emacs-lisp
 
-        ;;; This is like a concept map, but in org-files
-        (use-package org-brain
-          :custom
-          (org-brain-path my-wiki-directory "Share the same path as deft.")
-          (org-brain-file-entries-use-title nil
-                                            "Speed optimisation since our filenames and
-                                            title should match anyway")
-          :general
-          (:states 'normal
-           :prefix my-default-evil-leader-key
-           "N" 'org-brain-visualize)
-          :init
-          (with-eval-after-load 'evil
-            (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
-          )
+     (use-package org-agenda
+       :ensure nil ;; because org-agenda is from org
+       :after (org)
+       :general
+       (:prefix my-default-evil-leader-key
+        :states 'normal
+        "O O" 'org-agenda)
+       :config
+       ;; initialize org agenda things
+       (add-to-list 'org-agenda-files my-org-directory)
+       )
 
-        (use-package org-radiobutton)
+   #+END_SRC
+** Org-brain                                                        :package:
+   #+BEGIN_SRC emacs-lisp
 
-        ;; Export orgfiles as anki decks!
-        ;; Looks great for jap study and just study in general
-        ;; https://github.com/louietan/anki-editor
-        ;; Requires that the anki plugin `anki-connect' is installed
-        (use-package anki-editor)
+     ;;; This is like a concept map, but in org-files
+     (use-package org-brain
+       :custom
+       (org-brain-path my-wiki-directory "Share the same path as deft.")
+       (org-brain-file-entries-use-title nil
+                                         "Speed optimisation since our filenames and
+                                         title should match anyway")
+       :general
+       (:states 'normal
+        :prefix my-default-evil-leader-key
+        "N" 'org-brain-visualize)
+       :init
+       (with-eval-after-load 'evil
+         (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+       )
 
-        ;; Prepackaged evil bindings for org-mode
-        ;; https://github.com/Somelauw/evil-org-mode
-        ;; Full keybindings:
-        ;; https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
-        (use-package evil-org
-          ;; :disabled t
-          :after (org)
-          :demand t
-          :diminish (evil-org-mode)
-          ;; :general
-          ;; (:states '(emacs insert)
-          ;;  :keymaps 'org-mode-map
-          ;;  "RET" 'evil-org-return)
-          :custom
-          (evil-org-retain-visual-state-on-shift
-           t
-           "Let us chain < and > calls")
-          (evil-org-use-additional-insert
-           t
-           "Add things like M-j to insert")
-          (evil-org-special-o/O
-           '(table-row)
-           "Do not let o/O affect list items, throws me off")
-          :config
-          (evil-org-set-key-theme '(textobjects
-                                    insert
-                                    navigation
-                                    additional
-                                    shift
-                                    return
-                                    operators
-                                    ;; todo
-                                    ;; heading
-                                    calendar
-                                    ))
-          (add-hook 'org-mode-hook 'evil-org-mode)
-          (require 'evil-org-agenda)
-          (evil-org-agenda-set-keys))
+   #+END_SRC
+** Org-radiobutton                                                  :package:
+   #+BEGIN_SRC emacs-lisp
 
-        (use-package worf)
+     (use-package org-radiobutton)
 
-        (use-package helm-org-rifle
-          :after (org)
-          :general
-          (:states 'normal
-           :prefix my-default-evil-leader-key
-           "o o" 'helm-org-rifle)
-          :bind
-          (:map helm-org-rifle-map
-           ("C-w" . evil-delete-backward-word)
-           ("\\"  . helm-select-action)
-           ("C-j" . helm-next-line)
-           ("C-k" . helm-previous-line)
-           ("C-n" . helm-next-page)
-           ("C-p" . helm-previous-page)
-           ("C-l" . helm-next-source)
-           ("C-h" . helm-previous-source)
-           ("TAB" . helm-execute-persistent-action))
-          )
+   #+END_SRC
+
+** Anki-editor                                                      :package:
+   #+BEGIN_SRC emacs-lisp
+
+     ;; Export orgfiles as anki decks!
+     ;; Looks great for jap study and just study in general
+     ;; https://github.com/louietan/anki-editor
+     ;; Requires that the anki plugin `anki-connect' is installed
+     (use-package anki-editor)
+
+   #+END_SRC
+** Evil-org                                                         :package:
+   #+BEGIN_SRC emacs-lisp
+
+     ;; Prepackaged evil bindings for org-mode
+     ;; https://github.com/Somelauw/evil-org-mode
+     ;; Full keybindings:
+     ;; https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
+     (use-package evil-org
+       ;; :disabled t
+       :after (org)
+       :demand t
+       :diminish (evil-org-mode)
+       ;; :general
+       ;; (:states '(emacs insert)
+       ;;  :keymaps 'org-mode-map
+       ;;  "RET" 'evil-org-return)
+       :custom
+       (evil-org-retain-visual-state-on-shift
+        t
+        "Let us chain < and > calls")
+       (evil-org-use-additional-insert
+        t
+        "Add things like M-j to insert")
+       (evil-org-special-o/O
+        '(table-row)
+        "Do not let o/O affect list items, throws me off")
+       :config
+       (evil-org-set-key-theme '(textobjects
+                                 insert
+                                 navigation
+                                 additional
+                                 shift
+                                 return
+                                 operators
+                                 ;; todo
+                                 ;; heading
+                                 calendar
+                                 ))
+       (add-hook 'org-mode-hook 'evil-org-mode)
+       (require 'evil-org-agenda)
+       (evil-org-agenda-set-keys))
+
+   #+END_SRC
+** Helm-org-rifle                                                   :package:
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package helm-org-rifle
+       :after (org)
+       :general
+       (:states 'normal
+        :prefix my-default-evil-leader-key
+        "o o" 'helm-org-rifle)
+       :bind
+       (:map helm-org-rifle-map
+        ("C-w" . evil-delete-backward-word)
+        ("\\"  . helm-select-action)
+        ("C-j" . helm-next-line)
+        ("C-k" . helm-previous-line)
+        ("C-n" . helm-next-page)
+        ("C-p" . helm-previous-page)
+        ("C-l" . helm-next-source)
+        ("C-h" . helm-previous-source)
+        ("TAB" . helm-execute-persistent-action))
+       )
+
+   #+END_SRC
+
+** Org-babel
+
+*** Async                                                           :package:
+    #+BEGIN_SRC emacs-lisp
 
         (use-package ob-async
           :demand t
           :after (org))
 
-        (use-package ob-clojurescript
-          :demand t
-          :after (org))
+    #+END_SRC
+*** Clojurescript                                                   :package:
+    #+BEGIN_SRC emacs-lisp
 
-        (use-package ob-http
-          :demand t
-          :after (org))
+      (use-package ob-clojurescript
+        :demand t
+        :after (org))
 
-        (use-package ob-browser
-          :demand t
-          :after (org))
+    #+END_SRC
+*** Http                                                            :package:
+    #+BEGIN_SRC emacs-lisp
 
-        (use-package ob-restclient
-          :demand t
-          :after (org))
+      (use-package ob-http
+        :demand t
+        :after (org))
 
-        (use-package ob-rust
-          :demand t
-          :after (org))
+    #+END_SRC
+*** Browser                                                         :package:
+    #+BEGIN_SRC emacs-lisp
 
-        (use-package ob-translate
-          :demand t
-          :after (org))
-  #+END_SRC
+      (use-package ob-browser
+        :demand t
+        :after (org))
 
+    #+END_SRC
+
+*** Restclient                                                      :package:
+    #+BEGIN_SRC emacs-lisp
+
+      (use-package ob-restclient
+        :demand t
+        :after (org))
+
+    #+END_SRC
+
+*** Rust                                                            :package:
+    #+BEGIN_SRC emacs-lisp
+
+      (use-package ob-rust
+        :demand t
+        :after (org))
+
+    #+END_SRC
+
+*** Translate                                                       :package:
+    #+BEGIN_SRC emacs-lisp
+
+      (use-package ob-translate
+        :demand t
+        :after (org))
+
+    #+END_SRC
 ** TODO Bind <C-M-return> to smart insert subitem or subheader
-* Deft
+* Deft                                                              :package:
   - Homepage :: https://jblevins.org/projects/deft/
 
 
@@ -2122,7 +2266,7 @@
       )
 
   #+END_SRC
-* TODO Projectile
+* Projectile                                                        :package:
   #+BEGIN_SRC emacs-lisp
 
     (use-package projectile
@@ -2131,42 +2275,39 @@
       (projectile-mode)
       )
 
-    (use-package helm-projectile
-      :after (projectile)
-      :init
-      (general-define-key :states 'normal
-                          :prefix my-default-evil-leader-key
-                          "p p" 'helm-projectile)
-      )
-
-    (use-package org-projectile
-      :after (projectile)
-      :init
-      (general-define-key :states 'normal
-                          :prefix my-default-evil-leader-key
-                          "o p" 'org-projectile:project-todo-completing-read)
-      :config
-      (org-projectile:per-repo)
-      (setq org-projectile:per-repo-filename ".todo.org"
-            org-agenda-files (append org-agenda-files (org-projectile:todo-files)))
-      (add-to-list 'org-capture-templates (org-projectile:project-todo-entry "o"))
-      )
-
-
-    ;; For when we're more comfortable with org
-    ;; (use-package org-projectile
-    ;;   :ensure t
-    ;;   :after org
-    ;;   :config
-    ;;   (org-projectile:per-repo)
-    ;;   (setq org-projectile:per-repo-filename ".todo.org"
-    ;;         org-agenda-files (append org-agenda-files
-    ;;                                  (org-projectile:todo-files))))
-
-    ;; "]"        'org-projectile:template-or-project
-
   #+END_SRC
-* Flycheck
+
+** Helm-projectile                                                  :package:
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package helm-projectile
+       :after (projectile)
+       :init
+       (general-define-key :states 'normal
+                           :prefix my-default-evil-leader-key
+                           "p p" 'helm-projectile)
+       )
+
+   #+END_SRC
+
+** Org-projectile                                                   :package:
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package org-projectile
+       :after (projectile)
+       :init
+       (general-define-key :states 'normal
+                           :prefix my-default-evil-leader-key
+                           "o p" 'org-projectile:project-todo-completing-read)
+       :config
+       (org-projectile:per-repo)
+       (setq org-projectile:per-repo-filename ".todo.org"
+             org-agenda-files (append org-agenda-files (org-projectile:todo-files)))
+       (add-to-list 'org-capture-templates (org-projectile:project-todo-entry "o"))
+       )
+
+   #+END_SRC
+* Flycheck                                                 :package:disabled:
   #+BEGIN_SRC emacs-lisp
 
     (use-package flycheck
@@ -2177,22 +2318,32 @@
       )
 
   #+END_SRC
-* TODO Completion
+
+* Completion
   #+BEGIN_SRC emacs-lisp
 
-    (use-package yasnippet
+    (add-hook 'prog-mode-hook #'(lambda () (abbrev-mode -1)))
+
+  #+END_SRC
+
+** Yasnippet                                                        :package:
+   #+BEGIN_SRC emacs-lisp
+
+     (use-package yasnippet
       :demand t
       :commands yas-expand-snippet
-      :bind(:map yas-keymap
-                 ("C-j" . yas-next-field-or-maybe-expand)
-                 ("C-k" . yas-prev-field))
+      :bind(
+
+            :map yas-keymap
+            ("C-j" . yas-next-field-or-maybe-expand)
+            ("C-k" . yas-prev-field))
       :init
       (general-define-key
        :states 'normal
        :prefix my-default-evil-leader-key
-                          "s s" 'yas-new-snippet
-                          "s a" 'yas-insert-snippet
-                          "s f" 'yas-visit-snippet-file)
+       "s s" 'yas-new-snippet
+       "s a" 'yas-insert-snippet
+       "s f" 'yas-visit-snippet-file)
       :config
       (let ((my-snippet-dir (directory-file-name
                              (concat user-init-dir "/snippets"))))
@@ -2208,139 +2359,141 @@
         'kill-this-buffer)
       )
 
-    ;; auto-insert yasnippets
-    ;; www.howardism.org/Technical/Emacs/templates-tutorial.html
-    ;; (setq yas-snippet-dirs (append yas-snippet-dirs ))
-    ;;;###autoload
-    (defun /auto-insert-yasnippet ()
-      "Replace text in buffer with snippet.
-    Used for 'auto-insert'"
-      (require 'yasnippet)
-      (yas-minor-mode)
-      (yas-expand-snippet (buffer-string) (point-min) (point-max)))
+     ;; auto-insert yasnippets
+     ;; www.howardism.org/Technical/Emacs/templates-tutorial.html
+     ;; (setq yas-snippet-dirs (append yas-snippet-dirs ))
+                         ;;;###autoload
+     (defun /auto-insert-yasnippet ()
+       "Replace text in buffer with snippet.
+                         Used for 'auto-insert'"
+       (require 'yasnippet)
+       (yas-minor-mode)
+       (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
-    (setq-default auto-insert-directory
-                  (directory-file-name (concat user-init-dir "/auto-insert/")))
-    (auto-insert-mode 1)
-    (setq-default auto-insert-query nil
-                  auto-insert 'other)
-    (define-auto-insert "\\.el$"  ["elisp-template" /auto-insert-yasnippet])
-    (define-auto-insert "\\.py$"  ["python-template" /auto-insert-yasnippet])
-    (define-auto-insert "\\.h$"   ["cpp-h-template" /auto-insert-yasnippet])
-    (define-auto-insert "\\.cpp$" ["cpp-template" /auto-insert-yasnippet])
-    (define-auto-insert "\\.sh$"  ["sh-template" /auto-insert-yasnippet])
-    (define-auto-insert "\\.php$" ["php-template" /auto-insert-yasnippet])
+     (setq-default auto-insert-directory
+                   (directory-file-name (concat user-init-dir "/auto-insert/")))
+     (auto-insert-mode 1)
+     (setq-default auto-insert-query nil
+                   auto-insert 'other)
+     (define-auto-insert "\\.el$"  ["elisp-template" /auto-insert-yasnippet])
+     (define-auto-insert "\\.py$"  ["python-template" /auto-insert-yasnippet])
+     (define-auto-insert "\\.h$"   ["cpp-h-template" /auto-insert-yasnippet])
+     (define-auto-insert "\\.cpp$" ["cpp-template" /auto-insert-yasnippet])
+     (define-auto-insert "\\.sh$"  ["sh-template" /auto-insert-yasnippet])
+     (define-auto-insert "\\.php$" ["php-template" /auto-insert-yasnippet])
 
-    (defun yas-with-comment (str)
-      (format "%s%s%s" comment-start str comment-end))
+     (defun yas-with-comment (str)
+       (format "%s%s%s" comment-start str comment-end))
 
-    ;; this package doesn't seem to be doing anything
-    ;; (use-package org-sync-snippets
-    ;;   :ensure t
-    ;;   :config
-    ;;   (progn (require 'org)
-    ;;          (add-hook 'yas-after-reload-hook 'org-sync-snippets-snippets-to-org)
-    ;;          )
-    ;;   )
+   #+END_SRC
 
-    ;; https://github.com/smihica/emmet-mode
-    ;; ;TODO: Write down the cheatsheet or something
-    ;; https://docs.emmet.io/cheat-sheet/
-    (use-package emmet-mode
-      :diminish emmet-mode
-      :bind (:map emmet-mode-keymap
-                  ;; ("TAB" . emmet-expand-yas) ;; uses deprecated yas functions
-                  ("TAB" . emmet-expand-line)
-                  ;; ("C-j" . emmet-next-edit-point)
-                  ;; ("C-k" . emmet-prev-edit-point)
-                  )
-      :init
-      (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
-      (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.
-      (add-hook 'js2-mode-hook 'emmet-mode) ;; REACT and jsx
-      :config
-      (setq emmet-move-cursor-between-quotes t) ;; default nil
-      )
+*** Org-sync-snippets                                               :package:
+    #+BEGIN_SRC emacs-lisp
 
-    (use-package company
-      :disabled t
-      :bind(
-            ;; :map evil-insert-state-map
-            ;;      ("C-p" . company-complete)
-            ;;      ("C-n" . company-complete)
-            :map company-active-map
-            ("C-j" . company-select-next)
-            ("C-k" . company-select-previous)
-            ("C-w" . evil-delete-backward-word))
-      :hook (prog-mode . company-mode)
-      :config
-      (global-company-mode)
-      ;; yasnippet integration
-      ;; https://emacs.stackexchange.com/questions/10431/get-company-to-show-suggestions-for-yasnippet-names
-      (progn (require 'yasnippet)
-             (defvar company-mode/enable-yas t
-               "Enable yasnippet for all backends.")
-             (defun company-mode/backend-with-yas (backend)
-               (if (or (not company-mode/enable-yas)
-                       (and (listp backend)
-                            (member 'company-yasnippet backend)))
-                   backend
-                 (append (if (consp backend)
-                             backend
-                           (list backend))
-                         '(:with company-yasnippet))))
-             (setq company-backends
-                   (mapcar #'company-mode/backend-with-yas
-                           company-backends))
-             )
-      ;; fci-mode makes the completion popup spaz.
-      ;; this is an attempted workaround
-      ;; https://github.com/company-mode/company-mode/issues/180
-      (progn (defvar-local company-fci-mode-on-p nil)
-             (defun company-turn-off-fci (&rest ignore)
-               (when (boundp 'fci-mode)
-                 (setq company-fci-mode-on-p fci-mode)
-                 (when fci-mode (fci-mode -1))))
+      (use-package org-sync-snippets
+        :ensure t
+        :custom
+        (org-sync-snippets-org-snippets-file (concat user-init-dir "snippets.org"))
+        :config
+        (progn (require 'org)
+               (add-hook 'yas-after-reload-hook 'org-sync-snippets-snippets-to-org)
+               )
+        )
 
-             (defun company-maybe-turn-on-fci (&rest ignore)
-               (when company-fci-mode-on-p (fci-mode 1)))
+    #+END_SRC
 
-             (add-hook 'company-completion-started-hook 'company-turn-off-fci)
-             (add-hook 'company-completion-finished-hook 'company-maybe-turn-on-fci)
-             (add-hook 'company-completion-cancelled-hook 'company-maybe-turn-on-fci)
-             )
-      (setq company-dabbrev-downcase nil
-            company-dabbrev-ignore-case nil
-            company-idle-delay 0.5
-            company-require-match nil
-            company-selection-wrap-around t)
-      )
+** Emmet-mode                                                       :package:
+   #+BEGIN_SRC emacs-lisp
 
-    ;; (use-package helm-company
-    ;;   :config
-    ;;   (evil-declare-key 'insert company-mode-map (kbd "C-SPC") 'helm-company)
-    ;;   (evil-declare-key 'insert company-active-map (kbd "C-SPC") 'helm-company))
+     ;; https://github.com/smihica/emmet-mode
+     ;; ;TODO: Write down the cheatsheet or something
+     ;; https://docs.emmet.io/cheat-sheet/
+     (use-package emmet-mode
+       :diminish emmet-mode
+       :bind (:map emmet-mode-keymap
+              ;; ("TAB" . emmet-expand-yas) ;; uses deprecated yas functions
+              ("TAB" . emmet-expand-line)
+              ;; ("C-j" . emmet-next-edit-point)
+              ;; ("C-k" . emmet-prev-edit-point)
+              )
+       :init
+       (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
+       (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.
+       (add-hook 'js2-mode-hook 'emmet-mode) ;; REACT and jsx
+       :config
+       (setq emmet-move-cursor-between-quotes t) ;; default nil
+       )
 
-    (use-package company-quickhelp
-      :after company
-      :config
-      (company-quickhelp-mode 0)
-      (setq company-quickhelp-delay 1))
 
-    ;; (use-package company-jedi
-    ;;   :config
-    ;;   (require 'company)
-    ;;   (add-hook 'python-mode-hook 'company-jedi)
-    ;;   )
+   #+END_SRC
+** Company                                                 :package:disabled:
+   #+BEGIN_SRC emacs-lisp
 
-    ;; (use-package auto-insert
-    ;;   :ensure t
-    ;;   )
+     (use-package company
+       :disabled t
+       :bind(
+             ;; :map evil-insert-state-map
+             ;;      ("C-p" . company-complete)
+             ;;      ("C-n" . company-complete)
+             :map company-active-map
+             ("C-j" . company-select-next)
+             ("C-k" . company-select-previous)
+             ("C-w" . evil-delete-backward-word))
+       :hook (prog-mode . company-mode)
+       :config
+       (global-company-mode)
+       ;; yasnippet integration
+       ;; https://emacs.stackexchange.com/questions/10431/get-company-to-show-suggestions-for-yasnippet-names
+       (progn (require 'yasnippet)
+              (defvar company-mode/enable-yas t
+                "Enable yasnippet for all backends.")
+              (defun company-mode/backend-with-yas (backend)
+                (if (or (not company-mode/enable-yas)
+                        (and (listp backend)
+                             (member 'company-yasnippet backend)))
+                    backend
+                  (append (if (consp backend)
+                              backend
+                            (list backend))
+                          '(:with company-yasnippet))))
+              (setq company-backends
+                    (mapcar #'company-mode/backend-with-yas
+                            company-backends))
+              )
+       ;; fci-mode makes the completion popup spaz.
+       ;; this is an attempted workaround
+       ;; https://github.com/company-mode/company-mode/issues/180
+       (progn (defvar-local company-fci-mode-on-p nil)
+              (defun company-turn-off-fci (&rest ignore)
+                (when (boundp 'fci-mode)
+                  (setq company-fci-mode-on-p fci-mode)
+                  (when fci-mode (fci-mode -1))))
 
-    (add-hook 'prog-mode-hook #'(lambda () (abbrev-mode -1)))
+              (defun company-maybe-turn-on-fci (&rest ignore)
+                (when company-fci-mode-on-p (fci-mode 1)))
 
-  #+END_SRC
-* Tags
+              (add-hook 'company-completion-started-hook 'company-turn-off-fci)
+              (add-hook 'company-completion-finished-hook 'company-maybe-turn-on-fci)
+              (add-hook 'company-completion-cancelled-hook 'company-maybe-turn-on-fci)
+              )
+       (setq company-dabbrev-downcase nil
+             company-dabbrev-ignore-case nil
+             company-idle-delay 0.5
+             company-require-match nil
+             company-selection-wrap-around t)
+       )
+   #+END_SRC
+*** Company-quickhelp                                               :package:
+    #+BEGIN_SRC emacs-lisp
+
+      (use-package company-quickhelp
+        :after company
+        :config
+        (company-quickhelp-mode 0)
+        (setq company-quickhelp-delay 1))
+
+    #+END_SRC
+* Tags                                                              :package:
   #+BEGIN_SRC emacs-lisp
     (use-package counsel-etags)
   #+END_SRC
@@ -2354,18 +2507,9 @@
       "C-l" 'dired-up-directory)
 
   #+END_SRC
-* TODO Programming Languages
-
-** TODO General Programming
+* Programming Languages
+** General Programming
    #+BEGIN_SRC emacs-lisp
-     (use-package ctags-update
-       :init
-       (autoload 'turn-on-ctags-auto-update-mode "ctags-update"
-         "turn on 'ctags-auto-update-mode'." t))
-
-     (use-package dumb-jump
-       :demand t
-       :diminish dumb-jump-mode)
 
      ;; We don't use this global binding and run it per programming mode because
      ;; nearly everyone inherits from prog-mode for whatever goddammed reason and
@@ -2376,7 +2520,35 @@
 
      (add-hook 'prog-mode-hook #'/treat-underscore-as-word)
    #+END_SRC
-** TODO General Web Development
+
+*** Ctags-update
+    #+BEGIN_SRC emacs-lisp
+
+     (use-package ctags-update
+       :init
+       (autoload 'turn-on-ctags-auto-update-mode "ctags-update"
+         "turn on 'ctags-auto-update-mode'." t))
+
+    #+END_SRC
+*** Dumb-jump
+    #+BEGIN_SRC emacs-lisp
+
+     (use-package dumb-jump
+       :demand t
+       :diminish dumb-jump-mode)
+
+    #+END_SRC
+** General Web Development
+*** Js2-mode                                                        :package:
+    #+BEGIN_SRC emacs-lisp
+
+     (use-package js2-mode
+       :pin gnu
+       :mode ("\\.js\\'" . js2-mode)
+       )
+
+    #+END_SRC
+*** Web-mode                                                        :package:
    #+BEGIN_SRC emacs-lisp
      (use-package web-mode
        :mode (("\\.phtml\\'" . web-mode)
@@ -2388,10 +2560,64 @@
               ("\\.djhtml\\'" . web-mode))
        )
 
-     (use-package js2-mode
-       :pin gnu
-       :mode ("\\.js\\'" . js2-mode)
+   #+END_SRC
+
+*** Helm-emmet                                                      :package:
+    #+BEGIN_SRC emacs-lisp
+
+      (use-package helm-emmet)
+
+    #+END_SRC
+*** Yaml-mode                                                       :package:
+    #+BEGIN_SRC emacs-lisp
+
+      (use-package yaml-mode
+        :config
+        (add-hook 'yaml-mode-hook 'turn-on-fci-mode))
+
+    #+END_SRC
+*** Markdown-mode                                                   :package:
+    #+BEGIN_SRC emacs-lisp
+
+     (use-package markdown-mode
+       :config
+       (require 'org)
+       (add-hook 'markdown-mode-hook 'orgtbl-mode)
+       (add-hook 'markdown-mode-hook 'turn-on-fci-mode))
+
+    #+END_SRC
+*** Json-mode                                                       :package:
+    #+BEGIN_SRC emacs-lisp
+
+     (use-package json-mode
+       :mode ("\\.json\\'" . json-mode)
        )
+
+    #+END_SRC
+*** Dockerfile-mode                                                 :package:
+    #+BEGIN_SRC emacs-lisp
+
+     (use-package dockerfile-mode
+       :mode ("\\Dockerfile\\'" . dockerfile-mode)
+       :config
+       (add-hook 'dockerfile-mode-hook 'hl-todo-mode))
+
+    #+END_SRC
+
+*** Php-mode                                                        :package:
+    #+BEGIN_SRC emacs-lisp
+
+     (use-package php-mode
+       :mode ("\\.php\\'" . php-mode)
+       :general
+       (:states 'insert
+        :keymaps 'php-mode-map
+        "RET" 'comment-indent-new-line))
+
+    #+END_SRC
+
+*** Groovy-mode                                                     :package:
+    #+BEGIN_SRC emacs-lisp
 
      ;; not sure if this inherits from prog-mode
      (use-package groovy-mode
@@ -2408,35 +2634,9 @@
        (add-hook 'groovy-mode-hook #'/treat-underscore-as-word)
        )
 
-     (use-package php-mode
-       :mode ("\\.php\\'" . php-mode)
-       :general
-       (:states 'insert
-        :keymaps 'php-mode-map
-        "RET" 'comment-indent-new-line))
+    #+END_SRC
 
-     (use-package dockerfile-mode
-       :mode ("\\Dockerfile\\'" . dockerfile-mode)
-       :config
-       (add-hook 'dockerfile-mode-hook 'hl-todo-mode))
-
-     (use-package json-mode
-       :mode ("\\.json\\'" . json-mode)
-       )
-
-     (use-package markdown-mode
-       :config
-       (require 'org)
-       (add-hook 'markdown-mode-hook 'orgtbl-mode)
-       (add-hook 'markdown-mode-hook 'turn-on-fci-mode))
-
-     (use-package yaml-mode
-       :config
-       (add-hook 'yaml-mode-hook 'turn-on-fci-mode))
-
-     (use-package helm-emmet)
-   #+END_SRC
-** TODO Rust
+** Rust                                                             :package:
    #+BEGIN_SRC emacs-lisp
      (use-package rust-mode
        :mode ("\\.rs\\'" . rust-mode)
@@ -2445,28 +2645,9 @@
                            :keymaps 'rust-mode-map
                            "RET" 'comment-indent-new-line))
    #+END_SRC
-** TODO Python
+** Python
 
    #+BEGIN_SRC emacs-lisp
-     (use-package company-jedi
-       :after (company)
-       :demand t
-       :config
-       (add-hook 'python-mode-hook #'(lambda ()
-                                       (add-to-list 'company-backends 'company-jedi))))
-
-     (use-package flycheck-mypy
-       :after (flycheck)
-       :demand t
-       :config
-       (add-hook 'python-mode-hook #'(lambda ()
-                                       (require 'flycheck)
-                                       (add-to-list 'flycheck-disabled-checkers 'python-flake8)
-                                       (add-to-list 'flycheck-disabled-checkers 'python-pylint)
-                                       (add-to-list 'flycheck-disabled-checkers 'python-pycompile)
-                                       (add-to-list 'flycheck-python-mypy-args "--ignore-missing-imports")
-                                       (flycheck-mode))))
-
      ;; remove really dumb indentation rule when inside docstring
      ;; NOTE: it appears that :inside-docstring isn't documented
      ;; https://emacs.stackexchange.com/questions/26435/how-can-i-disable-indentation-rules-within-docstrings-in-python-mode
@@ -2482,35 +2663,36 @@
                            :keymaps 'python-mode-map
                            "RET" 'comment-indent-new-line))
    #+END_SRC
-** TODO C++
+
+*** Company-jedi                                                    :package:
     #+BEGIN_SRC emacs-lisp
-      ;; We are disabling this for the moment because the irony server is crashing all
-      ;; the time and the input lag is annoying
-      (use-package irony
-        :disabled t
-        :init
-        (add-hook 'c++-mode-hook 'irony-mode)
-        (add-hook 'c-mode-hook 'irony-mode)
-        (add-hook 'objc-mode-hook 'irony-mode)
-        (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-        :config
-        ;; Windows performance tweaks
-        ;;
-        (when (boundp 'w32-pipe-read-delay)
-          (setq w32-pipe-read-delay 0))
-        ;; Set the buffer size to 64K on Windows (from the original 4K)
-        (when (boundp 'w32-pipe-buffer-size)
-          (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
-        )
 
-      (use-package company-irony
-        :disabled t
-        :after (:all company irony)
-        :defer nil
-        :config
-        (add-to-list 'company-backends 'company-irony)
-        )
+     (use-package company-jedi
+       :after (company)
+       :demand t
+       :config
+       (add-hook 'python-mode-hook #'(lambda ()
+                                       (add-to-list 'company-backends 'company-jedi))))
 
+    #+END_SRC
+*** Flycheck-mypy                                                   :package:
+    #+BEGIN_SRC emacs-lisp
+
+     (use-package flycheck-mypy
+       :after (flycheck)
+       :demand t
+       :config
+       (add-hook 'python-mode-hook #'(lambda ()
+                                       (require 'flycheck)
+                                       (add-to-list 'flycheck-disabled-checkers 'python-flake8)
+                                       (add-to-list 'flycheck-disabled-checkers 'python-pylint)
+                                       (add-to-list 'flycheck-disabled-checkers 'python-pycompile)
+                                       (add-to-list 'flycheck-python-mypy-args "--ignore-missing-imports")
+                                       (flycheck-mode))))
+
+    #+END_SRC
+** C++
+    #+BEGIN_SRC emacs-lisp
       ;; treat .h files as cpp files
       (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
@@ -2560,6 +2742,65 @@
 
       ;; (add-hook 'c++-mode-hook #'$c++-mode-add-pairs)
 
+    #+END_SRC
+*** CMake                                                           :package:
+    #+BEGIN_SRC emacs-lisp
+
+      (use-package cmake-mode
+        :mode ("\\cmakelists.txt\\'" . cmake-mode)
+        :config
+        (add-hook 'cmake-mode-hook 'hl-todo-mode)
+        )
+
+    #+END_SRC
+
+**** Cmake-font-lock
+     #+BEGIN_SRC emacs-lisp
+
+      (use-package cmake-font-lock
+        :after cmake-mode
+        :demand t)
+
+     #+END_SRC
+*** Irony
+    #+BEGIN_SRC emacs-lisp
+
+      ;; We are disabling this for the moment because the irony server is crashing all
+      ;; the time and the input lag is annoying
+      (use-package irony
+        :disabled t
+        :init
+        (add-hook 'c++-mode-hook 'irony-mode)
+        (add-hook 'c-mode-hook 'irony-mode)
+        (add-hook 'objc-mode-hook 'irony-mode)
+        (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+        :config
+        ;; Windows performance tweaks
+        ;;
+        (when (boundp 'w32-pipe-read-delay)
+          (setq w32-pipe-read-delay 0))
+        ;; Set the buffer size to 64K on Windows (from the original 4K)
+        (when (boundp 'w32-pipe-buffer-size)
+          (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
+        )
+
+    #+END_SRC
+
+**** Company-irony                                         :package:disabled:
+     #+BEGIN_SRC emacs-lisp
+
+      (use-package company-irony
+        :disabled t
+        :after (:all company irony)
+        :defer nil
+        :config
+        (add-to-list 'company-backends 'company-irony)
+        )
+
+     #+END_SRC
+*** Clang-format                                                    :package:
+    #+BEGIN_SRC emacs-lisp
+
       ;; make sure that this is running clang-format 7 or something. A newer version
       (use-package clang-format
         :commands (clang-format-region
@@ -2577,137 +2818,29 @@
         (clang-format-style-option "file"
                                    "read from .clang-format"))
 
-      (use-package cmake-mode
-        :mode ("\\cmakelists.txt\\'" . cmake-mode)
-        :config
-        (add-hook 'cmake-mode-hook 'hl-todo-mode)
-        )
-
-      (use-package cmake-font-lock
-        :after cmake-mode
-        :demand t)
     #+END_SRC
-*** CMake
-
-** TODO Typescript
+** Typescript                                                       :package:
    #+BEGIN_SRC emacs-lisp
      (use-package typescript-mode
        :mode ("\\.tsx\\'" . typescript-mode)
        )
 
-     (use-package tide
-       :after typescript-mode
-       :init
-       (add-hook 'typescript-mode-hook 'tide-setup)
-       :config
-       (add-hook 'before-save-hook 'tide-format-before-save)
-       )
    #+END_SRC
 
-** TODO Lisp
-   NOTE: We want to carefully override this
-   https://emacs.stackexchange.com/questions/10230/how-to-indent-keywords-aligned
-   https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/site-lisp/redef.el#L20-L94
+*** Tide                                                            :package:
+    #+BEGIN_SRC emacs-lisp
 
+      (use-package tide
+        :after typescript-mode
+        :init
+        (add-hook 'typescript-mode-hook 'tide-setup)
+        :config
+        (add-hook 'before-save-hook 'tide-format-before-save)
+        )
+
+    #+END_SRC
+** Lisp
    #+BEGIN_SRC emacs-lisp
-     (defun my-updated-lisp-indent-function (indent-point state)
-       "This function is the normal value of the variable `lisp-indent-function'.
-     The function `calculate-lisp-indent' calls this to determine
-     if the arguments of a Lisp function call should be indented specially.
-
-      INDENT-POINT is the position at which the line being indented begins.
-      Point is located at the point to indent under (for default indentation);
-      STATE is the `parse-partial-sexp' state for that position.
-
-      If the current line is in a call to a Lisp function that has a non-nil
-      property `lisp-indent-function' (or the deprecated `lisp-indent-hook'),
-      it specifies how to indent.  The property value can be:
-
-      ,* `defun', meaning indent `defun'-style
-      (this is also the case if there is no property and the function
-      has a name that begins with \"def\", and three or more arguments);
-
-      ,* an integer N, meaning indent the first N arguments specially
-     (like ordinary function arguments), and then indent any further
-     arguments like a body;
-
-      ,* a function to call that returns the indentation (or nil).
-     `lisp-indent-function' calls this function with the same two arguments
-     that it itself received.
-
-     This function returns either the indentation to use, or nil if the
-     Lisp function does not specify a special indentation."
-       (let ((normal-indent (current-column))
-             (orig-point (point)))
-         (goto-char (1+ (elt state 1)))
-         (parse-partial-sexp (point) calculate-lisp-indent-last-sexp 0 t)
-         (cond
-          ;; car of form doesn't seem to be a symbol, or is a keyword
-          ((and (elt state 2)
-                (or (not (looking-at "\\sw\\|\\s_"))
-                    (looking-at ":")))
-           (if (not (> (save-excursion (forward-line 1) (point))
-                       calculate-lisp-indent-last-sexp))
-               (progn (goto-char calculate-lisp-indent-last-sexp)
-                      (beginning-of-line)
-                      (parse-partial-sexp (point)
-                                          calculate-lisp-indent-last-sexp 0 t)))
-           ;; Indent under the list or under the first sexp on the same
-           ;; line as calculate-lisp-indent-last-sexp.  Note that first
-           ;; thing on that line has to be complete sexp since we are
-           ;; inside the innermost containing sexp.
-           (backward-prefix-chars)
-           (current-column))
-          ((and (save-excursion
-                  (goto-char indent-point)
-                  (skip-syntax-forward " ")
-                  (not (looking-at ":")))
-                (save-excursion
-                  (goto-char orig-point)
-                  (looking-at ":")))
-           (save-excursion
-             (goto-char (+ 2 (elt state 1)))
-             (current-column)))
-          (t
-           (let ((function (buffer-substring (point)
-                                             (progn (forward-sexp 1) (point))))
-                 method)
-             (setq method (or (function-get (intern-soft function)
-                                            'lisp-indent-function)
-                              (get (intern-soft function) 'lisp-indent-hook)))
-             (cond ((or (eq method 'defun)
-                        (and (null method)
-                             (> (length function) 3)
-                             (string-match "\\`def" function)))
-                    (lisp-indent-defform state indent-point))
-                   ((integerp method)
-                    (lisp-indent-specform method state
-                                          indent-point normal-indent))
-                   (method
-                    (funcall method indent-point state))))))))
-
-     (advice-add 'lisp-indent-function :override 'my-updated-lisp-indent-function)
-
-     (use-package rainbow-delimiters
-       :init
-       (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-       )
-
-     (use-package suggest)
-
-     (use-package elmacro)
-
-     (use-package elisp-slime-nav
-       :diminish elisp-slime-nav-mode
-       :bind
-       (:map elisp-slime-nav-mode-map
-        ("C-:" . eval-last-sexp))
-       :init
-       (defun my-elisp-mode ()
-         (elisp-slime-nav-mode)
-         (turn-on-eldoc-mode))
-       (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode)
-       )
 
      (with-eval-after-load 'elisp-mode
        (general-define-key :states 'insert
@@ -2717,14 +2850,136 @@
      (evil-set-initial-state 'debugger-mode 'emacs)
    #+END_SRC
 
-* Shell
+*** Update Indentation Function
+    NOTE: We want to carefully override this
+    https://emacs.stackexchange.com/questions/10230/how-to-indent-keywords-aligned
+    https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/site-lisp/redef.el#L20-L94
 
+    #+BEGIN_SRC emacs-lisp
+
+      (defun my-updated-lisp-indent-function (indent-point state)
+        "This function is the normal value of the variable `lisp-indent-function'.
+      The function `calculate-lisp-indent' calls this to determine
+      if the arguments of a Lisp function call should be indented specially.
+
+       INDENT-POINT is the position at which the line being indented begins.
+       Point is located at the point to indent under (for default indentation);
+       STATE is the `parse-partial-sexp' state for that position.
+
+       If the current line is in a call to a Lisp function that has a non-nil
+       property `lisp-indent-function' (or the deprecated `lisp-indent-hook'),
+       it specifies how to indent.  The property value can be:
+
+       ,* `defun', meaning indent `defun'-style
+       (this is also the case if there is no property and the function
+       has a name that begins with \"def\", and three or more arguments);
+
+       ,* an integer N, meaning indent the first N arguments specially
+      (like ordinary function arguments), and then indent any further
+      arguments like a body;
+
+       ,* a function to call that returns the indentation (or nil).
+      `lisp-indent-function' calls this function with the same two arguments
+      that it itself received.
+
+      This function returns either the indentation to use, or nil if the
+      Lisp function does not specify a special indentation."
+        (let ((normal-indent (current-column))
+              (orig-point (point)))
+          (goto-char (1+ (elt state 1)))
+          (parse-partial-sexp (point) calculate-lisp-indent-last-sexp 0 t)
+          (cond
+           ;; car of form doesn't seem to be a symbol, or is a keyword
+           ((and (elt state 2)
+                 (or (not (looking-at "\\sw\\|\\s_"))
+                     (looking-at ":")))
+            (if (not (> (save-excursion (forward-line 1) (point))
+                        calculate-lisp-indent-last-sexp))
+                (progn (goto-char calculate-lisp-indent-last-sexp)
+                       (beginning-of-line)
+                       (parse-partial-sexp (point)
+                                           calculate-lisp-indent-last-sexp 0 t)))
+            ;; Indent under the list or under the first sexp on the same
+            ;; line as calculate-lisp-indent-last-sexp.  Note that first
+            ;; thing on that line has to be complete sexp since we are
+            ;; inside the innermost containing sexp.
+            (backward-prefix-chars)
+            (current-column))
+           ((and (save-excursion
+                   (goto-char indent-point)
+                   (skip-syntax-forward " ")
+                   (not (looking-at ":")))
+                 (save-excursion
+                   (goto-char orig-point)
+                   (looking-at ":")))
+            (save-excursion
+              (goto-char (+ 2 (elt state 1)))
+              (current-column)))
+           (t
+            (let ((function (buffer-substring (point)
+                                              (progn (forward-sexp 1) (point))))
+                  method)
+              (setq method (or (function-get (intern-soft function)
+                                             'lisp-indent-function)
+                               (get (intern-soft function) 'lisp-indent-hook)))
+              (cond ((or (eq method 'defun)
+                         (and (null method)
+                              (> (length function) 3)
+                              (string-match "\\`def" function)))
+                     (lisp-indent-defform state indent-point))
+                    ((integerp method)
+                     (lisp-indent-specform method state
+                                           indent-point normal-indent))
+                    (method
+                     (funcall method indent-point state))))))))
+
+      (advice-add 'lisp-indent-function :override 'my-updated-lisp-indent-function)
+
+    #+END_SRC
+*** Rainbow-delimiters                                              :package:
+    #+BEGIN_SRC emacs-lisp
+
+      (use-package rainbow-delimiters
+        :init
+        (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+        )
+
+    #+END_SRC
+*** Suggest                                                         :package:
+    #+BEGIN_SRC emacs-lisp
+
+      (use-package suggest)
+
+    #+END_SRC
+*** Elmacro                                                         :package:
+    #+BEGIN_SRC emacs-lisp
+
+      (use-package elmacro)
+
+    #+END_SRC
+*** Elisp-slime-nav                                                 :package:
+    #+BEGIN_SRC emacs-lisp
+
+      (use-package elisp-slime-nav
+        :diminish elisp-slime-nav-mode
+        :bind
+        (:map elisp-slime-nav-mode-map
+         ("C-:" . eval-last-sexp))
+        :init
+        (defun my-elisp-mode ()
+          (elisp-slime-nav-mode)
+          (turn-on-eldoc-mode))
+        (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode)
+        )
+
+    #+END_SRC
+* Shell
   No line numbers in shell emulations, it makes no sense.
   #+BEGIN_SRC emacs-lisp
     (add-hook 'comint-mode-hook #'my-disable-line-numbers)
   #+END_SRC
 
-** Multi-term
+** Multi-term                                                       :package:
    term-mode normally doesn't allow multiple shells, this one does.
 
    #+BEGIN_SRC emacs-lisp
@@ -2778,12 +3033,12 @@
        )
    #+END_SRC
 
-** Powershell
+** Powershell                                                       :package:
    #+BEGIN_SRC emacs-lisp
      (use-package powershell)
    #+END_SRC
 
-* Diff
+* Diff                                                              :package:
   #+BEGIN_SRC emacs-lisp
     (use-package evil-ediff
       :after (evil)
@@ -2792,7 +3047,7 @@
 
 * LaTeX
 
-** TODO Auctex
+** Auctex                                                           :package:
 
    #+BEGIN_SRC emacs-lisp
 
@@ -2800,7 +3055,7 @@
 
    #+END_SRC
 
-** Latex Textobjects
+** Latex Textobjects                                                :package:
    I appear to have stolen this from somewhere, probably because the original
    package isn't being maintained or something
 
@@ -2850,7 +3105,7 @@
 
 * Finance
 
-** Ledger-mode
+** Ledger-mode                                                      :package:
    A finance minor-mode that we use
 
    #+BEGIN_SRC emacs-lisp
@@ -2866,7 +3121,7 @@
 
    #+END_SRC
 
-*** Evil Configuration
+*** Evil-ledger                                                     :package:
     Evilify ledger-mode
 
     - Github :: https://github.com/atheriel/evil-ledger
@@ -2886,7 +3141,7 @@
 
 * Web Browsing
 
-** Emacs Web Wowser
+** Emacs Web Wowser                                                 :package:
    This is a web browser that lives as an emacs buffer.
 
    I still need to configure it to be more vimium-like
@@ -2978,7 +3233,7 @@
      (epa-file-enable)
    #+END_SRC
 
-** Restarting Emacs
+** Restarting Emacs                                                 :package:
    This tool allows us to restart emacs from within emacs
 
    #+BEGIN_SRC emacs-lisp
@@ -2986,7 +3241,7 @@
        :commands restart-emacs)
    #+END_SRC
 
-** Epub viewing
+** Epub viewing                                                     :package:
 
    This doesn't actually work for now. I'll need to figure out how to make it
    work.
@@ -2999,7 +3254,7 @@
        )
    #+END_SRC
 
-** Pomodoro
+** Pomodoro                                                         :package:
    - Github :: https://github.com/TatriX/pomidor
 
 
@@ -3016,7 +3271,7 @@
 
    #+END_SRC
 
-** PlantUML
+** PlantUML                                                         :package:
    - Github :: https://github.com/skuro/plantuml-mode
 
 
@@ -3034,7 +3289,7 @@
 
 * Help
 
-** Help+
+** Help+                                                            :package:
    - Emacswiki :: https://www.emacswiki.org/emacs/HelpPlus
 
 
@@ -3061,7 +3316,7 @@
        :demand t)
    #+END_SRC
 
-** Macrostep
+** Macrostep                                                        :package:
    - Github :: https://github.com/joddie/macrostep
 
 
