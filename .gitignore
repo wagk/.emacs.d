@@ -35,3 +35,5 @@ spu_log/*
 *.org-id-locations
 tempfiles/*
 /config.el
+/var/projectile/known-projects.el
+var/

@@ -871,7 +871,7 @@
 
    #+END_SRC
 
-** Vimish-fold :[ackage:
+** Vimish-fold                                                      :package:
    #+BEGIN_SRC emacs-lisp
 
      (use-package vimish-fold)
@@ -890,15 +890,14 @@
 
 
    #+BEGIN_SRC emacs-lisp
-
      (use-package evil-cleverparens
        :hook (lisp-mode)
+       :demand t
        :general
        (:states 'normal
         :keymaps 'evil-cleverparens-mode-map
         "{" nil
         "}" nil)) ;; I want my paragraphs dammit
-
    #+END_SRC
 
 ** Evil-argwrap
@@ -1592,47 +1591,48 @@
 ** Window-centering functions
    #+BEGIN_SRC emacs-lisp
 
-         ;;;###autoload
-         (defun /line-lengths()
-           "Return a list of line lengths for all the lines in the buffer."
-           (let (length)
-             (save-excursion
-               (goto-char (point-min))
-               (while (not (eobp))
-                 (push (- (line-end-position)
-                          (line-beginning-position))
-                       length)
-                 (forward-line)))
-             ;; we return a list since this is the last form evaluated
-             (copy-sequence length)))
+     ;;;###autoload
+     (defun /line-lengths()
+       "Return a list of line lengths for all the lines in the buffer."
+       (let (length)
+         (save-excursion
+           (goto-char (point-min))
+           (while (not (eobp))
+             (push (- (line-end-position)
+                      (line-beginning-position))
+                   length)
+             (forward-line)))
+         ;; we return a list since this is the last form evaluated
+         (copy-sequence length)))
 
-         ;;;###autoload
-         (defun /longest-line-length()
-           "Return the longest line from the list of lines given."
-           (let ((lines (/line-lengths)))
-             ;; return the first element, which should be the largest
-             (nth 0 (sort lines '>))))
+     ;;;###autoload
+     (defun /longest-line-length()
+       "Return the longest line from the list of lines given."
+       (let ((lines (/line-lengths)))
+         ;; return the first element, which should be the largest
+         (nth 0 (sort lines '>))))
 
-         ;;;###autoload
-         (defun /centre-window-function()
-           "Offset the window margins based on the longest line in the buffer.
-         This effectively centers it."
-           (interactive)
-           (let ((margin-size (/ (abs (- (window-width) (/longest-line-length))) 2)))
-             (if (not (get '/centre-window-function 'active))
-                 (progn
-                   (set-window-margins nil margin-size nil)
-                   (fringe-mode '(1 . 1))
-                   (put '/centre-window-function 'active t))
-               (progn
-                 (set-window-margins nil nil nil)
-                 (fringe-mode nil)
-                 (put '/centre-window-function 'active nil)))))
+     ;;;###autoload
+     (defun /centre-window-function()
+       "Offset the window margins based on the longest line in the buffer.
+     This effectively centers it."
+       (interactive)
+       (let ((margin-size (/ (abs (- (window-width) (/longest-line-length))) 2)))
+         (if (not (get '/centre-window-function 'active))
+             (progn
+               (set-window-margins nil margin-size nil)
+               (fringe-mode '(1 . 1))
+               (put '/centre-window-function 'active t))
+           (progn
+             (set-window-margins nil nil nil)
+             (fringe-mode nil)
+             (put '/centre-window-function 'active nil)))))
 
-         (general-define-key
-          :states 'normal
-          :prefix my-default-evil-leader-key
-                             "W" '/centre-window-function)
+     ;; buggy
+     ;; (general-define-key
+     ;;  :states 'normal
+     ;;  :prefix my-default-evil-leader-key
+     ;;                     "W" '/centre-window-function)
 
    #+END_SRC
 
@@ -1730,15 +1730,17 @@
 
    #+END_SRC
 
-*** Evil-smartparens                                                :package:
+*** TODO Evil-smartparens                                           :package:
+
+    - [ ] Check if evil-smartparens-mode starts when smartparens-mode starts
+
     #+BEGIN_SRC emacs-lisp
 
       (use-package evil-smartparens
         :after (smartparens)
-        :demand t
         :diminish (evil-smartparens-mode)
-        :config
-        (evil-smartparens-mode))
+        :hook (smartparens-mode . evil-smartparens-mode)
+        )
 
     #+END_SRC
 
@@ -2016,7 +2018,7 @@
        :general
        (:prefix my-default-evil-leader-key
         :states 'normal
-        "O O" 'org-agenda)
+        "a a" 'org-agenda)
        :config
        ;; initialize org agenda things
        (add-to-list 'org-agenda-files my-org-directory)
@@ -2111,7 +2113,8 @@
        :general
        (:states 'normal
         :prefix my-default-evil-leader-key
-        "o o" 'helm-org-rifle)
+        "o o" 'helm-org-rifle-current-buffer
+        "O O" 'helm-org-rifle)
        :bind
        (:map helm-org-rifle-map
         ("C-w" . evil-delete-backward-word)
@@ -2388,10 +2391,13 @@
    #+END_SRC
 
 *** Org-sync-snippets                                               :package:
+    - Github :: https://github.com/abrochard/org-sync-snippets
+
+
     #+BEGIN_SRC emacs-lisp
 
       (use-package org-sync-snippets
-        :ensure t
+        :demand t
         :custom
         (org-sync-snippets-org-snippets-file (concat user-init-dir "snippets.org"))
         :config
