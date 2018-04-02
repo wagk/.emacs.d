@@ -37,3 +37,4 @@ tempfiles/*
 /config.el
 /var/projectile/known-projects.el
 var/
+var/

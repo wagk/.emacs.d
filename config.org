@@ -454,6 +454,7 @@
          (my-evil-line-range count beg end type))
 
        (add-hook 'evil-normal-state-entry-hook 'evil-ex-nohighlight)
+       ;; (evil-update-insert-state-bindings) ;; something's overriding it
        (evil-mode)
        )
    #+END_SRC
@@ -780,17 +781,23 @@
 
    #+END_SRC
 
-** Evil-rsi                                                         :package:
+** Evil-rsi                                                :package:disabled:
+
+   This is causing a conflict with evil-mode where activating =evil-rsi-mode=
+   removes certain insert state keybinds (like =C-t= and =C-d= that I like.)
+
+   So we're disabling it
+
    #+BEGIN_SRC emacs-lisp
 
-    ;; TODO: Document GNU Readline bindings
-    (use-package evil-rsi
-      :demand t
-      :after (evil)
-      :diminish (evil-rsi-mode)
-      :config
-      (evil-rsi-mode))
-
+     ;; TODO: Document GNU Readline bindings
+     (use-package evil-rsi
+       :disabled t
+       :demand t
+       :after (evil)
+       :diminish (evil-rsi-mode)
+       :config
+       (evil-rsi-mode))
    #+END_SRC
 
 ** Evil-goggles                                                     :package:

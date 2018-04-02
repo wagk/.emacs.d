@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# key: struct
+# name: cpp-struct
+# --
+struct $1
+{
+  $0
+};
