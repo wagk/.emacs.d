@@ -254,6 +254,8 @@
         "C-L"    'evil-complete-previous-line
         "C-p"    'evil-complete-next
         "C-n"    'evil-complete-previous
+        "C-t"    'evil-shift-right-line
+        "C-d"    'evil-shift-left-line
         "C-k"    nil)
        (:keymaps 'motion
         "C-u"    'evil-scroll-up)
@@ -454,7 +456,6 @@
        (add-hook 'evil-normal-state-entry-hook 'evil-ex-nohighlight)
        (evil-mode)
        )
-
    #+END_SRC
 
 *** Evil-Unimpaired

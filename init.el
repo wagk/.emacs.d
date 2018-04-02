@@ -102,55 +102,7 @@ Assumes that it:
   ;; load each config file in order
   ;; config loading should prioritise most necessary bits, so in eventuality of
   ;; bad loads we can fix it from inside emacs
-  (load-user-config-file "config-bootstrap.el"
-                         ;; "config-utility.el"
-                         ;; "config-package.el"
-                         ;; "config-common.el"
-                         ;; "config-vars.el"
-
-                         ;; "config-colors.el"
-
-                         ;; "config-evil.el"
-                         ;; "config-helm.el"
-                         ;; "config-buffer.el"
-                         ;; "config-startup.el"
-                         ;; "config-indent.el"
-                         ;; "config-git.el"
-                         ;; "config-org.el"
-                         ;; "config-deft.el"
-                         ;; "config-project.el"
-                         ;; "config-lint.el"
-                         ;; "config-completion.el"
-                         ;; "config-tags.el"
-                         ;; "config-fs.el"
-
-                         ;; program-related configs. This configures general program mode things
-                         ;; "config-prog.el"
-                         ;; "config-webdev.el"
-                         ;; "config-lisp.el"
-                         ;; "config-cpp.el"
-                         ;; "config-python.el"
-                         ;; "config-rust.el"
-
-                         ;; "config-tex.el"
-
-                         ;; "config-diff.el"
-                         ;; "config-shell.el"
-                         ;; "config-tramp.el"
-                         ;; "config-crypto.el"
-
-                         ;; "config-draw.el"
-                         ;; "config-visualise.el"
-
-                         ;; "config-japanese.el"
-                         ;; "config-chinese.el"
-                         ;; "config-finance.el"
-                         ;; "config-journal.el"
-                         ;; "config-web-browsing.el"
-
-                         ;; "config-help.el"
-                         ;; "config-emacs.el"
-                         )
+  (load-user-config-file "config-bootstrap.el")
 
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
