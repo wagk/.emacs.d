@@ -88,13 +88,6 @@ Assumes that it:
 ;; Add to load path our configuration folder
 (add-to-list 'load-path user-config-dir)
 
-;; TODO: this prints nothing apparently.
-;; (message "Our working directory has the path of %s" (expand-file-name "."))
-
-;; ;; tweak garbage collector before
-;; (defvar default-gc-cons-threshold 20000000)
-;; (setq gc-cons-threshold most-positive-fixnum)
-
 (let ((gc-cons-threshold most-positive-fixnum))
   ;; local configuration variables
   (load (concat user-init-dir "local.el"))
@@ -106,15 +99,11 @@ Assumes that it:
 
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
-  (org-babel-load-file
-   (expand-file-name (concat user-init-dir "config.org")))
+  (measure-time
+   (org-babel-load-file
+    (expand-file-name (concat user-init-dir "config.org"))))
 
   ;; Disable ANNOYING customize options
   (setq custom-file (concat user-init-dir "custom.el"))
   (load custom-file 'noerror)
-  ;; (garbage-collect)
   )
-
-;; (setq garbage-collection-messages t)
-;; (add-hook 'focus-out-hook 'garbage-collect)
-;; (setq gc-cons-threshold 20000)

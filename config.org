@@ -2555,12 +2555,14 @@
 ** General Web Development
 *** Js2-mode                                                        :package:
     #+BEGIN_SRC emacs-lisp
-
-     (use-package js2-mode
-       :pin gnu
-       :mode ("\\.js\\'" . js2-mode)
-       )
-
+      (use-package js2-mode
+        :pin gnu
+        :mode ("\\.js\\'" . js2-mode)
+        :general
+        (:keymaps 'js2-mode-map
+         :states 'insert
+         "RET" 'comment-indent-new-line)
+        )
     #+END_SRC
 *** Web-mode                                                        :package:
    #+BEGIN_SRC emacs-lisp
