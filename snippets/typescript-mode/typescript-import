@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: import
-# key: imp
+# name: typescript-import
+# key: import
 # --
 import { $1 } from './$2';

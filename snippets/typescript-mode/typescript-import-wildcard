@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: import*
-# key: imp*
+# name: typescriot-import*
+# key: import*
 # --
 import * as ${2:$1} from '${1:module}';

@@ -2402,6 +2402,8 @@
     - Github :: https://github.com/abrochard/org-sync-snippets
 
 
+    I can't seem to get the org --> snippet call to work
+
     #+BEGIN_SRC emacs-lisp
 
       (use-package org-sync-snippets
