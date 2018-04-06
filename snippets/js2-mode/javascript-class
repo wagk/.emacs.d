@@ -2,6 +2,5 @@
 # name: javascript-class
 # --
 class ${1:Bar}${2: extends ${3:Boo}} {
-  constructor(){
-  }
+    $0
 }
