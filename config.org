@@ -247,6 +247,7 @@
      ;; directory
      (use-package evil
        :demand t
+       :commands (evil-set-initial-state)
        :general
        (:keymaps 'insert
         "C-u"    'kill-whole-line
@@ -606,17 +607,16 @@
 
 
    #+BEGIN_SRC emacs-lisp
-
      ;; Evil-embrace is like a souped up addon of surround, this time they have
      ;; things like function surround and probably more features.
      (use-package evil-embrace
        :after (evil-surround)
+       :commands (embrace-add-pair)
        :demand t
        :config
        (evil-embrace-enable-evil-surround-integration)
        (setq evil-embrace-show-help-p nil)
        )
-
    #+END_SRC
 
 ** Evil-args                                                        :package:
@@ -1259,12 +1259,10 @@
                   helm-hunks-staged
                   helm-hunks-staged-current-buffer)
        :config
-       (progn (require 'git-gutter+)
-              (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
-              )
+       (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
        (setq helm-hunks-preview-diffs t)
        (evil-leader/set-key
-         "." 'helm-hunks-current-buffer))
+        "." 'helm-hunks-current-buffer))
    #+END_SRC
 
 ** Others
@@ -1450,10 +1448,10 @@
 
 ** Hl-todo                                                           :ackage:
    #+BEGIN_SRC emacs-lisp
-
      (use-package hl-todo
-       :defer 1
+       :defer t
        :diminish t
+       :commands (hl-todo-mode)
        :general
        (:states 'normal
         :prefix my-default-evil-leader-key
@@ -1477,7 +1475,6 @@
                                  ("FIXME" . ,$solarized-dark-orange)))
        (global-hl-todo-mode)
        (add-hook 'yaml-mode-hook 'hl-todo-mode))
-
    #+END_SRC
 
 ** Fill-column-indicator                                            :package:
@@ -1727,6 +1724,7 @@
      (use-package smartparens
        :demand t
        :diminish smartparens-mode
+       :commands (sp-local-pair)
        :custom
        (sp-cancel-autoskip-on-backward-movement
         nil "We want to maintain the chomp-like behavior of electric-pair")
@@ -1752,7 +1750,6 @@
        (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
        (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
        )
-
    #+END_SRC
 
 *** TODO Evil-smartparens                                           :package:
@@ -1820,8 +1817,6 @@
    #+END_SRC
 * Magit                                                             :package:
 
-  - We need to remove/fix the calls to =with-eval-after-load=
-
   #+BEGIN_SRC emacs-lisp
     (use-package magit
       :commands (magit-status)
@@ -1862,7 +1857,7 @@
               ("g h u" . git-gutter+-revert-hunks)
               ("g h h" . git-gutter+-show-hunk-inline-at-point)
               )
-       :defer 5
+       :defer t
        ;; :hook (prog-mode . git-gutter+-mode)
        :config
        ;; refer to the hacks made in config-colors.el.
@@ -1963,7 +1958,6 @@
       ;;                     "RET"     'newline-and-indent)
 
       ;; make smartparen autoskip "" because org-mode treats it as a string
-      (require 'smartparens)
       (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
 
       (defun my-time-stamp ()
@@ -1971,7 +1965,6 @@
         (interactive)
         (org-time-stamp-inactive '(16)))
 
-      (require 'evil-embrace)
       (defun my-add-org-evil-embrace-pairs ()
         "Add additional pairings that evil-surround doesn't cover"
         (let ((org-pairs '((?= "=" . "=") ;; verbatim
@@ -2035,23 +2028,20 @@
    #+END_SRC
 ** Org-brain                                                        :package:
    #+BEGIN_SRC emacs-lisp
-
-     ;;; This is like a concept map, but in org-files
+          ;;; This is like a concept map, but in org-files
      (use-package org-brain
        :custom
        (org-brain-path my-wiki-directory "Share the same path as deft.")
        (org-brain-file-entries-use-title nil
                                          "Speed optimisation since our filenames and
-                                         title should match anyway")
+                                              title should match anyway")
        :general
        (:states 'normal
         :prefix my-default-evil-leader-key
         "N" 'org-brain-visualize)
        :init
-       (with-eval-after-load 'evil
-         (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+       (evil-set-initial-state 'org-brain-visualize-mode 'emacs)
        )
-
    #+END_SRC
 ** Org-radiobutton                                                  :package:
    #+BEGIN_SRC emacs-lisp
@@ -2061,12 +2051,14 @@
    #+END_SRC
 
 ** Anki-editor                                                      :package:
+   - Github :: https://github.com/louietan/anki-editor
+
+
+   Requires the ~anki-connect~ plugin to be installed in anki, as well as curl.
    #+BEGIN_SRC emacs-lisp
 
      ;; Export orgfiles as anki decks!
      ;; Looks great for jap study and just study in general
-     ;; https://github.com/louietan/anki-editor
-     ;; Requires that the anki plugin `anki-connect' is installed
      (use-package anki-editor)
 
    #+END_SRC
@@ -2359,7 +2351,8 @@
     #+BEGIN_SRC emacs-lisp
       (use-package yasnippet
         :demand t
-        :commands yas-expand-snippet
+        :commands (yas-minor-mode
+                   yas-expand-snippet)
         :general
         (yas-keymap
          "C-j" 'yas-next-field-or-maybe-expand
@@ -2397,7 +2390,6 @@
      (defun /auto-insert-yasnippet ()
        "Replace text in buffer with snippet.
                          Used for 'auto-insert'"
-       (require 'yasnippet)
        (yas-minor-mode)
        (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
@@ -2442,7 +2434,6 @@
 
 ** Company                                                 :package:disabled:
    #+BEGIN_SRC emacs-lisp
-
      (use-package company
        :disabled t
        :bind(
@@ -2458,22 +2449,20 @@
        (global-company-mode)
        ;; yasnippet integration
        ;; https://emacs.stackexchange.com/questions/10431/get-company-to-show-suggestions-for-yasnippet-names
-       (progn (require 'yasnippet)
-              (defvar company-mode/enable-yas t
-                "Enable yasnippet for all backends.")
-              (defun company-mode/backend-with-yas (backend)
-                (if (or (not company-mode/enable-yas)
-                        (and (listp backend)
-                             (member 'company-yasnippet backend)))
-                    backend
-                  (append (if (consp backend)
-                              backend
-                            (list backend))
-                          '(:with company-yasnippet))))
-              (setq company-backends
-                    (mapcar #'company-mode/backend-with-yas
-                            company-backends))
-              )
+       (defvar company-mode/enable-yas t
+         "Enable yasnippet for all backends.")
+       (defun company-mode/backend-with-yas (backend)
+         (if (or (not company-mode/enable-yas)
+                 (and (listp backend)
+                      (member 'company-yasnippet backend)))
+             backend
+           (append (if (consp backend)
+                       backend
+                     (list backend))
+                   '(:with company-yasnippet))))
+       (setq company-backends
+             (mapcar #'company-mode/backend-with-yas
+                     company-backends))
        ;; fci-mode makes the completion popup spaz.
        ;; this is an attempted workaround
        ;; https://github.com/company-mode/company-mode/issues/180
@@ -2633,22 +2622,18 @@
 
 *** Groovy-mode                                                     :package:
     #+BEGIN_SRC emacs-lisp
-
-     ;; not sure if this inherits from prog-mode
-     (use-package groovy-mode
-       :mode ("\\Jenkinsfile\\'" . groovy-mode)
-       :general
-       (:states 'insert
-        :keymaps 'groovy-mode-map
-        "RET" 'comment-indent-new-line)
-       :config
-       (progn (require 'fill-column-indicator)
-              (add-hook 'groovy-mode-hook 'turn-on-fci-mode))
-       (progn (require 'hl-todo)
-              (add-hook 'groovy-mode-hook 'hl-todo-mode))
-       (add-hook 'groovy-mode-hook #'/treat-underscore-as-word)
-       )
-
+      ;; not sure if this inherits from prog-mode
+      (use-package groovy-mode
+        :mode ("\\Jenkinsfile\\'" . groovy-mode)
+        :general
+        (:states 'insert
+         :keymaps 'groovy-mode-map
+         "RET" 'comment-indent-new-line)
+        :config
+        (add-hook 'groovy-mode-hook 'turn-on-fci-mode)
+        (add-hook 'groovy-mode-hook 'hl-todo-mode)
+        (add-hook 'groovy-mode-hook #'/treat-underscore-as-word)
+        )
     #+END_SRC
 
 ** Rust                                                             :package:
@@ -3107,16 +3092,12 @@
   - [ ] Figure out and document =kkc-map=
 
   #+BEGIN_SRC emacs-lisp
-    ;; NOTE: kkc isn't in any package repo so don't use-package this
-    (require 'kkc)
-    (eval-after-load "kkc"
-      (progn
+    ;; NOTE: kkc isn't in any package repo so don't :ensure t this
+    (use-package kkc
+      :ensure nil
+      :config
         (setq default-input-method "japanese"
               kkc-show-conversion-list-count 1)
-        ;; (define-key kkc-keymap (kbd "SPC")       'kkc-terminate)
-        ;; (define-key kkc-keymap (kbd "<tab>")     'kkc-next)
-        ;; (define-key kkc-keymap (kbd "<backtab>") 'kkc-prev)
-        )
       )
   #+END_SRC
 
