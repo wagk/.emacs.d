@@ -1296,18 +1296,6 @@
     ;; remove annoying bell sounds
     (setq ring-bell-function 'ignore)
 
-    ;; Save buffer state
-    (setq savehist-file (concat user-init-dir "history")
-          savehist-save-minibuffer-history 1
-          savehist-additional-variables
-          '(kill-ring
-            search-ring
-            regexp-search-ring))
-    (savehist-mode 1)
-    (setq history-length t
-          history-delete-duplicates t)
-
-
     ;; Display time
     (display-time-mode 1)
 
@@ -1361,24 +1349,52 @@
       "tempfiles/"
       "Directory used to store temporary files that shouldn't be versioned")
 
+    ;; ;; adjust autosave and backup directories
+    ;; (setq backup-directory-alist `(("." . ,(concat user-init-dir
+    ;;                                                my-user-temp-dir
+    ;;                                                "backups/")))
+    ;;       delete-old-versions t
+    ;;       backup-by-copying t
+    ;;       version-control t
+    ;;       kept-new-versions 20
+    ;;       kept-old-versions 5
+    ;;       vc-make-backup-files t
+    ;;       auto-save-list-file-prefix (concat user-init-dir
+    ;;                                          my-user-temp-dir
+    ;;                                          "auto-save-list/.saves-")
+    ;;       ;; auto-save-file-name-transforms `((".*" ,(concat user-init-dir
+    ;;       ;;                                                 my-user-temp-dir
+    ;;       ;;                                                 "autosave/")
+    ;;       ;;                                   t))
+    ;;       )
     ;; adjust autosave and backup directories
-    (setq backup-directory-alist `(("." . ,(concat user-init-dir
-                                                   my-user-temp-dir
-                                                   "backups/")))
-          delete-old-versions t
+    (setq delete-old-versions t
           backup-by-copying t
           version-control t
           kept-new-versions 20
           kept-old-versions 5
           vc-make-backup-files t
-          auto-save-list-file-prefix (concat user-init-dir
-                                             my-user-temp-dir
-                                             "auto-save-list/.saves-")
-          ;; auto-save-file-name-transforms `((".*" ,(concat user-init-dir
-          ;;                                                 my-user-temp-dir
-          ;;                                                 "autosave/")
-          ;;                                   t))
           )
+
+    ;; ;; Save buffer state
+    ;; (setq savehist-file (concat user-init-dir "history")
+    ;;       savehist-save-minibuffer-history 1
+    ;;       savehist-additional-variables
+    ;;       '(kill-ring
+    ;;         search-ring
+    ;;         regexp-search-ring))
+    ;; (savehist-mode 1)
+    ;; (setq history-length t
+    ;;       history-delete-duplicates t)
+    ;; Save buffer state
+    (setq savehist-save-minibuffer-history 1
+          savehist-additional-variables
+          '(kill-ring
+            search-ring
+            regexp-search-ring))
+    (savehist-mode 1)
+    (setq history-length t
+          history-delete-duplicates t)
 
     ;; look cool
     (when window-system
@@ -1403,7 +1419,6 @@
       )
 
     (evil-ex-define-cmd "me[ssages]" 'my-goto-messages-buffer)
-
   #+END_SRC
 
 ** Highlight-indent-guides                                          :package:
@@ -1777,49 +1792,37 @@
 
 * Dashboard                                                :package:disabled:
   #+BEGIN_SRC emacs-lisp
-
     (use-package dashboard
       :disabled t
       :init
       (dashboard-setup-startup-hook)
       :config
       (setq dashboard-startup-banner nil))
-
   #+END_SRC
 
 * Aggressive Indent/Fill paragraph
 
 ** Aggressive-indent                                                :package:
    #+BEGIN_SRC emacs-lisp
-
      (use-package aggressive-indent
        :diminish t
        :demand t
-       :config
-       (add-hook 'python-mode-hook 'aggressive-indent-mode)
-       ;; (global-aggressive-indent-mode)
+       :commands (aggressive-indent-mode)
        )
-
    #+END_SRC
 
 ** Aggressive-fill-paragraph                                        :package:
    #+BEGIN_SRC emacs-lisp
-
      (use-package aggressive-fill-paragraph
-       ;; :disabled ;; this package annoys me. Probably needs more config
        :commands (aggressive-fill-paragraph-mode
                   afp-setup-recommended-hooks)
-       ;; :config
-       ;; (add-hook 'text-mode-hook #'aggressive-fill-paragraph-mode)
        )
-
    #+END_SRC
 * Magit                                                             :package:
 
   - We need to remove/fix the calls to =with-eval-after-load=
 
   #+BEGIN_SRC emacs-lisp
-
     (use-package magit
       :commands (magit-status)
       :init
@@ -1830,7 +1833,7 @@
       :config
       (add-hook 'git-commit-setup-hook 'aggressive-fill-paragraph-mode)
       (add-hook 'git-commit-setup-hook 'turn-on-fci-mode)
-      (add-hook 'git-commit-setup-hook 'org-mode)
+      (add-hook 'git-commit-setup-hook 'markdown-mode)
       (add-hook 'magit-popup-mode-hook #'my-disable-line-numbers)
       )
   #+END_SRC
@@ -2334,39 +2337,59 @@
 
   #+END_SRC
 
-** Yasnippet                                                        :package:
-   #+BEGIN_SRC emacs-lisp
+** Yasnippet
 
-     (use-package yasnippet
-      :demand t
-      :commands yas-expand-snippet
-      :bind(
+*** Org-sync-snippets                                               :package:
+    - Github :: https://github.com/abrochard/org-sync-snippets
 
-            :map yas-keymap
-            ("C-j" . yas-next-field-or-maybe-expand)
-            ("C-k" . yas-prev-field))
-      :init
-      (general-define-key
-       :states 'normal
-       :prefix my-default-evil-leader-key
-       "s s" 'yas-new-snippet
-       "s a" 'yas-insert-snippet
-       "s f" 'yas-visit-snippet-file)
-      :config
-      (let ((my-snippet-dir (directory-file-name
-                             (concat user-init-dir "/snippets"))))
-        (setq-default yas-snippet-dirs `(,my-snippet-dir)))
-      (yas-global-mode)
-      (setq yas-indent-line 'auto
-            yas-also-auto-indent-first-line t)
-      (define-key snippet-mode-map [remap evil-save-and-close]
-        'yas-load-snippet-buffer-and-close)
-      (define-key snippet-mode-map [remap evil-save-modified-and-close]
-        'yas-load-snippet-buffer-and-close)
-      (define-key snippet-mode-map [remap evil-quit]
-        'kill-this-buffer)
-      )
 
+    I can't seem to get the org --> snippet call to work
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package org-sync-snippets
+        :demand t
+        :custom
+        (org-sync-snippets-org-snippets-file (concat user-init-dir "snippets.org"))
+        :config
+        (add-hook 'yas-after-reload-hook 'org-sync-snippets-snippets-to-org)
+        )
+    #+END_SRC
+
+*** Yasnippet                                                       :package:
+    #+BEGIN_SRC emacs-lisp
+      (use-package yasnippet
+        :demand t
+        :commands yas-expand-snippet
+        :general
+        (yas-keymap
+         "C-j" 'yas-next-field-or-maybe-expand
+         "C-k" 'yas-prev-field)
+        (:states 'normal
+         :prefix my-default-evil-leader-key
+         "s s" 'yas-new-snippet
+         "s a" 'yas-insert-snippet
+         "s f" 'yas-visit-snippet-file)
+        (snippet-mode-map
+         [remap evil-save-and-close]          'yas-load-snippet-buffer-and-close
+         [remap evil-save-modified-and-close] 'yas-load-snippet-buffer-and-close
+         [remap evil-quit]                    'kill-this-buffer)
+        :config
+        (let ((my-snippet-dir (directory-file-name
+                               (concat user-init-dir "/snippets"))))
+          (setq-default yas-snippet-dirs `(,my-snippet-dir)))
+        (setq yas-indent-line 'auto
+              yas-also-auto-indent-first-line t)
+        (defun yas-with-comment (str)
+          (format "%s%s%s" comment-start str comment-end))
+        (yas-global-mode)
+        )
+    #+END_SRC
+
+*** Auto-Insert with Yasnippets
+    Make it so that when a new file is created, depending on the extension,
+    prepopulate the file with a template
+
+    #+BEGIN_SRC emacs-lisp
      ;; auto-insert yasnippets
      ;; www.howardism.org/Technical/Emacs/templates-tutorial.html
      ;; (setq yas-snippet-dirs (append yas-snippet-dirs ))
@@ -2390,31 +2413,7 @@
      (define-auto-insert "\\.sh$"  ["sh-template" /auto-insert-yasnippet])
      (define-auto-insert "\\.php$" ["php-template" /auto-insert-yasnippet])
 
-     (defun yas-with-comment (str)
-       (format "%s%s%s" comment-start str comment-end))
-
-   #+END_SRC
-
-*** Org-sync-snippets                                               :package:
-    - Github :: https://github.com/abrochard/org-sync-snippets
-
-
-    I can't seem to get the org --> snippet call to work
-
-    #+BEGIN_SRC emacs-lisp
-
-      (use-package org-sync-snippets
-        :demand t
-        :custom
-        (org-sync-snippets-org-snippets-file (concat user-init-dir "snippets.org"))
-        :config
-        (progn (require 'org)
-               (add-hook 'yas-after-reload-hook 'org-sync-snippets-snippets-to-org)
-               )
-        )
-
     #+END_SRC
-
 ** Emmet-mode                                                       :package:
    #+BEGIN_SRC emacs-lisp
 
@@ -2436,9 +2435,11 @@
        :config
        (setq emmet-move-cursor-between-quotes t) ;; default nil
        )
-
-
    #+END_SRC
+
+*** TODO Emmet Cheat Sheet
+    - Source :: https://docs.emmet.io/cheat-sheet/
+
 ** Company                                                 :package:disabled:
    #+BEGIN_SRC emacs-lisp
 
@@ -2510,6 +2511,7 @@
   #+BEGIN_SRC emacs-lisp
     (use-package counsel-etags)
   #+END_SRC
+
 * Dired
   #+BEGIN_SRC emacs-lisp
 
@@ -2593,13 +2595,12 @@
     #+END_SRC
 *** Markdown-mode                                                   :package:
     #+BEGIN_SRC emacs-lisp
-
-     (use-package markdown-mode
-       :config
-       (require 'org)
-       (add-hook 'markdown-mode-hook 'orgtbl-mode)
-       (add-hook 'markdown-mode-hook 'turn-on-fci-mode))
-
+      (use-package markdown-mode
+        :commands (markdown-mode)
+        :config
+        (require 'org)
+        (add-hook 'markdown-mode-hook 'orgtbl-mode)
+        (add-hook 'markdown-mode-hook 'turn-on-fci-mode))
     #+END_SRC
 *** Json-mode                                                       :package:
     #+BEGIN_SRC emacs-lisp
@@ -2672,6 +2673,8 @@
          (when (eq (car (python-indent-context)) :inside-docstring)
            'noindent))
        (advice-add 'python-indent-line :before-until #'my-python-mode-noindent-docstring))
+
+     (add-hook 'python-mode-hook 'aggressive-indent-mode)
 
      (with-eval-after-load 'python
        (general-define-key :states 'insert

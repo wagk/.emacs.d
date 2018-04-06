@@ -47,6 +47,8 @@
 
 (use-package diminish)
 (use-package bind-key)
+
+;; https://github.com/noctuid/general.el
 (use-package general
   :demand t
   :commands (general-define-key)
