@@ -1274,6 +1274,7 @@
 
       ;; (helm-mode 1)
     #+END_SRC
+
 * Buffer
   #+BEGIN_SRC emacs-lisp
 
@@ -1561,9 +1562,8 @@
 
 ** Unicode-troll-stopper                                            :package:
    #+BEGIN_SRC emacs-lisp
-
-     (use-package unicode-troll-stopper)
-
+     (use-package unicode-troll-stopper
+       :demand t)
    #+END_SRC
 
 ** Transpose-frame                                                  :package:
@@ -2215,6 +2215,8 @@
                                 (case-fn . downcase)))
       (deft-org-mode-title-prefix t)
       :general
+      (deft-mode-map
+        [remap evil-quit] 'quit-window)
       (:states 'normal
        :prefix my-default-evil-leader-key
        "n n" 'deft)
@@ -2267,7 +2269,6 @@
       ;;   )
       ;; (add-hook 'deft-mode-hook 'my-overwrite-evil-ret-in-deft)
       )
-
   #+END_SRC
 * Projectile                                                        :package:
   #+BEGIN_SRC emacs-lisp
