@@ -242,7 +242,8 @@
      ;; directory
      (use-package evil
        :demand t
-       :commands (evil-set-initial-state)
+       :commands (evil-set-initial-state
+                  evil-insert-state)
        :general
        (:keymaps 'insert
         "C-u"    'kill-whole-line
@@ -2236,11 +2237,7 @@
       ;;                     :keymaps 'deft-mode-map
       ;;                     "RET" 'deft-complete)
       (add-hook 'deft-open-file-hook 'org-mode)
-
-      ;; We explicitly disable evil-rsi-mode because some of its keybinds conflicts
-      ;; with existing deft mode keybinds
-      (with-eval-after-load 'evil-rsi
-        (add-hook 'deft-mode-hook '(lambda () (evil-rsi-mode -1))))
+      (add-hook 'deft-mode-hook 'evil-insert-state)
 
       ;; (define-key deft-mode-map [remap evil-quit]
       ;;   'kill-this-buffer)
