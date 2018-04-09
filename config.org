@@ -12,11 +12,6 @@
 
   A few things MUST be assumed:
   - The following code blocks *MUST* be executed in order
-  - This code block isn't compiled
-
-  #+BEGIN_SRC emacs-lisp
-    (require 'config-bootstrap)
-  #+END_SRC
 
 * Developer Libraries
   Packages that are useful for development but might not actually make the emacs
