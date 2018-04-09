@@ -796,23 +796,23 @@
        (evil-rsi-mode))
    #+END_SRC
 
-** Evil-goggles                                                     :package:
+** Evil-goggles                                            :package:disabled:
    #+BEGIN_SRC emacs-lisp
 
-    ;; Flashes the selection you made. I honestly don't need this and am just
-    ;; turning it on for shits and giggles, until it starts to annoy me
-    ;; https://github.com/edkolev/evil-goggles
-    (use-package evil-goggles
-      :after (evil)
-      :diminish (evil-goggles-mode)
-      :demand t
-      :custom
-      (evil-goggles-duration 0.05
-                             "Sometimes the default of 0.2 is too slow")
-      :config
-      (evil-goggles-mode)
-      (evil-goggles-use-diff-faces))
-
+     ;; Flashes the selection you made. I honestly don't need this and am just
+     ;; turning it on for shits and giggles, until it starts to annoy me
+     ;; https://github.com/edkolev/evil-goggles
+     (use-package evil-goggles
+       :after (evil)
+       :diminish (evil-goggles-mode)
+       :disabled t
+       :demand t
+       :custom
+       (evil-goggles-duration 0.05
+                              "Sometimes the default of 0.2 is too slow")
+       :config
+       (evil-goggles-mode)
+       (evil-goggles-use-diff-faces))
    #+END_SRC
 
 ** Evil-quickscope                                         :package:disabled:
