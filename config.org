@@ -1884,7 +1884,7 @@
 
 ** TODO Git Hunk textobjects
    I want to be able to select git hunks in a textobject way
-* Org                                                               :package:
+* Org-mode                                                          :package:
   #+BEGIN_SRC emacs-lisp
     (use-package org
       :commands (org-mode
@@ -3245,13 +3245,13 @@
        )
    #+END_SRC
 
-** Pomodoro                                                         :package:
+** Pomodoro                                                :package:disabled:
    - Github :: https://github.com/TatriX/pomidor
 
 
    #+BEGIN_SRC emacs-lisp
-
      (use-package pomidor
+       :disabled t
        :general
        (:states 'normal
         :prefix my-default-evil-leader-key
@@ -3259,7 +3259,6 @@
        (evil-set-initial-state 'pomidor-mode 'emacs)
        :custom
        (pomidor-default-alert 'mode-line))
-
    #+END_SRC
 
 ** PlantUML                                                         :package:
