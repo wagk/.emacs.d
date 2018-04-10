@@ -1443,7 +1443,7 @@
 
    #+END_SRC
 
-** Hl-todo                                                           :ackage:
+** Hl-todo                                                          :package:
    #+BEGIN_SRC emacs-lisp
      (use-package hl-todo
        :defer t
@@ -2651,7 +2651,7 @@
            'noindent))
        (advice-add 'python-indent-line :before-until #'my-python-mode-noindent-docstring))
 
-     (add-hook 'python-mode-hook 'aggressive-indent-mode)
+     ;; (add-hook 'python-mode-hook 'aggressive-indent-mode)
 
      (with-eval-after-load 'python
        (general-define-key :states 'insert
