@@ -3196,6 +3196,14 @@
        )
    #+END_SRC
 
+* RSS
+  - Github :: https://github.com/skeeto/elfeed
+
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package elfeed
+      )
+  #+END_SRC
 * Utility
 
 ** Datetime
