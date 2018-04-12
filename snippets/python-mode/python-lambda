@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: python-lambda
+# key: defl
+# --
+lambda $1: $0

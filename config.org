@@ -2275,15 +2275,12 @@
 
 ** Helm-projectile                                                  :package:
    #+BEGIN_SRC emacs-lisp
-
      (use-package helm-projectile
        :after (projectile)
-       :init
-       (general-define-key :states 'normal
-                           :prefix my-default-evil-leader-key
-                           "p p" 'helm-projectile)
+       :general
+       (:states 'normal
+        "_" 'helm-projectile)
        )
-
    #+END_SRC
 
 ** Org-projectile                                                   :package:
