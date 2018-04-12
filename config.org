@@ -1452,7 +1452,6 @@
 ** Hl-todo                                                          :package:
    #+BEGIN_SRC emacs-lisp
      (use-package hl-todo
-       :defer t
        :diminish t
        :commands (hl-todo-mode)
        :general
@@ -1462,11 +1461,6 @@
        (:keymaps 'evil-normal-state-map
         "[ t"  'hl-todo-previous
         "] t"  'hl-todo-next)
-       :init
-       ;; (general-define-key :prefix my-default-evil-leader-key
-       ;;                     "t t" 'hl-todo-occur)
-       ;; :hook (prog-mode . hl-todo-mode)
-       :bind
        :config
        (customize-set-variable 'hl-todo-keyword-faces
                                `(("TODO"  . ,$solarized-dark-yellow)
@@ -1889,7 +1883,7 @@
 
 ** TODO Git Hunk textobjects
    I want to be able to select git hunks in a textobject way
-* Org-mode                                                          :package:
+* Org                                                               :package:
   #+BEGIN_SRC emacs-lisp
     (use-package org
       :commands (org-mode
@@ -1900,8 +1894,12 @@
       (:states 'normal
        :prefix my-default-evil-leader-key
        "o t" 'org-time-stamp-inactive
-       "o T" #'my-time-stamp
-       "o r" 'org-refile)
+       "o T" #'my-time-stamp)
+      (:states 'normal
+       :keymaps 'org-mode-map
+       :prefix my-default-evil-leader-key
+        "r r" 'org-refile
+        "R R" 'org-archive-subtree)
       (org-mode-map
        "C-c C-'" 'org-edit-special)
       (org-src-mode-map
@@ -2834,7 +2832,7 @@
         )
 
     #+END_SRC
-** Lisp
+** Elisp
    #+BEGIN_SRC emacs-lisp
 
      (with-eval-after-load 'elisp-mode
@@ -2930,6 +2928,16 @@
 
       (advice-add 'lisp-indent-function :override 'my-updated-lisp-indent-function)
 
+    #+END_SRC
+
+*** Fontify-Face
+    - Github :: https://github.com/Fuco1/fontify-face
+
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package fontify-face
+        :disabled t
+        :commands (fontify-face-mode))
     #+END_SRC
 *** Rainbow-delimiters                                              :package:
     #+BEGIN_SRC emacs-lisp
