@@ -727,14 +727,12 @@
 
 ** Evil-nerd-commenter                                              :package:
    #+BEGIN_SRC emacs-lisp
-
     (use-package evil-nerd-commenter
       :after (evil)
       :bind (:map evil-inner-text-objects-map
              ("c" . evilnc-inner-comment)
              :map evil-outer-text-objects-map
              ("c" . evilnc-outer-commenter)))
-
    #+END_SRC
 
 ** Evil-indent-plus                                                 :package:
@@ -1261,6 +1259,14 @@
         "." 'helm-hunks-current-buffer))
    #+END_SRC
 
+** Helm-google
+   - Github :: https://github.com/steckerhalter/helm-google
+
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package helm-google
+       :commands (helm-google))
+   #+END_SRC
 ** Others
     #+BEGIN_SRC emacs-lisp
 
@@ -1842,7 +1848,6 @@
 
 ** Git-gutter+                                                      :package:
    #+BEGIN_SRC emacs-lisp
-
      ;; https://github.com/nonsequitur/git-gutter-plus
      (use-package git-gutter+
        :diminish git-gutter+-mode
@@ -1853,7 +1858,8 @@
               ("g h u" . git-gutter+-revert-hunks)
               ("g h h" . git-gutter+-show-hunk-inline-at-point)
               )
-       :defer t
+       :hook ((prog-mode . git-gutter+-mode)
+              (org-mode . git-gutter+-mode))
        ;; :hook (prog-mode . git-gutter+-mode)
        :config
        ;; refer to the hacks made in config-colors.el.
@@ -1879,7 +1885,6 @@
          :demand t)
        (global-git-gutter+-mode)
        )
-
    #+END_SRC
 
 ** TODO Git Hunk textobjects
@@ -2264,13 +2269,11 @@
   #+END_SRC
 * Projectile                                                        :package:
   #+BEGIN_SRC emacs-lisp
-
     (use-package projectile
       :demand t
       :config
       (projectile-mode)
       )
-
   #+END_SRC
 
 ** Helm-projectile                                                  :package:
@@ -2930,12 +2933,11 @@
     #+END_SRC
 *** Rainbow-delimiters                                              :package:
     #+BEGIN_SRC emacs-lisp
-
       (use-package rainbow-delimiters
+        :commands (rainbow-delimiters-mode)
         :init
         (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
         )
-
     #+END_SRC
 *** Suggest                                                         :package:
     #+BEGIN_SRC emacs-lisp
@@ -3199,6 +3201,9 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package elfeed
+      :commands (elfeed)
+      :init
+      (evil-ex-define-cmd "feed" 'elfeed)
       )
   #+END_SRC
 * Utility

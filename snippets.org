@@ -1052,6 +1052,16 @@
   
 #+END_SRC
 
+** python-lambda
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/python-mode/python-lambda
+  # -*- mode: snippet -*-
+  # name: python-lambda
+  # key: defl
+  # --
+  lambda $1: $0
+#+END_SRC
+
 ** python-multiline-string
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/python-mode/python-multiline-string
