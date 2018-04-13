@@ -28,10 +28,8 @@
    Common Lisp library
 
    #+BEGIN_SRC emacs-lisp
-
      (with-no-warnings
        (require 'cl))
-
    #+END_SRC
 
 ** Dash                                                             :package:
@@ -2358,6 +2356,11 @@
         (org-sync-snippets-org-snippets-file (concat user-init-dir "snippets.org"))
         :config
         (add-hook 'yas-after-reload-hook 'org-sync-snippets-snippets-to-org)
+        (defun user-snippet-file ()
+          "docstring for find-user-snippet-file"
+          (interactive)
+          (find-file (concat user-init-dir "/snippets.org")))
+        (evil-ex-define-cmd "snippet[s]" 'user-snippet-file)
         )
     #+END_SRC
 
@@ -2381,6 +2384,7 @@
          [remap evil-save-modified-and-close] 'yas-load-snippet-buffer-and-close
          [remap evil-quit]                    'kill-this-buffer)
         :config
+        (org-sync-snippets-org-to-snippets)
         (let ((my-snippet-dir (directory-file-name
                                (concat user-init-dir "/snippets"))))
           (setq-default yas-snippet-dirs `(,my-snippet-dir)))
