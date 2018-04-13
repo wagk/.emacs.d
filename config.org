@@ -1084,7 +1084,6 @@
 ** Ivy                                                              :package:
 
    #+BEGIN_SRC emacs-lisp
-
      ;; Install ivy as a contingency
      (use-package ivy
        :bind (:map ivy-minibuffer-map
@@ -1095,30 +1094,24 @@
        :config
        (setq ivy-use-virtual-buffers t
              enable-recursive-minibuffers t))
-
    #+END_SRC
 
 *** Swiper                                                          :package:
 
     #+BEGIN_SRC emacs-lisp
-
       (use-package swiper)
-
     #+END_SRC
 
 *** Counsel                                                         :package:
 
     #+BEGIN_SRC emacs-lisp
-
       (use-package counsel
         :bind (("M-x" . counsel-M-x)))
-
     #+END_SRC
 
 ** Helm                                                             :package:
 
    #+BEGIN_SRC emacs-lisp
-
      (use-package helm
        :after (general)
        :demand t
@@ -1164,36 +1157,30 @@
                     helm-autoresize-max-height 40))
        (helm-mode)
        )
-
    #+END_SRC
 
 ** Helm-describe-modes                                              :package:
 
    #+BEGIN_SRC emacs-lisp
-
      (use-package helm-describe-modes
        :bind (("C-h m" . helm-describe-modes))
        ;; :config
        ;; (evil-leader/set-key "m" 'helm-describe-modes)
        )
-
    #+END_SRC
 
 ** Helm-descbinds                                                   :package:
 
    #+BEGIN_SRC emacs-lisp
-
      (use-package helm-descbinds
        :bind (("C-h b" . helm-descbinds))
        :config
        (helm-descbinds-mode))
-
    #+END_SRC
 
 ** Helm-swoop                                                       :package:
 
    #+BEGIN_SRC emacs-lisp
-
      (use-package helm-swoop
        :general
        (:states 'normal
@@ -1210,25 +1197,21 @@
        ;; no annoying under mouse highlights
        ;;(setq helm-swoop-pre-input-function (lambda () nil))
        )
-
    #+END_SRC
 
 ** Helm-fuzzier                                                     :package:
 
    #+BEGIN_SRC emacs-lisp
-
      (use-package helm-fuzzier
        :after helm
        :demand t
        :config
        (helm-fuzzier-mode))
-
    #+END_SRC
 
 ** Helm-flx                                                         :package:
 
    #+BEGIN_SRC emacs-lisp
-
      (use-package helm-flx
        :after helm
        :demand t
@@ -1236,21 +1219,17 @@
        (helm-flx-mode)
        (setq helm-flx-for-helm-find-files t
              helm-flx-for-helm-locate t))
-
    #+END_SRC
 
 ** Helm-dash                                                        :package:
 
    #+BEGIN_SRC emacs-lisp
-
      (use-package helm-dash)
-
    #+END_SRC
 
 ** Helm-hunks                                              :package:disabled:
 
    #+BEGIN_SRC emacs-lisp
-
      ;; commenting it out because it has conflicting bindings in its own map
      (use-package helm-hunks
        :disabled t
@@ -2127,7 +2106,6 @@
    #+END_SRC
 ** Helm-org-rifle                                                   :package:
    #+BEGIN_SRC emacs-lisp
-
      (use-package helm-org-rifle
        :after (org)
        :general
@@ -2135,19 +2113,17 @@
         :prefix my-default-evil-leader-key
         "o o" 'helm-org-rifle-current-buffer
         "O O" 'helm-org-rifle)
-       :bind
-       (:map helm-org-rifle-map
-        ("C-w" . evil-delete-backward-word)
-        ("\\"  . helm-select-action)
-        ("C-j" . helm-next-line)
-        ("C-k" . helm-previous-line)
-        ("C-n" . helm-next-page)
-        ("C-p" . helm-previous-page)
-        ("C-l" . helm-next-source)
-        ("C-h" . helm-previous-source)
-        ("TAB" . helm-execute-persistent-action))
+       (helm-org-rifle-map
+        "C-w"  'evil-delete-backward-word
+        "\\"   'helm-select-action
+        "C-j"  'helm-next-line
+        "C-k"  'helm-previous-line
+        "C-n"  'helm-next-page
+        "C-p"  'helm-previous-page
+        "C-l"  'helm-next-source
+        "C-h"  'helm-previous-source
+        "TAB"  'helm-execute-persistent-action)
        )
-
    #+END_SRC
 
 ** Org-babel
