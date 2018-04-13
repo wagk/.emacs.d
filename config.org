@@ -30,7 +30,7 @@
    #+BEGIN_SRC emacs-lisp
 
      (with-no-warnings
-       (require =cl))
+       (require 'cl))
 
    #+END_SRC
 
