@@ -1,0 +1,15 @@
+;; This file is a file that contains information that pertains to this local
+;; machine. Its existence and the definition of the constants/variables inside
+;; should not be assumed to guarantee exist
+
+;; This file should be one of the first things that init.el loads, and hence
+;; shouldn't depend on anything that init.el loads
+
+;; Pre-init local declarations go here
+
+
+;; Post-init local declarations go here
+(defun my-after-init-payload ()
+  "Things to do after the init files are loaded"
+  )
+(add-hook 'emacs-startup-hook 'my-after-init-payload)

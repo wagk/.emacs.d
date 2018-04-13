@@ -42,6 +42,10 @@
   (concat user-init-dir "config.org")
   "Points to config.org")
 
+(defconst user-local-file
+  (concat user-init-dir "local.el")
+  "Points to local.el")
+
 (defconst user-config-dir
   (file-name-as-directory
    (concat user-init-dir "config"))
@@ -49,17 +53,25 @@
 
 ;;;###autoload
 (defun find-user-init-file ()
-  "Edit `user-init-file` without opening a new window."
+  "Edit `user-init-file' without opening a new window."
   (interactive)
   (find-file user-init-file)
   )
 
 ;;;###autoload
 (defun find-user-config-file ()
-  "Edit `user-config-file` without opening a new window."
+  "Edit `user-config-file' without opening a new window."
   (interactive)
   (find-file user-config-file)
   )
+
+;;;###autoload
+(defun find-user-local-file ()
+  "Edit `local.el' without opening a new window."
+  (interactive)
+  (find-file user-local-file)
+  )
+
 
 (defmacro measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."
@@ -85,8 +97,9 @@ Assumes that it:
                   (message "Loaded %s" path))
          (message "Failed to load %s" path))))))
 
-;; Add to load path our configuration folder
-(add-to-list 'load-path user-config-dir)
+;; Add to load path our configuration folder. Deprecated since we don't use
+;; a config directory anymore
+;; (add-to-list 'load-path user-config-dir)
 
 (let ((gc-cons-threshold most-positive-fixnum))
 
@@ -180,8 +193,17 @@ Assumes that it:
     (auto-package-update-prompt-before-update t "NO SURPRISES")
     (auto-package-update-interval 14 "update once every 2 weeks (the count is in days)"))
 
+  (let ((local-file (concat user-init-dir "local.el")))
+    (unless (file-exists-p local-file)
+      ;; output a templated local.el file into local.el
+      (write-region (with-temp-buffer
+                      (insert-file-contents (concat user-init-dir
+                                                    "auto-insert/elisp-local-template"))
+                      (buffer-string))
+                    nil local-file)))
+
   ;; local configuration variables
-  (load (concat user-init-dir "local.el"))
+  (load (concat user-init-dir "local.el") 'noerror)
 
   ;; We assume we can call use-package multiple times
   ;; TODO: configure these meaningfully

@@ -249,6 +249,16 @@
   ;;;###autoload
 #+END_SRC
 
+** elisp-const
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/emacs-lisp-mode/elisp-const
+  # -*- mode: snippet -*-
+  # name: elisp-const
+  # key: const
+  # --
+  (defconst $1)
+#+END_SRC
+
 ** elisp-function
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/emacs-lisp-mode/elisp-function
@@ -271,6 +281,17 @@
   (if ${1:cond}
       ${2:then}
     ${3:else})
+#+END_SRC
+
+** elisp-let
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/emacs-lisp-mode/elisp-let
+  # -*- mode: snippet -*-
+  # name: elisp-let
+  # key: let
+  # --
+  (let ($1)
+      $0)
 #+END_SRC
 
 ** new-package

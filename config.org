@@ -13,6 +13,13 @@
   A few things MUST be assumed:
   - The following code blocks *MUST* be executed in order
 
+** Helpful links
+   This might turn out to be just an elisp reference someday
+
+*** Elisp Docstring Syntax
+    - ErgoEmacs :: http://ergoemacs.org/emacs/inline_doc.html
+
+*** TODO Migrate all local definitions to prefix with =my-= instead of =/=
 * Developer Libraries
   Packages that are useful for development but might not actually make the emacs
   user experience nice.
@@ -23,7 +30,7 @@
    #+BEGIN_SRC emacs-lisp
 
      (with-no-warnings
-       (require 'cl))
+       (require =cl))
 
    #+END_SRC
 
@@ -37,13 +44,13 @@
 ** S                                                                :package:
 
    #+BEGIN_SRC emacs-lisp
-    (use-package s)
+     (use-package s)
    #+END_SRC
 
 ** F                                                                :package:
 
    #+BEGIN_SRC emacs-lisp
-    (use-package s)
+     (use-package f)
    #+END_SRC
 
 ** Async                                                            :package:
@@ -65,12 +72,12 @@
 ** Other Helper Functions
    #+BEGIN_SRC emacs-lisp
 
-    (defun my-find-parent-major-modes ()
-      "docstring for my-find-parent-major-modes"
-      (let ((parents (list major-mode)))
-        (while (get (car parents) 'derived-mode-parent)
-          (push (get (car parents) 'derived-mode-parent) parents))
-        parents))
+     (defun my-find-parent-major-modes ()
+       "docstring for my-find-parent-major-modes"
+       (let ((parents (list major-mode)))
+         (while (get (car parents) 'derived-mode-parent)
+           (push (get (car parents) 'derived-mode-parent) parents))
+         parents))
 
    #+END_SRC
 
@@ -113,13 +120,13 @@
 
    #+BEGIN_SRC emacs-lisp
 
-    (defconst my-wiki-directory
-      (file-name-as-directory
-       (if (boundp '/dropbox-folder)
-           (concat (directory-file-name /dropbox-folder) "/wiki")
-         "~/wiki"))
-      "Used for org-brain. This is basically the wiki directory"
-      )
+     (defconst my-wiki-directory
+       (file-name-as-directory
+        (if (boundp '/dropbox-folder)
+            (concat (directory-file-name /dropbox-folder) "/wiki")
+          "~/wiki"))
+       "Used for org-brain. This is basically the wiki directory"
+       )
 
    #+END_SRC
 
@@ -135,7 +142,7 @@
   #+END_SRC
 
 ** Solarized-theme                                                  :package:
-    I'm a huge fan of solarized dark.
+   I'm a huge fan of solarized dark.
 
    #+BEGIN_SRC emacs-lisp
 
@@ -386,6 +393,7 @@
        (evil-ex-define-cmd "restart"    'restart-emacs)
        (evil-ex-define-cmd "init"       'find-user-init-file)
        (evil-ex-define-cmd "config"     'find-user-config-file)
+       (evil-ex-define-cmd "local"      'find-user-local-file)
 
        ;; (lexical-let ((default-color (cons (face-background 'mode-line)
        ;;                                    (face-foreground 'mode-line))))
@@ -561,11 +569,11 @@
 
    #+BEGIN_SRC emacs-lisp
 
-    ;; defaults to x, so dax, dix, etc
-    ;; This package is about xml attribute objects, the t textobj handles tags, not
-    ;; attributes, which are inside tags
-    (use-package exato
-      :after (evil))
+     ;; defaults to x, so dax, dix, etc
+     ;; This package is about xml attribute objects, the t textobj handles tags, not
+     ;; attributes, which are inside tags
+     (use-package exato
+       :after (evil))
 
    #+END_SRC
 
@@ -589,31 +597,31 @@
 
    #+BEGIN_SRC emacs-lisp
 
-    (use-package evil-surround
-      :after (evil)
-      :demand t
-      :config
-      (global-evil-surround-mode)
-      )
+     (use-package evil-surround
+       :after (evil)
+       :demand t
+       :config
+       (global-evil-surround-mode)
+       )
 
    #+END_SRC
 
 *** Evil-embrace                                                    :package:
-   - Github :: https://github.com/cute-jumper/evil-embrace.el
+    - Github :: https://github.com/cute-jumper/evil-embrace.el
 
 
-   #+BEGIN_SRC emacs-lisp
-     ;; Evil-embrace is like a souped up addon of surround, this time they have
-     ;; things like function surround and probably more features.
-     (use-package evil-embrace
-       :after (evil-surround)
-       :commands (embrace-add-pair)
-       :demand t
-       :config
-       (evil-embrace-enable-evil-surround-integration)
-       (setq evil-embrace-show-help-p nil)
-       )
-   #+END_SRC
+    #+BEGIN_SRC emacs-lisp
+      ;; Evil-embrace is like a souped up addon of surround, this time they have
+      ;; things like function surround and probably more features.
+      (use-package evil-embrace
+        :after (evil-surround)
+        :commands (embrace-add-pair)
+        :demand t
+        :config
+        (evil-embrace-enable-evil-surround-integration)
+        (setq evil-embrace-show-help-p nil)
+        )
+    #+END_SRC
 
 ** Evil-args                                                        :package:
    - Github :: https://github.com/wcsmith/evil-args
@@ -621,23 +629,23 @@
 
    #+BEGIN_SRC emacs-lisp
 
-    (use-package evil-args
-      :bind (:map evil-inner-text-objects-map
-             ("a" . evil-inner-arg)
-             :map evil-outer-text-objects-map
-             ("a" . evil-outer-arg)
-             ;; :map evil-normal-state-map
-             ;; ("L" . evil-forward-arg)
-             ;; ("H" . evil-backward-arg)
-             ;; ("K" . evil-jump-out-args)
-             ;; :map evil-motion-state-map
-             ;; ("L" . evil-forward-arg)
-             ;; ("H" . evil-backward-arg)
-             )
-      ;; :config
-      ;; consider spaces as argument delimiters
-      ;; (add-to-list 'evil-args-delimiters " ")
-      )
+     (use-package evil-args
+       :bind (:map evil-inner-text-objects-map
+              ("a" . evil-inner-arg)
+              :map evil-outer-text-objects-map
+              ("a" . evil-outer-arg)
+              ;; :map evil-normal-state-map
+              ;; ("L" . evil-forward-arg)
+              ;; ("H" . evil-backward-arg)
+              ;; ("K" . evil-jump-out-args)
+              ;; :map evil-motion-state-map
+              ;; ("L" . evil-forward-arg)
+              ;; ("H" . evil-backward-arg)
+              )
+       ;; :config
+       ;; consider spaces as argument delimiters
+       ;; (add-to-list 'evil-args-delimiters " ")
+       )
 
    #+END_SRC
 
@@ -647,11 +655,11 @@
 
    #+BEGIN_SRC emacs-lisp
 
-    ;; more like evil-textobj-kolumn
-    (use-package evil-textobj-column
-      :bind (:map evil-inner-text-objects-map
-             ("k" . evil-textobj-column-word)
-             ("K" . evil-textobj-column-WORD)))
+     ;; more like evil-textobj-kolumn
+     (use-package evil-textobj-column
+       :bind (:map evil-inner-text-objects-map
+              ("k" . evil-textobj-column-word)
+              ("K" . evil-textobj-column-WORD)))
 
    #+END_SRC
 
@@ -661,15 +669,15 @@
 
    #+BEGIN_SRC emacs-lisp
 
-    (use-package evil-numbers
-      :general
-      (:keymaps 'normal
-       "C-a"  'evil-numbers/inc-at-pt
-       "C-x"  'evil-numbers/dec-at-pt)
-      ;; :bind (:map evil-normal-state-map
-      ;;        ("C-a" . evil-numbers/inc-at-pt)
-      ;;        ("C-x" . evil-numbers/dec-at-pt))
-      )
+     (use-package evil-numbers
+       :general
+       (:keymaps 'normal
+        "C-a"  'evil-numbers/inc-at-pt
+        "C-x"  'evil-numbers/dec-at-pt)
+       ;; :bind (:map evil-normal-state-map
+       ;;        ("C-a" . evil-numbers/inc-at-pt)
+       ;;        ("C-x" . evil-numbers/dec-at-pt))
+       )
 
    #+END_SRC
 
@@ -679,11 +687,11 @@
 
    #+BEGIN_SRC emacs-lisp
 
-    (use-package evil-rsi
-      :disabled
-      :after (evil)
-      :config
-      (evil-rsi-mode))
+     (use-package evil-rsi
+       :disabled
+       :after (evil)
+       :config
+       (evil-rsi-mode))
 
    #+END_SRC
 
@@ -693,12 +701,12 @@
 
    #+BEGIN_SRC emacs-lisp
 
-    ;; alignment
-    (use-package evil-lion
-      :after (evil)
-      :demand t
-      :config
-      (evil-lion-mode))
+     ;; alignment
+     (use-package evil-lion
+       :after (evil)
+       :demand t
+       :config
+       (evil-lion-mode))
 
    #+END_SRC
 
@@ -708,57 +716,57 @@
 
    #+BEGIN_SRC emacs-lisp
 
-    (use-package evil-matchit)
+     (use-package evil-matchit)
 
    #+END_SRC
 ** Evil-commentary                                                  :package:
 
    #+BEGIN_SRC emacs-lisp
 
-    ;; Adds textobjects that comments
-    (use-package evil-commentary
-      :after (evil)
-      :demand t
-      :config
-      (evil-commentary-mode)
-      )
+     ;; Adds textobjects that comments
+     (use-package evil-commentary
+       :after (evil)
+       :demand t
+       :config
+       (evil-commentary-mode)
+       )
 
    #+END_SRC
 
 ** Evil-nerd-commenter                                              :package:
    #+BEGIN_SRC emacs-lisp
-    (use-package evil-nerd-commenter
-      :after (evil)
-      :bind (:map evil-inner-text-objects-map
-             ("c" . evilnc-inner-comment)
-             :map evil-outer-text-objects-map
-             ("c" . evilnc-outer-commenter)))
+     (use-package evil-nerd-commenter
+       :after (evil)
+       :bind (:map evil-inner-text-objects-map
+              ("c" . evilnc-inner-comment)
+              :map evil-outer-text-objects-map
+              ("c" . evilnc-outer-commenter)))
    #+END_SRC
 
 ** Evil-indent-plus                                                 :package:
    #+BEGIN_SRC emacs-lisp
 
-        ;;; Indentation text object for evil
-    (use-package evil-indent-plus
-      :bind(:map evil-inner-text-objects-map
-            ("i" . evil-indent-plus-i-indent)
-            ("I" . evil-indent-plus-a-indent)
-            :map evil-outer-text-objects-map
-            ("i" . evil-indent-plus-i-indent-up)
-            ("I" . evil-indent-plus-a-indent-up)))
+         ;;; Indentation text object for evil
+     (use-package evil-indent-plus
+       :bind(:map evil-inner-text-objects-map
+             ("i" . evil-indent-plus-i-indent)
+             ("I" . evil-indent-plus-a-indent)
+             :map evil-outer-text-objects-map
+             ("i" . evil-indent-plus-i-indent-up)
+             ("I" . evil-indent-plus-a-indent-up)))
 
    #+END_SRC
 
 ** Evil-tilde-fringe                                                :package:
    #+BEGIN_SRC emacs-lisp
 
-    ;; vim A E S T H E T H I C S
-    ;; Puts tildes in the fringe, just like vim.
-    (use-package vi-tilde-fringe
-      :after (evil)
-      :demand t
-      :config
-      (global-vi-tilde-fringe-mode))
+     ;; vim A E S T H E T H I C S
+     ;; Puts tildes in the fringe, just like vim.
+     (use-package vi-tilde-fringe
+       :after (evil)
+       :demand t
+       :config
+       (global-vi-tilde-fringe-mode))
 
    #+END_SRC
 
@@ -1036,59 +1044,59 @@
 ** Old Configuration
    These configurations are old and left here in case we ever need it
 
-  #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 
 
-    ;; (use-package evil-paredit
-    ;;   :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
+     ;; (use-package evil-paredit
+     ;;   :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
 
-    ;; (use-package evil-cleverparens-text-objects
-    ;;   :ensure t
-    ;;   :init
-    ;;   (use-package evil-cleverparens :ensure t)
-    ;;   :config
-    ;;   nil)
+     ;; (use-package evil-cleverparens-text-objects
+     ;;   :ensure t
+     ;;   :init
+     ;;   (use-package evil-cleverparens :ensure t)
+     ;;   :config
+     ;;   nil)
 
-    ;; (use-package evil-cleverparens
-    ;;   :bind(:map evil-inner-text-objects-map
-    ;;              ("c" . evil-cp-inner-comment)
-    ;;              :map evil-outer-text-objects-map
-    ;;              ("c" . evil-cp-a-comment))
-    ;;   ;; :config
-    ;;   ;; (require 'evil-cleverparens-text-objects)
-    ;;   )
+     ;; (use-package evil-cleverparens
+     ;;   :bind(:map evil-inner-text-objects-map
+     ;;              ("c" . evil-cp-inner-comment)
+     ;;              :map evil-outer-text-objects-map
+     ;;              ("c" . evil-cp-a-comment))
+     ;;   ;; :config
+     ;;   ;; (require 'evil-cleverparens-text-objects)
+     ;;   )
 
-    ;; (use-package evil-replace-with-register)
+     ;; (use-package evil-replace-with-register)
 
-    ;; (use-package evil-text-object-python)
+     ;; (use-package evil-text-object-python)
 
-    ;; (use-package evil-visual-mark-mode
-    ;;   :ensure t
-    ;;   :config
-    ;;   (evil-visual-mark-mode))
+     ;; (use-package evil-visual-mark-mode
+     ;;   :ensure t
+     ;;   :config
+     ;;   (evil-visual-mark-mode))
 
-    ;; (use-package evil-tabs
-    ;;   :ensure t
-    ;;   :config
-    ;;   (global-evil-tabs-mode t))
+     ;; (use-package evil-tabs
+     ;;   :ensure t
+     ;;   :config
+     ;;   (global-evil-tabs-mode t))
 
-  #+END_SRC
+   #+END_SRC
 
 * Helm
 ** Ivy                                                              :package:
 
    #+BEGIN_SRC emacs-lisp
 
-      ;; Install ivy as a contingency
-      (use-package ivy
-        :bind (:map ivy-minibuffer-map
-               ("C-w" . ivy-backward-kill-word)
-               ("C-u" . ivy-backward-kill-line)
-               ("C-j" . ivy-next-line)
-               ("C-k" . ivy-previous-line))
-        :config
-        (setq ivy-use-virtual-buffers t
-              enable-recursive-minibuffers t))
+     ;; Install ivy as a contingency
+     (use-package ivy
+       :bind (:map ivy-minibuffer-map
+              ("C-w" . ivy-backward-kill-word)
+              ("C-u" . ivy-backward-kill-line)
+              ("C-j" . ivy-next-line)
+              ("C-k" . ivy-previous-line))
+       :config
+       (setq ivy-use-virtual-buffers t
+             enable-recursive-minibuffers t))
 
    #+END_SRC
 
@@ -1113,51 +1121,51 @@
 
    #+BEGIN_SRC emacs-lisp
 
-      (use-package helm
-        :after (general)
-        :demand t
-        :general
-        ("C-h C-h" 'helm-apropos
-         "C-h h"   'helm-apropos)
-        (:states 'normal
-         "-"     'helm-find-files) ;; emulate vim-vinegar
-        (:states  'normal
-         :prefix my-default-evil-leader-key
-         "<SPC>"  'helm-M-x
-         "TAB"    'helm-resume
-         "y y"    'helm-show-kill-ring
-         "b b"    'helm-mini
-         "m m"    'helm-bookmarks)
-        (:keymaps 'helm-map
-         "C-w" 'evil-delete-backward-word
-         "\\"  'helm-select-action
-         "C-j" 'helm-next-line
-         "C-k" 'helm-previous-line
-         "C-n" 'helm-next-page
-         "C-p" 'helm-previous-page
-         "C-l" 'helm-next-source
-         "C-h" 'helm-previous-source
-         "TAB" 'helm-execute-persistent-action)
-        :config
-        (setq helm-idle-delay 0.0
-              helm-input-idle-delay 0.01
-              helm-quick-update t)
-        (setq helm-recentf-fuzzy-match t
-              helm-locate-fuzzy-match nil ;; locate fuzzy is worthless
-              helm-M-x-fuzzy-match t
-              helm-buffers-fuzzy-matching t
-              helm-semantic-fuzzy-match t
-              helm-apropos-fuzzy-match t
-              helm-imenu-fuzzy-match t
-              helm-lisp-fuzzy-completion t
-              helm-completion-in-region-fuzzy-match t
-              helm-split-window-in-side-p t
-              helm-use-frame-when-more-than-two-windows nil)
-        (progn (helm-autoresize-mode)
-               (setq helm-autoresize-min-height 40 ;; these values are %
-                     helm-autoresize-max-height 40))
-        (helm-mode)
-        )
+     (use-package helm
+       :after (general)
+       :demand t
+       :general
+       ("C-h C-h" 'helm-apropos
+        "C-h h"   'helm-apropos)
+       (:states 'normal
+        "-"     'helm-find-files) ;; emulate vim-vinegar
+       (:states  'normal
+        :prefix my-default-evil-leader-key
+        "<SPC>"  'helm-M-x
+        "TAB"    'helm-resume
+        "y y"    'helm-show-kill-ring
+        "b b"    'helm-mini
+        "m m"    'helm-bookmarks)
+       (:keymaps 'helm-map
+        "C-w" 'evil-delete-backward-word
+        "\\"  'helm-select-action
+        "C-j" 'helm-next-line
+        "C-k" 'helm-previous-line
+        "C-n" 'helm-next-page
+        "C-p" 'helm-previous-page
+        "C-l" 'helm-next-source
+        "C-h" 'helm-previous-source
+        "TAB" 'helm-execute-persistent-action)
+       :config
+       (setq helm-idle-delay 0.0
+             helm-input-idle-delay 0.01
+             helm-quick-update t)
+       (setq helm-recentf-fuzzy-match t
+             helm-locate-fuzzy-match nil ;; locate fuzzy is worthless
+             helm-M-x-fuzzy-match t
+             helm-buffers-fuzzy-matching t
+             helm-semantic-fuzzy-match t
+             helm-apropos-fuzzy-match t
+             helm-imenu-fuzzy-match t
+             helm-lisp-fuzzy-completion t
+             helm-completion-in-region-fuzzy-match t
+             helm-split-window-in-side-p t
+             helm-use-frame-when-more-than-two-windows nil)
+       (progn (helm-autoresize-mode)
+              (setq helm-autoresize-min-height 40 ;; these values are %
+                    helm-autoresize-max-height 40))
+       (helm-mode)
+       )
 
    #+END_SRC
 
@@ -1165,11 +1173,11 @@
 
    #+BEGIN_SRC emacs-lisp
 
-      (use-package helm-describe-modes
-        :bind (("C-h m" . helm-describe-modes))
-        ;; :config
-        ;; (evil-leader/set-key "m" 'helm-describe-modes)
-        )
+     (use-package helm-describe-modes
+       :bind (("C-h m" . helm-describe-modes))
+       ;; :config
+       ;; (evil-leader/set-key "m" 'helm-describe-modes)
+       )
 
    #+END_SRC
 
@@ -1177,10 +1185,10 @@
 
    #+BEGIN_SRC emacs-lisp
 
-      (use-package helm-descbinds
-        :bind (("C-h b" . helm-descbinds))
-        :config
-        (helm-descbinds-mode))
+     (use-package helm-descbinds
+       :bind (("C-h b" . helm-descbinds))
+       :config
+       (helm-descbinds-mode))
 
    #+END_SRC
 
@@ -1188,22 +1196,22 @@
 
    #+BEGIN_SRC emacs-lisp
 
-      (use-package helm-swoop
-        :general
-        (:states 'normal
-         :prefix my-default-evil-leader-key
-         "f f" 'helm-swoop) :init
-      ;;;###autoload
-        (defun /helm-swoop-vis () (interactive)
-               (helm-swoop :$query "" :$multiline 4))
-        :bind (:map helm-swoop-map
-               ("C-w" . evil-delete-backward-word))
-        ;; :config
-        ;; (defun /helm-swoop-vis () (interactive)
-        ;;        (helm-swoop :$query "" :$multiline 4))
-        ;; no annoying under mouse highlights
-        ;;(setq helm-swoop-pre-input-function (lambda () nil))
-        )
+     (use-package helm-swoop
+       :general
+       (:states 'normal
+        :prefix my-default-evil-leader-key
+        "f f" 'helm-swoop) :init
+     ;;;###autoload
+       (defun /helm-swoop-vis () (interactive)
+              (helm-swoop :$query "" :$multiline 4))
+       :bind (:map helm-swoop-map
+              ("C-w" . evil-delete-backward-word))
+       ;; :config
+       ;; (defun /helm-swoop-vis () (interactive)
+       ;;        (helm-swoop :$query "" :$multiline 4))
+       ;; no annoying under mouse highlights
+       ;;(setq helm-swoop-pre-input-function (lambda () nil))
+       )
 
    #+END_SRC
 
@@ -1211,11 +1219,11 @@
 
    #+BEGIN_SRC emacs-lisp
 
-      (use-package helm-fuzzier
-        :after helm
-        :demand t
-        :config
-        (helm-fuzzier-mode))
+     (use-package helm-fuzzier
+       :after helm
+       :demand t
+       :config
+       (helm-fuzzier-mode))
 
    #+END_SRC
 
@@ -1223,13 +1231,13 @@
 
    #+BEGIN_SRC emacs-lisp
 
-      (use-package helm-flx
-        :after helm
-        :demand t
-        :config
-        (helm-flx-mode)
-        (setq helm-flx-for-helm-find-files t
-              helm-flx-for-helm-locate t))
+     (use-package helm-flx
+       :after helm
+       :demand t
+       :config
+       (helm-flx-mode)
+       (setq helm-flx-for-helm-find-files t
+             helm-flx-for-helm-locate t))
 
    #+END_SRC
 
@@ -1237,7 +1245,7 @@
 
    #+BEGIN_SRC emacs-lisp
 
-      (use-package helm-dash)
+     (use-package helm-dash)
 
    #+END_SRC
 
@@ -1268,14 +1276,14 @@
        :commands (helm-google))
    #+END_SRC
 ** Others
-    #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 
 
-      ;; TODO: when defining helm desckeys make sure a global binding is also presentw
-      ;; C-h seems broken (We've been overwriting it to enable terminal backspace)
+     ;; TODO: when defining helm desckeys make sure a global binding is also presentw
+     ;; C-h seems broken (We've been overwriting it to enable terminal backspace)
 
-      ;; (helm-mode 1)
-    #+END_SRC
+     ;; (helm-mode 1)
+   #+END_SRC
 
 * Buffer
   #+BEGIN_SRC emacs-lisp
@@ -1454,24 +1462,35 @@
      (use-package hl-todo
        :diminish t
        :commands (hl-todo-mode)
+       :hook ((prog-mode . hl-todo-mode)
+              (yaml-mode . hl-todo-mode))
        :general
        (:states 'normal
         :prefix my-default-evil-leader-key
-                "t t" 'hl-todo-occur)
+        "t t" 'hl-todo-occur)
        (:keymaps 'evil-normal-state-map
         "[ t"  'hl-todo-previous
         "] t"  'hl-todo-next)
-       :config
-       (customize-set-variable 'hl-todo-keyword-faces
-                               `(("TODO"  . ,$solarized-dark-yellow)
-                                 ("DEBUG" . ,$solarized-dark-magenta)
-                                 ("BUG"   . ,$solarized-dark-red)
-                                 ("STUB"  . ,$solarized-dark-green)
-                                 ("NOTE"  . ,$solarized-dark-base1)
-                                 ("HACK"  . ,$solarized-dark-violet)
-                                 ("FIXME" . ,$solarized-dark-orange)))
-       (global-hl-todo-mode)
-       (add-hook 'yaml-mode-hook 'hl-todo-mode))
+       :custom
+       (hl-todo-keyword-faces `(("TODO"  . ,$solarized-dark-yellow)
+                                ("DEBUG" . ,$solarized-dark-magenta)
+                                ("BUG"   . ,$solarized-dark-red)
+                                ("STUB"  . ,$solarized-dark-green)
+                                ("NOTE"  . ,$solarized-dark-base1)
+                                ("HACK"  . ,$solarized-dark-violet)
+                                ("FIXME" . ,$solarized-dark-orange)))
+       ;; :config
+       ;; (customize-set-variable 'hl-todo-keyword-faces
+       ;;                         `(("TODO"  . ,$solarized-dark-yellow)
+       ;;                           ("DEBUG" . ,$solarized-dark-magenta)
+       ;;                           ("BUG"   . ,$solarized-dark-red)
+       ;;                           ("STUB"  . ,$solarized-dark-green)
+       ;;                           ("NOTE"  . ,$solarized-dark-base1)
+       ;;                           ("HACK"  . ,$solarized-dark-violet)
+       ;;                           ("FIXME" . ,$solarized-dark-orange)))
+       ;; (global-hl-todo-mode)
+       ;; (add-hook 'yaml-mode-hook 'hl-todo-mode)
+       )
    #+END_SRC
 
 ** Fill-column-indicator                                            :package:
@@ -1668,13 +1687,13 @@
 ** Ace-window                                                       :package:
    #+BEGIN_SRC emacs-lisp
 
-         (use-package ace-window
-           :bind
-           (:map evil-window-map
-                 ("SPC" . ace-window))
-           :custom
-           (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-           )
+     (use-package ace-window
+       :bind
+       (:map evil-window-map
+        ("SPC" . ace-window))
+       :custom
+       (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+       )
 
    #+END_SRC
 
@@ -3215,6 +3234,20 @@
       )
   #+END_SRC
 * Utility
+
+** Copy Filename to Clipboard
+   #+BEGIN_SRC emacs-lisp
+     (defun my-copy-file-name-to-clipboard ()
+       "Copy the current buffer file name to the clipboard.
+     Sourced from `http://emacsredux.com/blog/2013/03/27/copy-filename-to-the-clipboard/'"
+       (interactive)
+       (let ((filename (if (equal major-mode 'dired-mode)
+                           default-directory
+                         (buffer-file-name))))
+         (when filename
+           (kill-new filename)
+           (message "Copied buffer file name '%s' to the clipboard." filename))))
+   #+END_SRC
 
 ** Datetime
    These code was written by Kenny Liu a long ass time ago, I don't think it's
