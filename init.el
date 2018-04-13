@@ -46,10 +46,10 @@
   (concat user-init-dir "local.el")
   "Points to local.el")
 
-(defconst user-config-dir
-  (file-name-as-directory
-   (concat user-init-dir "config"))
-  "Directory where all the user configuration files are stored")
+;; (defconst user-config-dir
+;;   (file-name-as-directory
+;;    (concat user-init-dir "config"))
+;;   "Directory where all the user configuration files are stored")
 
 ;;;###autoload
 (defun find-user-init-file ()

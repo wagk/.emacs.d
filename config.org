@@ -1792,11 +1792,15 @@
        (set-frame-parameter (selected-frame) 'alpha value))
 
    #+END_SRC
-** Hungry Deletion (of whitespace)                                  :package:
+** Hungry Deletion (of whitespace)                         :package:disabled:
    - Homepage :: http://endlessparentheses.com/hungry-delete-mode.html
+
+
+   Disabled because it's more annoying than worth the convenience
 
    #+BEGIN_SRC emacs-lisp
      (use-package hungry-delete
+       :disabled t
        :demand t
        :config
        (global-hungry-delete-mode))
