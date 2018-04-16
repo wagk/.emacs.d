@@ -20,6 +20,9 @@
     - ErgoEmacs :: http://ergoemacs.org/emacs/inline_doc.html
 
 *** TODO Migrate all local definitions to prefix with =my-= instead of =/=
+
+*** Nadvice
+    https://emacs.stackexchange.com/questions/12997/how-do-i-use-nadvice
 * Developer Libraries
   Packages that are useful for development but might not actually make the emacs
   user experience nice.
@@ -204,7 +207,7 @@
 
    #+END_SRC
 
-* Evil
+* Evil                                                                 :evil:
 
   Enable folding for all programming major modes
 
@@ -455,12 +458,17 @@
          "Select an inner line"
          (my-evil-line-range count beg end type))
 
+       ;; ;; https://emacs.stackexchange.com/questions/29026/in-evil-mode-how-can-i-configure-the-seeking-forward-behaviour-for-all-text-obj
        ;; (defun my-evil-inner-paren (count &optional beg end type)
        ;;   "docstring for my-evil-inner-paren"
        ;;   :extend-selection nil
-       ;;   (evil-select-quote ?\( ?\) beg end type count))
-       ;; ;; (advice-add 'evil-inner-paren :around 'my-evil-inner-paren)
-       ;; ;; (define-advice evil-inner-paren (:around ))
+       ;;   (evil-select-paren "(" ")" beg end type count)
+       ;;   )
+       ;; (advice-add 'evil-inner-paren :around #'my-evil-inner-paren)
+
+         ;; (evil-select-quote ?\( ?\) beg end type count)
+         ;; (evil-select-paren ?\( ?\) (caddr args) (cadddr args) (cadddr args) (cadr args))
+       ;; somethinbg ()
 
        (add-hook 'evil-normal-state-entry-hook 'evil-ex-nohighlight)
        ;; (evil-update-insert-state-bindings) ;; something's overriding it
@@ -1086,7 +1094,7 @@
 
    #+END_SRC
 
-* Helm
+* Helm                                                                 :helm:
 ** Ivy                                                              :package:
 
    #+BEGIN_SRC emacs-lisp
@@ -1820,7 +1828,7 @@
                   afp-setup-recommended-hooks)
        )
    #+END_SRC
-* Magit                                                             :package:
+* Magit                                                       :package:magit:
 
   #+BEGIN_SRC emacs-lisp
     (use-package magit
@@ -1892,7 +1900,7 @@
 
 ** TODO Git Hunk textobjects
    I want to be able to select git hunks in a textobject way
-* Org                                                               :package:
+* Org                                                           :package:org:
   #+BEGIN_SRC emacs-lisp
     (use-package org
       :commands (org-mode
@@ -2009,7 +2017,6 @@
 
 ** Org-capture                                                      :package:
    #+BEGIN_SRC emacs-lisp
-
      ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
      (use-package org-capture
        :ensure nil ;; because org-capture is from org
@@ -2025,8 +2032,15 @@
        (define-key org-capture-mode-map [remap evil-quit]
          'org-capture-kill)
        )
-
    #+END_SRC
+
+*** Capture Templates Reference
+
+    https://orgmode.org/manual/Capture-templates.html#Capture-templates
+
+    - [ ] Work template (local variable and all that)
+    - [ ] side-project related templates (org-projectile?)
+
 ** Org-agenda                                                       :package:
    #+BEGIN_SRC emacs-lisp
 
@@ -2220,6 +2234,10 @@
 
     #+END_SRC
 ** TODO Bind <C-M-return> to smart insert subitem or subheader
+** Date-Time Prompt
+
+   - Manual :: https://orgmode.org/manual/The-date_002ftime-prompt.html
+
 * Deft                                                              :package:
   - Homepage :: https://jblevins.org/projects/deft/
 
