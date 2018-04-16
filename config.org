@@ -1907,8 +1907,8 @@
       (:states 'normal
        :keymaps 'org-mode-map
        :prefix my-default-evil-leader-key
-        "r r" 'org-refile
-        "R R" 'org-archive-subtree)
+       "r r" 'org-refile
+       "R R" 'org-archive-subtree)
       (org-mode-map
        "C-c C-'" 'org-edit-special)
       (org-src-mode-map
@@ -1985,6 +1985,15 @@
             (embrace-add-pair (car pair) (cadr pair) (cddr pair)))))
       (add-hook 'org-mode-hook 'my-add-org-evil-embrace-pairs)
 
+      ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
+      (defun my-org-reformat-buffer ()
+        (interactive)
+        (when (y-or-n-p "Really format current buffer? ")
+          (let ((document (org-element-interpret-data (org-element-parse-buffer))))
+            (erase-buffer)
+            (insert document)
+            (goto-char (point-min)))))
+
       (defun my-org-hook-configs ()
         "Hacks to make org-mode less cancer when run"
         ;; NOTE: We turn this off because it is causing the cursor to do really
@@ -2001,21 +2010,21 @@
 ** Org-capture                                                      :package:
    #+BEGIN_SRC emacs-lisp
 
-        ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
-        (use-package org-capture
-          :ensure nil ;; because org-capture is from org
-          :after (org)
-          :general
-          (:prefix my-default-evil-leader-key
-           :states 'normal
-           "c c" 'org-capture) :config
-          (define-key org-capture-mode-map [remap evil-save-and-close]
-            'org-capture-finalize)
-          (define-key org-capture-mode-map [remap evil-save-modified-and-close]
-            'org-capture-finalize)
-          (define-key org-capture-mode-map [remap evil-quit]
-            'org-capture-kill)
-          )
+     ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
+     (use-package org-capture
+       :ensure nil ;; because org-capture is from org
+       :after (org)
+       :general
+       (:prefix my-default-evil-leader-key
+        :states 'normal
+        "c c" 'org-capture) :config
+       (define-key org-capture-mode-map [remap evil-save-and-close]
+         'org-capture-finalize)
+       (define-key org-capture-mode-map [remap evil-save-modified-and-close]
+         'org-capture-finalize)
+       (define-key org-capture-mode-map [remap evil-quit]
+         'org-capture-kill)
+       )
 
    #+END_SRC
 ** Org-agenda                                                       :package:
@@ -2135,6 +2144,20 @@
        )
    #+END_SRC
 
+** TODO Org-jira
+   - Github :: https://github.com/ahungry/org-jira
+
+
+   It seems to be pulling from the old board or something, so we might need to
+   take a look at that.
+
+   - [ ] Get the correct jira url
+   - [ ] Bind it inside =local.el=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package org-jira
+       )
+   #+END_SRC
 ** Org-babel
 
 *** Async                                                           :package:
@@ -2409,6 +2432,16 @@
      (define-auto-insert "\\.php$" ["php-template" /auto-insert-yasnippet])
 
     #+END_SRC
+
+** Yankpad
+   - Github :: https://github.com/Kungsgeten/yankpad
+   - Blog :: https://kungsgeten.github.io/yankpad.html
+
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package yankpad
+       :disabled t)
+   #+END_SRC
 ** Emmet-mode                                                       :package:
    #+BEGIN_SRC emacs-lisp
 
