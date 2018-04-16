@@ -3372,6 +3372,16 @@
        )
    #+END_SRC
 
+* Others
+
+** Game of Life                                                     :package:
+   - Github :: https://github.com/wasamasa/xbm-life
+
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package xbm-life
+       :if (display-graphic-p))
+   #+END_SRC
 * Help
 
 ** Help+                                                            :package:
