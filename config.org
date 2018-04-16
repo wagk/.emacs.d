@@ -87,7 +87,6 @@
 ** Default Org Directory
 
    #+BEGIN_SRC emacs-lisp
-
      (defconst my-org-directory
        (file-name-as-directory
         (if (boundp '/dropbox-folder)
@@ -95,13 +94,11 @@
           "~/org"))
        "orgmode directory."
        )
-
    #+END_SRC
 
 ** Default Notes Directory
 
    #+BEGIN_SRC emacs-lisp
-
      (defconst my-notes-directory
        (file-name-as-directory
         (if (boundp '/dropbox-folder)
@@ -111,13 +108,11 @@
      This is different from the org-directory because these documents are more for
      snippets and smaller things"
        )
-
    #+END_SRC
 
 ** Default Wiki Directory
 
    #+BEGIN_SRC emacs-lisp
-
      (defconst my-wiki-directory
        (file-name-as-directory
         (if (boundp '/dropbox-folder)
@@ -125,7 +120,6 @@
           "~/wiki"))
        "Used for org-brain. This is basically the wiki directory"
        )
-
    #+END_SRC
 
 * Color
@@ -241,8 +235,10 @@
    - Github :: https://github.com/emacs-evil/evil
 
 
-   #+BEGIN_SRC emacs-lisp
+   - [ ] Replace =evil-select-paren= with =evil-select-quote= so that operators
+     seek out the nearest textobject on the line
 
+   #+BEGIN_SRC emacs-lisp
      ;; Note that all the evil flags are documented in `evil.info' in the evil
      ;; directory
      (use-package evil
@@ -250,15 +246,18 @@
        :commands (evil-set-initial-state
                   evil-insert-state)
        :general
+       (global-map
+        "C-u" nil) ;; Disable universal argument
        (:keymaps 'insert
         "C-u"    'kill-whole-line
         "C-l"    'evil-complete-next-line
-        "C-L"    'evil-complete-previous-line
-        "C-p"    'evil-complete-next
-        "C-n"    'evil-complete-previous
-        "C-t"    'evil-shift-right-line
-        "C-d"    'evil-shift-left-line
-        "C-k"    nil)
+        ;; "C-L"    'evil-complete-previous-line
+        ;; "C-p"    'evil-complete-next
+        ;; "C-n"    'evil-complete-previous
+        ;; "C-t"    'evil-shift-right-line
+        ;; "C-d"    'evil-shift-left-line
+        ;; "C-k"    nil
+        )
        (:keymaps 'motion
         "C-u"    'evil-scroll-up)
        (:keymaps 'normal
@@ -283,42 +282,42 @@
        :custom
        (evil-want-C-u-scroll t
                              "Emacs uses `C-u' for its `universal-argument' function.
-                                 It conflicts with scroll up in evil-mode")
+                                      It conflicts with scroll up in evil-mode")
        (evil-want-integration nil
                               "`evil-collections' demands that this be disabled to
-                                  work")
+                                       work")
        :config
 
        ;; TODO: figure out this
        ;; https://github.com/syl20bnr/spacemacs/issues/5070
-         ;;;###autoload
+     ;;;###autoload
        (defun /evil-paste-after-from-0 ()
          "I legitimately forgot what this does.
-         Probably copied it from stackoverflow"
+              Probably copied it from stackoverflow"
          (interactive)
          (let ((evil-this-register ?0))
            (call-interactively 'evil-paste-after)))
 
-         ;;;###autoload
+     ;;;###autoload
        (defun /treat-underscore-as-word ()
          "Make underscore be considered part of a word, just like vim.
-         Add this to whichever mode you want when you want it to treat underscore as a
-         word"
+              Add this to whichever mode you want when you want it to treat underscore as a
+              word"
          (modify-syntax-entry ?_ "w"))
 
-         ;;;###autoload
+     ;;;###autoload
        (defun /evil-gt ()
          "Emulating vim's `gt' using frames."
          (interactive)
          (other-frame 1))
 
-         ;;;###autoload
+     ;;;###autoload
        (defun /evil-gT ()
          "Emulating vim's `gT' using frames."
          (interactive)
          (other-frame -1))
 
-         ;;;###autoload
+     ;;;###autoload
        (defun /lang-toggle ()
          "Input language toggle wrapper."
          (interactive)
@@ -327,7 +326,7 @@
          )
 
        ;; Overload shifts so that they don't lose the selection
-         ;;;###autoload
+     ;;;###autoload
        (defun /evil-shift-left-visual ()
          "Keep visual selection after shifting left."
          (interactive)
@@ -335,7 +334,7 @@
          (evil-normal-state)
          (evil-visual-restore))
 
-         ;;;###autoload
+     ;;;###autoload
        (defun /evil-shift-right-visual ()
          "Same as /evil-shift-left-visual, but for the right instead."
          (interactive)
@@ -455,6 +454,13 @@
        (evil-define-text-object my-evil-inner-line (count &optional beg end type)
          "Select an inner line"
          (my-evil-line-range count beg end type))
+
+       ;; (defun my-evil-inner-paren (count &optional beg end type)
+       ;;   "docstring for my-evil-inner-paren"
+       ;;   :extend-selection nil
+       ;;   (evil-select-quote ?\( ?\) beg end type count))
+       ;; ;; (advice-add 'evil-inner-paren :around 'my-evil-inner-paren)
+       ;; ;; (define-advice evil-inner-paren (:around ))
 
        (add-hook 'evil-normal-state-entry-hook 'evil-ex-nohighlight)
        ;; (evil-update-insert-state-bindings) ;; something's overriding it
@@ -1386,6 +1392,9 @@
     (when window-system
       (global-hl-line-mode))
 
+    ;; http://pragmaticemacs.com/emacs/adaptive-cursor-width/
+    (setq x-stretch-cursor t)
+
     (defun my-goto-scratch-buffer ()
       "When called goes to the scratch buffer.
     TODO: Make it take an argument that specifies which mode it should enter the
@@ -2313,7 +2322,7 @@
 * Completion
   #+BEGIN_SRC emacs-lisp
 
-    (add-hook 'prog-mode-hook #'(lambda () (abbrev-mode -1)))
+    ;; (add-hook 'prog-mode-hook #'(lambda () (abbrev-mode -1)))
 
   #+END_SRC
 
