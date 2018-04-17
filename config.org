@@ -1849,7 +1849,9 @@ Disabled because it's more annoying than worth the convenience
 
 ** TODO Git Hunk textobjects
 I want to be able to select git hunks in a textobject way
-* Org                                                           :package:org:
+* Org                                                                   :org:
+
+** Org-mode                                                        :package:
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :commands (org-mode
@@ -1964,9 +1966,11 @@ I want to be able to select git hunks in a textobject way
     )
 #+END_SRC
 
-** Org-capture                                                      :package:
+** Org-capture                                                     :package:
+
+org capture. https://github.com/syl20bnr/spacemacs/issues/5320
+
 #+BEGIN_SRC emacs-lisp
-  ;; org capture. https://github.com/syl20bnr/spacemacs/issues/5320
   (use-package org-capture
     :ensure nil ;; because org-capture is from org
     :after (org)
@@ -1980,6 +1984,9 @@ I want to be able to select git hunks in a textobject way
       'org-capture-finalize)
     (define-key org-capture-mode-map [remap evil-quit]
       'org-capture-kill)
+    :config
+    ;; when inserting a heading immediately go into insert mode
+    (add-hook 'org-capture-mode-hook 'evil-insert-state)
     )
 #+END_SRC
 
@@ -1993,14 +2000,13 @@ I want to be able to select git hunks in a textobject way
 
 ** Org-agenda                                                       :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package org-agenda
     :ensure nil ;; because org-agenda is from org
     :after (org)
     :general
     (:prefix my-default-evil-leader-key
      :states 'normal
-     "a a" 'org-agenda)
+     "g g" 'org-agenda)
     :config
     ;; initialize org agenda things
     (add-to-list 'org-agenda-files my-org-directory)
