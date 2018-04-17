@@ -91,8 +91,8 @@ as possible.
 #+BEGIN_SRC emacs-lisp
   (defconst my-org-directory
     (file-name-as-directory
-     (if (boundp '/dropbox-folder)
-         (concat (directory-file-name /dropbox-folder) "/org")
+     (if (boundp 'my-dropbox-folder)
+         (concat (directory-file-name my-dropbox-folder) "/org")
        "~/org"))
     "orgmode directory."
     )
@@ -103,8 +103,8 @@ as possible.
 #+BEGIN_SRC emacs-lisp
   (defconst my-notes-directory
     (file-name-as-directory
-     (if (boundp '/dropbox-folder)
-         (concat (directory-file-name /dropbox-folder) "/notes")
+     (if (boundp 'my-dropbox-folder)
+         (concat (directory-file-name my-dropbox-folder) "/notes")
        "~/notes"))
     "Notes directory. Mostly used for `deft-directory'.
   This is different from the org-directory because these documents are more for
@@ -117,13 +117,22 @@ as possible.
 #+BEGIN_SRC emacs-lisp
   (defconst my-wiki-directory
     (file-name-as-directory
-     (if (boundp '/dropbox-folder)
-         (concat (directory-file-name /dropbox-folder) "/wiki")
+     (if (boundp 'my-dropbox-folder)
+         (concat (directory-file-name my-dropbox-folder) "/wiki")
        "~/wiki"))
     "Used for org-brain. This is basically the wiki directory"
     )
 #+END_SRC
 
+** Default Journal File
+#+BEGIN_SRC emacs-lisp
+  (defconst my-journal-org-file
+    (if (boundp 'my-dropbox-folder)
+        (concat (directory-file-name my-dropbox-folder) "/org/journal_2018.org")
+      "~/journal_2018.org")
+    "Journal file correct as of 2018"
+    )
+#+END_SRC
 * Color
 
 Prefer dark mode for display
@@ -1987,6 +1996,11 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
     :config
     ;; when inserting a heading immediately go into insert mode
     (add-hook 'org-capture-mode-hook 'evil-insert-state)
+    (when (boundp 'my-journal-org-file)
+     (add-to-list 'org-capture-templates
+                  `("j" "Journal Entry" entry
+                    (file ,my-journal-org-file)
+                    "* %u %?")))
     )
 #+END_SRC
 
@@ -3278,8 +3292,8 @@ work.
   (use-package plantuml-mode
     :mode "\\.plantuml\\'"
     :config
-    (when (boundp '/plantuml-jar)
-      (setq plantuml-jar-path /plantuml-jar))
+    (when (boundp 'my-plantuml-jar)
+      (setq plantuml-jar-path my-plantuml-jar))
     (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
     (org-babel-do-load-languages
      'org-babel-load-languages '((plantuml . t)))
