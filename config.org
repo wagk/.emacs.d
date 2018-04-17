@@ -564,6 +564,8 @@ shamelessly stolen from spacemacs
   (define-key evil-normal-state-map (kbd "] p") 'evil-unimpaired/paste-below)
 #+END_SRC
 
+*** TODO Implement forward-seeking behavior for parenthetical text objects
+- Link :: https://emacs.stackexchange.com/questions/29026/in-evil-mode-how-can-i-configure-the-seeking-forward-behaviour-for-all-text-obj
 ** Evil-string-inflection                                           :package:
 - Github :: https://github.com/ninrod/evil-string-inflection
 
