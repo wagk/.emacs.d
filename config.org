@@ -2557,13 +2557,13 @@
 
 * Dired
   #+BEGIN_SRC emacs-lisp
-
     (general-define-key
      :states 'normal
      :keymaps 'dired-mode-map
       "<SPC>" nil ; was shadowing leader key bindings
       "C-l" 'dired-up-directory)
 
+    (add-hook 'dired-mode-hook 'auto-revert-mode)
   #+END_SRC
 * Programming Languages
 ** General Programming
