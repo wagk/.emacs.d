@@ -203,7 +203,7 @@ Assumes that it:
                     nil local-file)))
 
   ;; local configuration variables
-  (load (concat user-init-dir "local.el") 'noerror)
+  (load (concat user-init-dir "local.el"))
 
   ;; We assume we can call use-package multiple times
   ;; TODO: configure these meaningfully
