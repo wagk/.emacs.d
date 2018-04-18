@@ -1,5 +1,7 @@
 #+TITLE: Emacs Configuration
 
+- [ ] Check on how to remove the eager macro expansion error
+
 * Introduction
 Configuration settings for my Emacs
 
@@ -1977,7 +1979,7 @@ I want to be able to select git hunks in a textobject way
     )
 #+END_SRC
 
-** Org-capture                                                     :package:
+** Org-capture                                         :package:journalling:
 
 org capture. https://github.com/syl20bnr/spacemacs/issues/5320
 
@@ -2002,7 +2004,7 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
      (add-to-list 'org-capture-templates
                   `("j" "Journal Entry" entry
                     (file ,my-journal-org-file)
-                    "* %u %?")))
+                    "* %U %?")))
     )
 #+END_SRC
 
@@ -2022,10 +2024,10 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
     :general
     (:prefix my-default-evil-leader-key
      :states 'normal
-     "g g" 'org-agenda)
-    :config
+     "f f" 'org-agenda)
+    ;; :config
     ;; initialize org agenda things
-    (add-to-list 'org-agenda-files my-org-directory)
+    ;; (add-to-list 'org-agenda-files my-org-directory)
     )
 #+END_SRC
 ** Org-brain                                                        :package:
@@ -2064,8 +2066,6 @@ Requires the ~anki-connect~ plugin to be installed in anki, as well as curl.
 #+END_SRC
 ** Evil-org                                                         :package:
 #+BEGIN_SRC emacs-lisp
-
-  ;; Prepackaged evil bindings for org-mode
   ;; https://github.com/Somelauw/evil-org-mode
   ;; Full keybindings:
   ;; https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
@@ -2088,6 +2088,10 @@ Requires the ~anki-connect~ plugin to be installed in anki, as well as curl.
     (evil-org-special-o/O
      '(table-row)
      "Do not let o/O affect list items, throws me off")
+    :general
+    (evil-org-mode-map
+     :states 'normal
+      "g f" 'evil-org-open-links)
     :config
     (evil-org-set-key-theme '(textobjects
                               insert
@@ -2101,8 +2105,12 @@ Requires the ~anki-connect~ plugin to be installed in anki, as well as curl.
                               calendar
                               ))
     (add-hook 'org-mode-hook 'evil-org-mode)
-    (require 'evil-org-agenda)
-    (evil-org-agenda-set-keys))
+    (with-eval-after-load 'org-agenda
+      (require 'evil-org-agenda)
+      (evil-org-agenda-set-keys)
+      (add-hook 'org-agenda-mode-hook 'evil-org-mode)
+      )
+    )
 #+END_SRC
 ** Helm-org-rifle                                                   :package:
 #+BEGIN_SRC emacs-lisp
@@ -2144,28 +2152,24 @@ take a look at that.
 
 *** Async                                                           :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package ob-async
     :demand t
     :after (org))
 #+END_SRC
 *** Clojurescript                                                   :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package ob-clojurescript
     :demand t
     :after (org))
 #+END_SRC
 *** Http                                                            :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package ob-http
     :demand t
     :after (org))
 #+END_SRC
 *** Browser                                                         :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package ob-browser
     :demand t
     :after (org))
@@ -2173,7 +2177,6 @@ take a look at that.
 
 *** Restclient                                                      :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package ob-restclient
     :demand t
     :after (org))
@@ -2181,7 +2184,6 @@ take a look at that.
 
 *** Rust                                                            :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package ob-rust
     :demand t
     :after (org))
@@ -2189,7 +2191,6 @@ take a look at that.
 
 *** Translate                                                       :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package ob-translate
     :demand t
     :after (org))
@@ -3068,7 +3069,7 @@ package isn't being maintained or something
 
   (use-package evil-latex-textobjects
     :load-path "local-packages/"
-    :demand t
+    :commands (turn-on-evil-latex-textobjects-mode)
     :general
     (:keymaps 'evil-latex-textobjects-inner-map
      "e" nil
@@ -3076,7 +3077,7 @@ package isn't being maintained or something
     (:keymaps 'evil-latex-textobjects-outer-map
      "e" nil
      "E" 'evil-latex-textobjects-an-env)
-    :config
+    :init
     (add-hook 'LaTeX-mode-hook 'turn-on-evil-latex-textobjects-mode))
 #+END_SRC
 
