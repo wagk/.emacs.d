@@ -23,7 +23,7 @@
      ("DONE" . "#859900")
      ("NOTE" . "#93a1a1")
      ("HACK" . "#6c71c4")
-     ("FIXME" . "#cb4b16"))))
+     ("FIXME" . "#cb4b16"))) t)
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(minimap-window-location (quote right))
  '(org-emphasis-alist

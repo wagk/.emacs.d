@@ -1,10 +1,16 @@
 ;;; use-package-el-get-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
+
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads nil nil ("use-package-el-get.el") (23165 39788
-;;;;;;  0 0))
+;;;### (autoloads nil "use-package-el-get" "use-package-el-get.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from use-package-el-get.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "use-package-el-get" '("use-package-")))
 
 ;;;***
 
@@ -12,5 +18,6 @@
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
+;; coding: utf-8
 ;; End:
 ;;; use-package-el-get-autoloads.el ends here

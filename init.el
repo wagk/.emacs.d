@@ -143,7 +143,7 @@ Assumes that it:
   (setq use-package-always-defer t ;; always lazy load
         use-package-always-ensure t ;; always make sure it never skips if not found
         use-package-verbose t
-        use-package-compute-statistics t)
+        use-package-compute-statistics nil)
 
   (use-package diminish)
   (use-package bind-key)
