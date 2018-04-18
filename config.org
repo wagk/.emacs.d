@@ -195,22 +195,22 @@ Define a few variables that later packages can use
 
 #+BEGIN_SRC emacs-lisp
 
-  (defconst $solarized-dark-base03   "#002b36")
-  (defconst $solarized-dark-base02   "#073642")
-  (defconst $solarized-dark-base01   "#586e75")
-  (defconst $solarized-dark-base00   "#657b83")
-  (defconst $solarized-dark-base0    "#839496")
-  (defconst $solarized-dark-base1    "#93a1a1")
-  (defconst $solarized-dark-base2    "#eee8d5")
-  (defconst $solarized-dark-base3    "#fdf6e3")
-  (defconst $solarized-dark-yellow   "#b58900")
-  (defconst $solarized-dark-orange   "#cb4b16")
-  (defconst $solarized-dark-red      "#dc322f")
-  (defconst $solarized-dark-magenta  "#d33682")
-  (defconst $solarized-dark-violet   "#6c71c4")
-  (defconst $solarized-dark-blue     "#268bd2")
-  (defconst $solarized-dark-cyan     "#2aa198")
-  (defconst $solarized-dark-green    "#859900")
+  (defconst my-solarized-dark-base03   "#002b36")
+  (defconst my-solarized-dark-base02   "#073642")
+  (defconst my-solarized-dark-base01   "#586e75")
+  (defconst my-solarized-dark-base00   "#657b83")
+  (defconst my-solarized-dark-base0    "#839496")
+  (defconst my-solarized-dark-base1    "#93a1a1")
+  (defconst my-solarized-dark-base2    "#eee8d5")
+  (defconst my-solarized-dark-base3    "#fdf6e3")
+  (defconst my-solarized-dark-yellow   "#b58900")
+  (defconst my-solarized-dark-orange   "#cb4b16")
+  (defconst my-solarized-dark-red      "#dc322f")
+  (defconst my-solarized-dark-magenta  "#d33682")
+  (defconst my-solarized-dark-violet   "#6c71c4")
+  (defconst my-solarized-dark-blue     "#268bd2")
+  (defconst my-solarized-dark-cyan     "#2aa198")
+  (defconst my-solarized-dark-green    "#859900")
 #+END_SRC
 
 * Evil                                                                 :evil:
@@ -1449,22 +1449,22 @@ These configurations are old and left here in case we ever need it
      "[ t"  'hl-todo-previous
      "] t"  'hl-todo-next)
     :custom
-    (hl-todo-keyword-faces `(("TODO"  . ,$solarized-dark-yellow)
-                             ("DEBUG" . ,$solarized-dark-magenta)
-                             ("BUG"   . ,$solarized-dark-red)
-                             ("STUB"  . ,$solarized-dark-green)
-                             ("NOTE"  . ,$solarized-dark-base1)
-                             ("HACK"  . ,$solarized-dark-violet)
-                             ("FIXME" . ,$solarized-dark-orange)))
+    (hl-todo-keyword-faces `(("TODO"  . ,my-solarized-dark-yellow)
+                             ("DEBUG" . ,my-solarized-dark-magenta)
+                             ("BUG"   . ,my-solarized-dark-red)
+                             ("STUB"  . ,my-solarized-dark-green)
+                             ("NOTE"  . ,my-solarized-dark-base1)
+                             ("HACK"  . ,my-solarized-dark-violet)
+                             ("FIXME" . ,my-solarized-dark-orange)))
     ;; :config
     ;; (customize-set-variable 'hl-todo-keyword-faces
-    ;;                         `(("TODO"  . ,$solarized-dark-yellow)
-    ;;                           ("DEBUG" . ,$solarized-dark-magenta)
-    ;;                           ("BUG"   . ,$solarized-dark-red)
-    ;;                           ("STUB"  . ,$solarized-dark-green)
-    ;;                           ("NOTE"  . ,$solarized-dark-base1)
-    ;;                           ("HACK"  . ,$solarized-dark-violet)
-    ;;                           ("FIXME" . ,$solarized-dark-orange)))
+    ;;                         `(("TODO"  . ,my-solarized-dark-yellow)
+    ;;                           ("DEBUG" . ,my-solarized-dark-magenta)
+    ;;                           ("BUG"   . ,my-solarized-dark-red)
+    ;;                           ("STUB"  . ,my-solarized-dark-green)
+    ;;                           ("NOTE"  . ,my-solarized-dark-base1)
+    ;;                           ("HACK"  . ,my-solarized-dark-violet)
+    ;;                           ("FIXME" . ,my-solarized-dark-orange)))
     ;; (global-hl-todo-mode)
     ;; (add-hook 'yaml-mode-hook 'hl-todo-mode)
     )
@@ -1640,7 +1640,6 @@ For some reason its package namespace is =fci-=
 
 ** Ace-link                                                         :package:
 #+BEGIN_SRC emacs-lisp
-
   ;; Used in help mode and eww
   (use-package ace-link
     :commands (ace-link-help
@@ -1912,7 +1911,7 @@ I want to be able to select git hunks in a textobject way
     (org-outline-path-complete-in-steps nil)
     (org-refile-allow-creating-parent-nodes 'confirm)
     (org-highlight-latex-and-related '(latex))
-    (org-src-block-faces '(("emacs-lisp" (:foreground "#839496"))))
+    (org-src-block-faces `(("emacs-lisp" (:foreground ,my-solarized-dark-base0))))
 
     :config
   ;;;###autoload
@@ -1990,13 +1989,15 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
     :general
     (:prefix my-default-evil-leader-key
      :states 'normal
-     "c c" 'org-capture) :config
-    (define-key org-capture-mode-map [remap evil-save-and-close]
-      'org-capture-finalize)
-    (define-key org-capture-mode-map [remap evil-save-modified-and-close]
-      'org-capture-finalize)
-    (define-key org-capture-mode-map [remap evil-quit]
-      'org-capture-kill)
+     "c c" 'org-capture)
+    (:prefix my-default-evil-leader-key
+     :keymaps 'org-capture-mode-map
+     :states 'normal
+     "r r" 'org-capture-refile)
+    (org-capture-mode-map
+     [remap evil-save-and-close]          'org-capture-finalize
+     [remap evil-save-modified-and-close] 'org-capture-finalize
+     [remap evil-quit]                    'org-capture-kill)
     :config
     ;; when inserting a heading immediately go into insert mode
     (add-hook 'org-capture-mode-hook 'evil-insert-state)
@@ -2004,7 +2005,7 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
      (add-to-list 'org-capture-templates
                   `("j" "Journal Entry" entry
                     (file ,my-journal-org-file)
-                    "* %U %?")))
+                    "* %U\n%?")))
     )
 #+END_SRC
 
@@ -2013,7 +2014,7 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
 - Template Expansion symbols :: https://orgmode.org/manual/Template-expansion.html#Template-expansion
 
 - [X] Work template (local variable and all that)
-- [ ] Journal template
+- [X] Journal template
 - [ ] side-project related templates (org-projectile?)
 
 ** Org-agenda                                                       :package:
@@ -2149,51 +2150,59 @@ take a look at that.
     )
 #+END_SRC
 ** Org-babel
-
+#+BEGIN_SRC emacs-lisp
+  (use-package org-babel
+    :ensure nil
+    ;; this list is probably incomplete
+    :commands (org-babel-get-src-block-info
+               org-babel-do-in-edit-buffer
+               org-babel-tangle-file)
+    )
+#+END_SRC
 *** Async                                                           :package:
 #+BEGIN_SRC emacs-lisp
   (use-package ob-async
     :demand t
-    :after (org))
+    :after (org-babel))
 #+END_SRC
 *** Clojurescript                                                   :package:
 #+BEGIN_SRC emacs-lisp
   (use-package ob-clojurescript
     :demand t
-    :after (org))
+    :after (org-babel))
 #+END_SRC
 *** Http                                                            :package:
 #+BEGIN_SRC emacs-lisp
   (use-package ob-http
     :demand t
-    :after (org))
+    :after (org-babel))
 #+END_SRC
 *** Browser                                                         :package:
 #+BEGIN_SRC emacs-lisp
   (use-package ob-browser
     :demand t
-    :after (org))
+    :after (org-babel))
 #+END_SRC
 
 *** Restclient                                                      :package:
 #+BEGIN_SRC emacs-lisp
   (use-package ob-restclient
     :demand t
-    :after (org))
+    :after (org-babel))
 #+END_SRC
 
 *** Rust                                                            :package:
 #+BEGIN_SRC emacs-lisp
   (use-package ob-rust
     :demand t
-    :after (org))
+    :after (org-babel))
 #+END_SRC
 
 *** Translate                                                       :package:
 #+BEGIN_SRC emacs-lisp
   (use-package ob-translate
     :demand t
-    :after (org))
+    :after (org-babel))
 #+END_SRC
 ** TODO Bind <C-M-return> to smart insert subitem or subheader
 ** Date-Time Prompt
@@ -2322,12 +2331,12 @@ take a look at that.
 
 * Completion
 #+BEGIN_SRC emacs-lisp
-
   ;; (add-hook 'prog-mode-hook #'(lambda () (abbrev-mode -1)))
 #+END_SRC
 
 ** Yasnippet
-
+- [ ] Issue where if you go into an org source block while still in a yasnippet
+  tabstop yasnippet explodes for some reason
 *** Org-sync-snippets                                               :package:
 - Github :: https://github.com/abrochard/org-sync-snippets
 
@@ -2586,10 +2595,15 @@ prepopulate the file with a template
 #+END_SRC
 *** Yaml-mode                                                       :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package yaml-mode
+    :commands (yaml-mode)
+    :init
+    (with-eval-after-load 'org-babel
+      (add-to-list 'org-src-lang-modes
+                   (cons "yaml" 'yaml)))
     :config
-    (add-hook 'yaml-mode-hook 'turn-on-fci-mode))
+    (add-hook 'yaml-mode-hook 'turn-on-fci-mode)
+    )
 #+END_SRC
 *** Markdown-mode                                                   :package:
 #+BEGIN_SRC emacs-lisp
@@ -2601,9 +2615,13 @@ prepopulate the file with a template
 #+END_SRC
 *** Json-mode                                                       :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package json-mode
     :mode ("\\.json\\'" . json-mode)
+    :commands (json-mode)
+    :init
+    (with-eval-after-load 'org-babel
+      (add-to-list 'org-src-lang-modes
+                   (cons "json" 'json)))
     )
 #+END_SRC
 *** Dockerfile-mode                                                 :package:
@@ -3361,7 +3379,8 @@ This lets you step through macro invocations.
 =ace-link= is needed here.
 
 #+BEGIN_SRC emacs-lisp
-
+  (general-emacs-define-key 'help-mode-map
+    "SPC" nil)
   (general-define-key :states  'normal
                       :keymaps 'help-mode-map
                       "C-t"    'help-go-back
