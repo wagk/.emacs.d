@@ -2546,9 +2546,12 @@ prepopulate the file with a template
 #+END_SRC
 *** Dumb-jump
 #+BEGIN_SRC emacs-lisp
-
   (use-package dumb-jump
     :demand t
+    :commands (dumb-jump-go)
+    :general
+    (:states 'normal
+     "g d" 'dumb-jump-go)
     :diminish dumb-jump-mode)
 #+END_SRC
 ** General Web Development

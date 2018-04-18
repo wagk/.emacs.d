@@ -135,7 +135,7 @@ Assumes that it:
     (package-refresh-contents)
     (package-install 'use-package))
 
-  (progn (eval-when-compile (require 'use-package)))
+  (eval-when-compile (require 'use-package))
 
   ;; download packages if needed
   ;; this is disabled because I feel that verbose is better
