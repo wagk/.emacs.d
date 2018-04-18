@@ -37,7 +37,7 @@ Common Lisp library
     (require 'cl))
 #+END_SRC
 
-** Dash                                                             :package:
+** Dash                                                            :package:
 Utility library
 
 #+BEGIN_SRC emacs-lisp
@@ -1131,8 +1131,8 @@ These configurations are old and left here in case we ever need it
      "\\"  'helm-select-action
      "C-j" 'helm-next-line
      "C-k" 'helm-previous-line
-     "C-n" 'helm-next-page
-     "C-p" 'helm-previous-page
+     "C-d" 'helm-next-page
+     "C-u" 'helm-previous-page
      "C-l" 'helm-next-source
      "C-h" 'helm-previous-source
      "TAB" 'helm-execute-persistent-action)
@@ -1863,7 +1863,7 @@ Disabled because it's more annoying than worth the convenience
 I want to be able to select git hunks in a textobject way
 * Org                                                                   :org:
 
-** Org-mode                                                        :package:
+** Org-mode                                                         :package:
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :commands (org-mode
@@ -1897,13 +1897,13 @@ I want to be able to select git hunks in a textobject way
     (org-default-notes-file "~/TODO.org")
     ;; (org-M-RET-may-split-line '((default . nil)))
     (org-M-RET-may-split-line nil)
-    (org-enforce-todo-checkbox-dependencies     t)
-    (org-enforce-todo-dependencies              t)
-    (org-pretty-entities                        nil)
+  (org-enforce-todo-checkbox-dependencies t)
+  (org-enforce-todo-dependencies          t)
+  (org-pretty-entities                    nil)
     ;; (org-insert-heading-respect-content t)
-    (org-log-done                               'time)
-    (org-log-redeadline                         'time)
-    (org-log-reschedule                         'time)
+    (org-log-done       'time)
+    (org-log-redeadline 'time)
+    (org-log-reschedule 'time)
     (org-blank-before-new-entry '((heading         . t)
                                   (plain-list-item . nil)))
     (org-refile-targets '((nil . (:maxlevel . 9))))
@@ -1924,7 +1924,7 @@ I want to be able to select git hunks in a textobject way
                         org-level-3
                         org-level-4
                         org-level-5))
-          (set-face-attribute face nil :weight 'semi-bold :height 1.0))))
+          (set-face-attribute face nil :weight 'normal :height 1.0))))
     (add-hook 'org-mode-hook '/org-mode-face-no-resize)
 
     ;; (org-toggle-link-display)
@@ -1978,7 +1978,7 @@ I want to be able to select git hunks in a textobject way
     )
 #+END_SRC
 
-** Org-capture                                         :package:journalling:
+** Org-capture                                          :package:journalling:
 
 org capture. https://github.com/syl20bnr/spacemacs/issues/5320
 
@@ -2149,6 +2149,7 @@ take a look at that.
   (use-package org-jira
     )
 #+END_SRC
+
 ** Org-babel
 #+BEGIN_SRC emacs-lisp
   (use-package org-babel
