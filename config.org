@@ -25,6 +25,7 @@ This might turn out to be just an elisp reference someday
 
 *** Nadvice
 https://emacs.stackexchange.com/questions/12997/how-do-i-use-nadvice
+
 * Developer Libraries
 Packages that are useful for development but might not actually make the emacs
 user experience nice.
@@ -140,7 +141,6 @@ as possible.
 Prefer dark mode for display
 
 #+BEGIN_SRC emacs-lisp
-
   (customize-set-variable 'frame-background-mode 'dark)
   (set-terminal-parameter nil 'background-mode 'dark)
 #+END_SRC
@@ -218,7 +218,6 @@ Define a few variables that later packages can use
 Enable folding for all programming major modes
 
 #+BEGIN_SRC emacs-lisp
-
   (add-hook 'prog-mode-hook 'hs-minor-mode)
 #+END_SRC
 
@@ -227,7 +226,6 @@ Enable folding for all programming major modes
 
 
 #+BEGIN_SRC emacs-lisp
-
   (use-package evil-collection
     :after (evil)
     :demand t
@@ -246,8 +244,9 @@ Enable folding for all programming major modes
   seek out the nearest textobject on the line
 
 #+BEGIN_SRC emacs-lisp
+  ;; [something] ( mote thingh) {} <>
   ;; Note that all the evil flags are documented in `evil.info' in the evil
-  ;; directory
+  ;; directory ()
   (use-package evil
     :demand t
     :commands (evil-set-initial-state
@@ -469,6 +468,109 @@ Enable folding for all programming major modes
     ;;   (evil-select-paren "(" ")" beg end type count)
     ;;   )
     ;; (advice-add 'evil-inner-paren :around #'my-evil-inner-paren)
+
+    ;; [something] ( mote thingh) {} <>
+
+  ;;   (defun my-forward-line-char-seeker (char)
+  ;;     "docstring for my-forward-in-line-char"
+  ;;     (save-excursion
+  ;;       (while (and (not (eolp))
+  ;;                   (not (looking-at-p char)))
+  ;;         (forward-char))
+  ;;       (if (eolp)
+  ;;           nil
+  ;;         (point))))
+
+  ;;   (defun my-backward-line-char-seeker (char)
+  ;;     "docstring for my-forward-in-line-char"
+  ;;     (save-excursion
+  ;;       (while (and (not (bolp))
+  ;;                   (not (looking-at-p char)))
+  ;;         (backward-char))
+  ;;       (if (bolp)
+  ;;           nil
+  ;;         (point))))
+
+  ;;   ;;TODO: Make this hack less cancerous. All we want is to alter evil-select-parens
+  ;;   ;;into evil-select-quote so we have proper forward chasing behavior
+  ;;   (defun my-evil-a-paren-seek (&rest _)
+  ;;     "Move the point into a delimiter, if it exists within this line,
+  ;; Does nothing otherwise"
+  ;;     (let ((seek-forward (my-forward-line-char-seeker "("))
+  ;;           (seek-backward (my-backward-line-char-seeker ")")))
+  ;;       (cond (seek-forward
+  ;;              (goto-char seek-forward))
+  ;;             (seek-backward
+  ;;              (goto-char seek-backward)))
+  ;;       ))
+  ;;   (advice-add 'evil-a-paren :before 'my-evil-a-paren-seek)
+
+  ;;   (evil-define-text-object my-evil-inner-paren (count &optional beg end type)
+  ;;     "Select inner parenthesis."
+  ;;     :extend-selection nil
+  ;;     (evil-select-paren "(" ")" beg end type count))
+  ;;   (advice-add 'evil-inner-paren :override 'my-evil-inner-paren)
+
+  ;;   (evil-define-text-object my-evil-a-bracket (count &optional beg end type)
+  ;;     "Select a square bracket."
+  ;;     :extend-selection nil
+  ;;     (evil-select-paren "\\[" "\\]" beg end type count t))
+  ;;   (advice-add 'evil-a-bracket :override 'my-evil-a-bracket)
+
+  ;;   (evil-define-text-object my-evil-inner-bracket (count &optional beg end type)
+  ;;     "Select inner square bracket."
+  ;;     :extend-selection nil
+  ;;     (evil-select-paren "\\[" "\\]" beg end type count))
+  ;;   (advice-add 'evil-inner-bracket :override 'my-evil-inner-bracket)
+
+  ;;   (evil-define-text-object my-evil-a-curly (count &optional beg end type)
+  ;;     "Select a curly bracket (\"brace\")."
+  ;;     :extend-selection nil
+  ;;     (evil-select-paren "{" "}" beg end type count t))
+  ;;   (advice-add 'evil-a-curly :override 'my-evil-a-curly)
+
+  ;;   (evil-define-text-object my-evil-inner-curly (count &optional beg end type)
+  ;;     "Select inner curly bracket (\"brace\")."
+  ;;     :extend-selection nil
+  ;;     (evil-select-paren "{" "}" beg end type count))
+  ;;   (advice-add 'evil-inner-curly :override 'my-evil-inner-curly)
+
+  ;;   (evil-define-text-object my-evil-an-angle (count &optional beg end type)
+  ;;     "Select an angle bracket."
+  ;;     :extend-selection nil
+  ;;     (evil-select-paren "<" ">" beg end type count t))
+  ;;   (advice-add 'evil-an-angle :override 'my-evil-an-angle)
+
+  ;;   (evil-define-text-object my-evil-inner-angle (count &optional beg end type)
+  ;;     "Select inner angle bracket."
+  ;;     :extend-selection nil
+  ;;     (evil-select-paren "<" ">" beg end type count))
+  ;;   (advice-add 'evil-inner-angle :override 'my-evil-inner-angle)
+
+    ;; (general-define-key
+    ;;  :keymaps 'evil-outer-text-objects-map
+    ;;  "b" 'my-evil-a-paren
+    ;;  "(" 'my-evil-a-paren
+    ;;  ")" 'my-evil-a-paren
+    ;;  "[" 'my-evil-a-bracket
+    ;;  "]" 'my-evil-a-bracket
+    ;;  "B" 'my-evil-a-curly
+    ;;  "{" 'my-evil-a-curly
+    ;;  "}" 'my-evil-a-curly
+    ;;  "<" 'my-evil-an-angle
+    ;;  ">" 'my-evil-an-angle)
+    ;; (general-define-key
+    ;;  :keymaps 'evil-inner-text-objects-map
+    ;;  "b" 'my-evil-inner-paren
+    ;;  "(" 'my-evil-inner-paren
+    ;;  ")" 'my-evil-inner-paren
+    ;;  "[" 'my-evil-inner-bracket
+    ;;  "]" 'my-evil-inner-bracket
+    ;;  "B" 'my-evil-inner-curly
+    ;;  "{" 'my-evil-inner-curly
+    ;;  "}" 'my-evil-inner-curly
+    ;;  "<" 'my-evil-inner-angle
+    ;;  ">" 'my-evil-inner-angle)
 
       ;; (evil-select-quote ?\( ?\) beg end type count)
       ;; (evil-select-paren ?\( ?\) (caddr args) (cadddr args) (cadddr args) (cadr args))
@@ -1286,10 +1388,10 @@ These configurations are old and left here in case we ever need it
 
   ;; strip whitespace
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  (general-define-key
-   :states 'normal
-   :prefix my-default-evil-leader-key
-   "." 'whitespace-mode)
+  ;;(general-define-key
+  ;; :states 'normal
+  ;; :prefix my-default-evil-leader-key
+  ;; "." 'whitespace-mode)
 
   ;; automatically refresh buffer when changed outside
   (global-auto-revert-mode t)
@@ -1427,7 +1529,6 @@ These configurations are old and left here in case we ever need it
 
 ** Whitespace-cleanup-mode                                          :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package whitespace-cleanup-mode
     :demand t
     :config
@@ -1693,11 +1794,14 @@ For some reason its package namespace is =fci-=
 
 ** Smartparens                                                      :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package smartparens
     :demand t
     :diminish smartparens-mode
     :commands (sp-local-pair)
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "." 'smartparens-mode)
     :custom
     (sp-cancel-autoskip-on-backward-movement
      nil "We want to maintain the chomp-like behavior of electric-pair")
@@ -1986,10 +2090,13 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
   (use-package org-capture
     :ensure nil ;; because org-capture is from org
     :after (org)
+    :commands (org-capture)
     :general
     (:prefix my-default-evil-leader-key
      :states 'normal
-     "c c" 'org-capture)
+     "c c" 'helm-org-capture-templates
+     "c j" '(lambda () (interactive) (org-capture nil "j"))
+     "C C" '(lambda () (interactive) (org-capture nil "d")))
     (:prefix my-default-evil-leader-key
      :keymaps 'org-capture-mode-map
      :states 'normal
@@ -2004,6 +2111,10 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
     (when (boundp 'my-journal-org-file)
      (add-to-list 'org-capture-templates
                   `("j" "Journal Entry" entry
+                    (file ,my-journal-org-file)
+                    "* %U\n%?"))
+     (add-to-list 'org-capture-templates
+                  `("d" "Daydream Entry" entry
                     (file ,my-journal-org-file)
                     "* %U\n%?")))
     )
