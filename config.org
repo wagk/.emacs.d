@@ -94,8 +94,8 @@ as possible.
 #+BEGIN_SRC emacs-lisp
   (defconst my-org-directory
     (file-name-as-directory
-     (if (boundp 'my-dropbox-folder)
-         (concat (directory-file-name my-dropbox-folder) "/org")
+     (if (boundp 'my-local-dropbox-folder)
+         (concat (directory-file-name my-local-dropbox-folder) "/org")
        "~/org"))
     "orgmode directory."
     )
@@ -106,8 +106,8 @@ as possible.
 #+BEGIN_SRC emacs-lisp
   (defconst my-notes-directory
     (file-name-as-directory
-     (if (boundp 'my-dropbox-folder)
-         (concat (directory-file-name my-dropbox-folder) "/notes")
+     (if (boundp 'my-local-dropbox-folder)
+         (concat (directory-file-name my-local-dropbox-folder) "/notes")
        "~/notes"))
     "Notes directory. Mostly used for `deft-directory'.
   This is different from the org-directory because these documents are more for
@@ -120,8 +120,8 @@ as possible.
 #+BEGIN_SRC emacs-lisp
   (defconst my-wiki-directory
     (file-name-as-directory
-     (if (boundp 'my-dropbox-folder)
-         (concat (directory-file-name my-dropbox-folder) "/wiki")
+     (if (boundp 'my-local-dropbox-folder)
+         (concat (directory-file-name my-local-dropbox-folder) "/wiki")
        "~/wiki"))
     "Used for org-brain. This is basically the wiki directory"
     )
@@ -130,12 +130,27 @@ as possible.
 ** Default Journal File
 #+BEGIN_SRC emacs-lisp
   (defconst my-journal-org-file
-    (if (boundp 'my-dropbox-folder)
-        (concat (directory-file-name my-dropbox-folder) "/org/journal_2018.org")
+    (if (boundp 'my-local-dropbox-folder)
+        (concat (directory-file-name my-local-dropbox-folder) "/org/journal_2018.org")
       "~/journal_2018.org")
     "Journal file correct as of 2018"
     )
+  (unless (file-exists-p my-journal-org-file)
+    (with-temp-buffer (write-file my-journal-org-file)))
 #+END_SRC
+
+** Default Daydream File
+#+BEGIN_SRC emacs-lisp
+  (defconst my-daydream-org-file
+    (if (boundp 'my-local-dropbox-folder)
+        (concat (directory-file-name my-local-dropbox-folder) "/daydreams.org")
+      "~/daydreams.org")
+    "Place to note down my daydreams"
+    )
+  (unless (file-exists-p my-daydream-org-file)
+    (with-temp-buffer (write-file my-daydream-org-file)))
+#+END_SRC
+
 * Color
 
 Prefer dark mode for display
@@ -1561,8 +1576,9 @@ These configurations are old and left here in case we ever need it
   (use-package hl-todo
     :diminish t
     :commands (hl-todo-mode)
-    :hook ((prog-mode . hl-todo-mode)
-           (yaml-mode . hl-todo-mode))
+    :hook ((prog-mode  . hl-todo-mode)
+           (yaml-mode  . hl-todo-mode)
+           (occur-mode . hl-todo-mode))
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -1578,17 +1594,6 @@ These configurations are old and left here in case we ever need it
                              ("NOTE"  . ,my-solarized-dark-base1)
                              ("HACK"  . ,my-solarized-dark-violet)
                              ("FIXME" . ,my-solarized-dark-orange)))
-    ;; :config
-    ;; (customize-set-variable 'hl-todo-keyword-faces
-    ;;                         `(("TODO"  . ,my-solarized-dark-yellow)
-    ;;                           ("DEBUG" . ,my-solarized-dark-magenta)
-    ;;                           ("BUG"   . ,my-solarized-dark-red)
-    ;;                           ("STUB"  . ,my-solarized-dark-green)
-    ;;                           ("NOTE"  . ,my-solarized-dark-base1)
-    ;;                           ("HACK"  . ,my-solarized-dark-violet)
-    ;;                           ("FIXME" . ,my-solarized-dark-orange)))
-    ;; (global-hl-todo-mode)
-    ;; (add-hook 'yaml-mode-hook 'hl-todo-mode)
     )
 #+END_SRC
 
@@ -2170,38 +2175,48 @@ I want to be able to select git hunks in a textobject way
 org capture. https://github.com/syl20bnr/spacemacs/issues/5320
 
 #+BEGIN_SRC emacs-lisp
-    (use-package org-capture
-      :ensure nil ;; because org-capture is from org
-      :after (org)
-      :commands (org-capture
-                 org-capture-templates)
-      :general
-      (:prefix my-default-evil-leader-key
-       :states 'normal
-       "c c" 'helm-org-capture-templates
-       "c j" '(lambda () (interactive) (org-capture nil "j"))
-       "C C" '(lambda () (interactive) (org-capture nil "d")))
-      (:prefix my-default-evil-leader-key
-       :keymaps 'org-capture-mode-map
-       :states 'normal
-       "r r" 'org-capture-refile)
-      (org-capture-mode-map
-       [remap evil-save-and-close]          'org-capture-finalize
-       [remap evil-save-modified-and-close] 'org-capture-finalize
-       [remap evil-quit]                    'org-capture-kill)
-      :config
-      ;; when inserting a heading immediately go into insert mode
-      (add-hook 'org-capture-mode-hook 'evil-insert-state)
-      (when (boundp 'my-journal-org-file)
-       (add-to-list 'org-capture-templates
-                    `("j" "Journal Entry" entry
-                      (file ,my-journal-org-file)
-                      "* %U\n%?"))
-       (add-to-list 'org-capture-templates
-                    `("d" "Daydream Entry" entry
-                      (file ,my-journal-org-file)
-                      "* %U\n%?")))
+  (use-package org-capture
+    :ensure nil ;; because org-capture is from org
+    :after (org)
+    :commands (org-capture
+               org-capture-templates)
+    :general
+    (:prefix my-default-evil-leader-key
+     :states 'normal
+     "c c" '(lambda () (interactive)
+              (require 'org-capture)
+              (helm-org-capture-templates))
+     "c j" '(lambda () (interactive) (org-capture nil "j"))
+     )
+    (:prefix my-default-evil-leader-key
+     :keymaps 'org-capture-mode-map
+     :states 'normal
+     "r r" 'org-capture-refile)
+    (org-capture-mode-map
+     [remap evil-save-and-close]          'org-capture-finalize
+     [remap evil-save-modified-and-close] 'org-capture-finalize
+     [remap evil-quit]                    'org-capture-kill)
+    :init
+    (defun my-capture-daydream ()
+      ""
+      (interactive)
+      (org-capture nil "d")
       )
+    (evil-ex-define-cmd "todo" 'my-capture-daydream)
+    :config
+    ;; when inserting a heading immediately go into insert mode
+    (add-hook 'org-capture-mode-hook 'evil-insert-state)
+    (when (boundp 'my-journal-org-file)
+      (add-to-list 'org-capture-templates
+                   `("j" "Journal Entry" entry
+                     (file ,my-journal-org-file)
+                     "* %U\n%?"))
+      (add-to-list 'org-capture-templates
+                   `("d" "Daydream Entry" entry
+                     ;;TODO: point this to some scratch org
+                     (file ,my-daydream-org-file)
+                     "* %? \n %U")))
+    )
 #+END_SRC
 
 *** Capture Templates Reference
