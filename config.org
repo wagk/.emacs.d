@@ -1899,15 +1899,18 @@ Disabled because it's more annoying than worth the convenience
 
 Most of the stuff is stolen from the reddit link
 
+- [ ] Not working in python (doesn't recursively fold and does not allow us to
+  fold non-top level syntax). Should check
+
 #+BEGIN_SRC emacs-lisp
   (use-package origami
     :general
     (:states 'normal
      "za" 'origami-forward-toggle-node
-     "zR" 'origami-close-all-nodes
-     "zM" 'origami-open-all-nodes
-     "zr" 'origami-close-node-recursively
-     "zm" 'origami-open-node-recursively
+     "zM" 'origami-close-all-nodes
+     "zR" 'origami-open-all-nodes
+     "zm" 'origami-close-node-recursively
+     "zr" 'origami-open-node-recursively
      "zo" 'origami-show-node
      "zc" 'origami-close-node
      "zj" 'origami-forward-fold
@@ -1915,7 +1918,9 @@ Most of the stuff is stolen from the reddit link
      "zf" 'my-evil-fold-object)
     :config
     (defun my-evil-fold-object ()
-      "create fold and add comment to it"
+      "create fold and add comment to it. There's a lot of
+  hardcoding and I do not like it very much. I'm considering
+  deleting this"
       (interactive)
       (setq start (region-beginning))
       (setq end (region-end))
