@@ -60,7 +60,9 @@ Utility library
 ** Async                                                            :package:
 
 #+BEGIN_SRC emacs-lisp
-  (use-package async)
+  (use-package async
+    :custom
+    (async-bytecomp-allowed-packages '(all)))
 #+END_SRC
 
 ** Names                                                            :package:
@@ -704,11 +706,12 @@ shamelessly stolen from spacemacs
 - Github :: https://github.com/ninrod/exato
 
 
-#+BEGIN_SRC emacs-lisp
+Defaults to x, so dax, dix, etc. To customize set the value of =exato-key=
 
-  ;; defaults to x, so dax, dix, etc
-  ;; This package is about xml attribute objects, the t textobj handles tags, not
-  ;; attributes, which are inside tags
+This package is about xml attribute objects, the t textobj handles tags, not
+attributes, which are inside tags
+
+#+BEGIN_SRC emacs-lisp
   (use-package exato
     :after (evil))
 #+END_SRC
@@ -812,19 +815,6 @@ shamelessly stolen from spacemacs
     )
 #+END_SRC
 
-** Evil-rsi                                                         :package:
-- Github :: https://github.com/linktohack/evil-rsi
-
-
-#+BEGIN_SRC emacs-lisp
-
-  (use-package evil-rsi
-    :disabled
-    :after (evil)
-    :config
-    (evil-rsi-mode))
-#+END_SRC
-
 ** Evil-lion                                                        :package:
 - Github :: https://github.com/edkolev/evil-lion
 
@@ -908,6 +898,8 @@ shamelessly stolen from spacemacs
 #+END_SRC
 
 ** Evil-rsi                                                :package:disabled:
+- Github :: https://github.com/linktohack/evil-rsi
+
 
 This is causing a conflict with evil-mode where activating =evil-rsi-mode=
 removes certain insert state keybinds (like =C-t= and =C-d= that I like.)
@@ -915,7 +907,6 @@ removes certain insert state keybinds (like =C-t= and =C-d= that I like.)
 So we're disabling it
 
 #+BEGIN_SRC emacs-lisp
-
   ;; TODO: Document GNU Readline bindings
   (use-package evil-rsi
     :disabled t
@@ -928,7 +919,6 @@ So we're disabling it
 
 ** Evil-goggles                                            :package:disabled:
 #+BEGIN_SRC emacs-lisp
-
   ;; Flashes the selection you made. I honestly don't need this and am just
   ;; turning it on for shits and giggles, until it starts to annoy me
   ;; https://github.com/edkolev/evil-goggles
@@ -947,7 +937,6 @@ So we're disabling it
 
 ** Evil-quickscope                                         :package:disabled:
 #+BEGIN_SRC emacs-lisp
-
   ;; Disabled because it conflicts with evil-snipe-override-mode
   (use-package evil-quickscope
     :disabled t
@@ -959,7 +948,6 @@ So we're disabling it
 
 ** Evil-snipe                                                       :package:
 #+BEGIN_SRC emacs-lisp
-
   ;; Basically does what Clever-F did in vim, letting you repeatedly press
   ;; f, F, t, and T instead of using ; and ,
   (use-package evil-snipe
@@ -992,7 +980,6 @@ Adds the following ex commands:
 
 ** Evil-exchange                                           :package:disabled:
 #+BEGIN_SRC emacs-lisp
-
   ;; Adds an operator `gx' that, when called again, swaps both selections
   ;; currently DISABLED because it conflicts with the default `g x', which
   ;; goes to the link under the cursor (`browse-url-at-point'), something
@@ -1003,13 +990,11 @@ Adds the following ex commands:
 
 ** Vimish-fold                                                      :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package vimish-fold)
 #+END_SRC
 
 ** Evil-tutor                                                       :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package evil-tutor)
 #+END_SRC
 
@@ -1029,7 +1014,6 @@ Adds the following ex commands:
 #+END_SRC
 
 ** Evil-argwrap
-
 I want to replicate [[https://github.com/FooSoft/vim-argwrap][vim-argwrap]] in evil-mode.
 
 The current issue is how the range isn't long enough, because of the
@@ -1251,7 +1235,6 @@ These configurations are old and left here in case we ever need it
 
 #+BEGIN_SRC emacs-lisp
   (use-package helm
-    :after (general)
     :demand t
     :general
     ("C-h C-h" 'helm-apropos
@@ -1316,19 +1299,25 @@ These configurations are old and left here in case we ever need it
     (helm-descbinds-mode))
 #+END_SRC
 
-** Helm-swoop                                                       :package:
+** Helm-swoop                                                      :package:
+Disabled until we figure out a good keybind for it to use. It currently
+conflicts with org-agenda
+
+- [ ] Use helm to replace hl-todo's occur prolly
+
 
 #+BEGIN_SRC emacs-lisp
   (use-package helm-swoop
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
-     "f f" 'helm-swoop) :init
-  ;;;###autoload
+     "t t" 'helm-swoop)
+    (helm-swoop-map
+     "C-w" 'evil-delete-backward-word)
+    :init
+    ;;;###autoload
     (defun /helm-swoop-vis () (interactive)
            (helm-swoop :$query "" :$multiline 4))
-    :bind (:map helm-swoop-map
-           ("C-w" . evil-delete-backward-word))
     ;; :config
     ;; (defun /helm-swoop-vis () (interactive)
     ;;        (helm-swoop :$query "" :$multiline 4))
@@ -1572,17 +1561,23 @@ These configurations are old and left here in case we ever need it
 #+END_SRC
 
 ** Hl-todo                                                          :package:
+- Odd highlighting in hl-todo-occur :: https://github.com/tarsius/hl-todo/issues/23#issuecomment-383051721
+
+
+Current workflow is to attempt to use helm-swoop to see what is there, instead of
+hl-todo-occur
+
 #+BEGIN_SRC emacs-lisp
   (use-package hl-todo
     :diminish t
     :commands (hl-todo-mode)
     :hook ((prog-mode  . hl-todo-mode)
-           (yaml-mode  . hl-todo-mode)
-           (occur-mode . hl-todo-mode))
+           (yaml-mode  . hl-todo-mode))
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
-     "t t" 'hl-todo-occur)
+     ;; "t t" 'hl-todo-occur
+     )
     (:keymaps 'evil-normal-state-map
      "[ t"  'hl-todo-previous
      "] t"  'hl-todo-next)
@@ -1594,6 +1589,20 @@ These configurations are old and left here in case we ever need it
                              ("NOTE"  . ,my-solarized-dark-base1)
                              ("HACK"  . ,my-solarized-dark-violet)
                              ("FIXME" . ,my-solarized-dark-orange)))
+    :config
+    ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
+    ;; Not used because we don't incrementally search for todos
+    ;; (defun my-helm-hl-todo-items ()
+    ;;   "Show `hl-todo'-keyword items in buffer."
+    ;;   (interactive)
+    ;;   (helm :sources (helm-build-in-buffer-source "hl-todo items"
+    ;;                    :data (current-buffer)
+    ;;                    :candidate-transformer (lambda (candidates)
+    ;;                                             (cl-loop for c in candidates
+    ;;                                                      when (string-match hl-todo-regexp c)
+    ;;                                                      collect c))
+    ;;                    :get-line #'buffer-substring)
+    ;;         :buffer "*helm hl-todo*"))
     )
 #+END_SRC
 
@@ -2094,9 +2103,9 @@ I want to be able to select git hunks in a textobject way
     (org-default-notes-file "~/TODO.org")
     ;; (org-M-RET-may-split-line '((default . nil)))
     (org-M-RET-may-split-line nil)
-  (org-enforce-todo-checkbox-dependencies t)
-  (org-enforce-todo-dependencies          t)
-  (org-pretty-entities                    nil)
+    (org-enforce-todo-checkbox-dependencies t)
+    (org-enforce-todo-dependencies          t)
+    (org-pretty-entities                    nil)
     ;; (org-insert-heading-respect-content t)
     (org-log-done       'time)
     (org-log-redeadline 'time)
@@ -2176,7 +2185,6 @@ I want to be able to select git hunks in a textobject way
 #+END_SRC
 
 ** Org-capture                                          :package:journalling:
-
 org capture. https://github.com/syl20bnr/spacemacs/issues/5320
 
 #+BEGIN_SRC emacs-lisp
@@ -2192,7 +2200,7 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
               (require 'org-capture)
               (helm-org-capture-templates))
      "c j" '(lambda () (interactive) (org-capture nil "j"))
-     )
+     "j j" '(lambda () (interactive) (org-capture nil "d")))
     (:prefix my-default-evil-leader-key
      :keymaps 'org-capture-mode-map
      :states 'normal
@@ -2205,8 +2213,7 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
     (defun my-capture-daydream ()
       ""
       (interactive)
-      (org-capture nil "d")
-      )
+      (org-capture nil "d"))
     (evil-ex-define-cmd "todo" 'my-capture-daydream)
     :config
     ;; when inserting a heading immediately go into insert mode
@@ -2215,13 +2222,12 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
       (add-to-list 'org-capture-templates
                    `("j" "Journal Entry" entry
                      (file ,my-journal-org-file)
-                     "* %U\n%?"))
+                     "* %U\n%?")))
+    (when (boundp 'my-daydream-org-file)
       (add-to-list 'org-capture-templates
                    `("d" "Daydream Entry" entry
-                     ;;TODO: point this to some scratch org
                      (file ,my-daydream-org-file)
-                     "* %? \n %U")))
-    )
+                     "* %? \n %U"))))
 #+END_SRC
 
 *** Capture Templates Reference
@@ -2230,7 +2236,7 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
 
 - [X] Work template (local variable and all that)
 - [X] Journal template
-- [ ] side-project related templates (org-projectile?)
+- [X] side-project related templates (org-projectile?)
 
 ** Org-agenda                                                       :package:
 #+BEGIN_SRC emacs-lisp
@@ -2307,7 +2313,7 @@ Requires the ~anki-connect~ plugin to be installed in anki, as well as curl.
     :general
     (evil-org-mode-map
      :states 'normal
-      "g f" 'evil-org-open-links)
+     "g f" 'evil-org-open-links)
     :config
     (evil-org-set-key-theme '(textobjects
                               insert
@@ -2331,7 +2337,6 @@ Requires the ~anki-connect~ plugin to be installed in anki, as well as curl.
 ** Helm-org-rifle                                                   :package:
 #+BEGIN_SRC emacs-lisp
   (use-package helm-org-rifle
-    :after (org)
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -2511,7 +2516,6 @@ take a look at that.
 ** Helm-projectile                                                  :package:
 #+BEGIN_SRC emacs-lisp
   (use-package helm-projectile
-    :after (projectile)
     :general
     (:states 'normal
      "_" 'helm-projectile)
@@ -2519,19 +2523,19 @@ take a look at that.
 #+END_SRC
 
 ** Org-projectile                                                   :package:
-#+BEGIN_SRC emacs-lisp
+- Github :: https://github.com/IvanMalison/org-projectile
 
+
+#+BEGIN_SRC emacs-lisp
   (use-package org-projectile
-    :after (projectile)
     :init
     (general-define-key :states 'normal
                         :prefix my-default-evil-leader-key
-                        "o p" 'org-projectile:project-todo-completing-read)
+                        "P P" 'org-projectile-project-todo-completing-read)
     :config
-    (org-projectile:per-repo)
-    (setq org-projectile:per-repo-filename ".todo.org"
-          org-agenda-files (append org-agenda-files (org-projectile:todo-files)))
-    (add-to-list 'org-capture-templates (org-projectile:project-todo-entry "o"))
+    (org-projectile-per-project)
+    (setq org-projectile-per-project-filepath "TODO.org"
+          org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
     )
 #+END_SRC
 * Flycheck                                                 :package:disabled:
@@ -2993,7 +2997,6 @@ prepopulate the file with a template
 
 **** Cmake-font-lock
 #+BEGIN_SRC emacs-lisp
-
   (use-package cmake-font-lock
     :after cmake-mode
     :demand t)
@@ -3023,7 +3026,6 @@ prepopulate the file with a template
 
 **** Company-irony                                         :package:disabled:
 #+BEGIN_SRC emacs-lisp
-
   (use-package company-irony
     :disabled t
     :after (:all company irony)
@@ -3061,7 +3063,6 @@ prepopulate the file with a template
 
 *** Tide                                                            :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package tide
     :after typescript-mode
     :init
@@ -3072,7 +3073,6 @@ prepopulate the file with a template
 #+END_SRC
 ** Elisp
 #+BEGIN_SRC emacs-lisp
-
   (with-eval-after-load 'elisp-mode
     (general-define-key :states 'insert
                         :keymaps 'emacs-lisp-mode-map
@@ -3339,7 +3339,6 @@ The kkc-mode is packaged with emacs, and isn't a package on elpa or anything
 A finance minor-mode that we use
 
 #+BEGIN_SRC emacs-lisp
-
   (use-package ledger-mode
     :init
     (setq ledger-clear-whole-transactions 1)
@@ -3359,7 +3358,6 @@ Evilify ledger-mode
 Adds a transaction textobject bound to =x=
 
 #+BEGIN_SRC emacs-lisp
-
   (use-package evil-ledger
     :after (:all evil ledger-mode)
     :demand t
