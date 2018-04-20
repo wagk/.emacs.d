@@ -40,3 +40,4 @@ var/
 var/
 /straight
 /custom.el
+/**/*.elc

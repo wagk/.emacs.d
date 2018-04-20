@@ -241,7 +241,7 @@ Disabled because superseded by origami-mode
 - Github :: https://github.com/emacs-evil/evil
 
 
-- [ ] Replace =evil-select-paren= with =evil-select-quote= so that operators
+- [X] Replace =evil-select-paren= with =evil-select-quote= so that operators
   seek out the nearest textobject on the line
 
 #+BEGIN_SRC emacs-lisp
@@ -279,10 +279,11 @@ Disabled because superseded by origami-mode
      "<<"     '/evil-shift-left-visual)
     (:keymaps 'inner
      "/"      '/inner-forward-slash
-     "l"      'my-evil-inner-line)
+     ;; "l" 'my-evil-inner-line ;; conflicts with targets.el
+     )
     (:keymaps 'outer
      "e"      'my-evil-a-buffer
-     "l"      'my-evil-a-line
+     ;; "l" 'my-evil-a-line ;; conflicts with targets.el
      "/"      '/a-forward-slash)
     (:keymaps 'minibuffer-local-map
      "C-w"    'backward-kill-word)
@@ -440,27 +441,28 @@ Disabled because superseded by origami-mode
       "Select entire buffer"
       (evil-range (point-min) (point-max)))
 
-    ;; shamelessly stolen from
-    ;; https://github.com/syohex/evil-textobj-line/blob/master/evil-textobj-line.el
-    (defun my-evil-line-range (count beg end type &optional inclusive)
-      (if inclusive
-          (evil-range (line-beginning-position) (line-end-position))
-        (let ((start (save-excursion
-                       (back-to-indentation)
-                       (point)))
-              (end (save-excursion
-                     (goto-char (line-end-position))
-                     (skip-syntax-backward " " (line-beginning-position))
-                     (point))))
-          (evil-range start end))))
+    ;; ;; NOTE: Disabled because of conflicts with targets.el
+    ;; ;; shamelessly stolen from
+    ;; ;; https://github.com/syohex/evil-textobj-line/blob/master/evil-textobj-line.el
+    ;; (defun my-evil-line-range (count beg end type &optional inclusive)
+    ;;   (if inclusive
+    ;;       (evil-range (line-beginning-position) (line-end-position))
+    ;;     (let ((start (save-excursion
+    ;;                    (back-to-indentation)
+    ;;                    (point)))
+    ;;           (end (save-excursion
+    ;;                  (goto-char (line-end-position))
+    ;;                  (skip-syntax-backward " " (line-beginning-position))
+    ;;                  (point))))
+    ;;       (evil-range start end))))
 
-    (evil-define-text-object my-evil-a-line (count &optional beg end type)
-      "Select entire line"
-      (my-evil-line-range count beg end type t))
+    ;; (evil-define-text-object my-evil-a-line (count &optional beg end type)
+    ;;   "Select entire line"
+    ;;   (my-evil-line-range count beg end type t))
 
-    (evil-define-text-object my-evil-inner-line (count &optional beg end type)
-      "Select an inner line"
-      (my-evil-line-range count beg end type))
+    ;; (evil-define-text-object my-evil-inner-line (count &optional beg end type)
+    ;;   "Select an inner line"
+    ;;   (my-evil-line-range count beg end type))
 
     ;; ;; https://emacs.stackexchange.com/questions/29026/in-evil-mode-how-can-i-configure-the-seeking-forward-behaviour-for-all-text-obj
     ;; (defun my-evil-inner-paren (count &optional beg end type)
@@ -1157,7 +1159,7 @@ something, look up [[https://github.com/noctuid/targets.el#configuration][here]]
     :straight (:host github :repo "noctuid/targets.el"
                :branch "master")
     :config
-    (targets-setup)
+    (targets-setup t)
     )
 #+END_SRC
 
