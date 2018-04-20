@@ -940,6 +940,17 @@
   )
 #+END_SRC
 
+** python-async-def
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/python-mode/python-async-def
+  # -*- mode: snippet -*-
+  # name: python-async-def
+  # key: defa
+  # --
+  async def $1($2)${3:-> ${4:None}}:
+        raise NotImplementedError()
+#+END_SRC
+
 ** python-class
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/python-mode/python-class

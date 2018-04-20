@@ -217,8 +217,9 @@ Define a few variables that later packages can use
 
 Enable folding for all programming major modes
 
+Disabled because superseded by origami-mode
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook 'hs-minor-mode)
+  ;; (add-hook 'prog-mode-hook 'hs-minor-mode)
 #+END_SRC
 
 ** Evil-collection                                                  :package:
@@ -1141,6 +1142,25 @@ I also learnt that lisp-2's are pretty horrible.
 
 Lisp coding is surprisingly not cancer tho. It could be the hype however.
 
+** Targets
+- Github :: https://github.com/noctuid/targets.el
+
+
+We're not done with =(targets-setup)= yet, it needs additional parameters or
+something, look up [[https://github.com/noctuid/targets.el#configuration][here]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package targets
+    :ensure nil
+    :after (evil)
+    :demand t
+    :straight (:host github :repo "noctuid/targets.el"
+               :branch "master")
+    :config
+    (targets-setup)
+    )
+#+END_SRC
+
 ** Old Configuration
 These configurations are old and left here in case we ever need it
 
@@ -1365,8 +1385,7 @@ These configurations are old and left here in case we ever need it
 
 * Buffer
 #+BEGIN_SRC emacs-lisp
-
-  (add-hook 'prog-mode-hook 'hs-minor-mode)
+  ;; (add-hook 'prog-mode-hook 'hs-minor-mode)
 
   ;; no startup screen
   (setq inhibit-startup-screen t)
@@ -1866,6 +1885,68 @@ Disabled because it's more annoying than worth the convenience
     (global-hungry-delete-mode))
 #+END_SRC
 
+** Origami                                                         :package:
+- Github :: https://github.com/gregsexton/origami.el/tree/master
+- Reddit (Code example) :: https://www.reddit.com/r/emacs/comments/6fmpwb/evil_and_builtin_folding/
+
+
+Most of the stuff is stolen from the reddit link
+
+#+BEGIN_SRC emacs-lisp
+  (use-package origami
+    :general
+    (:states 'normal
+     "za" 'origami-forward-toggle-node
+     "zR" 'origami-close-all-nodes
+     "zM" 'origami-open-all-nodes
+     "zr" 'origami-close-node-recursively
+     "zm" 'origami-open-node-recursively
+     "zo" 'origami-show-node
+     "zc" 'origami-close-node
+     "zj" 'origami-forward-fold
+     "zk" 'origami-previous-fold
+     "zf" 'my-evil-fold-object)
+    :config
+    (defun my-evil-fold-object ()
+      "create fold and add comment to it"
+      (interactive)
+      (setq start (region-beginning))
+      (setq end (region-end))
+      (deactivate-mark)
+      (and (< end start)
+           (setq start (prog1 end (setq end start))))
+      (goto-char start)
+      (beginning-of-line)
+      (indent-according-to-mode)
+      (if (equal major-mode 'emacs-lisp-mode)
+          (insert ";; ")
+        ;; (indent-according-to-mode)
+        (insert comment-start " "))
+
+      ;; (insert comment-start " ")
+      (setq start (point))
+      (insert "Folding" " {{{")
+      (newline-and-indent)
+      (goto-char end)
+      (end-of-line)
+      (and (not (bolp))
+           (eq 0 (forward-line))
+           (eobp)
+           (insert ?\n))
+      (indent-according-to-mode)
+      (if (equal major-mode 'emacs-lisp-mode)
+          (insert ";; }}}")
+
+        (if (equal comment-end "")
+            (insert comment-start " }}}")
+          (insert comment-end "}}}")))
+      (newline-and-indent)
+      (goto-char start)
+      )
+    (global-origami-mode 1)
+    )
+#+END_SRC
+
 * Dashboard                                                :package:disabled:
 #+BEGIN_SRC emacs-lisp
   (use-package dashboard
@@ -2087,37 +2168,38 @@ I want to be able to select git hunks in a textobject way
 org capture. https://github.com/syl20bnr/spacemacs/issues/5320
 
 #+BEGIN_SRC emacs-lisp
-  (use-package org-capture
-    :ensure nil ;; because org-capture is from org
-    :after (org)
-    :commands (org-capture)
-    :general
-    (:prefix my-default-evil-leader-key
-     :states 'normal
-     "c c" 'helm-org-capture-templates
-     "c j" '(lambda () (interactive) (org-capture nil "j"))
-     "C C" '(lambda () (interactive) (org-capture nil "d")))
-    (:prefix my-default-evil-leader-key
-     :keymaps 'org-capture-mode-map
-     :states 'normal
-     "r r" 'org-capture-refile)
-    (org-capture-mode-map
-     [remap evil-save-and-close]          'org-capture-finalize
-     [remap evil-save-modified-and-close] 'org-capture-finalize
-     [remap evil-quit]                    'org-capture-kill)
-    :config
-    ;; when inserting a heading immediately go into insert mode
-    (add-hook 'org-capture-mode-hook 'evil-insert-state)
-    (when (boundp 'my-journal-org-file)
-     (add-to-list 'org-capture-templates
-                  `("j" "Journal Entry" entry
-                    (file ,my-journal-org-file)
-                    "* %U\n%?"))
-     (add-to-list 'org-capture-templates
-                  `("d" "Daydream Entry" entry
-                    (file ,my-journal-org-file)
-                    "* %U\n%?")))
-    )
+    (use-package org-capture
+      :ensure nil ;; because org-capture is from org
+      :after (org)
+      :commands (org-capture
+                 org-capture-templates)
+      :general
+      (:prefix my-default-evil-leader-key
+       :states 'normal
+       "c c" 'helm-org-capture-templates
+       "c j" '(lambda () (interactive) (org-capture nil "j"))
+       "C C" '(lambda () (interactive) (org-capture nil "d")))
+      (:prefix my-default-evil-leader-key
+       :keymaps 'org-capture-mode-map
+       :states 'normal
+       "r r" 'org-capture-refile)
+      (org-capture-mode-map
+       [remap evil-save-and-close]          'org-capture-finalize
+       [remap evil-save-modified-and-close] 'org-capture-finalize
+       [remap evil-quit]                    'org-capture-kill)
+      :config
+      ;; when inserting a heading immediately go into insert mode
+      (add-hook 'org-capture-mode-hook 'evil-insert-state)
+      (when (boundp 'my-journal-org-file)
+       (add-to-list 'org-capture-templates
+                    `("j" "Journal Entry" entry
+                      (file ,my-journal-org-file)
+                      "* %U\n%?"))
+       (add-to-list 'org-capture-templates
+                    `("d" "Daydream Entry" entry
+                      (file ,my-journal-org-file)
+                      "* %U\n%?")))
+      )
 #+END_SRC
 
 *** Capture Templates Reference
@@ -2621,7 +2703,6 @@ prepopulate the file with a template
 #+END_SRC
 *** Company-quickhelp                                               :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package company-quickhelp
     :after company
     :config

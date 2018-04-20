@@ -38,3 +38,5 @@ tempfiles/*
 /var/projectile/known-projects.el
 var/
 var/
+/straight
+/custom.el

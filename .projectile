@@ -4,3 +4,15 @@
 -/.git
 -/server
 -/.python-environments
+-/straight
+-/eshell
+-/etc
+-/image-dired
+-/irony
+-/local-packages
+-/server
+-/spu-log
+-/tempfiles
+-/.tutor
+-/var
+-/url
