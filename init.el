@@ -113,18 +113,18 @@ Assumes that it:
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
   ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
 
-  ;; el-get stuff
-  (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+  ;; ;; el-get stuff
+  ;; (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
-  (unless (require 'el-get nil 'noerror)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
+  ;; (unless (require 'el-get nil 'noerror)
+  ;;   (with-current-buffer
+  ;;       (url-retrieve-synchronously
+  ;;        "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+  ;;     (goto-char (point-max))
+  ;;     (eval-print-last-sexp)))
 
-  (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-  (el-get 'sync)
+  ;; (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+  ;; (el-get 'sync)
 
                                         ; Got a warning regarding golden-ratio when I loaded this before el-get, for
   ;; some reason
@@ -169,10 +169,10 @@ Assumes that it:
     (defconst my-default-evil-leader-key "SPC")
     )
 
-  (use-package use-package-el-get
-    :demand t
-    :config
-    (use-package-el-get-setup))
+  ;; (use-package use-package-el-get
+  ;;   :demand t
+  ;;   :config
+  ;;   (use-package-el-get-setup))
 
   (use-package use-package-ensure-system-package
     :demand t)
@@ -189,8 +189,8 @@ Assumes that it:
   ;; https://github.com/emacscollective/auto-compile
   (use-package auto-compile
     :demand t
-    :init
-    (setq load-prefer-newer t)
+    :custom
+    (load-prefer-newer t)
     :config
     (auto-compile-on-load-mode)
     (auto-compile-on-save-mode)
