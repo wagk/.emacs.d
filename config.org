@@ -1303,15 +1303,15 @@ These configurations are old and left here in case we ever need it
 Disabled until we figure out a good keybind for it to use. It currently
 conflicts with org-agenda
 
-- [ ] Use helm to replace hl-todo's occur prolly
+- [X] Use helm to replace hl-todo's occur prolly
 
 
 #+BEGIN_SRC emacs-lisp
   (use-package helm-swoop
     :general
-    (:states 'normal
-     :prefix my-default-evil-leader-key
-     "t t" 'helm-swoop)
+    ;; (:states 'normal
+    ;;  :prefix my-default-evil-leader-key
+    ;;  "t t" 'helm-swoop)
     (helm-swoop-map
      "C-w" 'evil-delete-backward-word)
     :init
@@ -1577,6 +1577,7 @@ hl-todo-occur
     (:states 'normal
      :prefix my-default-evil-leader-key
      ;; "t t" 'hl-todo-occur
+     "t t" 'my-helm-swoop-hl-todo
      )
     (:keymaps 'evil-normal-state-map
      "[ t"  'hl-todo-previous
@@ -1589,6 +1590,11 @@ hl-todo-occur
                              ("NOTE"  . ,my-solarized-dark-base1)
                              ("HACK"  . ,my-solarized-dark-violet)
                              ("FIXME" . ,my-solarized-dark-orange)))
+    :init
+    ;;TODO: Make this search for regexes
+    (defun my-helm-swoop-hl-todo () (interactive)
+           (require 'helm-swoop)
+           (helm-swoop :$query hl-todo-regexp :$multiline 4))
     :config
     ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
     ;; Not used because we don't incrementally search for todos
