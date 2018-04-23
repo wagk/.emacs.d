@@ -951,6 +951,17 @@
         raise NotImplementedError()
 #+END_SRC
 
+** python-async-for
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/python-mode/python-async-for
+  # -*- mode: snippet -*-
+  # name: python-async-for
+  # key: fora
+  # --
+  async for ${1:elem} in ${2:container}:
+      $0
+#+END_SRC
+
 ** python-class
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/python-mode/python-class

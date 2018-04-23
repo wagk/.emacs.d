@@ -1354,20 +1354,31 @@ conflicts with org-agenda
 #+END_SRC
 
 ** Helm-hunks                                              :package:disabled:
+- Github :: https://github.com/torgeir/helm-hunks.el
 
 #+BEGIN_SRC emacs-lisp
   ;; commenting it out because it has conflicting bindings in its own map
   (use-package helm-hunks
-    :disabled t
     :commands (helm-hunks
                helm-hunks-current-buffer
                helm-hunks-staged
                helm-hunks-staged-current-buffer)
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "g g" 'helm-hunks-current-buffer)
+    (helm-hunks--keymap
+       "C-j" 'helm-next-line
+       "C-k" 'helm-previous-line
+       "C-d" 'helm-next-page
+       "C-u" 'helm-previous-page
+       "C-l" 'helm-next-source
+       "C-h" 'helm-previous-source)
+    :custom
+    (helm-hunks-preview-diffs t)
     :config
     (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
-    (setq helm-hunks-preview-diffs t)
-    (evil-leader/set-key
-     "." 'helm-hunks-current-buffer))
+    )
 #+END_SRC
 
 ** Helm-google
