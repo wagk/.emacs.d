@@ -1906,7 +1906,7 @@ Disabled because it's more annoying than worth the convenience
     (global-hungry-delete-mode))
 #+END_SRC
 
-** Origami                                                         :package:
+** Origami                                                :package:disabled:
 - Github :: https://github.com/gregsexton/origami.el/tree/master
 - Reddit (Code example) :: https://www.reddit.com/r/emacs/comments/6fmpwb/evil_and_builtin_folding/
 
@@ -1917,7 +1917,10 @@ Most of the stuff is stolen from the reddit link
   fold non-top level syntax). Should check
 
 #+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook 'hs-minor-mode)
+
   (use-package origami
+    :disabled t
     :general
     (:states 'normal
      "za" 'origami-forward-toggle-node
@@ -3516,10 +3519,10 @@ work.
 
 #+BEGIN_SRC emacs-lisp
   (use-package pomidor
-    ;; :disabled t
+    :commands (pomidor)
     :init
-    (evil-ex-define-cmd "po[modoro]" 'pomidor)
-    :config
+    (evil-ex-define-cmd "pom[odoro]" 'pomidor)
+     :config
     (evil-set-initial-state 'pomidor-mode 'emacs)
     :custom
     (pomidor-default-alert 'mode-line))
