@@ -129,6 +129,7 @@ Assumes that it:
                                         ; Got a warning regarding golden-ratio when I loaded this before el-get, for
   ;; some reason
   ;; TODO; figure out what this does
+  (setq package-enable-at-startup nil)
   (package-initialize)
 
   ;; https://github.com/raxod502/straight.el
