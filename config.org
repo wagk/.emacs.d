@@ -14,6 +14,14 @@ actually have to be. It is possible to split into multiple elisp src blocks.
 A few things MUST be assumed:
 - The following code blocks *MUST* be executed in order
 
+
+#+BEGIN_SRC emacs-lisp
+  (setq initial-scratch-message
+        "<Insert something>"
+        initial-major-mode
+        'fundamental-mode)
+#+END_SRC
+
 ** Helpful links
 This might turn out to be just an elisp reference someday
 
