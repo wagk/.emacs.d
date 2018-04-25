@@ -14,14 +14,6 @@ actually have to be. It is possible to split into multiple elisp src blocks.
 A few things MUST be assumed:
 - The following code blocks *MUST* be executed in order
 
-
-#+BEGIN_SRC emacs-lisp
-  (setq initial-scratch-message
-        "<Insert something>"
-        initial-major-mode
-        'fundamental-mode)
-#+END_SRC
-
 ** Helpful links
 This might turn out to be just an elisp reference someday
 
@@ -32,6 +24,14 @@ This might turn out to be just an elisp reference someday
 
 *** Nadvice
 https://emacs.stackexchange.com/questions/12997/how-do-i-use-nadvice
+
+* Startup Message and Mode
+#+BEGIN_SRC emacs-lisp
+  (setq initial-scratch-message
+        ""
+        initial-major-mode
+        'fundamental-mode)
+#+END_SRC
 
 * Developer Libraries
 Packages that are useful for development but might not actually make the emacs
@@ -760,7 +760,6 @@ attributes, which are inside tags
   (use-package evil-embrace
     :after (evil-surround)
     :commands (embrace-add-pair)
-    :demand t
     :config
     (evil-embrace-enable-evil-surround-integration)
     (setq evil-embrace-show-help-p nil)
@@ -1012,7 +1011,6 @@ Adds the following ex commands:
 #+BEGIN_SRC emacs-lisp
   (use-package evil-cleverparens
     :hook (lisp-mode)
-    :demand t
     :general
     (:states 'normal
      :keymaps 'evil-cleverparens-mode-map
@@ -2592,7 +2590,9 @@ I can't seem to get the org --> snippet call to work
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-sync-snippets
-    :demand t
+    :after (yasnippet)
+    :commands (org-sync-snippets-snippets-to-org
+               org-sync-snippets-org-to-snippets)
     :custom
     (org-sync-snippets-org-snippets-file (concat user-init-dir "snippets.org"))
     :config
@@ -2608,7 +2608,7 @@ I can't seem to get the org --> snippet call to work
 *** Yasnippet                                                       :package:
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
-    :demand t
+    :hook ((prog-mode org-mode) . yas-minor-mode)
     :commands (yas-minor-mode
                yas-expand-snippet)
     :general
@@ -2646,23 +2646,26 @@ prepopulate the file with a template
   ;; www.howardism.org/Technical/Emacs/templates-tutorial.html
   ;; (setq yas-snippet-dirs (append yas-snippet-dirs ))
                       ;;;###autoload
-  (defun /auto-insert-yasnippet ()
-    "Replace text in buffer with snippet.
+  (with-eval-after-load 'yasnippet
+   (defun /auto-insert-yasnippet ()
+     "Replace text in buffer with snippet.
                       Used for 'auto-insert'"
-    (yas-minor-mode)
-    (yas-expand-snippet (buffer-string) (point-min) (point-max)))
+     (yas-minor-mode)
+     (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
-  (setq-default auto-insert-directory
-                (directory-file-name (concat user-init-dir "/auto-insert/")))
-  (auto-insert-mode 1)
-  (setq-default auto-insert-query nil
-                auto-insert 'other)
-  (define-auto-insert "\\.el$"  ["elisp-template" /auto-insert-yasnippet])
-  (define-auto-insert "\\.py$"  ["python-template" /auto-insert-yasnippet])
-  (define-auto-insert "\\.h$"   ["cpp-h-template" /auto-insert-yasnippet])
-  (define-auto-insert "\\.cpp$" ["cpp-template" /auto-insert-yasnippet])
-  (define-auto-insert "\\.sh$"  ["sh-template" /auto-insert-yasnippet])
-  (define-auto-insert "\\.php$" ["php-template" /auto-insert-yasnippet])
+   (setq-default auto-insert-directory
+                 (directory-file-name (concat user-init-dir "/auto-insert/")))
+   (auto-insert-mode 1)
+   (setq-default auto-insert-query nil
+                 auto-insert 'other)
+   (define-auto-insert "\\.el$"  ["elisp-template" /auto-insert-yasnippet])
+   (define-auto-insert "\\.py$"  ["python-template" /auto-insert-yasnippet])
+   (define-auto-insert "\\.h$"   ["cpp-h-template" /auto-insert-yasnippet])
+   (define-auto-insert "\\.cpp$" ["cpp-template" /auto-insert-yasnippet])
+   (define-auto-insert "\\.sh$"  ["sh-template" /auto-insert-yasnippet])
+   (define-auto-insert "\\.php$" ["php-template" /auto-insert-yasnippet])
+
+   )
 #+END_SRC
 
 ** Yankpad
@@ -2802,7 +2805,6 @@ prepopulate the file with a template
 *** Dumb-jump
 #+BEGIN_SRC emacs-lisp
   (use-package dumb-jump
-    :demand t
     :commands (dumb-jump-go)
     :general
     (:states 'normal
