@@ -2296,7 +2296,6 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
 #+END_SRC
 ** Org-radiobutton                                                  :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package org-radiobutton)
 #+END_SRC
 
@@ -2306,7 +2305,6 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
 
 Requires the ~anki-connect~ plugin to be installed in anki, as well as curl.
 #+BEGIN_SRC emacs-lisp
-
   ;; Export orgfiles as anki decks!
   ;; Looks great for jap study and just study in general
   (use-package anki-editor)
@@ -2608,7 +2606,9 @@ I can't seem to get the org --> snippet call to work
 *** Yasnippet                                                       :package:
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
-    :hook ((prog-mode org-mode) . yas-minor-mode)
+    :hook ((prog-mode
+            org-mode
+            ledger-mode) . yas-minor-mode-on)
     :commands (yas-minor-mode
                yas-expand-snippet)
     :general
