@@ -191,13 +191,13 @@ Assumes that it:
     :demand t
     :custom
     (load-prefer-newer t)
+    (auto-compile-verbose t)
     :config
     (auto-compile-on-load-mode)
     (auto-compile-on-save-mode)
     )
 
   (use-package auto-package-update
-    :demand t
     :commands (auto-package-update-now
                auto-package-update-at-time
                auto-package-update-maybe)

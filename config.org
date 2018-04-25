@@ -250,6 +250,7 @@ Disabled because superseded by origami-mode
 - Github :: https://github.com/emacs-evil/evil-collection
 
 
+- [ ] Break up ~evil-collection-init~ so this package doesn't take forever to load
 #+BEGIN_SRC emacs-lisp
   (use-package evil-collection
     :after (evil)
@@ -1240,7 +1241,6 @@ These configurations are old and left here in case we ever need it
 
 #+BEGIN_SRC emacs-lisp
   (use-package helm
-    :demand t
     :general
     ("C-h C-h" 'helm-apropos
      "C-h h"   'helm-apropos)
@@ -1571,7 +1571,7 @@ conflicts with org-agenda
 ** Whitespace-cleanup-mode                                          :package:
 #+BEGIN_SRC emacs-lisp
   (use-package whitespace-cleanup-mode
-    :demand t
+    :defer 2
     :config
     (global-whitespace-cleanup-mode 1))
 #+END_SRC
@@ -1656,9 +1656,9 @@ For some reason its package namespace is =fci-=
 
 ** Powerline                                                        :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package powerline
-    :demand t)
+    :defer 1
+    )
 #+END_SRC
 
 *** Powerline-evil                                                  :package:
@@ -2315,9 +2315,7 @@ Requires the ~anki-connect~ plugin to be installed in anki, as well as curl.
   ;; Full keybindings:
   ;; https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
   (use-package evil-org
-    ;; :disabled t
-    :after (org)
-    :demand t
+    :hook (org)
     :diminish (evil-org-mode)
     ;; :general
     ;; (:states '(emacs insert)
@@ -2530,7 +2528,7 @@ take a look at that.
 * Projectile                                                        :package:
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
-    :demand t
+    :commands (projectile-mode)
     :config
     (projectile-mode)
     )
@@ -2539,6 +2537,8 @@ take a look at that.
 ** Helm-projectile                                                  :package:
 #+BEGIN_SRC emacs-lisp
   (use-package helm-projectile
+    :after (projectile)
+    :commands (helm-projectile)
     :general
     (:states 'normal
      "_" 'helm-projectile)
@@ -3307,7 +3307,7 @@ It's passable, though I would expect =shell= itself to be better, in my opinion
 #+BEGIN_SRC emacs-lisp
   (use-package evil-ediff
     :after (evil)
-    :demand t)
+    :hook (ediff))
 #+END_SRC
 
 * LaTeX
@@ -3589,19 +3589,23 @@ package manager
 #+BEGIN_SRC emacs-lisp
   (use-package help+
     :load-path "local-packages/"
-    :demand t)
+    :hook (help)
+  )
 
   (use-package help-macro+
     :load-path "local-packages/"
-    :demand t)
+    :hook (help)
+    )
 
   (use-package help-mode+
     :load-path "local-packages/"
-    :demand t)
+    :hook (help)
+    )
 
   (use-package help-fns+
     :load-path "local-packages/"
-    :demand t)
+    :hook (help)
+    )
 #+END_SRC
 
 ** Macrostep                                                        :package:
