@@ -1,6 +1,3 @@
-#+TITLE: Emacs Configuration
-- [ ] Check on how to remove the eager macro expansion error in =use-package=
-
 * Introduction
 Configuration settings for my Emacs
 
@@ -2315,7 +2312,7 @@ Requires the ~anki-connect~ plugin to be installed in anki, as well as curl.
   ;; Full keybindings:
   ;; https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
   (use-package evil-org
-    :hook (org)
+    :hook (org-mode . evil-org-mode)
     :diminish (evil-org-mode)
     ;; :general
     ;; (:states '(emacs insert)
@@ -2347,7 +2344,6 @@ Requires the ~anki-connect~ plugin to be installed in anki, as well as curl.
                               ;; heading
                               calendar
                               ))
-    (add-hook 'org-mode-hook 'evil-org-mode)
     (with-eval-after-load 'org-agenda
       (require 'evil-org-agenda)
       (evil-org-agenda-set-keys)
@@ -3312,11 +3308,11 @@ It's passable, though I would expect =shell= itself to be better, in my opinion
 
 * LaTeX
 
-** Auctex                                                           :package:
+** Auctex                                                 :package:disabled:
 
 #+BEGIN_SRC emacs-lisp
-
-  (use-package auctex)
+  (use-package auctex
+    :disabled t)
 #+END_SRC
 
 ** Latex Textobjects                                                :package:
