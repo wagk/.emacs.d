@@ -1,3 +1,6 @@
+#+TITLE: Emacs Configuration
+- [ ] Check on how to remove the eager macro expansion error in =use-package=
+
 * Introduction
 Configuration settings for my Emacs
 
