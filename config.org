@@ -28,9 +28,11 @@ https://emacs.stackexchange.com/questions/12997/how-do-i-use-nadvice
 * Startup Message and Mode
 #+BEGIN_SRC emacs-lisp
   (setq initial-scratch-message
-        ""
-        initial-major-mode
-        'fundamental-mode)
+        "It is possible to commit no mistakes and still lose.
+  That is not weakness. That is life.
+
+  "
+        initial-major-mode 'fundamental-mode)
 #+END_SRC
 
 * Developer Libraries
