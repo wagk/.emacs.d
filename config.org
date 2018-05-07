@@ -3363,6 +3363,17 @@ The kkc-mode is packaged with emacs, and isn't a package on elpa or anything
     )
 #+END_SRC
 
+** DDSKK
+A larger package that is supposedly more full-featured.
+
+Have no idea how to install it currently so I'm just leaving it.
+
+#+BEGIN_SRC emacs-lisp :eval never
+  (use-package ddskk
+    :straight (:host github :repo "skk-dev/ddskk"
+               :branch "master")
+   )
+#+END_SRC
 * Finance
 
 ** Ledger-mode                                                      :package:
