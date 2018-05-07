@@ -1995,6 +1995,15 @@ Most of the stuff is stolen from the reddit link
     )
 #+END_SRC
 
+** Symbol Overlay                                         :package:disabled:
+- Github :: https://github.com/wolray/symbol-overlay
+
+#+BEGIN_SRC emacs-lisp
+  (use-package symbol-overlay
+    :disabled t
+    )
+#+END_SRC
+
 * Dashboard                                                :package:disabled:
 #+BEGIN_SRC emacs-lisp
   (use-package dashboard
@@ -3363,13 +3372,14 @@ The kkc-mode is packaged with emacs, and isn't a package on elpa or anything
     )
 #+END_SRC
 
-** DDSKK
+** DDSKK                                                  :package:disabled:
 A larger package that is supposedly more full-featured.
 
 Have no idea how to install it currently so I'm just leaving it.
 
 #+BEGIN_SRC emacs-lisp :eval never
   (use-package ddskk
+    :disabled t
     :straight (:host github :repo "skk-dev/ddskk"
                :branch "master")
    )
