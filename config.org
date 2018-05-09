@@ -2046,7 +2046,7 @@ Most of the stuff is stolen from the reddit link
     (add-hook 'git-commit-setup-hook 'aggressive-fill-paragraph-mode)
     (add-hook 'git-commit-setup-hook 'turn-on-fci-mode)
     (add-hook 'git-commit-setup-hook 'markdown-mode)
-    (add-hook 'magit-popup-mode-hook #'my-disable-line-numbers)
+    (add-hook 'magit-mode-hook #'my-disable-line-numbers)
     )
 #+END_SRC
 
