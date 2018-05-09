@@ -72,7 +72,6 @@
   (find-file user-local-file)
   )
 
-
 (defmacro measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."
   `(let ((time (current-time)))
@@ -133,21 +132,22 @@ Assumes that it:
   (package-initialize)
 
   ;; https://github.com/raxod502/straight.el
-(let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
-      (bootstrap-version 3))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+  (let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
+        (bootstrap-version 3))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
 
-(unless (package-installed-p 'use-package)
+  (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
 
+  ;; TODO: This is causing the eager evaluation failure that we see all the time
   (eval-when-compile (require 'use-package))
 
   ;; download packages if needed
@@ -174,8 +174,7 @@ Assumes that it:
   ;;   :config
   ;;   (use-package-el-get-setup))
 
-  (use-package use-package-ensure-system-package
-    :demand t)
+  (use-package use-package-ensure-system-package)
 
   ;; ;; be aware that updates might adjust the load path to the .el files and
   ;; ;; cause loading problems. Helm seems to be a victim of this a lot
