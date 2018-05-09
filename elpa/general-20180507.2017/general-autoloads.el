@@ -71,6 +71,9 @@ menu name/prompt. If PREFIX-COMMAND is specified, `define-prefix-command' will
 be used. Otherwise, only a prefix keymap will be created. Previously created
 prefix commands/keymaps will never be redefined/cleared. All prefixes (including
 the INFIX key, if specified) will then be bound to PREFIX-COMMAND or PREFIX-MAP.
+If the user did not specify any PREFIX or manually specify any KEYMAPS, general
+will bind all MAPS in the prefix keymap corresponding to either PREFIX-MAP or
+PREFIX-COMMAND instead of in the default keymap.
 
 PREDICATE corresponds to a predicate to check to determine whether a definition
 should be active (e.g. \":predicate '(eobp)\"). Definitions created with a
@@ -101,7 +104,7 @@ documentation/README for more information.
 LISPY-PLIST and WORF-PLIST are the global versions of extended definition
 keywords that are used for each corresponding custom DEFINER.
 
-\(fn &rest MAPS &key DEFINER (STATES general-default-states) (KEYMAPS general-default-keymaps) (PREFIX general-default-prefix) (NON-NORMAL-PREFIX general-default-non-normal-prefix) (GLOBAL-PREFIX general-default-global-prefix) INFIX PREFIX-COMMAND PREFIX-MAP PREFIX-NAME PREDICATE PACKAGE PROPERTIES REPEAT JUMP MAJOR-MODES (WK-MATCH-KEYS t) (WK-MATCH-BINDING t) (WK-FULL-KEYS t) LISPY-PLIST WORF-PLIST &allow-other-keys)" nil nil)
+\(fn &rest MAPS &key DEFINER (STATES general-default-states) (KEYMAPS general-default-keymaps KEYMAPS-SPECIFIED-P) (PREFIX general-default-prefix) (NON-NORMAL-PREFIX general-default-non-normal-prefix) (GLOBAL-PREFIX general-default-global-prefix) INFIX PREFIX-COMMAND PREFIX-MAP PREFIX-NAME PREDICATE PACKAGE PROPERTIES REPEAT JUMP MAJOR-MODES (WK-MATCH-KEYS t) (WK-MATCH-BINDING t) (WK-FULL-KEYS t) LISPY-PLIST WORF-PLIST &allow-other-keys)" nil nil)
 
 (autoload 'general-emacs-define-key "general" "\
 A wrapper for `general-define-key' that is similar to `define-key'.
