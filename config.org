@@ -3362,13 +3362,33 @@ The kkc-mode is packaged with emacs, and isn't a package on elpa or anything
 - [ ] Bind a separate keybind instead of using =default-input-method=
 - [ ] Figure out and document =kkc-map=
 
+
+Source: https://nurikabe.blog/2008/07/12/emacs-japanese-input/
+| C-\      | toggle input mode (ime on or off)                               |
+| C-h      | shows conversion options if used when in conversion mode        |
+| SPC      | transform input to kanji, or show the next conversion candidate |
+| DEL      | abort conversion                                                |
+| C-n      | show the next conversion candidate                              |
+| C-p      | show the previous conversion candidate                          |
+| C-o      | lengthen conversion bunsetsu                                    |
+| C-i, TAB | shorten conversion bunsetsu                                     |
+| K        | toggle between hiragana and katakana                            |
+| qq       | toggle between alphabet and kanji modes                         |
+| qz       | turn on zenkaku alphabet mode                                   |
+| qh       | turn off zenkaku alphabet mode                                  |
+
+In order to add the small つ we double-tap the first letter of the next consonant
+
+So やつた (yatsuta) becomes やった (yatta) and がんばつて becomes がんたって.
+[[https://community.wanikani.com/t/%25E3%2581%25BF%25E3%2581%25A3%25E3%2581%25A4-sorry-i-just-cant-work-out-how-to-type-the-small-tsu/19720][Source]]
+
 #+BEGIN_SRC emacs-lisp
   ;; NOTE: kkc isn't in any package repo so don't :ensure t this
   (use-package kkc
     :ensure nil
     :config
-      (setq default-input-method "japanese"
-            kkc-show-conversion-list-count 1)
+    (setq default-input-method "japanese"
+          kkc-show-conversion-list-count 1)
     )
 #+END_SRC
 
