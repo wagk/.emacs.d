@@ -3628,23 +3628,30 @@ These packages are from emacswiki, and are currently not being maintained.
 They are being stored and loaded locally, since they are not on melpa or any
 package manager
 
+- [ ] Make sure these functions load helm
+
+
 #+BEGIN_SRC emacs-lisp
   (use-package help+
+    :defer 2
     :load-path "local-packages/"
     :hook (help)
   )
 
   (use-package help-macro+
+    :defer 2
     :load-path "local-packages/"
     :hook (help)
     )
 
   (use-package help-mode+
+    :defer 2
     :load-path "local-packages/"
     :hook (help)
     )
 
   (use-package help-fns+
+    :defer 2
     :load-path "local-packages/"
     :hook (help)
     )
