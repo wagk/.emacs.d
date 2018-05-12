@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: rust-public-function
+# key: defp
+# --
+pub fn $1($2) $3{
+    $0
+}

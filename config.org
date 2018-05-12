@@ -3695,3 +3695,18 @@ This lets you step through macro invocations.
                       "f"      'ace-link-info
                       "SPC" nil)
 #+END_SRC
+
+** Helpful                                                         :package:
+- Github :: [[https://github.com/Wilfred/helpful/tree/b97947b2033e33eb5fddb71ec840a3221b27e87c]]
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helpful
+    :commands (helpful-callable
+               helpful-function
+               helpful-macro
+               helpful-command
+               helpful-key
+               helpful-variable
+               helpful-at-point))
+#+END_SRC
