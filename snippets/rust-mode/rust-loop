@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: rust-loop
-# key: whilet
+# key: loop
 # --
 loop {
      $0
