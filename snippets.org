@@ -1183,6 +1183,18 @@
   /// $0
 #+END_SRC
 
+** rust-for
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-for
+  # -*- mode: snippet -*-
+  # name: rust-for
+  # key: for
+  # --
+  for $1 in $2 {
+      $0
+  }
+#+END_SRC
+
 ** rust-function
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-function
@@ -1195,6 +1207,28 @@
     $0
   }
   
+#+END_SRC
+
+** rust-if
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-if
+  # -*- mode: snippet -*-
+  # name: rust-if
+  # key: if
+  # --
+  if $1 {
+      $0
+  }
+#+END_SRC
+
+** rust-lambda
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-lambda
+  # -*- mode: snippet -*-
+  # name: rust-lambda
+  # key: defl
+  # --
+  |$1| ${2:{$3}}
 #+END_SRC
 
 ** rust-loop

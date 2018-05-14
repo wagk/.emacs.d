@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: rust-if
+# key: if
+# --
+if $1 {
+    $0
+}

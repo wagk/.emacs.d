@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rust-lambda
+# key: defl
+# --
+|$1| ${2:{$3}}
