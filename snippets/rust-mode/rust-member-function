@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: rust-member-function
+# key: defm
+# --
+fn $1(&self$2) $3{
+    $0
+}

@@ -7,9 +7,12 @@
 
 ;; Pre-init local declarations go here
 
+;; (defconst my-local-dropbox-folder
+;;   (directory-file-name ""))
 
 ;; Post-init local declarations go here
-(defun my-after-init-payload ()
-  "Things to do after the init files are loaded"
-  )
-(add-hook 'emacs-startup-hook 'my-after-init-payload)
+
+;; (defun my-after-init-payload ()
+;;   "Things to do after the init files are loaded"
+;;   )
+;; (add-hook 'emacs-startup-hook 'my-after-init-payload)

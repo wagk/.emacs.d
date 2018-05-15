@@ -1255,6 +1255,18 @@
   }
 #+END_SRC
 
+** rust-member-function
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-member-function
+  # -*- mode: snippet -*-
+  # name: rust-member-function
+  # key: defm
+  # --
+  fn $1(&self$2) $3{
+      $0
+  }
+#+END_SRC
+
 ** rust-mod
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-mod
@@ -1274,6 +1286,18 @@
   # name: rust-print
   # --
   println!($0)
+#+END_SRC
+
+** rust-public-function
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-public-function
+  # -*- mode: snippet -*-
+  # name: rust-public-function
+  # key: defp
+  # --
+  pub fn $1($2) $3{
+      $0
+  }
 #+END_SRC
 
 ** rust-struct
