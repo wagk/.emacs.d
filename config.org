@@ -2573,9 +2573,9 @@ take a look at that.
 #+END_SRC
 * Flycheck                                                 :package:disabled:
 #+BEGIN_SRC emacs-lisp
-
   (use-package flycheck
-    :disabled t
+    :hook (prog-mode . flycheck-mode)
+    ;; :disabled t
     ;; :demand t ;; this is very important
     ;; :hook (prog-mode . flycheck-mode-on-safe)
     ;; (add-hook 'prog-mode-hook 'flycheck-mode-on-safe)
@@ -2716,7 +2716,7 @@ prepopulate the file with a template
 ** Company                                                 :package:disabled:
 #+BEGIN_SRC emacs-lisp
   (use-package company
-    :disabled t
+    ;; :disabled t
     :bind(
           ;; :map evil-insert-state-map
           ;;      ("C-p" . company-complete)
