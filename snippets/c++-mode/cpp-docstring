@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: cpp-docstring
+# key: d
+# --
+/** $0
+*/

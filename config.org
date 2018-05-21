@@ -1563,7 +1563,7 @@ conflicts with org-agenda
     (general-define-key
      :states 'normal
      :prefix my-default-evil-leader-key
-     "'" 'highlight-indent-guides-mode)
+     "|" 'highlight-indent-guides-mode)
     (setq highlight-indent-guides-method 'character
           highlight-indent-guides-character ?\|)
     ;; (highlight-indent-guides-mode)
@@ -2564,7 +2564,7 @@ take a look at that.
     :init
     (general-define-key :states 'normal
                         :prefix my-default-evil-leader-key
-                        "P P" 'org-projectile-project-todo-completing-read)
+                        "c p" 'org-projectile-project-todo-completing-read)
     :config
     (org-projectile-per-project)
     (setq org-projectile-per-project-filepath "TODO.org"
@@ -2780,6 +2780,13 @@ prepopulate the file with a template
   (use-package counsel-etags)
 #+END_SRC
 
+** Ctags-Update
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ctags-update
+    :hook (prog-mode . ctags-auto-update-mode)
+    )
+#+END_SRC
 * Dired
 #+BEGIN_SRC emacs-lisp
   (general-define-key

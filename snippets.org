@@ -64,6 +64,18 @@
   }
 #+END_SRC
 
+** cpp-docstring
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/c++-mode/cpp-docstring
+  # -*- mode: snippet -*-
+  # name: cpp-docstring
+  # key: d
+  # --
+  /** $0
+  */
+  
+#+END_SRC
+
 ** cpp-else
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/c++-mode/cpp-else
@@ -1322,6 +1334,20 @@
   # key: mode
   # --
   # -*- mode: snippet -*-
+#+END_SRC
+
+** snippet-template
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/snippet-mode/snippet-template
+  # -*- mode: snippet -*-
+  # name: snippet-template
+  # key: tt
+  # --
+  \# -*- mode: snippet -*-
+  \# name: $1
+  \# key: $2
+  \# --
+  $0
 #+END_SRC
 
 * typescript-mode
