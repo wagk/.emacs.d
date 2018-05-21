@@ -2957,7 +2957,6 @@ prepopulate the file with a template
 
 *** Company-jedi                                                    :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package company-jedi
     :after (company)
     :demand t
