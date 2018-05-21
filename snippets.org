@@ -1324,6 +1324,18 @@
   }
 #+END_SRC
 
+** rust-while
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-while
+  # -*- mode: snippet -*-
+  # name: rust-while
+  # key: while
+  # --
+  while $1 {
+      $0
+  }
+#+END_SRC
+
 * snippet-mode
 
 ** snippet-mode-modeline
