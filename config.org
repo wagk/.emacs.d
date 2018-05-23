@@ -422,6 +422,7 @@ Disabled because superseded by origami-mode
     (evil-ex-define-cmd "sh[ell]"    'shell) ;; at least shell shows its keymaps
     (evil-ex-define-cmd "tabn[ew]"   'make-frame)
     (evil-ex-define-cmd "tabe[dit]"  'make-frame)
+    (evil-ex-define-cmd "qw[indow]"  'delete-frame)
     (evil-ex-define-cmd "restart"    'restart-emacs)
     (evil-ex-define-cmd "init"       'find-user-init-file)
     (evil-ex-define-cmd "config"     'find-user-config-file)
@@ -1601,13 +1602,14 @@ hl-todo-occur
      "[ t"  'hl-todo-previous
      "] t"  'hl-todo-next)
     :custom
-    (hl-todo-keyword-faces `(("TODO"  . ,my-solarized-dark-yellow)
-                             ("DEBUG" . ,my-solarized-dark-magenta)
-                             ("BUG"   . ,my-solarized-dark-red)
-                             ("STUB"  . ,my-solarized-dark-green)
-                             ("NOTE"  . ,my-solarized-dark-base1)
-                             ("HACK"  . ,my-solarized-dark-violet)
-                             ("FIXME" . ,my-solarized-dark-orange)))
+    (hl-todo-keyword-faces `(("TODO"   . ,my-solarized-dark-yellow)
+                             ("DEBUG"  . ,my-solarized-dark-magenta)
+                             ("BUG"    . ,my-solarized-dark-red)
+                             ("REMOVE" . ,my-solarized-dark-red)
+                             ("STUB"   . ,my-solarized-dark-green)
+                             ("NOTE"   . ,my-solarized-dark-base1)
+                             ("HACK"   . ,my-solarized-dark-violet)
+                             ("FIXME"  . ,my-solarized-dark-orange)))
     :init
     ;;TODO: Make this search for regexes
     (defun my-helm-swoop-hl-todo () (interactive)
@@ -2561,10 +2563,12 @@ take a look at that.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-projectile
-    :init
-    (general-define-key :states 'normal
-                        :prefix my-default-evil-leader-key
-                        "c p" 'org-projectile-project-todo-completing-read)
+    :commands (org-projectile-project-todo-completing-read)
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "c p" 'org-projectile-project-todo-completing-read
+     "p p" 'org-projectile-project-todo-completing-read)
     :config
     (org-projectile-per-project)
     (setq org-projectile-per-project-filepath "TODO.org"
@@ -2958,11 +2962,11 @@ prepopulate the file with a template
 *** Company-jedi                                                    :package:
 #+BEGIN_SRC emacs-lisp
   (use-package company-jedi
-    :after (company)
-    :demand t
-    :config
+    :commands (company-jedi)
+    :init
     (add-hook 'python-mode-hook #'(lambda ()
-                                    (add-to-list 'company-backends 'company-jedi))))
+                                    (add-to-list 'company-backends 'company-jedi)))
+    )
 #+END_SRC
 *** Flycheck-mypy                                                   :package:
 #+BEGIN_SRC emacs-lisp

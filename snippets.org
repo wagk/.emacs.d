@@ -910,6 +910,16 @@
   `(yas-with-comment "NOTE: ")`
 #+END_SRC
 
+** remove
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/prog-mode/remove
+  # -*- mode: snippet -*-
+  # name: remove
+  # key: rr
+  # --
+  `(yas-with-comment "REMOVE: ")`
+#+END_SRC
+
 ** stub
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/prog-mode/stub

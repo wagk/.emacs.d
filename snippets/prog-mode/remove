@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: remove
+# key: rr
+# --
+`(yas-with-comment "REMOVE: ")`
