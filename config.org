@@ -47,7 +47,7 @@ Common Lisp library
     (require 'cl))
 #+END_SRC
 
-** Dash                                                            :package:
+** Dash                                                             :package:
 Utility library
 
 #+BEGIN_SRC emacs-lisp
@@ -1307,7 +1307,7 @@ These configurations are old and left here in case we ever need it
     (helm-descbinds-mode))
 #+END_SRC
 
-** Helm-swoop                                                      :package:
+** Helm-swoop                                                       :package:
 Disabled until we figure out a good keybind for it to use. It currently
 conflicts with org-agenda
 
@@ -1571,6 +1571,21 @@ conflicts with org-agenda
     )
 #+END_SRC
 
+** Rotate Text                                                      :package:
+- Github :: https://github.com/nschum/rotate-text.el
+
+
+It's sorta like [[https://github.com/zef/vim-cycle][vim cycle]]. It rotates the text through a bunch of keywords
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rotate-text
+    :ensure nil
+    :commands (rotate-text)
+    :straight (:host github :repo "nschum/rotate-text.el" :branch "master")
+    :general
+    (:states 'normal
+     "g r" 'rotate-text))
+#+END_SRC
 ** Whitespace-cleanup-mode                                          :package:
 #+BEGIN_SRC emacs-lisp
   (use-package whitespace-cleanup-mode
@@ -1648,14 +1663,18 @@ For some reason its package namespace is =fci-=
     )
 #+END_SRC
 
-** Golden-ratio                                            :package:disabled:
-#+BEGIN_SRC emacs-lisp
+** Golden-ratio                                           :package:disabled:
+- Github :: https://github.com/roman/golden-ratio.el
 
+
+#+BEGIN_SRC emacs-lisp
   (use-package golden-ratio
-    :disabled t
-    :config
-    (golden-ratio-mode 1)
-    (add-hook 'buffer-list-update-hook #'golden-ratio))
+    :ensure nil
+    :commands (golden-ratio-mode)
+    :straight (:type git :host github :repo "roman/golden-ratio.el" :branch "master")
+    :custom
+    (golden-ratio-auto-scale t)
+    )
 #+END_SRC
 
 ** Powerline                                                        :package:
@@ -1927,7 +1946,7 @@ Disabled because it's more annoying than worth the convenience
     (global-hungry-delete-mode))
 #+END_SRC
 
-** Origami                                                :package:disabled:
+** Origami                                                 :package:disabled:
 - Github :: https://github.com/gregsexton/origami.el/tree/master
 - Reddit (Code example) :: https://www.reddit.com/r/emacs/comments/6fmpwb/evil_and_builtin_folding/
 
@@ -1997,7 +2016,7 @@ Most of the stuff is stolen from the reddit link
     )
 #+END_SRC
 
-** Symbol Overlay                                         :package:disabled:
+** Symbol Overlay                                          :package:disabled:
 - Github :: https://github.com/wolray/symbol-overlay
 
 #+BEGIN_SRC emacs-lisp
@@ -3332,7 +3351,7 @@ It's passable, though I would expect =shell= itself to be better, in my opinion
 
 * LaTeX
 
-** Auctex                                                 :package:disabled:
+** Auctex                                                  :package:disabled:
 
 #+BEGIN_SRC emacs-lisp
   (use-package auctex
@@ -3402,7 +3421,7 @@ So やつた (yatsuta) becomes やった (yatta) and がんばつて becomes が
     )
 #+END_SRC
 
-** DDSKK                                                  :package:disabled:
+** DDSKK                                                   :package:disabled:
 A larger package that is supposedly more full-featured.
 
 Have no idea how to install it currently so I'm just leaving it.
@@ -3586,7 +3605,7 @@ work.
     )
 #+END_SRC
 
-** Pomodoro                                                        :package:
+** Pomodoro                                                         :package:
 - Github :: https://github.com/TatriX/pomidor
 
 
@@ -3706,7 +3725,7 @@ This lets you step through macro invocations.
                       "SPC" nil)
 #+END_SRC
 
-** Helpful                                                         :package:
+** Helpful                                                          :package:
 - Github :: [[https://github.com/Wilfred/helpful/tree/b97947b2033e33eb5fddb71ec840a3221b27e87c]]
 
 
