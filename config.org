@@ -2835,6 +2835,7 @@ prepopulate the file with a template
 #+BEGIN_SRC emacs-lisp
   (use-package ctags-update
     :hook (prog-mode . ctags-auto-update-mode)
+    :custom (ctags-update-prompt-create-tags nil)
     )
 #+END_SRC
 * Dired
@@ -3051,28 +3052,29 @@ prepopulate the file with a template
   (setq-default c-default-style "k&r"
                 c-basic-offset 4)
 
-  ;; (defun my-cpp-mode-configs ()
-  ;;   (setq tab-width 2)
-  ;;   (with-eval-after-load 'flycheck
-  ;;     (defun my-disable-flycheck-clang-checker ()
-  ;;       ;;We disable the clang checker for pretty much the same reason we disabled
-  ;;       ;;irony
-  ;;       (add-to-list 'flycheck-disabled-checkers 'c/c++-clang))
-  ;;     (add-hook 'flycheck-mode-hook 'my-disable-flycheck-clang-checker)
-  ;;     (flycheck-mode -1))
-  ;;   (with-eval-after-load 'company
-  ;;     (make-local-variable 'company-backends)
-  ;;     (let ((curr-backends company-backends)
-  ;;           (new-backends (list)))
-  ;;       (dolist (backend curr-backends)
-  ;;         (unless (equal (car backend) 'company-clang)
-  ;;           (add-to-list 'new-backends backend)))
-  ;;       (setq company-backends new-backends))
-  ;;     (company-mode -1)
-  ;;     (global-company-mode -1))
-  ;;   )
+  (defun my-cpp-mode-configs ()
+    (setq tab-width 2)
+    ;; (with-eval-after-load 'flycheck
+    ;;   (defun my-disable-flycheck-clang-checker ()
+    ;;     ;;We disable the clang checker for pretty much the same reason we disabled
+    ;;     ;;irony
+    ;;     (add-to-list 'flycheck-disabled-checkers 'c/c++-clang))
+    ;;   (add-hook 'flycheck-mode-hook 'my-disable-flycheck-clang-checker)
+    ;;   (flycheck-mode -1))
+    (with-eval-after-load 'company
+      (make-local-variable 'company-backends)
+      (let ((curr-backends company-backends)
+            (new-backends (list)))
+        (dolist (backend curr-backends)
+          (unless (equal (car backend) 'company-clang)
+            (add-to-list 'new-backends backend)))
+        (setq company-backends new-backends))
+      ;; (company-mode -1)
+      ;; (global-company-mode -1)
+      )
+    )
 
-  ;; (add-hook 'c++-mode-hook 'my-cpp-mode-configs)
+  (add-hook 'c++-mode-hook 'my-cpp-mode-configs)
 
   (general-define-key :states 'insert
                       :keymaps 'c-mode-base-map
