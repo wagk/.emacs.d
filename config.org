@@ -2993,8 +2993,9 @@ prepopulate the file with a template
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck-rust
     :after (flycheck)
-    :commands (flycheck-rust-setup)
-    :hook (rust-mode)
+    :demand t
+    :commands (flycheck-rust-setup
+               flycheck-rust)
     :config
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 #+END_SRC
