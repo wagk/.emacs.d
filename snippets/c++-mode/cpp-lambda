@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: cpp-lambda
+# key: defl
+# --
+[$1]($2){$0}
