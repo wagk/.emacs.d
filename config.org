@@ -3113,15 +3113,13 @@ prepopulate the file with a template
 #+END_SRC
 *** Irony
 #+BEGIN_SRC emacs-lisp
-
   ;; We are disabling this for the moment because the irony server is crashing all
   ;; the time and the input lag is annoying
   (use-package irony
-    :disabled t
+    :hook ((c++-mode-hook
+            c-mode-hook
+            objc-mode-hook) . irony-mode)
     :init
-    (add-hook 'c++-mode-hook 'irony-mode)
-    (add-hook 'c-mode-hook 'irony-mode)
-    (add-hook 'objc-mode-hook 'irony-mode)
     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
     :config
     ;; Windows performance tweaks
@@ -3137,9 +3135,8 @@ prepopulate the file with a template
 **** Company-irony                                         :package:disabled:
 #+BEGIN_SRC emacs-lisp
   (use-package company-irony
-    :disabled t
     :after (:all company irony)
-    :defer nil
+    :demand t
     :config
     (add-to-list 'company-backends 'company-irony)
     )
