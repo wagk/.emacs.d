@@ -159,6 +159,16 @@
   #include $0
 #+END_SRC
 
+** cpp-lambda
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/c++-mode/cpp-lambda
+  # -*- mode: snippet -*-
+  # name: cpp-lambda
+  # key: defl
+  # --
+  [$1]($2){$0}
+#+END_SRC
+
 ** cpp-main
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/c++-mode/cpp-main
@@ -236,6 +246,18 @@
   {
     $0
   }}
+#+END_SRC
+
+** cpp-while
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/c++-mode/cpp-while
+  # -*- mode: snippet -*-
+  # name: cpp-while
+  # key: while
+  # --
+  while ($1) {
+      $0
+  }
 #+END_SRC
 
 * emacs-lisp-mode

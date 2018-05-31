@@ -2,6 +2,6 @@
 # name: cpp-if
 # key: if
 # --
-if (${1:cond}){
+if(${1:cond}){
 $0
 }
