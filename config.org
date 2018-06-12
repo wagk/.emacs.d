@@ -1398,16 +1398,6 @@ conflicts with org-agenda
   (use-package helm-google
     :commands (helm-google))
 #+END_SRC
-** Others
-#+BEGIN_SRC emacs-lisp
-
-
-  ;; TODO: when defining helm desckeys make sure a global binding is also presentw
-  ;; C-h seems broken (We've been overwriting it to enable terminal backspace)
-
-  ;; (helm-mode 1)
-#+END_SRC
-
 * Buffer
 #+BEGIN_SRC emacs-lisp
   ;; (add-hook 'prog-mode-hook 'hs-minor-mode)
@@ -2168,8 +2158,10 @@ I want to be able to select git hunks in a textobject way
     (org-default-notes-file "~/TODO.org")
     ;; (org-M-RET-may-split-line '((default . nil)))
     (org-M-RET-may-split-line nil)
-    (org-enforce-todo-checkbox-dependencies t)
-    (org-enforce-todo-dependencies          t)
+    (org-enforce-todo-checkbox-dependencies nil
+                                            "Sometimes we are
+    able to skip dependencies as things happen")
+    (org-enforce-todo-dependencies          nil)
     (org-pretty-entities                    nil)
     ;; (org-insert-heading-respect-content t)
     (org-log-done       'time)
