@@ -3308,6 +3308,20 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
     (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode)
     )
 #+END_SRC
+
+** Powershell
+
+*** Powershell-Mode
+
+- Github :: https://github.com/jschaf/powershell.el
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package powershell
+    :mode (("\\.ps\\'" . powershell-mode)
+           ("\\.ps1\\'" . powershell-mode))
+    )
+#+END_SRC
 * Shell
 No line numbers in shell emulations, it makes no sense.
 #+BEGIN_SRC emacs-lisp
@@ -3366,11 +3380,6 @@ It's passable, though I would expect =shell= itself to be better, in my opinion
     ;;   )
     ;; (add-hook 'evil-insert-state-entry-hook 'evil-goto-line)
     )
-#+END_SRC
-
-** Powershell                                                       :package:
-#+BEGIN_SRC emacs-lisp
-  (use-package powershell)
 #+END_SRC
 
 * Diff                                                              :package:
