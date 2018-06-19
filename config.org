@@ -2134,7 +2134,8 @@ I want to be able to select git hunks in a textobject way
     :general
     (:states 'normal
      :keymaps 'org-mode-map
-     "TAB" 'org-global-cycle)
+     "TAB"   'org-global-cycle
+     "<tab>" 'org-global-cycle)
     (:states 'normal
      :prefix my-default-evil-leader-key
      "o t" 'org-time-stamp-inactive
