@@ -2256,8 +2256,8 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
      "c c" '(lambda () (interactive)
               (require 'org-capture)
               (helm-org-capture-templates))
-     "c j" '(lambda () (interactive) (org-capture nil "j"))
-     "j j" '(lambda () (interactive) (org-capture nil "d")))
+     "c j" 'my-journal-capture-function
+     "j j" 'my-daily-capture-function)
     (:prefix my-default-evil-leader-key
      :keymaps 'org-capture-mode-map
      :states 'normal
@@ -2267,6 +2267,15 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
      [remap evil-save-modified-and-close] 'org-capture-finalize
      [remap evil-quit]                    'org-capture-kill)
     :init
+    (defun my-journal-capture-function ()
+      "docstring for my-journal-capture-function"
+      (interactive)
+      (org-capture nil "j")
+      )
+    (defun my-daily-capture-function ()
+      (interactive)
+      (org-capture nil "d")
+      )
     (defun my-capture-daydream ()
       ""
       (interactive)
