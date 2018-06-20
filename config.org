@@ -2575,7 +2575,6 @@ take a look at that.
 ** Helm-projectile                                                  :package:
 #+BEGIN_SRC emacs-lisp
   (use-package helm-projectile
-    :after (projectile)
     :commands (helm-projectile)
     :general
     (:states 'normal
