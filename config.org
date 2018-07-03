@@ -1245,6 +1245,7 @@ These configurations are old and left here in case we ever need it
 
 #+BEGIN_SRC emacs-lisp
   (use-package helm
+    :commands (helm-mini)
     :general
     ("C-h C-h" 'helm-apropos
      "C-h h"   'helm-apropos)
@@ -1267,6 +1268,8 @@ These configurations are old and left here in case we ever need it
      "C-l" 'helm-next-source
      "C-h" 'helm-previous-source
      "TAB" 'helm-execute-persistent-action)
+    :init
+    (evil-ex-define-cmd "bb" 'helm-mini)
     :config
     (setq helm-idle-delay 0.0
           helm-input-idle-delay 0.01
