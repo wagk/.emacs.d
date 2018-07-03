@@ -1415,6 +1415,9 @@ conflicts with org-agenda
 
   (setq require-final-newline t)
 
+  ;; Make windows subprocesses faster
+  (setq w32-pipe-read-delay 0)
+
   ;; remove annoying bell sounds
   (setq ring-bell-function 'ignore)
 
