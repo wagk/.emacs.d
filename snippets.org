@@ -1265,6 +1265,18 @@
   }
 #+END_SRC
 
+** rust-impl
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-impl
+  # -*- mode: snippet -*-
+  # name: rust-impl
+  # key: impl
+  # --
+  impl $1 {
+      $0
+  }
+#+END_SRC
+
 ** rust-lambda
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-lambda
