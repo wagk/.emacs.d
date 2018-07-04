@@ -1368,6 +1368,18 @@
   }
 #+END_SRC
 
+** rust-trait
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-trait
+  # -*- mode: snippet -*-
+  # name: rust-trait
+  # key: trait
+  # --
+  trait $1 {
+      $0
+  }
+#+END_SRC
+
 ** rust-while
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-while

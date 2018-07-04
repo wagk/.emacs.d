@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: rust-trait
+# key: trait
+# --
+trait $1 {
+    $0
+}
