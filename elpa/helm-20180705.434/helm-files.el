@@ -344,11 +344,8 @@ external trash command in its `delete-file' and `delete-directory'
 handlers.
 
 If you want to enable this you will have to install the 'trash' command
-on remote (or locally if you want to trash as root) the package on
-Ubuntu based distribution is 'trash-cli'. You will also need perhaps
-to create a Trash directory according to
-http://freedesktop.org/wiki/Specifications/trash-spec, see the Trash
-documentation at https://github.com/andreafrancia/trash-cli for more infos."
+on remote (or locally if you want to trash as root), the package on
+Ubuntu based distribution is 'trash-cli'."
   :group 'helm-files
   :type 'boolean)
 
@@ -630,7 +627,7 @@ Don't set it directly, use instead `helm-ff-auto-update-initial-value'.")
    "Find alternate file `C-x C-v'" 'find-alternate-file
    "Ediff File `C-c ='" 'helm-find-files-ediff-files
    "Ediff Merge File `M-='" 'helm-find-files-ediff-merge-files
-   (lambda () (format "Delete File(s)%s `M-D' (C-u no trash)"
+   (lambda () (format "Delete File(s)%s `M-D' (C-u reverse trash)"
                       (if (eq helm-ff-delete-files-function
                               'helm-delete-marked-files-async)
                           " async" "")))

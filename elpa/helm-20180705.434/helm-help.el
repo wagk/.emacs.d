@@ -837,9 +837,6 @@ be deleted in background without asking.
 A good compromise is to trash your files
 when using asynchronous method (see [[Trashing files][Trashing files]]).
 
-Note that emacs is always making a backup of your files when
-deleting, medias though are definitely deleted with no backup.
-
 When choosing synchronous delete, you can allow recursive
 deletion of directories with `helm-ff-allow-recursive-deletes'.
 Note that when trashing (synchronous) you are not asked for recursive deletion.
@@ -874,8 +871,12 @@ of evaling its value (with `substitute-in-file-name').
 
 Trashing remote files (or local files with sudo method) is disabled by default
 because tramp is requiring the 'trash' command to be installed, if you want to
-trash your remote files, customize `helm-trash-remote-files' variable and read
-its docstring for more infos.
+trash your remote files, customize `helm-trash-remote-files'.
+The package on most GNU/Linux based distributions is trash-cli, it is available [[https://github.com/andreafrancia/trash-cli][here]].
+
+NOTE:
+When deleting your files with sudo method, your trashed files will not be listed
+with trash-list until you log in as root.
 
 ** Commands
 \\<helm-find-files-map>
