@@ -86,7 +86,6 @@ Namespacing libary
 
 ** Other Helper Functions
 #+BEGIN_SRC emacs-lisp
-
   (defun my-find-parent-major-modes ()
     "docstring for my-find-parent-major-modes"
     (let ((parents (list major-mode)))
@@ -704,7 +703,6 @@ shamelessly stolen from spacemacs
 
 
 #+BEGIN_SRC emacs-lisp
-
   ;; defaults to g~
   (use-package evil-string-inflection
     :disabled
@@ -730,7 +728,6 @@ attributes, which are inside tags
 
 
 #+BEGIN_SRC emacs-lisp
-
   ;; https://github.com/gridaphobe/evil-god-state
   (use-package evil-god-state
     :general
@@ -743,7 +740,6 @@ attributes, which are inside tags
 
 
 #+BEGIN_SRC emacs-lisp
-
   (use-package evil-surround
     :after (evil)
     :demand t
@@ -773,7 +769,6 @@ attributes, which are inside tags
 
 
 #+BEGIN_SRC emacs-lisp
-
   (use-package evil-args
     :bind (:map evil-inner-text-objects-map
            ("a" . evil-inner-arg)
@@ -798,7 +793,6 @@ attributes, which are inside tags
 
 
 #+BEGIN_SRC emacs-lisp
-
   ;; more like evil-textobj-kolumn
   (use-package evil-textobj-column
     :bind (:map evil-inner-text-objects-map
@@ -811,7 +805,6 @@ attributes, which are inside tags
 
 
 #+BEGIN_SRC emacs-lisp
-
   (use-package evil-numbers
     :general
     (:keymaps 'normal
@@ -828,7 +821,6 @@ attributes, which are inside tags
 
 
 #+BEGIN_SRC emacs-lisp
-
   ;; alignment
   (use-package evil-lion
     :after (evil)
@@ -842,13 +834,11 @@ attributes, which are inside tags
 
 
 #+BEGIN_SRC emacs-lisp
-
   (use-package evil-matchit)
 #+END_SRC
 ** Evil-commentary                                                  :package:
 
 #+BEGIN_SRC emacs-lisp
-
   ;; Adds textobjects that comments
   (use-package evil-commentary
     :after (evil)
@@ -870,7 +860,6 @@ attributes, which are inside tags
 
 ** Evil-indent-plus                                                 :package:
 #+BEGIN_SRC emacs-lisp
-
       ;;; Indentation text object for evil
   (use-package evil-indent-plus
     :bind(:map evil-inner-text-objects-map
@@ -883,7 +872,6 @@ attributes, which are inside tags
 
 ** Evil-tilde-fringe                                                :package:
 #+BEGIN_SRC emacs-lisp
-
   ;; vim A E S T H E T H I C S
   ;; Puts tildes in the fringe, just like vim.
   (use-package vi-tilde-fringe
@@ -895,7 +883,6 @@ attributes, which are inside tags
 
 ** Evil-visualstar                                                  :package:
 #+BEGIN_SRC emacs-lisp
-
   ;; Allows for * and # commands. which originally only worked on WORDs, to
   ;; work on a visual selection too
   (use-package evil-visualstar
@@ -982,7 +969,6 @@ Adds the following ex commands:
 | :tput              | paste from tmux paste buffer, requires running under tmux      |
 
 #+BEGIN_SRC emacs-lisp
-
   (use-package evil-expat)
 #+END_SRC
 
@@ -1173,8 +1159,6 @@ something, look up [[https://github.com/noctuid/targets.el#configuration][here]]
 These configurations are old and left here in case we ever need it
 
 #+BEGIN_SRC emacs-lisp
-
-
   ;; (use-package evil-paredit
   ;;   :config (add-hook 'emacs-lisp-mode-hook 'evil-paredit-mode))
 
@@ -1267,6 +1251,7 @@ These configurations are old and left here in case we ever need it
      "TAB" 'helm-execute-persistent-action)
     :init
     (evil-ex-define-cmd "bb" 'helm-mini)
+    (evil-ex-define-cmd "book[marks]" 'helm-bookmarks)
     :config
     (setq helm-idle-delay 0.0
           helm-input-idle-delay 0.01
