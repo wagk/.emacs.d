@@ -1,4 +1,4 @@
 # key: print
 # name: rust-print
 # --
-println!($0)
+println!("$0");
