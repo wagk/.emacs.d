@@ -1338,10 +1338,11 @@
 ** rust-print
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-print
+  # -*- mode: snippet -*-
   # key: print
   # name: rust-print
   # --
-  println!($0)
+  println!("$0");
 #+END_SRC
 
 ** rust-public-function
