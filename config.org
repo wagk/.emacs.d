@@ -3391,13 +3391,6 @@ It's passable, though I would expect =shell= itself to be better, in my opinion
     )
 #+END_SRC
 
-* Diff                                                              :package:
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-ediff
-    :after (evil)
-    :hook (ediff))
-#+END_SRC
-
 * LaTeX
 
 ** Auctex                                                  :package:disabled:
