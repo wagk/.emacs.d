@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rust-attribute
+# key: #
+# --
+#[$0]

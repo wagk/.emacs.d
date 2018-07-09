@@ -2961,12 +2961,14 @@ prepopulate the file with a template
 
 ** Rust                                                             :package:
 #+BEGIN_SRC emacs-lisp
-  (use-package rust-mode
-    :mode ("\\.rs\\'" . rust-mode)
-    :config
-    (general-define-key :states 'insert
-                        :keymaps 'rust-mode-map
-                        "RET" 'comment-indent-new-line))
+    (use-package rust-mode
+      :mode ("\\.rs\\'" . rust-mode)
+      :custom (rust-format-on-save
+               t)
+      :config
+      (general-define-key :states 'insert
+                          :keymaps 'rust-mode-map
+                          "RET" 'comment-indent-new-line))
 #+END_SRC
 
 *** Flycheck-rust
