@@ -820,7 +820,7 @@ ACTION must be an action supported by `helm-dired-action'."
          (dest-dir-p (file-directory-p dest))
          (dest-dir   (helm-basedir dest)))
     (unless (or dest-dir-p (file-directory-p dest-dir))
-      (when (y-or-n-p (format "Create directory `%s'?" dest-dir))
+      (when (y-or-n-p (format "Create directory `%s'? " dest-dir))
         (make-directory dest-dir t)))
     (helm-dired-action
      dest :files ifiles :action action :follow prefarg)))
@@ -2919,7 +2919,15 @@ Return candidates prefixed with basename of `helm-input' first."
     (when (file-regular-p candidate)
       (setq actions (helm-append-at-nth
                      actions '(("Checksum File" . helm-ff-checksum)) 4)))
-    (cond ((and helm--url-regexp
+    (cond ((and (string-match "Trash/files/?\\'" (helm-basedir candidate))
+                (not (member (helm-basename candidate) '("." "..")))
+                (file-exists-p candidate)
+                (executable-find "trash"))
+           (helm-append-at-nth
+            actions
+            '(("Restore file(s) from trash" . helm-restore-file-from-trash))
+            1))
+          ((and helm--url-regexp
                 (not (string-match-p helm--url-regexp str-at-point))
                 (not (with-helm-current-buffer (eq major-mode 'dired-mode)))
                 (string-match-p ":\\([0-9]+:?\\)" str-at-point))
@@ -2931,7 +2939,7 @@ Return candidates prefixed with basename of `helm-input' first."
             '(("Rotate image right `M-r'" . helm-ff-rotate-image-right)
               ("Rotate image left `M-l'" . helm-ff-rotate-image-left))
             3))
-          ((string-match "\.el$" (helm-aif (helm-marked-candidates)
+          ((string-match "\\.el$" (helm-aif (helm-marked-candidates)
                                      (car it) candidate))
            (helm-append-at-nth
             actions
@@ -2939,7 +2947,7 @@ Return candidates prefixed with basename of `helm-input' first."
                . helm-find-files-byte-compile)
               ("Load File(s) `M-L'" . helm-find-files-load-files))
             2))
-          ((and (string-match "\.html?$" candidate)
+          ((and (string-match "\\.html?$" candidate)
                 (file-exists-p candidate))
            (helm-append-at-nth
             actions '(("Browse url file" . browse-url-of-file)) 2))
@@ -2948,6 +2956,73 @@ Return candidates prefixed with basename of `helm-input' first."
            (helm-append-at-nth
             actions '(("Pdfgrep File(s)" . helm-ff-pdfgrep)) 4))
           (t actions))))
+
+(defun helm-restore-file-from-trash (_candidate)
+    "Restore marked-files from a Trash directory.
+
+The Trash directory should be a directory compliant with
+<http://freedesktop.org/wiki/Specifications/trash-spec> and each file
+should have its '*.trashinfo' correspondent file in Trash/info
+directory."
+  (let* ((mkd (helm-marked-candidates :with-wildcard t))
+         (default-directory (file-name-as-directory
+                             helm-ff-default-directory))
+         (trashed-files (with-temp-buffer
+                          (process-file "trash-list" nil t nil)
+                          (split-string (buffer-string) "\n")))
+         errors)
+    (when trashed-files
+      (with-helm-display-marked-candidates
+        helm-marked-buffer-name
+        (helm-ff--count-and-collect-dups (mapcar 'helm-basename mkd))
+        (when (y-or-n-p (format "Restore %s files from trash? "
+                                (length mkd)))
+          (message "Restoring files from trash...")
+          (cl-loop for f in mkd do
+                   (condition-case err
+                       (helm-restore-file-from-trash-1 f trashed-files)
+                     (error (push (format "%s" (cadr err)) errors)
+                            nil))))))
+    (if errors
+        (display-warning 'helm
+                         (with-temp-buffer
+                           (insert (format-time-string "%Y-%m-%d %H:%M:%S\n"
+                                                       (current-time)))
+                           (insert (format
+                                    "Failed to restore %s/%s files from trash\n"
+                                    (length errors) (length mkd)))
+                           (insert (mapconcat 'identity errors "\n") "\n")
+                           (buffer-string))
+                         :error
+                         "*helm restore warnings*")
+      (message "Restored %s files from trash done" (length mkd)))))
+  
+(defun helm-restore-file-from-trash-1 (file trashed-files)
+  "Restore FILE from a trash directory.
+Arg TRASHED-FILES is the list of files in the trash directory obtained
+with 'trash-list' command."
+  (let ((info-file (concat (helm-reduce-file-name file 2)
+                           "info/"
+                           (helm-basename file)
+                           ".trashinfo"))
+        (dest-file (helm-ff--get-dest-file-from-trash
+                    trashed-files file)))
+    (cl-assert (not (file-exists-p dest-file)) nil
+               (format "File `%s' already exists" dest-file))
+    (cl-assert dest-file nil "No such file in trash")
+    (rename-file file dest-file)
+    (delete-file info-file)))
+
+(defun helm-ff--get-dest-file-from-trash (trashed-files file)
+  (cl-loop for f in trashed-files
+           when (string-match
+                 (concat (regexp-quote (helm-basename file))
+                         "\\'")
+                 f)
+           return
+           (replace-regexp-in-string
+            "\\`\\([0-9]\\{2,4\\}[-:][0-9]\\{2\\}[:-][0-9]\\{2\\} \\)\\{2\\}"
+            "" f)))
 
 (defun helm-ff-goto-linum (candidate)
   "Find file CANDIDATE and maybe jump to line number found in fname at point.

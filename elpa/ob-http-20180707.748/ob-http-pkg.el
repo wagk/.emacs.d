@@ -1,4 +1,4 @@
-(define-package "ob-http" "20180429.2203" "http request in org-mode babel"
+(define-package "ob-http" "20180707.748" "http request in org-mode babel"
   '((s "1.9.0")
     (cl-lib "0.5"))
   :url "http://github.com/zweifisch/ob-http")
