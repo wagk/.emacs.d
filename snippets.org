@@ -13,7 +13,7 @@
   class ${1:Bar}
   {
   public:
-  
+
     $1() = default;
     $1(const $1&) = default;
     $1($1&&) = default;
@@ -21,7 +21,7 @@
     $1& operator=($1&&) = default;
     ~$1() = default;
     $1& operator=(const $1& rhs) = default;
-  
+
   private:
   };
 #+END_SRC
@@ -73,7 +73,7 @@
   # --
   /** $0
   */
-  
+
 #+END_SRC
 
 ** cpp-else
@@ -193,7 +193,7 @@
   {
     $0
   }
-  
+
 #+END_SRC
 
 ** cpp-namespace
@@ -335,16 +335,16 @@
   # key: ;;;;
   # --
   ;;; `(file-name-nondirectory buffer-file-name)` --- $1
-  
+
   ;;; Commentary:
-  
+
   ;;; Code:
   (require 'config-package)
-  
+
   $0
-  
+
   (provide '`(file-name-base buffer-file-name)`)
-  
+
   ;;; `(file-name-nondirectory buffer-file-name)` ends here
 #+END_SRC
 
@@ -404,19 +404,19 @@
   # key: try
   # --
   try {
-  
+
       $0
-  
+
   } catch ($1) {
-  
+
         $2
-  
+
   } finally {
-  
+
   	$3
-  
+
   }
-  
+
 #+END_SRC
 
 ** groovy-var
@@ -619,7 +619,7 @@
   try {
       $0
   } catch ($1) {
-  
+
   }
 #+END_SRC
 
@@ -657,7 +657,7 @@
   # expand-env: ((yas-indent-line 'fixed))
   # --
   `(format-time-string "%Y-%m-%d")` * $0
-  
+
 #+END_SRC
 
 * markdown-mode
@@ -671,7 +671,7 @@
   \`\`\` $1
     $0
   \`\`\`
-  
+
 #+END_SRC
 
 * org-mode
@@ -686,7 +686,7 @@
   #+BEGIN_${1:SRC} $2
   $0
   #+END_$1
-  
+
 #+END_SRC
 
 ** org-list-with-checkbox
@@ -1070,7 +1070,7 @@
   # --
   def ${1:foo}($2)${3:-> ${4:None}}:
       ${5:raise NotImplementedError()}
-  
+
 #+END_SRC
 
 ** python-docstring
@@ -1136,7 +1136,7 @@
   # --
   def __init__(self$1)-> None:
       ${2:raise NotImplementedError()}$0
-  
+
 #+END_SRC
 
 ** python-lambda
@@ -1171,14 +1171,14 @@
   def parse_args():
       """${1:Docstring for parse_args}
       params:
-  
+
       """
       parser = argparse.ArgumentParser(${2:})
-  
+
       $0
-  
+
       return parser.parse_args()
-  
+
 #+END_SRC
 
 ** python-try
@@ -1217,6 +1217,16 @@
 
 * rust-mode
 
+** rust-attribute
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-attribute
+  # -*- mode: snippet -*-
+  # name: rust-attribute
+  # key: #
+  # --
+  #[$0]
+#+END_SRC
+
 ** rust-docstring
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-docstring
@@ -1250,7 +1260,6 @@
   {
     $0
   }
-  
 #+END_SRC
 
 ** rust-if
@@ -1425,7 +1434,7 @@
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/typescript-mode/.yas-parents
   js2-mode
-  
+
 #+END_SRC
 
 ** typescript-export
@@ -1476,6 +1485,5 @@
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/yaml-mode/.yas-parents
   prog-mode
-  
-#+END_SRC
 
+#+END_SRC

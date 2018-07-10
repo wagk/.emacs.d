@@ -2631,13 +2631,13 @@ I can't seem to get the org --> snippet call to work
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-sync-snippets
-    :after (yasnippet)
     :commands (org-sync-snippets-snippets-to-org
                org-sync-snippets-org-to-snippets)
     :custom
     (org-sync-snippets-org-snippets-file (concat user-init-dir "snippets.org"))
-    :config
+    :init
     (add-hook 'yas-after-reload-hook 'org-sync-snippets-snippets-to-org)
+    :config
     (defun user-snippet-file ()
       "docstring for find-user-snippet-file"
       (interactive)
