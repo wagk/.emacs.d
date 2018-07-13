@@ -3030,6 +3030,17 @@ prepopulate the file with a template
                                     (add-to-list 'flycheck-python-mypy-args "--ignore-missing-imports")
                                     (flycheck-mode))))
 #+END_SRC
+
+*** Hylang
+- Github :: https://github.com/hylang/hy-mode
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package hy-mode
+    :mode
+      ("\\.hy\\'" . hy-mode)
+    )
+#+END_SRC
 ** C++
 #+BEGIN_SRC emacs-lisp
   ;; treat .h files as cpp files
@@ -3376,6 +3387,15 @@ It's passable, though I would expect =shell= itself to be better, in my opinion
     )
 #+END_SRC
 
+** Ripgrep
+- Github :: https://github.com/nlamirault/ripgrep.el
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ripgrep
+    :commands (projectile-ripgrep
+               ripgrep-regexp)
+  )
+#+END_SRC
 * LaTeX
 
 ** Auctex                                                  :package:disabled:
