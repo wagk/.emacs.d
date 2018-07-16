@@ -2827,6 +2827,7 @@ prepopulate the file with a template
    :states 'normal
    :keymaps 'dired-mode-map
     "<SPC>" nil ; was shadowing leader key bindings
+    "SPC" nil ; was shadowing leader key bindings
     "C-l" 'dired-up-directory)
 
   (add-hook 'dired-mode-hook 'auto-revert-mode)
