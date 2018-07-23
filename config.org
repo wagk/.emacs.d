@@ -3042,6 +3042,15 @@ prepopulate the file with a template
       ("\\.hy\\'" . hy-mode)
     )
 #+END_SRC
+
+*** evil-python-movement
+- Github :: https://melpa.org/#/evil-python-movement
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-python-movement
+    :after (evil))
+#+END_SRC
 ** C++
 #+BEGIN_SRC emacs-lisp
   ;; treat .h files as cpp files
