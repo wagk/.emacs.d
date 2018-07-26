@@ -1,6 +1,14 @@
 #+TITLE: Emacs Configuration
 - [ ] Check on how to remove the eager macro expansion error in =use-package=
 
+
+* Known Bugs
+
+** =ysiW<= does not surround with <> but instead treats it like tags
+[2018-07-24 Tue]
+
+This appears to be a general surround issue. =>= works fine however.
+
 * Introduction
 Configuration settings for my Emacs
 

@@ -1390,6 +1390,25 @@
   }
 #+END_SRC
 
+** rust-test-block
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-test-block
+  # -*- mode: snippet -*-
+  # key: test
+  # name: rust-test-block
+  # --
+  #[cfg(test)]
+  mod tests {
+      use super::*;
+  
+      #[test]
+      fn ${1:test}() {
+          $0
+      }
+  }
+  
+#+END_SRC
+
 ** rust-trait
 
 #+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/rust-mode/rust-trait
