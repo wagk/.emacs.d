@@ -115,8 +115,8 @@ as possible.
      (if (boundp 'my-local-dropbox-folder)
          (concat (directory-file-name my-local-dropbox-folder) "/org")
        "~/org"))
-    "orgmode directory."
-    )
+    "orgmode directory.")
+
 #+END_SRC
 
 ** Default Notes Directory
@@ -129,8 +129,8 @@ as possible.
        "~/notes"))
     "Notes directory. Mostly used for `deft-directory'.
   This is different from the org-directory because these documents are more for
-  snippets and smaller things"
-    )
+  snippets and smaller things")
+
 #+END_SRC
 
 ** Default Wiki Directory
@@ -141,8 +141,8 @@ as possible.
      (if (boundp 'my-local-dropbox-folder)
          (concat (directory-file-name my-local-dropbox-folder) "/wiki")
        "~/wiki"))
-    "Used for org-brain. This is basically the wiki directory"
-    )
+    "Used for org-brain. This is basically the wiki directory")
+
 #+END_SRC
 
 ** Default Journal File
@@ -151,8 +151,8 @@ as possible.
     (if (boundp 'my-local-dropbox-folder)
         (concat (directory-file-name my-local-dropbox-folder) "/org/journal_2018.org")
       "~/journal_2018.org")
-    "Journal file correct as of 2018"
-    )
+    "Journal file correct as of 2018")
+
   (unless (file-exists-p my-journal-org-file)
     (with-temp-buffer (write-file my-journal-org-file)))
 #+END_SRC
@@ -163,8 +163,8 @@ as possible.
     (if (boundp 'my-local-dropbox-folder)
         (concat (directory-file-name my-local-dropbox-folder) "/daydreams.org")
       "~/daydreams.org")
-    "Place to note down my daydreams"
-    )
+    "Place to note down my daydreams")
+
   (unless (file-exists-p my-daydream-org-file)
     (with-temp-buffer (write-file my-daydream-org-file)))
 #+END_SRC
@@ -196,8 +196,8 @@ I'm a huge fan of solarized dark.
           solarized-height-plus-1 1.0
           solarized-height-plus-2 1.0
           solarized-height-plus-3 1.0
-          solarized-height-plus-4 1.0
-          )
+          solarized-height-plus-4 1.0)
+
     (load-theme 'solarized-dark t))
 #+END_SRC
 
@@ -289,14 +289,14 @@ Disabled because superseded by origami-mode
      "C-u" nil) ;; Disable universal argument
     (:keymaps 'insert
      "C-u"    'kill-whole-line
-     "C-l"    'evil-complete-next-line
+     "C-l"    'evil-complete-next-line)
      ;; "C-L"    'evil-complete-previous-line
      ;; "C-p"    'evil-complete-next
      ;; "C-n"    'evil-complete-previous
      ;; "C-t"    'evil-shift-right-line
      ;; "C-d"    'evil-shift-left-line
      ;; "C-k"    nil
-     )
+
     (:keymaps 'motion
      "C-u"    'evil-scroll-up)
     (:keymaps 'normal
@@ -310,9 +310,9 @@ Disabled because superseded by origami-mode
      ">>"     '/evil-shift-right-visual
      "<<"     '/evil-shift-left-visual)
     (:keymaps 'inner
-     "/"      '/inner-forward-slash
+     "/"      '/inner-forward-slash)
      ;; "l" 'my-evil-inner-line ;; conflicts with targets.el
-     )
+
     (:keymaps 'outer
      "e"      'my-evil-a-buffer
      ;; "l" 'my-evil-a-line ;; conflicts with targets.el
@@ -361,9 +361,9 @@ Disabled because superseded by origami-mode
     (defun /lang-toggle ()
       "Input language toggle wrapper."
       (interactive)
-      (toggle-input-method)
+      (toggle-input-method))
       ;; (evil-append 1)
-      )
+
 
     ;; Overload shifts so that they don't lose the selection
   ;;;###autoload
@@ -614,8 +614,8 @@ Disabled because superseded by origami-mode
 
     (add-hook 'evil-normal-state-entry-hook 'evil-ex-nohighlight)
     ;; (evil-update-insert-state-bindings) ;; something's overriding it
-    (evil-mode)
-    )
+    (evil-mode))
+
 #+END_SRC
 
 *** Evil-Unimpaired
@@ -752,8 +752,8 @@ attributes, which are inside tags
     :after (evil)
     :demand t
     :config
-    (global-evil-surround-mode)
-    )
+    (global-evil-surround-mode))
+
 #+END_SRC
 
 *** Evil-embrace                                                    :package:
@@ -768,8 +768,8 @@ attributes, which are inside tags
     :commands (embrace-add-pair)
     :config
     (evil-embrace-enable-evil-surround-integration)
-    (setq evil-embrace-show-help-p nil)
-    )
+    (setq evil-embrace-show-help-p nil))
+
 #+END_SRC
 
 ** Evil-args                                                        :package:
@@ -781,7 +781,7 @@ attributes, which are inside tags
     :bind (:map evil-inner-text-objects-map
            ("a" . evil-inner-arg)
            :map evil-outer-text-objects-map
-           ("a" . evil-outer-arg)
+           ("a" . evil-outer-arg)))
            ;; :map evil-normal-state-map
            ;; ("L" . evil-forward-arg)
            ;; ("H" . evil-backward-arg)
@@ -789,11 +789,11 @@ attributes, which are inside tags
            ;; :map evil-motion-state-map
            ;; ("L" . evil-forward-arg)
            ;; ("H" . evil-backward-arg)
-           )
+
     ;; :config
     ;; consider spaces as argument delimiters
     ;; (add-to-list 'evil-args-delimiters " ")
-    )
+
 #+END_SRC
 
 ** Evil-textobj-column                                              :package:
@@ -817,8 +817,8 @@ attributes, which are inside tags
     :general
     (:keymaps 'normal
      "C-a"  'evil-numbers/inc-at-pt
-     "C-x"  'evil-numbers/dec-at-pt)
-    )
+     "C-x"  'evil-numbers/dec-at-pt))
+
 #+END_SRC
 
 ** Evil-lion                                                        :package:
@@ -849,8 +849,8 @@ attributes, which are inside tags
     :after (evil)
     :demand t
     :config
-    (evil-commentary-mode)
-    )
+    (evil-commentary-mode))
+
 #+END_SRC
 
 ** Evil-nerd-commenter                                              :package:
@@ -939,11 +939,11 @@ So we're disabling it
 #+BEGIN_SRC emacs-lisp
   ;; Disabled because it conflicts with evil-snipe-override-mode
   (use-package evil-quickscope
-    :disabled t
+    :disabled t)
     ;; :config
     ;; (global-evil-quickscope-always-mode t)
     ;; (global-evil-quickscope-mode t)
-    )
+
 #+END_SRC
 
 ** Evil-snipe                                                       :package:
@@ -1047,19 +1047,19 @@ it (join then explode)
           (stop (copy-marker end)))
       (while (< (point) stop)
         (when (eolp)
-          (join-line t)
-          )
-        (forward-char)
-        )
-      ))
+          (join-line t))
+
+        (forward-char))))
+
+
 
   (defun my--evil-argwrap-explode-inner-region-recursive (beg end)
     "Implementation of `my-evil-argwrap-explode-region'"
     (let ((start (copy-marker beg))
           (stop (copy-marker end))
           (paren-openers "\\s(")        ; Using syntax table
-          (delimiters    ",")           ;TODO: make customizable
-          )
+          (delimiters    ","))           ;TODO: make customizable
+
       (goto-char start)
       (newline-and-indent)
       (while  (< (point) stop)
@@ -1071,12 +1071,12 @@ it (join then explode)
           (let ((sub-start (1+ (point)))
                 (sub-stop (1- (forward-list))))
             (my--evil-argwrap-explode-inner-region-recursive sub-start
-                                                             sub-stop)
-            ))
-         (t (forward-char))
-         ))
-      (newline-and-indent)
-      ))
+                                                             sub-stop)))
+
+         (t (forward-char))))
+
+      (newline-and-indent)))
+
 
   (defun my-evil-argwrap-explode-region (beg end)
     "Explodes a parentheses-delimited region bounded by BEG and END.
@@ -1095,8 +1095,8 @@ it (join then explode)
                (= (forward-list) end))
       (setq beg (1+ beg)
             end (1- end)))
-    (my--evil-argwrap-explode-inner-region-recursive beg end)
-    )
+    (my--evil-argwrap-explode-inner-region-recursive beg end))
+
 
   (evil-define-operator my-evil-argwrap-operator (beg end)
     "docstring for evil-argwrap"
@@ -1156,8 +1156,8 @@ something, look up [[https://github.com/noctuid/targets.el#configuration][here]]
     :straight (:host github :repo "noctuid/targets.el"
                :branch "master")
     :config
-    (targets-setup t)
-    )
+    (targets-setup t))
+
 #+END_SRC
 
 ** Old Configuration
@@ -1275,8 +1275,8 @@ These configurations are old and left here in case we ever need it
     (progn (helm-autoresize-mode)
            (setq helm-autoresize-min-height 40 ;; these values are %
                  helm-autoresize-max-height 40))
-    (helm-mode)
-    )
+    (helm-mode))
+
 #+END_SRC
 
 ** Helm-describe-modes                                              :package:
@@ -1284,10 +1284,10 @@ These configurations are old and left here in case we ever need it
 #+BEGIN_SRC emacs-lisp
   (use-package helm-describe-modes
     :general
-    ("C-h m" 'helm-describe-modes)
+    ("C-h m" 'helm-describe-modes))
     ;; :config
     ;; (evil-leader/set-key "m" 'helm-describe-modes)
-    )
+
 #+END_SRC
 
 ** Helm-descbinds                                                   :package:
@@ -1318,13 +1318,13 @@ conflicts with org-agenda
     :init
     ;;;###autoload
     (defun /helm-swoop-vis () (interactive)
-           (helm-swoop :$query "" :$multiline 4))
+           (helm-swoop :$query "" :$multiline 4)))
     ;; :config
     ;; (defun /helm-swoop-vis () (interactive)
     ;;        (helm-swoop :$query "" :$multiline 4))
     ;; no annoying under mouse highlights
     ;;(setq helm-swoop-pre-input-function (lambda () nil))
-    )
+
 #+END_SRC
 
 ** Helm-fuzzier                                                     :package:
@@ -1379,8 +1379,8 @@ conflicts with org-agenda
     :custom
     (helm-hunks-preview-diffs t)
     :config
-    (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh)
-    )
+    (add-hook 'helm-hunks-refresh-hook 'git-gutter+-refresh))
+
 #+END_SRC
 
 ** Helm-google
@@ -1446,8 +1446,8 @@ conflicts with org-agenda
 
   (defun my-disable-line-numbers ()
     "For modes that doesn't need line numbers in their buffers"
-    (display-line-numbers-mode -1)
-    )
+    (display-line-numbers-mode -1))
+
 
   ;; autopairing
   ;; We're currently trying out smartparens
@@ -1491,8 +1491,8 @@ conflicts with org-agenda
         version-control t
         kept-new-versions 20
         kept-old-versions 5
-        vc-make-backup-files t
-        )
+        vc-make-backup-files t)
+
 
   ;; ;; Save buffer state
   ;; (setq savehist-file (concat user-init-dir "history")
@@ -1526,8 +1526,8 @@ conflicts with org-agenda
   TODO: Make it take an argument that specifies which mode it should enter the
   buffer in."
     (interactive)
-    (switch-to-buffer "*scratch*")
-    )
+    (switch-to-buffer "*scratch*"))
+
 
   (evil-ex-define-cmd "sc[ratch]" 'my-goto-scratch-buffer)
 
@@ -1536,8 +1536,8 @@ conflicts with org-agenda
   TODO: Make it take an argument that specifies which mode it should enter the
   buffer in."
     (interactive)
-    (switch-to-buffer "*Messages*")
-    )
+    (switch-to-buffer "*Messages*"))
+
 
   (evil-ex-define-cmd "me[ssages]" 'my-goto-messages-buffer)
 #+END_SRC
@@ -1553,9 +1553,9 @@ conflicts with org-agenda
      :prefix my-default-evil-leader-key
      "|" 'highlight-indent-guides-mode)
     (setq highlight-indent-guides-method 'character
-          highlight-indent-guides-character ?\|)
+          highlight-indent-guides-character ?\|))
     ;; (highlight-indent-guides-mode)
-    )
+
 #+END_SRC
 
 ** Pretty-mode
@@ -1563,8 +1563,8 @@ conflicts with org-agenda
 
 
 #+BEGIN_SRC emacs-lisp
-  (use-package pretty-mode
-    )
+  (use-package pretty-mode)
+
 #+END_SRC
 ** Rotate Text                                                      :package:
 - Github :: https://github.com/nschum/rotate-text.el
@@ -1606,8 +1606,8 @@ hl-todo-occur
     (:states 'normal
      :prefix my-default-evil-leader-key
      ;; "t t" 'hl-todo-occur
-     "t t" 'my-helm-swoop-hl-todo
-     )
+     "t t" 'my-helm-swoop-hl-todo)
+
     (:keymaps 'evil-normal-state-map
      "[ t"  'hl-todo-previous
      "] t"  'hl-todo-next)
@@ -1625,7 +1625,7 @@ hl-todo-occur
     (defun my-helm-swoop-hl-todo () (interactive)
            (require 'helm-swoop)
            (helm-swoop :$query hl-todo-regexp :$multiline 4))
-    :config
+    :config)
     ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
     ;; Not used because we don't incrementally search for todos
     ;; (defun my-helm-hl-todo-items ()
@@ -1639,7 +1639,7 @@ hl-todo-occur
     ;;                                                      collect c))
     ;;                    :get-line #'buffer-substring)
     ;;         :buffer "*helm hl-todo*"))
-    )
+
 #+END_SRC
 
 ** Fill-column-indicator                                            :package:
@@ -1654,8 +1654,8 @@ For some reason its package namespace is =fci-=
     :diminish t
     :custom
     (fill-column 80)
-    (always-use-textual-rule t)
-    )
+    (always-use-textual-rule t))
+
 #+END_SRC
 
 ** Golden-ratio                                           :package:disabled:
@@ -1668,15 +1668,15 @@ For some reason its package namespace is =fci-=
     :commands (golden-ratio-mode)
     :straight (:type git :host github :repo "roman/golden-ratio.el" :branch "master")
     :custom
-    (golden-ratio-auto-scale t)
-    )
+    (golden-ratio-auto-scale t))
+
 #+END_SRC
 
 ** Powerline                                                        :package:
 #+BEGIN_SRC emacs-lisp
   (use-package powerline
-    :defer 1
-    )
+    :defer 1)
+
 #+END_SRC
 
 *** Powerline-evil                                                  :package:
@@ -1830,8 +1830,8 @@ For some reason its package namespace is =fci-=
     (:map evil-window-map
      ("SPC" . ace-window))
     :custom
-    (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-    )
+    (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+
 #+END_SRC
 
 ** Expand-region                                                    :package:
@@ -1898,8 +1898,8 @@ For some reason its package namespace is =fci-=
     ;;Learn to use ret for now
     (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
     (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-    (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-    )
+    (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET"))))
+
 #+END_SRC
 
 *** TODO Evil-smartparens                                           :package:
@@ -1911,8 +1911,8 @@ For some reason its package namespace is =fci-=
   (use-package evil-smartparens
     :after (smartparens)
     :diminish (evil-smartparens-mode)
-    :hook (smartparens-mode . evil-smartparens-mode)
-    )
+    :hook (smartparens-mode . evil-smartparens-mode))
+
 #+END_SRC
 
 ** Frame Transparency
@@ -1946,8 +1946,8 @@ Disabled because it's more annoying than worth the convenience
 
 Most of the stuff is stolen from the reddit link
 
-- [ ] Not working in python (doesn't recursively fold and does not allow us to
-  fold non-top level syntax). Should check
+- [ ] Not working in python (doesn't recursively fold and does not allow us to)
+  fold non-top level syntax. Should check
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook 'hs-minor-mode)
@@ -2003,10 +2003,10 @@ Most of the stuff is stolen from the reddit link
             (insert comment-start " }}}")
           (insert comment-end "}}}")))
       (newline-and-indent)
-      (goto-char start)
-      )
-    (global-origami-mode 1)
-    )
+      (goto-char start))
+
+    (global-origami-mode 1))
+
 #+END_SRC
 
 ** Symbol Overlay                                          :package:disabled:
@@ -2014,8 +2014,8 @@ Most of the stuff is stolen from the reddit link
 
 #+BEGIN_SRC emacs-lisp
   (use-package symbol-overlay
-    :disabled t
-    )
+    :disabled t)
+
 #+END_SRC
 
 * Dashboard                                                :package:disabled:
@@ -2035,16 +2035,16 @@ Most of the stuff is stolen from the reddit link
   (use-package aggressive-indent
     :diminish t
     :demand t
-    :commands (aggressive-indent-mode)
-    )
+    :commands (aggressive-indent-mode))
+
 #+END_SRC
 
 ** Aggressive-fill-paragraph                                        :package:
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-fill-paragraph
     :commands (aggressive-fill-paragraph-mode
-               afp-setup-recommended-hooks)
-    )
+               afp-setup-recommended-hooks))
+
 #+END_SRC
 * Magit                                                       :package:magit:
 
@@ -2060,8 +2060,8 @@ Most of the stuff is stolen from the reddit link
     (add-hook 'git-commit-setup-hook 'aggressive-fill-paragraph-mode)
     (add-hook 'git-commit-setup-hook 'turn-on-fci-mode)
     (add-hook 'git-commit-setup-hook 'markdown-mode)
-    (add-hook 'magit-mode-hook #'my-disable-line-numbers)
-    )
+    (add-hook 'magit-mode-hook #'my-disable-line-numbers))
+
 #+END_SRC
 
 ** Evil-magit                                                       :package:
@@ -2084,8 +2084,8 @@ Most of the stuff is stolen from the reddit link
            ("] h" . git-gutter+-next-hunk)
            ("g h s" . git-gutter+-stage-hunks)
            ("g h u" . git-gutter+-revert-hunks)
-           ("g h h" . git-gutter+-show-hunk-inline-at-point)
-           )
+           ("g h h" . git-gutter+-show-hunk-inline-at-point))
+
     :hook ((prog-mode . git-gutter+-mode)
            (org-mode . git-gutter+-mode))
     ;; :hook (prog-mode . git-gutter+-mode)
@@ -2111,8 +2111,8 @@ Most of the stuff is stolen from the reddit link
       :if (display-graphic-p)
       :after git-gutter+
       :demand t)
-    (global-git-gutter+-mode)
-    )
+    (global-git-gutter+-mode))
+
 #+END_SRC
 
 ** TODO Git Hunk textobjects
@@ -2236,8 +2236,8 @@ I want to be able to select git hunks in a textobject way
       (with-eval-after-load 'display-line-numbers
         (display-line-numbers-mode -1))
       (aggressive-fill-paragraph-mode))
-    (add-hook 'org-mode-hook #'my-org-hook-configs)
-    )
+    (add-hook 'org-mode-hook #'my-org-hook-configs))
+
 #+END_SRC
 
 ** Org-capture                                          :package:journalling:
@@ -2304,11 +2304,11 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
     :general
     (:prefix my-default-evil-leader-key
      :states 'normal
-     "f f" 'org-agenda)
+     "f f" 'org-agenda))
     ;; :config
     ;; initialize org agenda things
     ;; (add-to-list 'org-agenda-files my-org-directory)
-    )
+
 #+END_SRC
 ** Org-brain                                                        :package:
 #+BEGIN_SRC emacs-lisp
@@ -2324,8 +2324,8 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
      :prefix my-default-evil-leader-key
      "N" 'org-brain-visualize)
     :init
-    (evil-set-initial-state 'org-brain-visualize-mode 'emacs)
-    )
+    (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+
 #+END_SRC
 ** Org-radiobutton                                                  :package:
 #+BEGIN_SRC emacs-lisp
@@ -2378,14 +2378,14 @@ Requires the ~anki-connect~ plugin to be installed in anki, as well as curl.
                               operators
                               ;; todo
                               ;; heading
-                              calendar
-                              ))
+                              calendar))
+
     (with-eval-after-load 'org-agenda
       (require 'evil-org-agenda)
       (evil-org-agenda-set-keys)
-      (add-hook 'org-agenda-mode-hook 'evil-org-mode)
-      )
-    )
+      (add-hook 'org-agenda-mode-hook 'evil-org-mode)))
+
+
 #+END_SRC
 ** Helm-org-rifle                                                   :package:
 #+BEGIN_SRC emacs-lisp
@@ -2404,8 +2404,8 @@ Requires the ~anki-connect~ plugin to be installed in anki, as well as curl.
      "C-p"  'helm-previous-page
      "C-l"  'helm-next-source
      "C-h"  'helm-previous-source
-     "TAB"  'helm-execute-persistent-action)
-    )
+     "TAB"  'helm-execute-persistent-action))
+
 #+END_SRC
 
 ** TODO Org-jira
@@ -2419,8 +2419,8 @@ take a look at that.
 - [ ] Bind it inside =local.el=
 
 #+BEGIN_SRC emacs-lisp
-  (use-package org-jira
-    )
+  (use-package org-jira)
+
 #+END_SRC
 
 ** Org-babel
@@ -2430,8 +2430,8 @@ take a look at that.
     ;; this list is probably incomplete
     :commands (org-babel-get-src-block-info
                org-babel-do-in-edit-buffer
-               org-babel-tangle-file)
-    )
+               org-babel-tangle-file))
+
 #+END_SRC
 *** Async                                                           :package:
 #+BEGIN_SRC emacs-lisp
@@ -2531,7 +2531,7 @@ take a look at that.
     ;;                     :keymaps 'deft-mode-map
     ;;                     "RET" 'deft-complete)
     (add-hook 'deft-open-file-hook 'org-mode)
-    (add-hook 'deft-mode-hook 'evil-insert-state)
+    (add-hook 'deft-mode-hook 'evil-insert-state))
 
     ;; (define-key deft-mode-map [remap evil-quit]
     ;;   'kill-this-buffer)
@@ -2554,15 +2554,15 @@ take a look at that.
     ;;                       (kbd "RET") 'deft-complete)
     ;;   )
     ;; (add-hook 'deft-mode-hook 'my-overwrite-evil-ret-in-deft)
-    )
+
 #+END_SRC
 * Projectile                                                        :package:
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :commands (projectile-mode)
     :config
-    (projectile-mode)
-    )
+    (projectile-mode))
+
 #+END_SRC
 
 ** Helm-projectile                                                  :package:
@@ -2571,8 +2571,8 @@ take a look at that.
     :commands (helm-projectile)
     :general
     (:states 'normal
-     "_" 'helm-projectile)
-    )
+     "_" 'helm-projectile))
+
 #+END_SRC
 
 ** Org-projectile                                                   :package:
@@ -2590,8 +2590,8 @@ take a look at that.
     :config
     (org-projectile-per-project)
     (setq org-projectile-per-project-filepath "TODO.org"
-          org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
-    )
+          org-agenda-files (append org-agenda-files (org-projectile-todo-files))))
+
 #+END_SRC
 * Flycheck                                                 :package:disabled:
 #+BEGIN_SRC emacs-lisp
@@ -2603,8 +2603,7 @@ take a look at that.
     ;; (add-hook 'prog-mode-hook 'flycheck-mode-on-safe)
     :config
     ;;https://stackoverflow.com/questions/15552349/hw-to-disable-flycheck-warning-while-editing-emacs-lisp-scripts
-    (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
-    )
+    (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 #+END_SRC
 
 ** Flycheck-inline
@@ -2614,14 +2613,12 @@ take a look at that.
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck-inline
     :ensure nil
-    :commands(flycheck-inline-mode)
+    :commands (flycheck-inline-mode)
     :after (flycheck)
-    :demand t
     :straight (:host github :repo "flycheck/flycheck-inline"
                :branch "master")
     :config
-    (flycheck-inline-mode)
-    )
+    (flycheck-inline-mode))
 #+END_SRC
 * Completion
 #+BEGIN_SRC emacs-lisp
@@ -2650,8 +2647,8 @@ I can't seem to get the org --> snippet call to work
       "docstring for find-user-snippet-file"
       (interactive)
       (find-file (concat user-init-dir "/snippets.org")))
-    (evil-ex-define-cmd "snippet[s]" 'user-snippet-file)
-    )
+    (evil-ex-define-cmd "snippet[s]" 'user-snippet-file))
+
 #+END_SRC
 
 *** Yasnippet                                                       :package:
@@ -2684,8 +2681,8 @@ I can't seem to get the org --> snippet call to work
           yas-also-auto-indent-first-line t)
     (defun yas-with-comment (str)
       (format "%s%s%s" comment-start str comment-end))
-    (yas-global-mode)
-    )
+    (yas-global-mode))
+
 #+END_SRC
 
 *** Auto-Insert with Yasnippets
@@ -2714,9 +2711,9 @@ prepopulate the file with a template
    (define-auto-insert "\\.h$"   ["cpp-h-template" /auto-insert-yasnippet])
    (define-auto-insert "\\.cpp$" ["cpp-template" /auto-insert-yasnippet])
    (define-auto-insert "\\.sh$"  ["sh-template" /auto-insert-yasnippet])
-   (define-auto-insert "\\.php$" ["php-template" /auto-insert-yasnippet])
+   (define-auto-insert "\\.php$" ["php-template" /auto-insert-yasnippet]))
 
-   )
+
 #+END_SRC
 
 ** Yankpad
@@ -2738,17 +2735,17 @@ prepopulate the file with a template
     :diminish emmet-mode
     :bind (:map emmet-mode-keymap
            ;; ("TAB" . emmet-expand-yas) ;; uses deprecated yas functions
-           ("TAB" . emmet-expand-line)
+           ("TAB" . emmet-expand-line))
            ;; ("C-j" . emmet-next-edit-point)
            ;; ("C-k" . emmet-prev-edit-point)
-           )
+
     :init
     (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
     (add-hook 'css-mode-hook  'emmet-mode) ;; enable emmet's css abbreviation.
     (add-hook 'js2-mode-hook 'emmet-mode) ;; REACT and jsx
     :config
-    (setq emmet-move-cursor-between-quotes t) ;; default nil
-    )
+    (setq emmet-move-cursor-between-quotes t)) ;; default nil
+
 #+END_SRC
 
 *** TODO Emmet Cheat Sheet
@@ -2799,14 +2796,14 @@ prepopulate the file with a template
 
            (add-hook 'company-completion-started-hook 'company-turn-off-fci)
            (add-hook 'company-completion-finished-hook 'company-maybe-turn-on-fci)
-           (add-hook 'company-completion-cancelled-hook 'company-maybe-turn-on-fci)
-           )
+           (add-hook 'company-completion-cancelled-hook 'company-maybe-turn-on-fci))
+
     (setq company-dabbrev-downcase nil
           company-dabbrev-ignore-case nil
           company-idle-delay 0.5
           company-require-match nil
-          company-selection-wrap-around t)
-    )
+          company-selection-wrap-around t))
+
 #+END_SRC
 *** Company-quickhelp                                               :package:
 #+BEGIN_SRC emacs-lisp
@@ -2826,8 +2823,8 @@ prepopulate the file with a template
 #+BEGIN_SRC emacs-lisp
   (use-package ctags-update
     :hook (prog-mode . ctags-auto-update-mode)
-    :custom (ctags-update-prompt-create-tags nil)
-    )
+    :custom (ctags-update-prompt-create-tags nil))
+
 #+END_SRC
 * Dired
 #+BEGIN_SRC emacs-lisp
@@ -2881,8 +2878,8 @@ prepopulate the file with a template
     :general
     (:keymaps 'js2-mode-map
      :states 'insert
-     "RET" 'comment-indent-new-line)
-    )
+     "RET" 'comment-indent-new-line))
+
 #+END_SRC
 *** Web-mode                                                        :package:
 #+BEGIN_SRC emacs-lisp
@@ -2893,8 +2890,8 @@ prepopulate the file with a template
            ("\\.as[cp]x\\'" . web-mode)
            ("\\.erb\\'" . web-mode)
            ("\\.mustache\\'" . web-mode)
-           ("\\.djhtml\\'" . web-mode))
-    )
+           ("\\.djhtml\\'" . web-mode)))
+
 #+END_SRC
 
 *** Helm-emmet                                                      :package:
@@ -2910,16 +2907,16 @@ prepopulate the file with a template
       (add-to-list 'org-src-lang-modes
                    (cons "yaml" 'yaml)))
     :config
-    (add-hook 'yaml-mode-hook 'turn-on-fci-mode)
-    )
+    (add-hook 'yaml-mode-hook 'turn-on-fci-mode))
+
 #+END_SRC
 *** Markdown-mode                                                   :package:
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
     :commands (markdown-mode)
     :config
-    (add-hook 'markdown-mode-hook 'orgtbl-mode)
-    )
+    (add-hook 'markdown-mode-hook 'orgtbl-mode))
+
 #+END_SRC
 *** Json-mode                                                       :package:
 #+BEGIN_SRC emacs-lisp
@@ -2929,8 +2926,8 @@ prepopulate the file with a template
     :init
     (with-eval-after-load 'org-babel
       (add-to-list 'org-src-lang-modes
-                   (cons "json" 'json)))
-    )
+                   (cons "json" 'json))))
+
 #+END_SRC
 *** Dockerfile-mode                                                 :package:
 #+BEGIN_SRC emacs-lisp
@@ -2964,8 +2961,8 @@ prepopulate the file with a template
     :config
     (add-hook 'groovy-mode-hook 'turn-on-fci-mode)
     (add-hook 'groovy-mode-hook 'hl-todo-mode)
-    (add-hook 'groovy-mode-hook #'/treat-underscore-as-word)
-    )
+    (add-hook 'groovy-mode-hook #'/treat-underscore-as-word))
+
 #+END_SRC
 
 ** Rust                                                             :package:
@@ -3021,8 +3018,8 @@ prepopulate the file with a template
     :commands (company-jedi)
     :init
     (add-hook 'python-mode-hook #'(lambda ()
-                                    (add-to-list 'company-backends 'company-jedi)))
-    )
+                                    (add-to-list 'company-backends 'company-jedi))))
+
 #+END_SRC
 *** Flycheck-mypy                                                   :package:
 #+BEGIN_SRC emacs-lisp
@@ -3047,8 +3044,8 @@ prepopulate the file with a template
 #+BEGIN_SRC emacs-lisp
   (use-package hy-mode
     :mode
-      ("\\.hy\\'" . hy-mode)
-    )
+      ("\\.hy\\'" . hy-mode))
+
 #+END_SRC
 
 *** evil-python-movement
@@ -3084,11 +3081,11 @@ prepopulate the file with a template
         (dolist (backend curr-backends)
           (unless (equal (car backend) 'company-clang)
             (add-to-list 'new-backends backend)))
-        (setq company-backends new-backends))
+        (setq company-backends new-backends))))
       ;; (company-mode -1)
       ;; (global-company-mode -1)
-      )
-    )
+
+
 
   (add-hook 'c++-mode-hook 'my-cpp-mode-configs)
 
@@ -3116,8 +3113,8 @@ prepopulate the file with a template
   (use-package cmake-mode
     :mode ("\\cmakelists.txt\\'" . cmake-mode)
     :config
-    (add-hook 'cmake-mode-hook 'hl-todo-mode)
-    )
+    (add-hook 'cmake-mode-hook 'hl-todo-mode))
+
 #+END_SRC
 
 **** Cmake-font-lock
@@ -3143,8 +3140,8 @@ prepopulate the file with a template
       (setq w32-pipe-read-delay 0))
     ;; Set the buffer size to 64K on Windows (from the original 4K)
     (when (boundp 'w32-pipe-buffer-size)
-      (setq irony-server-w32-pipe-buffer-size (* 64 1024)))
-    )
+      (setq irony-server-w32-pipe-buffer-size (* 64 1024))))
+
 #+END_SRC
 
 **** Company-irony                                         :package:disabled:
@@ -3153,8 +3150,8 @@ prepopulate the file with a template
     :after (:all company irony)
     :demand t
     :config
-    (add-to-list 'company-backends 'company-irony)
-    )
+    (add-to-list 'company-backends 'company-irony))
+
 #+END_SRC
 *** Clang-format                                                    :package:
 #+BEGIN_SRC emacs-lisp
@@ -3179,8 +3176,8 @@ prepopulate the file with a template
 ** Typescript                                                       :package:
 #+BEGIN_SRC emacs-lisp
   (use-package typescript-mode
-    :mode ("\\.tsx\\'" . typescript-mode)
-    )
+    :mode ("\\.tsx\\'" . typescript-mode))
+
 #+END_SRC
 
 *** Tide                                                            :package:
@@ -3190,8 +3187,8 @@ prepopulate the file with a template
     :init
     (add-hook 'typescript-mode-hook 'tide-setup)
     :config
-    (add-hook 'before-save-hook 'tide-format-before-save)
-    )
+    (add-hook 'before-save-hook 'tide-format-before-save))
+
 #+END_SRC
 ** Elisp
 #+BEGIN_SRC emacs-lisp
@@ -3303,8 +3300,8 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
   (use-package rainbow-delimiters
     :commands (rainbow-delimiters-mode)
     :init
-    (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-    )
+    (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
+
 #+END_SRC
 *** Suggest                                                         :package:
 #+BEGIN_SRC emacs-lisp
@@ -3328,8 +3325,8 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
     (defun my-elisp-mode ()
       (elisp-slime-nav-mode)
       (turn-on-eldoc-mode))
-    (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode)
-    )
+    (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode))
+
 #+END_SRC
 
 ** Lisp
@@ -3344,11 +3341,11 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
     :general
     (:states 'normal
      "C-," 'parinfer-toggle-mode)
-    :hook ((clojure-mode-hook . parinfer-mode)
+    :hook ((clojure-mode-hook . parinfer-mode
             (emacs-lisp-mode-hook . parinfer-mode)
             (common-lisp-mode-hook . parinfer-mode)
             (scheme-mode-hook . parinfer-mode)
-            (lisp-mode-hook . parinfer-mode))
+            (lisp-mode-hook . parinfer-mode)))
     :init
     (progn
       (setq parinfer-extensions
@@ -3358,8 +3355,8 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
               lispy          ; If you use Lispy. With this extension, you should install Lispy and do not enable lispy-mode directly.
               paredit        ; Introduce some paredit commands.
               smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
-              smart-yank))   ; Yank behavior depend on mode.
-      ))
+              smart-yank))))   ; Yank behavior depend on mode.
+
 #+END_SRC
 
 #+RESULTS:
@@ -3383,8 +3380,8 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 
 #+BEGIN_SRC emacs-lisp
   (use-package lispyville
-    :hook (lispy-mode-hook . lispyville-mode)
-    )
+    :hook (lispy-mode-hook . lispyville-mode))
+
 #+END_SRC
 
 #+RESULTS:
@@ -3400,8 +3397,8 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 #+BEGIN_SRC emacs-lisp
   (use-package powershell
     :mode (("\\.ps\\'" . powershell-mode)
-           ("\\.ps1\\'" . powershell-mode))
-    )
+           ("\\.ps1\\'" . powershell-mode)))
+
 #+END_SRC
 * Shell
 No line numbers in shell emulations, it makes no sense.
@@ -3416,7 +3413,7 @@ term-mode normally doesn't allow multiple shells, this one does.
   (use-package multi-term
     :after (evil)
     :init
-    (evil-ex-define-cmd "te[rminal]" 'multi-term)
+    (evil-ex-define-cmd "te[rminal]" 'multi-term))
     ;; I do not understand how this works, and it worries me some.
     ;; (add-hook 'term-mode-hook #'(lambda ()
     ;;                               (evil-local-set-key 'motion (kbd "RET") 'term-send-input)
@@ -3432,7 +3429,7 @@ term-mode normally doesn't allow multiple shells, this one does.
     ;;  :states '(motion insert)
     ;;  :keymaps 'local
     ;;  "RET" 'term-send-input)
-    )
+
 #+END_SRC
 
 ** Eshell
@@ -3442,7 +3439,7 @@ It's passable, though I would expect =shell= itself to be better, in my opinion
   (with-eval-after-load 'eshell
     (evil-set-initial-state 'eshell-mode 'insert)
     (add-hook 'eshell-mode-hook #'my-disable-line-numbers)
-    (add-hook 'eshell-mode-hook #'/treat-underscore-as-word)
+    (add-hook 'eshell-mode-hook #'/treat-underscore-as-word))
     ;; (defun my-overwrite-evil-ret-in-eshell ()
     ;;   "attempts to make evil-ret in shell modes do things like send input"
     ;;   (message "Attempting to overwrite RET for eshell")
@@ -3460,7 +3457,7 @@ It's passable, though I would expect =shell= itself to be better, in my opinion
     ;;   "Whenever we enter insert mode we go to the end of line"
     ;;   )
     ;; (add-hook 'evil-insert-state-entry-hook 'evil-goto-line)
-    )
+
 #+END_SRC
 
 ** Ripgrep
@@ -3469,8 +3466,8 @@ It's passable, though I would expect =shell= itself to be better, in my opinion
 #+BEGIN_SRC emacs-lisp
   (use-package ripgrep
     :commands (projectile-ripgrep
-               ripgrep-regexp)
-  )
+               ripgrep-regexp))
+
 #+END_SRC
 * LaTeX
 
@@ -3540,8 +3537,8 @@ So やつた (yatsuta) becomes やった (yatta) and がんばつて becomes が
     :ensure nil
     :config
     (setq default-input-method "japanese"
-          kkc-show-conversion-list-count 1)
-    )
+          kkc-show-conversion-list-count 1))
+
 #+END_SRC
 
 ** DDSKK                                                   :package:disabled:
@@ -3553,8 +3550,8 @@ Have no idea how to install it currently so I'm just leaving it.
   (use-package ddskk
     :disabled t
     :straight (:host github :repo "skk-dev/ddskk"
-               :branch "master")
-   )
+               :branch "master"))
+
 #+END_SRC
 * Finance
 
@@ -3568,8 +3565,8 @@ A finance minor-mode that we use
     :config
     (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
     :mode ("\\.dat\\'"
-           "\\.ledger\\'")
-    )
+           "\\.ledger\\'"))
+
 #+END_SRC
 
 *** Evil-ledger                                                     :package:
@@ -3645,13 +3642,13 @@ I still need to configure it to be more vimium-like
 
     ;; Use sane keybindings for forward/back
     (evil-define-key 'normal 'eww-mode-map "H" 'eww-back-url)
-    (evil-define-key 'normal 'eww-mode-map "L" 'eww-forward-url)
+    (evil-define-key 'normal 'eww-mode-map "L" 'eww-forward-url))
 
     ;; (defun my-eww-init-hook ()
     ;;    "docstring for foo"
     ;;    (evil-snipe-override-mode -1))
     ;; (add-hook 'eww-mode-hook 'my-eww-init-hook)
-    )
+
 #+END_SRC
 
 * RSS
@@ -3662,8 +3659,8 @@ I still need to configure it to be more vimium-like
   (use-package elfeed
     :commands (elfeed)
     :init
-    (evil-ex-define-cmd "feed" 'elfeed)
-    )
+    (evil-ex-define-cmd "feed" 'elfeed))
+
 #+END_SRC
 * Utility
 
@@ -3722,10 +3719,10 @@ work.
 
 #+BEGIN_SRC emacs-lisp
   (use-package nov
-    :mode ("\\.epub\\'" . nov-mode)
+    :mode ("\\.epub\\'" . nov-mode))
     ;; :config
     ;; (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
-    )
+
 #+END_SRC
 
 ** Pomodoro                                                         :package:
@@ -3736,8 +3733,8 @@ work.
   (use-package pomidor
     :commands (pomidor)
     :init
-    (evil-ex-define-cmd "pom[odoro]" 'pomidor)
-     :config
+    (evil-ex-define-cmd "pom[odoro]" 'pomidor
+     :config)
     (evil-set-initial-state 'pomidor-mode 'emacs)
     :custom
     (pomidor-default-alert 'mode-line))
@@ -3755,8 +3752,8 @@ work.
       (setq plantuml-jar-path my-plantuml-jar))
     (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
     (org-babel-do-load-languages
-     'org-babel-load-languages '((plantuml . t)))
-    )
+     'org-babel-load-languages '((plantuml . t))))
+
 #+END_SRC
 
 * Others
@@ -3787,26 +3784,26 @@ package manager
   (use-package help+
     :defer 2
     :load-path "local-packages/"
-    :hook (help)
-  )
+    :hook (help))
+
 
   (use-package help-macro+
     :defer 2
     :load-path "local-packages/"
-    :hook (help)
-    )
+    :hook (help))
+
 
   (use-package help-mode+
     :defer 2
     :load-path "local-packages/"
-    :hook (help)
-    )
+    :hook (help))
+
 
   (use-package help-fns+
     :defer 2
     :load-path "local-packages/"
-    :hook (help)
-    )
+    :hook (help))
+
 #+END_SRC
 
 ** Macrostep                                                        :package:

@@ -30,8 +30,8 @@
   (file-name-as-directory
    (cond ((boundp 'user-emacs-directory) user-emacs-directory)
          ((boundp 'user-init-directory) user-init-directory)
-         (t "~/.emacs.d/"))
-   )
+         (t "~/.emacs.d/")))
+
   "Sets up the startup directory.")
 
 (defconst user-init-file
@@ -55,22 +55,22 @@
 (defun find-user-init-file ()
   "Edit `user-init-file' without opening a new window."
   (interactive)
-  (find-file user-init-file)
-  )
+  (find-file user-init-file))
+
 
 ;;;###autoload
 (defun find-user-config-file ()
   "Edit `user-config-file' without opening a new window."
   (interactive)
-  (find-file user-config-file)
-  )
+  (find-file user-config-file))
+
 
 ;;;###autoload
 (defun find-user-local-file ()
   "Edit `local.el' without opening a new window."
   (interactive)
-  (find-file user-local-file)
-  )
+  (find-file user-local-file))
+
 
 (defmacro measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."
@@ -78,23 +78,23 @@
      ,@body
      (message "%.06f seconds." (float-time (time-since time)))))
 
-;; TODO(pangt): make this take in relative paths
-(defun load-user-config-file (file &rest files)
-  "Load FILE (and FILES) as configuration.
-Assumes that it:
-- Is a string path to one or more configuration fila (i.e. elisp)
-- Is relative to user-config-dir"
-  (interactive "fConfig file: ")
-  (measure-time
-   (dolist (elem (cons file files))
-     (let ((path (expand-file-name (concat user-config-dir elem))))
-       (if (file-exists-p path)
-           (progn (condition-case nil
-                      (measure-time (load-file path))
-                    (error
-                     (message "There was an error while loading %s" elem)))
-                  (message "Loaded %s" path))
-         (message "Failed to load %s" path))))))
+;; ;; TODO(pangt): make this take in relative paths
+;; (defun load-user-config-file (file &rest files)
+;;   "Load FILE (and FILES) as configuration.
+;; Assumes that it:
+;; - Is a string path to one or more configuration fila (i.e. elisp)
+;; - Is relative to user-config-dir"
+;;   (interactive "fConfig file: ")
+;;   (measure-time
+;;    (dolist (elem (cons file files))
+;;      (let ((path (expand-file-name (concat user-config-dir elem))))
+;;        (if (file-exists-p path)
+;;            (progn (condition-case nil
+;;                       (measure-time (load-file path))
+;;                     (error
+;;                      (message "There was an error while loading %s" elem)))
+;;                   (message "Loaded %s" path))
+;;          (message "Failed to load %s" path))))))
 
 ;; Add to load path our configuration folder. Deprecated since we don't use
 ;; a config directory anymore
@@ -131,18 +131,6 @@ Assumes that it:
   ;; (setq package-enable-at-startup nil)
   (package-initialize)
 
-  ;; https://github.com/raxod502/straight.el
-  (let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
-        (bootstrap-version 3))
-    (unless (file-exists-p bootstrap-file)
-      (with-current-buffer
-          (url-retrieve-synchronously
-           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-           'silent 'inhibit-cookies)
-        (goto-char (point-max))
-        (eval-print-last-sexp)))
-    (load bootstrap-file nil 'nomessage))
-
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
@@ -161,13 +149,24 @@ Assumes that it:
   (use-package diminish)
   (use-package bind-key)
 
+  ;; https://github.com/raxod502/straight.el
+  (let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
+        (bootstrap-version 3))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+
   ;; https://github.com/noctuid/general.el
   (use-package general
     :demand t
     :commands (general-define-key)
     :init
-    (defconst my-default-evil-leader-key "SPC")
-    )
+    (defconst my-default-evil-leader-key "SPC"))
 
   ;; (use-package use-package-el-get
   ;;   :demand t
@@ -193,8 +192,8 @@ Assumes that it:
     (auto-compile-verbose t)
     :config
     (auto-compile-on-load-mode)
-    (auto-compile-on-save-mode)
-    )
+    (auto-compile-on-save-mode))
+
 
   (use-package auto-package-update
     :commands (auto-package-update-now
@@ -231,5 +230,4 @@ Assumes that it:
 
   ;; Disable ANNOYING customize options
   (setq custom-file (concat user-init-dir "custom.el"))
-  (load custom-file 'noerror)
-  )
+  (load custom-file 'noerror))
