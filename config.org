@@ -3373,16 +3373,14 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
   (use-package lispy
     :commands lispy-mode
     :general
-    (:states 'insert
-     :keymaps 'lispy-mode-map-lispy
-     "{" nil
-     "}" nil
-     "[" nil
-     "]" nil)
+    (lispy-mode-map-lispy
+     "}" 'lispy-backward
+     "[" 'lispy-brackets)
     :hook ((clojure-mode . lispy-mode)
            (emacs-lisp-mode . lispy-mode)
            (common-lisp-mode . lispy-mode)
            (scheme-mode . lispy-mode)
+           (hy-mode . lispy-mode)
            (lisp-mode . lispy-mode)))
 #+END_SRC
 
