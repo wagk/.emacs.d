@@ -290,12 +290,12 @@ Disabled because superseded by origami-mode
     (:keymaps 'insert
      "C-u"    'kill-whole-line
      "C-l"    'evil-complete-next-line)
-     ;; "C-L"    'evil-complete-previous-line
-     ;; "C-p"    'evil-complete-next
-     ;; "C-n"    'evil-complete-previous
-     ;; "C-t"    'evil-shift-right-line
-     ;; "C-d"    'evil-shift-left-line
-     ;; "C-k"    nil
+    ;; "C-L"    'evil-complete-previous-line
+    ;; "C-p"    'evil-complete-next
+    ;; "C-n"    'evil-complete-previous
+    ;; "C-t"    'evil-shift-right-line
+    ;; "C-d"    'evil-shift-left-line
+    ;; "C-k"    nil
 
     (:keymaps 'motion
      "C-u"    'evil-scroll-up)
@@ -311,7 +311,7 @@ Disabled because superseded by origami-mode
      "<<"     '/evil-shift-left-visual)
     (:keymaps 'inner
      "/"      '/inner-forward-slash)
-     ;; "l" 'my-evil-inner-line ;; conflicts with targets.el
+    ;; "l" 'my-evil-inner-line ;; conflicts with targets.el
 
     (:keymaps 'outer
      "e"      'my-evil-a-buffer
@@ -362,7 +362,7 @@ Disabled because superseded by origami-mode
       "Input language toggle wrapper."
       (interactive)
       (toggle-input-method))
-      ;; (evil-append 1)
+    ;; (evil-append 1)
 
 
     ;; Overload shifts so that they don't lose the selection
@@ -507,81 +507,81 @@ Disabled because superseded by origami-mode
 
     ;; [something] ( mote thingh) {} <>
 
-  ;;   (defun my-forward-line-char-seeker (char)
-  ;;     "docstring for my-forward-in-line-char"
-  ;;     (save-excursion
-  ;;       (while (and (not (eolp))
-  ;;                   (not (looking-at-p char)))
-  ;;         (forward-char))
-  ;;       (if (eolp)
-  ;;           nil
-  ;;         (point))))
+    ;;   (defun my-forward-line-char-seeker (char)
+    ;;     "docstring for my-forward-in-line-char"
+    ;;     (save-excursion
+    ;;       (while (and (not (eolp))
+    ;;                   (not (looking-at-p char)))
+    ;;         (forward-char))
+    ;;       (if (eolp)
+    ;;           nil
+    ;;         (point))))
 
-  ;;   (defun my-backward-line-char-seeker (char)
-  ;;     "docstring for my-forward-in-line-char"
-  ;;     (save-excursion
-  ;;       (while (and (not (bolp))
-  ;;                   (not (looking-at-p char)))
-  ;;         (backward-char))
-  ;;       (if (bolp)
-  ;;           nil
-  ;;         (point))))
+    ;;   (defun my-backward-line-char-seeker (char)
+    ;;     "docstring for my-forward-in-line-char"
+    ;;     (save-excursion
+    ;;       (while (and (not (bolp))
+    ;;                   (not (looking-at-p char)))
+    ;;         (backward-char))
+    ;;       (if (bolp)
+    ;;           nil
+    ;;         (point))))
 
-  ;;   ;;TODO: Make this hack less cancerous. All we want is to alter evil-select-parens
-  ;;   ;;into evil-select-quote so we have proper forward chasing behavior
-  ;;   (defun my-evil-a-paren-seek (&rest _)
-  ;;     "Move the point into a delimiter, if it exists within this line,
-  ;; Does nothing otherwise"
-  ;;     (let ((seek-forward (my-forward-line-char-seeker "("))
-  ;;           (seek-backward (my-backward-line-char-seeker ")")))
-  ;;       (cond (seek-forward
-  ;;              (goto-char seek-forward))
-  ;;             (seek-backward
-  ;;              (goto-char seek-backward)))
-  ;;       ))
-  ;;   (advice-add 'evil-a-paren :before 'my-evil-a-paren-seek)
+    ;;   ;;TODO: Make this hack less cancerous. All we want is to alter evil-select-parens
+    ;;   ;;into evil-select-quote so we have proper forward chasing behavior
+    ;;   (defun my-evil-a-paren-seek (&rest _)
+    ;;     "Move the point into a delimiter, if it exists within this line,
+    ;; Does nothing otherwise"
+    ;;     (let ((seek-forward (my-forward-line-char-seeker "("))
+    ;;           (seek-backward (my-backward-line-char-seeker ")")))
+    ;;       (cond (seek-forward
+    ;;              (goto-char seek-forward))
+    ;;             (seek-backward
+    ;;              (goto-char seek-backward)))
+    ;;       ))
+    ;;   (advice-add 'evil-a-paren :before 'my-evil-a-paren-seek)
 
-  ;;   (evil-define-text-object my-evil-inner-paren (count &optional beg end type)
-  ;;     "Select inner parenthesis."
-  ;;     :extend-selection nil
-  ;;     (evil-select-paren "(" ")" beg end type count))
-  ;;   (advice-add 'evil-inner-paren :override 'my-evil-inner-paren)
+    ;;   (evil-define-text-object my-evil-inner-paren (count &optional beg end type)
+    ;;     "Select inner parenthesis."
+    ;;     :extend-selection nil
+    ;;     (evil-select-paren "(" ")" beg end type count))
+    ;;   (advice-add 'evil-inner-paren :override 'my-evil-inner-paren)
 
-  ;;   (evil-define-text-object my-evil-a-bracket (count &optional beg end type)
-  ;;     "Select a square bracket."
-  ;;     :extend-selection nil
-  ;;     (evil-select-paren "\\[" "\\]" beg end type count t))
-  ;;   (advice-add 'evil-a-bracket :override 'my-evil-a-bracket)
+    ;;   (evil-define-text-object my-evil-a-bracket (count &optional beg end type)
+    ;;     "Select a square bracket."
+    ;;     :extend-selection nil
+    ;;     (evil-select-paren "\\[" "\\]" beg end type count t))
+    ;;   (advice-add 'evil-a-bracket :override 'my-evil-a-bracket)
 
-  ;;   (evil-define-text-object my-evil-inner-bracket (count &optional beg end type)
-  ;;     "Select inner square bracket."
-  ;;     :extend-selection nil
-  ;;     (evil-select-paren "\\[" "\\]" beg end type count))
-  ;;   (advice-add 'evil-inner-bracket :override 'my-evil-inner-bracket)
+    ;;   (evil-define-text-object my-evil-inner-bracket (count &optional beg end type)
+    ;;     "Select inner square bracket."
+    ;;     :extend-selection nil
+    ;;     (evil-select-paren "\\[" "\\]" beg end type count))
+    ;;   (advice-add 'evil-inner-bracket :override 'my-evil-inner-bracket)
 
-  ;;   (evil-define-text-object my-evil-a-curly (count &optional beg end type)
-  ;;     "Select a curly bracket (\"brace\")."
-  ;;     :extend-selection nil
-  ;;     (evil-select-paren "{" "}" beg end type count t))
-  ;;   (advice-add 'evil-a-curly :override 'my-evil-a-curly)
+    ;;   (evil-define-text-object my-evil-a-curly (count &optional beg end type)
+    ;;     "Select a curly bracket (\"brace\")."
+    ;;     :extend-selection nil
+    ;;     (evil-select-paren "{" "}" beg end type count t))
+    ;;   (advice-add 'evil-a-curly :override 'my-evil-a-curly)
 
-  ;;   (evil-define-text-object my-evil-inner-curly (count &optional beg end type)
-  ;;     "Select inner curly bracket (\"brace\")."
-  ;;     :extend-selection nil
-  ;;     (evil-select-paren "{" "}" beg end type count))
-  ;;   (advice-add 'evil-inner-curly :override 'my-evil-inner-curly)
+    ;;   (evil-define-text-object my-evil-inner-curly (count &optional beg end type)
+    ;;     "Select inner curly bracket (\"brace\")."
+    ;;     :extend-selection nil
+    ;;     (evil-select-paren "{" "}" beg end type count))
+    ;;   (advice-add 'evil-inner-curly :override 'my-evil-inner-curly)
 
-  ;;   (evil-define-text-object my-evil-an-angle (count &optional beg end type)
-  ;;     "Select an angle bracket."
-  ;;     :extend-selection nil
-  ;;     (evil-select-paren "<" ">" beg end type count t))
-  ;;   (advice-add 'evil-an-angle :override 'my-evil-an-angle)
+    ;;   (evil-define-text-object my-evil-an-angle (count &optional beg end type)
+    ;;     "Select an angle bracket."
+    ;;     :extend-selection nil
+    ;;     (evil-select-paren "<" ">" beg end type count t))
+    ;;   (advice-add 'evil-an-angle :override 'my-evil-an-angle)
 
-  ;;   (evil-define-text-object my-evil-inner-angle (count &optional beg end type)
-  ;;     "Select inner angle bracket."
-  ;;     :extend-selection nil
-  ;;     (evil-select-paren "<" ">" beg end type count))
-  ;;   (advice-add 'evil-inner-angle :override 'my-evil-inner-angle)
+    ;;   (evil-define-text-object my-evil-inner-angle (count &optional beg end type)
+    ;;     "Select inner angle bracket."
+    ;;     :extend-selection nil
+    ;;     (evil-select-paren "<" ">" beg end type count))
+    ;;   (advice-add 'evil-inner-angle :override 'my-evil-inner-angle)
 
     ;; (general-define-key
     ;;  :keymaps 'evil-outer-text-objects-map
@@ -608,8 +608,8 @@ Disabled because superseded by origami-mode
     ;;  "<" 'my-evil-inner-angle
     ;;  ">" 'my-evil-inner-angle)
 
-      ;; (evil-select-quote ?\( ?\) beg end type count)
-      ;; (evil-select-paren ?\( ?\) (caddr args) (cadddr args) (cadddr args) (cadr args))
+    ;; (evil-select-quote ?\( ?\) beg end type count)
+    ;; (evil-select-paren ?\( ?\) (caddr args) (cadddr args) (cadddr args) (cadr args))
     ;; somethinbg ()
 
     (add-hook 'evil-normal-state-entry-hook 'evil-ex-nohighlight)
@@ -782,17 +782,17 @@ attributes, which are inside tags
            ("a" . evil-inner-arg)
            :map evil-outer-text-objects-map
            ("a" . evil-outer-arg)))
-           ;; :map evil-normal-state-map
-           ;; ("L" . evil-forward-arg)
-           ;; ("H" . evil-backward-arg)
-           ;; ("K" . evil-jump-out-args)
-           ;; :map evil-motion-state-map
-           ;; ("L" . evil-forward-arg)
-           ;; ("H" . evil-backward-arg)
+  ;; :map evil-normal-state-map
+  ;; ("L" . evil-forward-arg)
+  ;; ("H" . evil-backward-arg)
+  ;; ("K" . evil-jump-out-args)
+  ;; :map evil-motion-state-map
+  ;; ("L" . evil-forward-arg)
+  ;; ("H" . evil-backward-arg)
 
-    ;; :config
-    ;; consider spaces as argument delimiters
-    ;; (add-to-list 'evil-args-delimiters " ")
+  ;; :config
+  ;; consider spaces as argument delimiters
+  ;; (add-to-list 'evil-args-delimiters " ")
 
 #+END_SRC
 
@@ -940,9 +940,9 @@ So we're disabling it
   ;; Disabled because it conflicts with evil-snipe-override-mode
   (use-package evil-quickscope
     :disabled t)
-    ;; :config
-    ;; (global-evil-quickscope-always-mode t)
-    ;; (global-evil-quickscope-mode t)
+  ;; :config
+  ;; (global-evil-quickscope-always-mode t)
+  ;; (global-evil-quickscope-mode t)
 
 #+END_SRC
 
@@ -1127,11 +1127,11 @@ Covered by noctuid [[https://github.com/noctuid/evil-guide#type][here]].
 
 It's defined in =evil-define-motion=. The allowed characters are:
 - inclusive :: The range is the start point up to and including the ending
-  position.
+               position.
 - line      :: The range is set to the beginning and end of the line
 - block     :: The range is blockwise like in =C-v=
 - exclusive :: Default. The range is exactly like ~inclusive~ except that it
-  does not include the ending position.
+               does not include the ending position.
 
 *** What I learnt
 
@@ -1285,8 +1285,8 @@ These configurations are old and left here in case we ever need it
   (use-package helm-describe-modes
     :general
     ("C-h m" 'helm-describe-modes))
-    ;; :config
-    ;; (evil-leader/set-key "m" 'helm-describe-modes)
+  ;; :config
+  ;; (evil-leader/set-key "m" 'helm-describe-modes)
 
 #+END_SRC
 
@@ -1319,11 +1319,11 @@ conflicts with org-agenda
     ;;;###autoload
     (defun /helm-swoop-vis () (interactive)
            (helm-swoop :$query "" :$multiline 4)))
-    ;; :config
-    ;; (defun /helm-swoop-vis () (interactive)
-    ;;        (helm-swoop :$query "" :$multiline 4))
-    ;; no annoying under mouse highlights
-    ;;(setq helm-swoop-pre-input-function (lambda () nil))
+  ;; :config
+  ;; (defun /helm-swoop-vis () (interactive)
+  ;;        (helm-swoop :$query "" :$multiline 4))
+  ;; no annoying under mouse highlights
+  ;;(setq helm-swoop-pre-input-function (lambda () nil))
 
 #+END_SRC
 
@@ -1370,12 +1370,12 @@ conflicts with org-agenda
      :prefix my-default-evil-leader-key
      "g g" 'helm-hunks-current-buffer)
     (helm-hunks--keymap
-       "C-j" 'helm-next-line
-       "C-k" 'helm-previous-line
-       "C-d" 'helm-next-page
-       "C-u" 'helm-previous-page
-       "C-l" 'helm-next-source
-       "C-h" 'helm-previous-source)
+     "C-j" 'helm-next-line
+     "C-k" 'helm-previous-line
+     "C-d" 'helm-next-page
+     "C-u" 'helm-previous-page
+     "C-l" 'helm-next-source
+     "C-h" 'helm-previous-source)
     :custom
     (helm-hunks-preview-diffs t)
     :config
@@ -1554,7 +1554,7 @@ conflicts with org-agenda
      "|" 'highlight-indent-guides-mode)
     (setq highlight-indent-guides-method 'character
           highlight-indent-guides-character ?\|))
-    ;; (highlight-indent-guides-mode)
+  ;; (highlight-indent-guides-mode)
 
 #+END_SRC
 
@@ -1626,19 +1626,19 @@ hl-todo-occur
            (require 'helm-swoop)
            (helm-swoop :$query hl-todo-regexp :$multiline 4))
     :config)
-    ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
-    ;; Not used because we don't incrementally search for todos
-    ;; (defun my-helm-hl-todo-items ()
-    ;;   "Show `hl-todo'-keyword items in buffer."
-    ;;   (interactive)
-    ;;   (helm :sources (helm-build-in-buffer-source "hl-todo items"
-    ;;                    :data (current-buffer)
-    ;;                    :candidate-transformer (lambda (candidates)
-    ;;                                             (cl-loop for c in candidates
-    ;;                                                      when (string-match hl-todo-regexp c)
-    ;;                                                      collect c))
-    ;;                    :get-line #'buffer-substring)
-    ;;         :buffer "*helm hl-todo*"))
+  ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
+  ;; Not used because we don't incrementally search for todos
+  ;; (defun my-helm-hl-todo-items ()
+  ;;   "Show `hl-todo'-keyword items in buffer."
+  ;;   (interactive)
+  ;;   (helm :sources (helm-build-in-buffer-source "hl-todo items"
+  ;;                    :data (current-buffer)
+  ;;                    :candidate-transformer (lambda (candidates)
+  ;;                                             (cl-loop for c in candidates
+  ;;                                                      when (string-match hl-todo-regexp c)
+  ;;                                                      collect c))
+  ;;                    :get-line #'buffer-substring)
+  ;;         :buffer "*helm hl-todo*"))
 
 #+END_SRC
 
@@ -2305,9 +2305,9 @@ org capture. https://github.com/syl20bnr/spacemacs/issues/5320
     (:prefix my-default-evil-leader-key
      :states 'normal
      "f f" 'org-agenda))
-    ;; :config
-    ;; initialize org agenda things
-    ;; (add-to-list 'org-agenda-files my-org-directory)
+  ;; :config
+  ;; initialize org agenda things
+  ;; (add-to-list 'org-agenda-files my-org-directory)
 
 #+END_SRC
 ** Org-brain                                                        :package:
@@ -2533,27 +2533,27 @@ take a look at that.
     (add-hook 'deft-open-file-hook 'org-mode)
     (add-hook 'deft-mode-hook 'evil-insert-state))
 
-    ;; (define-key deft-mode-map [remap evil-quit]
-    ;;   'kill-this-buffer)
-    ;; (define-key deft-mode-map [remap evil-save-modified-and-close]
-    ;;   'kill-this-buffer)
-    ;; TODO: See if this method can be applied to eshell hacks
-    ;; TODO: This isn't working for some reason
-    ;; (define-key deft-mode-map [remap evil-ret]
-    ;;   'deft-complete)
-    ;; (defun my-overwrite-evil-ret-in-deft ()
-    ;;   "attempts to make evil-ret in deft do things like send input"
-    ;;   (message "Attempting to overwrite RET for deft")
-    ;;   ;; (with-eval-after-load 'evil-config
-    ;;   ;;   (define-))
-    ;;   (evil-local-set-key 'insert
-    ;;                       (kbd "RET") 'deft-complete)
-    ;;   (evil-local-set-key 'normal
-    ;;                       (kbd "RET") 'deft-complete)
-    ;;   (evil-local-set-key 'motion
-    ;;                       (kbd "RET") 'deft-complete)
-    ;;   )
-    ;; (add-hook 'deft-mode-hook 'my-overwrite-evil-ret-in-deft)
+  ;; (define-key deft-mode-map [remap evil-quit]
+  ;;   'kill-this-buffer)
+  ;; (define-key deft-mode-map [remap evil-save-modified-and-close]
+  ;;   'kill-this-buffer)
+  ;; TODO: See if this method can be applied to eshell hacks
+  ;; TODO: This isn't working for some reason
+  ;; (define-key deft-mode-map [remap evil-ret]
+  ;;   'deft-complete)
+  ;; (defun my-overwrite-evil-ret-in-deft ()
+  ;;   "attempts to make evil-ret in deft do things like send input"
+  ;;   (message "Attempting to overwrite RET for deft")
+  ;;   ;; (with-eval-after-load 'evil-config
+  ;;   ;;   (define-))
+  ;;   (evil-local-set-key 'insert
+  ;;                       (kbd "RET") 'deft-complete)
+  ;;   (evil-local-set-key 'normal
+  ;;                       (kbd "RET") 'deft-complete)
+  ;;   (evil-local-set-key 'motion
+  ;;                       (kbd "RET") 'deft-complete)
+  ;;   )
+  ;; (add-hook 'deft-mode-hook 'my-overwrite-evil-ret-in-deft)
 
 #+END_SRC
 * Projectile                                                        :package:
@@ -2695,23 +2695,23 @@ prepopulate the file with a template
   ;; (setq yas-snippet-dirs (append yas-snippet-dirs ))
                       ;;;###autoload
   (with-eval-after-load 'yasnippet
-   (defun /auto-insert-yasnippet ()
-     "Replace text in buffer with snippet.
+    (defun /auto-insert-yasnippet ()
+      "Replace text in buffer with snippet.
                       Used for 'auto-insert'"
-     (yas-minor-mode)
-     (yas-expand-snippet (buffer-string) (point-min) (point-max)))
+      (yas-minor-mode)
+      (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
-   (setq-default auto-insert-directory
-                 (directory-file-name (concat user-init-dir "/auto-insert/")))
-   (auto-insert-mode 1)
-   (setq-default auto-insert-query nil
-                 auto-insert 'other)
-   (define-auto-insert "\\.el$"  ["elisp-template" /auto-insert-yasnippet])
-   (define-auto-insert "\\.py$"  ["python-template" /auto-insert-yasnippet])
-   (define-auto-insert "\\.h$"   ["cpp-h-template" /auto-insert-yasnippet])
-   (define-auto-insert "\\.cpp$" ["cpp-template" /auto-insert-yasnippet])
-   (define-auto-insert "\\.sh$"  ["sh-template" /auto-insert-yasnippet])
-   (define-auto-insert "\\.php$" ["php-template" /auto-insert-yasnippet]))
+    (setq-default auto-insert-directory
+                  (directory-file-name (concat user-init-dir "/auto-insert/")))
+    (auto-insert-mode 1)
+    (setq-default auto-insert-query nil
+                  auto-insert 'other)
+    (define-auto-insert "\\.el$"  ["elisp-template" /auto-insert-yasnippet])
+    (define-auto-insert "\\.py$"  ["python-template" /auto-insert-yasnippet])
+    (define-auto-insert "\\.h$"   ["cpp-h-template" /auto-insert-yasnippet])
+    (define-auto-insert "\\.cpp$" ["cpp-template" /auto-insert-yasnippet])
+    (define-auto-insert "\\.sh$"  ["sh-template" /auto-insert-yasnippet])
+    (define-auto-insert "\\.php$" ["php-template" /auto-insert-yasnippet]))
 
 
 #+END_SRC
@@ -2736,8 +2736,8 @@ prepopulate the file with a template
     :bind (:map emmet-mode-keymap
            ;; ("TAB" . emmet-expand-yas) ;; uses deprecated yas functions
            ("TAB" . emmet-expand-line))
-           ;; ("C-j" . emmet-next-edit-point)
-           ;; ("C-k" . emmet-prev-edit-point)
+    ;; ("C-j" . emmet-next-edit-point)
+    ;; ("C-k" . emmet-prev-edit-point)
 
     :init
     (add-hook 'sgml-mode-hook 'emmet-mode) ;; auto-start on any markup modes
@@ -2831,9 +2831,9 @@ prepopulate the file with a template
   (general-define-key
    :states 'normal
    :keymaps 'dired-mode-map
-    "<SPC>" nil ; was shadowing leader key bindings
-    "SPC" nil ; was shadowing leader key bindings
-    "C-l" 'dired-up-directory)
+   "<SPC>" nil ; was shadowing leader key bindings
+   "SPC" nil ; was shadowing leader key bindings
+   "C-l" 'dired-up-directory)
 
   (add-hook 'dired-mode-hook 'auto-revert-mode)
 #+END_SRC
@@ -3087,8 +3087,8 @@ prepopulate the file with a template
           (unless (equal (car backend) 'company-clang)
             (add-to-list 'new-backends backend)))
         (setq company-backends new-backends))))
-      ;; (company-mode -1)
-      ;; (global-company-mode -1)
+  ;; (company-mode -1)
+  ;; (global-company-mode -1)
 
 
 
@@ -3371,6 +3371,7 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 
 #+BEGIN_SRC emacs-lisp
   (use-package lispy
+    :disabled t
     :commands lispy-mode
     :general
     (lispy-mode-map-lispy
