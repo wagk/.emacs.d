@@ -3342,22 +3342,22 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
     :general
     (:states 'normal
      "C-," 'parinfer-toggle-mode)
-    :hook ((clojure-mode-hook . parinfer-mode
-            (emacs-lisp-mode-hook . parinfer-mode)
-            (common-lisp-mode-hook . parinfer-mode)
-            (scheme-mode-hook . parinfer-mode)
-            (lisp-mode-hook . parinfer-mode)))
+    :hook ((clojure-mode . parinfer-mode)
+           (emacs-lisp-mode . parinfer-mode)
+           (common-lisp-mode . parinfer-mode)
+           (scheme-mode . parinfer-mode)
+           (lisp-mode . parinfer-mode)
+           (hy-mode . parinfer-mode))
     :init
     (progn
       (setq parinfer-extensions
             '(defaults       ; should be included.
-              pretty-parens  ; different paren styles for different modes.
-              evil           ; If you use Evil.
-              lispy          ; If you use Lispy. With this extension, you should install Lispy and do not enable lispy-mode directly.
-              paredit        ; Introduce some paredit commands.
-              smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
-              smart-yank))))   ; Yank behavior depend on mode.
-
+               pretty-parens  ; different paren styles for different modes.
+               evil           ; If you use Evil.
+               lispy          ; If you use Lispy. With this extension, you should install Lispy and do not enable lispy-mode directly.
+               paredit        ; Introduce some paredit commands.
+               smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
+               smart-yank))))   ; Yank behavior depend on mode.
 #+END_SRC
 
 #+RESULTS:
@@ -3369,7 +3369,13 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 
 #+BEGIN_SRC emacs-lisp
   (use-package lispy
-    :commands lispy-mode)
+    :commands lispy-mode
+    :hook ((clojure-mode . lispy-mode)
+           (emacs-lisp-mode . lispy-mode)
+           (common-lisp-mode . lispy-mode)
+           (scheme-mode . lispy-mode)
+           (lisp-mode . lispy-mode)
+           (hy-mode . lispy-mode)))
 #+END_SRC
 
 #+RESULTS:
