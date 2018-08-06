@@ -3045,8 +3045,12 @@ prepopulate the file with a template
   (use-package hy-mode
     :mode
     ("\\.hy\\'" . hy-mode)
+    :init
+    (defun my-lispy-evil-shift-width ()
+      (customize-set-variable 'evil-shift-width lisp-body-indent))
     :hook
-    (hy-mode . rainbow-delimiters-mode))
+    ((hy-mode . rainbow-delimiters-mode)
+     (hy-mode . my-lispy-evil-shift-width)))
 #+END_SRC
 
 *** evil-python-movement
@@ -3368,16 +3372,18 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 #+BEGIN_SRC emacs-lisp
   (use-package lispy
     :commands lispy-mode
-    ;; :general
-    ;; (:keymaps 'lispy-mode-map
-    ;;  "[" nil
-    ;;  "]" nil)
+    :general
+    (:states 'insert
+     :keymaps 'lispy-mode-map-lispy
+     "{" nil
+     "}" nil
+     "[" nil
+     "]" nil)
     :hook ((clojure-mode . lispy-mode)
            (emacs-lisp-mode . lispy-mode)
            (common-lisp-mode . lispy-mode)
            (scheme-mode . lispy-mode)
-           (lisp-mode . lispy-mode)
-           (hy-mode . lispy-mode)))
+           (lisp-mode . lispy-mode)))
 #+END_SRC
 
 #+RESULTS:
@@ -3388,9 +3394,13 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 
 #+BEGIN_SRC emacs-lisp
   (use-package lispyville
-    :hook (lispy-mode-hook . lispyville-mode)
+    :hook (lispy-mode . lispyville-mode)
     :config
-      (lispyville-set-key-theme))
+    (lispyville-set-key-theme '(operators
+                                c-w
+                                atom-motions
+                                additional-motions
+                                additional)))
 #+END_SRC
 
 #+RESULTS:
