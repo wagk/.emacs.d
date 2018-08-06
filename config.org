@@ -3333,7 +3333,6 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 ** Lisp
 
 *** Parinfer
-
 - Github :: https://github.com/shaunlebron/parinfer
 
 
@@ -3363,13 +3362,16 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 #+RESULTS:
 
 *** Lispy
-
 - Github :: https://github.com/abo-abo/lispy
 
 
 #+BEGIN_SRC emacs-lisp
   (use-package lispy
     :commands lispy-mode
+    ;; :general
+    ;; (:keymaps 'lispy-mode-map
+    ;;  "[" nil
+    ;;  "]" nil)
     :hook ((clojure-mode . lispy-mode)
            (emacs-lisp-mode . lispy-mode)
            (common-lisp-mode . lispy-mode)
@@ -3381,14 +3383,14 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 #+RESULTS:
 
 **** Lispyville
-
 - Github :: https://github.com/noctuid/lispyville
 
 
 #+BEGIN_SRC emacs-lisp
   (use-package lispyville
-    :hook (lispy-mode-hook . lispyville-mode))
-
+    :hook (lispy-mode-hook . lispyville-mode)
+    :config
+      (lispyville-set-key-theme))
 #+END_SRC
 
 #+RESULTS:
@@ -3740,8 +3742,8 @@ work.
   (use-package pomidor
     :commands (pomidor)
     :init
-    (evil-ex-define-cmd "pom[odoro]" 'pomidor
-     :config)
+    (evil-ex-define-cmd "pom[odoro]" 'pomidor)
+    :config
     (evil-set-initial-state 'pomidor-mode 'emacs)
     :custom
     (pomidor-default-alert 'mode-line))

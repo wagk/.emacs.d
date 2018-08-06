@@ -429,6 +429,19 @@
   \$\{${1:variable}\}
 #+END_SRC
 
+* hy-mode
+
+** hy-function
+
+#+BEGIN_SRC snippet :tangle {SNIPPETS-DIR}/hy-mode/hy-function
+  # -*- mode: snippet -*-
+  # name: hy-function
+  # key: defn
+  # --
+  (defn $1 [$2]
+      $0)
+#+END_SRC
+
 * js2-mode
 
 ** javascript-block-comment
