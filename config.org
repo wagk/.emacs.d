@@ -3044,8 +3044,9 @@ prepopulate the file with a template
 #+BEGIN_SRC emacs-lisp
   (use-package hy-mode
     :mode
-      ("\\.hy\\'" . hy-mode))
-
+    ("\\.hy\\'" . hy-mode)
+    :hook
+    (hy-mode . rainbow-delimiters-mode))
 #+END_SRC
 
 *** evil-python-movement
