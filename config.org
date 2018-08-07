@@ -1899,7 +1899,6 @@ For some reason its package namespace is =fci-=
     (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
     (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
     (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET"))))
-
 #+END_SRC
 
 *** TODO Evil-smartparens                                           :package:
@@ -1907,12 +1906,10 @@ For some reason its package namespace is =fci-=
 - [ ] Check if evil-smartparens-mode starts when smartparens-mode starts
 
 #+BEGIN_SRC emacs-lisp
-
   (use-package evil-smartparens
     :after (smartparens)
     :diminish (evil-smartparens-mode)
     :hook (smartparens-mode . evil-smartparens-mode))
-
 #+END_SRC
 
 ** Frame Transparency
@@ -3345,6 +3342,8 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
     :general
     (:states 'normal
      "C-," 'parinfer-toggle-mode)
+    (parinfer-mode-map
+      "\"" nil) ; let smartparens do its thing
     :hook ((clojure-mode . parinfer-mode)
            (emacs-lisp-mode . parinfer-mode)
            (common-lisp-mode . parinfer-mode)
