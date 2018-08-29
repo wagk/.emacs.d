@@ -3306,17 +3306,14 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 #+END_SRC
 *** Suggest                                                         :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package suggest)
 #+END_SRC
 *** Elmacro                                                         :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package elmacro)
 #+END_SRC
 *** Elisp-slime-nav                                                 :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package elisp-slime-nav
     :diminish elisp-slime-nav-mode
     :bind
@@ -3355,8 +3352,8 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
             '(defaults       ; should be included.
                pretty-parens  ; different paren styles for different modes.
                evil           ; If you use Evil.
-               lispy          ; If you use Lispy. With this extension, you should install Lispy and do not enable lispy-mode directly.
-               paredit        ; Introduce some paredit commands.
+               ;; lispy          ; If you use Lispy. With this extension, you should install Lispy and do not enable lispy-mode directly.
+               ;; paredit        ; Introduce some paredit commands.
                smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
                smart-yank))))   ; Yank behavior depend on mode.
 #+END_SRC
@@ -3387,13 +3384,12 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 #+RESULTS:
 
 **** Lispyville
-
 - Github :: https://github.com/noctuid/lispyville
-
 
 
 #+BEGIN_SRC emacs-lisp
   (use-package lispyville
+    :disabled t
     :hook (lispy-mode . lispyville-mode)
     :config
     (lispyville-set-key-theme '(operators

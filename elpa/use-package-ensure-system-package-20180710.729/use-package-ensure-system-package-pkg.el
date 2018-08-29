@@ -1,0 +1,2 @@
+;;; -*- no-byte-compile: t -*-
+(define-package "use-package-ensure-system-package" "20180710.729" "auto install system packages" '((use-package "2.1") (system-packages "1.0.4")) :commit "3fb8f39f5901a4c0ef7887283e56e60b541675ea" :keywords '("convenience" "tools" "extensions") :authors '(("Justin Talbott" . "justin@waymondo.com")) :maintainer '("Justin Talbott" . "justin@waymondo.com") :url "https://github.com/waymondo/use-package-ensure-system-package")
