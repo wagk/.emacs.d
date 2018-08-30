@@ -2837,7 +2837,6 @@ prepopulate the file with a template
 * Programming Languages
 ** General Programming
 #+BEGIN_SRC emacs-lisp
-
   ;; We don't use this global binding and run it per programming mode because
   ;; nearly everyone inherits from prog-mode for whatever goddammed reason and
   ;; it's shadowing some pretty important binds
@@ -2846,11 +2845,14 @@ prepopulate the file with a template
   ;;   (kbd "RET") 'comment-indent-new-line)
 
   (add-hook 'prog-mode-hook #'/treat-underscore-as-word)
+
+  (with-eval-after-load 'evil
+   (defun my-lispy-evil-shift-width ()
+     (customize-set-variable 'evil-shift-width lisp-body-indent)))
 #+END_SRC
 
 *** Ctags-update
 #+BEGIN_SRC emacs-lisp
-
   (use-package ctags-update
     :init
     (autoload 'turn-on-ctags-auto-update-mode "ctags-update"
@@ -2876,7 +2878,6 @@ prepopulate the file with a template
     (:keymaps 'js2-mode-map
      :states 'insert
      "RET" 'comment-indent-new-line))
-
 #+END_SRC
 *** Web-mode                                                        :package:
 #+BEGIN_SRC emacs-lisp
@@ -2888,7 +2889,6 @@ prepopulate the file with a template
            ("\\.erb\\'" . web-mode)
            ("\\.mustache\\'" . web-mode)
            ("\\.djhtml\\'" . web-mode)))
-
 #+END_SRC
 
 *** Helm-emmet                                                      :package:
@@ -2905,7 +2905,6 @@ prepopulate the file with a template
                    (cons "yaml" 'yaml)))
     :config
     (add-hook 'yaml-mode-hook 'turn-on-fci-mode))
-
 #+END_SRC
 *** Markdown-mode                                                   :package:
 #+BEGIN_SRC emacs-lisp
@@ -2924,11 +2923,9 @@ prepopulate the file with a template
     (with-eval-after-load 'org-babel
       (add-to-list 'org-src-lang-modes
                    (cons "json" 'json))))
-
 #+END_SRC
 *** Dockerfile-mode                                                 :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package dockerfile-mode
     :mode ("\\Dockerfile\\'" . dockerfile-mode)
     :config
@@ -2937,7 +2934,6 @@ prepopulate the file with a template
 
 *** Php-mode                                                        :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package php-mode
     :mode ("\\.php\\'" . php-mode)
     :general
@@ -2959,7 +2955,6 @@ prepopulate the file with a template
     (add-hook 'groovy-mode-hook 'turn-on-fci-mode)
     (add-hook 'groovy-mode-hook 'hl-todo-mode)
     (add-hook 'groovy-mode-hook #'/treat-underscore-as-word))
-
 #+END_SRC
 
 ** Rust                                                             :package:
@@ -3016,7 +3011,6 @@ prepopulate the file with a template
     :init
     (add-hook 'python-mode-hook #'(lambda ()
                                     (add-to-list 'company-backends 'company-jedi))))
-
 #+END_SRC
 *** Flycheck-mypy                                                   :package:
 #+BEGIN_SRC emacs-lisp
@@ -3042,9 +3036,6 @@ prepopulate the file with a template
   (use-package hy-mode
     :mode
     ("\\.hy\\'" . hy-mode)
-    :init
-    (defun my-lispy-evil-shift-width ()
-      (customize-set-variable 'evil-shift-width lisp-body-indent))
     :hook
     ((hy-mode . rainbow-delimiters-mode)
      (hy-mode . my-lispy-evil-shift-width)))
@@ -3087,14 +3078,11 @@ prepopulate the file with a template
   ;; (company-mode -1)
   ;; (global-company-mode -1)
 
-
-
   (add-hook 'c++-mode-hook 'my-cpp-mode-configs)
 
   (general-define-key :states 'insert
                       :keymaps 'c-mode-base-map
                       "RET" 'comment-indent-new-line)
-
 
   ;; we don't electric pair <> because it interferes with << operators
 
@@ -3111,12 +3099,10 @@ prepopulate the file with a template
 #+END_SRC
 *** CMake                                                           :package:
 #+BEGIN_SRC emacs-lisp
-
   (use-package cmake-mode
     :mode ("\\cmakelists.txt\\'" . cmake-mode)
     :config
     (add-hook 'cmake-mode-hook 'hl-todo-mode))
-
 #+END_SRC
 
 **** Cmake-font-lock
@@ -3143,7 +3129,6 @@ prepopulate the file with a template
     ;; Set the buffer size to 64K on Windows (from the original 4K)
     (when (boundp 'w32-pipe-buffer-size)
       (setq irony-server-w32-pipe-buffer-size (* 64 1024))))
-
 #+END_SRC
 
 **** Company-irony                                         :package:disabled:
@@ -3153,11 +3138,9 @@ prepopulate the file with a template
     :demand t
     :config
     (add-to-list 'company-backends 'company-irony))
-
 #+END_SRC
 *** Clang-format                                                    :package:
 #+BEGIN_SRC emacs-lisp
-
   ;; make sure that this is running clang-format 7 or something. A newer version
   (use-package clang-format
     :commands (clang-format-region
@@ -3179,7 +3162,6 @@ prepopulate the file with a template
 #+BEGIN_SRC emacs-lisp
   (use-package typescript-mode
     :mode ("\\.tsx\\'" . typescript-mode))
-
 #+END_SRC
 
 *** Tide                                                            :package:
@@ -3190,7 +3172,6 @@ prepopulate the file with a template
     (add-hook 'typescript-mode-hook 'tide-setup)
     :config
     (add-hook 'before-save-hook 'tide-format-before-save))
-
 #+END_SRC
 ** Elisp
 #+BEGIN_SRC emacs-lisp
@@ -3302,7 +3283,6 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
     :commands (rainbow-delimiters-mode)
     :init
     (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
-
 #+END_SRC
 *** Suggest                                                         :package:
 #+BEGIN_SRC emacs-lisp
@@ -3324,7 +3304,6 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
       (elisp-slime-nav-mode)
       (turn-on-eldoc-mode))
     (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode))
-
 #+END_SRC
 
 ** Lisp
@@ -3404,7 +3383,10 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 
 ** Clojure
 #+BEGIN_SRC emacs-lisp
-  (use-package clojure-mode)
+  (use-package clojure-mode
+    :hook
+    ((clojure-mode . my-lispy-evil-shift-width)
+     (clojurescript-mode . my-lispy-evil-shift-width)))
 #+END_SRC
 
 ** Powershell
