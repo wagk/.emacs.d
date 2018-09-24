@@ -1,11 +1,11 @@
 ;;; company.el --- Modular text completion framework  -*- lexical-binding: t -*-
 
-;; Copyright (C) 2009-2017  Free Software Foundation, Inc.
+;; Copyright (C) 2009-2018  Free Software Foundation, Inc.
 
 ;; Author: Nikolaj Schumacher
 ;; Maintainer: Dmitry Gutov <dgutov@yandex.ru>
 ;; URL: http://company-mode.github.io/
-;; Version: 0.9.4
+;; Version: 0.9.6
 ;; Keywords: abbrev, convenience, matching
 ;; Package-Requires: ((emacs "24.3"))
 
@@ -44,7 +44,9 @@
 ;; Here is a simple example completing "foo":
 ;;
 ;; (defun company-my-backend (command &optional arg &rest ignored)
+;;   (interactive (list 'interactive))
 ;;   (pcase command
+;;     (`interactive (company-begin-backend 'company-my-backend))
 ;;     (`prefix (company-grab-symbol))
 ;;     (`candidates (list "foobar" "foobaz" "foobarbaz"))
 ;;     (`meta (format "This value is named %s" arg))))
@@ -322,7 +324,10 @@ This doesn't include the margins and the scroll bar."
 (defcustom company-backends `(,@(unless (version< "24.3.51" emacs-version)
                                   (list 'company-elisp))
                               company-bbdb
-                              company-nxml company-css
+                              ,@(unless (version<= "26" emacs-version)
+                                  (list 'company-nxml))
+                              ,@(unless (version<= "26" emacs-version)
+                                  (list 'company-css))
                               company-eclim company-semantic company-clang
                               company-xcode company-cmake
                               company-capf
@@ -398,10 +403,13 @@ be kept if they have different annotations.  For that to work properly,
 backends should store the related information on candidates using text
 properties.
 
-`match': The second argument is a completion candidate.  Return the index
-after the end of text matching `prefix' within the candidate string.  It
-will be used when rendering the popup.  This command only makes sense for
-backends that provide non-prefix completion.
+`match': The second argument is a completion candidate.  Return a positive
+integer, the index after the end of text matching `prefix' within the
+candidate string.  Alternatively, return a list of (CHUNK-START
+. CHUNK-END) elements, where CHUNK-START and CHUNK-END are indexes within
+the candidate string.  The corresponding regions are be used when rendering
+the popup.  This command only makes sense for backends that provide
+non-prefix completion.
 
 `require-match': If this returns t, the user is not allowed to enter
 anything not offered as a candidate.  Please don't use that value in normal
@@ -600,7 +608,8 @@ treated as if it was on this list."
 
 (defcustom company-continue-commands '(not save-buffer save-some-buffers
                                            save-buffers-kill-terminal
-                                           save-buffers-kill-emacs)
+                                           save-buffers-kill-emacs
+                                           completion-at-point)
   "A list of commands that are allowed during completion.
 If this is t, or if `company-begin-commands' is t, any command is allowed.
 Otherwise, the value must be a list of symbols.  If it starts with `not',
@@ -926,6 +935,12 @@ matches IDLE-BEGIN-AFTER-RE, return it wrapped in a cons."
           (if (> (- (time-to-seconds) start) company-async-timeout)
               (error "Company: backend %s async timeout with args %s"
                      backend args)
+            ;; XXX: Reusing the trick from company--fetch-candidates here
+            ;; doesn't work well: sit-for isn't a good fit when we want to
+            ;; ignore pending input (results in too many calls).
+            ;; FIXME: We should deal with this by standardizing on a kind of
+            ;; Future object that knows how to sync itself. In most cases (but
+            ;; not all), by calling accept-process-output, probably.
             (sleep-for company-async-wait)))
         res))))
 
@@ -1218,38 +1233,39 @@ can retrieve meta-data for them."
 
 (defun company--fetch-candidates (prefix)
   (let* ((non-essential (not (company-explicit-action-p)))
-         (c (if company--manual-action
+         (c (if (or company-selection-changed
+                    ;; FIXME: This is not ideal, but we have not managed to deal
+                    ;; with these situations in a better way yet.
+                    (company-require-match-p))
                 (company-call-backend 'candidates prefix)
-              (company-call-backend-raw 'candidates prefix)))
-         res)
+              (company-call-backend-raw 'candidates prefix))))
     (if (not (eq (car c) :async))
         c
-      (let ((buf (current-buffer))
-            (win (selected-window))
-            (tick (buffer-chars-modified-tick))
-            (pt (point))
-            (backend company-backend))
+      (let ((res 'none)
+            (inhibit-redisplay t))
         (funcall
          (cdr c)
          (lambda (candidates)
-           (if (not (and candidates (eq res 'done)))
-               ;; There's no completions to display,
-               ;; or the fetcher called us back right away.
-               (setq res candidates)
-             (setq company-backend backend
-                   company-candidates-cache
-                   (list (cons prefix
-                               (company--preprocess-candidates candidates))))
-             (unwind-protect
-                 (company-idle-begin buf win tick pt)
-               (unless company-candidates
-                 (setq company-backend nil
-                       company-candidates-cache nil)))))))
-      ;; FIXME: Relying on the fact that the callers
-      ;; will interpret nil as "do nothing" is shaky.
-      ;; A throw-catch would be one possible improvement.
-      (or res
-          (progn (setq res 'done) nil)))))
+           (when (eq res 'none)
+             (push 'company-foo unread-command-events))
+           (setq res candidates)))
+        (if (company--flyspell-workaround-p)
+            (while (and (eq res 'none)
+                        (not (input-pending-p)))
+              (sleep-for company-async-wait))
+          (while (and (eq res 'none)
+                      (sit-for 0.5 t))))
+        (while (member (car unread-command-events)
+                       '(company-foo (t . company-foo)))
+          (pop unread-command-events))
+        (prog1
+            (and (consp res) res)
+          (setq res 'exited))))))
+
+(defun company--flyspell-workaround-p ()
+  ;; https://debbugs.gnu.org/23980
+  (and (bound-and-true-p flyspell-mode)
+       (version< emacs-version "27")))
 
 (defun company--preprocess-candidates (candidates)
   (cl-assert (cl-every #'stringp candidates))
@@ -1351,10 +1367,18 @@ Keywords and function definition names are ignored."
      noccurs)))
 
 (defun company--occurrence-predicate ()
+  (defvar comint-last-prompt)
   (let ((beg (match-beginning 0))
-        (end (match-end 0)))
+        (end (match-end 0))
+        (comint-last-prompt (bound-and-true-p comint-last-prompt)))
     (save-excursion
       (goto-char end)
+      ;; Workaround for python-shell-completion-at-point's behavior:
+      ;; https://github.com/company-mode/company-mode/issues/759
+      ;; https://github.com/company-mode/company-mode/issues/549
+      (when (derived-mode-p 'inferior-python-mode)
+        (let ((lbp (line-beginning-position)))
+          (setq comint-last-prompt (cons lbp lbp))))
       (and (not (memq (get-text-property (1- (point)) 'face)
                       '(font-lock-function-name-face
                         font-lock-keyword-face)))
@@ -1611,7 +1635,6 @@ prefix match (same case) will be prioritized."
       ;; `company-completion-finished-hook' in that case, with right argument.
       (if (stringp result)
           (let ((company-backend backend))
-            (company-call-backend 'pre-completion result)
             (run-hook-with-args 'company-completion-finished-hook result)
             (company-call-backend 'post-completion result))
         (run-hook-with-args 'company-completion-cancelled-hook result))))
@@ -2371,11 +2394,13 @@ If SHOW-VERSION is non-nil, show the version in the echo area."
          cc annotations)
     (when (or (stringp prefix) (consp prefix))
       (let ((company-backend backend))
-        (setq cc (company-call-backend 'candidates prefix)
-              annotations
-              (mapcar
-               (lambda (c) (cons c (company-call-backend 'annotation c)))
-               cc))))
+        (condition-case nil
+            (setq cc (company-call-backend 'candidates (company--prefix-str prefix))
+                  annotations
+                  (mapcar
+                   (lambda (c) (cons c (company-call-backend 'annotation c)))
+                   cc))
+          (error (setq annotations 'error)))))
     (pop-to-buffer (get-buffer-create "*company-diag*"))
     (setq buffer-read-only nil)
     (erase-buffer)
@@ -2394,11 +2419,13 @@ If SHOW-VERSION is non-nil, show the version in the echo area."
     (insert "\n")
     (insert (message  "Completions:"))
     (unless cc (insert " none"))
-    (save-excursion
-      (dolist (c annotations)
-        (insert "\n  " (prin1-to-string (car c)))
-        (when (cdr c)
-          (insert " " (prin1-to-string (cdr c))))))
+    (if (eq annotations 'error)
+        (insert "(error fetching)")
+      (save-excursion
+        (dolist (c annotations)
+          (insert "\n  " (prin1-to-string (car c)))
+          (when (cdr c)
+            (insert " " (prin1-to-string (cdr c)))))))
     (special-mode)))
 
 ;;; pseudo-tooltip ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2483,7 +2510,6 @@ If SHOW-VERSION is non-nil, show the version in the echo area."
                                                   (- width (length annotation)))
                           annotation))
                        right)))
-    (setq common (+ (min common width) margin))
     (setq width (+ width margin (length right)))
 
     (font-lock-append-text-property 0 width 'mouse-face
@@ -2495,11 +2521,17 @@ If SHOW-VERSION is non-nil, show the version in the echo area."
                                           'company-tooltip-annotation-selection
                                         'company-tooltip-annotation)
                                       line))
-    (font-lock-prepend-text-property margin common 'face
-                                     (if selected
-                                         'company-tooltip-common-selection
-                                       'company-tooltip-common)
-                                     line)
+    (cl-loop
+     with width = (- width (length right))
+     for (comp-beg . comp-end) in (if (integerp common) `((0 . ,common)) common)
+     for inline-beg = (+ margin comp-beg)
+     for inline-end = (min (+ margin comp-end) width)
+     when (< inline-beg width)
+     do (font-lock-prepend-text-property inline-beg inline-end 'face
+                                         (if selected
+                                             'company-tooltip-common-selection
+                                           'company-tooltip-common)
+                                         line))
     (when (let ((re (funcall company-search-regexp-function
                              company-search-string)))
             (and (not (string= re ""))
@@ -2713,10 +2745,10 @@ If SHOW-VERSION is non-nil, show the version in the echo area."
              (annotation (company-call-backend 'annotation value)))
         (setq value (company--clean-string (company-reformat value)))
         (when annotation
+          (setq annotation (company--clean-string annotation))
           (when company-tooltip-align-annotations
             ;; `lisp-completion-at-point' adds a space.
-            (setq annotation (comment-string-strip annotation t nil)))
-          (setq annotation (company--clean-string annotation)))
+            (setq annotation (comment-string-strip annotation t nil))))
         (push (cons value annotation) items)
         (setq width (max (+ (length value)
                             (if (and annotation company-tooltip-align-annotations)
