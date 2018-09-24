@@ -1090,6 +1090,32 @@ be used on highly rearranged and unpublished history.
 
 \(fn REV)" t nil)
 
+(autoload 'magit-pop-revision-stack "magit-extras" "\
+Insert a representation of a revision into the current buffer.
+
+Pop a revision from the `magit-revision-stack' and insert it into
+the current buffer according to `magit-pop-revision-stack-format'.
+Revisions can be put on the stack using `magit-copy-section-value'
+and `magit-copy-buffer-revision'.
+
+If the stack is empty or with a prefix argument, instead read a
+revision in the minibuffer.  By using the minibuffer history this
+allows selecting an item which was popped earlier or to insert an
+arbitrary reference or revision without first pushing it onto the
+stack.
+
+When reading the revision from the minibuffer, then it might not
+be possible to guess the correct repository.  When this command
+is called inside a repository (e.g. while composing a commit
+message), then that repository is used.  Otherwise (e.g. while
+composing an email) then the repository recorded for the top
+element of the stack is used (even though we insert another
+revision).  If not called inside a repository and with an empty
+stack, or with two prefix arguments, then read the repository in
+the minibuffer too.
+
+\(fn REV TOPLEVEL)" t nil)
+
 (autoload 'magit-copy-section-value "magit-extras" "\
 Save the value of the current section for later use.
 

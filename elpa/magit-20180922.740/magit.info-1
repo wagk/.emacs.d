@@ -30,7 +30,7 @@ to perform almost all of their daily version control tasks directly from
 within Emacs.  While many fine Git clients exist, only Magit and Git
 itself deserve to be called porcelains.
 
-This manual is for Magit version 2.13.0 (2.13.0-201-g865c5bdac+1).
+This manual is for Magit version 2.13.0 (2.13.0-244-g47006165+1).
 
      Copyright (C) 2015-2018 Jonas Bernoulli <jonas@bernoul.li>
 
@@ -676,7 +676,7 @@ usually exists only one buffer per repository.  Separate modes and thus
 buffers exist for commits, diffs, logs, and some other things.
 
    Besides these special purpose buffers, there also exists an overview
-buffer, called the *status buffer*.  Its usually from this buffer that
+buffer, called the *status buffer*.  It’s usually from this buffer that
 the user invokes Git commands, or creates or visits other buffers.
 
    In this manual we often speak about "Magit buffers".  By that we mean
@@ -692,8 +692,8 @@ buffers whose major-modes derive from ‘magit-mode’.
      value, which allows telling it apart from other locked buffers and
      the unlocked buffer.
 
-     Not all Magit buffers can be locked to their values, for example it
-     wouldn’t make sense to lock a status buffer.
+     Not all Magit buffers can be locked to their values; for example,
+     it wouldn’t make sense to lock a status buffer.
 
      There can only be a single unlocked buffer using a certain
      major-mode per repository.  So when a buffer is being unlocked and
@@ -5451,18 +5451,18 @@ These commands are not available from the branch popup by default.
 
  -- Command: magit-branch-shelve
 
-     This command shelve a branch.  This is done by deleting the branch,
-     and creating a new reference "refs/shelved/BRANCH-NAME" pointing at
-     the same commit as the branch pointed at.  If the deleted branch
-     had a reflog, then that is preserved as the reflog of the new
-     reference.
+     This command shelves a branch.  This is done by deleting the
+     branch, and creating a new reference "refs/shelved/BRANCH-NAME"
+     pointing at the same commit as the branch pointed at.  If the
+     deleted branch had a reflog, then that is preserved as the reflog
+     of the new reference.
 
      This is useful if you want to move a branch out of sight, but are
      not ready to completely discard it yet.
 
  -- Command: magit-branch-unshelve
 
-     This command unshelve a branch that was previously shelved using
+     This command unshelves a branch that was previously shelved using
      ‘magit-branch-shelve’.  This is done by deleting the reference
      "refs/shelved/BRANCH-NAME" and creating a branch "BRANCH-NAME"
      pointing at the same commit as the deleted reference pointed at.

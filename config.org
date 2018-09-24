@@ -1995,6 +1995,8 @@ Most of the stuff is stolen from the reddit link
     (add-hook 'magit-mode-hook #'my-disable-line-numbers))
 #+END_SRC
 
+#+RESULTS:
+
 ** Evil-magit                                                       :package:
 #+BEGIN_SRC emacs-lisp
   (use-package evil-magit
