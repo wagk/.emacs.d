@@ -132,9 +132,9 @@
   (package-initialize)
 
   (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
+    (package-refresh-contents))
 
+  (package-install 'use-package)
   ;; TODO: This is causing the eager evaluation failure that we see all the time
   (eval-when-compile (require 'use-package))
 

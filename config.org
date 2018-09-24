@@ -253,10 +253,10 @@ Disabled because superseded by origami-mode
 - [ ] Break up ~evil-collection-init~ so this package doesn't take forever to load
 #+BEGIN_SRC emacs-lisp
   (use-package evil-collection
-    :after (evil)
     :demand t
-    :custom
-    (evil-want-integration nil)
+    :after (evil)
+    :init
+    (customize-set-variable evil-want-integration nil)
     :config
     ;;NOTE: note that this REQUIRES the var `evil-want-integration' to be NIL
     (evil-collection-init))
@@ -3496,6 +3496,7 @@ I still need to configure it to be more vimium-like
 
 #+BEGIN_SRC emacs-lisp
   (use-package eww
+    :disabled t
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -3543,6 +3544,8 @@ I still need to configure it to be more vimium-like
     ;;    (evil-snipe-override-mode -1))
     ;; (add-hook 'eww-mode-hook 'my-eww-init-hook)
 #+END_SRC
+
+#+RESULTS:
 
 * RSS
 - Github :: https://github.com/skeeto/elfeed
@@ -3605,7 +3608,6 @@ This tool allows us to restart emacs from within emacs
 #+END_SRC
 
 ** Epub viewing                                                     :package:
-
 This doesn't actually work for now. I'll need to figure out how to make it
 work.
 
