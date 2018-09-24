@@ -255,8 +255,6 @@ Disabled because superseded by origami-mode
   (use-package evil-collection
     :demand t
     :after (evil)
-    :init
-    (customize-set-variable evil-want-integration nil)
     :config
     ;;NOTE: note that this REQUIRES the var `evil-want-integration' to be NIL
     (evil-collection-init))
@@ -319,6 +317,9 @@ Disabled because superseded by origami-mode
     (evil-want-integration nil
                            "`evil-collections' demands that this be disabled to
                                     work")
+    (evil-want-keybinding nil
+                          "`evil-collections' wants this to be disabled,
+                          https://github.com/emacs-evil/evil-collection/issues/60")
     :config
     ;; TODO: figure out this
     ;; https://github.com/syl20bnr/spacemacs/issues/5070
