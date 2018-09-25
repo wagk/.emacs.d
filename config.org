@@ -1247,6 +1247,13 @@ These configurations are old and left here in case we ever need it
     (helm-mode))
 #+END_SRC
 
+** Helm-gtags
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-gtags)
+#+END_SRC
+
+#+RESULTS:
+
 ** Helm-describe-modes                                              :package:
 
 #+BEGIN_SRC emacs-lisp
