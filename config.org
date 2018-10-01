@@ -1990,6 +1990,9 @@ Most of the stuff is stolen from the reddit link
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :commands (magit-status)
+    :straight (:host github
+               :repo "magit/magit"
+               :branch "master")
     :init
     (general-define-key
      :states 'normal
@@ -2003,15 +2006,22 @@ Most of the stuff is stolen from the reddit link
 #+END_SRC
 
 #+RESULTS:
+: t
 
 ** Evil-magit                                                       :package:
 #+BEGIN_SRC emacs-lisp
   (use-package evil-magit
     :after magit
+    :straight (:host github
+               :repo "emacs-evil/evil-magit"
+               :branch "master")
     :demand t
     :config
     (evil-magit-init))
 #+END_SRC
+
+#+RESULTS:
+: t
 
 ** Git-gutter+                                                      :package:
 #+BEGIN_SRC emacs-lisp
