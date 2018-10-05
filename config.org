@@ -255,10 +255,16 @@ Disabled because superseded by origami-mode
   (use-package evil-collection
     :demand t
     :after (evil)
+    :straight (:host github
+               :repo "emacs-evil/evil-collection"
+               :branch "master")
     :config
     ;;NOTE: note that this REQUIRES the var `evil-want-integration' to be NIL
     (evil-collection-init))
 #+END_SRC
+
+#+RESULTS:
+: t
 
 ** Evil-mode                                                        :package:
 - Github :: https://github.com/emacs-evil/evil
@@ -273,6 +279,9 @@ Disabled because superseded by origami-mode
   ;; directory ()
   (use-package evil
     :demand t
+    :straight (:host github
+               :repo "emacs-evil/evil"
+               :branch "master")
     :commands (evil-set-initial-state
                evil-insert-state
                evil-ex-define-cmd)
@@ -601,6 +610,8 @@ Disabled because superseded by origami-mode
     ;; (evil-update-insert-state-bindings) ;; something's overriding it
     (evil-mode))
 #+END_SRC
+
+#+RESULTS:
 
 *** Evil-Unimpaired
 shamelessly stolen from spacemacs
@@ -2589,6 +2600,7 @@ I can't seem to get the org --> snippet call to work
     :hook ((prog-mode
             org-mode
             ledger-mode) . yas-minor-mode-on)
+    :straight (:host github :repo "joaotavora/yasnippet" :branch "master")
     :commands (yas-minor-mode
                yas-expand-snippet)
     :general
@@ -2774,8 +2786,8 @@ prepopulate the file with a template
   (add-hook 'prog-mode-hook #'/treat-underscore-as-word)
 
   (with-eval-after-load 'evil
-   (defun my-lispy-evil-shift-width ()
-     (customize-set-variable 'evil-shift-width lisp-body-indent)))
+    (defun my-lispy-evil-shift-width ()
+      (customize-set-variable 'evil-shift-width lisp-body-indent)))
 #+END_SRC
 
 *** Ctags-update
@@ -3241,10 +3253,10 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 #+BEGIN_SRC emacs-lisp
   (use-package parinfer
     :general
-    (:states 'normal
-     "C-," 'parinfer-toggle-mode)
+    ;; (:states 'normal
+    ;;  "C-," 'parinfer-toggle-mode)
     (parinfer-mode-map
-      "\"" nil) ; let smartparens do its thing
+     "\"" nil) ; let smartparens do its thing
     :hook ((clojure-mode . parinfer-mode)
            (emacs-lisp-mode . parinfer-mode)
            (common-lisp-mode . parinfer-mode)
@@ -3314,6 +3326,14 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
     ((clojure-mode . my-lispy-evil-shift-width)
      (clojurescript-mode . my-lispy-evil-shift-width)))
 #+END_SRC
+
+*** CIDER
+#+BEGIN_SRC emacs-lisp
+  (use-package cider
+    :after (clojure-mode))
+#+END_SRC
+
+#+RESULTS:
 
 ** Powershell
 

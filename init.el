@@ -5,6 +5,7 @@
 ;; https://bling.github.io/blog/2013/10/27/emacs-as-my-leader-vim-survival-guide/
 ;; https://github.com/bbatsov/emacs-lisp-style-guide
 ;; https://github.com/noctuid/evil-guide
+;; TODO: Figure out why there is a eager-macro expansion failure
 
 ;; Latest builds can be found at:: alpha.gnu.org/gnu/emacs/pretest/windows/
 ;; https://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
@@ -31,52 +32,101 @@
    (cond ((boundp 'user-emacs-directory) user-emacs-directory)
          ((boundp 'user-init-directory) user-init-directory)
          (t "~/.emacs.d/")))
-
   "Sets up the startup directory.")
 
+(defun at-user-init-dir (filename)
+  "Convenience function for files that path relative to `user-init-dir'"
+  (expand-file-name (concat user-init-dir filename)))
+
 (defconst user-init-file
-  (concat user-init-dir "init.el")
+  (at-user-init-dir "init.el")
   "Points to init.el")
 
 (defconst user-config-file
-  (concat user-init-dir "config.org")
+  (at-user-init-dir "config.org")
   "Points to config.org")
 
 (defconst user-local-file
-  (concat user-init-dir "local.el")
+  (at-user-init-dir "local.el")
   "Points to local.el")
+
+(defconst user-config-file-list
+  `(,(at-user-init-dir "core.org")
+    ,(at-user-init-dir "elisp.org")
+  "List of config files that are to be loaded. Load order is the
+  sequence defined within the list")
 
 ;; (defconst user-config-dir
 ;;   (file-name-as-directory
 ;;    (concat user-init-dir "config"))
 ;;   "Directory where all the user configuration files are stored")
 
-;;;###autoload
 (defun find-user-init-file ()
   "Edit `user-init-file' without opening a new window."
   (interactive)
   (find-file user-init-file))
 
-
-;;;###autoload
 (defun find-user-config-file ()
   "Edit `user-config-file' without opening a new window."
   (interactive)
   (find-file user-config-file))
 
-
-;;;###autoload
 (defun find-user-local-file ()
   "Edit `local.el' without opening a new window."
   (interactive)
   (find-file user-local-file))
-
 
 (defmacro measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."
   `(let ((time (current-time)))
      ,@body
      (message "%.06f seconds." (float-time (time-since time)))))
+
+(defun my-bootstrap-straight ()
+  ;; https://github.com/raxod502/straight.el
+  (let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
+        (bootstrap-version 3))
+    (unless (file-exists-p bootstrap-file)
+      (message "Bootstrapping Straight.el...")
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage)))
+
+(defun my-bootstrap-use-package ()
+  "Checks if use-package is installed and installs it if it isn't.
+  Then performs configuration of use-package variables"
+  (unless (featurep 'straight)
+    (my-bootstrap-straight))
+  (require 'straight)
+  (customize-set-variable 'load-prefer-newer t)
+  (straight-use-package '(use-package
+			   :type git
+			   :host github
+			   :repo "jwiegley/use-package"
+			   :branch "master"))
+  ;; TODO: eval-and-compile-ing this sexp causes some eager macro expansion warning
+  (require 'use-package)
+  ;; download packages if needed
+  ;; this is disabled because I feel that verbose is better
+  ;; (setq use-package-always-ensure t)
+  (setq use-package-always-defer t ;; always lazy load
+        use-package-always-ensure t ;; always make sure it never skips if not found
+        use-package-verbose t
+        use-package-compute-statistics nil))
+
+(defun my-ensure-local-el-file-exists ()
+  (let ((local-file (at-user-init-dir "local.el")))
+    (unless (file-exists-p local-file)
+      ;; output a templated local.el file into local.el
+      (write-region (with-temp-buffer
+                      (insert-file-contents (concat user-init-dir
+                                                    "auto-insert/elisp-local-template"))
+                      (buffer-string))
+                    nil local-file))))
 
 ;; ;; TODO(pangt): make this take in relative paths
 ;; (defun load-user-config-file (file &rest files)
@@ -110,124 +160,19 @@
   (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-  ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
 
-  ;; ;; el-get stuff
-  ;; (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
-  ;; (unless (require 'el-get nil 'noerror)
-  ;;   (with-current-buffer
-  ;;       (url-retrieve-synchronously
-  ;;        "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-  ;;     (goto-char (point-max))
-  ;;     (eval-print-last-sexp)))
-
-  ;; (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-  ;; (el-get 'sync)
-
-                                        ; Got a warning regarding golden-ratio when I loaded this before el-get, for
-  ;; some reason
-  ;; TODO; figure out what this does
-  ;; (setq package-enable-at-startup nil)
   (package-initialize)
 
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents))
-
-  (package-install 'use-package)
-  ;; TODO: This is causing the eager evaluation failure that we see all the time
-  (eval-when-compile (require 'use-package))
-
-  ;; download packages if needed
-  ;; this is disabled because I feel that verbose is better
-  ;; (setq use-package-always-ensure t)
-  (setq use-package-always-defer t ;; always lazy load
-        use-package-always-ensure t ;; always make sure it never skips if not found
-        use-package-verbose t
-        use-package-compute-statistics nil)
-
-  (use-package diminish)
-  (use-package bind-key)
-
-  ;; https://github.com/raxod502/straight.el
-  (let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
-        (bootstrap-version 3))
-    (unless (file-exists-p bootstrap-file)
-      (with-current-buffer
-          (url-retrieve-synchronously
-           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-           'silent 'inhibit-cookies)
-        (goto-char (point-max))
-        (eval-print-last-sexp)))
-    (load bootstrap-file nil 'nomessage))
-
-  ;; https://github.com/noctuid/general.el
-  (use-package general
-    :demand t
-    :commands (general-define-key)
-    :init
-    (defconst my-default-evil-leader-key "SPC"))
-
-  ;; (use-package use-package-el-get
-  ;;   :demand t
-  ;;   :config
-  ;;   (use-package-el-get-setup))
-
-  (use-package use-package-ensure-system-package)
-
-  ;; ;; be aware that updates might adjust the load path to the .el files and
-  ;; ;; cause loading problems. Helm seems to be a victim of this a lot
-  ;; (use-package spu
-  ;;   :disabled t
-  ;;   :defer 5 ;; defer package loading for 5 second
-  ;;   :config
-  ;;   ;; attempt to upgrade packages only when we're leaving
-  ;;   (add-hook 'kill-emacs-hook 'spu-package-upgrade))
-
-  ;; https://github.com/emacscollective/auto-compile
-  (use-package auto-compile
-    :demand t
-    :custom
-    (load-prefer-newer t)
-    (auto-compile-verbose t)
-    :config
-    (auto-compile-on-load-mode)
-    (auto-compile-on-save-mode))
-
-
-  (use-package auto-package-update
-    :commands (auto-package-update-now
-               auto-package-update-at-time
-               auto-package-update-maybe)
-    :custom
-    (auto-package-update-delete-old-versions t "We already version them on git")
-    (auto-package-update-prompt-before-update t "NO SURPRISES")
-    (auto-package-update-interval 14 "update once every 2 weeks (the count is in days)"))
-
-  (let ((local-file (concat user-init-dir "local.el")))
-    (unless (file-exists-p local-file)
-      ;; output a templated local.el file into local.el
-      (write-region (with-temp-buffer
-                      (insert-file-contents (concat user-init-dir
-                                                    "auto-insert/elisp-local-template"))
-                      (buffer-string))
-                    nil local-file)))
-
-  ;; local configuration variables
-  (load (concat user-init-dir "local.el"))
-
-  ;; We assume we can call use-package multiple times
-  ;; TODO: configure these meaningfully
-  (use-package org)
-  ;; (use-package evil)
-  ;; (use-package helm)
+  (my-bootstrap-straight)
+  (my-bootstrap-use-package)
 
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
   (measure-time
-   (org-babel-load-file
-    (expand-file-name (concat user-init-dir "config.org"))))
+    (org-babel-load-file
+      (at-user-init-dir "core.org")))
 
   ;; Disable ANNOYING customize options
-  (setq custom-file (concat user-init-dir "custom.el"))
+  (setq custom-file (at-user-init-dir "custom.el"))
   (load custom-file 'noerror))
