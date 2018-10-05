@@ -52,7 +52,7 @@
 
 (defconst user-config-file-list
   `(,(at-user-init-dir "core.org")
-    ,(at-user-init-dir "elisp.org")
+    ,(at-user-init-dir "elisp.org"))
   "List of config files that are to be loaded. Load order is the
   sequence defined within the list")
 

@@ -9,21 +9,7 @@
   :init
   (defconst my-default-evil-leader-key "SPC"))
 
-;; (use-package use-package-el-get
-;;   :demand t
-;;   :config
-;;   (use-package-el-get-setup))
-
-(use-package use-package-ensure-system-package)
-
-;; ;; be aware that updates might adjust the load path to the .el files and
-;; ;; cause loading problems. Helm seems to be a victim of this a lot
-;; (use-package spu
-;;   :disabled t
-;;   :defer 5 ;; defer package loading for 5 second
-;;   :config
-;;   ;; attempt to upgrade packages only when we're leaving
-;;   (add-hook 'kill-emacs-hook 'spu-package-upgrade))
+;; (use-package use-package-ensure-system-package)
 
 ;; https://github.com/emacscollective/auto-compile
 (use-package auto-compile
@@ -47,12 +33,6 @@
 ;; local configuration variables
 (progn (my-ensure-local-el-file-exists)
        (load (at-user-init-dir "local.el")))
-
-;; We assume we can call use-package multiple times
-;; TODO: configure these meaningfully
-(use-package org)
-;; (use-package evil)
-;; (use-package helm)
 
 (use-package evil
   :demand t
