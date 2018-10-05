@@ -51,8 +51,8 @@
   "Points to local.el")
 
 (defconst user-config-file-list
-  `(,(at-user-init-dir "core.org")
-    ,(at-user-init-dir "elisp.org"))
+  '("core.org"
+    "elisp.org")
   "List of config files that are to be loaded. Load order is the
   sequence defined within the list")
 
@@ -128,6 +128,17 @@
                       (buffer-string))
                     nil local-file))))
 
+(defun my-load-config-org-files (files)
+  "Given a list of org files, loads them sequentially in the order specified
+The list of files is assumed to be relative to `user-init-dir'
+TODO: Error checking; relative pathing, error recovery. Maybe
+eventually load dependencies and all that."
+  (dolist (file files)
+    (message "%s" file)
+    (condition-case nil
+                    (org-babel-load-file (at-user-init-dir file))
+                    (error (message "There was an error when loading %s" file)))))
+
 ;; ;; TODO(pangt): make this take in relative paths
 ;; (defun load-user-config-file (file &rest files)
 ;;   "Load FILE (and FILES) as configuration.
@@ -170,8 +181,7 @@
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
   (measure-time
-    (org-babel-load-file
-      (at-user-init-dir "core.org")))
+    (my-load-config-org-files user-config-file-list))
 
   ;; Disable ANNOYING customize options
   (setq custom-file (at-user-init-dir "custom.el"))
