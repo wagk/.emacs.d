@@ -58,11 +58,6 @@
   "List of config files that are to be loaded. Load order is the
   sequence defined within the list")
 
-;; (defconst user-config-dir
-;;   (file-name-as-directory
-;;    (concat user-init-dir "config"))
-;;   "Directory where all the user configuration files are stored")
-
 (defun find-user-init-file ()
   "Edit `user-init-file' without opening a new window."
   (interactive)
@@ -156,32 +151,10 @@ The list of files is assumed to be relative to `user-init-dir'
 TODO: Error checking; relative pathing, error recovery. Maybe
 eventually load dependencies and all that."
   (dolist (file files)
-    (message "%s" file)
+    (message "Loading %s" file)
     (condition-case nil
 	(org-babel-load-file (at-user-init-dir file))
       (error (message "There was an error when loading %s" file)))))
-
-;; ;; TODO(pangt): make this take in relative paths
-;; (defun load-user-config-file (file &rest files)
-;;   "Load FILE (and FILES) as configuration.
-;; Assumes that it:
-;; - Is a string path to one or more configuration fila (i.e. elisp)
-;; - Is relative to user-config-dir"
-;;   (interactive "fConfig file: ")
-;;   (measure-time
-;;    (dolist (elem (cons file files))
-;;      (let ((path (expand-file-name (concat user-config-dir elem))))
-;;        (if (file-exists-p path)
-;;            (progn (condition-case nil
-;;                       (measure-time (load-file path))
-;;                     (error
-;;                      (message "There was an error while loading %s" elem)))
-;;                   (message "Loaded %s" path))
-;;          (message "Failed to load %s" path))))))
-
-;; Add to load path our configuration folder. Deprecated since we don't use
-;; a config directory anymore
-;; (add-to-list 'load-path user-config-dir)
 
 (let ((gc-cons-threshold most-positive-fixnum))
   (my-bootstrap-package)
@@ -191,7 +164,9 @@ eventually load dependencies and all that."
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
   (measure-time
-    (my-load-config-org-files user-config-file-list))
+   (my-load-config-org-files user-config-file-list))
+
+  (straight-freeze-versions)
 
   ;; Disable ANNOYING customize options
   (setq custom-file (at-user-init-dir "custom.el"))

@@ -111,15 +111,17 @@
 
   (add-hook 'prog-mode-hook #'/treat-underscore-as-word)
 
+
+
   (evil-ex-define-cmd "sh[ell]"    'shell) ;; at least shell shows its keymaps
   (evil-ex-define-cmd "tabn[ew]"   'make-frame)
   (evil-ex-define-cmd "tabe[dit]"  'make-frame)
   (evil-ex-define-cmd "qw[indow]"  'delete-frame)
   (evil-ex-define-cmd "restart"    'restart-emacs)
   (evil-ex-define-cmd "init"       'find-user-init-file)
-  (evil-ex-define-cmd "config"     'find-user-config-file)
   (evil-ex-define-cmd "local"      'find-user-local-file)
   (evil-ex-define-cmd "me[ssage]"  'find-message-buffer)
+  (evil-ex-define-cmd "config"     'find-user-config-file)
 
   ;; nmap Y y$
   (defun /evil-copy-to-end-of-line ()
@@ -210,3 +212,13 @@
 (window-divider-mode -1)
 
 (fset 'yes-or-no-p 'y-or-n-p)
+
+(setq inhibit-startup-screen t)
+
+(setq-default require-final-newline t)
+
+(setq ring-bell-function 'ignore)
+
+(setq w32-pipe-read-delay 0)
+
+(setq tab-always-indent 'complete)
