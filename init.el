@@ -29,9 +29,11 @@
 
 (defconst user-init-dir
   (file-name-as-directory
-   (cond ((boundp 'user-emacs-directory) user-emacs-directory)
-         ((boundp 'user-init-directory) user-init-directory)
-         (t "~/.emacs.d/")))
+   (cond ((boundp 'user-emacs-directory)
+	  user-emacs-directory)
+         ((boundp 'user-init-directory)
+	  user-init-directory)
+	 (t "~/.emacs.d/")))
   "Sets up the startup directory.")
 
 (defun at-user-init-dir (filename)
@@ -52,7 +54,7 @@
 
 (defconst user-config-file-list
   '("core.org"
-    "elisp.org")
+    "lang.org")
   "List of config files that are to be loaded. Load order is the
   sequence defined within the list")
 
@@ -76,11 +78,28 @@
   (interactive)
   (find-file user-local-file))
 
+(defun find-message-buffer ()
+  "Go to the *Messages* buffer"
+  (interactive)
+  (switch-to-buffer "*Messages*"))
+
 (defmacro measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."
   `(let ((time (current-time)))
      ,@body
      (message "%.06f seconds." (float-time (time-since time)))))
+
+(defun my-bootstrap-package ()
+  "Adds package repositories and calls `package-initialize'"
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+  (add-to-list 'package-archives '("melpa-2" . "http://melpa.milkbox.net/packages/"))
+  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+  (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
+  (package-initialize))
 
 (defun my-bootstrap-straight ()
   ;; https://github.com/raxod502/straight.el
@@ -114,17 +133,20 @@
   ;; this is disabled because I feel that verbose is better
   ;; (setq use-package-always-ensure t)
   (setq use-package-always-defer t ;; always lazy load
-        use-package-always-ensure t ;; always make sure it never skips if not found
-        use-package-verbose t
-        use-package-compute-statistics nil))
+	use-package-always-ensure t ;; always make sure it never skips if not found
+	use-package-verbose t
+	use-package-compute-statistics nil))
 
 (defun my-ensure-local-el-file-exists ()
+  "Checks if there exists a local.el file. Creates one if it doesn't
+exist, using the template specified in
+'auto-insert/elisp-local-template'"
   (let ((local-file (at-user-init-dir "local.el")))
     (unless (file-exists-p local-file)
       ;; output a templated local.el file into local.el
       (write-region (with-temp-buffer
-                      (insert-file-contents (concat user-init-dir
-                                                    "auto-insert/elisp-local-template"))
+                      (insert-file-contents (at-user-init-dir
+                      "auto-insert/elisp-local-template"))
                       (buffer-string))
                     nil local-file))))
 
@@ -136,8 +158,8 @@ eventually load dependencies and all that."
   (dolist (file files)
     (message "%s" file)
     (condition-case nil
-                    (org-babel-load-file (at-user-init-dir file))
-                    (error (message "There was an error when loading %s" file)))))
+	(org-babel-load-file (at-user-init-dir file))
+      (error (message "There was an error when loading %s" file)))))
 
 ;; ;; TODO(pangt): make this take in relative paths
 ;; (defun load-user-config-file (file &rest files)
@@ -162,19 +184,7 @@ eventually load dependencies and all that."
 ;; (add-to-list 'load-path user-config-dir)
 
 (let ((gc-cons-threshold most-positive-fixnum))
-
-  (require 'package)
-
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-  (add-to-list 'package-archives '("melpa-2" . "http://melpa.milkbox.net/packages/"))
-  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
-  (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
-  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
-
-  (package-initialize)
-
+  (my-bootstrap-package)
   (my-bootstrap-straight)
   (my-bootstrap-use-package)
 

@@ -37,11 +37,11 @@
 (use-package evil
   :demand t
   :straight (:host github
-             :repo "emacs-evil/evil"
-             :branch "master")
+	     :repo "emacs-evil/evil"
+	     :branch "master")
   :commands (evil-set-initial-state
-             evil-insert-state
-             evil-ex-define-cmd)
+	     evil-insert-state
+	     evil-ex-define-cmd)
   :general
   (global-map
    "C-u" nil) ;; Disable universal argument
@@ -66,20 +66,20 @@
    "C-w"    'backward-kill-word)
   :custom
   (evil-want-C-u-scroll t
-                        "Emacs uses `C-u' for its `universal-argument' function.
-                                 It conflicts with scroll up in evil-mode")
+			"Emacs uses `C-u' for its `universal-argument' function.
+				 It conflicts with scroll up in evil-mode")
   (evil-want-integration nil
-                         "`evil-collections' demands that this be disabled to
-                                  work")
+			 "`evil-collections' demands that this be disabled to
+				  work")
   (evil-want-keybinding nil
-                        "`evil-collections' wants this to be disabled,
-                        https://github.com/emacs-evil/evil-collection/issues/60")
+			"`evil-collections' wants this to be disabled,
+			https://github.com/emacs-evil/evil-collection/issues/60")
   :config
 ;;;###autoload
   (defun /treat-underscore-as-word ()
     "Make underscore be considered part of a word, just like vim.
-         Add this to whichever mode you want when you want it to treat underscore as a
-         word"
+	 Add this to whichever mode you want when you want it to treat underscore as a
+	 word"
     (modify-syntax-entry ?_ "w"))
 ;;;###autoload
   (defun /evil-gt ()
@@ -92,21 +92,24 @@
     (interactive)
     (other-frame -1))
 
+  (defun my-lispy-evil-shift-width ()
+    (customize-set-variable 'evil-shift-width lisp-body-indent))
+
   ;; Back to our regularly scheduled programming
   (fset 'evil-visual-update-x-selection 'ignore)
   (evil-select-search-module 'evil-search-module 'evil-search)
   (setq evil-want-Y-yank-to-eol t
-        sentence-end-double-space nil
-        evil-regexp-search t
-        evil-normal-state-modes (append evil-motion-state-modes
-                                        evil-normal-state-modes)
-        evil-motion-state-modes nil
-        evil-want-C-u-scroll t
-        evil-split-window-below t
-        evil-vsplit-window-right t)
+	sentence-end-double-space nil
+	evil-regexp-search t
+	evil-normal-state-modes (append evil-motion-state-modes
+					evil-normal-state-modes)
+	evil-motion-state-modes nil
+	evil-want-C-u-scroll t
+	evil-split-window-below t
+	evil-vsplit-window-right t)
   (setq-default evil-auto-indent t)
 
-  (/treat-underscore-as-word) ;; TODO: Not sure if this is required if we're hooking into prog-mode
+  (add-hook 'prog-mode-hook #'/treat-underscore-as-word)
 
   (evil-ex-define-cmd "sh[ell]"    'shell) ;; at least shell shows its keymaps
   (evil-ex-define-cmd "tabn[ew]"   'make-frame)
@@ -116,6 +119,7 @@
   (evil-ex-define-cmd "init"       'find-user-init-file)
   (evil-ex-define-cmd "config"     'find-user-config-file)
   (evil-ex-define-cmd "local"      'find-user-local-file)
+  (evil-ex-define-cmd "me[ssage]"  'find-message-buffer)
 
   ;; nmap Y y$
   (defun /evil-copy-to-end-of-line ()
@@ -126,14 +130,14 @@
   ;; https://stackoverflow.com/questions/18102004/emacs-evil-mode-how-to-create-a-new-text-object-to-select-words-with-any-non-sp/22418983#22418983
   (defmacro /evil-define-and-bind-text-object (key start-regex end-regex)
     (let ((inner-name (make-symbol "inner-name"))
-          (outer-name (make-symbol "outer-name")))
+	  (outer-name (make-symbol "outer-name")))
       `(progn
-         (evil-define-text-object ,inner-name (count &optional beg end type)
-           (evil-select-paren ,start-regex ,end-regex beg end type count nil))
-         (evil-define-text-object ,outer-name (count &optional beg end type)
-           (evil-select-paren ,start-regex ,end-regex beg end type count t))
-         (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
-         (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
+	 (evil-define-text-object ,inner-name (count &optional beg end type)
+	   (evil-select-paren ,start-regex ,end-regex beg end type count nil))
+	 (evil-define-text-object ,outer-name (count &optional beg end type)
+	   (evil-select-paren ,start-regex ,end-regex beg end type count t))
+	 (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
+	 (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
 
   ;; https://www.emacswiki.org/emacs/RegularExpression
   (/evil-define-and-bind-text-object "/" "/" "/")
@@ -199,3 +203,10 @@
 (use-package restart-emacs
   :straight (:host github :repo "iqbalansari/restart-emacs" :branch "master")
   :commands (restart-emacs))
+
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(window-divider-mode -1)
+
+(fset 'yes-or-no-p 'y-or-n-p)

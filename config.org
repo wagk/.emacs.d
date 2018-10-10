@@ -960,7 +960,7 @@ Adds the following ex commands:
 | :gblame            | git-blame current file, requires magit                         |
 | :gremove           | git remove current file, requires magit                        |
 | :tyank             | copy range into tmux paste buffer, requires running under tmux |
-| :tput              | paste from tmux paste buffer, requires running under tmux      |
+| :tput              | paste from tmux paste nuffer, requires running under tmux      |
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil-expat)
@@ -2784,7 +2784,6 @@ prepopulate the file with a template
   ;;   (kbd "RET") 'comment-indent-new-line)
 
   (add-hook 'prog-mode-hook #'/treat-underscore-as-word)
-
   (with-eval-after-load 'evil
     (defun my-lispy-evil-shift-width ()
       (customize-set-variable 'evil-shift-width lisp-body-indent)))
