@@ -23,12 +23,17 @@
 
 (use-package auto-package-update
   :commands (auto-package-update-now
-             auto-package-update-at-time
-             auto-package-update-maybe)
+	     auto-package-update-at-time
+	     auto-package-update-maybe)
   :custom
-  (auto-package-update-delete-old-versions t "We already version them on git")
-  (auto-package-update-prompt-before-update t "NO SURPRISES")
-  (auto-package-update-interval 14 "update once every 2 weeks (the count is in days)"))
+  (auto-package-update-delete-old-versions t
+					   "We already version them on
+					   git")
+  (auto-package-update-prompt-before-update t
+					    "NO SURPRISES")
+  (auto-package-update-interval 14
+				"update once every 2 weeks (the count
+				is in days)"))
 
 ;; local configuration variables
 (progn (my-ensure-local-el-file-exists)
@@ -36,9 +41,7 @@
 
 (use-package evil
   :demand t
-  :straight (:host github
-	     :repo "emacs-evil/evil"
-	     :branch "master")
+  :straight (:host github :repo "emacs-evil/evil" :branch "master")
   :commands (evil-set-initial-state
 	     evil-insert-state
 	     evil-ex-define-cmd)
@@ -46,72 +49,64 @@
   (global-map
    "C-u" nil) ;; Disable universal argument
   (:keymaps 'insert
-   "C-u"    'kill-whole-line
-   "C-l"    'evil-complete-next-line)
+	    "C-u"    'kill-whole-line
+	    "C-l"    'evil-complete-next-line)
   (:keymaps 'motion
-   "C-u"    'evil-scroll-up)
+	    "C-u"    'evil-scroll-up)
   (:keymaps 'normal
-   "Y"      '/evil-copy-to-end-of-line
-   "gt"     '/evil-gt
-   "gT"     '/evil-gT
-   "C-\\"   '/lang-toggle ;; binding for eng <-> jap
-   "g o"    'ff-find-other-file
-   "g a"    'describe-char)
+	    "Y"      '/evil-copy-to-end-of-line
+	    "gt"     '(lambda () (interactive) (other-frame 1))
+	    "gT"     '(lambda () (interactive) (other-frame -1))
+	    "C-\\"   '/lang-toggle ;; binding for eng <-> jap
+	    "g o"    'ff-find-other-file
+	    "g a"    'describe-char)
   (:keymaps 'inner
-   "/"      '/inner-forward-slash)
+	    "/"      '/inner-forward-slash)
   (:keymaps 'outer
-   "e"      'my-evil-a-buffer
-   "/"      '/a-forward-slash)
+	    "e"      'my-evil-a-buffer
+	    "/"      '/a-forward-slash)
   (:keymaps 'minibuffer-local-map
-   "C-w"    'backward-kill-word)
+	    "C-w"    'backward-kill-word)
   :custom
-  (evil-want-C-u-scroll t
-			"Emacs uses `C-u' for its `universal-argument' function.
-				 It conflicts with scroll up in evil-mode")
+  (evil-want-C-u-scroll  t
+			 "Emacs uses `C-u' for its
+			 `universal-argument'function. It conflicts
+			 with scroll up in evil-mode")
   (evil-want-integration nil
-			 "`evil-collections' demands that this be disabled to
-				  work")
+			 "`evil-collections' demands that this be
+			 disabled to work")
   (evil-want-keybinding nil
-			"`evil-collections' wants this to be disabled,
-			https://github.com/emacs-evil/evil-collection/issues/60")
+			"`evil-collections' wants this to be
+			disabled,https://github.com/emacs-evil/evil-collection/issues/60")
+  (evil-want-Y-yank-to-eol t
+			   "Y has the default behavior of functioning
+			   identically to yy. Change it to function
+			   similarly to dd, and cc instead.")
+  (evil-regexp-search t
+		      "Use regular expressions while searching instead
+		      of plaintext matching.")
+  (evil-want-C-u-scroll t
+			"In vim, <C-u> maps to half page up. In Emacs,
+			it corresponds to a universal argument that
+			might augment a function call. We prefer the
+			scrolling.")
+  (evil-split-window-below t
+			   "`set splitbelow` in vim")
+  (evil-vsplit-window-right t
+			    "`set splitright` in vim")
+  (evil-auto-indent t
+		    "Automatically indent when inserting a newline")
   :config
-;;;###autoload
-  (defun /treat-underscore-as-word ()
-    "Make underscore be considered part of a word, just like vim.
-	 Add this to whichever mode you want when you want it to treat underscore as a
-	 word"
-    (modify-syntax-entry ?_ "w"))
-;;;###autoload
-  (defun /evil-gt ()
-    "Emulating vim's `gt' using frames."
+  (defun update-evil-shift-width ()
+    "We do this otherwise packages like parinfer would mess up with
+    the indentation, since their default is 4 but lisp-mode defaults
+    are generally 2."
     (interactive)
-    (other-frame 1))
-;;;###autoload
-  (defun /evil-gT ()
-    "Emulating vim's `gT' using frames."
-    (interactive)
-    (other-frame -1))
-
-  (defun my-lispy-evil-shift-width ()
     (customize-set-variable 'evil-shift-width lisp-body-indent))
 
   ;; Back to our regularly scheduled programming
   (fset 'evil-visual-update-x-selection 'ignore)
   (evil-select-search-module 'evil-search-module 'evil-search)
-  (setq evil-want-Y-yank-to-eol t
-	sentence-end-double-space nil
-	evil-regexp-search t
-	evil-normal-state-modes (append evil-motion-state-modes
-					evil-normal-state-modes)
-	evil-motion-state-modes nil
-	evil-want-C-u-scroll t
-	evil-split-window-below t
-	evil-vsplit-window-right t)
-  (setq-default evil-auto-indent t)
-
-  (add-hook 'prog-mode-hook #'/treat-underscore-as-word)
-
-
 
   (evil-ex-define-cmd "sh[ell]"    'shell) ;; at least shell shows its keymaps
   (evil-ex-define-cmd "tabn[ew]"   'make-frame)
@@ -222,3 +217,31 @@
 (setq w32-pipe-read-delay 0)
 
 (setq tab-always-indent 'complete)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(add-hook 'after-make-frame-functions 'select-frame)
+
+(customize-set-variable 'sentence-end-double-space nil)
+
+(add-hook 'after-change-major-mode-hook '(lambda () (modify-syntax-entry ?_ "w"))
+
+(customize-set-variable 'frame-background-mode 'dark)
+(set-terminal-parameter nil 'background-mode 'dark)
+
+(use-package solarized-theme
+  :demand t
+  :custom
+  (solarized-use-variable-pitch nil)
+  (solarized-distinct-fringe-background nil)
+  (solarized-high-contrast-mode-line nil)
+  (solarized-use-less-bold t)
+  (solarized-use-more-italic nil)
+  (solarized-scale-org-headlines nil)
+  (solarized-height-minus-1 1.0)
+  (solarized-height-plus-1 1.0)
+  (solarized-height-plus-2 1.0)
+  (solarized-height-plus-3 1.0)
+  (solarized-height-plus-4 1.0)
+  :config
+  (load-theme 'solarized-dark t))

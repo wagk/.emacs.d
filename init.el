@@ -31,7 +31,7 @@
   (file-name-as-directory
    (cond ((boundp 'user-emacs-directory)
 	  user-emacs-directory)
-         ((boundp 'user-init-directory)
+	 ((boundp 'user-init-directory)
 	  user-init-directory)
 	 (t "~/.emacs.d/")))
   "Sets up the startup directory.")
@@ -108,7 +108,8 @@
            'silent 'inhibit-cookies)
         (goto-char (point-max))
         (eval-print-last-sexp)))
-    (load bootstrap-file nil 'nomessage)))
+    (load bootstrap-file nil 'nomessage))
+  (setq straight-cache-autoloads t))
 
 (defun my-bootstrap-use-package ()
   "Checks if use-package is installed and installs it if it isn't.
@@ -118,19 +119,19 @@
   (require 'straight)
   (customize-set-variable 'load-prefer-newer t)
   (straight-use-package '(use-package
-			   :type git
-			   :host github
-			   :repo "jwiegley/use-package"
-			   :branch "master"))
+                             :type git
+                             :host github
+                             :repo "jwiegley/use-package"
+                             :branch "master"))
   ;; TODO: eval-and-compile-ing this sexp causes some eager macro expansion warning
   (require 'use-package)
   ;; download packages if needed
   ;; this is disabled because I feel that verbose is better
   ;; (setq use-package-always-ensure t)
   (setq use-package-always-defer t ;; always lazy load
-	use-package-always-ensure t ;; always make sure it never skips if not found
-	use-package-verbose t
-	use-package-compute-statistics nil))
+        use-package-always-ensure t ;; always make sure it never skips if not found
+        use-package-verbose t
+        use-package-compute-statistics nil))
 
 (defun my-ensure-local-el-file-exists ()
   "Checks if there exists a local.el file. Creates one if it doesn't
@@ -140,9 +141,9 @@ exist, using the template specified in
     (unless (file-exists-p local-file)
       ;; output a templated local.el file into local.el
       (write-region (with-temp-buffer
-                      (insert-file-contents (at-user-init-dir
-                      "auto-insert/elisp-local-template"))
-                      (buffer-string))
+                      (insert-file-contents (at-user-init-dir)))
+               "auto-insert/elisp-local-template"
+                      (buffer-string)
                     nil local-file))))
 
 (defun my-load-config-org-files (files)
@@ -153,7 +154,7 @@ eventually load dependencies and all that."
   (dolist (file files)
     (message "Loading %s" file)
     (condition-case nil
-	(org-babel-load-file (at-user-init-dir file))
+        (org-babel-load-file (at-user-init-dir file))
       (error (message "There was an error when loading %s" file)))))
 
 (let ((gc-cons-threshold most-positive-fixnum))
@@ -166,7 +167,7 @@ eventually load dependencies and all that."
   (measure-time
    (my-load-config-org-files user-config-file-list))
 
-  (straight-freeze-versions)
+  ;; (straight-freeze-versions)
 
   ;; Disable ANNOYING customize options
   (setq custom-file (at-user-init-dir "custom.el"))
