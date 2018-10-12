@@ -219,15 +219,12 @@ recovery. Maybe eventually load dependencies and all that."
     :custom
     (evil-want-C-u-scroll
      t
-     "Emacs uses `C-u' for its `universal-argument'function. It
+     "Emacs uses `C-u' for its `universal-argument' function. It
      conflicts with scroll up in evil-mode")
-    (evil-want-integration
-     t
-     "`evil-collections' demands that this be disabled to work")
     (evil-want-keybinding
      nil
      "`evil-collections' wants this to be
-     disabled,https://github.com/emacs-evil/evil-collection/issues/60")
+     disabled, see https://github.com/emacs-evil/evil-collection/issues/60")
     (evil-want-Y-yank-to-eol
      t
      "Y has the default behavior of functioning identically to yy.
@@ -306,14 +303,14 @@ recovery. Maybe eventually load dependencies and all that."
     ("C-h C-h" 'helm-apropos
      "C-h h"   'helm-apropos)
     (:states 'normal
-             "-"     'helm-find-files) ;; emulate vim-vinegar
-    (:states  'normal
-              :prefix my-default-evil-leader-key
-              "<SPC>" 'helm-M-x
-              "TAB"   'helm-resume
-              "y y"   'helm-show-kill-ring
-              "b b"   'helm-mini
-              "m m"   'helm-bookmarks)
+             "-" 'helm-find-files) ;; emulate vim-vinegar
+    (:states 'normal
+             :prefix my-default-evil-leader-key
+             "<SPC>" 'helm-M-x
+             "TAB"   'helm-resume
+             "y y"   'helm-show-kill-ring
+             "b b"   'helm-mini
+             "m m"   'helm-bookmarks)
     (:keymaps 'helm-map
               "C-w" 'evil-delete-backward-word
               "\\"  'helm-select-action
