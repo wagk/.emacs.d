@@ -118,12 +118,9 @@
                            :host github
                            :repo "jwiegley/use-package"
                            :branch "master"))
-  ;; TODO: eval-and-compile-ing this sexp causes some eager macro expansion warning
   (require 'use-package)
   ;; download packages if needed
-  ;; this is disabled because I feel that verbose is better
-  ;; (setq use-package-always-ensure t)
-  (setq use-package-always-defer t ;; always lazy load
+  (setq use-package-always-defer nil ;; we don't always lazy load because of explicitness
         use-package-always-ensure nil ;; always make sure it never skips if not found. Disabled because we want straight to do the heavy lifting
         use-package-verbose t
         use-package-compute-statistics t)
@@ -168,7 +165,6 @@ recovery. Maybe eventually load dependencies and all that."
 
   ;; https://github.com/emacscollective/auto-compile
   (use-package auto-compile
-    :demand t
     :straight (:host github :repo "emacscollective/auto-compile" :branch "master")
     :custom
     (load-prefer-newer t)
@@ -178,24 +174,20 @@ recovery. Maybe eventually load dependencies and all that."
     (auto-compile-on-save-mode))
 
   (use-package async
-    :demand t
     :straight (:host github :repo "jwiegley/emacs-async" :branch "master")
     :config
     (async-bytecomp-package-mode 1))
 
   (use-package general
-    :demand t
     :straight (:host github :repo "noctuid/general.el" :branch "master")
-    :commands (general-define-key)
     :init
     (defconst my-default-evil-leader-key "SPC"))
 
   (use-package no-littering
-    :demand t
     :straight (:host github :repo "emacscollective/no-littering" :branch "master"))
 
   (use-package evil
-    :demand t
+    :defer 1
     :straight (:host github :repo "emacs-evil/evil" :branch "master")
     :commands (evil-set-initial-state
                evil-insert-state
@@ -296,7 +288,7 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-mode))
 
   (use-package helm
-    :defer 2
+    :defer 1
     :commands (helm-mini)
     :straight (:host github :repo "emacs-helm/helm" :branch "master")
     :general

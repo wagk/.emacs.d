@@ -1,6 +1,7 @@
 * Packaging
 #+BEGIN_SRC emacs-lisp
   (use-package auto-package-update
+    :defer 5
     :commands (auto-package-update-now
                auto-package-update-at-time
                auto-package-update-maybe)
@@ -34,8 +35,8 @@
 #+BEGIN_SRC emacs-lisp
   (use-package evil-lion
     :straight (:host github :repo "edkolev/evil-lion" :branch "master")
+    :defer 1
     :after (evil)
-    :demand t
     :config
     (evil-lion-mode))
 #+END_SRC
@@ -45,6 +46,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package evil-numbers
     :straight (:host github :repo "cofi/evil-numbers" :branch "master")
+    :defer 1
     :general
     (:keymaps 'normal
      "C-a"  'evil-numbers/inc-at-pt
@@ -101,6 +103,7 @@ package isn't being maintained or something
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil-latex-textobjects
+    :defer t
     :load-path "local-packages/"
     :commands (turn-on-evil-latex-textobjects-mode)
     :general
@@ -120,7 +123,7 @@ package isn't being maintained or something
   (use-package evil-surround
     :straight (:host github :repo "emacs-evil/evil-surround" :branch "master")
     :after (evil)
-    :demand t
+    :defer 1
     :config
     (global-evil-surround-mode))
 #+END_SRC
@@ -130,6 +133,8 @@ package isn't being maintained or something
 #+BEGIN_SRC emacs-lisp
   (use-package evil-args
     :straight (:host github :repo "wcsmith/evil-args" :branch "master")
+    :after (evil)
+    :defer 1
     :general
     (evil-inner-text-objects-map
      "a" 'evil-inner-arg)
@@ -143,7 +148,7 @@ package isn't being maintained or something
     :straight (:host github :repo "linktohack/evil-commentary"
                :branch "master")
     :after (evil)
-    :demand t
+    :defer 1
     :config
     (evil-commentary-mode))
 #+END_SRC
@@ -157,7 +162,7 @@ package isn't being maintained or something
     :straight (:host github :repo "redguardtoo/evil-nerd-commenter"
                :branch "master")
     :after (evil)
-    :demand t
+    :defer 1
     :general
     (evil-inner-text-objects-map
      "c" 'evilnc-inner-comment)
@@ -187,6 +192,7 @@ package isn't being maintained or something
     :straight (:host github
                :repo "emacs-helm/helm-describe-modes"
                :branch "master")
+    :defer t
     :general
     ("C-h m" 'helm-describe-modes))
 #+END_SRC
@@ -198,6 +204,7 @@ package isn't being maintained or something
     :straight (:host github
                :repo "emacs-helm/helm-descbinds"
                :branch "master")
+    :defer t
     :general
     ("C-h b" 'helm-descbinds)
     :config
@@ -213,6 +220,7 @@ Full keybindings:
 #+BEGIN_SRC emacs-lisp
   (use-package evil-org
     :straight (:host github :repo "Somelauw/evil-org-mode" :branch "master")
+    :defer t
     :hook (org-mode . evil-org-mode)
     :custom
     (evil-org-retain-visual-state-on-shift
@@ -249,6 +257,8 @@ Full keybindings:
 #+BEGIN_SRC emacs-lisp
   (use-package helm-org-rifle
     :straight (:host github :repo "alphapapa/helm-org-rifle" :branch "master")
+    :after (org)
+    :defer 1
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -272,6 +282,7 @@ Full keybindings:
   (use-package org-capture
     :ensure nil ;; because org-capture is from org
     :after (org)
+    :defer 1
     :commands (org-capture
                org-capture-templates)
     :general
@@ -321,6 +332,7 @@ Full keybindings:
   (use-package magit
     :commands (magit-status)
     :straight (:host github :repo "magit/magit" :branch "master")
+    :defer t
     :init
     (evil-ex-define-cmd "git" 'magit-status)
     :config
@@ -334,8 +346,7 @@ Full keybindings:
     :straight (:host github
                :repo "emacs-evil/evil-magit"
                :branch "master")
-    :demand t
-    :after magit
+    :after (magit)
     :config
     (evil-magit-init))
 #+END_SRC
@@ -497,6 +508,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-fill-paragraph
     :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode" :branch "master")
+    :defer t
     :commands (aggressive-fill-paragraph-mode))
 #+END_SRC
 
@@ -505,6 +517,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent
     :straight (:host github :repo "malabarba/aggressive-indent-mode" :branch "master")
+    :defer t
     :commands (aggressive-indent-mode))
 #+END_SRC
 
@@ -548,6 +561,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
   (use-package projectile
     :straight (:host github :repo "bbatsov/projectile" :branch "master")
     :commands (projectile-mode)
+    :defer 3
     :config
     (projectile-mode))
 #+END_SRC
@@ -557,6 +571,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
   (use-package helm-projectile
     :straight (:host github :repo "bbatsov/helm-projectile" :branch "master")
     :commands (helm-projectile)
+    :after (helm :and projectile)
     :general
     (:states 'normal
      "_" 'helm-projectile))
@@ -568,6 +583,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+BEGIN_SRC emacs-lisp
   (use-package parinfer
     :straight (:host github :repo "DogLooksGood/parinfer-mode" :branch "master")
+    :defer 1
     :general
     (parinfer-mode-map
      "\"" nil) ;; let smartparens do its thing
@@ -739,6 +755,8 @@ clojurescript-mode derives from clojure-mode
 #+BEGIN_SRC emacs-lisp
   (use-package clojure-mode
     :straight (:host github :repo "clojure-emacs/clojure-mode" :branch "master")
+    :commands (clojure-mode clojurescript-mode)
+    :defer 5
     :hook ((clojure-mode . rainbow-delimiters-mode)
            (clojure-mode . parinfer-mode)
            (clojure-mode . update-evil-shift-width)))
@@ -789,22 +807,18 @@ package manager
   (use-package markdown-mode
     :straight (:host github :repo "jrblevin/markdown-mode" :branch "master")
     :commands (markdown-mode)
+    :defer 5
     :config
     (add-hook 'markdown-mode-hook 'orgtbl-mode))
 #+END_SRC
-
-#+RESULTS:
-: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 20092 813051 0) :init (23491 20092 813045 0) :init-secs (0 0 83 0) :use-package-secs (0 7 117901 0)))
 
 * Dumb Jump
 #+BEGIN_SRC emacs-lisp
   (use-package dumb-jump
     :straight (:host github :repo "jacktasia/dumb-jump" :branch "master")
+    :defer 2
     :commands (dumb-jump-go)
     :general
     (:states 'normal
      "g d" 'dumb-jump-go))
 #+END_SRC
-
-#+RESULTS:
-: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 20326 405288 0) :init (23491 20326 405073 0) :init-secs (0 0 214 0) :use-package-secs (0 17 457477 0)))
