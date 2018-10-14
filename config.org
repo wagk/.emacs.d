@@ -2,6 +2,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package auto-package-update
     :defer 5
+    :straight (:host github :repo "rranelli/auto-package-update.el" :branch "master")
     :commands (auto-package-update-now
                auto-package-update-at-time
                auto-package-update-maybe)
@@ -73,23 +74,19 @@ Adds the following ex commands:
     :defer 1)
 #+END_SRC
 
-#+RESULTS:
-: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 21551 225109 0) :init (23491 21551 225102 0) :init-secs (0 0 162 0) :use-package-secs (0 3 112048 0)))
-
 ** Visualstar
 Allows for * and # commands. which originally only worked on WORDs,
 to work on a visual selection too
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil-visualstar
+    :straight (:host github :repo "bling/evil-visualstar" :branch "master")
     :after (evil)
-    :defer 1
     :config
     (global-evil-visualstar-mode))
 #+END_SRC
 
 * Text Objects
-
 ** Latex Textobjects
 I appear to have stolen this from somewhere, probably because the original
 package isn't being maintained or something
@@ -473,6 +470,13 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
     (add-hook 'prog-mode-hook 'display-line-numbers-mode))
 #+END_SRC
 
+** Scroll like Vim
+#+BEGIN_SRC emacs-lisp
+  (setq scroll-step 1
+        scroll-margin 1
+        scroll-conservatively 9999)
+#+END_SRC
+
 * Display
 
 ** Prefer dark backgrounds
@@ -604,149 +608,10 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
+    :straight (:host github :repo "Fanael/rainbow-delimiters" :branch "master")
     :diminish rainbow-delimiters-mode
     :commands (rainbow-delimiters-mode))
 #+END_SRC
-
-** Smartparens
-#+BEGIN_SRC emacs-lisp
-  (use-package smartparens
-    :defer 2
-    :straight (:host github :repo "Fuco1/smartparens" :branch "master")
-    :diminish smartparens-mode
-    :commands (sp-local-pair)
-    :general
-    (:states 'normal
-     :prefix my-default-evil-leader-key
-     "." 'smartparens-mode)
-    :custom
-    (sp-cancel-autoskip-on-backward-movement
-     nil
-     "We want to maintain the chomp-like behavior of electric-pair")
-    (sp-autoskip-closing-pair
-     'always
-     "Maintain chomp-like behavior of electric-pair")
-    :config
-    (require 'smartparens-config) ;; load some default configurations
-    (smartparens-global-mode)
-    ;;(smartparens-global-strict-mode)
-    ;;(show-smartparens-global-mode)
-    ;; define some helper functions
-    (defun my-add-newline-and-indent-braces (&rest _)
-      "adds that cool vim indent thing we always wanted"
-      (newline)
-      (indent-according-to-mode)
-      (forward-line -1)
-      (indent-according-to-mode))
-    ;; update the global definitions with some indenting
-    ;; I think that the nil is the flag that controls property inheritance
-    ;;note: for some reason tab isn't recognised. might be yasnippet intefering.
-    ;;learn to use ret for now
-    (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-    (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-    (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET"))))
-#+END_SRC
-
-#+results:
-: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 14501 447070 0) :init (23491 14501 446922 0) :init-secs (0 0 73407 0) :use-package-secs (0 0 188038 0) :config (23491 14501 446915 0) :config-secs (0 0 73357 0)))
-
-* Elisp                                                               :major:
-package is known as elisp-mode but it reads as emacs-lisp-mode
-
-#+BEGIN_SRC emacs-lisp
-  (use-package elisp-mode
-    :ensure nil
-    :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
-           (emacs-lisp-mode . parinfer-mode)
-           (emacs-lisp-mode . update-evil-shift-width)))
-#+END_SRC
-
-** Update Indentation Function
-NOTE: We want to carefully override this
-https://emacs.stackexchange.com/questions/10230/how-to-indent-keywords-aligned
-https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/site-lisp/redef.el#L20-L94
-
-#+BEGIN_SRC emacs-lisp
-  (defun my-updated-lisp-indent-function (indent-point state)
-    "This function is the normal value of the variable `lisp-indent-function'.
-  The function `calculate-lisp-indent' calls this to determine
-  if the arguments of a Lisp function call should be indented specially.
-
-   INDENT-POINT is the position at which the line being indented begins.
-   Point is located at the point to indent under (for default indentation);
-   STATE is the `parse-partial-sexp' state for that position.
-
-   If the current line is in a call to a Lisp function that has a non-nil
-   property `lisp-indent-function' (or the deprecated `lisp-indent-hook'),
-   it specifies how to indent.  The property value can be:
-
-   ,* `defun', meaning indent `defun'-style
-   (this is also the case if there is no property and the function
-   has a name that begins with \"def\", and three or more arguments);
-
-   ,* an integer N, meaning indent the first N arguments specially
-  (like ordinary function arguments), and then indent any further
-  arguments like a body;
-
-   ,* a function to call that returns the indentation (or nil).
-  `lisp-indent-function' calls this function with the same two arguments
-  that it itself received.
-
-  This function returns either the indentation to use, or nil if the
-  Lisp function does not specify a special indentation."
-    (let ((normal-indent (current-column))
-          (orig-point (point)))
-      (goto-char (1+ (elt state 1)))
-      (parse-partial-sexp (point) calculate-lisp-indent-last-sexp 0 t)
-      (cond
-       ;; car of form doesn't seem to be a symbol, or is a keyword
-       ((and (elt state 2)
-             (or (not (looking-at "\\sw\\|\\s_"))
-                 (looking-at ":")))
-        (if (not (> (save-excursion (forward-line 1) (point))
-                    calculate-lisp-indent-last-sexp))
-            (progn (goto-char calculate-lisp-indent-last-sexp)
-                   (beginning-of-line)
-                   (parse-partial-sexp (point)
-                                       calculate-lisp-indent-last-sexp 0 t)))
-        ;; Indent under the list or under the first sexp on the same
-        ;; line as calculate-lisp-indent-last-sexp.  Note that first
-        ;; thing on that line has to be complete sexp since we are
-        ;; inside the innermost containing sexp.
-        (backward-prefix-chars)
-        (current-column))
-       ((and (save-excursion
-               (goto-char indent-point)
-               (skip-syntax-forward " ")
-               (not (looking-at ":")))
-             (save-excursion
-               (goto-char orig-point)
-               (looking-at ":")))
-        (save-excursion
-          (goto-char (+ 2 (elt state 1)))
-          (current-column)))
-       (t
-        (let ((function (buffer-substring (point)
-                                          (progn (forward-sexp 1) (point))))
-              method)
-          (setq method (or (function-get (intern-soft function)
-                                         'lisp-indent-function)
-                           (get (intern-soft function) 'lisp-indent-hook)))
-          (cond ((or (eq method 'defun)
-                     (and (null method)
-                          (> (length function) 3)
-                          (string-match "\\`def" function)))
-                 (lisp-indent-defform state indent-point))
-                ((integerp method)
-                 (lisp-indent-specform method state
-                                       indent-point normal-indent))
-                (method
-                 (funcall method indent-point state))))))))
-
-  (advice-add 'lisp-indent-function :override 'my-updated-lisp-indent-function)
-#+END_SRC
-
-#+RESULTS:
 
 * Clojure                                                             :major:
 
@@ -756,7 +621,6 @@ clojurescript-mode derives from clojure-mode
   (use-package clojure-mode
     :straight (:host github :repo "clojure-emacs/clojure-mode" :branch "master")
     :commands (clojure-mode clojurescript-mode)
-    :defer 5
     :hook ((clojure-mode . rainbow-delimiters-mode)
            (clojure-mode . parinfer-mode)
            (clojure-mode . update-evil-shift-width)))
@@ -784,19 +648,15 @@ package manager
 
 #+BEGIN_SRC emacs-lisp
   (use-package help+
-    :defer 2
     :load-path "local-packages/"
     :hook (help))
   (use-package help-macro+
-    :defer 2
     :load-path "local-packages/"
     :hook (help))
   (use-package help-mode+
-    :defer 2
     :load-path "local-packages/"
     :hook (help))
   (use-package help-fns+
-    :defer 2
     :load-path "local-packages/"
     :hook (help))
 #+END_SRC
@@ -807,7 +667,6 @@ package manager
   (use-package markdown-mode
     :straight (:host github :repo "jrblevin/markdown-mode" :branch "master")
     :commands (markdown-mode)
-    :defer 5
     :config
     (add-hook 'markdown-mode-hook 'orgtbl-mode))
 #+END_SRC
@@ -816,7 +675,6 @@ package manager
 #+BEGIN_SRC emacs-lisp
   (use-package dumb-jump
     :straight (:host github :repo "jacktasia/dumb-jump" :branch "master")
-    :defer 2
     :commands (dumb-jump-go)
     :general
     (:states 'normal

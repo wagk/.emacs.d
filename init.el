@@ -187,7 +187,7 @@ recovery. Maybe eventually load dependencies and all that."
     :straight (:host github :repo "emacscollective/no-littering" :branch "master"))
 
   (use-package evil
-    :defer 1
+    :demand t
     :straight (:host github :repo "emacs-evil/evil" :branch "master")
     :commands (evil-set-initial-state
                evil-insert-state
@@ -288,8 +288,6 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-mode))
 
   (use-package helm
-    :defer 1
-    :commands (helm-mini)
     :straight (:host github :repo "emacs-helm/helm" :branch "master")
     :general
     ("C-h C-h" 'helm-apropos
