@@ -124,7 +124,7 @@
   ;; this is disabled because I feel that verbose is better
   ;; (setq use-package-always-ensure t)
   (setq use-package-always-defer t ;; always lazy load
-        use-package-always-ensure t ;; always make sure it never skips if not found
+        use-package-always-ensure nil ;; always make sure it never skips if not found. Disabled because we want straight to do the heavy lifting
         use-package-verbose t
         use-package-compute-statistics t)
   (use-package diminish)
@@ -203,19 +203,19 @@ recovery. Maybe eventually load dependencies and all that."
     :general
     (global-map "C-u" nil) ;; Disable universal argument
     (:keymaps 'insert
-              "C-u"    'kill-whole-line
-              "C-l"    'evil-complete-next-line)
+     "C-u"    'kill-whole-line
+     "C-l"    'evil-complete-next-line)
     (:keymaps 'motion
-              "C-u"    'evil-scroll-up)
+     "C-u"    'evil-scroll-up)
     (:keymaps 'normal
-              "gt"     '(lambda () (interactive) (other-frame 1))
-              "gT"     '(lambda () (interactive) (other-frame -1))
-              "g o"    'ff-find-other-file
-              "g a"    'describe-char)
+     "gt"     '(lambda () (interactive) (other-frame 1))
+     "gT"     '(lambda () (interactive) (other-frame -1))
+     "g o"    'ff-find-other-file
+     "g a"    'describe-char)
     (:keymaps 'inner
-              "e"      'my-evil-a-buffer)
+     "e"      'my-evil-a-buffer)
     (:keymaps 'outer
-              "e"      'my-evil-a-buffer)
+     "e"      'my-evil-a-buffer)
     :custom
     (evil-want-C-u-scroll
      t
@@ -303,24 +303,24 @@ recovery. Maybe eventually load dependencies and all that."
     ("C-h C-h" 'helm-apropos
      "C-h h"   'helm-apropos)
     (:states 'normal
-             "-" 'helm-find-files) ;; emulate vim-vinegar
+     "-" 'helm-find-files) ;; emulate vim-vinegar
     (:states 'normal
-             :prefix my-default-evil-leader-key
-             "<SPC>" 'helm-M-x
-             "TAB"   'helm-resume
-             "y y"   'helm-show-kill-ring
-             "b b"   'helm-mini
-             "m m"   'helm-bookmarks)
+     :prefix my-default-evil-leader-key
+     "<SPC>" 'helm-M-x
+     "TAB"   'helm-resume
+     "y y"   'helm-show-kill-ring
+     "b b"   'helm-mini
+     "m m"   'helm-bookmarks)
     (:keymaps 'helm-map
-              "C-w" 'evil-delete-backward-word
-              "\\"  'helm-select-action
-              "C-j" 'helm-next-line
-              "C-k" 'helm-previous-line
-              "C-d" 'helm-next-page
-              "C-u" 'helm-previous-page
-              "C-l" 'helm-next-source
-              "C-h" 'helm-previous-source
-              "TAB" 'helm-execute-persistent-action)
+     "C-w" 'evil-delete-backward-word
+     "\\"  'helm-select-action
+     "C-j" 'helm-next-line
+     "C-k" 'helm-previous-line
+     "C-d" 'helm-next-page
+     "C-u" 'helm-previous-page
+     "C-l" 'helm-next-source
+     "C-h" 'helm-previous-source
+     "TAB" 'helm-execute-persistent-action)
     :init
     (evil-ex-define-cmd "bb" 'helm-mini)
     (evil-ex-define-cmd "book[marks]" 'helm-bookmarks)
@@ -345,6 +345,90 @@ recovery. Maybe eventually load dependencies and all that."
            (setq helm-autoresize-min-height 40 ;; these values are %
                  helm-autoresize-max-height 40))
     (helm-mode))
+
+  (use-package org
+    :defer 1
+    ;; doesn't have a straight recipe because it relies on make or something
+    :commands (org-mode
+               orgtbl-mode
+               org-time-stamp-inactive
+               org-refile)
+    :general
+    (:states 'normal
+     :keymaps 'org-mode-map
+     "TAB"    'org-global-cycle
+     "<tab>"  'org-global-cycle)
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "o t" 'org-time-stamp-inactive
+     "o T" '(lambda () (interactive)
+              (org-time-stamp-inactive '(16))))
+    (:states 'normal
+     :keymaps 'org-mode-map
+     :prefix my-default-evil-leader-key
+     "r r" 'org-refile
+     "R R" 'org-archive-subtree)
+    (org-mode-map
+     "C-c C-'" 'org-edit-special)
+    (org-src-mode-map
+     "C-c C-'" 'org-src-edit-exit)
+    :custom
+    (org-support-shift-select t
+                              "Let me use J in org-mode please.")
+    (org-startup-indented t)
+    (org-indent-mode-turns-on-hiding-stars t)
+    (org-src-tab-acts-natively t)
+    (org-src-window-setup
+     'current-window
+     "I tend to have documentation/other things on adjacent windows")
+    (org-src-fontify-natively t)
+    (org-default-notes-file "~/TODO.org")
+    (org-M-RET-may-split-line nil)
+    (org-enforce-todo-checkbox-dependencies
+     nil
+     "Sometimes we are able to skip dependencies as things happen")
+    (org-enforce-todo-dependencies          nil)
+    (org-pretty-entities                    nil)
+    (org-log-done       'time)
+    (org-log-redeadline 'time)
+    (org-log-reschedule 'time)
+    (org-blank-before-new-entry '((heading         . t)
+                                  (plain-list-item . nil)))
+    (org-refile-targets '((nil . (:maxlevel . 9))))
+    (org-refile-use-outline-path t)
+    (org-outline-path-complete-in-steps nil)
+    (org-refile-allow-creating-parent-nodes 'confirm)
+    (org-highlight-latex-and-related '(latex))
+    ;; (org-src-block-faces `(("emacs-lisp" (:foreground ,my-solarized-dark-base0))))
+    :config
+    ;; when inserting a heading immediately go into insert mode
+    (add-hook 'org-insert-heading-hook 'evil-insert-state)
+    ;; make smartparen autoskip "" because org-mode treats it as a string
+    (add-hook 'smartparens-mode-hook '(lambda ()
+                                        (sp-local-pair 'org-mode "\"" nil
+                                                       :when '(:rem sp-in-string-p))))
+
+    ;; (defun my-add-org-evil-embrace-pairs ()
+    ;;   "Add additional pairings that evil-surround doesn't cover"
+    ;;   (require 'evil-embrace)
+    ;;   (let ((org-pairs '((?= "=" . "=") ;; verbatim
+    ;;                      (?* "*" . "*") ;; bold
+    ;;                      (?_ "_" . "_") ;; underline
+    ;;                      (?+ "+" . "+") ;; strikethrough
+    ;;                      (?~ "~" . "~") ;; code
+    ;;                      (?/ "/" . "/")))) ;; italic
+    ;;     (dolist (pair org-pairs)
+    ;;       (embrace-add-pair (car pair) (cadr pair) (cddr pair)))))
+    ;; (add-hook 'org-mode-hook 'my-add-org-evil-embrace-pairs)
+
+    ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
+    (defun my-org-reformat-buffer ()
+      (interactive)
+      (when (y-or-n-p "Really format current buffer? ")
+        (let ((document (org-element-interpret-data (org-element-parse-buffer))))
+          (erase-buffer)
+          (insert document)
+          (goto-char (point-min))))))
 
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
