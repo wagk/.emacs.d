@@ -1,3 +1,11 @@
+* TODO Issues
+=evil-insert-state-keymap= has a binding ~C-k~ that is currently
+shadowing the helm mode maps. A proposed solution is to migrate to
+~M-j~ and ~M-k~. These maps are also shadowing ~C-h~ and ~C-l~, which
+is getting annoying.
+
+The help+ packages are also not being autoloaded, which is also
+getting annoying.
 * Packaging
 #+BEGIN_SRC emacs-lisp
   (use-package auto-package-update
@@ -523,6 +531,8 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
   (use-package aggressive-fill-paragraph
     :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode" :branch "master")
     :defer t
+    :init
+    (add-hook 'org-mode-hook 'aggressive-fill-paragraph-mode)
     :commands (aggressive-fill-paragraph-mode))
 #+END_SRC
 
@@ -792,12 +802,16 @@ package manager
 
 #+BEGIN_SRC emacs-lisp
   (use-package help+
+    :defer 7
     :load-path "local-packages/")
   (use-package help-macro+
+    :defer 7
     :load-path "local-packages/")
   (use-package help-mode+
+    :defer 7
     :load-path "local-packages/")
   (use-package help-fns+
+    :defer 7
     :commands (describe-keymap
                describe-buffer
                describe-command
@@ -828,7 +842,6 @@ package manager
     (:states 'normal
      "g d" 'dumb-jump-go))
 #+END_SRC
-
 * Elmacro
 #+BEGIN_SRC emacs-lisp
   (use-package elmacro
@@ -839,3 +852,16 @@ package manager
     :config
     (elmacro-mode))
 #+END_SRC
+
+* Helm Sources for Elisp info
+#+BEGIN_SRC emacs-lisp
+(defun find-helm-info-emacs-elisp-cl ()
+  "Helm for Emacs, Elisp, and CL-library info pages."
+  (interactive)
+  (helm :sources '(helm-source-info-emacs
+                   helm-source-info-elisp
+                   helm-source-info-cl)))
+#+END_SRC
+
+#+RESULTS:
+: find-helm-info-emacs-elisp-cl
