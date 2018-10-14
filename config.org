@@ -167,6 +167,19 @@ package isn't being maintained or something
      "c" 'evilnc-outer-commenter))
 #+END_SRC
 
+** Indent text objects
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-indent-plus
+    :straight (:host github :repo "TheBB/evil-indent-plus" :branch "master")
+    :general
+    (evil-inner-text-objects-map
+     "i" 'evil-indent-plus-i-indent
+     "I" 'evil-indent-plus-a-indent)
+    (evil-outer-text-objects-map
+     "i" 'evil-indent-plus-i-indent-up
+     "I" 'evil-indent-plus-a-indent-up))
+#+END_SRC
+
 ** Targets
 #+BEGIN_SRC emacs-lisp
   (use-package targets
@@ -189,7 +202,6 @@ package isn't being maintained or something
     :straight (:host github
                :repo "emacs-helm/helm-describe-modes"
                :branch "master")
-    :defer t
     :general
     ("C-h m" 'helm-describe-modes))
 #+END_SRC
@@ -201,7 +213,6 @@ package isn't being maintained or something
     :straight (:host github
                :repo "emacs-helm/helm-descbinds"
                :branch "master")
-    :defer t
     :general
     ("C-h b" 'helm-descbinds)
     :config
@@ -324,7 +335,9 @@ Full keybindings:
 #+RESULTS:
 : #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 20845 78356 0) :init (23491 20845 78014 0) :init-secs (0 0 36 0) :use-package-secs (0 0 439 0)))
 
-* Magit
+* Git
+
+** Magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :commands (magit-status)
@@ -337,7 +350,7 @@ Full keybindings:
     (add-hook 'git-commit-setup-hook 'markdown-mode))
 #+END_SRC
 
-** Evil bindings
+*** Evil bindings
 #+BEGIN_SRC emacs-lisp
   (use-package evil-magit
     :straight (:host github
@@ -348,10 +361,40 @@ Full keybindings:
     (evil-magit-init))
 #+END_SRC
 
+** Git Gutter
+- [ ] Is currently conflicting with org mode src blocks?
+
+#+BEGIN_SRC emacs-lisp
+  (use-package git-gutter+
+    :straight (:host github :repo "nonsequitur/git-gutter-plus" :branch "master")
+    :general
+    (:states 'normal
+     :keymaps 'git-gutter+-mode-map
+     "[ h"   'git-gutter+-previous-hunk
+     "] h"   'git-gutter+-next-hunk
+     "g h s" 'git-gutter+-stage-hunks
+     "g h u" 'git-gutter+-revert-hunks
+     "g h h" 'git-gutter+-show-hunk-inline-at-point)
+    :init
+    (use-package git-gutter-fringe+
+      :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus" :branch "master")
+      :if (display-graphic-p)
+      :after git-gutter+)
+    :custom
+    (git-gutter+-hide-gutter t)
+    :config
+    (global-git-gutter+-mode))
+#+END_SRC
+
+#+RESULTS:
+: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 25432 578771 0) :init (23491 25432 565714 0) :init-secs (0 0 49145 0) :use-package-secs (0 5 689901 0)))
+
 * Make Emacs Restartable
 #+BEGIN_SRC emacs-lisp
   (use-package restart-emacs
     :straight (:host github :repo "iqbalansari/restart-emacs" :branch "master")
+    :init
+    (evil-ex-define-cmd "restart" 'restart-emacs)
     :commands (restart-emacs))
 #+END_SRC
 
@@ -565,7 +608,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
   (use-package projectile
     :straight (:host github :repo "bbatsov/projectile" :branch "master")
     :commands (projectile-mode)
-    :defer 3
+    :defer 1
     :config
     (projectile-mode))
 #+END_SRC
@@ -574,12 +617,13 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+BEGIN_SRC emacs-lisp
   (use-package helm-projectile
     :straight (:host github :repo "bbatsov/helm-projectile" :branch "master")
-    :commands (helm-projectile)
-    :after (helm :and projectile)
     :general
-    (:states 'normal
+    (:states '(normal motion)
      "_" 'helm-projectile))
 #+END_SRC
+
+#+RESULTS:
+: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 26322 471789 0) :use-package-secs (0 0 263452 0)))
 
 * Lisp
 
@@ -587,7 +631,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+BEGIN_SRC emacs-lisp
   (use-package parinfer
     :straight (:host github :repo "DogLooksGood/parinfer-mode" :branch "master")
-    :defer 1
+    :commands (parinfer-mode)
     :general
     (parinfer-mode-map
      "\"" nil) ;; let smartparens do its thing
@@ -605,12 +649,145 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+END_SRC
 
 ** Rainbow Delimiter Mode
-
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
     :straight (:host github :repo "Fanael/rainbow-delimiters" :branch "master")
-    :diminish rainbow-delimiters-mode
     :commands (rainbow-delimiters-mode))
+#+END_SRC
+
+** Smartparens
+#+BEGIN_SRC emacs-lisp
+  (use-package smartparens
+    :defer 2
+    :straight (:host github :repo "Fuco1/smartparens" :branch "master")
+    :diminish smartparens-mode
+    :commands (sp-local-pair)
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "." 'smartparens-mode)
+    :custom
+    (sp-cancel-autoskip-on-backward-movement
+     nil
+     "We want to maintain the chomp-like behavior of electric-pair")
+    (sp-autoskip-closing-pair
+     'always
+     "Maintain chomp-like behavior of electric-pair")
+    :config
+    (require 'smartparens-config) ;; load some default configurations
+    (smartparens-global-mode)
+    ;;(smartparens-global-strict-mode)
+    ;;(show-smartparens-global-mode)
+    ;; define some helper functions
+    (defun my-add-newline-and-indent-braces (&rest _)
+      "adds that cool vim indent thing we always wanted"
+      (newline)
+      (indent-according-to-mode)
+      (forward-line -1)
+      (indent-according-to-mode))
+    ;; update the global definitions with some indenting
+    ;; I think that the nil is the flag that controls property inheritance
+    ;;note: for some reason tab isn't recognised. might be yasnippet intefering.
+    ;;learn to use ret for now
+    (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
+    (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
+    (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET"))))
+#+END_SRC
+
+* Elisp                                                               :major:
+package is known as elisp-mode but it reads as emacs-lisp-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elisp-mode
+    :ensure nil
+    :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
+           (emacs-lisp-mode . parinfer-mode)
+           (emacs-lisp-mode . update-evil-shift-width)))
+#+END_SRC
+
+** Update Indentation Function
+NOTE: We want to carefully override this
+https://emacs.stackexchange.com/questions/10230/how-to-indent-keywords-aligned
+https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/site-lisp/redef.el#L20-L94
+
+#+BEGIN_SRC emacs-lisp
+  (defun my-updated-lisp-indent-function (indent-point state)
+    "This function is the normal value of the variable `lisp-indent-function'.
+  The function `calculate-lisp-indent' calls this to determine
+  if the arguments of a Lisp function call should be indented specially.
+
+   INDENT-POINT is the position at which the line being indented begins.
+   Point is located at the point to indent under (for default indentation);
+   STATE is the `parse-partial-sexp' state for that position.
+
+   If the current line is in a call to a Lisp function that has a non-nil
+   property `lisp-indent-function' (or the deprecated `lisp-indent-hook'),
+   it specifies how to indent.  The property value can be:
+
+   ,* `defun', meaning indent `defun'-style
+   (this is also the case if there is no property and the function
+   has a name that begins with \"def\", and three or more arguments);
+
+   ,* an integer N, meaning indent the first N arguments specially
+  (like ordinary function arguments), and then indent any further
+  arguments like a body;
+
+   ,* a function to call that returns the indentation (or nil).
+  `lisp-indent-function' calls this function with the same two arguments
+  that it itself received.
+
+  This function returns either the indentation to use, or nil if the
+  Lisp function does not specify a special indentation."
+    (let ((normal-indent (current-column))
+          (orig-point (point)))
+      (goto-char (1+ (elt state 1)))
+      (parse-partial-sexp (point) calculate-lisp-indent-last-sexp 0 t)
+      (cond
+       ;; car of form doesn't seem to be a symbol, or is a keyword
+       ((and (elt state 2)
+             (or (not (looking-at "\\sw\\|\\s_"))
+                 (looking-at ":")))
+        (if (not (> (save-excursion (forward-line 1) (point))
+                    calculate-lisp-indent-last-sexp))
+            (progn (goto-char calculate-lisp-indent-last-sexp)
+                   (beginning-of-line)
+                   (parse-partial-sexp (point)
+                                       calculate-lisp-indent-last-sexp 0 t)))
+        ;; Indent under the list or under the first sexp on the same
+        ;; line as calculate-lisp-indent-last-sexp.  Note that first
+        ;; thing on that line has to be complete sexp since we are
+        ;; inside the innermost containing sexp.
+        (backward-prefix-chars)
+        (current-column))
+       ((and (save-excursion
+               (goto-char indent-point)
+               (skip-syntax-forward " ")
+               (not (looking-at ":")))
+             (save-excursion
+               (goto-char orig-point)
+               (looking-at ":")))
+        (save-excursion
+          (goto-char (+ 2 (elt state 1)))
+          (current-column)))
+       (t
+        (let ((function (buffer-substring (point)
+                                          (progn (forward-sexp 1) (point))))
+              method)
+          (setq method (or (function-get (intern-soft function)
+                                         'lisp-indent-function)
+                           (get (intern-soft function) 'lisp-indent-hook)))
+          (cond ((or (eq method 'defun)
+                     (and (null method)
+                          (> (length function) 3)
+                          (string-match "\\`def" function)))
+                 (lisp-indent-defform state indent-point))
+                ((integerp method)
+                 (lisp-indent-specform method state
+                                       indent-point normal-indent))
+                (method
+                 (funcall method indent-point state))))))))
+
+  (advice-add 'lisp-indent-function :override 'my-updated-lisp-indent-function)
 #+END_SRC
 
 * Clojure                                                             :major:

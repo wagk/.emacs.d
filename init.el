@@ -187,7 +187,6 @@ recovery. Maybe eventually load dependencies and all that."
     :straight (:host github :repo "emacscollective/no-littering" :branch "master"))
 
   (use-package evil
-    :demand t
     :straight (:host github :repo "emacs-evil/evil" :branch "master")
     :commands (evil-set-initial-state
                evil-insert-state
@@ -256,7 +255,6 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-ex-define-cmd "tabn[ew]"   'make-frame)
     (evil-ex-define-cmd "tabe[dit]"  'make-frame)
     (evil-ex-define-cmd "qw[indow]"  'delete-frame)
-    (evil-ex-define-cmd "restart"    'restart-emacs)
     (evil-ex-define-cmd "init"       'find-user-init-file)
     (evil-ex-define-cmd "local"      'find-user-local-file)
     (evil-ex-define-cmd "me[ssage]"  '(lambda () (interactive) (switch-to-buffer "*Messages*")))
