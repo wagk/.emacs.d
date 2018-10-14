@@ -187,6 +187,7 @@ recovery. Maybe eventually load dependencies and all that."
     :straight (:host github :repo "emacscollective/no-littering" :branch "master"))
 
   (use-package evil
+    :demand t
     :straight (:host github :repo "emacs-evil/evil" :branch "master")
     :commands (evil-set-initial-state
                evil-insert-state
@@ -286,6 +287,7 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-mode))
 
   (use-package helm
+    :demand t
     :straight (:host github :repo "emacs-helm/helm" :branch "master")
     :general
     ("C-h C-h" 'helm-apropos
@@ -300,19 +302,19 @@ recovery. Maybe eventually load dependencies and all that."
      "b b"   'helm-mini
      "m m"   'helm-bookmarks)
     (:keymaps 'helm-map
-     "C-w" 'evil-delete-backward-word
-     "\\"  'helm-select-action
-     "C-j" 'helm-next-line
-     "C-k" 'helm-previous-line
-     "C-d" 'helm-next-page
-     "C-u" 'helm-previous-page
-     "C-l" 'helm-next-source
-     "C-h" 'helm-previous-source
-     "TAB" 'helm-execute-persistent-action)
+     "C-w"    'evil-delete-backward-word
+     "\\"     'helm-select-action
+     "C-j"    'helm-next-line
+     "C-k"    'helm-previous-line
+     "C-d"    'helm-next-page
+     "C-u"    'helm-previous-page
+     "C-l"    'helm-next-source
+     "C-h"    'helm-previous-source
+     "TAB"    'helm-execute-persistent-action)
     :init
-    (evil-ex-define-cmd "bb" 'helm-mini)
+    (evil-ex-define-cmd "bb"          'helm-mini)
     (evil-ex-define-cmd "book[marks]" 'helm-bookmarks)
-    (evil-ex-define-cmd "bm" 'helm-bookmarks)
+    (evil-ex-define-cmd "bm"          'helm-bookmarks)
     :custom
     (helm-idle-delay 0.0)
     (helm-input-idle-delay 0.01)

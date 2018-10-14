@@ -18,7 +18,7 @@
 #+END_SRC
 
 * Evil
-** Evil-collection
+** Evil Collection
 #+BEGIN_SRC emacs-lisp
   (use-package evil-collection
     :after (evil)
@@ -47,7 +47,6 @@
 #+BEGIN_SRC emacs-lisp
   (use-package evil-numbers
     :straight (:host github :repo "cofi/evil-numbers" :branch "master")
-    :defer 1
     :general
     (:keymaps 'normal
      "C-a"  'evil-numbers/inc-at-pt
@@ -131,7 +130,6 @@ package isn't being maintained or something
   (use-package evil-args
     :straight (:host github :repo "wcsmith/evil-args" :branch "master")
     :after (evil)
-    :defer 1
     :general
     (evil-inner-text-objects-map
      "a" 'evil-inner-arg)
@@ -150,16 +148,12 @@ package isn't being maintained or something
     (evil-commentary-mode))
 #+END_SRC
 
-#+RESULTS:
-: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 21900 791656 0) :init (23491 21900 791644 0) :config (23491 21900 791296 0) :config-secs (0 0 644 0) :init-secs (0 0 5333 0) :use-package-secs (0 3 261718 0)))
-
 ** Comment Text Objects
 #+BEGIN_SRC emacs-lisp
   (use-package evil-nerd-commenter
     :straight (:host github :repo "redguardtoo/evil-nerd-commenter"
                :branch "master")
     :after (evil)
-    :defer 1
     :general
     (evil-inner-text-objects-map
      "c" 'evilnc-inner-comment)
@@ -190,9 +184,6 @@ package isn't being maintained or something
     :config
     (targets-setup t))
 #+END_SRC
-
-#+RESULTS:
-: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 21459 909411 0) :init (23491 21459 909406 0) :config (23491 21459 909399 0) :config-secs (0 0 208796 0) :init-secs (0 0 208835 0) :use-package-secs (0 0 477236 0)))
 
 * Helm
 
@@ -261,29 +252,6 @@ Full keybindings:
       (add-hook 'org-agenda-mode-hook 'evil-org-mode)))
 #+END_SRC
 
-** Helm Org Rifling
-#+BEGIN_SRC emacs-lisp
-  (use-package helm-org-rifle
-    :straight (:host github :repo "alphapapa/helm-org-rifle" :branch "master")
-    :after (org)
-    :defer 1
-    :general
-    (:states 'normal
-     :prefix my-default-evil-leader-key
-     "o o" 'helm-org-rifle-current-buffer
-     "O O" 'helm-org-rifle)
-    (helm-org-rifle-map
-     "C-w"  'evil-delete-backward-word
-     "\\"   'helm-select-action
-     "C-j"  'helm-next-line
-     "C-k"  'helm-previous-line
-     "C-n"  'helm-next-page
-     "C-p"  'helm-previous-page
-     "C-l"  'helm-next-source
-     "C-h"  'helm-previous-source
-     "TAB"  'helm-execute-persistent-action))
-#+END_SRC
-
 ** Org Capture Bindings
 
 #+BEGIN_SRC emacs-lisp
@@ -311,7 +279,7 @@ Full keybindings:
      [remap evil-save-and-close]          'org-capture-finalize
      [remap evil-save-modified-and-close] 'org-capture-finalize
      [remap evil-quit]                    'org-capture-kill)
-    :init
+    ;; :init
     ;; (defun my-capture-daydream ()
     ;;   ""
     ;;   (interactive)
@@ -342,7 +310,6 @@ Full keybindings:
   (use-package magit
     :commands (magit-status)
     :straight (:host github :repo "magit/magit" :branch "master")
-    :defer t
     :init
     (evil-ex-define-cmd "git" 'magit-status)
     :config
@@ -786,7 +753,6 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
                                        indent-point normal-indent))
                 (method
                  (funcall method indent-point state))))))))
-
   (advice-add 'lisp-indent-function :override 'my-updated-lisp-indent-function)
 #+END_SRC
 
@@ -797,7 +763,8 @@ clojurescript-mode derives from clojure-mode
 #+BEGIN_SRC emacs-lisp
   (use-package clojure-mode
     :straight (:host github :repo "clojure-emacs/clojure-mode" :branch "master")
-    :commands (clojure-mode clojurescript-mode)
+    :commands (clojure-mode
+               clojurescript-mode)
     :hook ((clojure-mode . rainbow-delimiters-mode)
            (clojure-mode . parinfer-mode)
            (clojure-mode . update-evil-shift-width)))
@@ -825,17 +792,21 @@ package manager
 
 #+BEGIN_SRC emacs-lisp
   (use-package help+
-    :load-path "local-packages/"
-    :hook (help))
+    :load-path "local-packages/")
   (use-package help-macro+
-    :load-path "local-packages/"
-    :hook (help))
+    :load-path "local-packages/")
   (use-package help-mode+
-    :load-path "local-packages/"
-    :hook (help))
+    :load-path "local-packages/")
   (use-package help-fns+
-    :load-path "local-packages/"
-    :hook (help))
+    :commands (describe-keymap
+               describe-buffer
+               describe-command
+               describe-option
+               describe-key-briefly
+               describe-option-of-type
+               describe-copying
+               find-function-on-key)
+    :load-path "local-packages/")
 #+END_SRC
 
 * Markdown                                                            :major:
@@ -856,4 +827,15 @@ package manager
     :general
     (:states 'normal
      "g d" 'dumb-jump-go))
+#+END_SRC
+
+* Elmacro
+#+BEGIN_SRC emacs-lisp
+  (use-package elmacro
+    :straight (:host github :repo "Silex/elmacro" :branch "master")
+    :commands (elmacro-show-last-macro
+               elmacro-show-last-commands
+               elmacro-clear-recorded-commands)
+    :config
+    (elmacro-mode))
 #+END_SRC
