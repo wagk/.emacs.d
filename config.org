@@ -42,7 +42,7 @@ is getting annoying.
 #+BEGIN_SRC emacs-lisp
   (use-package evil-lion
     :straight (:host github :repo "edkolev/evil-lion" :branch "master")
-    :defer 1
+    :defer 2
     :after (evil)
     :config
     (evil-lion-mode))
@@ -125,7 +125,7 @@ package isn't being maintained or something
   (use-package evil-surround
     :straight (:host github :repo "emacs-evil/evil-surround" :branch "master")
     :after (evil)
-    :defer 1
+    :defer 2
     :config
     (global-evil-surround-mode))
 #+END_SRC
@@ -149,7 +149,7 @@ package isn't being maintained or something
     :straight (:host github :repo "linktohack/evil-commentary"
                :branch "master")
     :after (evil)
-    :defer 1
+    :defer 2
     :config
     (evil-commentary-mode))
 #+END_SRC
@@ -184,7 +184,7 @@ package isn't being maintained or something
 #+BEGIN_SRC emacs-lisp
   (use-package targets
     :after (evil)
-    :defer 1
+    :defer 2
     :straight (:host github :repo "noctuid/targets.el"
                :branch "master")
     :config
@@ -264,7 +264,7 @@ Full keybindings:
   (use-package org-capture
     :ensure nil ;; because org-capture is from org
     :after (org)
-    :defer 1
+    :defer 2
     :commands (org-capture
                org-capture-templates)
     :general
@@ -316,6 +316,7 @@ Full keybindings:
   (use-package magit
     :commands (magit-status)
     :straight (:host github :repo "magit/magit" :branch "master")
+    :defer 11
     :init
     (evil-ex-define-cmd "git" 'magit-status)
     :config
@@ -340,6 +341,7 @@ Full keybindings:
 #+BEGIN_SRC emacs-lisp
   (use-package git-gutter+
     :straight (:host github :repo "nonsequitur/git-gutter-plus" :branch "master")
+    :defer 7
     :general
     (:states  'normal
      :keymaps 'git-gutter+-mode-map
@@ -359,16 +361,13 @@ Full keybindings:
     (global-git-gutter+-mode))
 #+END_SRC
 
-#+RESULTS:
-: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 25432 578771 0) :init (23491 25432 565714 0) :init-secs (0 0 49145 0) :use-package-secs (0 5 689901 0)))
-
 * Make Emacs Restartable
 #+BEGIN_SRC emacs-lisp
   (use-package restart-emacs
     :straight (:host github :repo "iqbalansari/restart-emacs" :branch "master")
+    :commands (restart-emacs)
     :init
-    (evil-ex-define-cmd "restart" 'restart-emacs)
-    :commands (restart-emacs))
+    (evil-ex-define-cmd "restart" 'restart-emacs))
 #+END_SRC
 
 * Quality of Life
@@ -504,7 +503,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 ** Solarized
 #+BEGIN_SRC emacs-lisp
   (use-package solarized-theme
-    :defer 1
+    :defer 2
     :custom
     (solarized-use-variable-pitch nil)
     (solarized-distinct-fringe-background nil)
@@ -583,7 +582,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
   (use-package projectile
     :straight (:host github :repo "bbatsov/projectile" :branch "master")
     :commands (projectile-mode)
-    :defer 1
+    :defer 2
     :config
     (projectile-mode))
 #+END_SRC
@@ -835,7 +834,6 @@ package manager
 #+BEGIN_SRC emacs-lisp
   (use-package dumb-jump
     :straight (:host github :repo "jacktasia/dumb-jump" :branch "master")
-    :commands (dumb-jump-go)
     :general
     (:states 'normal
      "g d" 'dumb-jump-go))
@@ -853,13 +851,11 @@ package manager
 
 * Helm Sources for Elisp info
 #+BEGIN_SRC emacs-lisp
-(defun find-helm-info-emacs-elisp-cl ()
-  "Helm for Emacs, Elisp, and CL-library info pages."
-  (interactive)
-  (helm :sources '(helm-source-info-emacs
-                   helm-source-info-elisp
-                   helm-source-info-cl)))
+  (defun find-helm-info-emacs-elisp-cl ()
+    "Helm for Emacs, Elisp, and CL-library info pages."
+    (interactive)
+    (helm :sources '(helm-source-info-emacs
+                     helm-source-info-elisp
+                     helm-source-info-cl)))
+  (evil-ex-define-cmd "elisp" 'find-helm-info-emacs-elisp-cl)
 #+END_SRC
-
-#+RESULTS:
-: find-helm-info-emacs-elisp-cl
