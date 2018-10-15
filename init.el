@@ -297,20 +297,17 @@ recovery. Maybe eventually load dependencies and all that."
     (:states 'normal
      :prefix my-default-evil-leader-key
      "<SPC>" 'helm-M-x
-     "TAB"   'helm-resume
      "y y"   'helm-show-kill-ring
      "b b"   'helm-mini
      "m m"   'helm-bookmarks)
-    (:keymaps 'helm-map
-     "C-w"    'evil-delete-backward-word
-     "\\"     'helm-select-action
-     "C-j"    'helm-next-line
-     "C-k"    'helm-previous-line
-     "C-d"    'helm-next-page
-     "C-u"    'helm-previous-page
-     "C-l"    'helm-next-source
-     "C-h"    'helm-previous-source
-     "TAB"    'helm-execute-persistent-action)
+    ;; (:keymaps 'helm-map
+     ;; "C-w"    'evil-delete-backward-word
+     ;; "\\"     'helm-select-action
+     ;; "C-d"    'helm-next-page
+     ;; "C-u"    'helm-previous-page
+     ;; "C-l"    'helm-next-source
+     ;; "C-h"    'helm-previous-source
+     ;; "TAB"    'helm-execute-persistent-action)
     :init
     (evil-ex-define-cmd "bb"          'helm-mini)
     (evil-ex-define-cmd "book[marks]" 'helm-bookmarks)
@@ -339,12 +336,10 @@ recovery. Maybe eventually load dependencies and all that."
   (use-package org
     :defer 1
     ;; doesn't have a straight recipe because it relies on make or something
-    :commands (org-mode
-               orgtbl-mode
-               org-time-stamp-inactive
-               org-refile)
+    :commands (orgtbl-mode
+               org-babel-load-file)
     :general
-    (:states 'normal
+    (:states  'normal
      :keymaps 'org-mode-map
      "TAB"    'org-global-cycle
      "<tab>"  'org-global-cycle)
@@ -363,8 +358,8 @@ recovery. Maybe eventually load dependencies and all that."
     (org-src-mode-map
      "C-c C-'" 'org-src-edit-exit)
     :custom
-    (org-support-shift-select t
-                              "Let me use J in org-mode please.")
+    (org-support-shift-select
+     t "Let me use J in org-mode please.")
     (org-startup-indented t)
     (org-indent-mode-turns-on-hiding-stars t)
     (org-src-tab-acts-natively t)
@@ -398,19 +393,6 @@ recovery. Maybe eventually load dependencies and all that."
                                         (sp-local-pair 'org-mode "\"" nil
                                                        :when '(:rem sp-in-string-p))))
 
-    ;; (defun my-add-org-evil-embrace-pairs ()
-    ;;   "Add additional pairings that evil-surround doesn't cover"
-    ;;   (require 'evil-embrace)
-    ;;   (let ((org-pairs '((?= "=" . "=") ;; verbatim
-    ;;                      (?* "*" . "*") ;; bold
-    ;;                      (?_ "_" . "_") ;; underline
-    ;;                      (?+ "+" . "+") ;; strikethrough
-    ;;                      (?~ "~" . "~") ;; code
-    ;;                      (?/ "/" . "/")))) ;; italic
-    ;;     (dolist (pair org-pairs)
-    ;;       (embrace-add-pair (car pair) (cadr pair) (cddr pair)))))
-    ;; (add-hook 'org-mode-hook 'my-add-org-evil-embrace-pairs)
-
     ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
     (defun my-org-reformat-buffer ()
       (interactive)
@@ -424,8 +406,6 @@ recovery. Maybe eventually load dependencies and all that."
   ;;and the init load will fail
   (measure-time
    (org-babel-load-file (at-user-init-dir "config.org")))
-
-  ;; (straight-freeze-versions)
 
   ;; Disable ANNOYING customize options
   (setq custom-file (at-user-init-dir "custom.el"))

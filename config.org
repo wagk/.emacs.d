@@ -4,8 +4,6 @@ shadowing the helm mode maps. A proposed solution is to migrate to
 ~M-j~ and ~M-k~. These maps are also shadowing ~C-h~ and ~C-l~, which
 is getting annoying.
 
-The help+ packages are also not being autoloaded, which is also
-getting annoying.
 * Packaging
 #+BEGIN_SRC emacs-lisp
   (use-package auto-package-update
@@ -343,13 +341,13 @@ Full keybindings:
   (use-package git-gutter+
     :straight (:host github :repo "nonsequitur/git-gutter-plus" :branch "master")
     :general
-    (:states 'normal
+    (:states  'normal
      :keymaps 'git-gutter+-mode-map
-     "[ h"   'git-gutter+-previous-hunk
-     "] h"   'git-gutter+-next-hunk
-     "g h s" 'git-gutter+-stage-hunks
-     "g h u" 'git-gutter+-revert-hunks
-     "g h h" 'git-gutter+-show-hunk-inline-at-point)
+     "[ h"    'git-gutter+-previous-hunk
+     "] h"    'git-gutter+-next-hunk
+     "g h s"  'git-gutter+-stage-hunks
+     "g h u"  'git-gutter+-revert-hunks
+     "g h h"  'git-gutter+-show-hunk-inline-at-point)
     :init
     (use-package git-gutter-fringe+
       :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus" :branch "master")
