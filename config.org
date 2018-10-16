@@ -527,9 +527,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-fill-paragraph
     :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode" :branch "master")
-    :defer t
-    :init
-    (add-hook 'org-mode-hook 'aggressive-fill-paragraph-mode)
+    :hook (org-mode . aggressive-fill-paragraph-mode)
     :commands (aggressive-fill-paragraph-mode))
 #+END_SRC
 
@@ -538,7 +536,6 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent
     :straight (:host github :repo "malabarba/aggressive-indent-mode" :branch "master")
-    :defer t
     :commands (aggressive-indent-mode))
 #+END_SRC
 
@@ -611,8 +608,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
      "\"" nil) ;; let smartparens do its thing
     :custom
     (parinfer-auto-switch-indent-mode
-     t
-     "We prefer indent mode")
+     t "We prefer indent mode")
     :init
     (progn (setq parinfer-extensions
                  '(defaults       ; should be included.
@@ -673,7 +669,6 @@ package is known as elisp-mode but it reads as emacs-lisp-mode
 
 #+BEGIN_SRC emacs-lisp
   (use-package elisp-mode
-    :ensure nil
     :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
            (emacs-lisp-mode . parinfer-mode)
            (emacs-lisp-mode . update-evil-shift-width)))
