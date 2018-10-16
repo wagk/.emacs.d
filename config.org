@@ -211,9 +211,7 @@ package isn't being maintained or something
                :repo "emacs-helm/helm-descbinds"
                :branch "master")
     :general
-    ("C-h b" 'helm-descbinds)
-    :config
-    (helm-descbinds-mode))
+    ("C-h b" 'helm-descbinds))
 #+END_SRC
 
 * Org Mode
