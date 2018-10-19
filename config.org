@@ -227,14 +227,11 @@ Full keybindings:
     :hook (org-mode . evil-org-mode)
     :custom
     (evil-org-retain-visual-state-on-shift
-     t
-     "Let us chain < and > calls")
+     t "Let us chain < and > calls")
     (evil-org-use-additional-insert
-     t
-     "Add things like M-j to insert")
+     t "Add things like M-j to insert")
     (evil-org-special-o/O
-     '(table-row)
-     "Do not let o/O affect list items, throws me off")
+     '(table-row) "Do not let o/O affect list items, throws me off")
     :general
     (evil-org-mode-map
      :states 'normal
@@ -525,7 +522,6 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-fill-paragraph
     :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode" :branch "master")
-    :hook (org-mode . aggressive-fill-paragraph-mode)
     :commands (aggressive-fill-paragraph-mode))
 #+END_SRC
 
@@ -660,6 +656,26 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
     (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
     (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
     (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET"))))
+#+END_SRC
+
+* Clang Format
+#+BEGIN_SRC emacs-lisp
+  (use-package clang-format
+    :straight (:host github :repo "sonatard/clang-format" :branch "master")
+    :commands (clang-format-region
+               clang-format-buffer
+               clang-format)
+    :init
+    ;; IF there is a .clang-format, then use that to format before saving
+    (defun my-clang-format-before-save ()
+      (require 'projectile)
+      (require 'clang-format)
+      (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
+        (add-hook 'before-save-hook 'clang-format-buffer t t)))
+    :hook (c++-mode-hook . my-clang-format-before-save)
+    :custom
+    (clang-format-style-option "file"
+                               "read from .clang-format"))
 #+END_SRC
 
 * Elisp                                                               :major:
