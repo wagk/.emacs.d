@@ -249,8 +249,15 @@ recovery. Maybe eventually load dependencies and all that."
       (customize-set-variable 'evil-shift-width lisp-body-indent))
 
     ;; Back to our regularly scheduled programming
-    ;;(fset 'evil-visual-update-x-selection 'ignore)
     (evil-select-search-module 'evil-search-module 'evil-search)
+
+    ;; https://emacs.stackexchange.com/questions/28135/in-evil-mode-how-can-i-prevent-adding-to-the-kill-ring-when-i-yank-text-visual
+    (let ((func (lambda (oldpaste &rest r)
+                  (interactive)
+                  (let ((evil-this-register ?0))
+                    (call-interactively oldpaste)))))
+      (advice-add 'evil-paste-before :around func)
+      (advice-add 'evil-paste-after  :around func))
 
     (evil-ex-define-cmd "sh[ell]"    'shell) ;; at least shell shows its keymaps
     (evil-ex-define-cmd "tabn[ew]"   'make-frame)
@@ -290,28 +297,15 @@ recovery. Maybe eventually load dependencies and all that."
     :demand t
     :straight (:host github :repo "emacs-helm/helm" :branch "master")
     :general
-    ("C-h C-h" 'helm-apropos
-     "C-h h"   'helm-apropos)
+    ("C-h C-h" 'helm-apropos)
     (:states 'normal
-     "-" 'helm-find-files) ;; emulate vim-vinegar
+     "-"     'helm-find-files) ;; emulate vim-vinegar
     (:states 'normal
      :prefix my-default-evil-leader-key
-     "<SPC>" 'helm-M-x
-     "y y"   'helm-show-kill-ring
-     "b b"   'helm-mini
-     "m m"   'helm-bookmarks)
-    ;; (:keymaps 'helm-map
-     ;; "C-w"    'evil-delete-backward-word
-     ;; "\\"     'helm-select-action
-     ;; "C-d"    'helm-next-page
-     ;; "C-u"    'helm-previous-page
-     ;; "C-l"    'helm-next-source
-     ;; "C-h"    'helm-previous-source
-     ;; "TAB"    'helm-execute-persistent-action)
+     "<SPC>" 'helm-M-x)
     :init
-    (evil-ex-define-cmd "bb"          'helm-mini)
-    (evil-ex-define-cmd "book[marks]" 'helm-bookmarks)
-    (evil-ex-define-cmd "bm"          'helm-bookmarks)
+    (evil-ex-define-cmd "bb" 'helm-mini)
+    (evil-ex-define-cmd "bm" 'helm-bookmarks)
     :custom
     (helm-idle-delay 0.0)
     (helm-input-idle-delay 0.01)
@@ -334,7 +328,6 @@ recovery. Maybe eventually load dependencies and all that."
     (helm-mode))
 
   (use-package org
-    :defer 1
     ;; doesn't have a straight recipe because it relies on make or something
     :commands (orgtbl-mode
                org-babel-load-file)
@@ -384,15 +377,13 @@ recovery. Maybe eventually load dependencies and all that."
     (org-outline-path-complete-in-steps nil)
     (org-refile-allow-creating-parent-nodes 'confirm)
     (org-highlight-latex-and-related '(latex))
-    ;; (org-src-block-faces `(("emacs-lisp" (:foreground ,my-solarized-dark-base0))))
+    :hook ((org-insert-heading-hook . evil-insert-state)
+           ;; make smartparen autoskip "" because org-mode treats it as a string
+           (smartparens-mode-hook . (lambda ()
+                                      (sp-local-pair 'org-mode "\"" nil
+                                                     :when '(:rem sp-in-string-p))))
+           (org-mode-hook . aggressive-fill-paragraph-mode))
     :config
-    ;; when inserting a heading immediately go into insert mode
-    (add-hook 'org-insert-heading-hook 'evil-insert-state)
-    ;; make smartparen autoskip "" because org-mode treats it as a string
-    (add-hook 'smartparens-mode-hook '(lambda ()
-                                        (sp-local-pair 'org-mode "\"" nil
-                                                       :when '(:rem sp-in-string-p))))
-
     ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
     (defun my-org-reformat-buffer ()
       (interactive)
