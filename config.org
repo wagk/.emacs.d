@@ -115,8 +115,7 @@ package isn't being maintained or something
     (:keymaps 'evil-latex-textobjects-outer-map
      "e" nil
      "E" 'evil-latex-textobjects-an-env)
-    :init
-    (add-hook 'LaTeX-mode-hook 'turn-on-evil-latex-textobjects-mode))
+    :hook (LaTeX-mode . turn-on-evil-latex-textobjects-mode))
 #+END_SRC
 
 ** Surround text objects
@@ -286,9 +285,8 @@ Full keybindings:
     ;;   (interactive)
     ;;   (org-capture nil "d")
     ;; (evil-ex-define-cmd "todo" 'my-capture-daydream)
-    :config
+    :hook (org-capture-mode . evil-insert-state))
     ;; when inserting a heading immediately go into insert mode
-    (add-hook 'org-capture-mode-hook 'evil-insert-state))
     ;; (when (boundp 'my-journal-org-file)
     ;;   (add-to-list 'org-capture-templates
     ;;                `("j" "Journal Entry" entry
@@ -314,9 +312,8 @@ Full keybindings:
     :defer 11
     :init
     (evil-ex-define-cmd "git" 'magit-status)
-    :config
-    (add-hook 'git-commit-setup-hook 'aggressive-fill-paragraph-mode)
-    (add-hook 'git-commit-setup-hook 'markdown-mode))
+    :hook ((git-commit-setup . aggressive-fill-paragraph-mode)
+           (git-commit-setup . markdown-mode)))
 #+END_SRC
 
 *** Evil bindings
@@ -835,8 +832,7 @@ package manager
   (use-package markdown-mode
     :straight (:host github :repo "jrblevin/markdown-mode" :branch "master")
     :commands (markdown-mode)
-    :config
-    (add-hook 'markdown-mode-hook 'orgtbl-mode))
+    :hook (markdown-mode . orgtbl-mode))
 #+END_SRC
 
 * Dumb Jump

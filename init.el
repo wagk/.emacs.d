@@ -239,6 +239,7 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-auto-indent
      t
      "Automatically indent when inserting a newline")
+    :hook (evil-normal-state-entry . evil-ex-nohighlight)
     :config
     (defun update-evil-shift-width ()
       "We do this otherwise packages like parinfer would mess up with
@@ -262,12 +263,23 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-ex-define-cmd "sh[ell]"    'shell) ;; at least shell shows its keymaps
     (evil-ex-define-cmd "tabn[ew]"   'make-frame)
     (evil-ex-define-cmd "tabe[dit]"  'make-frame)
-    (evil-ex-define-cmd "qw[indow]"  'delete-frame)
     (evil-ex-define-cmd "init"       'find-user-init-file)
     (evil-ex-define-cmd "local"      'find-user-local-file)
     (evil-ex-define-cmd "me[ssage]"  '(lambda () (interactive) (switch-to-buffer "*Messages*")))
     (evil-ex-define-cmd "sc[ratch]"  '(lambda () (interactive) (switch-to-buffer "*scratch*")))
     (evil-ex-define-cmd "config"     'find-user-config-file)
+
+    ;; (evil-define-command find-user-config-test (file)
+    ;;   "Goes to either the local, config, or init file"
+    ;;   (interactive "<a>")
+    ;;   (message "%s is someghwsog" file)
+    ;;   (cond
+    ;;    ((string= file "init") (find-user-init-file))
+    ;;    ((string= file "local") (find-user-local-file))
+    ;;    ((string= file "config") (find-user-config-file))
+    ;;    (t (message "%s is not recognised" file))))
+
+    ;; (evil-ex-define-cmd "test" 'find-user-config-test)
 
     ;; https://stackoverflow.com/questions/18102004/emacs-evil-mode-how-to-create-a-new-text-object-to-select-words-with-any-non-sp/22418983#22418983
     (defmacro /evil-define-and-bind-text-object (key start-regex end-regex)
@@ -290,7 +302,6 @@ recovery. Maybe eventually load dependencies and all that."
       "Select entire buffer"
       (evil-range (point-min) (point-max)))
 
-    (add-hook 'evil-normal-state-entry-hook 'evil-ex-nohighlight)
     (evil-mode))
 
   (use-package helm
@@ -377,12 +388,12 @@ recovery. Maybe eventually load dependencies and all that."
     (org-outline-path-complete-in-steps nil)
     (org-refile-allow-creating-parent-nodes 'confirm)
     (org-highlight-latex-and-related '(latex))
-    :hook ((org-insert-heading-hook . evil-insert-state)
+    :hook ((org-insert-heading . evil-insert-state)
            ;; make smartparen autoskip "" because org-mode treats it as a string
-           (smartparens-mode-hook . (lambda ()
-                                      (sp-local-pair 'org-mode "\"" nil
-                                                     :when '(:rem sp-in-string-p))))
-           (org-mode-hook . aggressive-fill-paragraph-mode))
+           (smartparens-mode . (lambda ()
+                                 (sp-local-pair 'org-mode "\"" nil
+                                                :when '(:rem sp-in-string-p))))
+           (org-mode . aggressive-fill-paragraph-mode))
     :config
     ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
     (defun my-org-reformat-buffer ()
