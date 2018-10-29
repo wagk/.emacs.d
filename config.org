@@ -783,6 +783,20 @@ clojurescript-mode derives from clojure-mode
            (clojure-mode . update-evil-shift-width)))
 #+END_SRC
 
+* Rust
+#+BEGIN_SRC emacs-lisp
+  (use-package rust-mode
+    :straight (:host github :repo "rust-lang/rust-mode" :branch "master")
+    :mode
+    ("\\.rs\\'" . rust-mode)
+    :custom
+    (rust-format-on-save t)
+    :general
+    (:states 'insert
+     :keymaps 'rust-mode-map
+     "RET" 'comment-indent-new-line))
+#+END_SRC
+
 * Dired
 #+BEGIN_SRC emacs-lisp
   (general-define-key
