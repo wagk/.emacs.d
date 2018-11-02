@@ -432,7 +432,7 @@ Might have to install vdiff itself?
   (setq ring-bell-function 'ignore)
 #+END_SRC
 
-** Automatically refresh buffer when underlying file is changes externally
+** Automatically refresh buffer when underlying file is changed externally
 #+BEGIN_SRC
   (global-auto-revert-mode t)
 #+END_SRC
