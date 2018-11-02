@@ -314,7 +314,7 @@ Full keybindings:
       (cond
        ((string= cmd "pull") (magit-pull))
        ((string= cmd "commit") (magit-commit-create))
-       ((string= cmd "push") (magit-push))
+       ((string= cmd "push") (command-execute 'magit-push))
        ((string= cmd "log") (magit-log-all))
        ((eq cmd nil) (magit-status))
        (t (message "Command %s is not recognised" cmd))))
