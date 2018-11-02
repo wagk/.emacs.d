@@ -1,9 +1,3 @@
-* TODO Issues
-=evil-insert-state-keymap= has a binding ~C-k~ that is currently
-shadowing the helm mode maps. A proposed solution is to migrate to
-~M-j~ and ~M-k~. These maps are also shadowing ~C-h~ and ~C-l~, which
-is getting annoying.
-
 * Packaging
 #+BEGIN_SRC emacs-lisp
   (use-package auto-package-update
@@ -34,7 +28,8 @@ is getting annoying.
     :custom
     (evil-collection-setup-minibuffer t)
     :config
-    ;;NOTE: note that this REQUIRES the var `evil-want-integration' to be NIL
+    ;; NOTE: note that this REQUIRES the var `evil-want-integration' to
+    ;; be NIL
     (evil-collection-init))
 #+END_SRC
 
@@ -319,6 +314,7 @@ Full keybindings:
       (cond
        ((string= cmd "pull") (magit-pull))
        ((string= cmd "commit") (magit-commit))
+       ((string= cmd "log") (magit-log-all))
        ((eq cmd nil) (magit-status))
        (t (message "Command %s is not recognised" cmd))))
     (evil-ex-define-cmd "git" 'ex-magit-cli)
@@ -337,6 +333,23 @@ Full keybindings:
     (evil-magit-init))
 #+END_SRC
 
+*** Vimdiff
+#+BEGIN_SRC emacs-lisp
+  (use-package vdiff-magit
+    :straight (:host github :repo "justbur/emacs-vdiff-magit" :branch "master")
+    :after (magit)
+    :general
+    (magit-mode-map
+     "e" 'vdiff-magit-dwim
+     "E" 'vdiff-magit-popup)
+    :config
+    ;; refer to the repo for comments.
+    (setcdr (assoc ?e (plist-get magit-dispatch-popup :actions))
+            '("vdiff dwim" 'vdiff-magit-dwim))
+    (setcdr (assoc ?E (plist-get magit-dispatch-popup :actions))
+            '("vdiff popup" 'vdiff-magit-popup)))
+#+END_SRC
+
 ** Git Gutter
 - [ ] Is currently conflicting with org mode src blocks?
 
@@ -352,15 +365,14 @@ Full keybindings:
      "g h s"  'git-gutter+-stage-hunks
      "g h u"  'git-gutter+-revert-hunks
      "g h h"  'git-gutter+-show-hunk-inline-at-point)
+    :hook (prog-mode . git-gutter+-mode)
     :init
     (use-package git-gutter-fringe+
       :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus" :branch "master")
       :if (display-graphic-p)
       :after git-gutter+)
     :custom
-    (git-gutter+-hide-gutter t)
-    :config
-    (global-git-gutter+-mode))
+    (git-gutter+-hide-gutter t))
 #+END_SRC
 
 * Make Emacs Restartable
@@ -562,8 +574,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
      [remap evil-save-modified-and-close] 'yas-load-snippet-buffer-and-close
      [remap evil-quit]                    'kill-this-buffer)
     :config
-    (let ((my-snippet-dir (directory-file-name
-                           (concat user-init-dir "/snippets"))))
+    (let ((my-snippet-dir (at-user-init-dir "/snippets")))
       (setq-default yas-snippet-dirs `(,my-snippet-dir)))
     (setq yas-indent-line 'auto
           yas-also-auto-indent-first-line t)
@@ -571,9 +582,6 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
       (format "%s%s%s" comment-start str comment-end))
     (yas-global-mode))
 #+END_SRC
-
-#+RESULTS:
-: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 17807 912103 0) :init (23491 17807 911669 0) :config (23491 17807 911661 0) :config-secs (0 0 37289 0) :init-secs (0 0 37324 0) :use-package-secs (0 0 141288 0)))
 
 * Projectile
 #+BEGIN_SRC emacs-lisp
