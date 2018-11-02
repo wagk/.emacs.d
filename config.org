@@ -313,7 +313,8 @@ Full keybindings:
       (interactive "<a>")
       (cond
        ((string= cmd "pull") (magit-pull))
-       ((string= cmd "commit") (magit-commit))
+       ((string= cmd "commit") (magit-commit-create))
+       ((string= cmd "push") (magit-push))
        ((string= cmd "log") (magit-log-all))
        ((eq cmd nil) (magit-status))
        (t (message "Command %s is not recognised" cmd))))
@@ -333,10 +334,15 @@ Full keybindings:
     (evil-magit-init))
 #+END_SRC
 
-*** Vimdiff
+*** COMMENT Vimdiff
+
+For some reason the vdiff-mode-map isn't populated and does nothing.
+Might have to install vdiff itself?
+
 #+BEGIN_SRC emacs-lisp
   (use-package vdiff-magit
     :straight (:host github :repo "justbur/emacs-vdiff-magit" :branch "master")
+    :disabled t
     :after (magit)
     :general
     (magit-mode-map
@@ -351,7 +357,6 @@ Full keybindings:
 #+END_SRC
 
 ** Git Gutter
-- [ ] Is currently conflicting with org mode src blocks?
 
 #+BEGIN_SRC emacs-lisp
   (use-package git-gutter+
