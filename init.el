@@ -245,41 +245,28 @@ recovery. Maybe eventually load dependencies and all that."
       "We do this otherwise packages like parinfer would mess up with
         the indentation, since their default is 4 but lisp-mode defaults
         are generally 2."
-      (interactive)
       (require 'evil)
       (customize-set-variable 'evil-shift-width lisp-body-indent))
 
     ;; Back to our regularly scheduled programming
     (evil-select-search-module 'evil-search-module 'evil-search)
 
-    ;; https://emacs.stackexchange.com/questions/28135/in-evil-mode-how-can-i-prevent-adding-to-the-kill-ring-when-i-yank-text-visual
-    (let ((func (lambda (oldpaste &rest r)
-                  (interactive)
-                  (let ((evil-this-register ?0))
-                    (call-interactively oldpaste)))))
-      (advice-add 'evil-paste-before :around func)
-      (advice-add 'evil-paste-after  :around func))
+    ;; ;; https://emacs.stackexchange.com/questions/28135/in-evil-mode-how-can-i-prevent-adding-to-the-kill-ring-when-i-yank-text-visual
+    ;; (let ((func (lambda (oldpaste &rest r)
+    ;;               (interactive)
+    ;;               (let ((evil-this-register ?0))
+    ;;                 (call-interactively oldpaste)))))
+    ;;   (advice-add 'evil-paste-before :around func)
+    ;;   (advice-add 'evil-paste-after  :around func))
 
     (evil-ex-define-cmd "sh[ell]"    'shell) ;; at least shell shows its keymaps
     (evil-ex-define-cmd "tabn[ew]"   'make-frame)
     (evil-ex-define-cmd "tabe[dit]"  'make-frame)
     (evil-ex-define-cmd "init"       'find-user-init-file)
     (evil-ex-define-cmd "local"      'find-user-local-file)
+    (evil-ex-define-cmd "config"     'find-user-config-file)
     (evil-ex-define-cmd "me[ssage]"  '(lambda () (interactive) (switch-to-buffer "*Messages*")))
     (evil-ex-define-cmd "sc[ratch]"  '(lambda () (interactive) (switch-to-buffer "*scratch*")))
-    (evil-ex-define-cmd "config"     'find-user-config-file)
-
-    ;; (evil-define-command find-user-config-test (file)
-    ;;   "Goes to either the local, config, or init file"
-    ;;   (interactive "<a>")
-    ;;   (message "%s is someghwsog" file)
-    ;;   (cond
-    ;;    ((string= file "init") (find-user-init-file))
-    ;;    ((string= file "local") (find-user-local-file))
-    ;;    ((string= file "config") (find-user-config-file))
-    ;;    (t (message "%s is not recognised" file))))
-
-    ;; (evil-ex-define-cmd "test" 'find-user-config-test)
 
     ;; https://stackoverflow.com/questions/18102004/emacs-evil-mode-how-to-create-a-new-text-object-to-select-words-with-any-non-sp/22418983#22418983
     (defmacro /evil-define-and-bind-text-object (key start-regex end-regex)
@@ -314,6 +301,8 @@ recovery. Maybe eventually load dependencies and all that."
     (:states 'normal
      :prefix my-default-evil-leader-key
      "<SPC>" 'helm-M-x)
+    (helm-map
+     "TAB" 'helm-execute-persistent-action)
     :init
     (evil-ex-define-cmd "bb" 'helm-mini)
     (evil-ex-define-cmd "bm" 'helm-bookmarks)

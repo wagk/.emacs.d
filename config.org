@@ -307,11 +307,21 @@ Full keybindings:
 ** Magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit
-    :commands (magit-status)
     :straight (:host github :repo "magit/magit" :branch "master")
     :defer 11
+    :commands (magit-status
+               magit-pull
+               magit-commit)
     :init
-    (evil-ex-define-cmd "git" 'magit-status)
+    (evil-define-command ex-magit-cli (cmd)
+      "Calls specific magit functions"
+      (interactive "<a>")
+      (cond
+       ((string= cmd "pull") (magit-pull))
+       ((string= cmd "commit") (magit-commit))
+       ((eq cmd nil) (magit-status))
+       (t (message "Command %s is not recognised" cmd))))
+    (evil-ex-define-cmd "git" 'ex-magit-cli)
     :hook ((git-commit-setup . aggressive-fill-paragraph-mode)
            (git-commit-setup . markdown-mode)))
 #+END_SRC
