@@ -312,9 +312,9 @@ Full keybindings:
       "Calls specific magit functions"
       (interactive "<a>")
       (cond
-       ((string= cmd "pull") (magit-pull))
-       ((string= cmd "commit") (magit-commit-create))
-       ((string= cmd "push") (command-execute 'magit-push))
+       ((string= cmd "pull") (magit-pull-from-pushremote nil))
+       ((string= cmd "commit") (magit-commit))
+       ((string= cmd "push") (magit-push-current-to-pushremote nil))
        ((string= cmd "log") (magit-log-all))
        ((eq cmd nil) (magit-status))
        (t (message "Command %s is not recognised" cmd))))
