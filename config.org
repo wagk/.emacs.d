@@ -1,5 +1,5 @@
 * Packaging
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package auto-package-update
     :defer 5
     :straight (:host github :repo "rranelli/auto-package-update.el" :branch "master")
@@ -19,7 +19,7 @@
 
 * Evil
 ** Evil Collection
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-collection
     :after (evil)
     :straight (:host github
@@ -34,7 +34,7 @@
 #+END_SRC
 
 ** Alignment
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-lion
     :straight (:host github :repo "edkolev/evil-lion" :branch "master")
     :defer 2
@@ -45,7 +45,7 @@
 
 ** Increment and Decrement
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-numbers
     :straight (:host github :repo "cofi/evil-numbers" :branch "master")
     :general
@@ -68,7 +68,7 @@ Adds the following ex commands:
 | :tyank             | copy range into tmux paste buffer, requires running under tmux |
 | :tput              | paste from tmux paste nuffer, requires running under tmux      |
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-expat
     :straight (:host github :repo "edkolev/evil-expat" :branch "master")
     :defer 1)
@@ -78,7 +78,7 @@ Adds the following ex commands:
 Allows for * and # commands. which originally only worked on WORDs,
 to work on a visual selection too
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-visualstar
     :straight (:host github :repo "bling/evil-visualstar" :branch "master")
     :after (evil)
@@ -98,7 +98,7 @@ package isn't being maintained or something
 | =m= | TeX macros (\foo{})                  |
 | =E= | Tex environments (\begin{}...\end{}) |
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-latex-textobjects
     :defer t
     :load-path "local-packages/"
@@ -115,7 +115,7 @@ package isn't being maintained or something
 
 ** Surround text objects
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-surround
     :straight (:host github :repo "emacs-evil/evil-surround" :branch "master")
     :after (evil)
@@ -126,7 +126,7 @@ package isn't being maintained or something
 
 ** Argument text objects
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-args
     :straight (:host github :repo "wcsmith/evil-args" :branch "master")
     :after (evil)
@@ -138,7 +138,7 @@ package isn't being maintained or something
 #+END_SRC
 
 ** Comment using text objects
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-commentary
     :straight (:host github :repo "linktohack/evil-commentary"
                :branch "master")
@@ -149,7 +149,7 @@ package isn't being maintained or something
 #+END_SRC
 
 ** Comment Text Objects
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-nerd-commenter
     :straight (:host github :repo "redguardtoo/evil-nerd-commenter"
                :branch "master")
@@ -162,7 +162,7 @@ package isn't being maintained or something
 #+END_SRC
 
 ** Indent text objects
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-indent-plus
     :straight (:host github :repo "TheBB/evil-indent-plus" :branch "master")
     :general
@@ -175,7 +175,7 @@ package isn't being maintained or something
 #+END_SRC
 
 ** Targets
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package targets
     :after (evil)
     :defer 2
@@ -188,7 +188,7 @@ package isn't being maintained or something
 * Helm
 
 ** Describe Modes
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package helm-describe-modes
     :straight (:host github
                :repo "emacs-helm/helm-describe-modes"
@@ -199,7 +199,7 @@ package isn't being maintained or something
 
 ** Describe Bindings
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package helm-descbinds
     :straight (:host github
                :repo "emacs-helm/helm-descbinds"
@@ -214,7 +214,7 @@ package isn't being maintained or something
 Full keybindings:
 - https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-org
     :straight (:host github :repo "Somelauw/evil-org-mode" :branch "master")
     :defer t
@@ -249,7 +249,7 @@ Full keybindings:
 
 ** Org Capture Bindings
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package org-capture
     :ensure nil ;; because org-capture is from org
     :after (org)
@@ -300,7 +300,7 @@ Full keybindings:
 * Git
 
 ** Magit
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package magit
     :straight (:host github :repo "magit/magit" :branch "master")
     :defer 11
@@ -325,7 +325,7 @@ Full keybindings:
 #+END_SRC
 
 *** Evil bindings
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-magit
     :straight (:host github
                :repo "emacs-evil/evil-magit"
@@ -340,7 +340,7 @@ Full keybindings:
 For some reason the vdiff-mode-map isn't populated and does nothing.
 Might have to install vdiff itself?
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package vdiff-magit
     :straight (:host github :repo "justbur/emacs-vdiff-magit" :branch "master")
     :disabled t
@@ -359,7 +359,7 @@ Might have to install vdiff itself?
 
 ** Git Gutter
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package git-gutter+
     :straight (:host github :repo "nonsequitur/git-gutter-plus" :branch "master")
     :defer 7
@@ -382,7 +382,7 @@ Might have to install vdiff itself?
 #+END_SRC
 
 * Make Emacs Restartable
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package restart-emacs
     :straight (:host github :repo "iqbalansari/restart-emacs" :branch "master")
     :commands (restart-emacs)
@@ -392,7 +392,7 @@ Might have to install vdiff itself?
 
 * Quality of Life
 ** Disable GUI Elements
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
@@ -400,7 +400,7 @@ Might have to install vdiff itself?
 #+END_SRC
 
 ** Configure scratch buffer message
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq initial-scratch-message
         "It is possible to commit no mistakes and still lose.
   That is not weakness. That is life.
@@ -409,27 +409,27 @@ Might have to install vdiff itself?
 #+END_SRC
 
 ** Configure scratch buffer initial mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq initial-major-mode 'fundamental-mode)
 #+END_SRC
 
 ** Change "yes or no" to "y or n"
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
 ** Disable startup screen
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq inhibit-startup-screen t)
 #+END_SRC
 
 ** Require newlines at the end of all files
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq-default require-final-newline t)
 #+END_SRC
 
 ** Disable alert sounds
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq ring-bell-function 'ignore)
 #+END_SRC
 
@@ -439,47 +439,47 @@ Might have to install vdiff itself?
 #+END_SRC
 
 ** Make window subprocess communications faster
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq w32-pipe-read-delay 0)
 #+END_SRC
 
 ** Set default tab width
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq-default tab-width 4)
 #+END_SRC
 
 ** Make <TAB> always indent
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq tab-always-indent 'complete)
 #+END_SRC
 
 ** Never indent with a TAB character
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq-default indent-tabs-mode nil)
 #+END_SRC
 
 ** Strip Whitespace on save
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
 
 ** After creating a new frame, immediately focus on that frame.
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (add-hook 'after-make-frame-functions 'select-frame)
 #+END_SRC
 
 ** Sentences should end after a single space, not two
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (customize-set-variable 'sentence-end-double-space nil)
 #+END_SRC
 
 ** Underscores should be considered as part of a word
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (add-hook 'after-change-major-mode-hook '(lambda () (modify-syntax-entry ?_ "w")))
 #+END_SRC
 
 ** Ensure that files being edited are recoverable
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq delete-old-versions t
         backup-by-copying t
         version-control t
@@ -495,18 +495,18 @@ Might have to install vdiff itself?
 
 ** Stretch caret to cover full width of character
 http://pragmaticemacs.com/emacs/adaptive-cursor-width/
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq x-stretch-cursor t)
 #+END_SRC
 
 ** Display line numbers when editing code
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (when (>= emacs-major-version 26)
     (add-hook 'prog-mode-hook 'display-line-numbers-mode))
 #+END_SRC
 
 ** Scroll like Vim
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (setq scroll-step 1
         scroll-margin 1
         scroll-conservatively 9999)
@@ -515,13 +515,13 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 * Display
 
 ** Prefer dark backgrounds
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (customize-set-variable 'frame-background-mode 'dark)
   (set-terminal-parameter nil 'background-mode 'dark)
 #+END_SRC
 
 ** Solarized
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package solarized-theme
     :defer 2
     :custom
@@ -544,7 +544,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 
 ** Aggressive Fill Paragraph
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package aggressive-fill-paragraph
     :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode" :branch "master")
     :commands (aggressive-fill-paragraph-mode))
@@ -552,7 +552,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 
 ** Aggressive Indent
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package aggressive-indent
     :straight (:host github :repo "malabarba/aggressive-indent-mode" :branch "master")
     :commands (aggressive-indent-mode))
@@ -560,7 +560,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 
 ** Yasnippet
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package yasnippet
     :defer 3
     :straight (:host github :repo "joaotavora/yasnippet" :branch "master")
@@ -590,7 +590,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+END_SRC
 
 * Projectile
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package projectile
     :straight (:host github :repo "bbatsov/projectile" :branch "master")
     :commands (projectile-mode)
@@ -600,7 +600,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+END_SRC
 
 ** Helm-projectile
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package helm-projectile
     :straight (:host github :repo "bbatsov/helm-projectile" :branch "master")
     :general
@@ -608,13 +608,10 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
      "_" 'helm-projectile))
 #+END_SRC
 
-#+RESULTS:
-: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 26322 471789 0) :use-package-secs (0 0 263452 0)))
-
 * Lisp
 
 ** Parinfer
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package parinfer
     :straight (:host github :repo "DogLooksGood/parinfer-mode" :branch "master")
     :commands (parinfer-mode)
@@ -634,14 +631,14 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+END_SRC
 
 ** Rainbow Delimiter Mode
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package rainbow-delimiters
     :straight (:host github :repo "Fanael/rainbow-delimiters" :branch "master")
     :commands (rainbow-delimiters-mode))
 #+END_SRC
 
 ** Smartparens
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package smartparens
     :defer 2
     :straight (:host github :repo "Fuco1/smartparens" :branch "master")
@@ -680,7 +677,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+END_SRC
 
 * Clang Format
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package clang-format
     :straight (:host github :repo "sonatard/clang-format" :branch "master")
     :commands (clang-format-region
@@ -700,13 +697,13 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+END_SRC
 
 * Elisp                                                               :major:
-package is known as elisp-mode but it reads as emacs-lisp-mode
+package is known as elisp-mode but it reads as emacs-lisp :results output silent-mode
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package elisp-mode
-    :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
-           (emacs-lisp-mode . parinfer-mode)
-           (emacs-lisp-mode . update-evil-shift-width)))
+    :hook ((emacs-lisp :results output silent-mode . rainbow-delimiters-mode)
+           (emacs-lisp :results output silent-mode . parinfer-mode)
+           (emacs-lisp :results output silent-mode . update-evil-shift-width)))
 #+END_SRC
 
 ** Update Indentation Function
@@ -714,7 +711,7 @@ NOTE: We want to carefully override this
 https://emacs.stackexchange.com/questions/10230/how-to-indent-keywords-aligned
 https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/site-lisp/redef.el#L20-L94
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (defun my-updated-lisp-indent-function (indent-point state)
     "This function is the normal value of the variable `lisp-indent-function'.
   The function `calculate-lisp-indent' calls this to determine
@@ -797,7 +794,7 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 
 clojurescript-mode derives from clojure-mode
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package clojure-mode
     :straight (:host github :repo "clojure-emacs/clojure-mode" :branch "master")
     :commands (clojure-mode
@@ -808,7 +805,7 @@ clojurescript-mode derives from clojure-mode
 #+END_SRC
 
 * Rust
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package rust-mode
     :straight (:host github :repo "rust-lang/rust-mode" :branch "master")
     :mode
@@ -822,7 +819,7 @@ clojurescript-mode derives from clojure-mode
 #+END_SRC
 
 * Dired
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (general-define-key
    :states 'normal
    :keymaps 'dired-mode-map
@@ -841,7 +838,7 @@ These packages are from emacswiki, and are currently not being maintained.
 They are being stored and loaded locally, since they are not on melpa or any
 package manager
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package help+
     :defer 7
     :load-path "local-packages/")
@@ -866,7 +863,7 @@ package manager
 
 * Markdown                                                            :major:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package markdown-mode
     :straight (:host github :repo "jrblevin/markdown-mode" :branch "master")
     :commands (markdown-mode)
@@ -874,7 +871,7 @@ package manager
 #+END_SRC
 
 * Dumb Jump
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package dumb-jump
     :straight (:host github :repo "jacktasia/dumb-jump" :branch "master")
     :general
@@ -882,7 +879,7 @@ package manager
      "g d" 'dumb-jump-go))
 #+END_SRC
 * Elmacro
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package elmacro
     :straight (:host github :repo "Silex/elmacro" :branch "master")
     :commands (elmacro-show-last-macro
@@ -893,7 +890,7 @@ package manager
 #+END_SRC
 
 * Helm Sources for Elisp info
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (defun find-helm-info-emacs-elisp-cl ()
     "Helm for Emacs, Elisp, and CL-library info pages."
     (interactive)

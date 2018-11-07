@@ -362,11 +362,10 @@ recovery. Maybe eventually load dependencies and all that."
     (org-src-fontify-natively t)
     (org-default-notes-file "~/TODO.org")
     (org-M-RET-may-split-line nil)
-    (org-enforce-todo-checkbox-dependencies
-     nil
+    (org-enforce-todo-checkbox-dependencies nil
      "Sometimes we are able to skip dependencies as things happen")
-    (org-enforce-todo-dependencies          nil)
-    (org-pretty-entities                    nil)
+    (org-enforce-todo-dependencies nil)
+    (org-pretty-entities nil)
     (org-log-done       'time)
     (org-log-redeadline 'time)
     (org-log-reschedule 'time)
