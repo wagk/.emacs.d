@@ -304,8 +304,22 @@ recovery. Maybe eventually load dependencies and all that."
     (helm-map
      "TAB" 'helm-execute-persistent-action)
     :init
-    (evil-ex-define-cmd "bb" 'helm-mini)
-    (evil-ex-define-cmd "bm" 'helm-bookmarks)
+    (defun find-helm-info-emacs-elisp-cl ()
+      "Helm for Emacs, Elisp, and CL-library info pages."
+      (interactive)
+      (helm :sources '(helm-source-info-emacs
+                       helm-source-info-elisp
+                       helm-source-info-cl)))
+    (evil-define-command ex-helm-apropos (cmd)
+      (interactive "<a>")
+      (cond
+       ((string= cmd "elisp") (find-helm-info-emacs-elisp-cl))
+       ((eq cmd nil) (helm-apropos))
+       (t (helm-apropos cmd))))
+    (evil-ex-define-cmd "elisp"  'find-helm-info-emacs-elisp-cl)
+    (evil-ex-define-cmd "h[elp]" 'ex-helm-apropos)
+    (evil-ex-define-cmd "bb"     'helm-mini)
+    (evil-ex-define-cmd "bm"     'helm-bookmarks)
     :custom
     (helm-idle-delay 0.0)
     (helm-input-idle-delay 0.01)
