@@ -701,9 +701,9 @@ package is known as elisp-mode but it reads as emacs-lisp :results output silent
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package elisp-mode
-    :hook ((emacs-lisp :results output silent-mode . rainbow-delimiters-mode)
-           (emacs-lisp :results output silent-mode . parinfer-mode)
-           (emacs-lisp :results output silent-mode . update-evil-shift-width)))
+    :hook ((emacs-lisp . rainbow-delimiters-mode)
+           (emacs-lisp . parinfer-mode)
+           (emacs-lisp . update-evil-shift-width)))
 #+END_SRC
 
 ** Update Indentation Function
