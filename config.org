@@ -917,12 +917,13 @@ package manager
 
 * Helm Sources for Elisp info
 #+BEGIN_SRC emacs-lisp :results output silent
-  (defun find-helm-info-emacs-elisp-cl ()
+  (evil-define-command find-helm-info-emacs-elisp-cl (init)
     "Helm for Emacs, Elisp, and CL-library info pages."
-    (interactive)
+    (interactive "<a>")
     (helm :sources '(helm-source-info-emacs
                      helm-source-info-elisp
-                     helm-source-info-cl)))
+                     helm-source-info-cl)
+          :input init))
   (evil-ex-define-cmd "elisp" 'find-helm-info-emacs-elisp-cl)
 #+END_SRC
 
@@ -984,7 +985,7 @@ package manager
       "If given an argument, pre-populates the deft filter with
       that argument"
       (interactive "<a>")
-      (deft-filter (if filter filter "") t)
+      (deft-filter filter t)
       (deft))
     (evil-ex-define-cmd "n[ote]" 'ex-deft-forwarding-arg)
     (evil-set-initial-state 'deft-mode 'insert))
