@@ -948,7 +948,8 @@ package manager
   (use-package deft
     :straight (:host github :repo "jrblevin/deft" :branch "master")
     :commands (deft
-               deft-filter)
+                deft-filter
+                deft-setup) ;; call this if no .deft folder is found
     :custom
     (deft-auto-save-interval 0.0
       "Disable autosave because of permissions issues causing massive lag")
@@ -981,7 +982,7 @@ package manager
     :init
     (evil-define-command ex-deft-forwarding-arg (filter)
       "If given an argument, pre-populates the deft filter with
-    that argument"
+      that argument"
       (interactive "<a>")
       (deft-filter (if filter filter "") t)
       (deft))
