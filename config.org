@@ -318,6 +318,11 @@ Full keybindings:
 #+RESULTS:
 : #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 20845 78356 0) :init (23491 20845 78014 0) :init-secs (0 0 36 0) :use-package-secs (0 0 439 0)))
 
+** org-velocity
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package org-velocity
+    :commands (org-velocity-read))
+#+END_SRC
 * Git
 
 ** Magit
@@ -936,4 +941,50 @@ package manager
   (use-package anki-editor
     :disabled t
     :straight (:host github :repo "louietan/anki-editor" :branch "master"))
+#+END_SRC
+
+* Deft
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package deft
+    :straight (:host github :repo "jrblevin/deft" :branch "master")
+    :commands (deft
+               deft-filter)
+    :custom
+    (deft-auto-save-interval 0.0
+      "Disable autosave because of permissions issues causing massive lag")
+    (deft-extensions '("org")
+      "Set the extensions for deft notes")
+    (deft-recursive t
+      "Recursively search so we can organise by folders")
+    (deft-use-filter-string-for-filename t)
+    (deft-file-naming-rules '((noslash . "-")
+                              (nospace . "-")
+                              (case-fn . downcase)))
+    :general
+    (deft-mode-map
+      [remap evil-quit] 'quit-window)
+    (:keymaps 'deft-mode-map
+     :states  '(insert normal motion)
+     "C-j"    'widget-forward
+     "C-k"    'widget-backward)
+    (:keymaps 'deft-mode-map
+     :states  'normal
+     "q"      'quit-window ;; first emacsy binding in a vim state [2018-03-21 Wed]
+     "p"      'deft-filter-yank
+     "d d"    'deft-delete-file)
+    (:keymaps 'deft-mode-map
+     :states  'insert
+     "C-w"    'deft-filter-decrement-word
+     "C-u"    'deft-filter-clear)
+    :hook ((deft-open-file . org-mode)
+           (deft-mode . evil-insert-state))
+    :init
+    (evil-define-command ex-deft-forwarding-arg (filter)
+      "If given an argument, pre-populates the deft filter with
+    that argument"
+      (interactive "<a>")
+      (deft-filter (if filter filter "") t)
+      (deft))
+    (evil-ex-define-cmd "n[ote]" 'ex-deft-forwarding-arg)
+    (evil-set-initial-state 'deft-mode 'insert))
 #+END_SRC
