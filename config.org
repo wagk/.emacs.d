@@ -161,6 +161,22 @@ package isn't being maintained or something
      "c" 'evilnc-outer-commenter))
 #+END_SRC
 
+** Syntax Text Objects
+Bound to "h"
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package evil-textobj-syntax
+    :straight (:host github :repo "laishulu/evil-textobj-syntax" :branch "master")
+    :after evil)
+#+END_SRC
+
+** Line Text Objects
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package evil-textobj-line
+    :straight (:host github :repo "syohex/evil-textobj-line" :branch "master")
+    :after evil)
+#+END_SRC
+
 ** Indent text objects
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-indent-plus
@@ -182,7 +198,12 @@ package isn't being maintained or something
     :straight (:host github :repo "noctuid/targets.el"
                :branch "master")
     :config
-    (targets-setup t))
+    (targets-setup t
+                   :last-key nil
+                   :next-key nil
+                   :inside-key nil
+                   :around-key nil
+                   :remote-key nil))
 #+END_SRC
 
 * Helm
@@ -701,9 +722,9 @@ package is known as elisp-mode but it reads as emacs-lisp :results output silent
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package elisp-mode
-    :hook ((emacs-lisp . rainbow-delimiters-mode)
-           (emacs-lisp . parinfer-mode)
-           (emacs-lisp . update-evil-shift-width)))
+    :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
+           (emacs-lisp-mode . parinfer-mode)
+           (emacs-lisp-mode . update-evil-shift-width)))
 #+END_SRC
 
 ** Update Indentation Function
@@ -898,4 +919,21 @@ package manager
                      helm-source-info-elisp
                      helm-source-info-cl)))
   (evil-ex-define-cmd "elisp" 'find-helm-info-emacs-elisp-cl)
+#+END_SRC
+
+* Anki
+
+** Markdown flavored anki editing
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package anki-mode
+    :disabled t
+    :straight (:host github :repo "davidshepherd7/anki-mode" :branch "master")
+    :commands (anki-mode-menu))
+#+END_SRC
+
+** Orgmode flavored anki editing
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package anki-editor
+    :disabled t
+    :straight (:host github :repo "louietan/anki-editor" :branch "master"))
 #+END_SRC
