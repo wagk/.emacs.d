@@ -988,3 +988,18 @@ package manager
     (evil-ex-define-cmd "n[ote]" 'ex-deft-forwarding-arg)
     (evil-set-initial-state 'deft-mode 'insert))
 #+END_SRC
+
+* Silver Searcher (Ag)
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package ag
+    :straight (:host github :repo "Wilfred/ag.el" :branch "master")
+    :commands ag)
+#+END_SRC
+
+** Helm Ag
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package helm-ag
+    :straight (:host github :repo "syohex/emacs-helm-ag" :branch "master")
+    :commands (helm-ag
+               helm-ag-this-file))
+#+END_SRC
