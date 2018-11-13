@@ -119,7 +119,6 @@ package isn't being maintained or something
   (use-package evil-surround
     :straight (:host github :repo "emacs-evil/evil-surround" :branch "master")
     :after (evil)
-    :defer 2
     :config
     (global-evil-surround-mode))
 #+END_SRC
@@ -140,10 +139,8 @@ package isn't being maintained or something
 ** Comment using text objects
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-commentary
-    :straight (:host github :repo "linktohack/evil-commentary"
-               :branch "master")
+    :straight (:host github :repo "linktohack/evil-commentary" :branch "master")
     :after (evil)
-    :defer 2
     :config
     (evil-commentary-mode))
 #+END_SRC
@@ -151,8 +148,7 @@ package isn't being maintained or something
 ** Comment Text Objects
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-nerd-commenter
-    :straight (:host github :repo "redguardtoo/evil-nerd-commenter"
-               :branch "master")
+    :straight (:host github :repo "redguardtoo/evil-nerd-commenter" :branch "master")
     :after (evil)
     :general
     (evil-inner-text-objects-map
@@ -954,6 +950,8 @@ package manager
     :custom
     (deft-auto-save-interval 0.0
       "Disable autosave because of permissions issues causing massive lag")
+    ;; (deft-directory my-local-dropbox-folder
+    ;;   "Point to ")
     (deft-extensions '("org")
       "Set the extensions for deft notes")
     (deft-recursive t
