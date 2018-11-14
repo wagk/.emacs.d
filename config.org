@@ -950,8 +950,6 @@ package manager
     :custom
     (deft-auto-save-interval 0.0
       "Disable autosave because of permissions issues causing massive lag")
-    ;; (deft-directory my-local-dropbox-folder
-    ;;   "Point to ")
     (deft-extensions '("org")
       "Set the extensions for deft notes")
     (deft-recursive t
@@ -986,7 +984,10 @@ package manager
       (deft-filter filter t)
       (deft))
     (evil-ex-define-cmd "n[ote]" 'ex-deft-forwarding-arg)
-    (evil-set-initial-state 'deft-mode 'insert))
+    (evil-set-initial-state 'deft-mode 'insert)
+    :config
+    (when (boundp 'config-local-dropbox-folder)
+      (customize-set-value 'deft-directory (concat (file-name-as-directory config-local-dropbox-folder) "notes"))))
 #+END_SRC
 
 * Silver Searcher (Ag)
