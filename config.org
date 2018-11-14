@@ -421,6 +421,10 @@ Might have to install vdiff itself?
   (window-divider-mode -1)
 #+END_SRC
 
+** Do not truncate lines
+#+BEGIN_SRC emacs-lisp :results output silent
+  (setq-default truncate-lines t)
+#+END_SRC
 ** Configure scratch buffer message
 #+BEGIN_SRC emacs-lisp :results output silent
   (setq initial-scratch-message
