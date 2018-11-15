@@ -1,6 +1,6 @@
-# key: ```
+# -*- mode: snippet -*-
+# key: code
 # name: markdown-code-block
 # --
-\`\`\` $1
-  $0
+\`\`\` $0
 \`\`\`

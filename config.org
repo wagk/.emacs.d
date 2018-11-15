@@ -255,7 +255,7 @@ Full keybindings:
                               shift
                               return
                               operators
-                              ;; todo
+                              todo
                               ;; heading
                               calendar))
     (with-eval-after-load 'org-agenda
