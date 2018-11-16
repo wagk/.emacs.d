@@ -828,6 +828,17 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
   (advice-add 'lisp-indent-function :override 'my-updated-lisp-indent-function)
 #+END_SRC
 
+** Elmacro
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package elmacro
+    :straight (:host github :repo "Silex/elmacro" :branch "master")
+    :commands (elmacro-show-last-macro
+               elmacro-show-last-commands
+               elmacro-clear-recorded-commands)
+    :config
+    (elmacro-mode))
+#+END_SRC
+
 * Clojure                                                             :major:
 
 clojurescript-mode derives from clojure-mode
@@ -847,7 +858,7 @@ clojurescript-mode derives from clojure-mode
       (cl-pushnew '("cljs" . clojurescript) org-src-lang-modes)))
 #+END_SRC
 
-* Rust
+* Rust                                                                :major:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package rust-mode
     :straight (:host github :repo "rust-lang/rust-mode" :branch "master")
@@ -858,7 +869,10 @@ clojurescript-mode derives from clojure-mode
     :general
     (:states 'insert
      :keymaps 'rust-mode-map
-     "RET" 'comment-indent-new-line))
+     "RET" 'comment-indent-new-line)
+    :init
+    (with-eval-after-load 'org-src
+      (cl-pushnew '("rust" . rust) org-src-lang-modes)))
 #+END_SRC
 
 * Dired
@@ -910,7 +924,10 @@ package manager
   (use-package markdown-mode
     :straight (:host github :repo "jrblevin/markdown-mode" :branch "master")
     :commands (markdown-mode)
-    :hook (markdown-mode . orgtbl-mode))
+    :hook (markdown-mode . orgtbl-mode)
+    :init
+    (with-eval-after-load 'org-src
+      (cl-pushnew '("md" . markdown) org-src-lang-modes)))
 #+END_SRC
 
 * Dumb Jump
@@ -921,17 +938,6 @@ package manager
     (:states 'normal
      "g d" 'dumb-jump-go))
 #+END_SRC
-* Elmacro
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package elmacro
-    :straight (:host github :repo "Silex/elmacro" :branch "master")
-    :commands (elmacro-show-last-macro
-               elmacro-show-last-commands
-               elmacro-clear-recorded-commands)
-    :config
-    (elmacro-mode))
-#+END_SRC
-
 * Helm Sources for Elisp info
 #+BEGIN_SRC emacs-lisp :results output silent
   (evil-define-command find-helm-info-emacs-elisp-cl (init)
@@ -1011,7 +1017,7 @@ package manager
       (customize-set-value 'deft-directory (concat (file-name-as-directory config-local-dropbox-folder) "notes"))))
 #+END_SRC
 
-* JSON
+* JSON                                                                :major:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package json-mode
     :straight (:host github :repo "joshwnj/json-mode" :branch "master")
