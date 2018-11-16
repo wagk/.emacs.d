@@ -2,6 +2,5 @@
 # name: org-mode-code-block
 # key: src
 # --
-#+BEGIN_SRC ${1:emacs-lisp}
-$0
+#+BEGIN_SRC $1
 #+END_SRC

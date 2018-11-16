@@ -193,6 +193,17 @@ Bound to "h"
     :defer 2
     :straight (:host github :repo "noctuid/targets.el"
                :branch "master")
+    :commands (targets-inner-paren
+               targets-inner-curly
+               targets-a-paren
+               targets-a-curly)
+    :general
+    (evil-inner-text-objects-map
+     "b" 'targets-inner-paren
+     "B" 'targets-inner-curly)
+    (evil-outer-text-objects-map
+     "b" 'targets-a-paren
+     "B" 'targets-a-curly)
     :config
     (targets-setup t
                    :last-key nil
@@ -425,6 +436,7 @@ Might have to install vdiff itself?
 #+BEGIN_SRC emacs-lisp :results output silent
   (setq-default truncate-lines t)
 #+END_SRC
+
 ** Configure scratch buffer message
 #+BEGIN_SRC emacs-lisp :results output silent
   (setq initial-scratch-message
@@ -827,7 +839,12 @@ clojurescript-mode derives from clojure-mode
                clojurescript-mode)
     :hook ((clojure-mode . rainbow-delimiters-mode)
            (clojure-mode . parinfer-mode)
-           (clojure-mode . update-evil-shift-width)))
+           (clojure-mode . update-evil-shift-width))
+    :init
+    (with-eval-after-load 'org-src
+      (cl-pushnew '("edn" . clojure) org-src-lang-modes)
+      (cl-pushnew '("clj" . clojure) org-src-lang-modes)
+      (cl-pushnew '("cljs" . clojurescript) org-src-lang-modes)))
 #+END_SRC
 
 * Rust
@@ -994,6 +1011,15 @@ package manager
       (customize-set-value 'deft-directory (concat (file-name-as-directory config-local-dropbox-folder) "notes"))))
 #+END_SRC
 
+* JSON
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package json-mode
+    :straight (:host github :repo "joshwnj/json-mode" :branch "master")
+    :commands (json-mode)
+    :init
+    (with-eval-after-load 'org-src
+      (cl-pushnew '("json" . json) org-src-lang-modes)))
+#+END_SRC
 * Silver Searcher (Ag)
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ag
