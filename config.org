@@ -414,6 +414,10 @@ Might have to install vdiff itself?
     (git-gutter+-hide-gutter t))
 #+END_SRC
 
+** Git hunk textobjects
+
+Look at `git-gutter+-diffinfo-at-point` and see if we can leverage
+that for the range we want
 * Make Emacs Restartable
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package restart-emacs
@@ -439,11 +443,15 @@ Might have to install vdiff itself?
 
 ** Configure scratch buffer message
 #+BEGIN_SRC emacs-lisp :results output silent
-  (setq initial-scratch-message
-        "It is possible to commit no mistakes and still lose.
-  That is not weakness. That is life.
-
-  ")
+    (setq initial-scratch-message
+          "It is possible to commit no mistakes and still lose.
+    That is not weakness. That is life.
+    ,* Measure the smallest possible victory
+    ,* Drill one thing at a time until it is unthinking habit.
+    ,* Shorter periods of study every day beat cramming
+    ,* When you are starting, try a million different things
+    ,* Debrief your successes and failures
+    ")
 #+END_SRC
 
 ** Configure scratch buffer initial mode

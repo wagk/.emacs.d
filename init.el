@@ -371,7 +371,8 @@ recovery. Maybe eventually load dependencies and all that."
     (org-indent-mode-turns-on-hiding-stars t)
     (org-src-tab-acts-natively t)
     (org-src-window-setup
-     'current-window
+     ;; 'current-window
+     'other-window
      "I tend to have documentation/other things on adjacent windows")
     (org-src-fontify-natively t)
     (org-default-notes-file "~/TODO.org")
