@@ -961,6 +961,7 @@ package manager
     (:states 'normal
      "g d" 'dumb-jump-go))
 #+END_SRC
+
 * Helm Sources for Elisp info
 #+BEGIN_SRC emacs-lisp :results output silent
   (evil-define-command find-helm-info-emacs-elisp-cl (init)
@@ -1058,6 +1059,7 @@ the initial entry works as per deft-mode-hook
     (with-eval-after-load 'org-src
       (cl-pushnew '("json" . json) org-src-lang-modes)))
 #+END_SRC
+
 * Silver Searcher (Ag)
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ag
