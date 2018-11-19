@@ -81,6 +81,7 @@ to work on a visual selection too
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-visualstar
     :straight (:host github :repo "bling/evil-visualstar" :branch "master")
+    :defer 5
     :after (evil)
     :config
     (global-evil-visualstar-mode))
@@ -100,7 +101,6 @@ package isn't being maintained or something
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-latex-textobjects
-    :defer t
     :load-path "local-packages/"
     :commands (turn-on-evil-latex-textobjects-mode)
     :general
@@ -191,8 +191,7 @@ Bound to "h"
   (use-package targets
     :after (evil)
     :defer 2
-    :straight (:host github :repo "noctuid/targets.el"
-               :branch "master")
+    :straight (:host github :repo "noctuid/targets.el" :branch "master")
     :commands (targets-inner-paren
                targets-inner-curly
                targets-a-paren
@@ -446,8 +445,12 @@ Emulate the best feature of notepad
             (format-time-string "%z")))
   (general-define-key
    :states '(normal insert)
-    "<f5>" '(lambda () (interactive) (insert (iso-8601-timestamp))))
+    "<f5>" '(lambda () (interactive)
+              (if (eq major-mode 'org-mode)
+                  (org-time-stamp-inactive '(16))
+                (insert (iso-8601-timestamp)))))
 #+END_SRC
+
 ** Do not truncate lines
 #+BEGIN_SRC emacs-lisp :results output silent
   (setq-default truncate-lines t)
@@ -988,6 +991,10 @@ package manager
 #+END_SRC
 
 * Deft
+There's an issue when re-entering the deft buffer where we're in
+normal mode and not insert mode. Not sure why that is happening, since
+the initial entry works as per deft-mode-hook
+
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package deft
     :straight (:host github :repo "jrblevin/deft" :branch "master")
@@ -997,11 +1004,13 @@ package manager
     :custom
     (deft-auto-save-interval 0.0
       "Disable autosave because of permissions issues causing massive lag")
-    (deft-extensions '("org")
+    (deft-extensions '("org" "md")
       "Set the extensions for deft notes")
     (deft-recursive t
       "Recursively search so we can organise by folders")
+    (deft-time-format "%Y%m%dT%H%M%z")
     (deft-use-filter-string-for-filename t)
+    (deft-use-filename-as-title t)
     (deft-file-naming-rules '((noslash . "-")
                               (nospace . "-")
                               (case-fn . downcase)))
@@ -1021,8 +1030,8 @@ package manager
      :states  'insert
      "C-w"    'deft-filter-decrement-word
      "C-u"    'deft-filter-clear)
-    :hook ((deft-open-file . org-mode)
-           (deft-mode . evil-insert-state))
+    :hook ((deft-open-file . org-mode))
+           ;; (deft-mode . evil-insert-state))
     :init
     (evil-define-command ex-deft-forwarding-arg (filter)
       "If given an argument, pre-populates the deft filter with
@@ -1031,10 +1040,13 @@ package manager
       (deft-filter filter t)
       (deft))
     (evil-ex-define-cmd "n[ote]" 'ex-deft-forwarding-arg)
+    (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
     (evil-set-initial-state 'deft-mode 'insert)
     :config
     (when (boundp 'config-local-dropbox-folder)
-      (customize-set-value 'deft-directory (concat (file-name-as-directory config-local-dropbox-folder) "notes"))))
+      (customize-set-value 'deft-directory
+                           (concat (file-name-as-directory config-local-dropbox-folder)
+                                   "notes"))))
 #+END_SRC
 
 * JSON                                                                :major:
