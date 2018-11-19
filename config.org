@@ -322,14 +322,13 @@ Full keybindings:
     ;;                  "* %? \n %U"))
 #+END_SRC
 
-#+RESULTS:
-: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23491 20845 78356 0) :init (23491 20845 78014 0) :init-secs (0 0 36 0) :use-package-secs (0 0 439 0)))
-
-** org-velocity
+** COMMENT org-velocity                                           :disabled:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package org-velocity
+    :disabled t
     :commands (org-velocity-read))
 #+END_SRC
+
 * Git
 
 ** Magit
@@ -368,7 +367,7 @@ Full keybindings:
     (evil-magit-init))
 #+END_SRC
 
-*** COMMENT Vimdiff
+*** COMMENT Vimdiff                                              :disabled:
 
 For some reason the vdiff-mode-map isn't populated and does nothing.
 Might have to install vdiff itself?
@@ -436,6 +435,19 @@ that for the range we want
   (window-divider-mode -1)
 #+END_SRC
 
+** Timestamp
+Emulate the best feature of notepad
+
+#+BEGIN_SRC emacs-lisp :results output silent  (defun iso-8601-timestamp ()
+  (defun iso-8601-timestamp ()
+    (concat (format-time-string "%Y-%m-%d")
+            "T"
+            (format-time-string "%T")
+            (format-time-string "%z")))
+  (general-define-key
+   :states '(normal insert)
+    "<f5>" '(lambda () (interactive) (insert (iso-8601-timestamp))))
+#+END_SRC
 ** Do not truncate lines
 #+BEGIN_SRC emacs-lisp :results output silent
   (setq-default truncate-lines t)
@@ -960,7 +972,7 @@ package manager
 
 * Anki
 
-** Markdown flavored anki editing
+** Markdown flavored anki editing                                 :disabled:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package anki-mode
     :disabled t
@@ -968,7 +980,7 @@ package manager
     :commands (anki-mode-menu))
 #+END_SRC
 
-** Orgmode flavored anki editing
+** Orgmode flavored anki editing                                  :disabled:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package anki-editor
     :disabled t
