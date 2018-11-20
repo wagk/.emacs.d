@@ -1021,7 +1021,9 @@ the initial entry works as per deft-mode-hook
     (:keymaps 'deft-mode-map
      :states  '(insert normal motion)
      "C-j"    'widget-forward
-     "C-k"    'widget-backward)
+     "C-k"    'widget-backward
+     "M-j"    'widget-forward ;; make it more like helm, which defaults to this
+     "M-k"    'widget-backward)
     (:keymaps 'deft-mode-map
      :states  'normal
      "q"      'quit-window ;; first emacsy binding in a vim state [2018-03-21 Wed]
@@ -1032,13 +1034,14 @@ the initial entry works as per deft-mode-hook
      "C-w"    'deft-filter-decrement-word
      "C-u"    'deft-filter-clear)
     :hook ((deft-open-file . org-mode))
-           ;; (deft-mode . evil-insert-state))
+    ;; (deft-mode . evil-insert-state))
     :init
     (evil-define-command ex-deft-forwarding-arg (filter)
       "If given an argument, pre-populates the deft filter with
       that argument"
       (interactive "<a>")
       (deft-filter filter t)
+      (deft-refresh)
       (deft))
     (evil-ex-define-cmd "n[ote]" 'ex-deft-forwarding-arg)
     (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
