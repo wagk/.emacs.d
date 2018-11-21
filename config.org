@@ -863,6 +863,86 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
     (elmacro-mode))
 #+END_SRC
 
+* Deft
+There's an issue when re-entering the deft buffer where we're in
+normal mode and not insert mode. Not sure why that is happening, since
+the initial entry works as per deft-mode-hook
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package deft
+    :straight (:host github :repo "jrblevin/deft" :branch "master")
+    :commands (deft
+                deft-filter
+                deft-setup) ;; call this if no .deft folder is found
+    :custom
+    (deft-auto-save-interval 0.0
+      "Disable autosave because of permissions issues causing massive lag")
+    (deft-extensions '("org" "md")
+      "Set the extensions for deft notes")
+    (deft-recursive t
+      "Recursively search so we can organise by folders")
+    (deft-time-format "%Y%m%dT%H%M%z")
+    (deft-use-filter-string-for-filename t)
+    (deft-use-filename-as-title t)
+    (deft-file-naming-rules '((noslash . "-")
+                              (nospace . "-")
+                              (case-fn . downcase)))
+    :general
+    (deft-mode-map
+      [remap evil-quit] 'quit-window)
+    (:keymaps 'deft-mode-map
+     :states  '(insert normal motion)
+     "C-j"    'widget-forward
+     "C-k"    'widget-backward
+     "M-j"    'widget-forward ;; make it more like helm, which defaults to this
+     "M-k"    'widget-backward)
+    (:keymaps 'deft-mode-map
+     :states  'normal
+     "q"      'quit-window ;; first emacsy binding in a vim state [2018-03-21 Wed]
+     "p"      'deft-filter-yank
+     "d d"    'deft-delete-file)
+    (:keymaps 'deft-mode-map
+     :states  'insert
+     "C-w"    'deft-filter-decrement-word
+     "C-u"    'deft-filter-clear)
+    :hook ((deft-open-file . org-mode))
+    ;; (deft-mode . evil-insert-state))
+    :init
+    (evil-define-command ex-deft-forwarding-arg (filter)
+      "If given an argument, pre-populates the deft filter with
+      that argument"
+      (interactive "<a>")
+      (deft-filter filter t)
+      (deft))
+    (evil-ex-define-cmd "n[ote]" 'ex-deft-forwarding-arg)
+    (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
+    (evil-set-initial-state 'deft-mode 'insert)
+    :config
+    (when (boundp 'config-local-dropbox-folder)
+      (customize-set-value 'deft-directory
+                           (concat (file-name-as-directory config-local-dropbox-folder)
+                                   "notes"))))
+#+END_SRC
+
+* AES Encryption
+
+We should make an operator out of this, using =aes-encrypt-buffer-or-string=
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package aes
+    :straight (:host github :repo "Sauermann/emacs-aes" :branch "master")
+    :commands (aes-toggle-encryption ;; this makes it auto encrypt/decrypt
+               aes-remove-encryption-hook
+               aes-is-encrypted)
+    :init
+    (evil-define-command ex-encrypt-buffer ()
+      (interactive)
+      (if (aes-is-encrypted)
+          (aes-decrypt-current-buffer)
+        (aes-encrypt-current-buffer)))
+    (evil-ex-define-cmd "X" 'ex-encrypt-buffer))
+#+END_SRC
+
 * Clojure                                                             :major:
 
 clojurescript-mode derives from clojure-mode
@@ -884,10 +964,22 @@ clojurescript-mode derives from clojure-mode
 
 ** CIDER
 
+When using straight, we first encounter `cider-test.el` not found, and
+then later on `package sesman not found in recipe repositories`
+
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package cider
-    :straight (:host github :repo "clojure-emacs/cider" :branch "master"))
+    :ensure t)
+    ;; :straight (:host github :repo "clojure-emacs/cider" :branch "master"))
 #+END_SRC
+
+We were unable to launch a shadow-cljs nREPL directly, but we are able
+to successfully connect (using =cider-connect-cljs=) into a repl we
+ran using ~shadow-cljs watch app~. Do note that the socket REPL and
+nREPL server runs on different ports, and neither were the ones
+recommended by the cider completion engine.
+
+We should look at customizing cider someday.
 
 * Rust                                                                :major:
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -999,67 +1091,6 @@ package manager
     :straight (:host github :repo "louietan/anki-editor" :branch "master"))
 #+END_SRC
 
-* Deft
-There's an issue when re-entering the deft buffer where we're in
-normal mode and not insert mode. Not sure why that is happening, since
-the initial entry works as per deft-mode-hook
-
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package deft
-    :straight (:host github :repo "jrblevin/deft" :branch "master")
-    :commands (deft
-                deft-filter
-                deft-setup) ;; call this if no .deft folder is found
-    :custom
-    (deft-auto-save-interval 0.0
-      "Disable autosave because of permissions issues causing massive lag")
-    (deft-extensions '("org" "md")
-      "Set the extensions for deft notes")
-    (deft-recursive t
-      "Recursively search so we can organise by folders")
-    (deft-time-format "%Y%m%dT%H%M%z")
-    (deft-use-filter-string-for-filename t)
-    (deft-use-filename-as-title t)
-    (deft-file-naming-rules '((noslash . "-")
-                              (nospace . "-")
-                              (case-fn . downcase)))
-    :general
-    (deft-mode-map
-      [remap evil-quit] 'quit-window)
-    (:keymaps 'deft-mode-map
-     :states  '(insert normal motion)
-     "C-j"    'widget-forward
-     "C-k"    'widget-backward
-     "M-j"    'widget-forward ;; make it more like helm, which defaults to this
-     "M-k"    'widget-backward)
-    (:keymaps 'deft-mode-map
-     :states  'normal
-     "q"      'quit-window ;; first emacsy binding in a vim state [2018-03-21 Wed]
-     "p"      'deft-filter-yank
-     "d d"    'deft-delete-file)
-    (:keymaps 'deft-mode-map
-     :states  'insert
-     "C-w"    'deft-filter-decrement-word
-     "C-u"    'deft-filter-clear)
-    :hook ((deft-open-file . org-mode))
-    ;; (deft-mode . evil-insert-state))
-    :init
-    (evil-define-command ex-deft-forwarding-arg (filter)
-      "If given an argument, pre-populates the deft filter with
-      that argument"
-      (interactive "<a>")
-      (deft-filter filter t)
-      (deft))
-    (evil-ex-define-cmd "n[ote]" 'ex-deft-forwarding-arg)
-    (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
-    (evil-set-initial-state 'deft-mode 'insert)
-    :config
-    (when (boundp 'config-local-dropbox-folder)
-      (customize-set-value 'deft-directory
-                           (concat (file-name-as-directory config-local-dropbox-folder)
-                                   "notes"))))
-#+END_SRC
-
 * JSON                                                                :major:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package json-mode
@@ -1083,24 +1114,6 @@ the initial entry works as per deft-mode-hook
     :straight (:host github :repo "syohex/emacs-helm-ag" :branch "master")
     :commands (helm-ag
                helm-ag-this-file))
-#+END_SRC
-
-* AES Encryption
-
-We should make an operator out of this, using =aes-encrypt-buffer-or-string=
-
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package aes
-    :straight (:host github :repo "Sauermann/emacs-aes" :branch "master")
-    :commands (aes-toggle-encryption ;; this makes it auto encrypt/decrypt
-               aes-remove-encryption-hook)
-    :init
-    (evil-define-command ex-encrypt-buffer ()
-      (interactive)
-      (if (aes-is-encrypted)
-          (aes-decrypt-current-buffer)
-        (aes-encrypt-current-buffer)))
-    (evil-ex-define-cmd "X" 'ex-encrypt-buffer))
 #+END_SRC
 
 * C++
