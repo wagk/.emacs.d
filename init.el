@@ -123,9 +123,7 @@
   (setq use-package-always-defer nil ;; we don't always lazy load because of explicitness
         use-package-always-ensure nil ;; always make sure it never skips if not found. Disabled because we want straight to do the heavy lifting
         use-package-verbose t
-        use-package-compute-statistics t)
-  (use-package diminish)
-  (use-package bind-key))
+        use-package-compute-statistics t))
 
 (defun load-local-el ()
   "Checks if there exists a local.el file. Creates one if it doesn't

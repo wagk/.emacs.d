@@ -71,7 +71,7 @@ Adds the following ex commands:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-expat
     :straight (:host github :repo "edkolev/evil-expat" :branch "master")
-    :defer 1)
+    :after (magit))
 #+END_SRC
 
 ** Visualstar
@@ -585,6 +585,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package solarized-theme
     :defer 2
+    :straight (:host github :repo "bbatsov/solarized-emacs" :branch "master")
     :custom
     (solarized-use-variable-pitch nil)
     (solarized-distinct-fringe-background nil)
@@ -881,6 +882,13 @@ clojurescript-mode derives from clojure-mode
       (cl-pushnew '("cljs" . clojurescript) org-src-lang-modes)))
 #+END_SRC
 
+** CIDER
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package cider
+    :straight (:host github :repo "clojure-emacs/cider" :branch "master"))
+#+END_SRC
+
 * Rust                                                                :major:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package rust-mode
@@ -1041,7 +1049,6 @@ the initial entry works as per deft-mode-hook
       that argument"
       (interactive "<a>")
       (deft-filter filter t)
-      (deft-refresh)
       (deft))
     (evil-ex-define-cmd "n[ote]" 'ex-deft-forwarding-arg)
     (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
@@ -1085,9 +1092,15 @@ We should make an operator out of this, using =aes-encrypt-buffer-or-string=
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package aes
     :straight (:host github :repo "Sauermann/emacs-aes" :branch "master")
-    :commands (aes-toggle-encryption)
+    :commands (aes-toggle-encryption ;; this makes it auto encrypt/decrypt
+               aes-remove-encryption-hook)
     :init
-    (evil-ex-define-cmd "X" 'aes-toggle-encryption))
+    (evil-define-command ex-encrypt-buffer ()
+      (interactive)
+      (if (aes-is-encrypted)
+          (aes-decrypt-current-buffer)
+        (aes-encrypt-current-buffer)))
+    (evil-ex-define-cmd "X" 'ex-encrypt-buffer))
 #+END_SRC
 
 * C++
@@ -1104,10 +1117,18 @@ We should make an operator out of this, using =aes-encrypt-buffer-or-string=
   (setq-default c-default-style "k&r")
 #+END_SRC
 
-** Newline should indent
+** Newline in comments should insert an indented comment
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (general-define-key :states 'insert
                       :keymaps 'c-mode-base-map
                       "RET" 'comment-indent-new-line)
+#+END_SRC
+
+* Disable autoformatting modes when drawing things
+
+You can consider `artist-mode` a featurewise superset of picture-mode.
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (add-hook 'artist-mode-hook '(lambda () (aggressive-fill-paragraph-mode -1)))
 #+END_SRC
