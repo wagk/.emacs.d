@@ -394,8 +394,7 @@ recovery. Maybe eventually load dependencies and all that."
            ;; make smartparen autoskip "" because org-mode treats it as a string
            (smartparens-mode . (lambda ()
                                  (sp-local-pair 'org-mode "\"" nil
-                                                :when '(:rem sp-in-string-p))))
-           (org-mode . aggressive-fill-paragraph-mode))
+                                                :when '(:rem sp-in-string-p)))))
     :config
     ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
     (defun my-org-reformat-buffer ()

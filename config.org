@@ -609,7 +609,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package aggressive-fill-paragraph
     :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode" :branch "master")
-    :commands (aggressive-fill-paragraph-mode))
+    :hook (org-mode . aggressive-fill-paragraph-mode))
 #+END_SRC
 
 ** Aggressive Indent
