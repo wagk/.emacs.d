@@ -360,7 +360,8 @@ recovery. Maybe eventually load dependencies and all that."
      "r r" 'org-refile
      "R R" 'org-archive-subtree)
     (org-mode-map
-     "C-c C-'" 'org-edit-special)
+     "C-c C-'" 'org-edit-special
+     "C-M-RET" '(lambda () (interactive) (org-meta-return '(4))))
     (org-src-mode-map
      "C-c C-'" 'org-src-edit-exit)
     :custom

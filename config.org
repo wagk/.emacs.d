@@ -414,8 +414,9 @@ Might have to install vdiff itself?
 
 ** Git hunk textobjects
 
-Look at `git-gutter+-diffinfo-at-point` and see if we can leverage
+Look at ~git-gutter+-diffinfo-at-point~ and see if we can leverage
 that for the range we want
+
 * Make Emacs Restartable
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package restart-emacs
@@ -699,6 +700,17 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
     :commands (rainbow-delimiters-mode))
 #+END_SRC
 
+** Rainbow Identifiers Mode
+
+It looks fairly jarring to be very honest.
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package rainbow-identifiers
+    :straight (:host github :repo "Fanael/rainbow-identifiers" :branch "master")
+    :commands (rainbow-identifiers-mode)
+    :hook (rainbow-delimiters-mode . rainbow-identifiers-mode))
+#+END_SRC
+
 ** Smartparens
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package smartparens
@@ -930,6 +942,7 @@ We should make an operator out of this, using =aes-encrypt-buffer-or-string=
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package aes
+    :defer nil
     :straight (:host github :repo "Sauermann/emacs-aes" :branch "master")
     :commands (aes-toggle-encryption ;; this makes it auto encrypt/decrypt
                aes-remove-encryption-hook
@@ -940,7 +953,9 @@ We should make an operator out of this, using =aes-encrypt-buffer-or-string=
       (if (aes-is-encrypted)
           (aes-decrypt-current-buffer)
         (aes-encrypt-current-buffer)))
-    (evil-ex-define-cmd "X" 'ex-encrypt-buffer))
+    (evil-ex-define-cmd "X" 'ex-encrypt-buffer)
+    :config
+    (aes-enable-auto-decryption))
 #+END_SRC
 
 * Clojure                                                             :major:
