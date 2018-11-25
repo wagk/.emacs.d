@@ -1162,3 +1162,19 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+BEGIN_SRC emacs-lisp :results output silent
   (add-hook 'artist-mode-hook '(lambda () (aggressive-fill-paragraph-mode -1)))
 #+END_SRC
+
+* Ledger
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package ledger-mode
+    :straight (:host github :repo "ledger/ledger-mode" :branch "master"))
+#+END_SRC
+
+
+** Evil-ledger
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package evil-ledger
+    :straight (:host github :repo "atheriel/evil-ledger" :branch "master")
+    :after (ledger-mode))
+#+END_SRC
