@@ -946,6 +946,9 @@ We should make an operator out of this, using =aes-encrypt-buffer-or-string=
                aes-remove-encryption-hook
                aes-is-encrypted
                aes-enable-auto-decryption)
+    :hook (change-major-mode . (lambda ()
+                                 (when (aes-is-encrypted)
+                                   (aes-toggle-encryption))))
     :init
     (evil-define-command ex-encrypt-buffer ()
       (interactive)
