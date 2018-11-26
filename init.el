@@ -190,6 +190,10 @@ recovery. Maybe eventually load dependencies and all that."
     :commands (evil-set-initial-state
                evil-insert-state
                evil-ex-define-cmd)
+    :preface
+    (customize-set-variable 'evil-want-keybinding nil)
+    "`evil-collections' wants this to be disabled, see
+    https://github.com/emacs-evil/evil-collection/issues/60"
     :general
     (global-map "C-u" nil) ;; Disable universal argument
     (:keymaps 'insert
@@ -211,10 +215,6 @@ recovery. Maybe eventually load dependencies and all that."
      t
      "Emacs uses `C-u' for its `universal-argument' function. It
      conflicts with scroll up in evil-mode")
-    (evil-want-keybinding
-     nil
-     "`evil-collections' wants this to be
-     disabled, see https://github.com/emacs-evil/evil-collection/issues/60")
     (evil-want-Y-yank-to-eol
      t
      "Y has the default behavior of functioning identically to yy.

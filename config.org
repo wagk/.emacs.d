@@ -1165,11 +1165,13 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 
 * Ledger
 
+Same issue as [[CIDER]].
+
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ledger-mode
-    :straight (:host github :repo "ledger/ledger-mode" :branch "master"))
+    :ensure t)
+    ;; :straight (:host github :repo "ledger/ledger-mode" :branch "master"))
 #+END_SRC
-
 
 ** Evil-ledger
 
