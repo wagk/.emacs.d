@@ -952,9 +952,7 @@ We should make an operator out of this, using =aes-encrypt-buffer-or-string=
       (if (aes-is-encrypted)
           (aes-decrypt-current-buffer)
         (aes-encrypt-current-buffer)))
-    (evil-ex-define-cmd "X" 'ex-encrypt-buffer)
-    :config
-    (aes-enable-auto-decryption))
+    (evil-ex-define-cmd "X" 'ex-encrypt-buffer))
 #+END_SRC
 
 * Clojure                                                             :major:
