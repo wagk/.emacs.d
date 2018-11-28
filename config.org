@@ -986,8 +986,8 @@ then later on `package sesman not found in recipe repositories`
   (use-package cider
     :ensure t
     :commands (cider-jack-in
-               cider-connect))
-    ;; :straight (:host github :repo "clojure-emacs/cider" :branch "master"))
+               cider-connect)
+    :straight (:host github :repo "clojure-emacs/cider" :branch "master"))
 #+END_SRC
 
 We were unable to launch a shadow-cljs nREPL directly, but we are able
@@ -1169,8 +1169,7 @@ Same issue as [[CIDER]].
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ledger-mode
-    :ensure t)
-    ;; :straight (:host github :repo "ledger/ledger-mode" :branch "master"))
+    :straight (:host github :repo "ledger/ledger-mode" :branch "master"))
 #+END_SRC
 
 ** Evil-ledger
