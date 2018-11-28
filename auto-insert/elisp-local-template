@@ -5,10 +5,13 @@
 ;; This file should be one of the first things that init.el loads, and hence
 ;; shouldn't depend on anything that init.el loads
 
+;; Known keywords that the config currently uses are:
+;; - `config-local-dropbox-folder' :: The path to the dropbox directory
+
 ;; Pre-init local declarations go here
 
-;; (defconst my-local-dropbox-folder
-;;   (directory-file-name ""))
+;; (defconst config-local-dropbox-folder
+;;   (directory-file-name "..."))
 
 ;; Post-init local declarations go here
 
