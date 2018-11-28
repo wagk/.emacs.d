@@ -133,10 +133,10 @@ exist, using the template specified in
     (unless (file-exists-p local-file)
       ;; output a templated local.el file into local.el
       (write-region (with-temp-buffer
-                      (insert-file-contents (at-user-init-dir)))
-                    "auto-insert/elisp-local-template"
-                    (buffer-string)
-                    nil local-file))
+                      (insert-file-contents (at-user-init-dir "auto-insert/elisp-local-template"))
+                      (buffer-string))
+		    nil 
+		    local-file))
     (load local-file)))
 
 (defun load-config-org-files (files)
