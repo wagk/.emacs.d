@@ -8,6 +8,8 @@
 ;; Known keywords that the config currently uses are:
 ;; - `config-local-dropbox-folder' :: The path to the dropbox directory
 
+(message "local.el is currently unconfigured!")
+
 ;; Pre-init local declarations go here
 
 ;; (defconst config-local-dropbox-folder

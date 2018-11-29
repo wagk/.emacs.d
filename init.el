@@ -135,7 +135,7 @@ exist, using the template specified in
       (write-region (with-temp-buffer
                       (insert-file-contents (at-user-init-dir "auto-insert/elisp-local-template"))
                       (buffer-string))
-		    nil 
+		    nil
 		    local-file))
     (load local-file)))
 
@@ -190,7 +190,7 @@ recovery. Maybe eventually load dependencies and all that."
     :commands (evil-set-initial-state
                evil-insert-state
                evil-ex-define-cmd)
-    :preface
+    :init
     (customize-set-variable 'evil-want-keybinding nil)
     "`evil-collections' wants this to be disabled, see
     https://github.com/emacs-evil/evil-collection/issues/60"
@@ -378,7 +378,7 @@ recovery. Maybe eventually load dependencies and all that."
     (org-default-notes-file "~/TODO.org")
     (org-M-RET-may-split-line nil)
     (org-enforce-todo-checkbox-dependencies nil
-     "Sometimes we are able to skip dependencies as things happen")
+                                            "Sometimes we are able to skip dependencies as things happen")
     (org-enforce-todo-dependencies nil)
     (org-pretty-entities nil)
     (org-log-done       'time)

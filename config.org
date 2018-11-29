@@ -1169,6 +1169,7 @@ Same issue as [[CIDER]].
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ledger-mode
+    :ensure t
     :straight (:host github :repo "ledger/ledger-mode" :branch "master"))
 #+END_SRC
 
@@ -1179,3 +1180,51 @@ Same issue as [[CIDER]].
     :straight (:host github :repo "atheriel/evil-ledger" :branch "master")
     :after (ledger-mode))
 #+END_SRC
+
+* hl-todo
+
+#+BEGIN_SRC emacs-lisp
+  (use-package hl-todo
+    :diminish t
+    :straight (:host github :repo "tarsius/hl-todo" :branch "master")
+    :commands (hl-todo-mode)
+    :hook ((prog-mode  . hl-todo-mode)
+           (yaml-mode  . hl-todo-mode))
+    ;; :general
+    ;; (:states 'normal
+    ;;  :prefix my-default-evil-leader-key
+    ;;  "t t" 'my-helm-swoop-hl-todo)
+    ;; (:keymaps 'evil-normal-state-map
+    ;;  "[ t"  'hl-todo-previous
+    ;;  "] t"  'hl-todo-next)
+    :custom
+    (hl-todo-keyword-faces `(("TODO"   . "#b58900")
+                             ("DEBUG"  . "#d33682")
+                             ("BUG"    . "#dc322f")
+                             ("REMOVE" . "#dc322f")
+                             ("STUB"   . "#859900")
+                             ("NOTE"   . "#586e75")
+                             ("HACK"   . "#6c71c4")
+                             ("FIXME"  . "#cb4b16"))))
+    ;; :init
+    ;;TODO: Make this search for regexes
+    ;; (defun my-helm-swoop-hl-todo () (interactive)
+    ;;        (require 'helm-swoop)
+    ;;        (helm-swoop :$query hl-todo-regexp :$multiline 4)))
+  ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
+  ;; Not used because we don't incrementally search for todos
+  ;; (defun my-helm-hl-todo-items ()
+  ;;   "Show `hl-todo'-keyword items in buffer."
+  ;;   (interactive)
+  ;;   (helm :sources (helm-build-in-buffer-source "hl-todo items"
+  ;;                    :data (current-buffer)
+  ;;                    :candidate-transformer (lambda (candidates)
+  ;;                                             (cl-loop for c in candidates
+  ;;                                                      when (string-match hl-todo-regexp c)
+  ;;                                                      collect c))
+  ;;                    :get-line #'buffer-substring)
+  ;;         :buffer "*helm hl-todo*"))
+#+END_SRC
+
+#+RESULTS:
+: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23551 60088 960751 0) :init (23551 60088 960740 0) :init-secs (0 0 25 0) :use-package-secs (0 0 46874 0) :config (23551 60088 960730 0) :config-secs (0 0 7 0)))
