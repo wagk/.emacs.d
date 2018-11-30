@@ -365,6 +365,15 @@ recovery. Maybe eventually load dependencies and all that."
     (org-src-mode-map
      "C-c C-'" 'org-src-edit-exit)
     :custom
+    (org-list-description-max-indent
+     5 "Ideally we should familiarize ourselves with adding a newline
+     after each list description entry, like so:
+     - Description ::
+           Text describing description
+     Currently it's:
+     - Description :: Text describing description
+     And this style breaks once indentation moves past this custom
+     variable")
     (org-support-shift-select
      t "Let me use J in org-mode please.")
     (org-startup-indented t)
@@ -377,8 +386,8 @@ recovery. Maybe eventually load dependencies and all that."
     (org-src-fontify-natively t)
     (org-default-notes-file "~/TODO.org")
     (org-M-RET-may-split-line nil)
-    (org-enforce-todo-checkbox-dependencies nil
-                                            "Sometimes we are able to skip dependencies as things happen")
+    (org-enforce-todo-checkbox-dependencies
+     nil "Sometimes we are able to skip dependencies as things happen")
     (org-enforce-todo-dependencies nil)
     (org-pretty-entities nil)
     (org-log-done       'time)
