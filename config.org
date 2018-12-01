@@ -1170,7 +1170,12 @@ Same issue as [[CIDER]].
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ledger-mode
     :ensure t
-    :straight (:host github :repo "ledger/ledger-mode" :branch "master"))
+    :defer 23
+    :mode ("\\.ledger\\'" . ledger-mode)
+    :straight (:host github :repo "ledger/ledger-mode" :branch "master")
+    :config
+      (with-eval-after-load 'org-src
+        (cl-pushnew '("ledger" . ledger) org-src-lang-modes)))
 #+END_SRC
 
 ** Evil-ledger
@@ -1183,7 +1188,7 @@ Same issue as [[CIDER]].
 
 * hl-todo
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (use-package hl-todo
     :diminish t
     :straight (:host github :repo "tarsius/hl-todo" :branch "master")
@@ -1226,5 +1231,29 @@ Same issue as [[CIDER]].
   ;;         :buffer "*helm hl-todo*"))
 #+END_SRC
 
-#+RESULTS:
-: #s(hash-table size 65 test eql rehash-size 1.5 rehash-threshold 0.8125 data (:use-package (23551 60088 960751 0) :init (23551 60088 960740 0) :init-secs (0 0 25 0) :use-package-secs (0 0 46874 0) :config (23551 60088 960730 0) :config-secs (0 0 7 0)))
+* Abbrev
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (setq abbrev-file-name (at-user-init-dir "abbrevs.el"))
+#+END_SRC
+
+** Silently
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (setq save-abbrevs 'silently)
+#+END_SRC
+
+* Darkroom
+
+Basically writers-mode
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package darkroom
+    :straight (:host github :repo "joaotavora/darkroom" :branch "master")
+    :commands (darkroom-mode darkroom-tentative-mode)
+    :init
+    (evil-define-command focus-darkroom-mode ()
+      (interactive)
+      (darkroom-tentative-mode))
+    (evil-ex-define-cmd "focus" 'focus-darkroom-mode))
+#+END_SRC

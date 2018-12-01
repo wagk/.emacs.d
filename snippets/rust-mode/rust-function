@@ -1,8 +1,7 @@
 # -*- mode: snippet -*-
-# name: rust-function
-# key: def
+# name: rust-fn
+# key: fn
 # --
-fn ${1:foo}($2) $3
-{
+fn $1($2){
   $0
 }
