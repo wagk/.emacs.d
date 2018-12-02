@@ -1252,8 +1252,5 @@ Basically writers-mode
     :straight (:host github :repo "joaotavora/darkroom" :branch "master")
     :commands (darkroom-mode darkroom-tentative-mode)
     :init
-    (evil-define-command focus-darkroom-mode ()
-      (interactive)
-      (darkroom-tentative-mode))
-    (evil-ex-define-cmd "focus" 'focus-darkroom-mode))
+    (evil-ex-define-cmd "focus" 'darkroom-tentative-mode))
 #+END_SRC
