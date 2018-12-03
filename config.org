@@ -1232,6 +1232,9 @@ Same issue as [[CIDER]].
 #+END_SRC
 
 * Abbrev
+#+BEGIN_SRC emacs-lisp :results output silent
+  (setq-default abbrev-mode t)
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (setq abbrev-file-name (at-user-init-dir "abbrevs.el"))
@@ -1252,5 +1255,5 @@ Basically writers-mode
     :straight (:host github :repo "joaotavora/darkroom" :branch "master")
     :commands (darkroom-mode darkroom-tentative-mode)
     :init
-    (evil-ex-define-cmd "focus" 'darkroom-tentative-mode))
+    (evil-ex-define-cmd "writer" 'darkroom-tentative-mode))
 #+END_SRC

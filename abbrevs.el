@@ -51,6 +51,7 @@
   '(
     ("buisness" "business" nil 1)
     ("hwo" "who" nil 1)
+    ("suew" "sure" nil 1)
     ("wtih" "with" nil 1)
    ))
 
