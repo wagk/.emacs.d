@@ -677,7 +677,7 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
     :straight (:host github :repo "bbatsov/helm-projectile" :branch "master")
     :general
     (:states '(normal motion)
-     "_" 'helm-projectile))
+     "+" 'helm-projectile))
 #+END_SRC
 
 * Lisp
