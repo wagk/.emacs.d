@@ -711,8 +711,7 @@ It looks fairly jarring to be very honest.
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package rainbow-identifiers
     :straight (:host github :repo "Fanael/rainbow-identifiers" :branch "master")
-    :commands (rainbow-identifiers-mode)
-    :hook (rainbow-delimiters-mode . rainbow-identifiers-mode))
+    :commands (rainbow-identifiers-mode))
 #+END_SRC
 
 ** Smartparens
@@ -780,6 +779,7 @@ package is known as elisp-mode but it reads as emacs-lisp
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package elisp-mode
     :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
+           (emacs-lisp-mode . rainbow-identifiers-mode)
            (emacs-lisp-mode . parinfer-mode)
            (emacs-lisp-mode . update-evil-shift-width)))
 #+END_SRC
