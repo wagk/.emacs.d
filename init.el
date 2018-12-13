@@ -51,12 +51,6 @@
   (at-user-init-dir "local.el")
   "Points to local.el")
 
-(defconst user-config-file-list
-  '("core.org"
-    "lang.org")
-  "List of config files that are to be loaded. Load order is the
-  sequence defined within the list")
-
 (defun find-user-init-file ()
   "Edit `user-init-file' without opening a new window."
   (interactive)
@@ -360,7 +354,8 @@ recovery. Maybe eventually load dependencies and all that."
      "R R" 'org-archive-subtree)
     (org-mode-map
      "C-c C-'" 'org-edit-special
-     "C-M-RET" '(lambda () (interactive) (org-meta-return '(4))))
+     "<C-M-return>" 'org-insert-subheading
+     "<C-M-S-return>" 'org-insert-todo-subheading)
     (org-src-mode-map
      "C-c C-'" 'org-src-edit-exit)
     :custom
@@ -399,6 +394,7 @@ recovery. Maybe eventually load dependencies and all that."
     (org-outline-path-complete-in-steps nil)
     (org-refile-allow-creating-parent-nodes 'confirm)
     (org-highlight-latex-and-related '(latex))
+    (org-insert-heading-respect-content t)
     :hook ((org-insert-heading . evil-insert-state)
            ;; make smartparen autoskip "" because org-mode treats it as a string
            (smartparens-mode . (lambda ()

@@ -438,7 +438,7 @@ that for the range we want
 ** Timestamp
 Emulate the best feature of notepad
 
-#+BEGIN_SRC emacs-lisp :results output silent  (defun iso-8601-timestamp ()
+#+BEGIN_SRC emacs-lisp :results output silent
   (defun iso-8601-timestamp ()
     (concat (format-time-string "%Y-%m-%d")
             "T"
@@ -574,6 +574,10 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
         scroll-conservatively 9999)
 #+END_SRC
 
+** Activate hs-minor-mode on prog mode
+#+BEGIN_SRC emacs-lisp :results output silent
+  (add-hook 'prog-mode-hook 'hs-minor-mode)
+#+END_SRC
 * Display
 
 ** Prefer dark backgrounds
