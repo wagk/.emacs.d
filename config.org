@@ -920,6 +920,7 @@ the initial entry works as per deft-mode-hook
      :states  'normal
      "q"      'quit-window ;; first emacsy binding in a vim state [2018-03-21 Wed]
      "p"      'deft-filter-yank
+     "r r"    'deft-archive-file
      "d d"    'deft-delete-file)
     (:keymaps 'deft-mode-map
      :states  'insert
