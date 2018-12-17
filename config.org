@@ -995,6 +995,7 @@ then later on `package sesman not found in recipe repositories`
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package cider
+    :disabled t
     :ensure t
     :commands (cider-jack-in
                cider-connect)
