@@ -1268,3 +1268,27 @@ Basically writers-mode
     :init
     (evil-ex-define-cmd "writer" 'darkroom-tentative-mode))
 #+END_SRC
+
+* Helpful
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package helpful
+    :straight (:host github :repo "Wilfred/helpful" :branch "master")
+    :general
+    ("C-h k"   'helpful-key
+     "C-h f"   'helpful-callable
+     "C-h v"   'helpful-variable
+     "C-h c"   'helpful-command
+     "C-h RET" 'helpful-at-point))
+#+END_SRC
+
+* Elisp demos
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package elisp-demos
+    :after (helpful)
+    :straight (:host github :repo "xuchunyang/elisp-demos" :branch "master")
+    :config
+    (with-eval-after-load 'helpful
+      (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update))
+    (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1))
+#+END_SRC
