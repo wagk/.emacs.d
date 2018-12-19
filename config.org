@@ -995,8 +995,6 @@ then later on `package sesman not found in recipe repositories`
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package cider
-    :disabled t
-    :ensure t
     :commands (cider-jack-in
                cider-connect)
     :straight (:host github :repo "clojure-emacs/cider" :branch "master"))
@@ -1181,7 +1179,6 @@ Same issue as [[CIDER]].
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ledger-mode
-    :ensure t
     :defer 23
     :mode ("\\.ledger\\'" . ledger-mode)
     :straight (:host github :repo "ledger/ledger-mode" :branch "master")
@@ -1277,9 +1274,7 @@ Basically writers-mode
     :general
     ("C-h k"   'helpful-key
      "C-h f"   'helpful-callable
-     "C-h v"   'helpful-variable
-     "C-h c"   'helpful-command
-     "C-h RET" 'helpful-at-point))
+     "C-h v"   'helpful-variable))
 #+END_SRC
 
 * Elisp demos
@@ -1293,4 +1288,13 @@ Basically writers-mode
     (with-eval-after-load 'helpful
       (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update))
     (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1))
+#+END_SRC
+
+* Make shell open in same window
+- Related Spacemacs Issue ::
+  https://github.com/syl20bnr/spacemacs/issues/6820
+
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
 #+END_SRC
