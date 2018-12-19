@@ -1305,11 +1305,5 @@ Basically writers-mode
 
 * Make cursor always move to end when entering insert mode in comint modes
 #+BEGIN_SRC emacs-lisp :results output silent
-  (add-hook 'shell-mode-hook
-            (lambda ()
-              (add-hook 'evil-insert-state-entry-hook
-                        (lambda ()
-                          (when (not (= (line-end-position) (point-max)))
-                            (end-of-buffer)))
-                        nil t)))
+  (customize-set-value 'comint-scroll-to-bottom-on-input t)
 #+END_SRC
