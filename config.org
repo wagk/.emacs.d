@@ -693,6 +693,8 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
     :custom
     (parinfer-auto-switch-indent-mode
      t "We prefer indent mode")
+    (parinfer-auto-switch-indent-mode-when-closing
+     t)
     :init
     (progn (setq parinfer-extensions
                  '(defaults       ; should be included.
@@ -1179,8 +1181,6 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 
 * Ledger
 
-Same issue as [[CIDER]].
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ledger-mode
     :defer 23
@@ -1301,4 +1301,15 @@ Basically writers-mode
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
+#+END_SRC
+
+* Make cursor always move to end when entering insert mode in comint modes
+#+BEGIN_SRC emacs-lisp :results output silent
+  (add-hook 'shell-mode-hook
+            (lambda ()
+              (add-hook 'evil-insert-state-entry-hook
+                        (lambda ()
+                          (when (not (= (line-end-position) (point-max)))
+                            (end-of-buffer)))
+                        nil t)))
 #+END_SRC
