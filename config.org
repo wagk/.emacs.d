@@ -1278,7 +1278,8 @@ Basically writers-mode
     :general
     ("C-h k"   'helpful-key
      "C-h f"   'helpful-callable
-     "C-h v"   'helpful-variable))
+     "C-h v"   'helpful-variable
+     "C-h RET" 'helpful-at-point))
 #+END_SRC
 
 * Elisp demos
@@ -1306,4 +1307,15 @@ Basically writers-mode
 * Make cursor always move to end when entering insert mode in comint modes
 #+BEGIN_SRC emacs-lisp :results output silent
   (customize-set-value 'comint-scroll-to-bottom-on-input t)
+#+END_SRC
+
+* Make shell mode update working directory
+- Stackoverflow :: [[https://emacs.stackexchange.com/questions/5589/automatically-update-default-directory-when-pwd-changes-in-shell-mode-and-term-m][link]]
+
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (add-hook 'shell-mode-hook (lambda ()
+                               (shell-dirtrack-mode 0)
+                               (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
+                               (dirtrack-mode 1)))
 #+END_SRC
