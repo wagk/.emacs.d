@@ -37,10 +37,11 @@
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-lion
     :straight (:host github :repo "edkolev/evil-lion" :branch "master")
-    :defer 2
     :after (evil)
-    :config
-    (evil-lion-mode))
+    :general
+    (:keymaps '(normal visual)
+     "gl"     'evil-lion-left
+     "gL"     'evil-lion-right))
 #+END_SRC
 
 ** Increment and Decrement
@@ -236,7 +237,6 @@ Bound to "h"
 #+END_SRC
 
 * Org Mode
-
 ** Evil Org Bindings
 Full keybindings:
 - https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
@@ -376,15 +376,18 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     (evil-magit-init))
 #+END_SRC
 
-*** COMMENT Vimdiff                                              :disabled:
+*** Vimdiff
+
+This invokes diff3, an external program, which we can't guarantee, so
+it's disabled
 
 For some reason the vdiff-mode-map isn't populated and does nothing.
 Might have to install vdiff itself?
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package vdiff-magit
-    :straight (:host github :repo "justbur/emacs-vdiff-magit" :branch "master")
     :disabled t
+    :straight (:host github :repo "justbur/emacs-vdiff-magit" :branch "master")
     :after (magit)
     :general
     (magit-mode-map
@@ -1177,7 +1180,6 @@ package manager
 #+END_SRC
 
 * Disable autoformatting modes when drawing things
-
 You can consider `artist-mode` a featurewise superset of picture-mode.
 
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -1260,7 +1262,6 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+END_SRC
 
 ** Silently
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (setq save-abbrevs 'silently)
 #+END_SRC
