@@ -1185,7 +1185,8 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
   (use-package ledger-mode
     :defer 23
     :mode ("\\.ledger\\'" . ledger-mode)
-    :straight (:host github :repo "ledger/ledger-mode" :branch "master")
+    :straight (:host github :repo "ledger/ledger-mode" :branch "master"
+               :files (:defaults "ledger-test.el"))
     :config
       (with-eval-after-load 'org-src
         (cl-pushnew '("ledger" . ledger) org-src-lang-modes)))
