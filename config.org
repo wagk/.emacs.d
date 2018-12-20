@@ -1,7 +1,6 @@
 * Packaging
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package auto-package-update
-    :defer 5
     :straight (:host github :repo "rranelli/auto-package-update.el" :branch "master")
     :commands (auto-package-update-now
                auto-package-update-at-time
@@ -82,10 +81,10 @@ to work on a visual selection too
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-visualstar
     :straight (:host github :repo "bling/evil-visualstar" :branch "master")
-    :defer 5
-    :after (evil)
-    :config
-    (global-evil-visualstar-mode))
+    :general
+    (:keymaps 'visual
+     "*" 'evil-visualstar/begin-search-forward
+     "#" 'evil-visualstar/begin-search-backward))
 #+END_SRC
 
 * Text Objects
@@ -188,6 +187,8 @@ Bound to "h"
 #+END_SRC
 
 ** Targets
+This is an expensive package to load, and I wonder why
+
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package targets
     :after (evil)
@@ -249,7 +250,6 @@ Important bindings:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-org
     :straight (:host github :repo "Somelauw/evil-org-mode" :branch "master")
-    :defer t
     :hook (org-mode . evil-org-mode)
     :custom
     (evil-org-retain-visual-state-on-shift
@@ -285,7 +285,6 @@ Important bindings:
   (use-package org-capture
     :ensure nil ;; because org-capture is from org
     :after (org)
-    :defer 2
     :commands (org-capture
                org-capture-templates)
     :general
@@ -344,7 +343,6 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package magit
     :straight (:host github :repo "magit/magit" :branch "master")
-    :defer 11
     :commands (magit-status
                magit-pull
                magit-commit)
