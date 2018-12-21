@@ -729,6 +729,10 @@ It looks fairly jarring to be very honest.
 #+END_SRC
 
 ** Smartparens
+
+TODO: Make it so that if the point is inside {} or something similar,
+pressing RET autoformats it, instead of doing nothing as it does right now
+
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package smartparens
     :defer 2
@@ -752,8 +756,11 @@ It looks fairly jarring to be very honest.
     ;;(smartparens-global-strict-mode)
     ;;(show-smartparens-global-mode)
     ;; define some helper functions
-    (defun my-add-newline-and-indent-braces (&rest _)
-      "adds that cool vim indent thing we always wanted"
+    (defun my-add-newline-and-indent-braces (_opening_delimiter
+                                             _actions
+                                             _context)
+      "adds that cool vim indent thing we always wanted, Refer to WHEN
+  segment of `sp-pair' documentation on what each parameter does"
       (newline)
       (indent-according-to-mode)
       (forward-line -1)
