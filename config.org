@@ -214,6 +214,35 @@ This is an expensive package to load, and I wonder why
                    :remote-key nil))
 #+END_SRC
 
+** Encrypt text object
+#+BEGIN_SRC emacs-lisp :results output silent
+  (with-eval-after-load 'aes
+   (evil-define-operator evil-encrypt-aes (beg end)
+    "Attempt to encrypt or decrypt a range using
+  `aes-encrypt-buffer-or-string' and `aes-decrypt-buffer-or-string'"
+    (let ((buf (current-buffer)))
+      (with-temp-buffer
+        ;; Copy region into a temporary buffer so we can encrypt/decrypt
+        (insert-buffer-substring buf beg end)
+        ;; Discard newline so the aes functions can check if it's
+        ;; encrypted. We might want to just skip the newlines instead of
+        ;; discarding them in the future, so that a-textobjects can also
+        ;; work instead of just i-textobjects
+        (flush-lines "^$" (point-min) (point-max))
+        (if (aes-is-encrypted)
+            (aes-decrypt-buffer-or-string (current-buffer))
+          (aes-encrypt-buffer-or-string (current-buffer)))
+        ;; Copy result back into original buffer
+        (let ((temp-buf (current-buffer)))
+          (with-current-buffer buf
+            ;; Delete original text before copying
+            (delete-region beg end)
+            (insert-buffer-substring temp-buf)))))
+
+    (general-define-key)
+    :keymaps 'normal
+      "g X" 'evil-encrypt-aes))
+#+END_SRC
 * Helm
 
 ** Describe Modes
@@ -1330,4 +1359,13 @@ Basically writers-mode
                                (shell-dirtrack-mode 0)
                                (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
                                (dirtrack-mode 1)))
+#+END_SRC
+
+* Which Key
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package which-key
+    :straight (:host github :repo "justbur/emacs-which-key" :branch "master")
+    :defer 10
+    :config
+    (which-key-mode))
 #+END_SRC
