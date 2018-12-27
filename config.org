@@ -216,10 +216,10 @@ This is an expensive package to load, and I wonder why
 
 ** Encrypt text object
 #+BEGIN_SRC emacs-lisp :results output silent
-  (with-eval-after-load 'aes
-   (evil-define-operator evil-encrypt-aes (beg end)
+  (evil-define-operator evil-encrypt-aes (beg end)
     "Attempt to encrypt or decrypt a range using
   `aes-encrypt-buffer-or-string' and `aes-decrypt-buffer-or-string'"
+    (require 'aes)
     (let ((buf (current-buffer)))
       (with-temp-buffer
         ;; Copy region into a temporary buffer so we can encrypt/decrypt
@@ -239,8 +239,8 @@ This is an expensive package to load, and I wonder why
             (delete-region beg end)
             (insert-buffer-substring temp-buf)))))
 
-    (general-define-key)
-    :keymaps 'normal
+    (general-define-key
+      :keymaps 'normal
       "g X" 'evil-encrypt-aes))
 #+END_SRC
 * Helm
