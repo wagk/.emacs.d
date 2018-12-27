@@ -1000,7 +1000,9 @@ We should make an operator out of this, using =aes-encrypt-buffer-or-string=
     :commands (aes-toggle-encryption ;; this makes it auto encrypt/decrypt
                aes-remove-encryption-hook
                aes-is-encrypted
-               aes-enable-auto-decryption)
+               aes-enable-auto-decryption
+               aes-encrypt-buffer-or-string
+               aes-decrypt-buffer-or-string)
     :hook (change-major-mode . (lambda ()
                                  (when (aes-is-encrypted)
                                    (aes-toggle-encryption))))
