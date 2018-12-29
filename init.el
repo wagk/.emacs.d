@@ -380,6 +380,7 @@ recovery. Maybe eventually load dependencies and all that."
     (org-src-fontify-natively t)
     (org-default-notes-file "~/TODO.org")
     (org-M-RET-may-split-line nil)
+    (org-return-follows-link t)
     (org-enforce-todo-checkbox-dependencies
      nil "Sometimes we are able to skip dependencies as things happen")
     (org-enforce-todo-dependencies nil)
