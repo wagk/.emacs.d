@@ -1376,3 +1376,11 @@ Basically writers-mode
     :config
     (which-key-mode))
 #+END_SRC
+
+* TODO Groovy mode
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package groovy-mode
+    :straight (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes" :branch "master")
+    :mode (("\\.groovy\\'" . groovy-mode)
+           ("\\Jenkinsfile\\'" . groovy-mode)))
+#+END_SRC
