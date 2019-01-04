@@ -1377,7 +1377,7 @@ Basically writers-mode
     (which-key-mode))
 #+END_SRC
 
-* TODO Groovy mode
+* Groovy mode
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package groovy-mode
     :straight (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes" :branch "master")
