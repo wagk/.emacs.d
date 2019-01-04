@@ -332,8 +332,9 @@ recovery. Maybe eventually load dependencies and all that."
                  helm-autoresize-max-height 40))
     (helm-mode))
 
-  (use-package org
+  (use-package org-plus-contrib
     ;; doesn't have a straight recipe because it relies on make or something
+    :straight t
     :commands (orgtbl-mode
                org-babel-load-file)
     :general
