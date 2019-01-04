@@ -1222,7 +1222,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
   (add-hook 'artist-mode-hook '(lambda () (aggressive-fill-paragraph-mode -1)))
 #+END_SRC
 
-* Ledger
+* Ledger                                                              :major:
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ledger-mode
@@ -1242,12 +1242,13 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     :after (ledger-mode))
 #+END_SRC
 
-* Hledger
+* Hledger                                                             :major:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package hledger-mode
     :straight (:host github :repo "narendraj9/hledger-mode" :branch "master")
     :mode "\\.journal\\'")
 #+END_SRC
+
 * hl-todo
 
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -1377,7 +1378,7 @@ Basically writers-mode
     (which-key-mode))
 #+END_SRC
 
-* Groovy mode
+* Groovy mode                                                         :major:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package groovy-mode
     :straight (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes" :branch "master")
