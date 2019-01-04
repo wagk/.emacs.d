@@ -183,7 +183,7 @@ recovery. Maybe eventually load dependencies and all that."
     :commands (evil-set-initial-state
                evil-insert-state
                evil-ex-define-cmd)
-    :init
+    :preface
     (customize-set-variable 'evil-want-keybinding nil)
     "`evil-collections' wants this to be disabled, see
     https://github.com/emacs-evil/evil-collection/issues/60"
