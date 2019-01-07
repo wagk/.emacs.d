@@ -1222,6 +1222,12 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
   (add-hook 'artist-mode-hook '(lambda () (aggressive-fill-paragraph-mode -1)))
 #+END_SRC
 
+* Org source block handling for Artist-mode
+#+BEGIN_SRC emacs-lisp :results output silent
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("artist" . artist) org-src-lang-modes)))
+#+END_SRC
+
 * Ledger                                                              :major:
 
 #+BEGIN_SRC emacs-lisp :results output silent
