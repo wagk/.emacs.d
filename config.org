@@ -365,7 +365,11 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
       (cond
        ((string= cmd "pull") (magit-pull-from-pushremote nil))
        ((string= cmd "commit") (magit-commit))
+       ((string= cmd "commit all") (magit-commit `("--all" "-m" ,(iso-8601-timestamp))))
        ((string= cmd "push") (magit-push-current-to-pushremote nil))
+       ((string= cmd "commit push") (progn
+                                      (magit-commit `("--all" "-m" ,(iso-8601-timestamp)))
+                                      (magit-push-current-to-pushremote nil)))
        ((string= cmd "log") (magit-log-all))
        ((or (string= cmd "status")
             (eq cmd nil)) (magit-status))
@@ -1409,14 +1413,21 @@ Basically writers-mode
   (use-package groovy-mode
     :straight (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes" :branch "master")
     :mode (("\\.groovy\\'" . groovy-mode)
-           ("\\Jenkinsfile\\'" . groovy-mode)))
+           ("\\Jenkinsfile\\'" . groovy-mode))
+    :init
+    (with-eval-after-load 'org-src
+        (cl-pushnew '("groovy" . groovy) org-src-lang-modes)))
+
 #+END_SRC
 
 * Hy Mode                                                             :major:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package hy-mode
     :straight (:host github :repo "hylang/hy-mode" :branch "master")
-    :mode "\\.hy\\'")
+    :mode "\\.hy\\'"
+    :init
+    (with-eval-after-load 'org-src
+      (cl-pushnew '("hy" . hy) org-src-lang-modes)))
 #+END_SRC
 
 * vlf-mode
