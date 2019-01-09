@@ -1245,7 +1245,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 * Org source block handling for Artist-mode
 #+BEGIN_SRC emacs-lisp :results output silent
   (with-eval-after-load 'org-src
-    (cl-pushnew '("artist" . artist) org-src-lang-modes)))
+    (cl-pushnew '("artist" . artist) org-src-lang-modes))
 #+END_SRC
 
 * Ledger                                                              :major:
@@ -1421,7 +1421,7 @@ Basically writers-mode
 
 * vlf-mode
 #+BEGIN_SRC emacs-lisp :results output silent
-  (use-package vlf-mode
+  (use-package vlf
     :straight (:host github :repo "m00natic/vlfi" :branch "master")
     :config (require 'vlf-setup))
 #+END_SRC
