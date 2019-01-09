@@ -127,9 +127,7 @@ exist, using the template specified in
       ;; output a templated local.el file into local.el
       (write-region (with-temp-buffer
                       (insert-file-contents (at-user-init-dir "auto-insert/elisp-local-template"))
-                      (buffer-string))
-		    nil
-		    local-file))
+                      (buffer-string)) nil local-file))
     (load local-file)))
 
 (defun load-config-org-files (files)
@@ -410,7 +408,10 @@ recovery. Maybe eventually load dependencies and all that."
         (let ((document (org-element-interpret-data (org-element-parse-buffer))))
           (erase-buffer)
           (insert document)
-          (goto-char (point-min))))))
+          (goto-char (point-min)))))
+    (use-package ox-confluence
+      :ensure nil
+      :commands org-confluence-export-as-confluence))
 
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
