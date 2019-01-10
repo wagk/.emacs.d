@@ -175,6 +175,9 @@ recovery. Maybe eventually load dependencies and all that."
   (use-package no-littering
     :straight (:host github :repo "emacscollective/no-littering" :branch "master"))
 
+  (use-package git
+    :straight (:host github :repo "rejeep/git.el" :branch "master"))
+
   (use-package evil
     :demand t
     :straight (:host github :repo "emacs-evil/evil" :branch "master")
@@ -332,7 +335,7 @@ recovery. Maybe eventually load dependencies and all that."
 
   (use-package org-plus-contrib
     ;; doesn't have a straight recipe because it relies on make or something
-    :straight t
+    :ensure t
     :commands (orgtbl-mode
                org-babel-load-file)
     :general
@@ -400,6 +403,44 @@ recovery. Maybe eventually load dependencies and all that."
            (smartparens-mode . (lambda ()
                                  (sp-local-pair 'org-mode "\"" nil
                                                 :when '(:rem sp-in-string-p)))))
+    ;; :init
+    ;; ;; Taken from:
+    ;; ;; https://github.com/raxod502/radian/blob/afe2882e3eb85c3284d90fd374be4a5ef9c8775a/radian-emacs/radian-org.el#L56
+    ;; ;; The following is a temporary hack until straight.el supports
+    ;; ;; building Org, see:
+    ;; ;;
+    ;; ;; * https://github.com/raxod502/straight.el/issues/211
+    ;; ;; * https://github.com/raxod502/radian/issues/410
+    ;; ;;
+    ;; ;; There are three things missing from our version of Org: the
+    ;; ;; functions `org-git-version' and `org-release', and the feature
+    ;; ;; `org-version'. We provide all three of those ourself, therefore.
+    ;; (defun org-git-version ()
+    ;;   "The Git version of org-mode.
+    ;; Inserted by installing org-mode or when a release is made."
+    ;;   (require 'git)
+    ;;   (let ((git-repo (expand-file-name)
+    ;;                   "straight/repos/org/" user-emacs-directory))
+    ;;     (string-trim)
+    ;;     (git-run "describe"
+    ;;               "--match=release\*"
+    ;;               "--abbrev=6"
+    ;;               "HEAD")))
+    ;; (defun org-release ()
+    ;;   "The release version of org-mode.
+    ;; Inserted by installing org-mode or when a release is made."
+    ;;   (require 'git)
+    ;;   (let ((git-repo (expand-file-name)
+    ;;                   "straight/repos/org/" user-emacs-directory))
+    ;;     (string-trim)
+    ;;     (string-remove-prefix
+    ;;       "release_"
+    ;;       (git-run "describe"
+    ;;               "--match=release\*"
+    ;;               "--abbrev=0"
+    ;;               "HEAD"))))
+    ;; (provide 'org-version)
+    ;; ;; End Hack
     :config
     ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
     (defun my-org-reformat-buffer ()
