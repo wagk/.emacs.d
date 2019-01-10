@@ -1425,6 +1425,10 @@ Basically writers-mode
   (use-package hy-mode
     :straight (:host github :repo "hylang/hy-mode" :branch "master")
     :mode "\\.hy\\'"
+    :hook ((hy-mode . rainbow-delimiters-mode)
+           (hy-mode . rainbow-identifiers-mode)
+           (hy-mode . parinfer-mode)
+           (hy-mode . update-evil-shift-width))
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("hy" . hy) org-src-lang-modes)))
