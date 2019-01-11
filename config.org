@@ -1447,8 +1447,11 @@ Basically writers-mode
     :straight (:host github :repo "Kungsgeten/yankpad" :branch "master")
     :commands (yankpad-expand
                yankpad-edit)
+    :init
+    (add-to-list 'hippie-expand-try-functions-list #'yankpad-expand)
+    (evil-ex-define-cmd "snippet[s]" 'yankpad-edit)
     :custom
-    (yankpad-file (at-user-init-dir "yankpad.org")))
+    (yankpad-file (at-user-init-dir "snippets.org")))
 #+END_SRC
 
 * Smart tab
@@ -1458,6 +1461,5 @@ Basically writers-mode
     :custom
     (smart-tab-using-hippie-expand t)
     :config
-    (add-to-list 'hippie-expand-try-functions-list #'yankpad-expand)
     (global-smart-tab-mode))
 #+END_SRC
