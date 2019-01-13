@@ -57,7 +57,7 @@
 ** Evil Expat
 Adds the following ex commands:
 
-| :reverse           | reverse visually selected lines                                |
+| :reverse          | reverse visually selected lines                                |
 | :remove            | remove current file and its buffer                             |
 | :rename NEW-PATH   | rename or move current file and its buffer                     |
 | :colorscheme THEME | change emacs color theme                                       |
@@ -1425,8 +1425,11 @@ Basically writers-mode
   (use-package hy-mode
     :straight (:host github :repo "hylang/hy-mode" :branch "master")
     :mode "\\.hy\\'"
+    :general
+    (hy-mode-map
+     :states 'insert
+     "RET" 'comment-indent-new-line)
     :hook ((hy-mode . rainbow-delimiters-mode)
-           (hy-mode . rainbow-identifiers-mode)
            (hy-mode . parinfer-mode)
            (hy-mode . update-evil-shift-width))
     :init

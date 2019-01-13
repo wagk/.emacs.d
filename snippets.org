@@ -47,19 +47,19 @@ These comments are generally highlighted using hl-todo
 
 ** nn: Note
 
-  `(yas-with-comment "NOTE: ")`
+`(yas-with-comment "NOTE: ")`
 
 ** rr: Remove
 
-  `(yas-with-comment "REMOVE: ")`
+`(yas-with-comment "REMOVE: ")`
 
 ** ss: Stub
 
-  `(yas-with-comment "STUB: ")`
+`(yas-with-comment "STUB: ")`
 
 ** tt: Todo
 
-  `(yas-with-comment "TODO: ")`
+`(yas-with-comment "TODO: ")`
 
 * python-mode
 
