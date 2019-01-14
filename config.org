@@ -1426,7 +1426,6 @@ Basically writers-mode
     :straight (:host github :repo "hylang/hy-mode" :branch "master")
     :mode "\\.hy\\'"
     :hook ((hy-mode . rainbow-delimiters-mode)
-           (hy-mode . rainbow-identifiers-mode)
            (hy-mode . parinfer-mode)
            (hy-mode . update-evil-shift-width))
     :init

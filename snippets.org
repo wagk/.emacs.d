@@ -25,41 +25,51 @@ $0
 * prog-mode
 These comments are generally highlighted using hl-todo
 
-** c: Comment
-
-`(yas-with-comment "")`
-
-** bb: Bug
-
+** c: Comment                                                          :src:
+#+BEGIN_SRC emacs-lisp :results output silent
 `(yas-with-comment "BUG: ")`
+#+END_SRC
 
-** dd: Debug
+** bb: Bug                                                             :src:
 
+#+BEGIN_SRC emacs-lisp :results output silent
+`(yas-with-comment "BUG: ")`
+#+END_SRC
+
+** dd: Debug                                                           :src:
+#+BEGIN_SRC emacs-lisp :results output silent
 `(yas-with-comment "DEBUG: ")`
+#+END_SRC
 
-** ff: Fixme
-
+** ff: Fixme                                                           :src:
+#+BEGIN_SRC emacs-lisp :results output silent
 `(yas-with-comment "FIXME: ")`
+#+END_SRC
 
-** hh: Hack
-
+** hh: Hack                                                            :src:
+#+BEGIN_SRC emacs-lisp :results output silent
 `(yas-with-comment "HACK: ")`
+#+END_SRC
 
-** nn: Note
+** nn: Note                                                            :src:
+#+BEGIN_SRC emacs-lisp :results output silent
+`(yas-with-comment "NOTE: ")`
+#+END_SRC
 
-  `(yas-with-comment "NOTE: ")`
+** rr: Remove                                                          :src:
+#+BEGIN_SRC emacs-lisp :results output silent
+`(yas-with-comment "REMOVE: ")`
+#+END_SRC
 
-** rr: Remove
+** ss: Stub                                                            :src:
+#+BEGIN_SRC emacs-lisp :results output silent
+`(yas-with-comment "STUB: ")`
+#+END_SRC
 
-  `(yas-with-comment "REMOVE: ")`
-
-** ss: Stub
-
-  `(yas-with-comment "STUB: ")`
-
-** tt: Todo
-
-  `(yas-with-comment "TODO: ")`
+** tt: Todo                                                            :src:
+#+BEGIN_SRC emacs-lisp :results output silent
+`(yas-with-comment "TODO: ")`
+#+END_SRC
 
 * python-mode
 
