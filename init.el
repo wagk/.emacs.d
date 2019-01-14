@@ -178,16 +178,17 @@ recovery. Maybe eventually load dependencies and all that."
   (use-package git
     :straight (:host github :repo "rejeep/git.el" :branch "master"))
 
+  (customize-set-variable 'evil-want-keybinding nil
+                          "`evil-collections' wants this to be
+                          disabled before even loading evil, see
+                          https://github.com/emacs-evil/evil-collection/issues/60")
+
   (use-package evil
     :demand t
     :straight (:host github :repo "emacs-evil/evil" :branch "master")
     :commands (evil-set-initial-state
                evil-insert-state
                evil-ex-define-cmd)
-    :preface
-    (customize-set-variable 'evil-want-keybinding nil)
-    "`evil-collections' wants this to be disabled, see
-    https://github.com/emacs-evil/evil-collection/issues/60"
     :general
     (global-map "C-u" nil) ;; Disable universal argument
     (:keymaps 'insert
