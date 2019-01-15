@@ -1,23 +1,18 @@
 * org-mode
 
 ** #: org-block
-
 #+BEGIN_${1:SRC} $2
 $0
 #+END_$1
 
 ** --: org-list-with-checkbox
-
 - [ ] $0
 
 ** src: org-mode-code-block
-
 #+BEGIN_SRC ${1:emacs-lisp}
-  $0
 #+END_SRC
 
 ** elisp: org-mode-elisp-code-block
-
 #+BEGIN_SRC emacs-lisp :results output silent
   $0
 #+END_SRC
@@ -73,12 +68,14 @@ These comments are generally highlighted using hl-todo
 
 * python-mode
 
-** l: python-lambda
-
+** l: python-lambda                                                    :src:
+#+BEGIN_SRC python
 lambda $1: $0
+#+END_SRC
 
 * rust-mode
 
-** l: rust-lambda
-
+** l: rust-lambda                                                      :src:
+#+BEGIN_SRC rust
 |$1| ${2:{$3}}
+#+END_SRC
