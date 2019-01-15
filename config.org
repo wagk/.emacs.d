@@ -1452,7 +1452,12 @@ Basically writers-mode
                yankpad-edit)
     :init
     (add-to-list 'hippie-expand-try-functions-list #'yankpad-expand)
-    (evil-ex-define-cmd "snippet[s]" 'yankpad-edit)
+    (evil-define-command ex-yankpad (cmd)
+      (interactive "<a>")
+      (cond
+       ((string= cmd "reload") (yankpad-reload))
+       (t (yankpad-edit))))
+    (evil-ex-define-cmd "snippet[s]" 'ex-yankpad)
     :custom
     (yankpad-file (at-user-init-dir "snippets.org")))
 #+END_SRC
