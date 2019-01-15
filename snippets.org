@@ -12,6 +12,11 @@ $0
 #+BEGIN_SRC ${1:emacs-lisp}
 #+END_SRC
 
+** math: Latex math environment
+\begin{equation}
+$0
+\end{equation}
+
 ** elisp: org-mode-elisp-code-block
 #+BEGIN_SRC emacs-lisp :results output silent
   $0

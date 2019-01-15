@@ -403,11 +403,7 @@ recovery. Maybe eventually load dependencies and all that."
     (org-refile-allow-creating-parent-nodes 'confirm)
     (org-highlight-latex-and-related '(latex))
     (org-insert-heading-respect-content t)
-    :hook ((org-insert-heading . evil-insert-state)
-           ;; make smartparen autoskip "" because org-mode treats it as a string
-           (smartparens-mode . (lambda ()
-                                 (sp-local-pair 'org-mode "\"" nil
-                                                :when '(:rem sp-in-string-p)))))
+    :hook ((org-insert-heading . evil-insert-state))
     ;; :init
     ;; ;; Taken from:
     ;; ;; https://github.com/raxod502/radian/blob/afe2882e3eb85c3284d90fd374be4a5ef9c8775a/radian-emacs/radian-org.el#L56
@@ -447,6 +443,10 @@ recovery. Maybe eventually load dependencies and all that."
     ;; (provide 'org-version)
     ;; ;; End Hack
     :config
+    (with-eval-after-load 'smartparens
+      ;; make smartparen autoskip "" because org-mode treats it as a string
+      (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
+      (sp-local-pair 'org-mode "$" "$"))
     ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
     (defun my-org-reformat-buffer ()
       (interactive)

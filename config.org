@@ -1253,7 +1253,6 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+END_SRC
 
 * Ledger                                                              :major:
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ledger-mode
     :mode "\\.ledger\\'"
@@ -1265,7 +1264,6 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+END_SRC
 
 ** Evil-ledger
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-ledger
     :straight (:host github :repo "atheriel/evil-ledger" :branch "master")
@@ -1280,7 +1278,6 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+END_SRC
 
 * hl-todo
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package hl-todo
     :diminish t
@@ -1309,19 +1306,20 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     ;; (defun my-helm-swoop-hl-todo () (interactive)
     ;;        (require 'helm-swoop)
     ;;        (helm-swoop :$query hl-todo-regexp :$multiline 4)))
-  ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
-  ;; Not used because we don't incrementally search for todos
-  ;; (defun my-helm-hl-todo-items ()
-  ;;   "Show `hl-todo'-keyword items in buffer."
-  ;;   (interactive)
-  ;;   (helm :sources (helm-build-in-buffer-source "hl-todo items"
-  ;;                    :data (current-buffer)
-  ;;                    :candidate-transformer (lambda (candidates)
-  ;;                                             (cl-loop for c in candidates
-  ;;                                                      when (string-match hl-todo-regexp c)
-  ;;                                                      collect c))
-  ;;                    :get-line #'buffer-substring)
-  ;;         :buffer "*helm hl-todo*"))
+    ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
+    ;; Not used because we don't incrementally search for todos
+    ;; (defun my-helm-hl-todo-items ()
+    ;;   "Show `hl-todo'-keyword items in buffer."
+    ;;   (interactive)
+    ;;   (hl-todo--setup)
+    ;;   (helm :sources (helm-build-in-buffer-source "hl-todo items"
+    ;;                    :data (current-buffer)
+    ;;                    :candidate-transformer (lambda (candidates)
+    ;;                                             (cl-loop for c in candidates
+    ;;                                                      when (string-match hl-todo--regexp c)
+    ;;                                                      collect c))
+    ;;                    :get-line #'buffer-substring)
+    ;;         :buffer "*helm hl-todo*"))
 #+END_SRC
 
 * Abbrev
