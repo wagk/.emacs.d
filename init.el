@@ -205,14 +205,11 @@ recovery. Maybe eventually load dependencies and all that."
     (:keymaps 'outer
      "e"      'my-evil-a-buffer)
     :custom
-    (evil-want-C-u-scroll
-     t
-     "Emacs uses `C-u' for its `universal-argument' function. It
-     conflicts with scroll up in evil-mode")
     (evil-want-Y-yank-to-eol
      t
      "Y has the default behavior of functioning identically to yy.
-     Change it to function similarly to dd, and cc instead.")
+     Change it to function similarly to dd, and cc instead. Equivalent
+     to nnoremap yy y$")
     (evil-regexp-search
      t
      "Use regular expressions while searching instead of plaintext
@@ -220,8 +217,8 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-want-C-u-scroll
      t
      "In vim, <C-u> maps to half page up. In Emacs, it corresponds to
-     a universal argument that might augment a function call. We
-     prefer the scrolling.")
+     the `universal-argument' function that might augment a function
+     call. We prefer the scrolling.")
     (evil-split-window-below
      t
      "`set splitbelow` in vim")
@@ -280,7 +277,6 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-define-text-object my-evil-a-buffer (count &optional beg end type)
       "Select entire buffer"
       (evil-range (point-min) (point-max)))
-
     (evil-mode))
 
   (use-package helm

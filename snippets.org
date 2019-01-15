@@ -1,23 +1,19 @@
 * org-mode
 
 ** #: org-block
-
 #+BEGIN_${1:SRC} $2
 $0
 #+END_$1
 
 ** --: org-list-with-checkbox
-
 - [ ] $0
 
 ** src: org-mode-code-block
-
 #+BEGIN_SRC ${1:emacs-lisp}
   $0
 #+END_SRC
 
 ** elisp: org-mode-elisp-code-block
-
 #+BEGIN_SRC emacs-lisp :results output silent
   $0
 #+END_SRC
@@ -26,49 +22,38 @@ $0
 These comments are generally highlighted using hl-todo
 
 ** c: Comment
-
 `(yas-with-comment "")`
 
 ** bb: Bug
-
 `(yas-with-comment "BUG: ")`
 
 ** dd: Debug
-
 `(yas-with-comment "DEBUG: ")`
 
 ** ff: Fixme
-
 `(yas-with-comment "FIXME: ")`
 
 ** hh: Hack
-
 `(yas-with-comment "HACK: ")`
 
 ** nn: Note
-
 `(yas-with-comment "NOTE: ")`
 
 ** rr: Remove
-
 `(yas-with-comment "REMOVE: ")`
 
 ** ss: Stub
-
 `(yas-with-comment "STUB: ")`
 
 ** tt: Todo
-
 `(yas-with-comment "TODO: ")`
 
 * python-mode
 
 ** l: python-lambda
-
 lambda $1: $0
 
 * rust-mode
 
 ** l: rust-lambda
-
 |$1| ${2:{$3}}

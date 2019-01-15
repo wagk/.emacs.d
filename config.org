@@ -258,6 +258,8 @@ Important bindings:
      t "Add things like M-j to insert")
     (evil-org-special-o/O
      '(table-row) "Do not let o/O affect list items, throws me off")
+    (org-special-ctrl-a/e
+     t "Pretend leading stars on headlines don't exist when using A/I")
     :general
     (evil-org-mode-map
      :states 'normal
