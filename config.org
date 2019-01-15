@@ -1449,7 +1449,8 @@ Basically writers-mode
   (use-package yankpad
     :straight (:host github :repo "Kungsgeten/yankpad" :branch "master")
     :commands (yankpad-expand
-               yankpad-edit)
+               yankpad-edit
+               yankpad-reload)
     :init
     (add-to-list 'hippie-expand-try-functions-list #'yankpad-expand)
     (evil-define-command ex-yankpad (cmd)
