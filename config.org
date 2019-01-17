@@ -47,6 +47,7 @@
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-numbers
+    :disabled t
     :straight (:host github :repo "cofi/evil-numbers" :branch "master")
     :general
     (:keymaps 'normal
@@ -615,6 +616,19 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+BEGIN_SRC emacs-lisp :results output silent
   (add-hook 'prog-mode-hook 'hs-minor-mode)
 #+END_SRC
+
+** Eval sexp and replace with results
+Stolen from https://github.com/bbatsov/crux
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;;;###autoload
+  (defun eval-and-replace ()
+    "Replace the preceding sexp with its value."
+    (interactive)
+    (let ((value (eval (elisp--preceding-sexp))))
+      (backward-kill-sexp)
+      (insert (format "%S" value))))
+#+END_SRC
 * Display
 
 ** Prefer dark backgrounds
@@ -982,8 +996,7 @@ the initial entry works as per deft-mode-hook
     :config
     (when (boundp 'config-local-dropbox-folder)
       (customize-set-value 'deft-directory
-                           (concat (file-name-as-directory config-local-dropbox-folder)
-                                   "notes"))))
+                           (file-name-as-directory (concat (file-name-as-directory config-local-dropbox-folder) "notes")))))
 #+END_SRC
 
 * AES Encryption
