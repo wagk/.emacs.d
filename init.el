@@ -353,7 +353,8 @@ recovery. Maybe eventually load dependencies and all that."
      :prefix my-default-evil-leader-key
      "o t" 'org-time-stamp-inactive
      "o T" '(lambda () (interactive)
-              (org-time-stamp-inactive '(16))))
+              (org-time-stamp-inactive '(16)))
+     "f f" 'helm-org-in-buffer-headings)
     (:states 'normal
      :keymaps 'org-mode-map
      :prefix my-default-evil-leader-key
