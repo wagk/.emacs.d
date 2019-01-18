@@ -952,7 +952,9 @@ the initial entry works as per deft-mode-hook
     :custom
     (deft-auto-save-interval 0.0
       "Disable autosave because of permissions issues causing massive lag")
-    (deft-extensions '("org" "md")
+    ;; enc is just what we call encrypted files. we do this so that
+    ;; org-agenda-files won't try to open journal.org
+    (deft-extensions '("org" "enc" "md")
       "Set the extensions for deft notes")
     (deft-recursive t
       "Recursively search so we can organise by folders")
@@ -1014,6 +1016,10 @@ the initial entry works as per deft-mode-hook
     :hook (change-major-mode . (lambda ()
                                  (when (aes-is-encrypted)
                                    (aes-toggle-encryption))))
+    :magic ("\\.enc\\'" (lambda ()
+                          (when (aes-is-encrypted)
+                            (aes-toggle-encryption))) "Decrypt the file
+                            if it's encrypted")
     :init
     (evil-define-command ex-encrypt-buffer ()
       (interactive)

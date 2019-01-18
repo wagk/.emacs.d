@@ -448,7 +448,7 @@ recovery. Maybe eventually load dependencies and all that."
       (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
       (sp-local-pair 'org-mode "$" "$"))
     (with-eval-after-load 'deft
-      (customize-set-value 'org-agenda-files deft-directory))
+      (customize-set-value 'org-agenda-files `(,deft-directory)))
     ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
     (defun my-org-reformat-buffer ()
       (interactive)

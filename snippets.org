@@ -9,7 +9,7 @@ $0
 - [ ] $0
 
 ** src: org-mode-code-block
-#+BEGIN_SRC ${1:emacs-lisp}
+#+BEGIN_SRC ${1:emacs-lisp}$0
 #+END_SRC
 
 ** math: Latex math environment
