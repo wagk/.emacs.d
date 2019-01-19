@@ -1002,6 +1002,7 @@ the initial entry works as per deft-mode-hook
                aes-decrypt-buffer-or-string)
     :hook (change-major-mode . (lambda ()
                                  (when (aes-is-encrypted)
+                                   (auto-save-mode -1)
                                    (aes-toggle-encryption))))
     :init
     (evil-define-command ex-encrypt-buffer ()

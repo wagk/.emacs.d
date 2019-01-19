@@ -346,14 +346,15 @@ recovery. Maybe eventually load dependencies and all that."
      "<tab>"  'hippie-expand)
     (:states 'normal
      :prefix my-default-evil-leader-key
-     "o t" 'org-time-stamp-inactive
+     "o t" 'org-time-stamp
      "o T" '(lambda () (interactive)
-              (org-time-stamp-inactive '(16))))
+              (org-time-stamp '(16))))
     (:states 'normal
      :keymaps 'org-mode-map
      :prefix my-default-evil-leader-key
+     "l l" 'org-toggle-latex-fragment
      "r r" 'org-refile
-     "R R" 'org-archive-subtree)
+     "a a" 'org-archive-subtree)
     (org-mode-map
      "C-c C-'" 'org-edit-special
      "<C-M-return>" 'org-insert-subheading
