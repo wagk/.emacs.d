@@ -11,6 +11,11 @@
 #+BEGIN_SRC ${1:emacs-lisp}
 #+END_SRC
 
+** math: Latex math environment
+\begin{displaymath}
+$0
+\end{displaymath}
+
 ** elisp: org-mode-elisp-code-block
 #+BEGIN_SRC emacs-lisp :results output silent
   $0
@@ -18,40 +23,62 @@
 
 * prog-mode
 These comments are generally highlighted using hl-todo
-
-** c: Comment
-`(yas-with-comment "")`
-
-** bb: Bug
+** c: Comment                                                          :src:
+#+BEGIN_SRC emacs-lisp :results output silent
 `(yas-with-comment "BUG: ")`
+#+END_SRC
 
-** dd: Debug
+** bb: Bug                                                             :src:
+
+#+BEGIN_SRC emacs-lisp :results output silent
+`(yas-with-comment "BUG: ")`
+#+END_SRC
+
+** dd: Debug                                                           :src:
+#+BEGIN_SRC emacs-lisp :results output silent
 `(yas-with-comment "DEBUG: ")`
+#+END_SRC
 
-** ff: Fixme
+** ff: Fixme                                                           :src:
+#+BEGIN_SRC emacs-lisp :results output silent
 `(yas-with-comment "FIXME: ")`
+#+END_SRC
 
-** hh: Hack
+** hh: Hack                                                            :src:
+#+BEGIN_SRC emacs-lisp :results output silent
 `(yas-with-comment "HACK: ")`
+#+END_SRC
 
-** nn: Note
+** nn: Note                                                            :src:
+#+BEGIN_SRC emacs-lisp :results output silent
 `(yas-with-comment "NOTE: ")`
+#+END_SRC
 
-** rr: Remove
+** rr: Remove                                                          :src:
+#+BEGIN_SRC emacs-lisp :results output silent
 `(yas-with-comment "REMOVE: ")`
+#+END_SRC
 
-** ss: Stub
+** ss: Stub                                                            :src:
+#+BEGIN_SRC emacs-lisp :results output silent
 `(yas-with-comment "STUB: ")`
+#+END_SRC
 
-** tt: Todo
+** tt: Todo                                                            :src:
+#+BEGIN_SRC emacs-lisp :results output silent
 `(yas-with-comment "TODO: ")`
+#+END_SRC
 
 * python-mode
 
-** l: python-lambda
+** l: python-lambda                                                    :src:
+#+BEGIN_SRC python
 lambda $1: $0
+#+END_SRC
 
 * rust-mode
 
-** l: rust-lambda
+** l: rust-lambda                                                      :src:
+#+BEGIN_SRC rust
 |$1| ${2:{$3}}
+#+END_SRC

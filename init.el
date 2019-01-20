@@ -178,16 +178,17 @@ recovery. Maybe eventually load dependencies and all that."
   (use-package git
     :straight (:host github :repo "rejeep/git.el" :branch "master"))
 
+  (customize-set-variable 'evil-want-keybinding nil
+                          "`evil-collections' wants this to be
+                          disabled before even loading evil, see
+                          https://github.com/emacs-evil/evil-collection/issues/60")
+
   (use-package evil
     :demand t
     :straight (:host github :repo "emacs-evil/evil" :branch "master")
     :commands (evil-set-initial-state
                evil-insert-state
                evil-ex-define-cmd)
-    :preface
-    (customize-set-variable 'evil-want-keybinding nil)
-    "`evil-collections' wants this to be disabled, see
-    https://github.com/emacs-evil/evil-collection/issues/60"
     :general
     (global-map "C-u" nil) ;; Disable universal argument
     (:keymaps 'insert
@@ -348,7 +349,8 @@ recovery. Maybe eventually load dependencies and all that."
      :prefix my-default-evil-leader-key
      "o t" 'org-time-stamp
      "o T" '(lambda () (interactive)
-              (org-time-stamp '(16))))
+              (org-time-stamp '(16)))
+     "f f" 'helm-org-in-buffer-headings)
     (:states 'normal
      :keymaps 'org-mode-map
      :prefix my-default-evil-leader-key
@@ -399,11 +401,7 @@ recovery. Maybe eventually load dependencies and all that."
     (org-refile-allow-creating-parent-nodes 'confirm)
     (org-highlight-latex-and-related '(latex))
     (org-insert-heading-respect-content t)
-    :hook ((org-insert-heading . evil-insert-state)
-           ;; make smartparen autoskip "" because org-mode treats it as a string
-           (smartparens-mode . (lambda ()
-                                 (sp-local-pair 'org-mode "\"" nil
-                                                :when '(:rem sp-in-string-p)))))
+    :hook ((org-insert-heading . evil-insert-state))
     ;; :init
     ;; ;; Taken from:
     ;; ;; https://github.com/raxod502/radian/blob/afe2882e3eb85c3284d90fd374be4a5ef9c8775a/radian-emacs/radian-org.el#L56
@@ -443,6 +441,12 @@ recovery. Maybe eventually load dependencies and all that."
     ;; (provide 'org-version)
     ;; ;; End Hack
     :config
+    (with-eval-after-load 'smartparens
+      ;; make smartparen autoskip "" because org-mode treats it as a string
+      (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
+      (sp-local-pair 'org-mode "$" "$"))
+    (with-eval-after-load 'deft
+      (customize-set-value 'org-agenda-files `(,deft-directory)))
     ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
     (defun my-org-reformat-buffer ()
       (interactive)

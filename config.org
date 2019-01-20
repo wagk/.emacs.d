@@ -47,6 +47,7 @@
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-numbers
+    :disabled t
     :straight (:host github :repo "cofi/evil-numbers" :branch "master")
     :general
     (:keymaps 'normal
@@ -617,6 +618,19 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+BEGIN_SRC emacs-lisp :results output silent
   (add-hook 'prog-mode-hook 'hs-minor-mode)
 #+END_SRC
+
+** Eval sexp and replace with results
+Stolen from https://github.com/bbatsov/crux
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;;;###autoload
+  (defun eval-and-replace ()
+    "Replace the preceding sexp with its value."
+    (interactive)
+    (let ((value (eval (elisp--preceding-sexp))))
+      (backward-kill-sexp)
+      (insert (format "%S" value))))
+#+END_SRC
 * Display
 
 ** Prefer dark backgrounds
@@ -940,7 +954,9 @@ the initial entry works as per deft-mode-hook
     :custom
     (deft-auto-save-interval 0.0
       "Disable autosave because of permissions issues causing massive lag")
-    (deft-extensions '("org" "md")
+    ;; enc is just what we call encrypted files. we do this so that
+    ;; org-agenda-files won't try to open journal.org
+    (deft-extensions '("org" "enc" "md")
       "Set the extensions for deft notes")
     (deft-recursive t
       "Recursively search so we can organise by folders")
@@ -984,8 +1000,7 @@ the initial entry works as per deft-mode-hook
     :config
     (when (boundp 'config-local-dropbox-folder)
       (customize-set-value 'deft-directory
-                           (concat (file-name-as-directory config-local-dropbox-folder)
-                                   "notes"))))
+                           (file-name-as-directory (concat (file-name-as-directory config-local-dropbox-folder) "notes")))))
 #+END_SRC
 
 * AES Encryption
@@ -1004,6 +1019,10 @@ the initial entry works as per deft-mode-hook
                                  (when (aes-is-encrypted)
                                    (auto-save-mode -1)
                                    (aes-toggle-encryption))))
+    :magic ("\\.enc\\'" (lambda ()
+                          (when (aes-is-encrypted)
+                            (aes-toggle-encryption))) "Decrypt the file
+                            if it's encrypted")
     :init
     (evil-define-command ex-encrypt-buffer ()
       (interactive)
@@ -1256,7 +1275,6 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+END_SRC
 
 * Ledger                                                              :major:
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ledger-mode
     :mode "\\.ledger\\'"
@@ -1268,7 +1286,6 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+END_SRC
 
 ** Evil-ledger
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-ledger
     :straight (:host github :repo "atheriel/evil-ledger" :branch "master")
@@ -1283,7 +1300,6 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+END_SRC
 
 * hl-todo
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package hl-todo
     :diminish t
@@ -1312,19 +1328,20 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     ;; (defun my-helm-swoop-hl-todo () (interactive)
     ;;        (require 'helm-swoop)
     ;;        (helm-swoop :$query hl-todo-regexp :$multiline 4)))
-  ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
-  ;; Not used because we don't incrementally search for todos
-  ;; (defun my-helm-hl-todo-items ()
-  ;;   "Show `hl-todo'-keyword items in buffer."
-  ;;   (interactive)
-  ;;   (helm :sources (helm-build-in-buffer-source "hl-todo items"
-  ;;                    :data (current-buffer)
-  ;;                    :candidate-transformer (lambda (candidates)
-  ;;                                             (cl-loop for c in candidates
-  ;;                                                      when (string-match hl-todo-regexp c)
-  ;;                                                      collect c))
-  ;;                    :get-line #'buffer-substring)
-  ;;         :buffer "*helm hl-todo*"))
+    ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
+    ;; Not used because we don't incrementally search for todos
+    ;; (defun my-helm-hl-todo-items ()
+    ;;   "Show `hl-todo'-keyword items in buffer."
+    ;;   (interactive)
+    ;;   (hl-todo--setup)
+    ;;   (helm :sources (helm-build-in-buffer-source "hl-todo items"
+    ;;                    :data (current-buffer)
+    ;;                    :candidate-transformer (lambda (candidates)
+    ;;                                             (cl-loop for c in candidates
+    ;;                                                      when (string-match hl-todo--regexp c)
+    ;;                                                      collect c))
+    ;;                    :get-line #'buffer-substring)
+    ;;         :buffer "*helm hl-todo*"))
 #+END_SRC
 
 * Abbrev
@@ -1452,10 +1469,16 @@ Basically writers-mode
   (use-package yankpad
     :straight (:host github :repo "Kungsgeten/yankpad" :branch "master")
     :commands (yankpad-expand
-               yankpad-edit)
+               yankpad-edit
+               yankpad-reload)
     :init
     (add-to-list 'hippie-expand-try-functions-list #'yankpad-expand)
-    (evil-ex-define-cmd "snippet[s]" 'yankpad-edit)
+    (evil-define-command ex-yankpad (cmd)
+      (interactive "<a>")
+      (cond
+       ((string= cmd "reload") (yankpad-reload))
+       (t (yankpad-edit))))
+    (evil-ex-define-cmd "snippet[s]" 'ex-yankpad)
     :custom
     (yankpad-file (at-user-init-dir "snippets.org")))
 #+END_SRC
