@@ -987,8 +987,8 @@ the initial entry works as per deft-mode-hook
      "C-w"    'deft-filter-decrement-word
      "C-u"    'deft-filter-clear)
     :hook ((deft-open-file . org-mode)
-           (deft-mode-hook . deft-refresh))
-    ;; (deft-mode . evil-insert-state))
+           (deft-mode-hook . deft-refresh)
+           (deft-mode-hook . evil-insert-state))
     :init
     (evil-define-command ex-deft-forwarding-arg (filter)
       "If given an argument, pre-populates the deft filter with
