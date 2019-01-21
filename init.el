@@ -283,6 +283,7 @@ recovery. Maybe eventually load dependencies and all that."
   (use-package helm
     :demand t
     :straight (:host github :repo "emacs-helm/helm" :branch "master")
+    :commands (helm-org-in-buffer-headings)
     :general
     ("C-h C-h" 'helm-apropos)
     (:states 'normal
@@ -334,9 +335,7 @@ recovery. Maybe eventually load dependencies and all that."
     ;; doesn't have a straight recipe because it relies on make or something
     :ensure t
     :commands (orgtbl-mode
-               org-babel-load-file
-               org-todo-list
-               org-agenda-file-to-front)
+               org-babel-load-file)
     :general
     (:states  'normal
      :keymaps 'org-mode-map
@@ -442,15 +441,11 @@ recovery. Maybe eventually load dependencies and all that."
     ;;               "HEAD"))))
     ;; (provide 'org-version)
     ;; ;; End Hack
-    :init
-    (evil-ex-define-cmd "todo" 'org-todo-list)
     :config
     (with-eval-after-load 'smartparens
       ;; make smartparen autoskip "" because org-mode treats it as a string
       (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
       (sp-local-pair 'org-mode "$" "$"))
-    (with-eval-after-load 'deft
-      (customize-set-value 'org-agenda-files `(,deft-directory)))
     ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
     (defun my-org-reformat-buffer ()
       (interactive)

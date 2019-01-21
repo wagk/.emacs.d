@@ -266,6 +266,11 @@ Important bindings:
     (evil-org-mode-map
      :states 'normal
      "g f" 'evil-org-open-links)
+    :init
+    (with-eval-after-load 'org-agenda
+      (require 'evil-org-agenda)
+      (evil-org-agenda-set-keys)
+      (add-hook 'org-agenda-mode-hook 'evil-org-mode))
     :config
     (evil-org-set-key-theme '(textobjects
                               insert
@@ -276,11 +281,7 @@ Important bindings:
                               operators
                               todo
                               ;; heading
-                              calendar))
-    (with-eval-after-load 'org-agenda
-      (require 'evil-org-agenda)
-      (evil-org-agenda-set-keys)
-      (add-hook 'org-agenda-mode-hook 'evil-org-mode)))
+                              calendar)))
 #+END_SRC
 
 ** Org Capture Bindings
@@ -327,6 +328,23 @@ Important bindings:
     ;;                `("d" "Daydream Entry" entry
     ;;                  (file ,my-daydream-org-file)
     ;;                  "* %? \n %U"))
+#+END_SRC
+
+** Org Agenda
+For some reason we can't do this in the scratch buffer
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package org-agenda
+    :ensure nil
+    :commands (org-todo-list
+               org-agenda-file-to-front)
+    :init
+    (evil-ex-define-cmd "todo" 'org-todo-list)
+    :config
+    (require 'deft)
+    (customize-set-value 'org-agenda-files `(,deft-directory))
+    (when (boundp 'config-work-org-file)
+      (customize-set-value 'org-agenda-files (add-to-list
+                                              'org-agenda-files config-work-org-file))))
 #+END_SRC
 
 * Git
@@ -976,6 +994,7 @@ the initial entry works as per deft-mode-hook
       "If given an argument, pre-populates the deft filter with
       that argument"
       (interactive "<a>")
+      (deft-refresh)
       (deft-filter filter t)
       (deft))
     (evil-ex-define-cmd "n[ote]" 'ex-deft-forwarding-arg)
