@@ -341,10 +341,9 @@ For some reason we can't do this in the scratch buffer
     (evil-ex-define-cmd "todo" 'org-todo-list)
     :config
     (require 'deft)
-    (customize-set-value 'org-agenda-files `(,deft-directory))
-    (when (boundp 'config-work-org-file)
-      (customize-set-value 'org-agenda-files (add-to-list
-                                              'org-agenda-files config-work-org-file))))
+    (customize-set-value 'org-agenda-files
+                         (add-to-list 'org-agenda-files
+                                      deft-directory)))
 #+END_SRC
 
 * Git

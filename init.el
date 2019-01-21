@@ -464,5 +464,4 @@ recovery. Maybe eventually load dependencies and all that."
    (org-babel-load-file (at-user-init-dir "config.org")))
 
   ;; Disable ANNOYING customize options
-  (setq custom-file (at-user-init-dir "custom.el"))
-  (load custom-file 'noerror))
+  (setq custom-file (at-user-init-dir "custom.el")))
