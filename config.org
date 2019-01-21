@@ -329,23 +329,6 @@ Important bindings:
     ;;                  "* %? \n %U"))
 #+END_SRC
 
-** Org-Brain
-Goal is to use deft as a quick grab bag, but organise closer along the
-lines of org-brain
-
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package org-brain
-    :straight (:host github :repo "Kungsgeten/org-brain" :branch "master")
-    :init
-    (with-eval-after-load 'evil
-      (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
-    :config
-    (when (boundp 'config-local-dropbox-folder)
-      (customize-set-value 'org-brain-path
-                            (concat (file-name-as-directory config-local-dropbox-folder)
-                                    "notes"))))
-#+END_SRC
-
 * Git
 
 ** Magit
