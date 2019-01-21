@@ -251,7 +251,8 @@ Important bindings:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-org
     :straight (:host github :repo "Somelauw/evil-org-mode" :branch "master")
-    :hook (org-mode . evil-org-mode)
+    :hook ((org-mode . evil-org-mode)
+           (org-agenda-mode . evil-org-mode))
     :custom
     (evil-org-retain-visual-state-on-shift
      t "Let us chain < and > calls")
@@ -328,7 +329,7 @@ Important bindings:
     ;;                  "* %? \n %U"))
 #+END_SRC
 
-** COMMENT Org-Brain
+** Org-Brain
 Goal is to use deft as a quick grab bag, but organise closer along the
 lines of org-brain
 
@@ -1019,17 +1020,16 @@ the initial entry works as per deft-mode-hook
                                  (when (aes-is-encrypted)
                                    (auto-save-mode -1)
                                    (aes-toggle-encryption))))
-    :magic ("\\.enc\\'" (lambda ()
-                          (when (aes-is-encrypted)
-                            (aes-toggle-encryption))) "Decrypt the file
-                            if it's encrypted")
     :init
     (evil-define-command ex-encrypt-buffer ()
       (interactive)
       (if (aes-is-encrypted)
           (aes-decrypt-current-buffer)
         (aes-encrypt-current-buffer)))
-    (evil-ex-define-cmd "X" 'ex-encrypt-buffer))
+    (evil-ex-define-cmd "X" 'ex-encrypt-buffer)
+    (add-to-list 'auto-mode-alist '("\\.enc\\'" #'(lambda ()
+                                                    (when (aes-is-encrypted)
+                                                      (aes-toggle-encryption))) t)))
 #+END_SRC
 
 ** Encrypt operator

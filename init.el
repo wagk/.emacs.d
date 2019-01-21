@@ -334,7 +334,9 @@ recovery. Maybe eventually load dependencies and all that."
     ;; doesn't have a straight recipe because it relies on make or something
     :ensure t
     :commands (orgtbl-mode
-               org-babel-load-file)
+               org-babel-load-file
+               org-todo-list
+               org-agenda-file-to-front)
     :general
     (:states  'normal
      :keymaps 'org-mode-map
@@ -440,6 +442,8 @@ recovery. Maybe eventually load dependencies and all that."
     ;;               "HEAD"))))
     ;; (provide 'org-version)
     ;; ;; End Hack
+    :init
+    (evil-ex-define-cmd "todo" 'org-todo-list)
     :config
     (with-eval-after-load 'smartparens
       ;; make smartparen autoskip "" because org-mode treats it as a string
