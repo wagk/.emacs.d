@@ -76,6 +76,12 @@ These comments are generally highlighted using hl-todo
 lambda $1: $0
 #+END_SRC
 
+** ifm: if __main__                                                    :src:
+#+BEGIN_SRC python
+  if __name__ == "__main__":
+      $0
+#+END_SRC
+
 * rust-mode
 
 ** l: rust-lambda                                                      :src:

@@ -1,3 +1,6 @@
+[[https://necromuralist.github.io/posts/org-babel-cheat-sheet/][org-babel cheat sheet]]
+[[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
+
 * Packaging
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package auto-package-update
@@ -1492,4 +1495,25 @@ Basically writers-mode
     (smart-tab-using-hippie-expand t)
     :config
     (global-smart-tab-mode))
+#+END_SRC
+
+* Batch/CMD
+#+BEGIN_SRC emacs-lisp :results output silent
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("cmd" . bat) org-src-lang-modes)
+    (cl-pushnew '("batch" . bat) org-src-lang-modes))
+#+END_SRC
+
+* Python
+#+BEGIN_SRC emacs-lisp :results output silent
+  (add-to-list 'org-babel-load-languages '(python . t))
+#+END_SRC
+
+* Org Babel Eshell
+Time to /really/ start going down the rabbit hole
+
+This is a local file ([[file:local-packages/ob-eshell.el][found here]]) that lets us run things from eshell
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (require 'ob-eshell)
 #+END_SRC
