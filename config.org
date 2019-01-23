@@ -1,6 +1,8 @@
 [[https://necromuralist.github.io/posts/org-babel-cheat-sheet/][org-babel cheat sheet]]
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 
+* TODO Figure out Edebug and tracebacks
+
 * Packaging
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package auto-package-update
@@ -1512,8 +1514,14 @@ Basically writers-mode
 * Org Babel Eshell
 Time to /really/ start going down the rabbit hole
 
-This is a local file ([[file:local-packages/ob-eshell.el][found here]]) that lets us run things from eshell
+cribbed from [[https://old.reddit.com/r/emacs/comments/aiyo27/org_babel_inserting_text_for_me_inside_source/eerphz9/][reddit]]
+
+This is currently throwing an error and causing no end of frustration
+for me.
+
+But the literate devops dream must go on.
 
 #+BEGIN_SRC emacs-lisp :results output silent
-  (require 'ob-eshell)
+  (defun org-babel-execute:eshell (body _params)
+    (with-temp-buffer (eshell-command body t) (buffer-string)))
 #+END_SRC
