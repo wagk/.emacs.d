@@ -1313,13 +1313,13 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     :commands (hl-todo-mode)
     :hook ((prog-mode  . hl-todo-mode)
            (yaml-mode  . hl-todo-mode))
-    ;; :general
+    :general
     ;; (:states 'normal
     ;;  :prefix my-default-evil-leader-key
     ;;  "t t" 'my-helm-swoop-hl-todo)
-    ;; (:keymaps 'evil-normal-state-map
-    ;;  "[ t"  'hl-todo-previous
-    ;;  "] t"  'hl-todo-next)
+    (:keymaps 'evil-normal-state-map
+     "[ t"  'hl-todo-previous
+     "] t"  'hl-todo-next)
     :custom
     (hl-todo-keyword-faces `(("TODO"   . "#b58900")
                              ("DEBUG"  . "#d33682")
@@ -1511,7 +1511,25 @@ Basically writers-mode
   (add-to-list 'org-babel-load-languages '(python . t))
 #+END_SRC
 
-* Org Babel Eshell
+* Powershell
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package powershell.el
+    :straight (:host github :repo "jschaf/powershell.el" :branch "master")
+    :commands (powershell-mode)
+    :init
+    (with-eval-after-load 'org-src
+      (cl-pushnew '("powershell" . powershell) org-src-lang-modes)
+      (cl-pushnew '("ps" . powershell) org-src-lang-modes))
+    :config
+    (defun org-babel-execute:powershell (body _params)
+      (let ((explicit-shell-file-name powershell-location-of-exe))
+        (shell-command-to-string body))))
+#+END_SRC
+
+* COMMENT Org Babel Eshell
+
+[[https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org][Potentially interesting things]]
+
 Time to /really/ start going down the rabbit hole
 
 cribbed from [[https://old.reddit.com/r/emacs/comments/aiyo27/org_babel_inserting_text_for_me_inside_source/eerphz9/][reddit]]
@@ -1521,7 +1539,14 @@ for me.
 
 But the literate devops dream must go on.
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+BEGIN_SRC emacs-lisp :results output silent :eval never
   (defun org-babel-execute:eshell (body _params)
-    (with-temp-buffer (eshell-command body t) (buffer-string)))
+    (with-temp-buffer (ignore-errors (eshell-command body t)) (buffer-string)))
 #+END_SRC
+
+** COMMENT Debugging the thing
+#+BEGIN_SRC emacs-lisp :results output silent :var end=1 :eval never
+  (get-text-property (1- end) 'comment)
+#+END_SRC
+
+raises an exception, which raises hell
