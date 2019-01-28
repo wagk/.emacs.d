@@ -1359,6 +1359,10 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
   (setq save-abbrevs 'silently)
 #+END_SRC
 
+** Abbrev bindings
+#+BEGIN_SRC emacs-lisp :results output silent
+  (evil-ex-define-cmd "abbrev" 'inverse-add-global-abbrev)
+#+END_SRC
 * Darkroom
 
 Basically writers-mode
