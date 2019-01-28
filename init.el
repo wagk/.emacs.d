@@ -456,7 +456,8 @@ recovery. Maybe eventually load dependencies and all that."
           (goto-char (point-min)))))
     (use-package ox-confluence
       :ensure nil
-      :commands org-confluence-export-as-confluence))
+      :commands org-confluence-export-as-confluence)
+    (add-to-list 'org-babel-load-languages '(shell . t)))
 
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
