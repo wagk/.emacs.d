@@ -82,6 +82,18 @@ lambda $1: $0
       $0
 #+END_SRC
 
+** init: __init__                                                      :src:
+
+#+BEGIN_SRC python
+  def __init__(self$1):
+      $0
+#+END_SRC
+
+** d: multiline string                                                 :src:
+#+BEGIN_SRC python
+  """$0
+#+END_SRC
+
 * rust-mode
 
 ** l: rust-lambda                                                      :src:

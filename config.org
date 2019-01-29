@@ -1520,7 +1520,7 @@ Basically writers-mode
 
 * Python
 #+BEGIN_SRC emacs-lisp :results output silent
-  (add-to-list 'org-babel-load-languages '(python . t))
+  (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
 #+END_SRC
 
 * Powershell
