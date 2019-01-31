@@ -226,6 +226,9 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-vsplit-window-right
      t
      "`set splitright` in vim")
+    (evil-move-beyond-eol
+     t
+     "As recommended by evil-cleverparens")
     (evil-auto-indent
      t
      "Automatically indent when inserting a newline")

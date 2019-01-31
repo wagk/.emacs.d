@@ -172,13 +172,6 @@ Bound to "h"
     :after evil)
 #+END_SRC
 
-** Line Text Objects
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package evil-textobj-line
-    :straight (:host github :repo "syohex/evil-textobj-line" :branch "master")
-    :after evil)
-#+END_SRC
-
 ** Indent text objects
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-indent-plus
@@ -190,6 +183,13 @@ Bound to "h"
     (evil-outer-text-objects-map
      "i" 'evil-indent-plus-i-indent-up
      "I" 'evil-indent-plus-a-indent-up))
+#+END_SRC
+
+** Line Text Objects
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package evil-textobj-line
+    :straight (:host github :repo "syohex/evil-textobj-line" :branch "master")
+    :after evil)
 #+END_SRC
 
 ** Targets
@@ -220,6 +220,24 @@ This is an expensive package to load, and I wonder why
                    :remote-key nil))
 #+END_SRC
 
+** Evil-cleverparens
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package evil-cleverparens
+    :straight (:host github :repo "luxbock/evil-cleverparens" :branch "master")
+    :general
+    (evil-inner-text-objects-map
+     "f" 'evil-cp-inner-form)
+    (evil-outer-text-objects-map
+     "f" 'evil-cp-a-form)
+    (evil-cleverparens-mode-map
+     :states '(visual normal)
+     ">" nil
+     "<" nil)
+    (evil-cleverparens-mode-map
+     :states 'normal
+     "{" nil
+     "}" nil))
+#+END_SRC
 * Helm
 
 ** Describe Modes
@@ -321,7 +339,13 @@ Important bindings:
     ;;   (interactive)
     ;;   (org-capture nil "d")
     ;; (evil-ex-define-cmd "todo" 'my-capture-daydream)
-    :hook (org-capture-mode . evil-insert-state))
+    :hook (org-capture-mode . evil-insert-state)
+    :config
+    (when (boundp 'config-local-dropbox-folder)
+      (add-to-list 'org-capture-templates
+                   `("i" "Standard Inbox" entry
+                     (file ,(concat config-local-dropbox-folder "/notes/inbox.org"))
+                     "* TODO %? \nLOGGED: %U"))))
     ;; when inserting a heading immediately go into insert mode
     ;; (when (boundp 'my-journal-org-file)
     ;;   (add-to-list 'org-capture-templates
@@ -850,7 +874,8 @@ package is known as elisp-mode but it reads as emacs-lisp
     :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
            (emacs-lisp-mode . rainbow-identifiers-mode)
            (emacs-lisp-mode . parinfer-mode)
-           (emacs-lisp-mode . update-evil-shift-width)))
+           (emacs-lisp-mode . update-evil-shift-width)
+           (emacs-lisp-mode . evil-cleverparens-mode)))
 #+END_SRC
 
 ** Update Indentation Function
@@ -1377,7 +1402,7 @@ Basically writers-mode
     :straight (:host github :repo "joaotavora/darkroom" :branch "master")
     :commands (darkroom-mode darkroom-tentative-mode)
     :init
-    (evil-ex-define-cmd "writer" 'darkroom-tentative-mode))
+    (evil-ex-define-cmd "write[r]" 'darkroom-tentative-mode))
 #+END_SRC
 
 * Helpful
@@ -1461,7 +1486,8 @@ Basically writers-mode
      "RET" 'comment-indent-new-line)
     :hook ((hy-mode . rainbow-delimiters-mode)
            (hy-mode . parinfer-mode)
-           (hy-mode . update-evil-shift-width))
+           (hy-mode . update-evil-shift-width)
+           (hy-mode . evil-cleverparens-mode))
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("hy" . hy) org-src-lang-modes)))
