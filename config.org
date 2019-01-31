@@ -1402,7 +1402,7 @@ Basically writers-mode
     :straight (:host github :repo "joaotavora/darkroom" :branch "master")
     :commands (darkroom-mode darkroom-tentative-mode)
     :init
-    (evil-ex-define-cmd "write[r]" 'darkroom-tentative-mode))
+    (evil-ex-define-cmd "zen" 'darkroom-tentative-mode))
 #+END_SRC
 
 * Helpful
