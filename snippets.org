@@ -21,6 +21,15 @@ $0
   $0
 #+END_SRC
 
+** title: org-mode-title-setting
+#+TITLE: $0
+
+** author: org-mode-author-setting
+#+AUTHOR: Pang Tun Jiang
+
+** email: org-mode-email-setting
+#+EMAIL: pang.t@nus.edu.sg
+
 * prog-mode
 These comments are generally highlighted using hl-todo
 ** c: Comment                                                          :src:
