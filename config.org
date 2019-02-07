@@ -316,8 +316,7 @@ Important bindings:
     :commands (org-capture
                org-capture-templates)
     :general
-    (:prefix my-default-evil-leader-key
-     :states 'normal
+    (:states 'motion
      ;; In evil it's jump to column number, which isn't that useful tbh
      "|" '(lambda () (interactive)
               (require 'org-capture)
