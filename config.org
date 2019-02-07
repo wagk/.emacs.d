@@ -318,7 +318,8 @@ Important bindings:
     :general
     (:prefix my-default-evil-leader-key
      :states 'normal
-     "c c" '(lambda () (interactive)
+     ;; In evil it's jump to column number, which isn't that useful tbh
+     "|" '(lambda () (interactive)
               (require 'org-capture)
               (helm-org-capture-templates)))
      ;; "c j" '((lambda () (interactive) (org-capture nil "j"))
@@ -808,7 +809,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package smartparens
     :defer 2
-    :straight (:host github :repo "Fuco1/smartparens" :branch "master")
+    :straight (:host github :repo "Fuco1/smartparens")
     :diminish smartparens-mode
     :commands (sp-local-pair)
     :general
