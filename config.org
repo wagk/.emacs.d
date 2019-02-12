@@ -6,7 +6,7 @@
 * Packaging
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package auto-package-update
-    :straight (:host github :repo "rranelli/auto-package-update.el" :branch "master")
+    :straight (:host github :repo "rranelli/auto-package-update.el")
     :commands (auto-package-update-now
                auto-package-update-at-time
                auto-package-update-maybe)
@@ -28,7 +28,7 @@
     :after (evil)
     :straight (:host github
                :repo "emacs-evil/evil-collection"
-               :branch "master")
+              )
     :custom
     (evil-collection-setup-minibuffer t)
     :config
@@ -40,7 +40,7 @@
 ** Alignment
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-lion
-    :straight (:host github :repo "edkolev/evil-lion" :branch "master")
+    :straight (:host github :repo "edkolev/evil-lion")
     :after (evil)
     :general
     (:keymaps '(normal visual)
@@ -53,7 +53,7 @@
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-numbers
     :disabled t
-    :straight (:host github :repo "cofi/evil-numbers" :branch "master")
+    :straight (:host github :repo "cofi/evil-numbers")
     :general
     (:keymaps 'normal
      "C-a"  'evil-numbers/inc-at-pt
@@ -76,7 +76,7 @@ Adds the following ex commands:
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-expat
-    :straight (:host github :repo "edkolev/evil-expat" :branch "master")
+    :straight (:host github :repo "edkolev/evil-expat")
     :after (magit))
 #+END_SRC
 
@@ -86,7 +86,7 @@ to work on a visual selection too
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-visualstar
-    :straight (:host github :repo "bling/evil-visualstar" :branch "master")
+    :straight (:host github :repo "bling/evil-visualstar")
     :general
     (:keymaps 'visual
      "*" 'evil-visualstar/begin-search-forward
@@ -123,7 +123,7 @@ package isn't being maintained or something
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-surround
-    :straight (:host github :repo "emacs-evil/evil-surround" :branch "master")
+    :straight (:host github :repo "emacs-evil/evil-surround")
     :after (evil)
     :config
     (global-evil-surround-mode))
@@ -133,7 +133,7 @@ package isn't being maintained or something
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-args
-    :straight (:host github :repo "wcsmith/evil-args" :branch "master")
+    :straight (:host github :repo "wcsmith/evil-args")
     :after (evil)
     :general
     (evil-inner-text-objects-map
@@ -145,7 +145,7 @@ package isn't being maintained or something
 ** Comment using text objects
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-commentary
-    :straight (:host github :repo "linktohack/evil-commentary" :branch "master")
+    :straight (:host github :repo "linktohack/evil-commentary")
     :after (evil)
     :config
     (evil-commentary-mode))
@@ -154,7 +154,7 @@ package isn't being maintained or something
 ** Comment Text Objects
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-nerd-commenter
-    :straight (:host github :repo "redguardtoo/evil-nerd-commenter" :branch "master")
+    :straight (:host github :repo "redguardtoo/evil-nerd-commenter")
     :after (evil)
     :general
     (evil-inner-text-objects-map
@@ -168,14 +168,14 @@ Bound to "h"
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-textobj-syntax
-    :straight (:host github :repo "laishulu/evil-textobj-syntax" :branch "master")
+    :straight (:host github :repo "laishulu/evil-textobj-syntax")
     :after evil)
 #+END_SRC
 
 ** Indent text objects
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-indent-plus
-    :straight (:host github :repo "TheBB/evil-indent-plus" :branch "master")
+    :straight (:host github :repo "TheBB/evil-indent-plus")
     :general
     (evil-inner-text-objects-map
      "i" 'evil-indent-plus-i-indent
@@ -188,7 +188,7 @@ Bound to "h"
 ** Line Text Objects
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-textobj-line
-    :straight (:host github :repo "syohex/evil-textobj-line" :branch "master")
+    :straight (:host github :repo "syohex/evil-textobj-line")
     :after evil)
 #+END_SRC
 
@@ -199,7 +199,7 @@ This is an expensive package to load, and I wonder why
   (use-package targets
     :after (evil)
     :defer 2
-    :straight (:host github :repo "noctuid/targets.el" :branch "master")
+    :straight (:host github :repo "noctuid/targets.el")
     :commands (targets-inner-paren
                targets-inner-curly
                targets-a-paren
@@ -223,7 +223,7 @@ This is an expensive package to load, and I wonder why
 ** Evil-cleverparens
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-cleverparens
-    :straight (:host github :repo "luxbock/evil-cleverparens" :branch "master")
+    :straight (:host github :repo "luxbock/evil-cleverparens")
     :general
     (evil-inner-text-objects-map
      "f" 'evil-cp-inner-form)
@@ -245,7 +245,7 @@ This is an expensive package to load, and I wonder why
   (use-package helm-describe-modes
     :straight (:host github
                :repo "emacs-helm/helm-describe-modes"
-               :branch "master")
+              )
     :general
     ("C-h m" 'helm-describe-modes))
 #+END_SRC
@@ -256,7 +256,7 @@ This is an expensive package to load, and I wonder why
   (use-package helm-descbinds
     :straight (:host github
                :repo "emacs-helm/helm-descbinds"
-               :branch "master")
+              )
     :general
     ("C-h b" 'helm-descbinds))
 #+END_SRC
@@ -273,7 +273,7 @@ Important bindings:
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-org
-    :straight (:host github :repo "Somelauw/evil-org-mode" :branch "master")
+    :straight (:host github :repo "Somelauw/evil-org-mode")
     :hook ((org-mode . evil-org-mode)
            (org-agenda-mode . evil-org-mode))
     :custom
@@ -345,7 +345,7 @@ Important bindings:
       (add-to-list 'org-capture-templates
                    `("i" "Standard Inbox" entry
                      (file ,(concat config-local-dropbox-folder "/notes/inbox.org"))
-                     "* TODO %? \nLOGGED: %U"))))
+                     "* TODO %? \nOPENED: %U"))))
     ;; when inserting a heading immediately go into insert mode
     ;; (when (boundp 'my-journal-org-file)
     ;;   (add-to-list 'org-capture-templates
@@ -387,7 +387,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package magit
-    :straight (:host github :repo "magit/magit" :branch "master")
+    :straight (:host github :repo "magit/magit")
     :commands (magit-status
                magit-pull
                magit-commit)
@@ -417,7 +417,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
   (use-package evil-magit
     :straight (:host github
                :repo "emacs-evil/evil-magit"
-               :branch "master")
+              )
     :after (magit)
     :config
     (evil-magit-init))
@@ -434,7 +434,7 @@ Might have to install vdiff itself?
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package vdiff-magit
     :disabled t
-    :straight (:host github :repo "justbur/emacs-vdiff-magit" :branch "master")
+    :straight (:host github :repo "justbur/emacs-vdiff-magit")
     :after (magit)
     :general
     (magit-mode-map
@@ -452,7 +452,7 @@ Might have to install vdiff itself?
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package git-gutter+
-    :straight (:host github :repo "nonsequitur/git-gutter-plus" :branch "master")
+    :straight (:host github :repo "nonsequitur/git-gutter-plus")
     :defer 7
     :general
     (:states  'normal
@@ -465,7 +465,7 @@ Might have to install vdiff itself?
     :hook (prog-mode . git-gutter+-mode)
     :init
     (use-package git-gutter-fringe+
-      :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus" :branch "master")
+      :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus")
       :if (display-graphic-p)
       :after git-gutter+)
     :custom
@@ -480,7 +480,7 @@ that for the range we want
 * Make Emacs Restartable
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package restart-emacs
-    :straight (:host github :repo "iqbalansari/restart-emacs" :branch "master")
+    :straight (:host github :repo "iqbalansari/restart-emacs")
     :commands (restart-emacs)
     :init
     (evil-ex-define-cmd "restart" 'restart-emacs))
@@ -673,7 +673,7 @@ Stolen from https://github.com/bbatsov/crux
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package solarized-theme
     :defer 2
-    :straight (:host github :repo "bbatsov/solarized-emacs" :branch "master")
+    :straight (:host github :repo "bbatsov/solarized-emacs")
     :custom
     (solarized-use-variable-pitch nil)
     (solarized-distinct-fringe-background nil)
@@ -696,7 +696,7 @@ Stolen from https://github.com/bbatsov/crux
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package aggressive-fill-paragraph
-    :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode" :branch "master")
+    :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode")
     :hook (org-mode . aggressive-fill-paragraph-mode))
 #+END_SRC
 
@@ -704,7 +704,7 @@ Stolen from https://github.com/bbatsov/crux
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package aggressive-indent
-    :straight (:host github :repo "malabarba/aggressive-indent-mode" :branch "master")
+    :straight (:host github :repo "malabarba/aggressive-indent-mode")
     :commands (aggressive-indent-mode))
 #+END_SRC
 
@@ -713,7 +713,7 @@ Stolen from https://github.com/bbatsov/crux
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package yasnippet
     :defer 3
-    :straight (:host github :repo "joaotavora/yasnippet" :branch "master")
+    :straight (:host github :repo "joaotavora/yasnippet")
     :commands (yas-minor-mode
                yas-expand-snippet)
     :general
@@ -742,7 +742,7 @@ Stolen from https://github.com/bbatsov/crux
 * Projectile
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package projectile
-    :straight (:host github :repo "bbatsov/projectile" :branch "master")
+    :straight (:host github :repo "bbatsov/projectile")
     :commands (projectile-mode)
     :defer 2
     :config
@@ -752,7 +752,7 @@ Stolen from https://github.com/bbatsov/crux
 ** Helm-projectile
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package helm-projectile
-    :straight (:host github :repo "bbatsov/helm-projectile" :branch "master")
+    :straight (:host github :repo "bbatsov/helm-projectile")
     :general
     (:states '(normal motion)
      "+" 'helm-projectile))
@@ -763,7 +763,7 @@ Stolen from https://github.com/bbatsov/crux
 ** Parinfer
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package parinfer
-    :straight (:host github :repo "DogLooksGood/parinfer-mode" :branch "master")
+    :straight (:host github :repo "DogLooksGood/parinfer-mode")
     :commands (parinfer-mode)
     :general
     (parinfer-mode-map
@@ -785,7 +785,7 @@ Stolen from https://github.com/bbatsov/crux
 ** Rainbow Delimiter Mode
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package rainbow-delimiters
-    :straight (:host github :repo "Fanael/rainbow-delimiters" :branch "master")
+    :straight (:host github :repo "Fanael/rainbow-delimiters")
     :commands (rainbow-delimiters-mode)
     :hook (prog-mode . rainbow-delimiters-mode))
 #+END_SRC
@@ -796,7 +796,7 @@ It looks fairly jarring to be very honest.
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package rainbow-identifiers
-    :straight (:host github :repo "Fanael/rainbow-identifiers" :branch "master")
+    :straight (:host github :repo "Fanael/rainbow-identifiers")
     :commands (rainbow-identifiers-mode))
 #+END_SRC
 
@@ -849,7 +849,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
 * Clang Format
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package clang-format
-    :straight (:host github :repo "sonatard/clang-format" :branch "master")
+    :straight (:host github :repo "sonatard/clang-format")
     :commands (clang-format-region
                clang-format-buffer
                clang-format)
@@ -965,7 +965,7 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 ** Elmacro
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package elmacro
-    :straight (:host github :repo "Silex/elmacro" :branch "master")
+    :straight (:host github :repo "Silex/elmacro")
     :commands (elmacro-show-last-macro
                elmacro-show-last-commands
                elmacro-clear-recorded-commands)
@@ -980,7 +980,7 @@ the initial entry works as per deft-mode-hook
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package deft
-    :straight (:host github :repo "jrblevin/deft" :branch "master")
+    :straight (:host github :repo "jrblevin/deft")
     :commands (deft deft-filter deft-setup) ;; call this if no .deft folder is found
     :custom
     (deft-auto-save-interval 0.0
@@ -1040,7 +1040,7 @@ the initial entry works as per deft-mode-hook
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package aes
     :defer nil
-    :straight (:host github :repo "Sauermann/emacs-aes" :branch "master")
+    :straight (:host github :repo "Sauermann/emacs-aes")
     :commands (aes-toggle-encryption ;; this makes it auto encrypt/decrypt
                aes-remove-encryption-hook
                aes-is-encrypted
@@ -1098,7 +1098,7 @@ clojurescript-mode derives from clojure-mode
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package clojure-mode
-    :straight (:host github :repo "clojure-emacs/clojure-mode" :branch "master")
+    :straight (:host github :repo "clojure-emacs/clojure-mode")
     :commands (clojure-mode
                clojurescript-mode)
     :hook ((clojure-mode . rainbow-delimiters-mode)
@@ -1120,11 +1120,11 @@ Sesman is not found normally by cider, so we had to manually clone it
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package sesman
-    :straight (:host github :repo "vspinu/sesman" :branch "master"))
+    :straight (:host github :repo "vspinu/sesman"))
   (use-package cider
     :commands (cider-jack-in
                cider-connect)
-    :straight (:host github :repo "clojure-emacs/cider" :branch "master"))
+    :straight (:host github :repo "clojure-emacs/cider"))
 #+END_SRC
 
 We were unable to launch a shadow-cljs nREPL directly, but we are able
@@ -1138,7 +1138,7 @@ We should look at customizing cider someday.
 * Rust                                                                :major:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package rust-mode
-    :straight (:host github :repo "rust-lang/rust-mode" :branch "master")
+    :straight (:host github :repo "rust-lang/rust-mode")
     :mode
     ("\\.rs\\'" . rust-mode)
     :custom
@@ -1199,7 +1199,7 @@ package manager
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package markdown-mode
-    :straight (:host github :repo "jrblevin/markdown-mode" :branch "master")
+    :straight (:host github :repo "jrblevin/markdown-mode")
     :commands (markdown-mode)
     :hook (markdown-mode . orgtbl-mode)
     :init
@@ -1210,7 +1210,7 @@ package manager
 * Dumb Jump
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package dumb-jump
-    :straight (:host github :repo "jacktasia/dumb-jump" :branch "master")
+    :straight (:host github :repo "jacktasia/dumb-jump")
     :general
     (:states 'normal
      "g d" 'dumb-jump-go))
@@ -1234,7 +1234,7 @@ package manager
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package anki-mode
     :disabled t
-    :straight (:host github :repo "davidshepherd7/anki-mode" :branch "master")
+    :straight (:host github :repo "davidshepherd7/anki-mode")
     :commands (anki-mode-menu))
 #+END_SRC
 
@@ -1242,13 +1242,13 @@ package manager
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package anki-editor
     :disabled t
-    :straight (:host github :repo "louietan/anki-editor" :branch "master"))
+    :straight (:host github :repo "louietan/anki-editor"))
 #+END_SRC
 
 * JSON                                                                :major:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package json-mode
-    :straight (:host github :repo "joshwnj/json-mode" :branch "master")
+    :straight (:host github :repo "joshwnj/json-mode")
     :commands (json-mode)
     :init
     (with-eval-after-load 'org-src
@@ -1258,14 +1258,14 @@ package manager
 * Silver Searcher (Ag)
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ag
-    :straight (:host github :repo "Wilfred/ag.el" :branch "master")
+    :straight (:host github :repo "Wilfred/ag.el")
     :commands ag)
 #+END_SRC
 
 ** Helm Ag
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package helm-ag
-    :straight (:host github :repo "syohex/emacs-helm-ag" :branch "master")
+    :straight (:host github :repo "syohex/emacs-helm-ag")
     :commands (helm-ag
                helm-ag-this-file))
 #+END_SRC
@@ -1309,7 +1309,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ledger-mode
     :mode "\\.ledger\\'"
-    :straight (:host github :repo "ledger/ledger-mode" :branch "master"
+    :straight (:host github :repo "ledger/ledger-mode"
                :files (:defaults "ledger-test.el"))
     :config
       (with-eval-after-load 'org-src
@@ -1319,14 +1319,14 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 ** Evil-ledger
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-ledger
-    :straight (:host github :repo "atheriel/evil-ledger" :branch "master")
+    :straight (:host github :repo "atheriel/evil-ledger")
     :after (ledger-mode))
 #+END_SRC
 
 * Hledger                                                             :major:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package hledger-mode
-    :straight (:host github :repo "narendraj9/hledger-mode" :branch "master")
+    :straight (:host github :repo "narendraj9/hledger-mode")
     :mode "\\.journal\\'")
 #+END_SRC
 
@@ -1334,7 +1334,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package hl-todo
     :diminish t
-    :straight (:host github :repo "tarsius/hl-todo" :branch "master")
+    :straight (:host github :repo "tarsius/hl-todo")
     :commands (hl-todo-mode)
     :hook ((prog-mode  . hl-todo-mode)
            (yaml-mode  . hl-todo-mode))
@@ -1405,7 +1405,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 * Helpful
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package helpful
-    :straight (:host github :repo "Wilfred/helpful" :branch "master")
+    :straight (:host github :repo "Wilfred/helpful")
     :general
     ("C-h k"   'helpful-key
      "C-h f"   'helpful-callable
@@ -1418,7 +1418,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package elisp-demos
     :after (helpful)
-    :straight (:host github :repo "xuchunyang/elisp-demos" :branch "master"
+    :straight (:host github :repo "xuchunyang/elisp-demos"
                :files (:defaults "elisp-demos.org"))
     :config
     (with-eval-after-load 'helpful
@@ -1454,7 +1454,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 * Which Key
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package which-key
-    :straight (:host github :repo "justbur/emacs-which-key" :branch "master")
+    :straight (:host github :repo "justbur/emacs-which-key")
     :defer 10
     :config
     (which-key-mode))
@@ -1463,7 +1463,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 * Groovy mode                                                         :major:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package groovy-mode
-    :straight (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes" :branch "master")
+    :straight (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes")
     :mode (("\\.groovy\\'" . groovy-mode)
            ("\\Jenkinsfile\\'" . groovy-mode))
     :init
@@ -1475,7 +1475,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 * Hy Mode                                                             :major:
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package hy-mode
-    :straight (:host github :repo "hylang/hy-mode" :branch "master")
+    :straight (:host github :repo "hylang/hy-mode")
     :mode "\\.hy\\'"
     :general
     (hy-mode-map
@@ -1493,7 +1493,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 ** ob-hy
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ob-hy
-    :straight (:host github :repo "brantou/ob-hy" :branch "master")
+    :straight (:host github :repo "brantou/ob-hy")
     :config
     (require 'ob-hy))
 #+END_SRC
@@ -1501,14 +1501,14 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 * vlf-mode
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package vlf
-    :straight (:host github :repo "m00natic/vlfi" :branch "master")
+    :straight (:host github :repo "m00natic/vlfi")
     :config (require 'vlf-setup))
 #+END_SRC
 
 * Yankpad
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package yankpad
-    :straight (:host github :repo "Kungsgeten/yankpad" :branch "master")
+    :straight (:host github :repo "Kungsgeten/yankpad")
     :commands (yankpad-expand
                yankpad-edit
                yankpad-reload)
@@ -1527,7 +1527,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 * Smart tab
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package smart-tab
-    :straight (:host github :repo "genehack/smart-tab" :branch "master")
+    :straight (:host github :repo "genehack/smart-tab")
     :custom
     (smart-tab-using-hippie-expand t)
     :config
@@ -1546,10 +1546,14 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
   (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp :results output silent
+  (setq-default python-indent-offset 2)
+#+END_SRC
+
 * Powershell
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package powershell.el
-    :straight (:host github :repo "jschaf/powershell.el" :branch "master")
+    :straight (:host github :repo "jschaf/powershell.el")
     :commands (powershell-mode)
     :init
     (with-eval-after-load 'org-src
