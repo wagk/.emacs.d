@@ -11,6 +11,10 @@
 #+BEGIN_SRC ${1:emacs-lisp}
 #+END_SRC
 
+** example: org-mode-example-block
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+
 ** math: Latex math environment
 \begin{displaymath}
 $0
