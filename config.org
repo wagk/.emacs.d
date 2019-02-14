@@ -1576,7 +1576,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+END_SRC
 
 * Access inbox.org from evil command
-#+BEGIN_SRC emacs-lisp :results output silent  (evil-ex-define-cmd "inbox" #'(lambda ()
+#+BEGIN_SRC emacs-lisp :results output silent
   (evil-ex-define-cmd "inbox" '(lambda ()
                                  (interactive)
                                  (if (boundp 'config-local-dropbox-folder)
