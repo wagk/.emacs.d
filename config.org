@@ -3,6 +3,16 @@
 
 * TODO Figure out Edebug and tracebacks
 
+* Define useful constants
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (defconst my-inbox-org-file (if (boundp 'config-local-dropbox-folder)
+                                  (concat config-local-dropbox-folder "/notes/inbox.org")
+                                (progn
+                                  (error "Unable to find the dropbox folder!")
+                                  nil)))
+#+END_SRC
+
 * Packaging
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package auto-package-update
@@ -344,7 +354,7 @@ Important bindings:
     (when (boundp 'config-local-dropbox-folder)
       (add-to-list 'org-capture-templates
                    `("i" "Standard Inbox" entry
-                     (file ,(concat config-local-dropbox-folder "/notes/inbox.org"))
+                     (file ,my-inbox-org-file)
                      "* TODO %? \nOPENED: %U"))))
     ;; when inserting a heading immediately go into insert mode
     ;; (when (boundp 'my-journal-org-file)
@@ -1563,4 +1573,12 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     (defun org-babel-execute:powershell (body _params)
       (let ((explicit-shell-file-name powershell-location-of-exe))
         (shell-command-to-string body))))
+#+END_SRC
+
+* Access inbox.org from evil command
+#+BEGIN_SRC emacs-lisp :results output silent  (evil-ex-define-cmd "inbox" #'(lambda ()
+  (evil-ex-define-cmd "inbox" '(lambda ()
+                                 (interactive)
+                                 (if (boundp 'config-local-dropbox-folder)
+                                     (find-file my-inbox-org-file))))
 #+END_SRC
