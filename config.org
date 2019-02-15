@@ -433,7 +433,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     (evil-magit-init))
 #+END_SRC
 
-*** Vimdiff
+*** COMMENT Vimdiff
 
 This invokes diff3, an external program, which we can't guarantee, so
 it's disabled
