@@ -83,6 +83,10 @@
     ("ot" "to" nil 2)
     ("suew" "sure" nil 1)
     ("taht" "that" nil 2)
+    ("minign" "mining" nil 1)
+    ("suew" "sure" nil 1)
+    ("wnat" "want" nil 1)
+    ("wrt" "w.r.t" nil 1)
     ("wtih" "with" nil 1)
    ))
 
@@ -115,6 +119,8 @@
 (define-abbrev-table 'java-mode-abbrev-table
   '(
    ))
+
+(define-abbrev-table 'inferior-hy-mode-abbrev-table '())
 
 (define-abbrev-table 'ledger-check-mode-abbrev-table '())
 
