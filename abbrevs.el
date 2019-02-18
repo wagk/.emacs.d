@@ -5,9 +5,7 @@
 
 (define-abbrev-table 'Info-edit-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -17,13 +15,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
@@ -73,6 +67,7 @@
   '(
     ("artifactoyr" "artifactory" nil 1)
     ("buisness" "business" nil 1)
+    ("bya " "by a" nil 0)
     ("contian" "contain" nil 1)
     ("craeting" "creating" nil 1)
     ("fiel" "file" nil 1)
@@ -80,13 +75,14 @@
     ("hsould" "should" nil 1)
     ("hwo" "who" nil 1)
     ("intenral" "internal" nil 1)
-    ("ot" "to" nil 2)
+    ("ot" "to" nil 3)
     ("suew" "sure" nil 1)
     ("taht" "that" nil 2)
     ("minign" "mining" nil 1)
     ("suew" "sure" nil 1)
     ("wnat" "want" nil 1)
     ("wrt" "w.r.t" nil 1)
+    ("ti" "it" nil 1)
     ("wtih" "with" nil 1)
    ))
 
@@ -116,9 +112,7 @@
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'inferior-hy-mode-abbrev-table '())
 
@@ -174,9 +168,7 @@
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -188,9 +180,7 @@
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'powershell-mode-abbrev-table '())
 
@@ -200,9 +190,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'rust-mode-abbrev-table '())
 
