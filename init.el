@@ -313,6 +313,7 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-ex-define-cmd "h[elp]" 'ex-helm-apropos)
     (evil-ex-define-cmd "bb"     'helm-mini)
     (evil-ex-define-cmd "bm"     'helm-bookmarks)
+    (evil-ex-define-cmd "Ex[plore]"     'dired)
     :custom
     (helm-idle-delay 0.0)
     (helm-input-idle-delay 0.01)

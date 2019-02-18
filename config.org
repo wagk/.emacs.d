@@ -411,8 +411,8 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
        ((string= cmd "commit all") (magit-commit `("--all" "-m" ,(iso-8601-timestamp))))
        ((string= cmd "push") (magit-push-current-to-pushremote nil))
        ((string= cmd "commit push all") (progn
-                                      (magit-commit `("--all" "-m" ,(iso-8601-timestamp)))
-                                      (magit-push-current-to-pushremote nil)))
+                                          (magit-commit `("--all" "-m" ,(iso-8601-timestamp)))
+                                          (magit-push-current-to-pushremote nil)))
        ((string= cmd "log") (magit-log-all))
        ((or (string= cmd "status")
             (eq cmd nil)) (magit-status))
@@ -423,11 +423,18 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
 #+END_SRC
 
 *** Evil bindings
+
+[2019-02-18 Mon 12:49] Magit changed from magit-popup to transient,
+and that breaks this addon
+https://github.com/syl20bnr/spacemacs/issues/11978
+
+Current fix ([2019-02-18 Mon 13:06]) is to pin magit to an earlier
+config. This configuration is stored in =straight/versions/default.el=
+
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-magit
     :straight (:host github
-               :repo "emacs-evil/evil-magit"
-              )
+               :repo "emacs-evil/evil-magit")
     :after (magit)
     :config
     (evil-magit-init))
