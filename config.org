@@ -103,6 +103,16 @@ to work on a visual selection too
      "#" 'evil-visualstar/begin-search-backward))
 #+END_SRC
 
+** Fringe marks
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package evil-fringe-mark
+    :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
+    :custom
+    (evil-fringe-mark-show-special t)
+    :config
+    (global-evil-fringe-mark-mode))
+#+END_SRC
+
 * Text Objects
 ** Latex Textobjects
 I appear to have stolen this from somewhere, probably because the original
