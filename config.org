@@ -73,7 +73,7 @@
 ** Evil Expat
 Adds the following ex commands:
 
-| :reverse          | reverse visually selected lines                                |
+| :reverse           | reverse visually selected lines                                |
 | :remove            | remove current file and its buffer                             |
 | :rename NEW-PATH   | rename or move current file and its buffer                     |
 | :colorscheme THEME | change emacs color theme                                       |
@@ -750,6 +750,20 @@ Stolen from https://github.com/bbatsov/crux
     :general
     (:states '(normal motion)
      "+" 'helm-projectile))
+#+END_SRC
+
+** Org-Projectile
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package org-projectile
+    :straight (:host github :repo "IvanMalison/org-projectile")
+    :commands (org-projectile-project-todo-entry)
+    :init
+    (add-to-list 'org-capture-templates (org-projectile-project-todo-entry)))
+    :config
+    (org-projectile-per-project)
+    (setq org-projectile-per-project-filepath ".todo.org"
+          org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
 #+END_SRC
 
 * Lisp
