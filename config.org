@@ -1416,8 +1416,9 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
   (use-package writeroom-mode
     :straight (:host github :repo "joostkremers/writeroom-mode")
     :commands (writeroom-mode)
-    :init
-    (evil-ex-define-cmd "zen" 'writeroom-mode))
+    :general
+    (:states 'normal
+     "g z" 'writeroom-mode))
 #+END_SRC
 
 * Helpful
