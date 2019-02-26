@@ -154,7 +154,7 @@ recovery. Maybe eventually load dependencies and all that."
 
   ;; https://github.com/emacscollective/auto-compile
   (use-package auto-compile
-    :straight (:host github :repo "emacscollective/auto-compile" :branch "master")
+    :straight (:host github :repo "emacscollective/auto-compile")
     :custom
     (load-prefer-newer t)
     (auto-compile-verbose t)
@@ -163,20 +163,20 @@ recovery. Maybe eventually load dependencies and all that."
     (auto-compile-on-save-mode))
 
   (use-package async
-    :straight (:host github :repo "jwiegley/emacs-async" :branch "master")
+    :straight (:host github :repo "jwiegley/emacs-async")
     :config
     (async-bytecomp-package-mode 1))
 
   (use-package general
-    :straight (:host github :repo "noctuid/general.el" :branch "master")
+    :straight (:host github :repo "noctuid/general.el")
     :init
     (defconst my-default-evil-leader-key "SPC"))
 
   (use-package no-littering
-    :straight (:host github :repo "emacscollective/no-littering" :branch "master"))
+    :straight (:host github :repo "emacscollective/no-littering"))
 
   (use-package git
-    :straight (:host github :repo "rejeep/git.el" :branch "master"))
+    :straight (:host github :repo "rejeep/git.el"))
 
   (customize-set-variable 'evil-want-keybinding nil
                           "`evil-collections' wants this to be
@@ -185,7 +185,7 @@ recovery. Maybe eventually load dependencies and all that."
 
   (use-package evil
     :demand t
-    :straight (:host github :repo "emacs-evil/evil" :branch "master")
+    :straight (:host github :repo "emacs-evil/evil")
     :commands (evil-set-initial-state
                evil-insert-state
                evil-ex-define-cmd)
@@ -273,10 +273,10 @@ recovery. Maybe eventually load dependencies and all that."
            (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
            (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
 
-    ;; https://www.emacswiki.org/emacs/RegularExpression
-    (/evil-define-and-bind-text-object "/" "/" "/")
-    (/evil-define-and-bind-text-object "\\" "\\" "\\")
-    (/evil-define-and-bind-text-object "|" "|" "|")
+    ;; ;; https://www.emacswiki.org/emacs/RegularExpression
+    ;; (/evil-define-and-bind-text-object "/" "/" "/")
+    ;; (/evil-define-and-bind-text-object "\\" "\\" "\\")
+    ;; (/evil-define-and-bind-text-object "|" "|" "|")
 
     (evil-define-text-object my-evil-a-buffer (count &optional beg end type)
       "Select entire buffer"
@@ -285,7 +285,7 @@ recovery. Maybe eventually load dependencies and all that."
 
   (use-package helm
     :demand t
-    :straight (:host github :repo "emacs-helm/helm" :branch "master")
+    :straight (:host github :repo "emacs-helm/helm")
     :commands (helm-org-in-buffer-headings)
     :general
     ("C-h C-h" 'helm-apropos)
