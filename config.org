@@ -112,7 +112,6 @@ to work on a visual selection too
     :config
     (global-evil-fringe-mark-mode))
 #+END_SRC
-
 * Text Objects
 ** Latex Textobjects
 I appear to have stolen this from somewhere, probably because the original
@@ -1416,6 +1415,9 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
   (use-package writeroom-mode
     :straight (:host github :repo "joostkremers/writeroom-mode")
     :commands (writeroom-mode)
+    :custom
+    (writeroom-mode-line t)
+    (writeroom-bottom-divider-width 0)
     :general
     (:states 'normal
      "g z" 'writeroom-mode))
@@ -1586,7 +1588,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 
 * Access inbox.org from evil command
 #+BEGIN_SRC emacs-lisp :results output silent
-  (evil-ex-define-cmd "inbox" '(lambda ()
+  (evil-ex-define-cmd "in[box]" '(lambda ()
                                  (interactive)
                                  (if (boundp 'config-local-dropbox-folder)
                                      (find-file my-inbox-org-file))))
