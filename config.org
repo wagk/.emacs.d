@@ -787,6 +787,8 @@ Stolen from https://github.com/bbatsov/crux
     :general
     (parinfer-mode-map
      "\"" nil) ;; let smartparens do its thing
+    (:states 'normal
+     "g p" 'parinfer-toggle-mode)
     :custom
     (parinfer-auto-switch-indent-mode
      t "We prefer indent mode")
