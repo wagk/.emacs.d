@@ -394,7 +394,8 @@ recovery. Maybe eventually load dependencies and all that."
     (org-enforce-todo-checkbox-dependencies
      nil "Sometimes we are able to skip dependencies as things happen")
     (org-enforce-todo-dependencies nil)
-    (org-pretty-entities nil)
+    (org-pretty-entities
+     t "Print UTF8 characters when visible")
     (org-log-done       'time)
     (org-log-redeadline 'time)
     (org-log-reschedule 'time)
@@ -406,6 +407,8 @@ recovery. Maybe eventually load dependencies and all that."
     (org-refile-allow-creating-parent-nodes 'confirm)
     (org-highlight-latex-and-related '(latex))
     (org-insert-heading-respect-content t)
+    (org-extend-today-until
+     5 "I think 5 am is a safe bet for the end of the day")
     :hook ((org-insert-heading . evil-insert-state))
     ;; :init
     ;; ;; Taken from:
