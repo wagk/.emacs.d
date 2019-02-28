@@ -17,13 +17,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -93,12 +89,12 @@
   '(
     ("artifactoyr" "artifactory" nil 1)
     ("assocaited" "associated" nil 1)
+    ("bigfixes" "bugfixes" nil 1)
     ("buisness" "business" nil 1)
     ("contian" "contain" nil 1)
     ("craeting" "creating" nil 1)
     ("fiel" "file" nil 1)
     ("followiong" "following" nil 1)
-    ("hsould" "should" nil 1)
     ("hsould" "should" nil 2)
     ("huntry" "hungry" nil 1)
     ("hwo" "who" nil 1)
@@ -106,10 +102,8 @@
     ("minign" "mining" nil 1)
     ("naimin" "Naimin" nil 2)
     ("ot" "to" nil 4)
-    ("ot" "to" nil 4)
     ("renaem" "Rename" nil 1)
     ("suew" "sure" nil 1)
-    ("taht" "that" nil 2)
     ("taht" "that" nil 4)
     ("ti" "it" nil 1)
     ("wnat" "want" nil 1)
@@ -143,9 +137,7 @@
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -205,9 +197,7 @@
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -221,9 +211,7 @@
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'powershell-mode-abbrev-table '())
 
@@ -233,9 +221,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'rust-mode-abbrev-table '())
 
