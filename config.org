@@ -1631,5 +1631,5 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     :config
     (when (boundp 'config-local-dropbox-folder)
       (customize-set-value 'org-journal-dir (file-name-as-directory
-                                             (concat config-local-dropbox-folder "/notes")))))
+                                             (concat config-local-dropbox-folder "/notes/journal")))))
 #+END_SRC
