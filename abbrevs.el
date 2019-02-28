@@ -101,6 +101,7 @@
     ("intenral" "internal" nil 1)
     ("minign" "mining" nil 1)
     ("naimin" "Naimin" nil 2)
+    ("oging" "going" nil 1)
     ("ot" "to" nil 4)
     ("renaem" "Rename" nil 1)
     ("suew" "sure" nil 1)
@@ -204,6 +205,8 @@
 (define-abbrev-table 'occur-mode-abbrev-table '())
 
 (define-abbrev-table 'org-export-stack-mode-abbrev-table '())
+
+(define-abbrev-table 'org-journal-mode-abbrev-table '())
 
 (define-abbrev-table 'org-mode-abbrev-table '())
 
