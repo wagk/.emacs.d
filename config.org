@@ -1232,6 +1232,8 @@ package manager
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package dumb-jump
     :straight (:host github :repo "jacktasia/dumb-jump")
+    :custom
+    (dumb-jump-selector 'helm)
     :general
     (:states 'normal
      "g d" 'dumb-jump-go))
