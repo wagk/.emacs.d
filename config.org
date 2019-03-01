@@ -997,7 +997,7 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 * Deft
 There's an issue when re-entering the deft buffer where we're in
 normal mode and not insert mode. Not sure why that is happening, since
-the initial entry works as per deft-mode-hook
+the initial entry works as per =deft-mode-hook=
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package deft
@@ -1412,7 +1412,12 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 
 ** Abbrev bindings
 #+BEGIN_SRC emacs-lisp :results output silent
-  (evil-ex-define-cmd "abbrev" 'inverse-add-global-abbrev)
+  (evil-ex-define-cmd "abbrev" 'edit-abbrevs)
+
+  (general-define-key
+   :states 'normal
+   :prefix my-default-evil-leader-key
+   "a a" 'inverse-add-global-abbrev)
 #+END_SRC
 * Writeroom
 #+BEGIN_SRC emacs-lisp :results output silent

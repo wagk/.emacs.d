@@ -104,11 +104,12 @@
     ("oging" "going" nil 1)
     ("ot" "to" nil 4)
     ("renaem" "Rename" nil 1)
+    ("rleease" "release" nil 1)
     ("suew" "sure" nil 1)
     ("taht" "that" nil 4)
     ("ti" "it" nil 1)
     ("wnat" "want" nil 1)
-    ("wrt" "w.r.t" nil 1)
+    ("wrt" "w.r.t" nil 2)
     ("wtih" "with" nil 1)
    ))
 

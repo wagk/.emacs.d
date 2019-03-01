@@ -356,12 +356,12 @@ recovery. Maybe eventually load dependencies and all that."
      "o T" '(lambda () (interactive)
               (org-time-stamp '(16)))
      "f f" 'helm-org-in-buffer-headings)
-    (:states 'normal
-     :keymaps 'org-mode-map
-     :prefix my-default-evil-leader-key
-     "l l" 'org-toggle-latex-fragment
-     "r r" 'org-refile
-     "a a" 'org-archive-subtree)
+    ;; (:states 'normal
+    ;;  :keymaps 'org-mode-map
+    ;;  :prefix my-default-evil-leader-key
+    ;;  "l l" 'org-toggle-latex-fragment
+    ;;  "r r" 'org-refile
+    ;;  "a a" 'org-archive-subtree)
     (org-mode-map
      "C-c C-'" 'org-edit-special
      "<C-M-return>" 'org-insert-subheading
