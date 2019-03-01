@@ -34,54 +34,6 @@ $0
 ** email: org-mode-email-setting
 #+EMAIL: pang.t@nus.edu.sg
 
-* prog-mode
-These comments are generally highlighted using hl-todo
-** c: Comment                                                          :src:
-#+BEGIN_SRC emacs-lisp :results output silent
-`(yas-with-comment "BUG: ")`
-#+END_SRC
-
-** bb: Bug                                                             :src:
-
-#+BEGIN_SRC emacs-lisp :results output silent
-`(yas-with-comment "BUG: ")`
-#+END_SRC
-
-** dd: Debug                                                           :src:
-#+BEGIN_SRC emacs-lisp :results output silent
-`(yas-with-comment "DEBUG: ")`
-#+END_SRC
-
-** ff: Fixme                                                           :src:
-#+BEGIN_SRC emacs-lisp :results output silent
-`(yas-with-comment "FIXME: ")`
-#+END_SRC
-
-** hh: Hack                                                            :src:
-#+BEGIN_SRC emacs-lisp :results output silent
-`(yas-with-comment "HACK: ")`
-#+END_SRC
-
-** nn: Note                                                            :src:
-#+BEGIN_SRC emacs-lisp :results output silent
-`(yas-with-comment "NOTE: ")`
-#+END_SRC
-
-** rr: Remove                                                          :src:
-#+BEGIN_SRC emacs-lisp :results output silent
-`(yas-with-comment "REMOVE: ")`
-#+END_SRC
-
-** ss: Stub                                                            :src:
-#+BEGIN_SRC emacs-lisp :results output silent
-`(yas-with-comment "STUB: ")`
-#+END_SRC
-
-** tt: Todo                                                            :src:
-#+BEGIN_SRC emacs-lisp :results output silent
-`(yas-with-comment "TODO: ")`
-#+END_SRC
-
 * python-mode
 
 ** l: python-lambda                                                    :src:
@@ -112,4 +64,63 @@ lambda $1: $0
 ** l: rust-lambda                                                      :src:
 #+BEGIN_SRC rust
 |$1| ${2:{$3}}
+#+END_SRC
+
+** testmod: Test Module                                                :src:
+[[https://doc.rust-lang.org/rust-by-example/testing/unit_testing.html][Documentation]]
+
+#+BEGIN_SRC rust
+  #[cfg(test)]
+  mod tests {
+      use super::*;
+      $0
+  }
+#+END_SRC
+
+** test: Test Case                                                     :src:
+[[https://doc.rust-lang.org/rust-by-example/testing/unit_testing.html][Documentation]]
+
+#+BEGIN_SRC rust
+  #[test]
+  fn $1() {
+      $0
+  }
+#+END_SRC
+* Default                                                            :global:
+These comments are generally highlighted using hl-todo
+** c: Comment                                                          :src:
+#+BEGIN_SRC emacs-lisp
+`(yas-with-comment "")`$0
+#+END_SRC
+** bb: Bug                                                             :src:
+#+BEGIN_SRC emacs-lisp
+`(yas-with-comment "BUG: ")`$0
+#+END_SRC
+** dd: Debug                                                           :src:
+#+BEGIN_SRC emacs-lisp
+`(yas-with-comment "DEBUG: ")`$0
+#+END_SRC
+** ff: Fixme                                                           :src:
+#+BEGIN_SRC emacs-lisp
+`(yas-with-comment "FIXME: ")`$0
+#+END_SRC
+** hh: Hack                                                            :src:
+#+BEGIN_SRC emacs-lisp
+`(yas-with-comment "HACK: ")`$0
+#+END_SRC
+** nn: Note                                                            :src:
+#+BEGIN_SRC emacs-lisp
+`(yas-with-comment "NOTE: ")`$0
+#+END_SRC
+** rr: Remove                                                          :src:
+#+BEGIN_SRC emacs-lisp
+`(yas-with-comment "REMOVE: ")`$0
+#+END_SRC
+** ss: Stub                                                            :src:
+#+BEGIN_SRC emacs-lisp
+`(yas-with-comment "STUB: ")`$0
+#+END_SRC
+** tt: Todo                                                            :src:
+#+BEGIN_SRC emacs-lisp
+`(yas-with-comment "TODO: ")`$0
 #+END_SRC

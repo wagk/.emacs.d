@@ -1548,6 +1548,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
       (interactive "<a>")
       (cond
        ((string= cmd "reload") (yankpad-reload))
+       ((string= cmd "add") (yankpad-capture-snippet))
        (t (yankpad-edit))))
     (evil-ex-define-cmd "snippet[s]" 'ex-yankpad)
     :custom

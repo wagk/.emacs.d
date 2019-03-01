@@ -49,6 +49,8 @@
 
 (define-abbrev-table 'conf-xdefaults-mode-abbrev-table '())
 
+(define-abbrev-table 'css-mode-abbrev-table '())
+
 (define-abbrev-table 'debugger-mode-abbrev-table '())
 
 (define-abbrev-table 'diff-mode-abbrev-table '())
@@ -75,6 +77,14 @@
 
 (define-abbrev-table 'evil-list-view-mode-abbrev-table '())
 
+(define-abbrev-table 'eww-bookmark-mode-abbrev-table '())
+
+(define-abbrev-table 'eww-buffers-mode-abbrev-table '())
+
+(define-abbrev-table 'eww-history-mode-abbrev-table '())
+
+(define-abbrev-table 'eww-mode-abbrev-table '())
+
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
 
 (define-abbrev-table 'gfm-mode-abbrev-table '())
@@ -93,6 +103,7 @@
     ("buisness" "business" nil 1)
     ("contian" "contain" nil 1)
     ("craeting" "creating" nil 1)
+    ("decisoin" "decision" nil 1)
     ("fiel" "file" nil 1)
     ("followiong" "following" nil 1)
     ("hsould" "should" nil 2)
@@ -105,11 +116,13 @@
     ("ot" "to" nil 4)
     ("renaem" "Rename" nil 1)
     ("rleease" "release" nil 1)
+    ("securit" "security" nil 1)
     ("suew" "sure" nil 1)
     ("taht" "that" nil 4)
     ("ti" "it" nil 1)
+    ("uninstallaiton" "uninstallation" nil 1)
     ("wnat" "want" nil 1)
-    ("wrt" "w.r.t" nil 2)
+    ("wrt" "w.r.t" nil 3)
     ("wtih" "with" nil 1)
    ))
 
@@ -199,6 +212,8 @@
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
 
+(define-abbrev-table 'mhtml-mode-abbrev-table '())
+
 (define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
@@ -225,9 +240,13 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'rust-mode-abbrev-table '())
+
+(define-abbrev-table 'scss-mode-abbrev-table '())
 
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
