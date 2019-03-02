@@ -323,7 +323,7 @@ Important bindings:
                               shift
                               return
                               operators
-                              todo
+                              ;; todo
                               ;; heading
                               calendar)))
 #+END_SRC

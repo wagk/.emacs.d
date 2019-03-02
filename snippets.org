@@ -34,6 +34,11 @@ $0
 ** email: org-mode-email-setting
 #+EMAIL: pang.t@nus.edu.sg
 
+** header: Assignment header
+#+TITLE: $0
+#+AUTHOR: Pang Tun Jiang
+#+EMAIL: pang.t@nus.edu.sg
+
 * python-mode
 
 ** l: python-lambda                                                    :src:
