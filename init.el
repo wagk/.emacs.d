@@ -395,7 +395,7 @@ recovery. Maybe eventually load dependencies and all that."
      nil "Sometimes we are able to skip dependencies as things happen")
     (org-enforce-todo-dependencies nil)
     (org-pretty-entities
-     t "Print UTF8 characters when visible")
+     nil "It gets a bit annoying when you autocomplete braces")
     (org-log-done       'time)
     (org-log-redeadline 'time)
     (org-log-reschedule 'time)
