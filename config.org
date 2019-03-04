@@ -1628,8 +1628,8 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     :straight (:host github :repo "bastibe/org-journal")
     :custom
     (org-journal-time-format "%T")
-    (org-journal-date-format "%A, %F")
-    (org-journal-file-format "%F")
+    (org-journal-date-format "%A, %F" "Lets follow the ISO standard")
+    (org-journal-file-format "%F" "Lets follow the ISO standard")
     :init
     (evil-ex-define-cmd "journal" #'(lambda () (interactive)
                                       (org-journal-new-entry t)))
