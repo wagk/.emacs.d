@@ -4,7 +4,6 @@
 * TODO Figure out Edebug and tracebacks
 
 * Define useful constants
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (defconst my-inbox-org-file (if (boundp 'config-local-dropbox-folder)
                                   (concat config-local-dropbox-folder "/notes/inbox.org")
@@ -37,8 +36,7 @@
   (use-package evil-collection
     :after (evil)
     :straight (:host github
-               :repo "emacs-evil/evil-collection"
-              )
+               :repo "emacs-evil/evil-collection")
     :custom
     (evil-collection-setup-minibuffer t)
     :config
@@ -59,7 +57,6 @@
 #+END_SRC
 
 ** Increment and Decrement
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-numbers
     :disabled t
@@ -141,7 +138,6 @@ package isn't being maintained or something
 #+END_SRC
 
 ** Surround text objects
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-surround
     :straight (:host github :repo "emacs-evil/evil-surround")
@@ -151,7 +147,6 @@ package isn't being maintained or something
 #+END_SRC
 
 ** Argument text objects
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-args
     :straight (:host github :repo "wcsmith/evil-args")
