@@ -1173,14 +1173,19 @@ We should look at customizing cider someday.
       (cl-pushnew '("rust" . rust) org-src-lang-modes)))
 #+END_SRC
 
-* Dired
+* TODO Dired
+- Make it more like netrw
+
+
+[[https://gist.github.com/t-mart/610795fcf7998559ea80][Netrw map]]
+
 #+BEGIN_SRC emacs-lisp :results output silent
   (general-define-key
    :states 'normal
    :keymaps 'dired-mode-map
    "<SPC>" nil ; was shadowing leader key bindings
    "SPC" nil ; was shadowing leader key bindings
-   "C-l" 'dired-up-directory)
+   "-" 'dired-up-directory)
   (add-hook 'dired-mode-hook 'auto-revert-mode)
 #+END_SRC
 
@@ -1552,7 +1557,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
        ((string= cmd "reload") (yankpad-reload))
        ((string= cmd "add") (yankpad-capture-snippet))
        (t (yankpad-edit))))
-    (evil-ex-define-cmd "snippet[s]" 'ex-yankpad)
+    (evil-ex-define-cmd "sni[ppets]" 'ex-yankpad)
     :custom
     (yankpad-file (at-user-init-dir "snippets.org")))
 #+END_SRC
