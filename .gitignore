@@ -41,3 +41,4 @@ var/
 /custom.el
 /**/*.elc
 /tags
+tags.*
