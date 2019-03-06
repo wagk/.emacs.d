@@ -7,6 +7,8 @@
 
 (define-abbrev-table 'Man-mode-abbrev-table '())
 
+(define-abbrev-table 'asm-mode-abbrev-table '())
+
 (define-abbrev-table 'awk-mode-abbrev-table
   '(
    ))
@@ -39,6 +41,8 @@
 
 (define-abbrev-table 'clojurescript-mode-abbrev-table '())
 
+(define-abbrev-table 'cmake-mode-abbrev-table '())
+
 (define-abbrev-table 'comint-mode-abbrev-table '())
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
@@ -66,6 +70,8 @@
 (define-abbrev-table 'debugger-mode-abbrev-table '())
 
 (define-abbrev-table 'diff-mode-abbrev-table '())
+
+(define-abbrev-table 'doctex-mode-abbrev-table '())
 
 (define-abbrev-table 'edebug-eval-mode-abbrev-table '())
 
@@ -109,10 +115,12 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("alkready" "already" nil 1)
     ("anabled" "enabled" nil 1)
     ("apparnetly" "apparently" nil 1)
     ("artifactoyr" "artifactory" nil 1)
     ("assocaited" "associated" nil 1)
+    ("attemptiong" "attempting" nil 1)
     ("bigfixes" "bugfixes" nil 1)
     ("buisness" "business" nil 1)
     ("byt" "by" nil 1)
@@ -183,6 +191,8 @@
 (define-abbrev-table 'js-mode-abbrev-table '())
 
 (define-abbrev-table 'json-mode-abbrev-table '())
+
+(define-abbrev-table 'latex-mode-abbrev-table '())
 
 (define-abbrev-table 'ledger-check-mode-abbrev-table '())
 
@@ -260,6 +270,8 @@
   '(
    ))
 
+(define-abbrev-table 'plain-tex-mode-abbrev-table '())
+
 (define-abbrev-table 'powershell-mode-abbrev-table '())
 
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
@@ -268,9 +280,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'rust-mode-abbrev-table '())
 
@@ -280,7 +290,11 @@
 
 (define-abbrev-table 'sgml-mode-abbrev-table '())
 
+(define-abbrev-table 'sh-mode-abbrev-table '())
+
 (define-abbrev-table 'shell-mode-abbrev-table '())
+
+(define-abbrev-table 'slitex-mode-abbrev-table '())
 
 (define-abbrev-table 'snippet-mode-abbrev-table '())
 
@@ -289,6 +303,10 @@
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
+
+(define-abbrev-table 'tex-mode-abbrev-table '())
+
+(define-abbrev-table 'tex-shell-abbrev-table '())
 
 (define-abbrev-table 'text-mode-abbrev-table '())
 

@@ -772,7 +772,7 @@ Stolen from https://github.com/bbatsov/crux
                                                (projectile-project-root)))))
     :config
     (org-projectile-per-project)
-    (setq org-projectile-per-project-filepath ".todo.org"
+    (setq org-projectile-per-project-filepath ".todo"
           org-agenda-files (append org-agenda-files (org-projectile-todo-files))))
 #+END_SRC
 

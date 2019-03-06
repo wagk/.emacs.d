@@ -349,6 +349,8 @@ recovery. Maybe eventually load dependencies and all that."
     :ensure t
     :commands (orgtbl-mode
                org-babel-load-file)
+    :mode
+    ("\\.todo\\'" . org-mode)
     :general
     (:states  'normal
      :keymaps 'org-mode-map
