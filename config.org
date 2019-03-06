@@ -781,7 +781,6 @@ Stolen from https://github.com/bbatsov/crux
 #+END_SRC
 
 * Lisp
-
 ** Parinfer
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package parinfer
