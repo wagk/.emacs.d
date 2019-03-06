@@ -7,7 +7,9 @@
 
 (define-abbrev-table 'Man-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -17,15 +19,25 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
 (define-abbrev-table 'change-log-mode-abbrev-table '())
+
+(define-abbrev-table 'clojure-mode-abbrev-table '())
+
+(define-abbrev-table 'clojurec-mode-abbrev-table '())
+
+(define-abbrev-table 'clojurescript-mode-abbrev-table '())
 
 (define-abbrev-table 'comint-mode-abbrev-table '())
 
@@ -111,12 +123,14 @@
     ("fiel" "file" nil 1)
     ("folliwng" "following" nil 1)
     ("followiong" "following" nil 1)
+    ("funcitons" "functions" nil 1)
     ("hsould" "should" nil 2)
     ("huntry" "hungry" nil 1)
     ("hwo" "who" nil 1)
     ("informaoiton" "information" nil 1)
     ("intenral" "internal" nil 1)
     ("interveiw" "interview" nil 1)
+    ("localisatoin" "localisation" nil 1)
     ("minign" "mining" nil 1)
     ("naimin" "Naimin" nil 2)
     ("oging" "going" nil 1)
@@ -124,9 +138,10 @@
     ("renaem" "Rename" nil 1)
     ("rleease" "release" nil 1)
     ("securit" "security" nil 1)
+    ("stepps" "steps" nil 1)
     ("suew" "sure" nil 1)
     ("taht" "that" nil 4)
-    ("ti" "it" nil 1)
+    ("ti" "it" nil 2)
     ("uninstallaiton" "uninstallation" nil 1)
     ("wnat" "want" nil 1)
     ("wrt" "w.r.t" nil 3)
@@ -159,7 +174,9 @@
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -221,7 +238,9 @@
 
 (define-abbrev-table 'mhtml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -237,7 +256,9 @@
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'powershell-mode-abbrev-table '())
 
@@ -247,7 +268,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'rust-mode-abbrev-table '())
 

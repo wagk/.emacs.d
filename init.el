@@ -290,7 +290,7 @@ recovery. Maybe eventually load dependencies and all that."
     :general
     ("C-h C-h" 'helm-apropos)
     (:states 'normal
-     "-"     'helm-find-files) ;; emulate vim-vinegar
+     "-"     'open-dired-window) ;; emulate vim-vinegar
     (:states 'normal
      :prefix my-default-evil-leader-key
      "<SPC>" 'helm-M-x)
