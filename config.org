@@ -526,19 +526,12 @@ Emulate the best feature of notepad
 ** Configure scratch buffer message
 #+BEGIN_SRC emacs-lisp :results output silent
   (setq initial-scratch-message
-        "It is possible to commit no mistakes and still lose.
-  That is not weakness. That is life.
-
-  Attempt to derive a possible answer to a question first, before
-  comparing it against the actual answer you receive.
-
-  When setting goals, consider making it:
-  ,* Specific
-  ,* Measurable
-  ,* Assignable
-  ,* Realistic
-  ,* Time-bound
-  ")
+        (if (file-exists-p user-startup-message)
+            (with-temp-buffer
+              (insert-file-contents user-startup-message)
+              (buffer-string))
+          "It is possible to commit no mistakes and still lose.
+  That is not weakness. That is life."))
 #+END_SRC
 
 ** Configure scratch buffer initial mode
