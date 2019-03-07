@@ -529,6 +529,9 @@ Emulate the best feature of notepad
         "It is possible to commit no mistakes and still lose.
   That is not weakness. That is life.
 
+  Attempt to derive a possible answer to a question first, before
+  comparing it against the actual answer you receive.
+
   When setting goals, consider making it:
   ,* Specific
   ,* Measurable
@@ -540,7 +543,7 @@ Emulate the best feature of notepad
 
 ** Configure scratch buffer initial mode
 #+BEGIN_SRC emacs-lisp :results output silent
-  (setq initial-major-mode 'fundamental-mode)
+  (setq initial-major-mode 'org-mode)
 #+END_SRC
 
 ** Change "yes or no" to "y or n"
@@ -772,12 +775,11 @@ Stolen from https://github.com/bbatsov/crux
                                                (projectile-project-root)))))
     :config
     (org-projectile-per-project)
-    (setq org-projectile-per-project-filepath ".todo.org"
+    (setq org-projectile-per-project-filepath ".todo"
           org-agenda-files (append org-agenda-files (org-projectile-todo-files))))
 #+END_SRC
 
 * Lisp
-
 ** Parinfer
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package parinfer
@@ -1298,21 +1300,17 @@ package manager
 #+END_SRC
 
 * C++
-
 ** Indentation of 4
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (setq-default c-basic-offset 4)
 #+END_SRC
 
 ** Default to K&R style
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (setq-default c-default-style "k&r")
 #+END_SRC
 
 ** Newline in comments should insert an indented comment
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (general-define-key :states 'insert
                       :keymaps 'c-mode-base-map
