@@ -1317,6 +1317,11 @@ package manager
                       "RET" 'comment-indent-new-line)
 #+END_SRC
 
+** Treat .h files as cpp files
+#+BEGIN_SRC emacs-lisp :results output silent
+  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+#+END_SRC
+
 * Disable autoformatting modes when drawing things
 You can consider `artist-mode` a featurewise superset of picture-mode.
 
@@ -1676,4 +1681,9 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
   (use-package cmake-font-lock
     :straight (:host github :repo "Lindydancer/cmake-font-lock")
     :hook (cmake-mode . cmake-font-lock-activate))
+#+END_SRC
+* TOML mode for org-src
+#+BEGIN_SRC emacs-lisp :results output silent
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("toml" . conf-toml) org-src-lang-modes))
 #+END_SRC

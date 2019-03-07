@@ -420,6 +420,7 @@ recovery. Maybe eventually load dependencies and all that."
     (org-insert-heading-respect-content t)
     (org-extend-today-until
      5 "I think 5 am is a safe bet for the end of the day")
+    (org-note-done 'note)
     :hook ((org-insert-heading . evil-insert-state))
     ;; :init
     ;; ;; Taken from:
