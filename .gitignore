@@ -42,3 +42,4 @@ var/
 /**/*.elc
 /tags
 tags.*
+**/#*#
