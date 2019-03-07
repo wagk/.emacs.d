@@ -7,11 +7,7 @@
 
 (define-abbrev-table 'Man-mode-abbrev-table '())
 
-(define-abbrev-table 'asm-mode-abbrev-table '())
-
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -21,27 +17,15 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
 (define-abbrev-table 'change-log-mode-abbrev-table '())
-
-(define-abbrev-table 'clojure-mode-abbrev-table '())
-
-(define-abbrev-table 'clojurec-mode-abbrev-table '())
-
-(define-abbrev-table 'clojurescript-mode-abbrev-table '())
-
-(define-abbrev-table 'cmake-mode-abbrev-table '())
 
 (define-abbrev-table 'comint-mode-abbrev-table '())
 
@@ -70,8 +54,6 @@
 (define-abbrev-table 'debugger-mode-abbrev-table '())
 
 (define-abbrev-table 'diff-mode-abbrev-table '())
-
-(define-abbrev-table 'doctex-mode-abbrev-table '())
 
 (define-abbrev-table 'edebug-eval-mode-abbrev-table '())
 
@@ -115,30 +97,28 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("alkready" "already" nil 1)
     ("anabled" "enabled" nil 1)
     ("apparnetly" "apparently" nil 1)
     ("artifactoyr" "artifactory" nil 1)
     ("assocaited" "associated" nil 1)
-    ("attemptiong" "attempting" nil 1)
     ("bigfixes" "bugfixes" nil 1)
     ("buisness" "business" nil 1)
     ("byt" "by" nil 1)
     ("contian" "contain" nil 1)
+    ("couse" "course" nil 1)
     ("craeting" "creating" nil 1)
     ("decisoin" "decision" nil 1)
     ("deletino" "deletion" nil 1)
+    ("experimentaiton" "experimentation" nil 1)
+    ("fiarly" "fairly" nil 1)
     ("fiel" "file" nil 1)
     ("folliwng" "following" nil 1)
     ("followiong" "following" nil 1)
-    ("funcitons" "functions" nil 1)
     ("hsould" "should" nil 2)
     ("huntry" "hungry" nil 1)
     ("hwo" "who" nil 1)
     ("informaoiton" "information" nil 1)
     ("intenral" "internal" nil 1)
-    ("interveiw" "interview" nil 1)
-    ("localisatoin" "localisation" nil 1)
     ("minign" "mining" nil 1)
     ("naimin" "Naimin" nil 2)
     ("oging" "going" nil 1)
@@ -148,10 +128,9 @@
     ("rleease" "release" nil 1)
     ("seciruty" "security" nil 1)
     ("securit" "security" nil 1)
-    ("stepps" "steps" nil 1)
     ("suew" "sure" nil 1)
     ("taht" "that" nil 4)
-    ("ti" "it" nil 2)
+    ("ti" "it" nil 1)
     ("uninstallaiton" "uninstallation" nil 1)
     ("wnat" "want" nil 1)
     ("wrt" "w.r.t" nil 3)
@@ -184,17 +163,13 @@
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
 (define-abbrev-table 'js-mode-abbrev-table '())
 
 (define-abbrev-table 'json-mode-abbrev-table '())
-
-(define-abbrev-table 'latex-mode-abbrev-table '())
 
 (define-abbrev-table 'ledger-check-mode-abbrev-table '())
 
@@ -250,9 +225,7 @@
 
 (define-abbrev-table 'mhtml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -268,11 +241,7 @@
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
-
-(define-abbrev-table 'plain-tex-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'powershell-mode-abbrev-table '())
 
@@ -296,8 +265,6 @@
 
 (define-abbrev-table 'shell-mode-abbrev-table '())
 
-(define-abbrev-table 'slitex-mode-abbrev-table '())
-
 (define-abbrev-table 'snippet-mode-abbrev-table '())
 
 (define-abbrev-table 'special-mode-abbrev-table '())
@@ -305,10 +272,6 @@
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
-
-(define-abbrev-table 'tex-mode-abbrev-table '())
-
-(define-abbrev-table 'tex-shell-abbrev-table '())
 
 (define-abbrev-table 'text-mode-abbrev-table '())
 
