@@ -126,6 +126,7 @@
     ("byt" "by" nil 1)
     ("calng" "clang" nil 1)
     ("contian" "contain" nil 1)
+    ("cosnt" "const" nil 1)
     ("craeting" "creating" nil 1)
     ("decisoin" "decision" nil 1)
     ("deletino" "deletion" nil 1)
@@ -283,7 +284,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'rust-mode-abbrev-table '())
 
