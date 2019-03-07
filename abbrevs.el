@@ -113,9 +113,12 @@
 
 (define-abbrev-table 'git-gutter+-commit-mode-abbrev-table '())
 
+(define-abbrev-table 'git-rebase-mode-abbrev-table '())
+
 (define-abbrev-table 'global-abbrev-table
   '(
     ("alkready" "already" nil 1)
+    ("alows" "allows" nil 1)
     ("anabled" "enabled" nil 1)
     ("apparnetly" "apparently" nil 1)
     ("artifactoyr" "artifactory" nil 1)
@@ -125,8 +128,9 @@
     ("buisness" "business" nil 1)
     ("byt" "by" nil 1)
     ("calng" "clang" nil 1)
+    ("charactrer" "character" nil 1)
     ("contian" "contain" nil 1)
-    ("cosnt" "const" nil 1)
+    ("cosnt" "const" nil 2)
     ("craeting" "creating" nil 1)
     ("decisoin" "decision" nil 1)
     ("deletino" "deletion" nil 1)
@@ -147,6 +151,7 @@
     ("ot" "to" nil 4)
     ("recieve" "receive" nil 1)
     ("renaem" "Rename" nil 1)
+    ("reutrn" "return" nil 1)
     ("rleease" "release" nil 1)
     ("seciruty" "security" nil 1)
     ("securit" "security" nil 1)
