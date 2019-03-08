@@ -1177,9 +1177,11 @@ We should look at customizing cider someday.
   (general-define-key
    :states 'normal
    :keymaps 'dired-mode-map
-   "<SPC>" nil ; was shadowing leader key bindings
-   "SPC" nil ; was shadowing leader key bindings
-   "-" 'dired-up-directory)
+   "<SPC>" nil                       ; was shadowing leader key bindings
+   "SPC" nil                         ; was shadowing leader key bindings
+   "-" 'dired-up-directory
+   "d" 'dired-create-directory
+   "+" nil) ; don't block org-projectile
   (add-hook 'dired-mode-hook 'auto-revert-mode)
 #+END_SRC
 
