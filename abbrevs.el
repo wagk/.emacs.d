@@ -154,6 +154,7 @@
     ("securit" "security" nil 1)
     ("suew" "sure" nil 1)
     ("taht" "that" nil 4)
+    ("tempalte" "template" nil 1)
     ("ti" "it" nil 1)
     ("tlaking" "talking" nil 1)
     ("uninstallaiton" "uninstallation" nil 1)
