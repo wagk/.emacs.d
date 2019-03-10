@@ -111,8 +111,8 @@
     ("calng" "clang" nil 1)
     ("charactrer" "character" nil 1)
     ("contian" "contain" nil 1)
-    ("couse" "course" nil 1)
     ("cosnt" "const" nil 2)
+    ("couse" "course" nil 1)
     ("craeting" "creating" nil 1)
     ("decisoin" "decision" nil 1)
     ("deletino" "deletion" nil 1)
@@ -126,6 +126,7 @@
     ("hwo" "who" nil 1)
     ("informaoiton" "information" nil 1)
     ("intenral" "internal" nil 1)
+    ("itme" "item" nil 1)
     ("minign" "mining" nil 1)
     ("naimin" "Naimin" nil 2)
     ("oging" "going" nil 1)
@@ -259,9 +260,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'rust-mode-abbrev-table '())
 
@@ -300,3 +299,4 @@
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
+
