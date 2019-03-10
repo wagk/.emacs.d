@@ -143,6 +143,7 @@
     ("minign" "mining" nil 1)
     ("naimin" "Naimin" nil 2)
     ("ocncrete" "concrete" nil 1)
+    ("ocurence" "occurrence" nil 1)
     ("oging" "going" nil 1)
     ("ot" "to" nil 4)
     ("recieve" "receive" nil 1)
