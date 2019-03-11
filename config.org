@@ -724,8 +724,14 @@ Stolen from https://github.com/bbatsov/crux
      [remap evil-save-modified-and-close] 'yas-load-snippet-buffer-and-close
      [remap evil-quit]                    'kill-this-buffer)
     :config
-    (let ((my-snippet-dir (at-user-init-dir "/snippets")))
-      (setq-default yas-snippet-dirs `(,my-snippet-dir)))
+    (evil-define-command ex-snippet (cmd)
+      (interactive "<a>")
+      (cond
+       ((string= cmd "reload") (yas-reload-all))
+       ((string= cmd "add") (yas-new-snippet))
+       (t (yas-visit-snippet-file))))
+    (evil-ex-define-cmd "sni[ppets]" 'ex-snippet)
+    (setq-default yas-snippet-dirs (list (at-user-init-dir "/snippets")))
     (setq yas-indent-line 'auto
           yas-also-auto-indent-first-line t)
     (defun yas-with-comment (str)
@@ -1560,19 +1566,13 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 * Yankpad
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package yankpad
+    :disabled t
     :straight (:host github :repo "Kungsgeten/yankpad")
     :commands (yankpad-expand
                yankpad-edit
                yankpad-reload)
     :init
     (add-to-list 'hippie-expand-try-functions-list #'yankpad-expand)
-    (evil-define-command ex-yankpad (cmd)
-      (interactive "<a>")
-      (cond
-       ((string= cmd "reload") (yankpad-reload))
-       ((string= cmd "add") (yankpad-capture-snippet))
-       (t (yankpad-edit))))
-    (evil-ex-define-cmd "sni[ppets]" 'ex-yankpad)
     :custom
     (yankpad-file (at-user-init-dir "snippets.org")))
 #+END_SRC
@@ -1580,6 +1580,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 * Smart tab
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package smart-tab
+    :disabled t
     :straight (:host github :repo "genehack/smart-tab")
     :custom
     (smart-tab-using-hippie-expand t)
