@@ -361,10 +361,10 @@ recovery. Maybe eventually load dependencies and all that."
      "TAB"    'org-cycle
      "<tab>"  'org-cycle
      "g x"    'org-open-at-point)
-    (:states 'insert
-     :keymaps 'org-mode-map
-     "TAB"    'hippie-expand
-     "<tab>"  'hippie-expand)
+    ;; (:states 'insert
+    ;;  :keymaps 'org-mode-map
+    ;;  "TAB"    'hippie-expand
+    ;;  "<tab>"  'hippie-expand)
     (:states 'normal
      :prefix my-default-evil-leader-key
      "o t" 'org-time-stamp
