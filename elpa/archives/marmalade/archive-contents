@@ -1870,7 +1870,7 @@
 	  [(20071215)
 	   nil "mode for Notation 3" single])
  (myterminal-controls .
-		      [(20160119 2030)
+		      [(20190305 2115)
 		       ((emacs
 			 (24))
 			(cl-lib
@@ -3604,12 +3604,12 @@
 		  (20160725 724)))
 		"Sound effects for Emacs" single])
  (emacs-new-buffer .
-		   [(20171026 1922)
+		   [(20190128 1912)
 		    ((emacs
 		      (24)))
 		    "Quickly create new buffers to take notes and more" single])
  (emacs-home .
-	     [(20170911 1835)
+	     [(20190306 1942)
 	      ((emacs
 		(24))
 	       (cl-lib
