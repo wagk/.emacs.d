@@ -383,10 +383,10 @@ For some reason we can't do this in the scratch buffer
     :commands (org-todo-list
                org-agenda-file-to-front)
     :config
-    (require 'deft)
-    (customize-set-value 'org-agenda-files
-                         (add-to-list 'org-agenda-files
-                                      deft-directory)))
+    (with-eval-after-load 'deft
+      (customize-set-value 'org-agenda-files
+                          (add-to-list 'org-agenda-files
+                                        deft-directory))))
 #+END_SRC
 
 * Git
