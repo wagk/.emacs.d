@@ -141,10 +141,12 @@
     ("implmeented" "implemented" nil 1)
     ("informaoiton" "information" nil 1)
     ("intenral" "internal" nil 1)
+    ("itme" "item" nil 1)
     ("lsit" "list" nil 1)
     ("minign" "mining" nil 1)
     ("naimin" "Naimin" nil 2)
     ("ocncrete" "concrete" nil 1)
+    ("ocurence" "occurrence" nil 1)
     ("oging" "going" nil 1)
     ("ot" "to" nil 4)
     ("recieve" "receive" nil 1)
@@ -155,6 +157,7 @@
     ("securit" "security" nil 1)
     ("suew" "sure" nil 1)
     ("taht" "that" nil 4)
+    ("tempalte" "template" nil 1)
     ("ti" "it" nil 1)
     ("tlaking" "talking" nil 1)
     ("uninstallaiton" "uninstallation" nil 1)
@@ -323,4 +326,3 @@
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
-

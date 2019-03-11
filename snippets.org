@@ -96,9 +96,13 @@ lambda $1: $0
 #+END_SRC
 
 * c++-mode
-** ifndef: ifdef block                                                 :src:
+** ifndef: Header guard                                                :src:
 #+BEGIN_SRC cpp
   #ifndef ${1:HEADER_GUARD}
+  #define $1
+
+  $0
+
   #endif $1
 #+END_SRC
 
