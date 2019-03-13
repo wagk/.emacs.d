@@ -351,6 +351,13 @@ recovery. Maybe eventually load dependencies and all that."
   (use-package org-plus-contrib
     ;; doesn't have a straight recipe because it relies on make or something
     :ensure t
+    ;; :straight (:repo "https://code.orgmode.org/bzg/org-mode.git"
+    ;;            :local-repo "org"
+    ;;            :files (:defaults "contrib/lisp/*.el")
+    ;;            :includes (org))
+    ;; :straight (:local-repo "org"
+    ;;            :files (:defaults "contrib/lisp/*.el"))
+    ;; :straight (:includes org)
     :commands (orgtbl-mode
                org-babel-load-file)
     :mode
@@ -378,6 +385,8 @@ recovery. Maybe eventually load dependencies and all that."
     ;;  "r r" 'org-refile
     ;;  "a a" 'org-archive-subtree)
     (org-mode-map
+     "C-S-c C-S-c" '(lambda () (interactive)
+                      (org-toggle-checkbox '(4)))
      "C-c C-'" 'org-edit-special
      "<C-M-return>" 'org-insert-subheading
      "<C-M-S-return>" 'org-insert-todo-subheading)
@@ -403,12 +412,13 @@ recovery. Maybe eventually load dependencies and all that."
      'other-window
      "I tend to have documentation/other things on adjacent windows")
     (org-src-fontify-natively t)
-    (org-default-notes-file "~/TODO.org")
+    (org-default-notes-file "~/.todo")
     (org-M-RET-may-split-line nil)
     (org-return-follows-link t)
     (org-enforce-todo-checkbox-dependencies
      nil "Sometimes we are able to skip dependencies as things happen")
-    (org-enforce-todo-dependencies nil)
+    (org-enforce-todo-dependencies
+     nil "Same reason as `org-enforce-todo-checkbox-dependencies'")
     (org-pretty-entities
      nil "It gets a bit annoying when you autocomplete braces")
     (org-log-done       'time)
@@ -421,7 +431,7 @@ recovery. Maybe eventually load dependencies and all that."
     (org-outline-path-complete-in-steps nil)
     (org-refile-allow-creating-parent-nodes 'confirm)
     (org-highlight-latex-and-related '(latex))
-    (org-insert-heading-respect-content t)
+    (org-insert-heading-respect-content nil)
     (org-extend-today-until
      5 "I think 5 am is a safe bet for the end of the day")
     (org-note-done 'note)

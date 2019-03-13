@@ -287,6 +287,16 @@ Important bindings:
 
 | <M-S-return> | Insert checkbox item |
 
+Interesting Text Objects:
+
+| key     | function                          | examples                         |
+|---------+-----------------------------------+----------------------------------|
+| ae / ie | evil-org-an/inner-object          | link, markup, table cell         |
+| aE / iE | evil-org-an/inner-element         | paragraph, code block, table row |
+| ar / ir | evil-org-an/inner-greater-element | item list, table                 |
+| aR / iR | evil-org-an/inner-subtree         | subtree starting with a header   |
+
+
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-org
     :straight (:host github :repo "Somelauw/evil-org-mode")
@@ -664,6 +674,8 @@ Stolen from https://github.com/bbatsov/crux
 #+END_SRC
 
 ** Solarized
+[[https://ethanschoonover.com/solarized/][Website with more descriptions]]
+
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package solarized-theme
     :defer 2
