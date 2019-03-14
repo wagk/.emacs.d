@@ -145,7 +145,7 @@
     ("folliwng" "following" nil 1)
     ("followiong" "following" nil 1)
     ("guatds" "guards" nil 1)
-    ("hsould" "should" nil 4)
+    ("happped" "happened" nil 1)
     ("hte" "the" nil 2)
     ("huntry" "hungry" nil 1)
     ("hwo" "who" nil 1)
@@ -195,7 +195,7 @@
     ("wrpaper" "Wrapper" nil 1)
     ("wrt" "w.r.t" nil 3)
     ("wtih" "with" nil 1)
-   ))
+    ))
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
 
