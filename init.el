@@ -111,10 +111,9 @@
   (require 'straight)
   (customize-set-variable 'load-prefer-newer t)
   (straight-use-package '(use-package
-                           :type git
                            :host github
-                           :repo "jwiegley/use-package"
-                           :branch "master"))
+                           :repo "jwiegley/use-package"))
+
   (require 'use-package)
   ;; download packages if needed
   (setq use-package-always-defer nil ;; we don't always lazy load because of explicitness
@@ -178,9 +177,6 @@ recovery. Maybe eventually load dependencies and all that."
 
   (use-package no-littering
     :straight (:host github :repo "emacscollective/no-littering"))
-
-  (use-package git
-    :straight (:host github :repo "rejeep/git.el"))
 
   (customize-set-variable 'evil-want-keybinding nil
                           "`evil-collections' wants this to be
@@ -256,6 +252,11 @@ recovery. Maybe eventually load dependencies and all that."
     ;;   (advice-add 'evil-paste-before :around func)
     ;;   (advice-add 'evil-paste-after  :around func))
 
+    ;; (evil-define-command ex-tab-edit(file)
+    ;;   (interactive "P<f>")
+    ;;   (raise-frame (call-interactively 'make-frame))
+    ;;   (evil-edit file))
+
     (evil-ex-define-cmd "sh[ell]"    'shell) ;; at least shell shows its keymaps
     (evil-ex-define-cmd "tabn[ew]"   'make-frame)
     (evil-ex-define-cmd "tabe[dit]"  'make-frame)
@@ -287,74 +288,20 @@ recovery. Maybe eventually load dependencies and all that."
       (evil-range (point-min) (point-max)))
     (evil-mode))
 
-  (use-package helm
-    :demand t
-    :straight (:host github :repo "emacs-helm/helm")
-    :commands (helm-org-in-buffer-headings)
-    :general
-    ("C-h C-h" 'helm-apropos)
-    (:states 'normal
-     "-"     'open-dired-window) ;; emulate vim-vinegar
-    (:states 'normal
-     :prefix my-default-evil-leader-key
-     "<SPC>" 'helm-M-x)
-    (helm-map
-     "TAB" 'helm-execute-persistent-action)
-    :init
-    (defun find-helm-info-emacs-elisp-cl ()
-      "Helm for Emacs, Elisp, and CL-library info pages."
-      (interactive)
-      (helm :sources '(helm-source-info-emacs
-                       helm-source-info-elisp
-                       helm-source-info-cl)))
-    (evil-define-command ex-helm-apropos (cmd)
-      (interactive "<a>")
-      (cond
-       ((string= cmd "elisp") (find-helm-info-emacs-elisp-cl))
-       ((eq cmd nil) (helm-apropos))
-       (t (helm-apropos cmd))))
-    (defun open-dired-window ()
-      (interactive)
-      (dired (file-name-directory (buffer-file-name))))
-    (evil-ex-define-cmd "elisp"     'find-helm-info-emacs-elisp-cl)
-    (evil-ex-define-cmd "h[elp]"    'ex-helm-apropos)
-    (evil-ex-define-cmd "bb"        'helm-mini)
-    (evil-ex-define-cmd "bm"        'helm-bookmarks)
-    (evil-ex-define-cmd "Ex[plore]" 'open-dired-window)
-    (evil-ex-define-cmd "Sex[plore]" '(lambda () (interactive)
-                                        (call-interactively 'evil-window-split)
-                                        (open-dired-window)))
-    (evil-ex-define-cmd "Vex[plore]" '(lambda () (interactive)
-                                        (call-interactively 'evil-window-vsplit)
-                                        (open-dired-window)))
-    :custom
-    (helm-idle-delay 0.0)
-    (helm-input-idle-delay 0.01)
-    (helm-quick-update t)
-    (helm-recentf-fuzzy-match t)
-    (helm-locate-fuzzy-match nil) ;; locate fuzzy is worthless
-    (helm-m-x-fuzzy-match t)
-    (helm-buffers-fuzzy-matching t)
-    (helm-semantic-fuzzy-match t)
-    (helm-apropos-fuzzy-match t)
-    (helm-imenu-fuzzy-match t)
-    (helm-lisp-fuzzy-completion t)
-    (helm-completion-in-region-fuzzy-match t)
-    (helm-split-window-in-side-p t)
-    (helm-use-frame-when-more-than-two-windows nil)
-    :config
-    (progn (helm-autoresize-mode)
-           (setq helm-autoresize-min-height 40 ;; these values are %
-                 helm-autoresize-max-height 40))
-    (helm-mode))
+  (straight-use-package '(org :local-repo nil))
 
-  (use-package org-plus-contrib
+  (use-package org
     ;; doesn't have a straight recipe because it relies on make or something
-    :ensure t
+    :ensure org-plus-contrib
     ;; :straight (:repo "https://code.orgmode.org/bzg/org-mode.git"
     ;;            :local-repo "org"
     ;;            :files (:defaults "contrib/lisp/*.el")
     ;;            :includes (org))
+    ;; https://github.com/raxod502/straight.el#installing-org-with-straightel
+    ;; :straight (:repo "https://code.orgmode.org/bzg/org-mode.git"
+    ;;            :local-repo "org"
+    ;;            :files (:defaults "contrib/lisp/*.el")
+    ;;            :includes org)
     ;; :straight (:local-repo "org"
     ;;            :files (:defaults "contrib/lisp/*.el"))
     ;; :straight (:includes org)
@@ -436,44 +383,6 @@ recovery. Maybe eventually load dependencies and all that."
      5 "I think 5 am is a safe bet for the end of the day")
     (org-note-done 'note)
     :hook ((org-insert-heading . evil-insert-state))
-    ;; :init
-    ;; ;; Taken from:
-    ;; ;; https://github.com/raxod502/radian/blob/afe2882e3eb85c3284d90fd374be4a5ef9c8775a/radian-emacs/radian-org.el#L56
-    ;; ;; The following is a temporary hack until straight.el supports
-    ;; ;; building Org, see:
-    ;; ;;
-    ;; ;; * https://github.com/raxod502/straight.el/issues/211
-    ;; ;; * https://github.com/raxod502/radian/issues/410
-    ;; ;;
-    ;; ;; There are three things missing from our version of Org: the
-    ;; ;; functions `org-git-version' and `org-release', and the feature
-    ;; ;; `org-version'. We provide all three of those ourself, therefore.
-    ;; (defun org-git-version ()
-    ;;   "The Git version of org-mode.
-    ;; Inserted by installing org-mode or when a release is made."
-    ;;   (require 'git)
-    ;;   (let ((git-repo (expand-file-name)
-    ;;                   "straight/repos/org/" user-emacs-directory))
-    ;;     (string-trim)
-    ;;     (git-run "describe"
-    ;;               "--match=release\*"
-    ;;               "--abbrev=6"
-    ;;               "HEAD")))
-    ;; (defun org-release ()
-    ;;   "The release version of org-mode.
-    ;; Inserted by installing org-mode or when a release is made."
-    ;;   (require 'git)
-    ;;   (let ((git-repo (expand-file-name)
-    ;;                   "straight/repos/org/" user-emacs-directory))
-    ;;     (string-trim)
-    ;;     (string-remove-prefix
-    ;;       "release_"
-    ;;       (git-run "describe"
-    ;;               "--match=release\*"
-    ;;               "--abbrev=0"
-    ;;               "HEAD"))))
-    ;; (provide 'org-version)
-    ;; ;; End Hack
     :config
     (with-eval-after-load 'smartparens
       ;; make smartparen autoskip "" because org-mode treats it as a string
@@ -491,6 +400,67 @@ recovery. Maybe eventually load dependencies and all that."
       :ensure nil
       :commands org-confluence-export-as-confluence)
     (add-to-list 'org-babel-load-languages '(shell . t)))
+
+  (use-package helm
+    :demand t
+    :straight (:host github :repo "emacs-helm/helm")
+    :commands (helm-org-in-buffer-headings)
+    :general
+    ("C-h C-h" 'helm-apropos)
+    (:states 'normal
+     "-"     'open-dired-window) ;; emulate vim-vinegar
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "<SPC>" 'helm-M-x)
+    (helm-map
+     "TAB" 'helm-execute-persistent-action)
+    :init
+    (defun find-helm-info-emacs-elisp-cl ()
+      "Helm for Emacs, Elisp, and CL-library info pages."
+      (interactive)
+      (helm :sources '(helm-source-info-emacs
+                       helm-source-info-elisp
+                       helm-source-info-cl)))
+    (evil-define-command ex-helm-apropos (cmd)
+      (interactive "<a>")
+      (cond
+       ((string= cmd "elisp") (find-helm-info-emacs-elisp-cl))
+       ((eq cmd nil) (helm-apropos))
+       (t (helm-apropos cmd))))
+    (defun open-dired-window ()
+      (interactive)
+      (dired (file-name-directory (buffer-file-name))))
+    (evil-ex-define-cmd "elisp"     'find-helm-info-emacs-elisp-cl)
+    (evil-ex-define-cmd "h[elp]"    'ex-helm-apropos)
+    (evil-ex-define-cmd "bb"        'helm-mini)
+    (evil-ex-define-cmd "bm"        'helm-bookmarks)
+    (evil-ex-define-cmd "Ex[plore]" 'open-dired-window)
+    (evil-ex-define-cmd "Sex[plore]" '(lambda () (interactive)
+                                        (call-interactively 'evil-window-split)
+                                        (open-dired-window)))
+    (evil-ex-define-cmd "Vex[plore]" '(lambda () (interactive)
+                                        (call-interactively 'evil-window-vsplit)
+                                        (open-dired-window)))
+    :custom
+    (helm-idle-delay 0.0)
+    (helm-input-idle-delay 0.01)
+    (helm-quick-update t)
+    (helm-recentf-fuzzy-match t)
+    (helm-locate-fuzzy-match nil) ;; locate fuzzy is worthless
+    (helm-m-x-fuzzy-match t)
+    (helm-buffers-fuzzy-matching t)
+    (helm-semantic-fuzzy-match t)
+    (helm-apropos-fuzzy-match t)
+    (helm-imenu-fuzzy-match t)
+    (helm-lisp-fuzzy-completion t)
+    (helm-completion-in-region-fuzzy-match t)
+    (helm-split-window-in-side-p t)
+    (helm-use-frame-when-more-than-two-windows nil)
+    :config
+    (progn (helm-autoresize-mode)
+           (setq helm-autoresize-min-height 40 ;; these values are %
+                 helm-autoresize-max-height 40))
+    (helm-mode))
 
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail

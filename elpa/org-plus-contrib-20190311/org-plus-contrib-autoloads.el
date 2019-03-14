@@ -1950,14 +1950,6 @@ Load FILE with optional arguments NOERROR and MUSTSUFFIX.
 
 ;;;***
 
-;;;### (autoloads "actual autoloads are elsewhere" "org-mobile" "org-mobile.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from org-mobile.el
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-mobile" '("org-mobile-")))
-
-;;;***
-
 ;;;### (autoloads nil "org-mouse" "org-mouse.el" (0 0 0 0))
 ;;; Generated autoloads from org-mouse.el
 
@@ -2016,14 +2008,6 @@ With a double prefix arg \\[universal-argument] \\[universal-argument], open the
 ;;; Generated autoloads from org-pcomplete.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-pcomplete" '("pcomplete/org-mode/" "org-")))
-
-;;;***
-
-;;;### (autoloads "actual autoloads are elsewhere" "org-plot" "org-plot.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from org-plot.el
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-plot" '("org-plot")))
 
 ;;;***
 
