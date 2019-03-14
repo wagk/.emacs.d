@@ -1695,3 +1695,17 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
   (with-eval-after-load 'org-src
     (cl-pushnew '("toml" . conf-toml) org-src-lang-modes))
 #+END_SRC
+
+* Jira
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package org-jira
+    :straight (:host github :repo "baohaojun/org-jira"))
+#+END_SRC
+
+* Jupyter Notebook
+https://tkf.github.io/emacs-ipython-notebook/#quick-try
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package ein
+    :straight (:host github :repo "tkf/emacs-ipython-notebook"))
+#+END_SRC
