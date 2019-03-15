@@ -1703,6 +1703,8 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+END_SRC
 
 * Jupyter Notebook
+https://millejoh.github.io/emacs-ipython-notebook/
+
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package ein
     :straight (:host github :repo "millejoh/emacs-ipython-notebook"))

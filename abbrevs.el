@@ -109,6 +109,7 @@
     ("alkready" "already" nil 1)
     ("alows" "allows" nil 1)
     ("anabled" "enabled" nil 1)
+    ("anywya" "anyway" nil 1)
     ("apend" "append" nil 1)
     ("apparnetly" "apparently" nil 1)
     ("applicaiton" "application" nil 1)
@@ -157,6 +158,7 @@
     ("itme" "item" nil 1)
     ("liek" "like" nil 1)
     ("lsit" "list" nil 1)
+    ("manifrst" "manifest" nil 1)
     ("minign" "mining" nil 1)
     ("mjigrate" "migrate" nil 1)
     ("msater" "Master" nil 1)
@@ -181,7 +183,7 @@
     ("siad" "said" nil 1)
     ("submoduels" "submodules" nil 1)
     ("suew" "sure" nil 1)
-    ("taht" "that" nil 7)
+    ("taht" "that" nil 8)
     ("taks" "task" nil 1)
     ("tempalte" "template" nil 1)
     ("tempaltes" "templates" nil 1)
@@ -197,7 +199,7 @@
     ("wrpaper" "Wrapper" nil 1)
     ("wrt" "w.r.t" nil 3)
     ("wtih" "with" nil 1)
-   ))
+    ))
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
 
