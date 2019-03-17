@@ -1709,3 +1709,13 @@ https://millejoh.github.io/emacs-ipython-notebook/
   (use-package ein
     :straight (:host github :repo "millejoh/emacs-ipython-notebook"))
 #+END_SRC
+
+* Focus mode
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package focus
+    :straight (:host github :repo "larstvei/Focus")
+    :commands focus-mode
+    :init
+    (evil-ex-define-cmd "fo[cus]" 'focus-mode))
+#+END_SRC
