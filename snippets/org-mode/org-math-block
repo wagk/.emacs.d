@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: org-math-block
+# key: math
+# --
+\begin{displaymath}
+  $0
+\end{displaymath}
