@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: org header block
+# key: header
+# --
+#+TITLE: $1
+#+AUTHOR: Pang Tun Jiang
+#+EMAIL: pang.t@nus.edu.sg
+#+DESCRIPTION: $0
