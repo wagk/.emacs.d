@@ -408,6 +408,8 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
 : mklink %APPDATA%\.gitconfig %USERPROFILE%\.gitconfig
 
 - [ ] Make a command that commits and pushes
+- [ ] Make it so I don't have to do !git all the time.
+
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package magit
