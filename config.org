@@ -690,6 +690,17 @@ Stolen from https://github.com/bbatsov/crux
     (load-theme 'solarized-dark t))
 #+END_SRC
 
+** Fonts
+
+0123456789abcdefghijklmnopqrstuvwxyz [] () :;,. !@#$^&*
+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ {} <> "'`  ~-_/|\?
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (cond
+   ((find-font (font-spec :name "Iosevka")) (set-default-font "Iosevka-10"))
+   ((find-font (font-spec :name "Consolas")) (set-default-font "Consolas-10")))
+#+END_SRC
+
 * Text
 
 ** Aggressive Fill Paragraph
