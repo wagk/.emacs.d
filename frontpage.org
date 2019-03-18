@@ -1,9 +1,13 @@
+#+STARTUP: showeverything
+
+* Notices
 It is possible to commit no mistakes and still lose.
 That is not weakness. That is life.
 
 Attempt to derive a possible answer to a question first, before
 comparing it against the actual answer you receive.
 
+* Goal Setting
 When setting goals, consider making it:
 - Specific
 - Measurable

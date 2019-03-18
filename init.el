@@ -51,8 +51,8 @@
   (at-user-init-dir "local.el")
   "Points to local.el")
 
-(defconst user-startup-message
-  (at-user-init-dir "startup_message.org")
+(defconst user-frontpage-file
+  (at-user-init-dir "frontpage.org")
   "Points to the file containing the startup message")
 
 (defun find-user-init-file ()

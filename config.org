@@ -533,30 +533,24 @@ Emulate the best feature of notepad
   (setq-default truncate-lines t)
 #+END_SRC
 
-** Configure scratch buffer message
+** Open a startup file as initial buffer
 #+BEGIN_SRC emacs-lisp :results output silent
-  (setq initial-scratch-message
-        (if (file-exists-p user-startup-message)
-            (with-temp-buffer
-              (insert-file-contents user-startup-message)
-              (buffer-string))
-          "It is possible to commit no mistakes and still lose.
-  That is not weakness. That is life."))
+  (customize-set-variable 'initial-buffer-choice user-frontpage-file)
 #+END_SRC
 
-** Configure scratch buffer initial mode
+** COMMENT Configure scratch buffer initial mode
 #+BEGIN_SRC emacs-lisp :results output silent
   (setq initial-major-mode 'org-mode)
-#+END_SRC
-
-** Change "yes or no" to "y or n"
-#+BEGIN_SRC emacs-lisp :results output silent
-  (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
 ** Disable startup screen
 #+BEGIN_SRC emacs-lisp :results output silent
   (setq inhibit-startup-screen t)
+#+END_SRC
+
+** Change "yes or no" to "y or n"
+#+BEGIN_SRC emacs-lisp :results output silent
+  (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
 ** Require newlines at the end of all files
