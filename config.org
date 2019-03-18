@@ -692,6 +692,19 @@ Stolen from https://github.com/bbatsov/crux
     (load-theme 'solarized-dark t))
 #+END_SRC
 
+** Fonts
+We are preferring these fonts because they look nicer and play nicer
+with chinese/japanese.
+
+0123456789abcdefghijklmnopqrstuvwxyz [] () :;,. !@#$^&*
+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ {} <> "'`  ~-_/|\?
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (cond
+   ((find-font (font-spec :name "Iosevka")) (set-default-font "Iosevka-10"))
+   ((find-font (font-spec :name "Consolas")) (set-default-font "Consolas-10")))
+#+END_SRC
+
 * Text
 
 ** Aggressive Fill Paragraph
@@ -1695,6 +1708,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 * Jira
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package org-jira
+    :defer t
     :straight (:host github :repo "baohaojun/org-jira"))
 #+END_SRC
 
@@ -1714,4 +1728,14 @@ https://millejoh.github.io/emacs-ipython-notebook/
     :commands focus-mode
     :init
     (evil-ex-define-cmd "fo[cus]" 'focus-mode))
+#+END_SRC
+
+* Pretty mode
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package pretty-mode
+    :straight (:host github :repo "pretty-mode/pretty-mode")
+    :defer 5
+    :config
+    (global-pretty-mode)
+    (global-prettify-symbols-mode))
 #+END_SRC
