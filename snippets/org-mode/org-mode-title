@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: org-mode-title
+# key: title
+# --
+#+title: $0
