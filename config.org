@@ -1344,6 +1344,22 @@ package manager
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 #+END_SRC
 
+** cpp-specific ligatures
+#+BEGIN_SRC emacs-lisp :results output silent
+  (add-hook 'c-mode-common-hook
+            #'(lambda ()
+                (mapc (lambda (pair) (push pair prettify-symbols-alist))
+                      '(("!=" . #x2260)
+                        ("!" . #xac)
+                        ;; ("==" . #x2a75) ;; Not supported by Iosevka
+                        ;; ("->" . #x27f6) ;; Not supported by Iosevka
+                        ("->" . #x2192) ;; 1-char width version
+                        ("<=" . #x2264)
+                        (">=" . #x2265)
+                        ("&&" . #x2227)
+                        ("||" . #x2228)))))
+#+END_SRC
+
 * Disable autoformatting modes when drawing things
 You can consider `artist-mode` a featurewise superset of picture-mode.
 
