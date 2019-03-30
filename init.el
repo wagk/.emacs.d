@@ -433,7 +433,7 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-ex-define-cmd "elisp"     'find-helm-info-emacs-elisp-cl)
     (evil-ex-define-cmd "h[elp]"    'ex-helm-apropos)
     (evil-ex-define-cmd "bb"        'helm-mini)
-    (evil-ex-define-cmd "bm"        'helm-filtered-bookmarks)
+    (evil-ex-define-cmd "bm"        'list-bookmarks)
     (evil-ex-define-cmd "Ex[plore]" 'open-dired-window)
     (evil-ex-define-cmd "Sex[plore]" '(lambda () (interactive)
                                         (call-interactively 'evil-window-split)
