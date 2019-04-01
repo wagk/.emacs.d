@@ -983,17 +983,17 @@ package is known as elisp-mode but it reads as emacs-lisp
            (emacs-lisp-mode . rainbow-identifiers-mode)
            (emacs-lisp-mode . parinfer-mode)
            (emacs-lisp-mode . update-evil-shift-width)
-           (emacs-lisp-mode . evil-cleverparens-mode)
-           (emacs-lisp-mode . (lambda ()
-                                (mapc (lambda (pair) (push pair
-                                                      prettify-symbols-alist))
-                                      '(("nil"      . #x2205)
-                                        ("not"      . #xac)
-                                        ("<="       . #x2264)
-                                        (">="       . #x2265)
-                                        ;; ("defun" . #x0192)
-                                        ("or"       . #x2228)
-                                        ("and"      . #x2227)))))))
+           (emacs-lisp-mode . evil-cleverparens-mode)))
+           ;; (emacs-lisp-mode . (lambda ()
+           ;;                      (mapc (lambda (pair) (push pair
+           ;;                                            prettify-symbols-alist
+           ;;                            '(("nil"      . #x2205)
+           ;;                              ("not"      . #xac)
+           ;;                              ("<="       . #x2264)
+           ;;                              (">="       . #x2265)
+           ;;                              ;; ("defun" . #x0192)
+           ;;                              ("or"       . #x2228)
+           ;;                              ("and"      . #x2227))))
 #+END_SRC
 
 ** Update Indentation Function
@@ -1427,7 +1427,7 @@ package manager
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 #+END_SRC
 
-** cpp-specific ligatures
+** COMMENT cpp-specific ligatures
 We do not support =&&= (and hence also =||=) because of conflicts with
 r-value references.
 #+BEGIN_SRC emacs-lisp :results output silent
