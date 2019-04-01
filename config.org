@@ -894,26 +894,6 @@ pressing RET autoformats it, instead of doing nothing as it does right now
     (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET"))))
 #+END_SRC
 
-* Clang Format
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package clang-format
-    :straight (:host github :repo "sonatard/clang-format")
-    :commands (clang-format-region
-               clang-format-buffer
-               clang-format)
-    :init
-    ;; IF there is a .clang-format, then use that to format before saving
-    (defun my-clang-format-before-save ()
-      (require 'projectile)
-      (require 'clang-format)
-      (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
-        (add-hook 'before-save-hook 'clang-format-buffer t t)))
-    :hook (c++-mode-hook . my-clang-format-before-save)
-    :custom
-    (clang-format-style-option "file"
-                               "read from .clang-format"))
-#+END_SRC
-
 * Elisp                                                               :major:
 package is known as elisp-mode but it reads as emacs-lisp
 
@@ -1372,6 +1352,26 @@ package manager
                         (">=" . #x2265)
                         ("&&" . #x2227)
                         ("||" . #x2228)))))
+#+END_SRC
+
+** Clang Format
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package clang-format
+    :straight (:host github :repo "sonatard/clang-format")
+    :commands (clang-format-region
+               clang-format-buffer
+               clang-format)
+    :init
+    ;; IF there is a .clang-format, then use that to format before saving
+    (defun my-clang-format-before-save ()
+      (require 'projectile)
+      (require 'clang-format)
+      (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
+        (add-hook 'before-save-hook 'clang-format-buffer t t)))
+    :hook (c++-mode . my-clang-format-before-save)
+    :custom
+    (clang-format-style-option "file"
+                               "read from .clang-format"))
 #+END_SRC
 
 * Disable autoformatting modes when drawing things
