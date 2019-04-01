@@ -111,6 +111,23 @@ Disabled because it kept raising a warning during init about markerp
     :config
     (global-evil-fringe-mark-mode))
 #+END_SRC
+
+** Input method Convenience toggle
+https://www.emacswiki.org/emacs/Evil#toc24
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (defun evil-toggle-input-method ()
+    (interactive)
+    (let ((is-insert-state (string= evil-state "insert")))
+      (cond
+       ((and (not current-input-method) (not is-insert-state)) (evil-insert-state))
+       ((and current-input-method is-insert-state) (evil-normal-state))
+       (t nil))
+      (toggle-input-method)))
+
+  (general-define-key :keymaps 'global
+    "C-\\" 'evil-toggle-input-method)
+#+END_SRC
 * Text Objects
 ** Latex Textobjects
 I appear to have stolen this from somewhere, probably because the original
@@ -254,6 +271,34 @@ This is an expensive package to load, and I wonder why
      "{" nil
      "}" nil))
 #+END_SRC
+
+** Sentences
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package sentence-navigation
+    :straight (:host github :repo "noctuid/emacs-sentence-navigation")
+    :general
+    (:states 'motion
+     ")" 'sentence-nav-evil-forward
+     "(" 'sentence-nav-evil-backward
+     "g)" 'sentence-nav-evil-forward-end
+     "g(" 'sentence-nav-evil-backward-end)
+    (evil-outer-text-objects-map
+     "s" 'sentence-nav-evil-a-sentence)
+    (evil-inner-text-objects-map
+     "s" 'sentence-nav-evil-inner-sentence)
+    :defer t)
+#+END_SRC
+
+** [K]olumns
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package evil-textobj-column
+    :straight (:host github :repo "noctuid/evil-textobj-column")
+    :general
+    (evil-outer-text-objects-map
+     "k" 'evil-textobj-column-word
+     "K" 'evil-textobj-column-WORD))
+#+END_SRC
+
 * Helm
 
 ** Describe Modes
@@ -505,6 +550,12 @@ that for the range we want
     (set-frame-parameter (selected-frame) 'alpha value))
 #+END_SRC
 
+** Default input method
+We're sticking to Japanese for now
+#+BEGIN_SRC emacs-lisp :results output silent
+  (setq default-input-method "japanese")
+#+END_SRC
+
 ** Disable GUI Elements
 #+BEGIN_SRC emacs-lisp :results output silent
   (tool-bar-mode -1)
@@ -667,6 +718,7 @@ Save bookmarks immediately.
 #+BEGIN_SRC emacs-lisp :results output silent
   (setq bookmark-save-flag 1)
 #+END_SRC
+
 * Display
 
 ** Prefer dark backgrounds
@@ -1129,7 +1181,6 @@ the initial entry works as per =deft-mode-hook=
     "g X" 'evil-encrypt-aes)
 #+END_SRC
 * Clojure                                                             :major:
-
 clojurescript-mode derives from clojure-mode
 
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -1148,9 +1199,8 @@ clojurescript-mode derives from clojure-mode
 #+END_SRC
 
 ** CIDER
-
-When using straight, we first encounter `cider-test.el` not found, and
-then later on `package sesman not found in recipe repositories`
+When using straight, we first encounter =cider-test.el= not found, and
+then later on =package sesman not found in recipe repositories=
 
 Sesman is not found normally by cider, so we had to manually clone it
 
@@ -1498,6 +1548,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
    :prefix my-default-evil-leader-key
    "a a" 'inverse-add-global-abbrev)
 #+END_SRC
+
 * Writeroom
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package writeroom-mode
@@ -1694,7 +1745,6 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+END_SRC
 
 * Journal
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package org-journal
     :straight (:host github :repo "bastibe/org-journal")
@@ -1713,6 +1763,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
       (customize-set-value 'org-journal-dir (file-name-as-directory
                                              (concat config-local-dropbox-folder "/notes/journal")))))
 #+END_SRC
+
 * Cmake
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package cmake-mode
@@ -1729,6 +1780,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     :straight (:host github :repo "Lindydancer/cmake-font-lock")
     :hook (cmake-mode . cmake-font-lock-activate))
 #+END_SRC
+
 * TOML mode for org-src
 #+BEGIN_SRC emacs-lisp :results output silent
   (with-eval-after-load 'org-src
