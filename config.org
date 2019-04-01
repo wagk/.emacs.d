@@ -987,11 +987,13 @@ package is known as elisp-mode but it reads as emacs-lisp
            (emacs-lisp-mode . (lambda ()
                                 (mapc (lambda (pair) (push pair
                                                       prettify-symbols-alist))
-                                      '(("nil"   . #x2205)
-                                        ("not"   . #xac)
+                                      '(("nil"      . #x2205)
+                                        ("not"      . #xac)
+                                        ("<="       . #x2264)
+                                        (">="       . #x2265)
                                         ;; ("defun" . #x0192)
-                                        ("or"    . #x2228)
-                                        ("and"   . #x2227)))))))
+                                        ("or"       . #x2228)
+                                        ("and"      . #x2227)))))))
 #+END_SRC
 
 ** Update Indentation Function
@@ -1097,10 +1099,13 @@ the initial entry works as per =deft-mode-hook=
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package deft
     :straight (:host github :repo "jrblevin/deft")
-    :commands (deft deft-filter deft-setup) ;; call this if no .deft folder is found
+    :commands (deft
+               deft-filter
+               deft-setup) ;; call this if no .deft folder is found
     :custom
     (deft-auto-save-interval 0.0
-      "Disable autosave because of permissions issues causing massive lag")
+      "Disable autosave because of permissions issues causing massive
+      lag")
     ;; enc is just what we call encrypted files. we do this so that
     ;; org-agenda-files won't try to open journal.org
     (deft-extensions '("org" "enc" "md")
@@ -1120,11 +1125,13 @@ the initial entry works as per =deft-mode-hook=
      :states  '(insert normal motion)
      "C-j"    'widget-forward
      "C-k"    'widget-backward
-     "M-j"    'widget-forward ;; make it more like helm, which defaults to this
+     ;; make it more like helm, which defaults to this
+     "M-j"    'widget-forward
      "M-k"    'widget-backward)
     (:keymaps 'deft-mode-map
      :states  'normal
-     "q"      'quit-window ;; first emacsy binding in a vim state [2018-03-21 Wed]
+     ;; first emacsy binding in a vim state [2018-03-21 Wed]
+     "q"      'quit-window
      "p"      'deft-filter-yank
      "r r"    'deft-archive-file
      "d d"    'deft-delete-file)
@@ -1148,7 +1155,11 @@ the initial entry works as per =deft-mode-hook=
     :config
     (when (boundp 'config-local-dropbox-folder)
       (customize-set-value 'deft-directory
-                           (file-name-as-directory (concat (file-name-as-directory config-local-dropbox-folder) "notes")))))
+                           (file-name-as-directory
+                            (concat
+                             (file-name-as-directory
+                              config-local-dropbox-folder)
+                             "notes")))))
 #+END_SRC
 
 * AES Encryption
@@ -1417,6 +1428,8 @@ package manager
 #+END_SRC
 
 ** cpp-specific ligatures
+We do not support =&&= (and hence also =||=) because of conflicts with
+r-value references.
 #+BEGIN_SRC emacs-lisp :results output silent
   (add-hook 'c-mode-common-hook
             #'(lambda ()
@@ -1427,9 +1440,9 @@ package manager
                         ;; ("->" . #x27f6) ;; Not supported by Iosevka
                         ("->" . #x2192) ;; 1-char width version
                         ("<=" . #x2264)
-                        (">=" . #x2265)
-                        ("&&" . #x2227)
-                        ("||" . #x2228)))))
+                        (">=" . #x2265)))))
+                        ;; ("&&" . #x2227)
+                        ;; ("||" . #x2228)))))
 #+END_SRC
 
 ** Clang Format
@@ -1440,11 +1453,14 @@ package manager
                clang-format-buffer
                clang-format)
     :init
-    ;; IF there is a .clang-format, then use that to format before saving
+    ;; IF there is a .clang-format, then use that to format before
+    ;; saving
     (defun my-clang-format-before-save ()
       (require 'projectile)
       (require 'clang-format)
-      (when (f-exists? (expand-file-name ".clang-format" (projectile-project-root)))
+      (when (f-exists?
+             (expand-file-name ".clang-format"
+                               (projectile-project-root)))
         (add-hook 'before-save-hook 'clang-format-buffer t t)))
     :hook (c++-mode . my-clang-format-before-save)
     :custom
