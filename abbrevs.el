@@ -105,7 +105,7 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("adn" "and" nil 1)
+    ("adn" "and" nil 2)
     ("alkready" "already" nil 1)
     ("alows" "allows" nil 1)
     ("anabled" "enabled" nil 1)
@@ -188,12 +188,13 @@
     ("siad" "said" nil 1)
     ("submoduels" "submodules" nil 1)
     ("suew" "sure" nil 1)
-    ("taht" "that" nil 8)
+    ("taht" "that" nil 10)
     ("taks" "task" nil 1)
     ("tempalte" "template" nil 1)
     ("tempaltes" "templates" nil 1)
     ("thwe" "the" nil 1)
     ("ti" "it" nil 3)
+    ("ti's" "it's" nil 1)
     ("tlaking" "talking" nil 1)
     ("uninstallaiton" "uninstallation" nil 1)
     ("uplaod" "upload" nil 2)

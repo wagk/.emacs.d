@@ -721,6 +721,7 @@ Save bookmarks immediately.
 
 Further helper functions to add bookmarks:
 #+BEGIN_SRC emacs-lisp :results output silent
+  ;;;###autoload
   (defun config-define-bookmark (name path &optional overwrite annotation)
     "Programmatically creates and stores bookmarks into the bookmark file.
   We do this here because as of 2019-04-01T16:13:14+0800 we have no idea
@@ -737,6 +738,7 @@ Further helper functions to add bookmarks:
 
   If PATH does not point to anywhere valid, this function is a no-op and
   no bookmark will be created."
+    (require 'bookmark)
     (when (file-exists-p path)
       (let* ((annot (if annotation annotation ""))
              (alist `((filename . ,path)
@@ -745,6 +747,10 @@ Further helper functions to add bookmarks:
                       (position . 0)
                       (annotation . ,annot))))
          (bookmark-store name alist overwrite))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (config-define-bookmark "dropbox" config-local-dropbox-folder)
 #+END_SRC
 
 * Display

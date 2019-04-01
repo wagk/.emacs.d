@@ -1,13 +1,16 @@
 #+STARTUP: showeverything
 
 #+BEGIN_QUOTE
-A mistake repeated more than once is a decision -- Paulo Coelho
-#+END_QUOTE
-
-#+BEGIN_QUOTE
 It is possible to commit no mistakes and still lose. That is not
 weakness. That is life. -- Jean Luc Picard
 #+END_QUOTE
+
+#+BEGIN_QUOTE
+A mistake repeated more than once is a decision -- Paulo Coelho
+#+END_QUOTE
+
+- je ne sais quoi :: An indefinable quality that makes something
+     distinctive or attractive ([[https://en.wiktionary.org/wiki/je_ne_sais_quoi][Wiktionary]])
 
 * Notices
 Attempt to derive a possible answer to a question first, before
