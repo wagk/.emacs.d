@@ -113,6 +113,7 @@
     ("apend" "append" nil 1)
     ("apparnetly" "apparently" nil 1)
     ("applicaiton" "application" nil 1)
+    ("applicaton" "application" nil 1)
     ("artifactoyr" "artifactory" nil 1)
     ("assocaited" "associated" nil 1)
     ("atuomatically" "automatically" nil 1)

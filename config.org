@@ -793,8 +793,8 @@ with Chinese/Japanese.
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (cond
-   ((find-font (font-spec :name "Iosevka")) (set-default-font "Iosevka-10"))
-   ((find-font (font-spec :name "Consolas")) (set-default-font "Consolas-10")))
+   ((find-font (font-spec :name "Iosevka")) (set-frame-font "Iosevka-10" nil t))
+   ((find-font (font-spec :name "Consolas")) (set-frame-font "Consolas-10" nil t)))
 #+END_SRC
 
 * Text
