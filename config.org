@@ -1,5 +1,6 @@
-[[https://necromuralist.github.io/posts/org-babel-cheat-sheet/][org-babel cheat sheet]]
+[[https://necromuralist.github.io/posts/org-babel-cheat-sheet/][Org Babel Cheatsheet]]
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
+[[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
 * TODO Figure out Edebug and tracebacks
 
@@ -1599,6 +1600,16 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
    "a a" 'inverse-add-global-abbrev)
 #+END_SRC
 
+** Edit abbrevs mode
+#+BEGIN_SRC emacs-lisp :results output silent
+  ;; (general-define-key
+  ;;  edit-abbrevs-mode-map
+  ;;  [remap evil-save-and-close] #'(lambda () (interactive)
+  ;;                                  (abbrev-edit-save-buffer)
+  ;;                                  (abbrev-edit-save-to-file)
+  ;;                                  (delete-window)))
+#+END_SRC
+
 * Writeroom
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package writeroom-mode
@@ -1820,8 +1831,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     :mode ("\\cmakelists.txt\\'" . cmake-mode)
     :ensure t ;; the package is nested in the greater cmake repo, and
               ;; not practical to use straight on (yet)
-    :config
-    (add-hook 'cmake-mode-hook 'hl-todo-mode))
+    :hook (cmake-mode . hl-todo-mode))
 #+END_SRC
 
 ** Cmake-font-lock
@@ -1853,7 +1863,6 @@ https://millejoh.github.io/emacs-ipython-notebook/
 #+END_SRC
 
 * Focus mode
-
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package focus
     :straight (:host github :repo "larstvei/Focus")
@@ -1878,4 +1887,21 @@ spaz out as much
 
 #+BEGIN_SRC emacs-lisp :results output silent
   (global-prettify-symbols-mode)
+#+END_SRC
+
+* Outshine
+Doesn't really work out of the box. Interesting idea though, so we're
+keeping it until we figure out how to use it properly
+
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package outshine
+    :straight (:host github :repo "alphapapa/outshine")
+    :disabled t
+    :hook (prog-mode . outshine-mode))
+#+END_SRC
+
+* Org Kanban
+#+BEGIN_SRC emacs-lisp :results output silent
+  (use-package org-kanban
+    :straight (:host github :repo "gizmomogwai/org-kanban"))
 #+END_SRC
