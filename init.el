@@ -190,17 +190,19 @@ recovery. Maybe eventually load dependencies and all that."
                evil-insert-state
                evil-ex-define-cmd)
     :general
-    (global-map "C-u" nil) ;; Disable universal argument
+    ;; (global-map "C-u" nil) ;; Disable universal argument
+    ;; (:keymaps 'insert
+    ;;  "C-u"    'kill-whole-line
+    ;;  "C-l"    'evil-complete-next-line)
+    ;; (:keymaps 'motion
+    ;; "C-u"    'evil-scroll-up)
     (:keymaps 'insert
-     "C-u"    'kill-whole-line
-     "C-l"    'evil-complete-next-line)
-    (:keymaps 'motion
-     "C-u"    'evil-scroll-up)
+     "C-l" 'evil-complete-next-line)
     (:keymaps 'normal
      "gt"     '(lambda () (interactive) (other-frame 1))
      "gT"     '(lambda () (interactive) (other-frame -1))
-     "g o"    'ff-find-other-file
-     "g a"    'describe-char)
+     "g o"    'ff-find-other-file)
+     ;; "g a"    'describe-char)
     (:keymaps 'inner
      "e"      'my-evil-a-buffer)
     (:keymaps 'outer
