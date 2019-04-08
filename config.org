@@ -6,10 +6,10 @@
 
 * Define useful constants
 #+BEGIN_SRC emacs-lisp :results output silent
-  (defconst my-inbox-org-file (if (boundp 'config-local-synthing-folder)
-                                  (concat config-local-synthing-folder "/notes/inbox.org")
+  (defconst my-inbox-org-file (if (boundp 'config-local-syncthing-folder)
+                                  (concat config-local-syncthing-folder "/notes/inbox.org")
                                 (progn
-                                  (error "Unable to find the synthing folder!")
+                                  (error "Unable to find the syncthing folder!")
                                   nil)))
 #+END_SRC
 
@@ -413,7 +413,7 @@ Interesting Text Objects:
     ;; (evil-ex-define-cmd "todo" 'my-capture-daydream)
     :hook (org-capture-mode . evil-insert-state)
     :config
-    (when (boundp 'config-local-synthing-folder)
+    (when (boundp 'config-local-syncthing-folder)
       (add-to-list 'org-capture-templates
                    `("i" "Standard Inbox" entry
                      (file ,my-inbox-org-file)
@@ -749,7 +749,6 @@ Further helper functions to add bookmarks:
                       (annotation . ,annot))))
          (bookmark-store name alist overwrite))))
 #+END_SRC
-
 
 * Display
 
@@ -1157,12 +1156,12 @@ the initial entry works as per =deft-mode-hook=
     (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
     (evil-set-initial-state 'deft-mode 'insert)
     :config
-    (when (boundp 'config-local-synthing-folder)
+    (when (boundp 'config-local-syncthing-folder)
       (customize-set-value 'deft-directory
                            (file-name-as-directory
                             (concat
                              (file-name-as-directory
-                              config-local-synthing-folder)
+                              config-local-syncthing-folder)
                              "notes")))))
 #+END_SRC
 
@@ -1783,7 +1782,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+BEGIN_SRC emacs-lisp :results output silent
   (evil-ex-define-cmd "in[box]" '(lambda ()
                                  (interactive)
-                                 (if (boundp 'config-local-synthing-folder)
+                                 (if (boundp 'config-local-syncthing-folder)
                                      (find-file my-inbox-org-file))))
 #+END_SRC
 
