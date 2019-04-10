@@ -7,16 +7,16 @@
 - [[http://endlessparentheses.com/debugging-elisp-part-2-advanced-topics.html][Introduction part 2]]
 
 * Define useful constants
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (defconst my-inbox-org-file (if (boundp 'config-local-syncthing-folder)
                                   (concat config-local-syncthing-folder "/notes/inbox.org")
                                 (progn
                                   (error "Unable to find the syncthing folder!")
                                   nil)))
-#+END_SRC
+#+end_src
 
 * Packaging
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package auto-package-update
     :straight (:host github :repo "rranelli/auto-package-update.el")
     :commands (auto-package-update-now
@@ -31,11 +31,11 @@
     (auto-package-update-interval 14
                                   "update once every 2 weeks (the count
                                   is in days)"))
-#+END_SRC
+#+end_src
 
 * Evil
 ** Alignment
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-lion
     :straight (:host github :repo "edkolev/evil-lion")
     :after (evil)
@@ -43,10 +43,10 @@
     (:keymaps '(normal visual)
      "gl"     'evil-lion-left
      "gL"     'evil-lion-right))
-#+END_SRC
+#+end_src
 
 ** Increment and Decrement
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-numbers
     :disabled t
     :straight (:host github :repo "cofi/evil-numbers")
@@ -54,7 +54,7 @@
     (:keymaps 'normal
      "C-a"  'evil-numbers/inc-at-pt
      "C-x"  'evil-numbers/dec-at-pt))
-#+END_SRC
+#+end_src
 
 ** Evil Expat
 Adds the following ex commands:
@@ -70,28 +70,28 @@ Adds the following ex commands:
 | :tyank             | copy range into tmux paste buffer, requires running under tmux |
 | :tput              | paste from tmux paste nuffer, requires running under tmux      |
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-expat
     :straight (:host github :repo "edkolev/evil-expat")
     :after (magit))
-#+END_SRC
+#+end_src
 
 ** Visualstar
 Allows for * and # commands. which originally only worked on WORDs,
 to work on a visual selection too
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-visualstar
     :straight (:host github :repo "bling/evil-visualstar")
     :general
     (:keymaps 'visual
      "*" 'evil-visualstar/begin-search-forward
      "#" 'evil-visualstar/begin-search-backward))
-#+END_SRC
+#+end_src
 
 ** Fringe marks
 Disabled because it kept raising a warning during init about markerp
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-fringe-mark
     :disabled t
     :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
@@ -99,12 +99,12 @@ Disabled because it kept raising a warning during init about markerp
     (evil-fringe-mark-show-special t)
     :config
     (global-evil-fringe-mark-mode))
-#+END_SRC
+#+end_src
 
 ** Input method Convenience toggle
 https://www.emacswiki.org/emacs/Evil#toc24
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (defun evil-toggle-input-method ()
     (interactive)
     (let ((is-insert-state (string= evil-state "insert")))
@@ -116,7 +116,7 @@ https://www.emacswiki.org/emacs/Evil#toc24
 
   (general-define-key :keymaps 'global
     "C-\\" 'evil-toggle-input-method)
-#+END_SRC
+#+end_src
 * Text Objects
 ** Latex Textobjects
 I appear to have stolen this from somewhere, probably because the original
@@ -129,7 +129,7 @@ package isn't being maintained or something
 | =m= | TeX macros (\foo{})                  |
 | =E= | Tex environments (\begin{}...\end{}) |
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-latex-textobjects
     :load-path "local-packages/"
     :commands (turn-on-evil-latex-textobjects-mode)
@@ -141,19 +141,19 @@ package isn't being maintained or something
      "e" nil
      "E" 'evil-latex-textobjects-an-env)
     :hook (LaTeX-mode . turn-on-evil-latex-textobjects-mode))
-#+END_SRC
+#+end_src
 
 ** Surround text objects
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-surround
     :straight (:host github :repo "emacs-evil/evil-surround")
     :after (evil)
     :config
     (global-evil-surround-mode))
-#+END_SRC
+#+end_src
 
 ** Argument text objects
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-args
     :straight (:host github :repo "wcsmith/evil-args")
     :after (evil)
@@ -162,19 +162,19 @@ package isn't being maintained or something
      "a" 'evil-inner-arg)
     (evil-outer-text-objects-map
      "a" 'evil-outer-arg))
-#+END_SRC
+#+end_src
 
 ** Comment using text objects
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-commentary
     :straight (:host github :repo "linktohack/evil-commentary")
     :after (evil)
     :config
     (evil-commentary-mode))
-#+END_SRC
+#+end_src
 
 ** Comment Text Objects
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-nerd-commenter
     :straight (:host github :repo "redguardtoo/evil-nerd-commenter")
     :after (evil)
@@ -183,19 +183,19 @@ package isn't being maintained or something
      "c" 'evilnc-inner-comment)
     (evil-outer-text-objects-map
      "c" 'evilnc-outer-commenter))
-#+END_SRC
+#+end_src
 
 ** Syntax Text Objects
 Bound to "h"
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-textobj-syntax
     :straight (:host github :repo "laishulu/evil-textobj-syntax")
     :after evil)
-#+END_SRC
+#+end_src
 
 ** Indent text objects
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-indent-plus
     :straight (:host github :repo "TheBB/evil-indent-plus")
     :general
@@ -205,19 +205,19 @@ Bound to "h"
     (evil-outer-text-objects-map
      "i" 'evil-indent-plus-i-indent-up
      "I" 'evil-indent-plus-a-indent-up))
-#+END_SRC
+#+end_src
 
 ** Line Text Objects
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-textobj-line
     :straight (:host github :repo "syohex/evil-textobj-line")
     :after evil)
-#+END_SRC
+#+end_src
 
 ** Targets
 This is an expensive package to load, and I wonder why
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package targets
     :after (evil)
     :defer 2
@@ -240,10 +240,10 @@ This is an expensive package to load, and I wonder why
                    :inside-key nil
                    :around-key nil
                    :remote-key nil))
-#+END_SRC
+#+end_src
 
 ** Evil-cleverparens
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-cleverparens
     :straight (:host github :repo "luxbock/evil-cleverparens")
     :general
@@ -259,10 +259,10 @@ This is an expensive package to load, and I wonder why
      :states 'normal
      "{" nil
      "}" nil))
-#+END_SRC
+#+end_src
 
 ** Sentences
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package sentence-navigation
     :straight (:host github :repo "noctuid/emacs-sentence-navigation")
     :general
@@ -276,40 +276,40 @@ This is an expensive package to load, and I wonder why
     (evil-inner-text-objects-map
      "s" 'sentence-nav-evil-inner-sentence)
     :defer t)
-#+END_SRC
+#+end_src
 
 ** [K]olumns
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-textobj-column
     :straight (:host github :repo "noctuid/evil-textobj-column")
     :general
     (evil-outer-text-objects-map
      "k" 'evil-textobj-column-word
      "K" 'evil-textobj-column-WORD))
-#+END_SRC
+#+end_src
 
 * Helm
 
 ** Describe Modes
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package helm-describe-modes
     :straight (:host github
                :repo "emacs-helm/helm-describe-modes"
               )
     :general
     ("C-h m" 'helm-describe-modes))
-#+END_SRC
+#+end_src
 
 ** Describe Bindings
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package helm-descbinds
     :straight (:host github
                :repo "emacs-helm/helm-descbinds"
               )
     :general
     ("C-h b" 'helm-descbinds))
-#+END_SRC
+#+end_src
 
 * Org Mode
 ** Evil Org Bindings
@@ -331,7 +331,7 @@ Interesting Text Objects:
 | aR / iR | evil-org-an/inner-subtree         | subtree starting with a header   |
 
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-org
     :straight (:host github :repo "Somelauw/evil-org-mode")
     :hook ((org-mode . evil-org-mode)
@@ -365,11 +365,11 @@ Interesting Text Objects:
                               ;; todo
                               ;; heading
                               calendar)))
-#+END_SRC
+#+end_src
 
 ** Org Capture Bindings
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package org-capture
     :ensure nil ;; because org-capture is from org
     :after (org)
@@ -417,11 +417,11 @@ Interesting Text Objects:
     ;;                `("d" "Daydream Entry" entry
     ;;                  (file ,my-daydream-org-file)
     ;;                  "* %? \n %U"))
-#+END_SRC
+#+end_src
 
 ** Org Agenda
 For some reason we can't do this in the scratch buffer
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package org-agenda
     :ensure nil
     :commands (org-todo-list
@@ -431,7 +431,7 @@ For some reason we can't do this in the scratch buffer
       (customize-set-value 'org-agenda-files
                           (add-to-list 'org-agenda-files
                                         deft-directory))))
-#+END_SRC
+#+end_src
 
 * Git
 
@@ -445,7 +445,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
 - [ ] Make it so I don't have to do !git all the time.
 
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package magit
     :straight (:host github :repo "magit/magit")
     :commands (magit-status
@@ -470,7 +470,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     (evil-ex-define-cmd "git" 'ex-magit-cli)
     :hook ((git-commit-setup . aggressive-fill-paragraph-mode)
            (git-commit-setup . markdown-mode)))
-#+END_SRC
+#+end_src
 
 *** Evil bindings
 
@@ -481,18 +481,18 @@ https://github.com/syl20bnr/spacemacs/issues/11978
 Current fix ([2019-02-18 Mon 13:06]) is to pin magit to an earlier
 config. This configuration is stored in =straight/versions/default.el=
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-magit
     :straight (:host github
                :repo "emacs-evil/evil-magit")
     :after (magit)
     :config
     (evil-magit-init))
-#+END_SRC
+#+end_src
 
 ** Git Gutter
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package git-gutter+
     :straight (:host github :repo "nonsequitur/git-gutter-plus")
     :defer 7
@@ -512,7 +512,7 @@ config. This configuration is stored in =straight/versions/default.el=
       :after git-gutter+)
     :custom
     (git-gutter+-hide-gutter t))
-#+END_SRC
+#+end_src
 
 ** Git hunk textobjects
 
@@ -520,43 +520,43 @@ Look at ~git-gutter+-diffinfo-at-point~ and see if we can leverage
 that for the range we want
 
 * Make Emacs Restartable
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package restart-emacs
     :straight (:host github :repo "iqbalansari/restart-emacs")
     :commands (restart-emacs)
     :init
     (evil-ex-define-cmd "restart" 'restart-emacs))
-#+END_SRC
+#+end_src
 
 * Quality of Life
 ** Frame Transparency
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   ;;;###autoload
   (defun my-set-frame-transparency (value)
     "Set the transparency of the frame window to VALUE.
   0=transparent/100=opaque"
     (interactive "nTransparency Value 0 - 100 opaque:")
     (set-frame-parameter (selected-frame) 'alpha value))
-#+END_SRC
+#+end_src
 
 ** Default input method
 We're sticking to Japanese for now
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq default-input-method "japanese")
-#+END_SRC
+#+end_src
 
 ** Disable GUI Elements
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
   (window-divider-mode -1)
-#+END_SRC
+#+end_src
 
 ** Timestamp
 Emulate the best feature of notepad
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (defun iso-8601-timestamp ()
     (concat (format-time-string "%Y-%m-%d")
             "T"
@@ -568,90 +568,90 @@ Emulate the best feature of notepad
               (if (eq major-mode 'org-mode)
                   (org-time-stamp-inactive '(16))
                 (insert (iso-8601-timestamp)))))
-#+END_SRC
+#+end_src
 
 ** Do not truncate lines
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq-default truncate-lines t)
-#+END_SRC
+#+end_src
 
 ** Open a startup file as initial buffer
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (customize-set-variable 'initial-buffer-choice user-frontpage-file)
-#+END_SRC
+#+end_src
 
 ** COMMENT Configure scratch buffer initial mode
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq initial-major-mode 'org-mode)
-#+END_SRC
+#+end_src
 
 ** Disable startup screen
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq inhibit-startup-screen t)
-#+END_SRC
+#+end_src
 
 ** Change "yes or no" to "y or n"
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (fset 'yes-or-no-p 'y-or-n-p)
-#+END_SRC
+#+end_src
 
 ** Require newlines at the end of all files
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq-default require-final-newline t)
-#+END_SRC
+#+end_src
 
 ** Disable alert sounds
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq ring-bell-function 'ignore)
-#+END_SRC
+#+end_src
 
 ** Automatically refresh buffer when underlying file is changed externally
-#+BEGIN_SRC
+#+begin_src
   (global-auto-revert-mode t)
-#+END_SRC
+#+end_src
 
 ** Make window subprocess communications faster
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq w32-pipe-read-delay 0)
-#+END_SRC
+#+end_src
 
 ** Set default tab width
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq-default tab-width 4)
-#+END_SRC
+#+end_src
 
 ** Make <TAB> always indent
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq tab-always-indent 'complete)
-#+END_SRC
+#+end_src
 
 ** Never indent with a TAB character
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq-default indent-tabs-mode nil)
-#+END_SRC
+#+end_src
 
 ** Strip Whitespace on save
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-#+END_SRC
+#+end_src
 
 ** After creating a new frame, immediately focus on that frame.
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (add-hook 'after-make-frame-functions 'select-frame)
-#+END_SRC
+#+end_src
 
 ** Sentences should end after a single space, not two
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (customize-set-variable 'sentence-end-double-space nil)
-#+END_SRC
+#+end_src
 
 ** Underscores should be considered as part of a word
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (add-hook 'after-change-major-mode-hook '(lambda () (modify-syntax-entry ?_ "w")))
-#+END_SRC
+#+end_src
 
 ** Ensure that files being edited are recoverable
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq delete-old-versions t
         backup-by-copying t
         version-control t
@@ -663,36 +663,36 @@ Emulate the best feature of notepad
   (setq history-length t
         history-delete-duplicates t)
   (savehist-mode 1)
-#+END_SRC
+#+end_src
 
 ** Stretch caret to cover full width of character
 http://pragmaticemacs.com/emacs/adaptive-cursor-width/
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq x-stretch-cursor t)
-#+END_SRC
+#+end_src
 
 ** Display line numbers when editing code
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (when (>= emacs-major-version 26)
     (add-hook 'prog-mode-hook 'display-line-numbers-mode))
-#+END_SRC
+#+end_src
 
 ** Scroll like Vim
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq scroll-step 1
         scroll-margin 1
         scroll-conservatively 9999)
-#+END_SRC
+#+end_src
 
 ** Activate hs-minor-mode on prog mode
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (add-hook 'prog-mode-hook 'hs-minor-mode)
-#+END_SRC
+#+end_src
 
 ** Eval sexp and replace with results
 Stolen from https://github.com/bbatsov/crux
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   ;;;###autoload
   (defun eval-and-replace ()
     "Replace the preceding sexp with its value."
@@ -700,16 +700,16 @@ Stolen from https://github.com/bbatsov/crux
     (let ((value (eval (elisp--preceding-sexp))))
       (backward-kill-sexp)
       (insert (format "%S" value))))
-#+END_SRC
+#+end_src
 
 ** Emacs bookmarks
 Save bookmarks immediately.
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq bookmark-save-flag 1)
-#+END_SRC
+#+end_src
 
 Further helper functions to add bookmarks:
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   ;;;###autoload
   (defun config-define-bookmark (name path &optional overwrite annotation)
     "Programmatically creates and stores bookmarks into the bookmark file.
@@ -736,20 +736,24 @@ Further helper functions to add bookmarks:
                       (position . 0)
                       (annotation . ,annot))))
          (bookmark-store name alist overwrite))))
-#+END_SRC
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "bm"        'list-bookmarks)
+#+end_src
 
 * Display
 
 ** Prefer dark backgrounds
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (customize-set-variable 'frame-background-mode 'dark)
   (set-terminal-parameter nil 'background-mode 'dark)
-#+END_SRC
+#+end_src
 
 ** Solarized
 [[https://ethanschoonover.com/solarized/][Website with more descriptions]]
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package solarized-theme
     :defer 2
     :straight (:host github :repo "bbatsov/solarized-emacs")
@@ -767,7 +771,7 @@ Further helper functions to add bookmarks:
     (solarized-height-plus-4 1.0)
     :config
     (load-theme 'solarized-dark t))
-#+END_SRC
+#+end_src
 
 ** Fonts
 We are preferring these fonts because they look nicer and play nicer
@@ -776,33 +780,33 @@ with Chinese/Japanese.
 0123456789abcdefghijklmnopqrstuvwxyz [] () :;,. !@#$^&*
 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ {} <> "'`  ~-_/|\?
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (cond
    ((find-font (font-spec :name "Iosevka")) (set-frame-font "Iosevka-10" nil t))
    ((find-font (font-spec :name "Consolas")) (set-frame-font "Consolas-10" nil t)))
-#+END_SRC
+#+end_src
 
 * Text
 
 ** Aggressive Fill Paragraph
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package aggressive-fill-paragraph
     :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode")
     :hook (org-mode . aggressive-fill-paragraph-mode))
-#+END_SRC
+#+end_src
 
 ** Aggressive Indent
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package aggressive-indent
     :straight (:host github :repo "malabarba/aggressive-indent-mode")
     :commands (aggressive-indent-mode))
-#+END_SRC
+#+end_src
 
 ** Yasnippet
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package yasnippet
     :defer 3
     :straight (:host github :repo "joaotavora/yasnippet")
@@ -835,30 +839,30 @@ with Chinese/Japanese.
     (defun yas-with-comment (str)
       (format "%s%s%s" comment-start str comment-end))
     (yas-global-mode))
-#+END_SRC
+#+end_src
 
 * Projectile
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package projectile
     :straight (:host github :repo "bbatsov/projectile")
     :commands (projectile-mode)
     :defer 2
     :config
     (projectile-mode))
-#+END_SRC
+#+end_src
 
 ** Helm-projectile
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package helm-projectile
     :straight (:host github :repo "bbatsov/helm-projectile")
     :general
     (:states '(normal motion)
      "+" 'helm-projectile))
-#+END_SRC
+#+end_src
 
 ** Org-Projectile
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package org-projectile
     :straight (:host github :repo "IvanMalison/org-projectile")
     :commands (org-projectile-project-todo-entry
@@ -874,11 +878,11 @@ with Chinese/Japanese.
     (org-projectile-per-project)
     (setq org-projectile-per-project-filepath ".todo"
           org-agenda-files (append org-agenda-files (org-projectile-todo-files))))
-#+END_SRC
+#+end_src
 
 * Lisp
 ** Parinfer
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package parinfer
     :straight (:host github :repo "DogLooksGood/parinfer-mode")
     :commands (parinfer-mode)
@@ -899,32 +903,32 @@ with Chinese/Japanese.
                     evil           ; if you use evil.
                     smart-tab      ; c-b & c-f jump positions and smart shift with tab & s-tab.
                     smart-yank))))   ; yank behavior depend on mode.
-#+END_SRC
+#+end_src
 
 ** Rainbow Delimiter Mode
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package rainbow-delimiters
     :straight (:host github :repo "Fanael/rainbow-delimiters")
     :commands (rainbow-delimiters-mode)
     :hook (prog-mode . rainbow-delimiters-mode))
-#+END_SRC
+#+end_src
 
 ** Rainbow Identifiers Mode
 
 It looks fairly jarring to be very honest.
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package rainbow-identifiers
     :straight (:host github :repo "Fanael/rainbow-identifiers")
     :commands (rainbow-identifiers-mode))
-#+END_SRC
+#+end_src
 
 ** Smartparens
 
 TODO: Make it so that if the point is inside {} or something similar,
 pressing RET autoformats it, instead of doing nothing as it does right now
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package smartparens
     :defer 2
     :straight (:host github :repo "Fuco1/smartparens")
@@ -963,12 +967,12 @@ pressing RET autoformats it, instead of doing nothing as it does right now
     (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
     (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
     (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET"))))
-#+END_SRC
+#+end_src
 
 * Elisp                                                               :major:
 package is known as elisp-mode but it reads as emacs-lisp
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package elisp-mode
     :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
            (emacs-lisp-mode . rainbow-identifiers-mode)
@@ -985,14 +989,14 @@ package is known as elisp-mode but it reads as emacs-lisp
            ;;                              ;; ("defun" . #x0192)
            ;;                              ("or"       . #x2228)
            ;;                              ("and"      . #x2227))))
-#+END_SRC
+#+end_src
 
 ** Update Indentation Function
 NOTE: We want to carefully override this
 https://emacs.stackexchange.com/questions/10230/how-to-indent-keywords-aligned
 https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/site-lisp/redef.el#L20-L94
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (defun my-updated-lisp-indent-function (indent-point state)
     "This function is the normal value of the variable `lisp-indent-function'.
   The function `calculate-lisp-indent' calls this to determine
@@ -1069,10 +1073,10 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
                 (method
                  (funcall method indent-point state))))))))
   (advice-add 'lisp-indent-function :override 'my-updated-lisp-indent-function)
-#+END_SRC
+#+end_src
 
 ** Elmacro
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package elmacro
     :straight (:host github :repo "Silex/elmacro")
     :commands (elmacro-show-last-macro
@@ -1080,14 +1084,14 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
                elmacro-clear-recorded-commands)
     :config
     (elmacro-mode))
-#+END_SRC
+#+end_src
 
 * Deft
 There's an issue when re-entering the deft buffer where we're in
 normal mode and not insert mode. Not sure why that is happening, since
 the initial entry works as per =deft-mode-hook=
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package deft
     :straight (:host github :repo "jrblevin/deft")
     :commands (deft
@@ -1151,11 +1155,11 @@ the initial entry works as per =deft-mode-hook=
                              (file-name-as-directory
                               config-local-syncthing-folder)
                              "notes")))))
-#+END_SRC
+#+end_src
 
 * AES Encryption
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package aes
     :defer nil
     :straight (:host github :repo "Sauermann/emacs-aes")
@@ -1179,10 +1183,10 @@ the initial entry works as per =deft-mode-hook=
     (add-to-list 'auto-mode-alist '("\\.enc\\'" #'(lambda ()
                                                     (when (aes-is-encrypted)
                                                       (aes-toggle-encryption))) t)))
-#+END_SRC
+#+end_src
 
 ** Encrypt operator
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (evil-define-operator evil-encrypt-aes (beg end)
     "Attempt to encrypt or decrypt a range using
   `aes-encrypt-buffer-or-string' and `aes-decrypt-buffer-or-string'"
@@ -1209,11 +1213,11 @@ the initial entry works as per =deft-mode-hook=
   (general-define-key
     :keymaps 'normal
     "g X" 'evil-encrypt-aes)
-#+END_SRC
+#+end_src
 * Clojure                                                             :major:
 clojurescript-mode derives from clojure-mode
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package clojure-mode
     :straight (:host github :repo "clojure-emacs/clojure-mode")
     :commands (clojure-mode
@@ -1226,7 +1230,7 @@ clojurescript-mode derives from clojure-mode
       (cl-pushnew '("edn" . clojure) org-src-lang-modes)
       (cl-pushnew '("clj" . clojure) org-src-lang-modes)
       (cl-pushnew '("cljs" . clojurescript) org-src-lang-modes)))
-#+END_SRC
+#+end_src
 
 ** CIDER
 When using straight, we first encounter =cider-test.el= not found, and
@@ -1234,14 +1238,14 @@ then later on =package sesman not found in recipe repositories=
 
 Sesman is not found normally by cider, so we had to manually clone it
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package sesman
     :straight (:host github :repo "vspinu/sesman"))
   (use-package cider
     :commands (cider-jack-in
                cider-connect)
     :straight (:host github :repo "clojure-emacs/cider"))
-#+END_SRC
+#+end_src
 
 We were unable to launch a shadow-cljs nREPL directly, but we are able
 to successfully connect (using =cider-connect-cljs=) into a repl we
@@ -1252,7 +1256,7 @@ recommended by the cider completion engine.
 We should look at customizing cider someday.
 
 * Rust                                                                :major:
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package rust-mode
     :straight (:host github :repo "rust-lang/rust-mode")
     :mode
@@ -1266,7 +1270,7 @@ We should look at customizing cider someday.
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("rust" . rust) org-src-lang-modes)))
-#+END_SRC
+#+end_src
 
 * TODO Dired
 - Make it more like netrw
@@ -1274,7 +1278,7 @@ We should look at customizing cider someday.
 
 [[https://gist.github.com/t-mart/610795fcf7998559ea80][Netrw map]]
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (general-define-key
    :states 'normal
    :keymaps 'dired-mode-map
@@ -1284,7 +1288,22 @@ We should look at customizing cider someday.
    "d" 'dired-create-directory
    "+" nil) ; don't block org-projectile
   (add-hook 'dired-mode-hook 'auto-revert-mode)
-#+END_SRC
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (evil-define-command open-dired-window ()
+    (interactive)
+    (if buffer-file-name
+        (dired (file-name-directory (buffer-file-name)))
+      (dired default-directory)))
+  (evil-ex-define-cmd "Ex[plore]" 'open-dired-window)
+  (evil-ex-define-cmd "Sex[plore]" '(lambda () (interactive)
+                                      (call-interactively 'evil-window-split)
+                                      (open-dired-window)))
+  (evil-ex-define-cmd "Vex[plore]" '(lambda () (interactive)
+                                      (call-interactively 'evil-window-vsplit)
+                                      (open-dired-window)))
+#+end_src
 
 * Help+
 - Emacswiki :: https://www.emacswiki.org/emacs/HelpPlus
@@ -1295,7 +1314,7 @@ These packages are from emacswiki, and are currently not being maintained.
 They are being stored and loaded locally, since they are not on melpa or any
 package manager
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package help+
     :defer 7
     :load-path "local-packages/")
@@ -1316,11 +1335,11 @@ package manager
                describe-copying
                find-function-on-key)
     :load-path "local-packages/")
-#+END_SRC
+#+end_src
 
 * Markdown                                                            :major:
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package markdown-mode
     :straight (:host github :repo "jrblevin/markdown-mode")
     :commands (markdown-mode)
@@ -1328,10 +1347,10 @@ package manager
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("md" . markdown) org-src-lang-modes)))
-#+END_SRC
+#+end_src
 
 * Dumb Jump
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package dumb-jump
     :straight (:host github :repo "jacktasia/dumb-jump")
     :custom
@@ -1339,10 +1358,10 @@ package manager
     :general
     (:states 'normal
      "g d" 'dumb-jump-go))
-#+END_SRC
+#+end_src
 
 * Helm Sources for Elisp info
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (evil-define-command find-helm-info-emacs-elisp-cl (init)
     "Helm for Emacs, Elisp, and CL-library info pages."
     (interactive "<a>")
@@ -1351,77 +1370,77 @@ package manager
                      helm-source-info-cl)
           :input init))
   (evil-ex-define-cmd "elisp" 'find-helm-info-emacs-elisp-cl)
-#+END_SRC
+#+end_src
 
 * Anki
 
 ** Markdown flavored anki editing                                 :disabled:
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package anki-mode
     :disabled t
     :straight (:host github :repo "davidshepherd7/anki-mode")
     :commands (anki-mode-menu))
-#+END_SRC
+#+end_src
 
 ** Orgmode flavored anki editing                                  :disabled:
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package anki-editor
     :disabled t
     :straight (:host github :repo "louietan/anki-editor"))
-#+END_SRC
+#+end_src
 
 * JSON                                                                :major:
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package json-mode
     :straight (:host github :repo "joshwnj/json-mode")
     :commands (json-mode)
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("json" . json) org-src-lang-modes)))
-#+END_SRC
+#+end_src
 
 * Silver Searcher (Ag)
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package ag
     :straight (:host github :repo "Wilfred/ag.el")
     :commands ag)
-#+END_SRC
+#+end_src
 
 ** Helm Ag
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package helm-ag
     :straight (:host github :repo "syohex/emacs-helm-ag")
     :commands (helm-ag
                helm-ag-this-file))
-#+END_SRC
+#+end_src
 
 * C++
 ** Indentation of 4
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq-default c-basic-offset 4)
-#+END_SRC
+#+end_src
 
 ** Default to K&R style
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq-default c-default-style "k&r")
-#+END_SRC
+#+end_src
 
 ** Newline in comments should insert an indented comment
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (general-define-key :states 'insert
                       :keymaps 'c-mode-base-map
                       "RET" 'comment-indent-new-line)
-#+END_SRC
+#+end_src
 
 ** Treat .h files as cpp files
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-#+END_SRC
+#+end_src
 
 ** COMMENT cpp-specific ligatures
 We do not support =&&= (and hence also =||=) because of conflicts with
 r-value references.
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (add-hook 'c-mode-common-hook
             #'(lambda ()
                 (mapc (lambda (pair) (push pair prettify-symbols-alist))
@@ -1434,10 +1453,10 @@ r-value references.
                         (">=" . #x2265)))))
                         ;; ("&&" . #x2227)
                         ;; ("||" . #x2228)))))
-#+END_SRC
+#+end_src
 
 ** Clang Format
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package clang-format
     :straight (:host github :repo "sonatard/clang-format")
     :commands (clang-format-region
@@ -1457,23 +1476,23 @@ r-value references.
     :custom
     (clang-format-style-option "file"
                                "read from .clang-format"))
-#+END_SRC
+#+end_src
 
 * Disable autoformatting modes when drawing things
 You can consider `artist-mode` a featurewise superset of picture-mode.
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (add-hook 'artist-mode-hook '(lambda () (aggressive-fill-paragraph-mode -1)))
-#+END_SRC
+#+end_src
 
 * Org source block handling for Artist-mode
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (with-eval-after-load 'org-src
     (cl-pushnew '("artist" . artist) org-src-lang-modes))
-#+END_SRC
+#+end_src
 
 * Ledger                                                              :major:
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package ledger-mode
     :mode "\\.ledger\\'"
     :straight (:host github :repo "ledger/ledger-mode"
@@ -1481,24 +1500,24 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     :init
       (with-eval-after-load 'org-src
         (cl-pushnew '("ledger" . ledger) org-src-lang-modes)))
-#+END_SRC
+#+end_src
 
 ** Evil-ledger
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package evil-ledger
     :straight (:host github :repo "atheriel/evil-ledger")
     :after (ledger-mode))
-#+END_SRC
+#+end_src
 
 * Hledger                                                             :major:
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package hledger-mode
     :straight (:host github :repo "narendraj9/hledger-mode")
     :mode "\\.journal\\'")
-#+END_SRC
+#+end_src
 
 * hl-todo
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package hl-todo
     :diminish t
     :straight (:host github :repo "tarsius/hl-todo")
@@ -1540,24 +1559,24 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     ;;                                                      collect c))
     ;;                    :get-line #'buffer-substring)
     ;;         :buffer "*helm hl-todo*"))
-#+END_SRC
+#+end_src
 
 * Abbrev
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq-default abbrev-mode t)
-#+END_SRC
+#+end_src
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq abbrev-file-name (at-user-init-dir "abbrevs.el"))
-#+END_SRC
+#+end_src
 
 ** Silently
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq save-abbrevs 'silently)
-#+END_SRC
+#+end_src
 
 ** Abbrev bindings
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (evil-define-command ex-abbreviation (arg)
     "Attempts to replicate the :abbreviate function in vim.
   :ab - Shows you the abbreviation tables
@@ -1582,20 +1601,20 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
    :states 'normal
    :prefix my-default-evil-leader-key
    "a a" 'inverse-add-global-abbrev)
-#+END_SRC
+#+end_src
 
 ** Edit abbrevs mode
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   ;; (general-define-key
   ;;  edit-abbrevs-mode-map
   ;;  [remap evil-save-and-close] #'(lambda () (interactive)
   ;;                                  (abbrev-edit-save-buffer)
   ;;                                  (abbrev-edit-save-to-file)
   ;;                                  (delete-window)))
-#+END_SRC
+#+end_src
 
 * Writeroom
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package writeroom-mode
     :straight (:host github :repo "joostkremers/writeroom-mode")
     :commands (writeroom-mode)
@@ -1605,10 +1624,10 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     :general
     (:states 'normal
      "g z" 'writeroom-mode))
-#+END_SRC
+#+end_src
 
 * Helpful
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package helpful
     :straight (:host github :repo "Wilfred/helpful")
     :general
@@ -1616,11 +1635,11 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
      "C-h f"   'helpful-callable
      "C-h v"   'helpful-variable
      "C-h RET" 'helpful-at-point))
-#+END_SRC
+#+end_src
 
 * Elisp demos
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package elisp-demos
     :after (helpful)
     :straight (:host github :repo "xuchunyang/elisp-demos"
@@ -1629,44 +1648,44 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     (with-eval-after-load 'helpful
       (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update))
     (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1))
-#+END_SRC
+#+end_src
 
 * Make shell open in same window
 - Related Spacemacs Issue ::
   https://github.com/syl20bnr/spacemacs/issues/6820
 
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
-#+END_SRC
+#+end_src
 
 * Make cursor always move to end when entering insert mode in comint modes
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (customize-set-value 'comint-scroll-to-bottom-on-input t)
-#+END_SRC
+#+end_src
 
 * Make shell mode update working directory
 - Stackoverflow :: [[https://emacs.stackexchange.com/questions/5589/automatically-update-default-directory-when-pwd-changes-in-shell-mode-and-term-m][link]]
 
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (add-hook 'shell-mode-hook (lambda ()
                                (shell-dirtrack-mode 0)
                                (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
                                (dirtrack-mode 1)))
-#+END_SRC
+#+end_src
 
 * Which Key
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package which-key
     :straight (:host github :repo "justbur/emacs-which-key")
     :defer 10
     :config
     (which-key-mode))
-#+END_SRC
+#+end_src
 
 * Groovy mode                                                         :major:
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package groovy-mode
     :straight (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes")
     :mode (("\\.groovy\\'" . groovy-mode)
@@ -1675,10 +1694,10 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     (with-eval-after-load 'org-src
         (cl-pushnew '("groovy" . groovy) org-src-lang-modes)))
 
-#+END_SRC
+#+end_src
 
 * Hy Mode                                                             :major:
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package hy-mode
     :straight (:host github :repo "hylang/hy-mode")
     :mode "\\.hy\\'"
@@ -1693,25 +1712,25 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("hy" . hy) org-src-lang-modes)))
-#+END_SRC
+#+end_src
 
 ** ob-hy
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package ob-hy
     :straight (:host github :repo "brantou/ob-hy")
     :config
     (require 'ob-hy))
-#+END_SRC
+#+end_src
 
 * vlf-mode
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package vlf
     :straight (:host github :repo "m00natic/vlfi")
     :config (require 'vlf-setup))
-#+END_SRC
+#+end_src
 
 * Yankpad
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package yankpad
     :disabled t
     :straight (:host github :repo "Kungsgeten/yankpad")
@@ -1722,10 +1741,10 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     (add-to-list 'hippie-expand-try-functions-list #'yankpad-expand)
     :custom
     (yankpad-file (at-user-init-dir "snippets.org")))
-#+END_SRC
+#+end_src
 
 * Smart tab
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package smart-tab
     :disabled t
     :straight (:host github :repo "genehack/smart-tab")
@@ -1733,26 +1752,26 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     (smart-tab-using-hippie-expand t)
     :config
     (global-smart-tab-mode))
-#+END_SRC
+#+end_src
 
 * Batch/CMD
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (with-eval-after-load 'org-src
     (cl-pushnew '("cmd" . bat) org-src-lang-modes)
     (cl-pushnew '("batch" . bat) org-src-lang-modes))
-#+END_SRC
+#+end_src
 
 * Python
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
-#+END_SRC
+#+end_src
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (setq-default python-indent-offset 2)
-#+END_SRC
+#+end_src
 
 * Powershell
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package powershell.el
     :straight (:host github :repo "jschaf/powershell.el")
     :commands (powershell-mode)
@@ -1764,18 +1783,18 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     (defun org-babel-execute:powershell (body _params)
       (let ((explicit-shell-file-name powershell-location-of-exe))
         (shell-command-to-string body))))
-#+END_SRC
+#+end_src
 
 * Access inbox.org from evil command
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (evil-ex-define-cmd "in[box]" '(lambda ()
                                  (interactive)
                                  (if (boundp 'config-local-syncthing-folder)
                                      (find-file my-inbox-org-file))))
-#+END_SRC
+#+end_src
 
 * Yaml-mode
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package yaml-mode
     :straight (:host github :repo "yoshiki/yaml-mode")
     :mode ("\\.yml\\'"
@@ -1787,10 +1806,10 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("yaml" . yaml) org-src-lang-modes)))
-#+END_SRC
+#+end_src
 
 * Journal
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package org-journal
     :straight (:host github :repo "bastibe/org-journal")
     :commands org-journal-new-entry
@@ -1807,91 +1826,91 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
                                              (concat config-local-syncthing-folder "/notes/journal"))))
     :hook
     ((org-journal-after-entry-create . evil-insert-state)))
-#+END_SRC
+#+end_src
 
 * Cmake
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package cmake-mode
     :mode ("\\cmakelists.txt\\'" . cmake-mode)
     :ensure t ;; the package is nested in the greater cmake repo, and
               ;; not practical to use straight on (yet)
     :hook (cmake-mode . hl-todo-mode))
-#+END_SRC
+#+end_src
 
 ** Cmake-font-lock
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package cmake-font-lock
     :straight (:host github :repo "Lindydancer/cmake-font-lock")
     :hook (cmake-mode . cmake-font-lock-activate))
-#+END_SRC
+#+end_src
 
 * TOML mode for org-src
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (with-eval-after-load 'org-src
     (cl-pushnew '("toml" . conf-toml) org-src-lang-modes))
-#+END_SRC
+#+end_src
 
 * Jira
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package org-jira
     :defer t
     :straight (:host github :repo "baohaojun/org-jira"))
-#+END_SRC
+#+end_src
 
 * Jupyter Notebook
 https://millejoh.github.io/emacs-ipython-notebook/
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package ein
     :straight (:host github :repo "millejoh/emacs-ipython-notebook"))
-#+END_SRC
+#+end_src
 
 * Focus mode
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package focus
     :straight (:host github :repo "larstvei/Focus")
     :commands focus-mode
     :init
     (evil-ex-define-cmd "fo[cus]" 'focus-mode))
-#+END_SRC
+#+end_src
 
 * Pretty mode
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package pretty-mode
     :straight (:host github :repo "pretty-mode/pretty-mode")
     :defer t)
     ;; :config
     ;; (global-pretty-mode)
     ;; (global-prettify-symbols-mode))
-#+END_SRC
+#+end_src
 
 * Prettify Symbols Mode
 Use this instead of pretty mode because it's built in and shouldn't
 spaz out as much
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (global-prettify-symbols-mode)
-#+END_SRC
+#+end_src
 
 * Outshine
 Doesn't really work out of the box. Interesting idea though, so we're
 keeping it until we figure out how to use it properly
 
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package outshine
     :straight (:host github :repo "alphapapa/outshine")
     :disabled t
     :hook (prog-mode . outshine-mode))
-#+END_SRC
+#+end_src
 
 * Org Kanban
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (use-package org-kanban
     :straight (:host github :repo "gizmomogwai/org-kanban"))
-#+END_SRC
+#+end_src
 
 * Bookmark+
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
   (let ((bookmarkplus-dir (at-user-init-dir "local-packages/bookmark-plus/"))
         (emacswiki-base "https://www.emacswiki.org/emacs/download/")
         (bookmark-files '("bookmark+.el" "bookmark+-mac.el" "bookmark+-bmu.el" "bookmark+-key.el" "bookmark+-lit.el" "bookmark+-1.el")))
@@ -1905,4 +1924,25 @@ keeping it until we figure out how to use it properly
             bookmark-files)
     (byte-recompile-directory bookmarkplus-dir 0)
     (require 'bookmark+))
-#+END_SRC
+#+end_src
+
+* COMMENT Copy as Format
+The only reason I'm keeping this and not discarding it is because it's currently
+- A monument to my hubris
+- Actually a pretty cool attempt at hacking elisp
+
+#+begin_src emacs-lisp :results output silent  (use-package copy-as-format
+  (use-package copy-as-format
+    :straight (:host github :repo "sshaw/copy-as-format")
+    :init
+    (evil-define-operator as-format (beg end &optional format-specifier)
+      :repeat nil
+      :move-point nil
+      (interactive "<r>")
+      (let ((temp-buffer (generate-new-buffer "copy-as-format-temp")))
+        (copy-to-buffer temp-buffer beg end)
+        (with-current-buffer temp-buffer
+          (mark-whole-buffer)
+          (copy-as-format))))
+   (evil-ex-define-cmd "copy-as-format" 'as-format))
+#+end_src

@@ -416,14 +416,17 @@ recovery. Maybe eventually load dependencies and all that."
     (use-package ox-confluence
       :ensure nil
       :commands org-confluence-export-as-confluence)
-    (add-to-list 'org-babel-load-languages '(shell . t)))
+    (add-to-list 'org-babel-load-languages '(shell . t))
+    (evil-ex-define-cmd "do[ing]" 'org-clock-goto))
 
   (use-package ivy
     :demand t
     :straight (:host github :repo "abo-abo/swiper")
+    :general
+    (ivy-minibuffer-map
+     "M-j" 'ivy-next-line
+     "M-k" 'ivy-previous-line)
     :config
-    ;; (with-eval-after-load 'evil-collection
-    ;;   (evil-collection-ivy-setup))
     (ivy-mode))
 
   (use-package helm
@@ -452,11 +455,6 @@ recovery. Maybe eventually load dependencies and all that."
        ((string= cmd "elisp") (find-helm-info-emacs-elisp-cl))
        ((eq cmd nil) (helm-apropos))
        (t (helm-apropos cmd))))
-    (defun open-dired-window ()
-      (interactive)
-      (if buffer-file-name
-          (dired (file-name-directory (buffer-file-name)))
-        (dired default-directory)))
     ;; (evil-define-command ex-list-bookmarks (filter)
     ;;   (interactive "<a>")
     ;;   (if filter
@@ -465,14 +463,6 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-ex-define-cmd "elisp"     'find-helm-info-emacs-elisp-cl)
     (evil-ex-define-cmd "h[elp]"    'ex-helm-apropos)
     (evil-ex-define-cmd "bb"        'helm-mini)
-    (evil-ex-define-cmd "bm"        'list-bookmarks)
-    (evil-ex-define-cmd "Ex[plore]" 'open-dired-window)
-    (evil-ex-define-cmd "Sex[plore]" '(lambda () (interactive)
-                                        (call-interactively 'evil-window-split)
-                                        (open-dired-window)))
-    (evil-ex-define-cmd "Vex[plore]" '(lambda () (interactive)
-                                        (call-interactively 'evil-window-vsplit)
-                                        (open-dired-window)))
     :custom
     (helm-idle-delay 0.0)
     (helm-input-idle-delay 0.01)
