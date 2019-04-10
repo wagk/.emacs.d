@@ -431,7 +431,9 @@ recovery. Maybe eventually load dependencies and all that."
        (t (helm-apropos cmd))))
     (defun open-dired-window ()
       (interactive)
-      (dired (file-name-directory (buffer-file-name))))
+      (if buffer-file-name
+          (dired (file-name-directory (buffer-file-name)))
+        (dired default-directory)))
     (evil-ex-define-cmd "elisp"     'find-helm-info-emacs-elisp-cl)
     (evil-ex-define-cmd "h[elp]"    'ex-helm-apropos)
     (evil-ex-define-cmd "bb"        'helm-mini)
