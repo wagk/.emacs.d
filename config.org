@@ -742,6 +742,13 @@ Further helper functions to add bookmarks:
   (evil-ex-define-cmd "bm"        'list-bookmarks)
 #+end_src
 
+** Completion
+#+begin_src emacs-lisp :results output silent
+  (customize-set-value 'completion-ignore-case t)
+  (customize-set-value 'read-file-name-completion-ignore-case t)
+  (customize-set-value 'read-buffer-completion-ignore-case t)
+#+end_src
+
 * Display
 
 ** Prefer dark backgrounds
