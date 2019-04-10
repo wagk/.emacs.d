@@ -106,6 +106,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("adn" "and" nil 2)
+    ("aline" "alone" nil 1)
     ("alkready" "already" nil 1)
     ("alows" "allows" nil 1)
     ("anabled" "enabled" nil 1)

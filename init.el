@@ -70,6 +70,11 @@
   (interactive)
   (find-file user-local-file))
 
+(defun find-user-frontpage-file ()
+  "Edit `user-frontpage-file' without opening a new window."
+  (interactive)
+  (find-file user-frontpage-file))
+
 (defmacro measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."
   `(let ((time (current-time)))
@@ -113,7 +118,6 @@
   (straight-use-package '(use-package
                            :host github
                            :repo "jwiegley/use-package"))
-
   (require 'use-package)
   ;; download packages if needed
   (setq use-package-always-defer nil ;; we don't always lazy load because of explicitness
@@ -178,11 +182,6 @@ recovery. Maybe eventually load dependencies and all that."
   (use-package no-littering
     :straight (:host github :repo "emacscollective/no-littering"))
 
-  (customize-set-variable 'evil-want-keybinding nil
-                          "`evil-collections' wants this to be
-                          disabled before even loading evil, see
-                          https://github.com/emacs-evil/evil-collection/issues/60")
-
   (use-package evil
     :demand t
     :straight (:host github :repo "emacs-evil/evil")
@@ -208,6 +207,11 @@ recovery. Maybe eventually load dependencies and all that."
     (:keymaps 'outer
      "e"      'my-evil-a-buffer)
     :custom
+    (evil-want-keybinding
+     nil
+     "`evil-collections' wants this to be
+     disabled before even loading evil, see
+     https://github.com/emacs-evil/evil-collection/issues/60")
     (evil-want-Y-yank-to-eol
      t
      "Y has the default behavior of functioning identically to yy.
@@ -259,14 +263,15 @@ recovery. Maybe eventually load dependencies and all that."
     ;;   (raise-frame (call-interactively 'make-frame))
     ;;   (evil-edit file))
 
-    (evil-ex-define-cmd "sh[ell]"    'shell) ;; at least shell shows its keymaps
-    (evil-ex-define-cmd "tabn[ew]"   'make-frame)
-    (evil-ex-define-cmd "tabe[dit]"  'make-frame)
-    (evil-ex-define-cmd "init"       'find-user-init-file)
-    (evil-ex-define-cmd "local"      'find-user-local-file)
-    (evil-ex-define-cmd "config"     'find-user-config-file)
-    (evil-ex-define-cmd "me[ssage]"  '(lambda () (interactive) (switch-to-buffer "*Messages*")))
-    (evil-ex-define-cmd "sc[ratch]"  '(lambda () (interactive) (switch-to-buffer "*scratch*")))
+    (evil-ex-define-cmd "sh[ell]"     'shell) ;; at least shell shows its keymaps
+    (evil-ex-define-cmd "tabn[ew]"    'make-frame)
+    (evil-ex-define-cmd "tabe[dit]"   'make-frame)
+    (evil-ex-define-cmd "init"        'find-user-init-file)
+    (evil-ex-define-cmd "local"       'find-user-local-file)
+    (evil-ex-define-cmd "front[page]" 'find-user-frontpage-file)
+    (evil-ex-define-cmd "config"      'find-user-config-file)
+    (evil-ex-define-cmd "me[ssage]"   '(lambda () (interactive) (switch-to-buffer "*Messages*")))
+    (evil-ex-define-cmd "sc[ratch]"   '(lambda () (interactive) (switch-to-buffer "*scratch*")))
 
     ;; https://stackoverflow.com/questions/18102004/emacs-evil-mode-how-to-create-a-new-text-object-to-select-words-with-any-non-sp/22418983#22418983
     (defmacro /evil-define-and-bind-text-object (key start-regex end-regex)
@@ -289,6 +294,16 @@ recovery. Maybe eventually load dependencies and all that."
       "Select entire buffer"
       (evil-range (point-min) (point-max)))
     (evil-mode))
+
+  (use-package evil-collection
+    :demand t
+    :straight (:host github :repo "emacs-evil/evil-collection")
+    :custom
+    (evil-collection-setup-minibuffer t)
+    :config
+    ;; NOTE: note that this REQUIRES the var `evil-want-integration' to
+    ;; be NIL
+    (evil-collection-init))
 
   (straight-use-package '(org :local-repo nil))
 
@@ -403,6 +418,14 @@ recovery. Maybe eventually load dependencies and all that."
       :commands org-confluence-export-as-confluence)
     (add-to-list 'org-babel-load-languages '(shell . t)))
 
+  (use-package ivy
+    :demand t
+    :straight (:host github :repo "abo-abo/swiper")
+    :config
+    ;; (with-eval-after-load 'evil-collection
+    ;;   (evil-collection-ivy-setup))
+    (ivy-mode))
+
   (use-package helm
     :demand t
     :straight (:host github :repo "emacs-helm/helm")
@@ -434,6 +457,11 @@ recovery. Maybe eventually load dependencies and all that."
       (if buffer-file-name
           (dired (file-name-directory (buffer-file-name)))
         (dired default-directory)))
+    ;; (evil-define-command ex-list-bookmarks (filter)
+    ;;   (interactive "<a>")
+    ;;   (if filter
+    ;;       (bookmark-bmenu-filter-alist-by-regexp filter)
+    ;;     (list-bookmarks)))
     (evil-ex-define-cmd "elisp"     'find-helm-info-emacs-elisp-cl)
     (evil-ex-define-cmd "h[elp]"    'ex-helm-apropos)
     (evil-ex-define-cmd "bb"        'helm-mini)

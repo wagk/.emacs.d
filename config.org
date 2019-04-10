@@ -3,6 +3,8 @@
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
 * TODO Figure out Edebug and tracebacks
+- [[http://endlessparentheses.com/debugging-emacs-lisp-part-1-earn-your-independence.html][Introduction part 1]]
+- [[http://endlessparentheses.com/debugging-elisp-part-2-advanced-topics.html][Introduction part 2]]
 
 * Define useful constants
 #+BEGIN_SRC emacs-lisp :results output silent
@@ -32,20 +34,6 @@
 #+END_SRC
 
 * Evil
-** Evil Collection
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package evil-collection
-    :after (evil)
-    :straight (:host github
-               :repo "emacs-evil/evil-collection")
-    :custom
-    (evil-collection-setup-minibuffer t)
-    :config
-    ;; NOTE: note that this REQUIRES the var `evil-want-integration' to
-    ;; be NIL
-    (evil-collection-init))
-#+END_SRC
-
 ** Alignment
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package evil-lion
@@ -1805,6 +1793,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package org-journal
     :straight (:host github :repo "bastibe/org-journal")
+    :commands org-journal-new-entry
     :custom
     (org-journal-time-format "%T")
     (org-journal-date-format "%A, %F" "Lets follow the ISO standard")
@@ -1813,12 +1802,11 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     (evil-ex-define-cmd "journal" #'(lambda () (interactive)
                                       (org-journal-new-entry t)))
     (evil-ex-define-cmd "jj" 'org-journal-new-entry)
-    :hook
-    ((org-journal-after-entry-create . evil-insert-state))
-    :config
     (when (boundp 'config-local-syncthing-folder)
       (customize-set-value 'org-journal-dir (file-name-as-directory
-                                             (concat config-local-syncthing-folder "/notes/journal")))))
+                                             (concat config-local-syncthing-folder "/notes/journal"))))
+    :hook
+    ((org-journal-after-entry-create . evil-insert-state)))
 #+END_SRC
 
 * Cmake

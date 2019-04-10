@@ -2,6 +2,6 @@
 # name: org-mode-elisp-code-block
 # key: elisp
 # --
-#+BEGIN_SRC emacs-lisp :results output silent
+#+begin_src emacs-lisp :results output silent
 $0
-#+END_SRC
+#+end_src
