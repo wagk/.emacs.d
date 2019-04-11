@@ -1941,6 +1941,7 @@ The only reason I'm keeping this and not discarding it is because it's currently
 #+begin_src emacs-lisp :results output silent  (use-package copy-as-format
   (use-package copy-as-format
     :straight (:host github :repo "sshaw/copy-as-format")
+    :disabled t
     :init
     (evil-define-operator as-format (beg end &optional format-specifier)
       :repeat nil
