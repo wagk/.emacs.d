@@ -286,8 +286,7 @@ This is an expensive package to load, and I wonder why
     (evil-outer-text-objects-map
      "s" 'sentence-nav-evil-a-sentence)
     (evil-inner-text-objects-map
-     "s" 'sentence-nav-evil-inner-sentence)
-    :defer t)
+     "s" 'sentence-nav-evil-inner-sentence))
 #+END_SRC
 
 ** [K]olumns
