@@ -155,7 +155,7 @@
     ("experimentaiton" "experimentation" nil 1)
     ("fiarly" "fairly" nil 1)
     ("fiel" "file" nil 1)
-    ("fiels" "files" nil 1)
+    ("fiels" "files" nil 2)
     ("finalncial" "financial" nil 1)
     ("folliwng" "following" nil 1)
     ("followiong" "following" nil 1)
