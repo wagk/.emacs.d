@@ -6,6 +6,10 @@
 - [[http://endlessparentheses.com/debugging-emacs-lisp-part-1-earn-your-independence.html][Introduction part 1]]
 - [[http://endlessparentheses.com/debugging-elisp-part-2-advanced-topics.html][Introduction part 2]]
 
+* TODO Wgrep
+Being able to mass-edit using search results seem interesting
+http://blog.binchen.org/posts/use-wgrep-and-evil-to-replace-text-efficiently.html
+
 * Define useful constants
 #+begin_src emacs-lisp :results output silent
   (defconst my-inbox-org-file (if (boundp 'config-local-syncthing-folder)
