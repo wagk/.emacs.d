@@ -426,6 +426,10 @@ recovery. Maybe eventually load dependencies and all that."
     (ivy-minibuffer-map
      "M-j" 'ivy-next-line
      "M-k" 'ivy-previous-line)
+    :custom
+    (ivy-use-selectable-prompt
+     t
+     "Make the prompt line selectable.")
     :config
     (ivy-mode))
 
