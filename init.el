@@ -426,10 +426,19 @@ recovery. Maybe eventually load dependencies and all that."
     (ivy-minibuffer-map
      "M-j" 'ivy-next-line
      "M-k" 'ivy-previous-line)
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "<SPC>" 'counsel-M-x)
+    ("C-h C-h" 'counsel-apropos)
     :custom
     (ivy-use-selectable-prompt
      t
      "Make the prompt line selectable.")
+    (ivy-use-virtual-buffers)
+    t
+    "Make `ivy-switch-buffer' look more like `helm-mini'"
+    :init
+    (evil-ex-define-cmd "bb" 'ivy-switch-buffer)
     :config
     (ivy-mode))
 
@@ -438,12 +447,8 @@ recovery. Maybe eventually load dependencies and all that."
     :straight (:host github :repo "emacs-helm/helm")
     :commands (helm-org-in-buffer-headings)
     :general
-    ("C-h C-h" 'helm-apropos)
     (:states 'normal
      "-"     'open-dired-window) ;; emulate vim-vinegar
-    (:states 'normal
-     :prefix my-default-evil-leader-key
-     "<SPC>" 'helm-M-x)
     (helm-map
      "TAB" 'helm-execute-persistent-action)
     :init
@@ -466,7 +471,6 @@ recovery. Maybe eventually load dependencies and all that."
     ;;     (list-bookmarks)))
     (evil-ex-define-cmd "elisp"     'find-helm-info-emacs-elisp-cl)
     (evil-ex-define-cmd "h[elp]"    'ex-helm-apropos)
-    (evil-ex-define-cmd "bb"        'helm-mini)
     :custom
     (helm-idle-delay 0.0)
     (helm-input-idle-delay 0.01)

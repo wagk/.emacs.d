@@ -305,13 +305,19 @@ This is an expensive package to load, and I wonder why
 
 ** Describe Bindings
 
+Use counsel instead
 #+begin_src emacs-lisp :results output silent
   (use-package helm-descbinds
+    :disabled t
     :straight (:host github
                :repo "emacs-helm/helm-descbinds"
-              )
+               )
     :general
     ("C-h b" 'helm-descbinds))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (general-define-key "C-h b" 'counsel-descbinds)
 #+end_src
 
 * Org Mode
