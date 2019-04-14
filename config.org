@@ -686,6 +686,11 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
     (add-hook 'prog-mode-hook 'display-line-numbers-mode))
 #+end_src
 
+** Show matching parens
+#+begin_src emacs-lisp :results output silent
+  (add-hook 'prog-mode-hook 'show-paren-mode)
+#+end_src
+
 ** Scroll like Vim
 #+begin_src emacs-lisp :results output silent
   (setq scroll-step 1
@@ -1240,7 +1245,8 @@ clojurescript-mode derives from clojure-mode
                clojurescript-mode)
     :hook ((clojure-mode . rainbow-delimiters-mode)
            (clojure-mode . parinfer-mode)
-           (clojure-mode . update-evil-shift-width))
+           (clojure-mode . update-evil-shift-width)
+           (clojure-mode . show-paren-mode))
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("edn" . clojure) org-src-lang-modes)
@@ -1724,7 +1730,8 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
     :hook ((hy-mode . rainbow-delimiters-mode)
            (hy-mode . parinfer-mode)
            (hy-mode . update-evil-shift-width)
-           (hy-mode . evil-cleverparens-mode))
+           (hy-mode . evil-cleverparens-mode)
+           (hy-mode . show-paren-mode))
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("hy" . hy) org-src-lang-modes)))
