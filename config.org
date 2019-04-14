@@ -688,6 +688,8 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 
 ** Show matching parens
 #+begin_src emacs-lisp :results output silent
+  (customize-set-value 'show-paren-when-point-inside-paren t)
+  (customize-set-value 'show-paren-when-point-in-periphery t)
   (add-hook 'prog-mode-hook 'show-paren-mode)
 #+end_src
 
