@@ -434,9 +434,9 @@ recovery. Maybe eventually load dependencies and all that."
     (ivy-use-selectable-prompt
      t
      "Make the prompt line selectable.")
-    (ivy-use-virtual-buffers)
-    t
-    "Make `ivy-switch-buffer' look more like `helm-mini'"
+    (ivy-use-virtual-buffers
+     t
+     "Make `ivy-switch-buffer' look more like `helm-mini'")
     :init
     (evil-ex-define-cmd "bb" 'ivy-switch-buffer)
     :config
