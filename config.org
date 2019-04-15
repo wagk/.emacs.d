@@ -16,6 +16,7 @@ Note that for some reason using plain old =ag= works while
 #+begin_src emacs-lisp :results output silent
   (use-package wgrep
     :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
+    :commands (wgrep-change-to-wgrep-mode)
     :config
     (require 'f)) ;; for some reason it complains about not finding `f-exists?'
 #+end_src
@@ -307,7 +308,6 @@ This is an expensive package to load, and I wonder why
 #+end_src
 
 * Helm
-
 ** Describe Modes
 #+begin_src emacs-lisp :results output silent
   (use-package helm-describe-modes
