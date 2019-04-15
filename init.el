@@ -341,7 +341,7 @@ recovery. Maybe eventually load dependencies and all that."
      "o t" 'org-time-stamp
      "o T" '(lambda () (interactive)
               (org-time-stamp '(16)))
-     "f f" 'helm-org-in-buffer-headings)
+     "f f" 'counsel-org-goto)
     ;; (:states 'normal
     ;;  :keymaps 'org-mode-map
     ;;  :prefix my-default-evil-leader-key

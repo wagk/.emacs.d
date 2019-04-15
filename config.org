@@ -10,6 +10,16 @@
 Being able to mass-edit using search results seem interesting
 http://blog.binchen.org/posts/use-wgrep-and-evil-to-replace-text-efficiently.html
 
+Note that for some reason using plain old =ag= works while
+=counsel-ag= does not.
+
+#+begin_src emacs-lisp :results output silent
+  (use-package wgrep
+    :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
+    :config
+    (require 'f)) ;; for some reason it complains about not finding `f-exists?'
+#+end_src
+
 * Define useful constants
 #+begin_src emacs-lisp :results output silent
   (defconst my-inbox-org-file (if (boundp 'config-local-syncthing-folder)
@@ -448,7 +458,6 @@ For some reason we can't do this in the scratch buffer
 #+end_src
 
 * Git
-
 ** Magit
 If magit complains about not finding the config on windows, it's
 because of [[https://github.com/magit/magit/issues/1497][this issue]], the easiest solution is to make a link
@@ -1843,10 +1852,10 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
   (use-package org-journal
     :straight (:host github :repo "bastibe/org-journal")
     :commands org-journal-new-entry
-    :custom
-    (org-journal-time-format "%T")
-    (org-journal-date-format "%A, %F" "Lets follow the ISO standard")
-    (org-journal-file-format "%F" "Lets follow the ISO standard")
+    ;; :custom
+    ;; (org-journal-time-format "%T")
+    ;; (org-journal-date-format "%A, %F" "Lets follow the ISO standard")
+    ;; (org-journal-file-format "%F" "Lets follow the ISO standard")
     :init
     (evil-ex-define-cmd "journal" #'(lambda () (interactive)
                                       (org-journal-new-entry t)))
