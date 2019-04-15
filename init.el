@@ -492,6 +492,12 @@ recovery. Maybe eventually load dependencies and all that."
                  helm-autoresize-max-height 40))
     (helm-mode))
 
+  (use-package restart-emacs
+    :straight (:host github :repo "iqbalansari/restart-emacs")
+    :commands (restart-emacs)
+    :init
+    (evil-ex-define-cmd "restart" 'restart-emacs))
+
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
   (measure-time

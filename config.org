@@ -16,9 +16,7 @@ Note that for some reason using plain old =ag= works while
 #+begin_src emacs-lisp :results output silent
   (use-package wgrep
     :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
-    :commands (wgrep-change-to-wgrep-mode)
-    :config
-    (require 'f)) ;; for some reason it complains about not finding `f-exists?'
+    :commands (wgrep-change-to-wgrep-mode))
 #+end_src
 
 * Define useful constants
@@ -109,6 +107,7 @@ Disabled because it kept raising a warning during init about markerp
 #+begin_src emacs-lisp :results output silent
   (use-package evil-fringe-mark
     :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
+    :disabled t
     :custom
     (evil-fringe-mark-show-special t)
     :hook
@@ -240,13 +239,7 @@ This is an expensive package to load, and I wonder why
 
 #+begin_src emacs-lisp :results output silent
   (use-package targets
-    :after (evil)
-    :defer 2
     :straight (:host github :repo "noctuid/targets.el")
-    :commands (targets-inner-paren
-               targets-inner-curly
-               targets-a-paren
-               targets-a-curly)
     :general
     (evil-inner-text-objects-map
      "b" 'targets-inner-paren
@@ -542,13 +535,7 @@ Look at ~git-gutter+-diffinfo-at-point~ and see if we can leverage
 that for the range we want
 
 * Make Emacs Restartable
-#+begin_src emacs-lisp :results output silent
-  (use-package restart-emacs
-    :straight (:host github :repo "iqbalansari/restart-emacs")
-    :commands (restart-emacs)
-    :init
-    (evil-ex-define-cmd "restart" 'restart-emacs))
-#+end_src
+Moved to init.el
 
 * Quality of Life
 ** Frame Transparency
@@ -791,7 +778,7 @@ Further helper functions to add bookmarks:
 
 #+begin_src emacs-lisp :results output silent
   (use-package solarized-theme
-    :defer 2
+    :defer 4
     :straight (:host github :repo "bbatsov/solarized-emacs")
     :custom
     (solarized-use-variable-pitch nil)
@@ -882,7 +869,7 @@ with Chinese/Japanese.
   (use-package projectile
     :straight (:host github :repo "bbatsov/projectile")
     :commands (projectile-mode)
-    :defer 2
+    :defer 4
     :config
     (projectile-mode))
 #+end_src
@@ -904,7 +891,8 @@ with Chinese/Japanese.
     :commands (org-projectile-project-todo-entry
                org-projectile-get-project-todo-file)
     :init
-    (add-to-list 'org-capture-templates (org-projectile-project-todo-entry))
+    (with-eval-after-load 'org-capture
+     (add-to-list 'org-capture-templates (org-projectile-project-todo-entry))) ;; here
     (evil-ex-define-cmd "todo" #'(lambda () (interactive)
                                    (require 'projectile)
                                    (require 'org-projectile)
@@ -966,7 +954,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
 
 #+begin_src emacs-lisp :results output silent
   (use-package smartparens
-    :defer 2
+    :defer 4
     :straight (:host github :repo "Fuco1/smartparens")
     :diminish smartparens-mode
     :commands (sp-local-pair)
@@ -1275,9 +1263,11 @@ then later on =package sesman not found in recipe repositories=
 
 Sesman is not found normally by cider, so we had to manually clone it
 
+This is actally fairly expensive to load
 #+begin_src emacs-lisp :results output silent
   (use-package sesman
-    :straight (:host github :repo "vspinu/sesman"))
+    :straight (:host github :repo "vspinu/sesman")
+    :defer t)
   (use-package cider
     :commands (cider-jack-in
                cider-connect)
@@ -1764,6 +1754,7 @@ You can consider `artist-mode` a featurewise superset of picture-mode.
 #+begin_src emacs-lisp :results output silent
   (use-package vlf
     :straight (:host github :repo "m00natic/vlfi")
+    :commands vlf-mode
     :config (require 'vlf-setup))
 #+end_src
 
@@ -1944,24 +1935,27 @@ keeping it until we figure out how to use it properly
 * Org Kanban
 #+begin_src emacs-lisp :results output silent
   (use-package org-kanban
-    :straight (:host github :repo "gizmomogwai/org-kanban"))
+    :straight (:host github :repo "gizmomogwai/org-kanban")
+    :defer 10)
 #+end_src
 
 * Bookmark+
 #+begin_src emacs-lisp :results output silent
-  (let ((bookmarkplus-dir (at-user-init-dir "local-packages/bookmark-plus/"))
-        (emacswiki-base "https://www.emacswiki.org/emacs/download/")
-        (bookmark-files '("bookmark+.el" "bookmark+-mac.el" "bookmark+-bmu.el" "bookmark+-key.el" "bookmark+-lit.el" "bookmark+-1.el")))
-    (require 'url)
-    (add-to-list 'load-path bookmarkplus-dir)
-    (make-directory bookmarkplus-dir t)
-    (mapcar (lambda (arg)
-              (let ((local-file (concat bookmarkplus-dir arg)))
-                (unless (file-exists-p local-file)
-                  (url-copy-file (concat emacswiki-base arg) local-file t))))
-            bookmark-files)
-    (byte-recompile-directory bookmarkplus-dir 0)
-    (require 'bookmark+))
+  (use-package bookmark+
+    :preface
+    (let ((bookmarkplus-dir (at-user-init-dir "local-packages/bookmark-plus/"))
+          (emacswiki-base "https://www.emacswiki.org/emacs/download/")
+          (bookmark-files '("bookmark+.el" "bookmark+-mac.el" "bookmark+-bmu.el" "bookmark+-key.el" "bookmark+-lit.el" "bookmark+-1.el")))
+      (require 'url)
+      (add-to-list 'load-path bookmarkplus-dir)
+      (make-directory bookmarkplus-dir t)
+      (mapcar (lambda (arg)
+                (let ((local-file (concat bookmarkplus-dir arg)))
+                  (unless (file-exists-p local-file)
+                    (url-copy-file (concat emacswiki-base arg) local-file t))))
+              bookmark-files)
+      (byte-recompile-directory bookmarkplus-dir 0))
+    :commands list-bookmark)
 #+end_src
 
 * COMMENT Copy as Format
