@@ -125,7 +125,7 @@ Disabled because it kept raising a warning during init about markerp
 https://www.emacswiki.org/emacs/Evil#toc24
 
 #+begin_src emacs-lisp :results output silent
-  (defun evil-toggle-input-method ()
+  (defun my-evil-toggle-input-method ()
     (interactive)
     (let ((is-insert-state (string= evil-state "insert")))
       (cond
@@ -135,8 +135,9 @@ https://www.emacswiki.org/emacs/Evil#toc24
       (toggle-input-method)))
 
   (general-define-key :keymaps 'global
-    "C-\\" 'evil-toggle-input-method)
+    "C-\\" 'my-evil-toggle-input-method)
 #+end_src
+
 * Text Objects
 ** Latex Textobjects
 I appear to have stolen this from somewhere, probably because the original
@@ -319,7 +320,6 @@ This is an expensive package to load, and I wonder why
 #+end_src
 
 ** Describe Bindings
-
 Use counsel instead
 #+begin_src emacs-lisp :results output silent
   (use-package helm-descbinds
@@ -392,7 +392,6 @@ Interesting Text Objects:
 #+end_src
 
 ** Org Capture Bindings
-
 #+begin_src emacs-lisp :results output silent
   (use-package org-capture
     :ensure nil ;; because org-capture is from org
@@ -404,7 +403,7 @@ Interesting Text Objects:
      ;; In evil it's jump to column number, which isn't that useful tbh
      "|" '(lambda () (interactive)
               (require 'org-capture)
-              (helm-org-capture-templates)))
+              (counsel-org-capture)))
      ;; "c j" '((lambda () (interactive) (org-capture nil "j"))
      ;;         :which-key "Capture journal entry")
      ;; "c d" '((lambda () (interactive) (org-capture nil "d"))
