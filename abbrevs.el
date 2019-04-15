@@ -107,8 +107,8 @@
   '(
     ("WIth" "With" nil 5)
     ("aand" "and" nil 1)
-    ("adn" "and" nil 2)
-    ("aline" "alone" nil 1)
+    ("adn" "and" nil 3)
+    ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
     ("alows" "allows" nil 1)
     ("anabled" "enabled" nil 1)
@@ -133,6 +133,7 @@
     ("calng" "clang" nil 1)
     ("candiate" "candidate" nil 1)
     ("charactrer" "character" nil 1)
+    ("cna" "can" nil 1)
     ("conatin" "contain" nil 2)
     ("contain" "contain" nil 5)
     ("contian" "contain" nil 1)
