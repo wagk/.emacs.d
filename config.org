@@ -1940,12 +1940,16 @@ keeping it until we figure out how to use it properly
 #+end_src
 
 * Bookmark+
+This is now really expensive, and we need to trim this as much as we
+can.
+
 #+begin_src emacs-lisp :results output silent
   (use-package bookmark+
     :preface
     (let ((bookmarkplus-dir (at-user-init-dir "local-packages/bookmark-plus/"))
           (emacswiki-base "https://www.emacswiki.org/emacs/download/")
-          (bookmark-files '("bookmark+.el" "bookmark+-mac.el" "bookmark+-bmu.el" "bookmark+-key.el" "bookmark+-lit.el" "bookmark+-1.el")))
+          (bookmark-files '("bookmark+.el" "bookmark+-mac.el" "bookmark+-bmu.el"
+                            "bookmark+-key.el" "bookmark+-lit.el" "bookmark+-1.el")))
       (require 'url)
       (add-to-list 'load-path bookmarkplus-dir)
       (make-directory bookmarkplus-dir t)
