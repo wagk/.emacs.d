@@ -59,6 +59,7 @@ Note that for some reason using plain old =ag= works while
 #+end_src
 
 ** Increment and Decrement
+Disabled because I'm slowly turning into an Emacs citizen.
 #+begin_src emacs-lisp :results output silent
   (use-package evil-numbers
     :disabled t
@@ -117,7 +118,8 @@ Disabled because it kept raising a warning during init about markerp
 ** Visual marks
 #+begin_src emacs-lisp :results output silent
   (use-package evil-visual-mark-mode
-    :straight (:host github :repo "roman/evil-visual-mark-mode"))
+    :straight (:host github :repo "roman/evil-visual-mark-mode")
+    :commands evil-visual-mark-mode)
 #+end_src
 
 ** Input method Convenience toggle
@@ -132,7 +134,9 @@ https://www.emacswiki.org/emacs/Evil#toc24
        ((and current-input-method is-insert-state) (evil-normal-state))
        (t nil))
       (toggle-input-method)))
+#+end_src
 
+#+begin_src emacs-lisp :results output silent
   (general-define-key :keymaps 'global
     "C-\\" 'my-evil-toggle-input-method)
 #+end_src
@@ -305,9 +309,9 @@ This is an expensive package to load, and I wonder why
 ** Describe Modes
 #+begin_src emacs-lisp :results output silent
   (use-package helm-describe-modes
+    :disabled t
     :straight (:host github
-               :repo "emacs-helm/helm-describe-modes"
-              )
+               :repo "emacs-helm/helm-describe-modes")
     :general
     ("C-h m" 'helm-describe-modes))
 #+end_src
@@ -318,8 +322,7 @@ Use counsel instead
   (use-package helm-descbinds
     :disabled t
     :straight (:host github
-               :repo "emacs-helm/helm-descbinds"
-               )
+               :repo "emacs-helm/helm-descbinds")
     :general
     ("C-h b" 'helm-descbinds))
 #+end_src
@@ -506,11 +509,9 @@ config. This configuration is stored in =straight/versions/default.el=
 #+end_src
 
 ** Git Gutter
-
 #+begin_src emacs-lisp :results output silent
   (use-package git-gutter+
     :straight (:host github :repo "nonsequitur/git-gutter-plus")
-    :defer 7
     :general
     (:states  'normal
      :keymaps 'git-gutter+-mode-map
@@ -718,46 +719,6 @@ Stolen from https://github.com/bbatsov/crux
       (insert (format "%S" value))))
 #+end_src
 
-** Emacs bookmarks
-Save bookmarks immediately.
-#+begin_src emacs-lisp :results output silent
-  (setq bookmark-save-flag 1)
-#+end_src
-
-Further helper functions to add bookmarks:
-#+begin_src emacs-lisp :results output silent
-  ;;;###autoload
-  (defun config-define-bookmark (name path &optional overwrite annotation)
-    "Programmatically creates and stores bookmarks into the bookmark file.
-  We do this here because as of 2019-04-01T16:13:14+0800 we have no idea
-  if there is an existing interface to do this. If one is found this
-  will be marked obsolete and we'll move to that instead.
-
-  The bookmark list format is found at `bookmark-alist'.
-
-  NAME - Name of the bookmark.
-  PATH - filepath of the bookmark.
-  OVERWRITE - if true, overwrite an existing bookmark of the same name
-  if one currently exists.
-  ANNOTATION - Optional annotation of the bookmark.
-
-  If PATH does not point to anywhere valid, this function is a no-op and
-  no bookmark will be created."
-    (require 'bookmark)
-    (when (file-exists-p path)
-      (let* ((annot (if annotation annotation ""))
-             (alist `((filename . ,path)
-                      (front-context-string . "")
-                      (rear-context-string . "")
-                      (position . 0)
-                      (annotation . ,annot))))
-         (bookmark-store name alist overwrite))))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "bm"        'list-bookmarks)
-#+end_src
-
 ** Completion
 #+begin_src emacs-lisp :results output silent
   (customize-set-value 'completion-ignore-case t)
@@ -877,10 +838,20 @@ with Chinese/Japanese.
 ** Helm-projectile
 #+begin_src emacs-lisp :results output silent
   (use-package helm-projectile
+    :disabled t
     :straight (:host github :repo "bbatsov/helm-projectile")
     :general
     (:states '(normal motion)
      "+" 'helm-projectile))
+#+end_src
+
+** Ivy Projectile
+#+begin_src emacs-lisp :results output silent
+  (use-package counsel-projectile
+    :straight (:host github :repo "ericdanan/counsel-projectile")
+    :general
+    (:states '(normal motion)
+     "+" 'counsel-projectile))
 #+end_src
 
 ** Org-Projectile
@@ -1332,6 +1303,11 @@ We should look at customizing cider someday.
                                       (open-dired-window)))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (general-define-key :keymaps 'normal
+    "-" 'open-dired-window)
+#+end_src
+
 * Help+
 - Emacswiki :: https://www.emacswiki.org/emacs/HelpPlus
 
@@ -1381,13 +1357,13 @@ package manager
   (use-package dumb-jump
     :straight (:host github :repo "jacktasia/dumb-jump")
     :custom
-    (dumb-jump-selector 'helm)
+    (dumb-jump-selector 'ivy)
     :general
     (:states 'normal
      "g d" 'dumb-jump-go))
 #+end_src
 
-* Helm Sources for Elisp info
+* COMMENT Helm Sources for Elisp info
 #+begin_src emacs-lisp :results output silent
   (evil-define-command find-helm-info-emacs-elisp-cl (init)
     "Helm for Emacs, Elisp, and CL-library info pages."
@@ -1433,9 +1409,10 @@ package manager
     :commands ag)
 #+end_src
 
-** Helm Ag
+** COMMENT Helm Ag
 #+begin_src emacs-lisp :results output silent
   (use-package helm-ag
+    :disabled t
     :straight (:host github :repo "syohex/emacs-helm-ag")
     :commands (helm-ag
                helm-ag-this-file))
@@ -1506,7 +1483,7 @@ r-value references.
 #+end_src
 
 * Disable autoformatting modes when drawing things
-You can consider `artist-mode` a featurewise superset of picture-mode.
+You can consider =artist-mode= a featurewise superset of =picture-mode=.
 
 #+begin_src emacs-lisp :results output silent
   (add-hook 'artist-mode-hook '(lambda () (aggressive-fill-paragraph-mode -1)))
@@ -1943,8 +1920,12 @@ keeping it until we figure out how to use it properly
 This is now really expensive, and we need to trim this as much as we
 can.
 
+- [ ] Iterate through the list and lazy load the thing instead of
+  making it so expensive
+
 #+begin_src emacs-lisp :results output silent
   (use-package bookmark+
+    :disabled t
     :preface
     (let ((bookmarkplus-dir (at-user-init-dir "local-packages/bookmark-plus/"))
           (emacswiki-base "https://www.emacswiki.org/emacs/download/")
@@ -1959,7 +1940,47 @@ can.
                     (url-copy-file (concat emacswiki-base arg) local-file t))))
               bookmark-files)
       (byte-recompile-directory bookmarkplus-dir 0))
-    :commands list-bookmarks)
+    :commands bmkp-bmenu-list)
+#+end_src
+
+** Emacs bookmarks
+Save bookmarks immediately.
+#+begin_src emacs-lisp :results output silent
+  (setq bookmark-save-flag 1)
+#+end_src
+
+Further helper functions to add bookmarks:
+#+begin_src emacs-lisp :results output silent
+  ;;;###autoload
+  (defun config-define-bookmark (name path &optional overwrite annotation)
+    "Programmatically creates and stores bookmarks into the bookmark file.
+  We do this here because as of 2019-04-01T16:13:14+0800 we have no idea
+  if there is an existing interface to do this. If one is found this
+  will be marked obsolete and we'll move to that instead.
+
+  The bookmark list format is found at `bookmark-alist'.
+
+  NAME - Name of the bookmark.
+  PATH - filepath of the bookmark.
+  OVERWRITE - if true, overwrite an existing bookmark of the same name
+  if one currently exists.
+  ANNOTATION - Optional annotation of the bookmark.
+
+  If PATH does not point to anywhere valid, this function is a no-op and
+  no bookmark will be created."
+    (require 'bookmark)
+    (when (file-exists-p path)
+      (let* ((annot (if annotation annotation ""))
+             (alist `((filename . ,path)
+                      (front-context-string . "")
+                      (rear-context-string . "")
+                      (position . 0)
+                      (annotation . ,annot))))
+         (bookmark-store name alist overwrite))))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "bm" 'list-bookmarks)
 #+end_src
 
 * COMMENT Copy as Format

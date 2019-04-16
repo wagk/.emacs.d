@@ -443,12 +443,11 @@ recovery. Maybe eventually load dependencies and all that."
     (ivy-mode))
 
   (use-package helm
+    :disabled t
     :demand t
     :straight (:host github :repo "emacs-helm/helm")
     :commands (helm-org-in-buffer-headings)
     :general
-    (:states 'normal
-     "-"     'open-dired-window) ;; emulate vim-vinegar
     (helm-map
      "TAB" 'helm-execute-persistent-action)
     :init
