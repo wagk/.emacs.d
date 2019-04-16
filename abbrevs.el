@@ -236,6 +236,7 @@
     ("simialr" "similar" nil 1)
     ("singapore" "Singapore" nil 2)
     ("specfically" "specifically" nil 1)
+    ("storytelilng" "storytelling" nil 1)
     ("submoduels" "submodules" nil 1)
     ("suew" "sure" nil 1)
     ("suppoer" "support" nil 1)
