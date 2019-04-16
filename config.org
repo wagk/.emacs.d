@@ -1285,6 +1285,9 @@ We should look at customizing cider someday.
    "-" 'dired-up-directory
    "d" 'dired-create-directory
    "+" nil) ; don't block org-projectile
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
   (add-hook 'dired-mode-hook 'auto-revert-mode)
 #+end_src
 
@@ -1341,10 +1344,10 @@ package manager
 #+end_src
 
 * Markdown                                                            :major:
-
 #+begin_src emacs-lisp :results output silent
   (use-package markdown-mode
     :straight (:host github :repo "jrblevin/markdown-mode")
+    :mode "\\.md\\'"
     :commands (markdown-mode)
     :hook (markdown-mode . orgtbl-mode)
     :init
@@ -1396,6 +1399,7 @@ package manager
 #+begin_src emacs-lisp :results output silent
   (use-package json-mode
     :straight (:host github :repo "joshwnj/json-mode")
+    :mode "\\.json\\'"
     :commands (json-mode)
     :init
     (with-eval-after-load 'org-src
