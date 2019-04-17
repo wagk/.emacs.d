@@ -2,11 +2,13 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
+studlify
+
 * TODO Figure out Edebug and tracebacks
 - [[http://endlessparentheses.com/debugging-emacs-lisp-part-1-earn-your-independence.html][Introduction part 1]]
 - [[http://endlessparentheses.com/debugging-elisp-part-2-advanced-topics.html][Introduction part 2]]
 
-* TODO Wgrep
+* Wgrep
 Being able to mass-edit using search results seem interesting
 http://blog.binchen.org/posts/use-wgrep-and-evil-to-replace-text-efficiently.html
 
@@ -1204,11 +1206,14 @@ the initial entry works as per =deft-mode-hook=
             ;; Delete original text before copying
             (delete-region beg end)
             (insert-buffer-substring temp-buf))))))
+#+end_src
 
+#+begin_src emacs-lisp :results output silent
   (general-define-key
     :keymaps 'normal
     "g X" 'evil-encrypt-aes)
 #+end_src
+
 * Clojure                                                             :major:
 clojurescript-mode derives from clojure-mode
 
@@ -2008,3 +2013,16 @@ The only reason I'm keeping this and not discarding it is because it's currently
           (copy-as-format))))
    (evil-ex-define-cmd "copy-as-format" 'as-format))
 #+end_src
+
+* Studlify operator
+#+begin_src emacs-lisp :results output silent
+  (evil-define-operator evil-studlify (beg end)
+    (studlify-region beg end))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (general-define-key :keymaps 'normal
+    "g S" 'evil-studlify)
+#+end_src
+
+Or evil-spongebob if you want to think of it that way.

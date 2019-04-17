@@ -24,7 +24,7 @@ efficiently, die gallantly. Specialization is for insects.
 
 
 - je ne sais quoi :: An indefinable quality that makes something
-     distinctive or attractive ([[https://en.wiktionary.org/wiki/je_ne_sais_quoi][Wiktionary]])
+     distinctive or attractive ([[https://en.wiktionary.org/wiki/je_ne_sais_quoi][Wiktionary]]).
 
 * Notices
 Attempt to derive a possible answer to a question first, before
