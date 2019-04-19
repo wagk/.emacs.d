@@ -2,8 +2,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-studlify
-
 * TODO Figure out Edebug and tracebacks
 - [[http://endlessparentheses.com/debugging-emacs-lisp-part-1-earn-your-independence.html][Introduction part 1]]
 - [[http://endlessparentheses.com/debugging-elisp-part-2-advanced-topics.html][Introduction part 2]]
@@ -452,6 +450,14 @@ For some reason we can't do this in the scratch buffer
       (customize-set-value 'org-agenda-files
                           (add-to-list 'org-agenda-files
                                         deft-directory))))
+#+end_src
+
+** Org Download
+#+begin_src emacs-lisp :results output silent
+  (use-package org-download
+    :straight (:host github :repo "abo-abo/org-download")
+    :hook ((dired-mode . org-download-enable)
+           (org-mode . org-download-enable)))
 #+end_src
 
 * Git
