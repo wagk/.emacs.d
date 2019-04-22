@@ -624,7 +624,7 @@ Emulate the best feature of notepad
 #+end_src
 
 ** Automatically refresh buffer when underlying file is changed externally
-#+begin_src
+#+begin_src emacs-lisp :results output silent
   (global-auto-revert-mode t)
 #+end_src
 
