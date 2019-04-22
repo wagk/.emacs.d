@@ -86,8 +86,7 @@ Adds the following ex commands:
 
 #+begin_src emacs-lisp :results output silent
   (use-package evil-expat
-    :straight (:host github :repo "edkolev/evil-expat")
-    :after (magit))
+    :straight (:host github :repo "edkolev/evil-expat"))
 #+end_src
 
 ** Visualstar

@@ -182,19 +182,10 @@ recovery. Maybe eventually load dependencies and all that."
   (use-package no-littering
     :straight (:host github :repo "emacscollective/no-littering"))
 
-  (use-package evil-collection
-    :demand t
-    :straight (:host github :repo "emacs-evil/evil-collection")
-    :custom
-    (evil-collection-setup-minibuffer t)
-    (evil-want-keybinding
-     nil
-     "`evil-collections' wants this to be
+  (customize-set-value 'evil-want-keybinding nil
+    "`evil-collections' wants this to be
      disabled before even loading evil, see
      https://github.com/emacs-evil/evil-collection/issues/60")
-    :init
-    (with-eval-after-load 'evil
-      (evil-collection-init)))
 
   (use-package evil
     :demand t
@@ -303,6 +294,13 @@ recovery. Maybe eventually load dependencies and all that."
       "Select entire buffer"
       (evil-range (point-min) (point-max)))
     (evil-mode))
+
+  (use-package evil-collection
+    :straight (:host github :repo "emacs-evil/evil-collection")
+    :custom
+    (evil-collection-setup-minibuffer t)
+    :config
+    (evil-collection-init))
 
   (straight-use-package '(org :local-repo nil))
 
