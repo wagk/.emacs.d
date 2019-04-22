@@ -112,6 +112,7 @@
     ("alkready" "already" nil 1)
     ("alows" "allows" nil 1)
     ("anabled" "enabled" nil 1)
+    ("answser" "answer" nil 1)
     ("anywya" "anyway" nil 1)
     ("apend" "append" nil 1)
     ("apparnetly" "apparently" nil 1)

@@ -747,7 +747,6 @@ Stolen from https://github.com/bbatsov/crux
 
 #+begin_src emacs-lisp :results output silent
   (use-package solarized-theme
-    :defer 4
     :straight (:host github :repo "bbatsov/solarized-emacs")
     :custom
     (solarized-use-variable-pitch nil)
@@ -2032,3 +2031,45 @@ The only reason I'm keeping this and not discarding it is because it's currently
 #+end_src
 
 Or evil-spongebob if you want to think of it that way.
+
+* Elfeed
+#+begin_src emacs-lisp :results output silent
+  (defconst user-rss-feed-file
+    (at-user-init-dir "feeds.org")
+    "Points to config.org")
+
+  (defun find-user-rss-feed-file ()
+    "Edit `user-init-file' without opening a new window."
+    (interactive)
+    (find-file user-rss-feed-file))
+
+  (evil-ex-define-cmd "feed[s]" 'find-user-rss-feed-file)
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (use-package elfeed
+    :straight (:host github :repo "skeeto/elfeed")
+    :ensure-system-package
+    (curl . "choco install -y curl")
+    :commands (elfeed)
+    :general
+    (elfeed-search-mode-map
+     :states '(normal motion)
+     "g x"  'elfeed-search-browse-url ;; "g o" also does this in normal mode
+     "SPC"   nil
+     "<SPC>" nil))
+#+end_src
+
+** Elfeed org
+This is really really slow
+#+begin_src emacs-lisp :results output silent
+  (use-package elfeed-org
+    :straight (:host github :repo "remyhonig/elfeed-org")
+    :commands (elfeed-org)
+    :custom
+    (rmh-elfeed-org-files (list (at-user-init-dir "feeds.org")))
+    :init
+    ;; This call adds hooks that will trigger when `elfeed' is called
+    (with-eval-after-load 'elfeed
+      (elfeed-org)))
+#+end_src
