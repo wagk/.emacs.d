@@ -182,6 +182,11 @@ recovery. Maybe eventually load dependencies and all that."
   (use-package no-littering
     :straight (:host github :repo "emacscollective/no-littering"))
 
+  (customize-set-value 'evil-want-keybinding nil
+    "`evil-collections' wants this to be
+     disabled before even loading evil, see
+     https://github.com/emacs-evil/evil-collection/issues/60")
+
   (use-package evil
     :demand t
     :straight (:host github :repo "emacs-evil/evil")
@@ -207,11 +212,6 @@ recovery. Maybe eventually load dependencies and all that."
     (:keymaps 'outer
      "e"      'my-evil-a-buffer)
     :custom
-    (evil-want-keybinding
-     nil
-     "`evil-collections' wants this to be
-     disabled before even loading evil, see
-     https://github.com/emacs-evil/evil-collection/issues/60")
     (evil-want-Y-yank-to-eol
      t
      "Y has the default behavior of functioning identically to yy.
@@ -296,13 +296,10 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-mode))
 
   (use-package evil-collection
-    :demand t
     :straight (:host github :repo "emacs-evil/evil-collection")
     :custom
     (evil-collection-setup-minibuffer t)
     :config
-    ;; NOTE: note that this REQUIRES the var `evil-want-integration' to
-    ;; be NIL
     (evil-collection-init))
 
   (straight-use-package '(org :local-repo nil))
