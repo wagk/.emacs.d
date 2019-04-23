@@ -2038,7 +2038,7 @@ Or evil-spongebob if you want to think of it that way.
     "Points to config.org")
 
   (defun find-user-rss-feed-file ()
-    "Edit `user-init-file' without opening a new window."
+    "Edit `user-rss-feed-file' without opening a new window."
     (interactive)
     (find-file user-rss-feed-file))
 
@@ -2071,4 +2071,16 @@ This is really really slow
     ;; This call adds hooks that will trigger when `elfeed' is called
     (with-eval-after-load 'elfeed
       (elfeed-org)))
+#+end_src
+
+** Elfeed goodies
+#+begin_src emacs-lisp :results output silent
+  (use-package elfeed-goodies
+    :straight (:host github :repo "algernon/elfeed-goodies")
+    :commands elfeed-goodies/setup
+    :custom
+    (elfeed-goodies/entry-pane-position 'bottom)
+    :init
+    (with-eval-after-load 'elfeed
+      (elfeed-goodies/setup)))
 #+end_src
