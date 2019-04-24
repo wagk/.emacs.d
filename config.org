@@ -2031,6 +2031,13 @@ The only reason I'm keeping this and not discarding it is because it's currently
 
 Or evil-spongebob if you want to think of it that way.
 
+* Go Mode                                                             :major:
+#+begin_src emacs-lisp :results output silent
+  (use-package go-mode
+    :straight (:host github :repo "dominikh/go-mode.el")
+    :mode ("\\.go\\'" . go-mode))
+#+end_src
+
 * Elfeed
 #+begin_src emacs-lisp :results output silent
   (defconst user-rss-feed-file
@@ -2051,7 +2058,16 @@ Or evil-spongebob if you want to think of it that way.
     :ensure-system-package
     (curl . "choco install -y curl")
     :commands (elfeed)
+    :custom
+    (elfeed-search-filter
+     "@1-week-ago +unread +hot "
+     "The trailing space is so that adding additional tags to filter
+     won't be painful.")
     :general
+    (elfeed-show-mode-map
+     :states '(normal motion)
+     "SPC"   nil
+     "<SPC>" nil)
     (elfeed-search-mode-map
      :states '(normal motion)
      "g x"  'elfeed-search-browse-url ;; "g o" also does this in normal mode
@@ -2064,23 +2080,23 @@ This is really really slow
 #+begin_src emacs-lisp :results output silent
   (use-package elfeed-org
     :straight (:host github :repo "remyhonig/elfeed-org")
+    :after elfeed
     :commands (elfeed-org)
     :custom
     (rmh-elfeed-org-files (list (at-user-init-dir "feeds.org")))
-    :init
-    ;; This call adds hooks that will trigger when `elfeed' is called
-    (with-eval-after-load 'elfeed
-      (elfeed-org)))
+    :config
+    (elfeed-org))
 #+end_src
 
 ** Elfeed goodies
 #+begin_src emacs-lisp :results output silent
   (use-package elfeed-goodies
     :straight (:host github :repo "algernon/elfeed-goodies")
-    :commands elfeed-goodies/setup
+    :after elfeed
+    :commands elfeed-goodies/show-ace-link
     :custom
-    (elfeed-goodies/entry-pane-position 'bottom)
-    :init
-    (with-eval-after-load 'elfeed
-      (elfeed-goodies/setup)))
+    (elfeed-goodies/entry-pane-position 'bottom))
+    ;; :config
+    ;; (elfeed-goodies/setup)
+    ;; (remove-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title))
 #+end_src
