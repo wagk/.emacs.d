@@ -2031,6 +2031,13 @@ The only reason I'm keeping this and not discarding it is because it's currently
 
 Or evil-spongebob if you want to think of it that way.
 
+* Go Mode                                                             :major:
+#+begin_src emacs-lisp :results output silent
+  (use-package go-mode
+    :straight (:host github :repo "dominikh/go-mode.el")
+    :mode ("\\.go\\'" . go-mode))
+#+end_src
+
 * Elfeed
 #+begin_src emacs-lisp :results output silent
   (defconst user-rss-feed-file
@@ -2052,11 +2059,14 @@ Or evil-spongebob if you want to think of it that way.
     (curl . "choco install -y curl")
     :commands (elfeed)
     :general
+    (:keymaps '(elfeed-search-mode-map
+                elfeed-show-mode-map)
+     :states '(normal motion)
+     "SPC"   nil
+     "<SPC>" nil)
     (elfeed-search-mode-map
      :states '(normal motion)
-     "g x"  'elfeed-search-browse-url ;; "g o" also does this in normal mode
-     "SPC"   nil
-     "<SPC>" nil))
+     "g x"  'elfeed-search-browse-url)) ;; "g o" also does this in normal mode
 #+end_src
 
 ** Elfeed org
