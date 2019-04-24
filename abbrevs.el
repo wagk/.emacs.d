@@ -108,6 +108,7 @@
     ("WIth" "With" nil 5)
     ("aand" "and" nil 1)
     ("adn" "and" nil 3)
+    ("ahve" "have" nil 1)
     ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
     ("alows" "allows" nil 1)
@@ -273,11 +274,11 @@
     ("whoel" "whole" nil 1)
     ("wnat" "want" nil 4)
     ("wrpaper" "Wrapper" nil 1)
-    ("wrt" "w.r.t" nil 3)
+    ("wrt" "w.r.t" nil 4)
     ("wtih" "with" nil 2)
     ("wwell" "well" nil 1)
     ("yb" "by" nil 1)
-    ))
+   ))
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
 
