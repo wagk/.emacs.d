@@ -18,7 +18,7 @@
 *** [[http://www.reddit.com/r/bestof/.rss][best of reddit]]
 *** [[http://www.quotationspage.com/data/qotd.rss][Quotes of the Day]]
 *** [[http://www.cheerfulegg.com/feed/][cheerful.egg]]                                                  :finance:
-*** [[https://www.reddit.com/r/slatestarcodex/.rss][Slate Star Codex: In a Mad World, All Blogging is Psychiatry Blogging]]
+*** [[https://www.reddit.com/r/slatestarcodex/.rss][/r/slatestarcodex]]
 *** [[http://www.eugensystems.com/feed/][Eugensystems.com]]
 *** [[http://www.randygaul.net/feed/][Randy Gaul's Game Programming Blog]]
 *** [[http://gdata.youtube.com/feeds/base/users/FZDSCHOOL/uploads?alt=rss&v=2&orderby=published&client=ytapi-youtube-profile][Uploads by FZDSCHOOL]]
@@ -30,6 +30,7 @@
 *** [[https://old.reddit.com/r/gwern/.rss][Gwern's Link Archive]]
 *** [[http://www.dictionaryofobscuresorrows.com/rss][The Dictionary of Obscure Sorrows]]
 *** [[http://physiqonomics.com/feed/][Physiqonomics]]
+*** [[https://scholars-stage.blogspot.com/feeds/posts/default?alt=rss][Scholar's Stage]]                                                 :china:
 ** Image Feeds from many places                                        :art:
 *** [[http://196800revolutionsperminute.blogspot.com/feeds/posts/default?alt=rss][196,800 Revolutions Per Minute]]
 *** [[http://5060.bigcartel.com/products.rss][5060™ by Machine56]]
