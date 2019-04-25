@@ -2093,7 +2093,10 @@ This is really really slow
   (use-package elfeed-goodies
     :straight (:host github :repo "algernon/elfeed-goodies")
     :after elfeed
-    :commands elfeed-goodies/show-ace-link
+    :general
+    (elfeed-show-mode-map
+     :states 'normal
+     "f" 'elfeed-goodies/show-ace-link)
     :custom
     (elfeed-goodies/entry-pane-position 'bottom))
     ;; :config
