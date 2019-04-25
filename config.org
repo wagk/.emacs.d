@@ -2071,6 +2071,7 @@ Or evil-spongebob if you want to think of it that way.
     (elfeed-search-mode-map
      :states '(normal motion)
      "g x"  'elfeed-search-browse-url ;; "g o" also does this in normal mode
+     "g r"  'elfeed-search-fetch-visible
      "SPC"   nil
      "<SPC>" nil))
 #+end_src
