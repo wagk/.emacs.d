@@ -1789,6 +1789,14 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
   (setq-default python-indent-offset 2)
 #+end_src
 
+** Virtual Environment
+#+begin_src emacs-lisp :results output silent
+  (use-package pyvenv
+    :straight (:host github :repo "jorgenschaefer/pyvenv")
+    :commands (pyvenv-activate
+               pyvenv-workon))
+#+end_src
+
 * Powershell
 #+begin_src emacs-lisp :results output silent
   (use-package powershell.el
@@ -2063,6 +2071,9 @@ Or evil-spongebob if you want to think of it that way.
      "@1-week-ago +unread +hot "
      "The trailing space is so that adding additional tags to filter
      won't be painful.")
+    (elfeed-search-date-format
+     (list "%F %R" 15 :left)
+     "Make the timestamps more useful")
     :general
     (elfeed-show-mode-map
      :states '(normal motion)
@@ -2082,18 +2093,19 @@ This is really really slow
 #+begin_src emacs-lisp :results output silent
   (use-package elfeed-org
     :straight (:host github :repo "remyhonig/elfeed-org")
-    :after elfeed
     :commands (elfeed-org)
     :custom
     (rmh-elfeed-org-files (list (at-user-init-dir "feeds.org")))
-    :config
-    (elfeed-org))
+    :init
+    (with-eval-after-load 'elfeed
+      (elfeed-org)))
 #+end_src
 
-** Elfeed goodies
+** COMMENT Elfeed goodies
 #+begin_src emacs-lisp :results output silent
   (use-package elfeed-goodies
     :straight (:host github :repo "algernon/elfeed-goodies")
+    :disabled t
     :after elfeed
     :general
     (elfeed-show-mode-map

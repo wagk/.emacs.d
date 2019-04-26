@@ -340,8 +340,8 @@
 *** [[http://bling.github.io/index.xml][bling on software]]
 *** [[http://sachachua.com/blog/feed][sacha chua :: living an awesome life]]
 *** [[http://aturon.github.io/blog/atom.xml][Aaron Turon]]
-*** [[http://vimcasts.org/feeds/itunes/][Vimcasts]]
-*** [[http://endlessparentheses.com/atom.xml][Endless Parentheses]]
+*** [[http://vimcasts.org/feeds/itunes/][Vimcasts]]                                                          :vim:
+*** [[http://endlessparentheses.com/atom.xml][Endless Parentheses]]                                             :emacs:
 *** [[https://blog.rust-lang.org/feed.xml][Rust Blog]]
 *** [[http://www.eetimes.com/rss_simple.asp][EETimes:]]
 *** [[http://blog.think-async.com/feeds/posts/default][Thinking Asynchronously in C++]]
@@ -446,13 +446,13 @@
 *** [[https://hownot2code.com/feed/][How Not To Code]]
 *** [[http://www.ncameron.org/blog/rss/][featherweight musings]]
 ** Singapore                                                         :local:
-*** [[http://financialhorse.com/feed/][Financial Horse]]
-*** [[https://blog.seedly.sg/feed/][Seedly – Get Rich Or Die Tryin']]
+*** [[http://financialhorse.com/feed/][Financial Horse]]                                               :finance:
+*** [[https://blog.seedly.sg/feed/][Seedly – Get Rich Or Die Tryin']]                               :finance:
 ** Military Things                                                :military:
 *** [[http://www.38north.org/feed/][38 North]]
 *** [[https://wavellroom.com/feed/][The Wavell Room]]
 *** [[https://gaijinass.com/feed/][Gaijinass]]
-** Webcomics                                                     :webcomics:
+** Webcomics                                                        :comics:
 *** [[http://www.darthsanddroids.net/rss.xml][Darths & Droids]]
 *** [[http://well-of-souls.com/outsider/rss.xml][Outsider Comic]]
 *** [[http://www.mcyumi.com/feed/][Marine Corps Yumi]]
@@ -483,7 +483,7 @@
 ** Independent
 *** [[http://feedproxy.google.com/TechCrunch][TechCrunch]]
 *** [[http://notch.tumblr.com/rss][The Word of Notch]]
-*** [[http://gmailblog.blogspot.com/atom.xml][Gmail Blog]]
+*** [[http://gmailblog.blogspot.com/atom.xml][Gmail Blog]]                                                     :google:
 *** [[http://feeds.feedburner.com/home-designing][Interior Design Ideas]]
 *** [[http://wesley-burt.blogspot.com/feeds/posts/default][wesley burt]]
 *** [[http://wondertonic.tumblr.com/rss][WONDER-TONIC]]
@@ -497,7 +497,7 @@
 *** [[http://www.teamfortress.com/rss.xml][TF2 Official Blog]]
 *** [[http://www.fourhourworkweek.com/blog/feed/][The Blog of Author Tim Ferriss]]
 *** [[http://feeds.feedburner.com/contemporist][CONTEMPORIST]]
-*** [[http://googleblog.blogspot.com/atom.xml][The Official Google Blog]]
+*** [[http://googleblog.blogspot.com/atom.xml][The Official Google Blog]]                                       :google:
 *** [[http://shityoushouldknow.tumblr.com/rss][Shit You Should Know]]
 *** [[http://tanks.mod16.org/feed/][Swedish tank archives]]
 *** [[http://www.igmchicago.org/feed][IGM Forum]]
@@ -519,7 +519,7 @@
 *** [[http://feeds.rocketnews24.com/rocketnews24/en][SoraNews24]]
 *** [[http://feeds.gawker.com/kotaku/full][Kotaku]]
 *** [[http://feeds.feedburner.com/FuelYourCreativity][Fuel Your Creativity]]
-*** [[http://www.quantamagazine.org/feed/][Quanta Magazine]]
+*** [[http://www.quantamagazine.org/feed/][Quanta Magazine]]                                               :science:
 *** [[http://io9.com/index.xml][io9]]
 *** [[http://clientsfromhell.net/rss][Clients From Hell]]
 *** [[http://www.kuriositas.com/feeds/posts/default][Kuriositas]]
