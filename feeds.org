@@ -314,14 +314,15 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 **** [[https://pepperanon.blogspot.com/feeds/posts/default][Habanero Scans]]
 **** [[http://reader.sensescans.com/rss.xml][Sense-Scans]]
 **** [[http://mangastream.com/rss][MangaStream Releases]]
-** Fiction                                                      :webserials:
+** Fiction                                                         :fiction:
 *** [[http://www.fanfiction.net/atom/u/2269863/][FanFiction.Net - Less Wrong's fanfiction]]
 *** [[https://www.fanfiction.net/atom/u/4976703/][FanFiction.Net: alexanderwales]]
 *** [[http://unsongbook.com/?feed=rss2][Unsong]]
 *** [[http://www.fanfiction.net/atom/u/1596712/][FanFiction.Net - Hieronym's fanfiction]]
-*** [[http://hpmor.com/rss.xml][Harry Potter and the Methods of Rationality - ad-free mirror]]
-*** [[https://motheroflearninguniverse.wordpress.com/feed/][motheroflearninguniverse]]
+*** [[http://hpmor.com/rss.xml][Harry Potter and the Methods of Rationality]]
+*** [[https://motheroflearninguniverse.wordpress.com/feed/][Mother of Learning (Worldbuilding)]]
 *** [[http://gravitytales.com/feed/the-good-student][The Good Student]]
+*** [[https://practicalguidetoevil.wordpress.com/feed/][A Practical Guide to Evil]]
 ** Computer Science                                                :compsci:
 *** [[http://www.drdobbs.com/rss/all][Dr. Dobb's All]]
 *** [[http://emacshorrors.com/feed][Emacs Horrors]]
