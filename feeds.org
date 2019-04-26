@@ -8,7 +8,7 @@
 *** [[http://gdata.youtube.com/feeds/base/users/FZDSCHOOL/uploads?alt=rss&v=2&orderby=published&client=ytapi-youtube-profile][Uploads by FZDSCHOOL]]
 *** [[http://inventingsituations.net/feed/][Inventing Situations.]]
 *** [[http://loveandcompassionforall.tumblr.com/rss][Fat People Stories]]
-*** [[http://na.finalfantasyxiv.com/pr/blog/atom.xml][FINAL FANTASY XIV: Developers’ Blog(na)]]                         :ffxiv:
+*** [[http://na.finalfantasyxiv.com/pr/blog/atom.xml][FINAL FANTASY XIV: Developers’ Blog]]                       :ffxiv:games:
 *** [[http://news.ycombinator.com/rss][Hacker News]]                                                        :hn:
 *** [[http://pedrothedagger.tumblr.com/rss][videogames: the blog]]
 *** [[http://physiqonomics.com/feed/][Physiqonomics]]
@@ -407,7 +407,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://pizer.wordpress.com/feed/][Pizer’s Weblog]]
 *** [[http://www.howardism.org/index.xml][Howardism]]
 *** [[https://thephd.github.io///feed.xml][The Pasture]]
-*** [[http://www.electronicsweekly.com/feed/][Electronics Weekly]]
+*** [[http://www.electronicsweekly.com/feed/][Electronics Weekly]]                                         :mainstream:
 *** [[http://semimd.com/top-stories/feed/][Semiconductor Manufacturing & Design Community » Top Stories]]
 *** [[http://embracingcpp.blogspot.com/feeds/posts/default?alt=rss][Embracing C++ C#]]                                                  :cpp:
 *** [[https://fgiesen.wordpress.com/feed/][The ryg blog]]

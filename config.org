@@ -2067,12 +2067,15 @@ Or evil-spongebob if you want to think of it that way.
     (curl . "choco install -y curl")
     :commands (elfeed)
     :custom
+    (elfeed-search-title-max-width
+     80
+     "Update the max width of the title")
     (elfeed-search-filter
      "@1-week-ago +unread +hot "
      "The trailing space is so that adding additional tags to filter
      won't be painful.")
     (elfeed-search-date-format
-     (list "%F %R" 15 :left)
+     (list "%F %R" 16 :left)
      "Make the timestamps more useful")
     :general
     (elfeed-show-mode-map
