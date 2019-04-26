@@ -2083,7 +2083,6 @@ Or evil-spongebob if you want to think of it that way.
      :states '(normal motion)
      "g x"  'elfeed-search-browse-url ;; "g o" also does this in normal mode
      "g r"  'elfeed-search-fetch-visible
-     "g R"  'elfeed-update
      "SPC"   nil
      "<SPC>" nil))
 #+end_src

@@ -1,37 +1,37 @@
 * Imported Feeds            :elfeed:
 ** A List of Things I actually Read                                    :hot:
-*** [[http://news.ycombinator.com/rss][Hacker News]]                                                        :hn:
-*** [[http://feeds.feedburner.com/rudiusmedia/rch][RyanHoliday.net]]
 *** [[http://calnewport.com/blog/feed/][Study Hacks]]
-*** [[http://na.finalfantasyxiv.com/pr/blog/atom.xml][FINAL FANTASY XIV: Developers’ Blog(na)]]                         :ffxiv:
-*** [[http://unenumerated.blogspot.com/feeds/posts/default][Unenumerated]]
+*** [[etodd.io/feed/][Evan Todd's Blog]]                                              :gamedev:
+*** [[http://feeds.feedburner.com/RockPaperShotgun][Rock, Paper, Shotgun]]                                    :games:tabloid:
 *** [[http://feeds.feedburner.com/WorldOfMatticus][World of Matticus]]                                                 :wow:
-*** [[http://pedrothedagger.tumblr.com/rss][videogames: the blog]]
-*** [[http://et1337.com/feed/][Evan Todd]]
-*** [[http://www.mmo-champion.com/?type=rss;action=.xml;board=2.0;sa=news][MMO-Champion - World of Warcraft Guides and Raid Strategies - News]] :wow:
-*** [[http://feeds.feedburner.com/RockPaperShotgun][Rock, Paper, Shotgun]]
-*** [[http://www.not-homu.eu/wiki/index.php?title=Special:RecentChanges&feed=atom][Ultimate Soundtr/a/ck  - Recent changes]]
-*** [[http://what-if.xkcd.com/feed.atom][What If?]]                                                         :xkcd:
-*** [[http://inventingsituations.net/feed/][Inventing Situations.]]
-*** [[http://slatestarcodex.com/feed/][Slate Star Codex]]
-*** [[http://www.gwern.net/atom.xml][Gwern]]
-*** [[http://www.reddit.com/r/bestof/.rss][/r/bestof]]                                                      :reddit:
-*** [[http://www.quotationspage.com/data/qotd.rss][Quotes of the Day]]
-*** [[http://www.cheerfulegg.com/feed/][cheerful.egg]]                                            :finance:local:
-*** [[https://www.reddit.com/r/slatestarcodex/.rss][/r/slatestarcodex]]                                              :reddit:
-*** [[http://www.eugensystems.com/feed/][Eugensystems.com]]
-*** [[http://www.randygaul.net/feed/][Randy Gaul's Game Programming Blog]]
+*** [[http://feeds.feedburner.com/rudiusmedia/rch][RyanHoliday.net]]
 *** [[http://gdata.youtube.com/feeds/base/users/FZDSCHOOL/uploads?alt=rss&v=2&orderby=published&client=ytapi-youtube-profile][Uploads by FZDSCHOOL]]
-*** [[http://www.artofmanliness.com/feed/][The Art of Manliness]]
-*** [[http://www.guildwars2guru.com/rss/writ/1-news/][Guild Wars 2 Guru]]
-*** [[http://rulesformyunbornson.tumblr.com/rss][1001 rules for my unborn son]]
-*** [[http://www.wowhead.com/news&rss][Wowhead News]]
+*** [[http://inventingsituations.net/feed/][Inventing Situations.]]
 *** [[http://loveandcompassionforall.tumblr.com/rss][Fat People Stories]]
-*** [[https://old.reddit.com/r/gwern/.rss][/r/gwern]]                                                       :reddit:
-Gwern's actual rss feed is broken or something, so we use reddit instead
-*** [[http://www.dictionaryofobscuresorrows.com/rss][The Dictionary of Obscure Sorrows]]
+*** [[http://na.finalfantasyxiv.com/pr/blog/atom.xml][FINAL FANTASY XIV: Developers’ Blog(na)]]                         :ffxiv:
+*** [[http://news.ycombinator.com/rss][Hacker News]]                                                        :hn:
+*** [[http://pedrothedagger.tumblr.com/rss][videogames: the blog]]
 *** [[http://physiqonomics.com/feed/][Physiqonomics]]
+*** [[http://rulesformyunbornson.tumblr.com/rss][1001 rules for my unborn son]]
+*** [[http://slatestarcodex.com/feed/][Slate Star Codex]]
+*** [[http://unenumerated.blogspot.com/feeds/posts/default][Unenumerated]]
+*** [[http://what-if.xkcd.com/feed.atom][What If?]]                                                         :xkcd:
+*** [[http://www.artofmanliness.com/feed/][The Art of Manliness]]
+*** [[http://www.cheerfulegg.com/feed/][cheerful.egg]]                                            :finance:local:
+*** [[http://www.dictionaryofobscuresorrows.com/rss][The Dictionary of Obscure Sorrows]]
+*** [[http://www.eugensystems.com/feed/][Eugensystems.com]]
+*** [[http://www.guildwars2guru.com/rss/writ/1-news/][Guild Wars 2 Guru]]
+*** [[http://www.gwern.net/atom.xml][Gwern]]
+*** [[http://www.mmo-champion.com/?type=rss;action=.xml;board=2.0;sa=news][MMO-Champion]]                                                      :wow:
+*** [[http://www.not-homu.eu/wiki/index.php?title=Special:RecentChanges&feed=atom][Ultimate Soundtr/a/ck  - Recent changes]]                         :music:
+*** [[http://www.quotationspage.com/data/qotd.rss][Quotes of the Day]]
+*** [[http://www.randygaul.net/feed/][Randy Gaul's Game Programming Blog]]                            :gamedev:
+*** [[http://www.reddit.com/r/bestof/.rss][/r/bestof]]                                                      :reddit:
+*** [[http://www.wowhead.com/news&rss][Wowhead News]]
+*** [[https://old.reddit.com/r/gwern/.rss][/r/gwern]]                                                       :reddit:
 *** [[https://scholars-stage.blogspot.com/feeds/posts/default?alt=rss][Scholar's Stage]]                                         :china:culture:
+*** [[https://www.reddit.com/r/slatestarcodex/.rss][/r/slatestarcodex]]                                              :reddit:
+Gwern's actual rss feed is broken or something, so we use reddit instead
 ** Image Feeds from many places                                        :art:
 *** [[http://196800revolutionsperminute.blogspot.com/feeds/posts/default?alt=rss][196,800 Revolutions Per Minute]]
 *** [[http://5060.bigcartel.com/products.rss][5060™ by Machine56]]
