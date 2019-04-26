@@ -286,7 +286,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://www.artstation.com/soonsanghong54.rss][Hong SoonSang on ArtStation]]
 ** Food                                                               :food:
 *** [[http://www.ramenadventures.com/feeds/posts/default?alt=rss][Ramen Adventures]] :ramen:
-** Mango & Animu                                                     :manga:
+** Mango and Animu                                                   :manga:
 *** Aggregator
 **** [[https://mangadex.org/rss/follows/eab1e6f1b801bb1713a03d1f08d8faee][MangaDex RSS]]                                               :mangadex:
 *** Scanlator                                                       :scans:
@@ -366,7 +366,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://planet.python.org/rss10.xml][Planet Python]]
 *** [[http://madsoftware.blogspot.com/feeds/posts/default?alt=rss][Mad Software]]
 *** [[http://blog.molecular-matters.com/feed/][Molecular Musings]]
-*** [[http://semimd.com/news-stories/feed/][Semiconductor Manufacturing & Design Community » News Stories]]
+*** [[http://semimd.com/news-stories/feed/][Semiconductor Manufacturing and Design]]
 *** [[http://www.anandtech.com/rss/][AnandTech]]
 *** [[http://www.realworldtech.com/feed/][Real World Tech]]
 *** [[http://www.masteringemacs.org/feed/][Mastering Emacs]]
@@ -378,7 +378,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://www.randygaul.net/feed/][Randy Gaul's Game Programming Blog]]
 *** [[https://blog.nightly.mozilla.org/feed/][Firefox Nightly News]]
 *** [[http://raytracey.blogspot.com/feeds/posts/default][Ray Tracey's blog]]
-*** [[http://baptiste-wicht.com/rss.xml][Blog blog("Baptiste Wicht");]]
+*** [[http://baptiste-wicht.com/rss.xml][Baptiste Wicht]]
 *** [[http://herbsutter.com/feed/][Sutter’s Mill]]
 *** [[http://ourmachinery.com/index.xml][Our Machinery]]
 *** [[http://blogs.unity3d.com/feed/][Unity Technologies Blog]]
@@ -409,7 +409,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://www.howardism.org/index.xml][Howardism]]
 *** [[https://thephd.github.io///feed.xml][The Pasture]]
 *** [[http://www.electronicsweekly.com/feed/][Electronics Weekly]]                                         :mainstream:
-*** [[http://semimd.com/top-stories/feed/][Semiconductor Manufacturing & Design Community » Top Stories]]
+*** [[http://semimd.com/top-stories/feed/][Semiconductor Manufacturing and Design Community » Top Stories]]
 *** [[http://embracingcpp.blogspot.com/feeds/posts/default?alt=rss][Embracing C++ C#]]                                                  :cpp:
 *** [[https://fgiesen.wordpress.com/feed/][The ryg blog]]
 *** [[http://blog.stephenwolfram.com/feed/][Stephen Wolfram Blog]]
@@ -456,7 +456,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://wavellroom.com/feed/][The Wavell Room]]
 *** [[https://gaijinass.com/feed/][Gaijinass]]
 ** Webcomics                                                        :comics:
-*** [[http://www.darthsanddroids.net/rss.xml][Darths & Droids]]
+*** [[http://www.darthsanddroids.net/rss.xml][Darths and Droids]]
 *** [[http://well-of-souls.com/outsider/rss.xml][Outsider Comic]]
 *** [[http://www.mcyumi.com/feed/][Marine Corps Yumi]]
 *** [[http://www.snafu-comics.com/feed.php?comic_id=11][Snafu News: Powerpuff Girls Doujinshi]]
