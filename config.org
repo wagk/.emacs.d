@@ -2102,7 +2102,11 @@ This is really really slow
     ;; We do it like this because we need this lazy loaded, but called
     ;; *before* `elfeed' is called
     (with-eval-after-load 'elfeed
-      (elfeed-org)))
+      (elfeed-org))
+    :config
+    (defun reload-rss-feed-file ()
+      (interactive)
+      (rmh-elfeed-org-process rmh-elfeed-org-files rmh-elfeed-org-tree-id)))
 #+end_src
 
 ** Elfeed goodies

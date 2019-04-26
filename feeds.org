@@ -284,7 +284,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://miv4t.artstation.com/rss][true]]
 *** [[https://www.artstation.com/renart.rss][Julien Gauthier on ArtStation]]
 *** [[https://www.artstation.com/soonsanghong54.rss][Hong SoonSang on ArtStation]]
-** Food
+** Food                                                               :food:
 *** [[http://www.ramenadventures.com/feeds/posts/default?alt=rss][Ramen Adventures]] :ramen:
 ** Mango & Animu                                                     :manga:
 *** Aggregator
@@ -484,10 +484,10 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://abstrusegoose.com/feed][Abstruse Goose]]
 *** [[http://feeds2.feedburner.com/rsspect/fJur][Dresden Codak]]
 ** Independent
-*** [[http://feedproxy.google.com/TechCrunch][TechCrunch]]
+*** [[http://feedproxy.google.com/TechCrunch][TechCrunch]]                                                 :mainstream:
 *** [[http://notch.tumblr.com/rss][The Word of Notch]]
 *** [[http://gmailblog.blogspot.com/atom.xml][Gmail Blog]]                                                     :google:
-*** [[http://feeds.feedburner.com/home-designing][Interior Design Ideas]]
+*** [[http://feeds.feedburner.com/home-designing][Interior Design Ideas]]                                          :design:
 *** [[http://wesley-burt.blogspot.com/feeds/posts/default][wesley burt]]
 *** [[http://wondertonic.tumblr.com/rss][WONDER-TONIC]]
 *** [[http://feeds.feedburner.com/MakesMeThink][Makes Me Think - MMT - Today's Thought-Provoking Life Stories]]
