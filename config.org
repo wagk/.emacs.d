@@ -2097,20 +2097,22 @@ This is really really slow
     :custom
     (rmh-elfeed-org-files (list (at-user-init-dir "feeds.org")))
     :init
+    ;; We do it like this because we need this lazy loaded, but called
+    ;; *before* `elfeed' is called
     (with-eval-after-load 'elfeed
       (elfeed-org)))
 #+end_src
 
-** COMMENT Elfeed goodies
+** Elfeed goodies
 #+begin_src emacs-lisp :results output silent
   (use-package elfeed-goodies
     :straight (:host github :repo "algernon/elfeed-goodies")
-    :disabled t
     :after elfeed
     :general
     (elfeed-show-mode-map
      :states 'normal
-     "f" 'elfeed-goodies/show-ace-link)
+     "f" 'elfeed-goodies/show-ace-link
+     "F" 'elfeed-goodies/show-ace-link)
     :custom
     (elfeed-goodies/entry-pane-position 'bottom))
     ;; :config
