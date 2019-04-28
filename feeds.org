@@ -2,15 +2,14 @@
 ** A List of Things I actually Read                                    :hot:
 *** [[http://calnewport.com/blog/feed/][Study Hacks]]
 *** [[etodd.io/feed/][Evan Todd's Blog]]                                              :gamedev:
-*** [[http://feeds.feedburner.com/RockPaperShotgun][Rock, Paper, Shotgun]]                                    :games:tabloid:
+*** [[http://feeds.feedburner.com/RockPaperShotgun][Rock, Paper, Shotgun]]                                 :games:mainstream:
 *** [[http://feeds.feedburner.com/WorldOfMatticus][World of Matticus]]                                                 :wow:
 *** [[http://feeds.feedburner.com/rudiusmedia/rch][RyanHoliday.net]]
 *** [[http://gdata.youtube.com/feeds/base/users/FZDSCHOOL/uploads?alt=rss&v=2&orderby=published&client=ytapi-youtube-profile][Uploads by FZDSCHOOL]]
 *** [[http://inventingsituations.net/feed/][Inventing Situations.]]
-*** [[http://loveandcompassionforall.tumblr.com/rss][Fat People Stories]]
 *** [[http://na.finalfantasyxiv.com/pr/blog/atom.xml][FINAL FANTASY XIV: Developers’ Blog]]                       :ffxiv:games:
 *** [[http://news.ycombinator.com/rss][Hacker News]]                                                        :hn:
-*** [[http://pedrothedagger.tumblr.com/rss][videogames: the blog]]
+*** [[http://pedrothedagger.tumblr.com/rss][videogames: the blog]]                                   :gamedev:design:
 *** [[http://physiqonomics.com/feed/][Physiqonomics]]
 *** [[http://rulesformyunbornson.tumblr.com/rss][1001 rules for my unborn son]]
 *** [[http://slatestarcodex.com/feed/][Slate Star Codex]]
@@ -533,3 +532,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://feeds.feedburner.com/well-formed_data][Well-formed data]]
 *** [[http://www.informationisbeautiful.net/feed/][Information Is Beautiful]]
 *** [[http://feeds.infosthetics.com/infosthetics][information aesthetics]]
+
+** Unused
+*** [[http://loveandcompassionforall.tumblr.com/rss][Fat People Stories]]

@@ -459,6 +459,31 @@ For some reason we can't do this in the scratch buffer
            (org-mode . org-download-enable)))
 #+end_src
 
+** Worf
+[[http://pragmaticemacs.com/emacs/insert-internal-org-mode-links-the-ivy-way/][Source]].
+#+begin_src emacs-lisp :results output silent
+  (use-package worf
+    :straight (:host github :repo "abo-abo/worf")
+    :commands worf--goto-candidates
+    :general
+    (:keymaps 'org-mode-map
+     :states 'normal
+     :prefix my-default-evil-leader-key
+     "o l" 'my-worf-insert-internal-link)
+    :init
+    (defun my--worf-insert-internal-link-action (x)
+      (save-excursion
+        (goto-char (cdr x))
+        (call-interactively 'org-store-link))
+      (org-insert-last-stored-link 1)
+      (delete-backward-char 1))
+    (defun my-worf-insert-internal-link ()
+      (interactive)
+      (let ((cands (worf--goto-candidates)))
+        (ivy-read "Heading: " cands
+                  :action 'my--worf-insert-internal-link-action))))
+#+end_src
+
 * Git
 ** Magit
 If magit complains about not finding the config on windows, it's
