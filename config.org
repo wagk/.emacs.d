@@ -1348,6 +1348,14 @@ We should look at customizing cider someday.
     "-" 'open-dired-window)
 #+end_src
 
+* Help
+#+begin_src emacs-lisp :results output silent
+  (general-define-key
+   :keymaps 'help-mode-map
+   :states 'normal
+   "f" 'ace-link-help
+   "F" 'ace-link-help)
+#+end_src
 * Help+
 - Emacswiki :: https://www.emacswiki.org/emacs/HelpPlus
 
@@ -1679,7 +1687,11 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
     ("C-h k"   'helpful-key
      "C-h f"   'helpful-callable
      "C-h v"   'helpful-variable
-     "C-h RET" 'helpful-at-point))
+     "C-h RET" 'helpful-at-point)
+    (helpful-mode-map
+     :states 'normal
+     "f" 'ace-link-help
+     "F" 'ace-link-help))
 #+end_src
 
 * Elisp demos
@@ -1929,6 +1941,28 @@ https://millejoh.github.io/emacs-ipython-notebook/
     (evil-ex-define-cmd "fo[cus]" 'focus-mode))
 #+end_src
 
+* Ace Link
+#+begin_src emacs-lisp :results output silent
+  (use-package avy
+    :straight (:host github :repo "abo-abo/avy")
+    :config
+    ;; `ace-jump-eww' expects `avy-process'
+    (defalias 'avy-process 'avy--process))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (use-package ace-link
+    :straight (:host github :repo "abo-abo/ace-link")
+    :commands (ace-link-eww))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (general-define-key
+   :keymaps 'Info-mode-map
+   "f" 'ace-link-info
+   "F" 'ace-link-info)
+#+end_src
+
 * Pretty mode
 #+begin_src emacs-lisp :results output silent
   (use-package pretty-mode
@@ -2116,6 +2150,8 @@ Or evil-spongebob if you want to think of it that way.
      "g r"  'elfeed-search-fetch-visible
      "SPC"   nil
      "<SPC>" nil)
+    (elfeed-search-mode-map
+     "g r" 'elfeed-search-fetch-visible)
     :hook (elfeed-show-mode . (lambda () (setq-local truncate-lines nil)))
     :init
     (evil-define-command my-custom-elfeed (cmd)
@@ -2175,6 +2211,14 @@ This is really really slow
   (use-package ace-link
     :straight (:host github :repo "abo-abo/ace-link")
     :commands (ace-link-eww))
+#+end_src
+
+* Info mode
+#+begin_src emacs-lisp :results output silent
+  (general-define-key
+   :keymaps 'Info-mode-map
+   "f" 'ace-link-info
+   "F" 'ace-link-info)
 #+end_src
 
 * Eww
