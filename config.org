@@ -2153,3 +2153,29 @@ This is really really slow
     ;; (elfeed-goodies/setup)
     ;; (remove-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title))
 #+end_src
+
+* Ace Link
+#+begin_src emacs-lisp :results output silent
+  (use-package avy
+    :straight (:host github :repo "abo-abo/avy")
+    :config
+    ;; `ace-jump-eww' expects `avy-process'
+    (defalias 'avy-process 'avy--process))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (use-package ace-link
+    :straight (:host github :repo "abo-abo/ace-link")
+    :commands (ace-link-eww))
+#+end_src
+
+* Eww
+#+begin_src emacs-lisp :results output silent
+  (use-package eww
+    :commands (eww)
+    :general
+    (:keymaps 'eww-mode-map
+     :states '(normal)
+     "f" 'ace-link-eww
+     "F" 'ace-link-eww))
+#+end_src
