@@ -2115,7 +2115,15 @@ Or evil-spongebob if you want to think of it that way.
      "g x"  'elfeed-search-browse-url ;; "g o" also does this in normal mode
      "g r"  'elfeed-search-fetch-visible
      "SPC"   nil
-     "<SPC>" nil))
+     "<SPC>" nil)
+    :hook (elfeed-show-mode . (lambda () (setq-local truncate-lines nil)))
+    :init
+    (evil-define-command my-custom-elfeed (cmd)
+      (interactive "<a>")
+      (cond
+       ((string= cmd "feeds") (find-user-rss-feed-file))
+       (t (elfeed))))
+    (evil-ex-define-cmd "el[feed]" 'my-custom-elfeed))
 #+end_src
 
 ** Elfeed org

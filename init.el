@@ -201,7 +201,8 @@ recovery. Maybe eventually load dependencies and all that."
     ;; (:keymaps 'motion
     ;; "C-u"    'evil-scroll-up)
     (:keymaps 'insert
-     "C-l" 'evil-complete-next-line)
+     "C-l" 'evil-complete-next-line
+     "C-u" 'evil-delete-whole-line)
     (:keymaps 'normal
      "gt"     '(lambda () (interactive) (other-frame 1))
      "gT"     '(lambda () (interactive) (other-frame -1))
