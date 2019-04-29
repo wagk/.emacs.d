@@ -467,7 +467,7 @@ For some reason we can't do this in the scratch buffer
     :commands worf--goto-candidates
     :general
     (:keymaps 'org-mode-map
-     :states 'normal
+     :states '(normal visual)
      :prefix my-default-evil-leader-key
      "o l" 'my-worf-insert-internal-link)
     :init
@@ -479,6 +479,9 @@ For some reason we can't do this in the scratch buffer
       (delete-backward-char 1))
     (defun my-worf-insert-internal-link ()
       (interactive)
+      ;; TODO: Why isn't this working?
+      (when (org-region-active-p)
+        (delete-active-region))
       (let ((cands (worf--goto-candidates)))
         (ivy-read "Heading: " cands
                   :action 'my--worf-insert-internal-link-action))))

@@ -370,7 +370,7 @@ recovery. Maybe eventually load dependencies and all that."
     (org-src-tab-acts-natively t)
     (org-src-window-setup
      ;; 'current-window
-     'other-window
+     'split-window-below
      "I tend to have documentation/other things on adjacent windows")
     (org-src-fontify-natively t)
     (org-default-notes-file "~/.todo")
