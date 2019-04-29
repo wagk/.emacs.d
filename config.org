@@ -2158,6 +2158,7 @@ Or evil-spongebob if you want to think of it that way.
       (interactive "<a>")
       (cond
        ((string= cmd "feeds") (find-user-rss-feed-file))
+       ((string= cmd "reload") (reload-rss-feed-file))
        (t (elfeed))))
     (evil-ex-define-cmd "el[feed]" 'my-custom-elfeed))
 #+end_src
@@ -2167,7 +2168,8 @@ This is really really slow
 #+begin_src emacs-lisp :results output silent
   (use-package elfeed-org
     :straight (:host github :repo "remyhonig/elfeed-org")
-    :commands (elfeed-org)
+    :commands (elfeed-org
+               rmh-elfeed-org-process)
     :custom
     (rmh-elfeed-org-files (list (at-user-init-dir "feeds.org")))
     :init
@@ -2175,9 +2177,10 @@ This is really really slow
     ;; *before* `elfeed' is called
     (with-eval-after-load 'elfeed
       (elfeed-org))
-    :config
+    :init
     (defun reload-rss-feed-file ()
       (interactive)
+      (require 'elfeed-org)
       (rmh-elfeed-org-process rmh-elfeed-org-files rmh-elfeed-org-tree-id)))
 #+end_src
 

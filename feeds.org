@@ -16,24 +16,29 @@
 *** [[http://physiqonomics.com/feed/][Physiqonomics]]
 *** [[http://rulesformyunbornson.tumblr.com/rss][1001 rules for my unborn son]]
 *** [[http://slatestarcodex.com/feed/][Slate Star Codex]]
-*** [[http://unenumerated.blogspot.com/feeds/posts/default][Unenumerated]]
+*** [[http://unenumerated.blogspot.com/feeds/posts/default][Nick Szabo]]                                                       :blog:
 *** [[http://what-if.xkcd.com/feed.atom][What If?]]                                                         :xkcd:
 *** [[http://www.artofmanliness.com/feed/][The Art of Manliness]]
 *** [[http://www.cheerfulegg.com/feed/][cheerful.egg]]                                            :finance:local:
 *** [[http://www.dictionaryofobscuresorrows.com/rss][The Dictionary of Obscure Sorrows]]
 *** [[http://www.eugensystems.com/feed/][Eugensystems.com]]
-*** [[http://www.guildwars2guru.com/rss/writ/1-news/][Guild Wars 2 Guru]]
+*** [[http://www.guildwars2guru.com/rss/writ/1-news/][Guild Wars 2 Guru]]                                           :games:gw2:
 *** [[http://www.gwern.net/atom.xml][Gwern]]
 *** [[http://www.mmo-champion.com/?type=rss;action=.xml;board=2.0;sa=news][MMO-Champion]]                                                      :wow:
 *** [[http://www.not-homu.eu/wiki/index.php?title=Special:RecentChanges&feed=atom][Ultimate Soundtr/a/ck  - Recent changes]]                         :music:
 *** [[http://www.quotationspage.com/data/qotd.rss][Quotes of the Day]]
 *** [[http://www.randygaul.net/feed/][Randy Gaul's Game Programming Blog]]                            :gamedev:
 *** [[http://www.reddit.com/r/bestof/.rss][/r/bestof]]                                                      :reddit:
-*** [[http://www.wowhead.com/news&rss][Wowhead News]]
+*** [[http://www.wowhead.com/news&rss][Wowhead News]]                                                      :wow:
 *** [[https://old.reddit.com/r/gwern/.rss][/r/gwern]]                                                       :reddit:
 *** [[https://scholars-stage.blogspot.com/feeds/posts/default?alt=rss][Scholar's Stage]]                                         :china:culture:
 *** [[https://www.reddit.com/r/slatestarcodex/.rss][/r/slatestarcodex]]                                              :reddit:
 Gwern's actual rss feed is broken or something, so we use reddit instead
+
+*** Channel News Asia                                                :agg:
+**** [[https://www.channelnewsasia.com/rssfeeds/8395744][Channel News Asia (Asia)]]                                       :asia:
+**** [[https://www.channelnewsasia.com/rssfeeds/8396082][Channel News Asia (Singapore)]]                             :singapore:
+**** [[https://www.channelnewsasia.com/rssfeeds/8395884][Channel News Asia (World)]]                                     :world:
 ** Images                                                              :art:
 *** Deviantart                                          :deviantart:artist:
 **** [[http://backend.deviantart.com/rss.xml?q=by:AoiOgataArtist/45894669&type=deviation][Aoi Ogata]]
