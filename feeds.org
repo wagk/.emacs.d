@@ -294,7 +294,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://www.artstation.com/renart.rss][Julien Gauthier on ArtStation]]
 *** [[https://www.artstation.com/soonsanghong54.rss][Hong SoonSang on ArtStation]]
 ** Food                                                               :food:
-*** [[http://www.ramenadventures.com/feeds/posts/default?alt=rss][Ramen Adventures]] :ramen:
+*** [[http://www.ramenadventures.com/feeds/posts/default?alt=rss][Ramen Adventures]]                                                :ramen:
 ** Mango and Animu                                                   :manga:
 *** Aggregator
 **** [[https://mangadex.org/rss/follows/eab1e6f1b801bb1713a03d1f08d8faee][MangaDex RSS]]                                               :mangadex:
@@ -542,6 +542,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://feeds.feedburner.com/well-formed_data][Well-formed data]]
 *** [[http://www.informationisbeautiful.net/feed/][Information Is Beautiful]]
 *** [[http://feeds.infosthetics.com/infosthetics][information aesthetics]]
-
 ** Unused
+Not sure if these feeds are still being maintained.
 *** [[http://loveandcompassionforall.tumblr.com/rss][Fat People Stories]]

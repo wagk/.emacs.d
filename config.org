@@ -238,7 +238,7 @@ Bound to "h"
 #+end_src
 
 ** Targets
-This is an expensive package to load, and I wonder why
+This is an expensive package to load, and I wonder why.
 
 #+begin_src emacs-lisp :results output silent
   (use-package targets
@@ -2159,6 +2159,7 @@ Or evil-spongebob if you want to think of it that way.
       (cond
        ((string= cmd "feeds") (find-user-rss-feed-file))
        ((string= cmd "reload") (reload-rss-feed-file))
+       ((string= cmd "log") (switch-to-buffer (elfeed-log-buffer)))
        (t (elfeed))))
     (evil-ex-define-cmd "el[feed]" 'my-custom-elfeed))
 #+end_src
@@ -2180,7 +2181,6 @@ This is really really slow
     :init
     (defun reload-rss-feed-file ()
       (interactive)
-      (require 'elfeed-org)
       (rmh-elfeed-org-process rmh-elfeed-org-files rmh-elfeed-org-tree-id)))
 #+end_src
 
@@ -2233,4 +2233,12 @@ This is really really slow
      :states '(normal)
      "f" 'ace-link-eww
      "F" 'ace-link-eww))
+#+end_src
+* Hl Block Mode
+Wait a bit for the code to mature.
+
+#+begin_src emacs-lisp :results output silent
+  (use-package hl-block-mode
+    :disabled t
+    :straight (:host github :repo "ideasman42/emacs-hl-block-mode"))
 #+end_src
