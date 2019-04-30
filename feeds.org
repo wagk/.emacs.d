@@ -35,7 +35,8 @@
 *** [[https://www.reddit.com/r/slatestarcodex/.rss][/r/slatestarcodex]]                                              :reddit:
 Gwern's actual rss feed is broken or something, so we use reddit instead
 
-*** Channel News Asia                                                :agg:
+** News                                                               :news:
+*** Channel News Asia
 **** [[https://www.channelnewsasia.com/rssfeeds/8395744][Channel News Asia (Asia)]]                                       :asia:
 **** [[https://www.channelnewsasia.com/rssfeeds/8396082][Channel News Asia (Singapore)]]                             :singapore:
 **** [[https://www.channelnewsasia.com/rssfeeds/8395884][Channel News Asia (World)]]                                     :world:
