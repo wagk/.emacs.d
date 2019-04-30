@@ -487,6 +487,15 @@ For some reason we can't do this in the scratch buffer
                   :action 'my--worf-insert-internal-link-action))))
 #+end_src
 
+** Org pomodoro
+#+begin_src emacs-lisp :results output silent
+  (use-package org-pomodoro
+    :straight (:host github :repo "lolownia/org-pomodoro")
+    :commands (org-pomodoro)
+    :init
+    (evil-ex-define-cmd "po[modoro]" 'org-pomodoro))
+#+end_src
+
 * Git
 ** Magit
 If magit complains about not finding the config on windows, it's
