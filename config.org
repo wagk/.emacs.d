@@ -493,7 +493,8 @@ For some reason we can't do this in the scratch buffer
     :straight (:host github :repo "lolownia/org-pomodoro")
     :commands (org-pomodoro)
     :init
-    (evil-ex-define-cmd "po[modoro]" 'org-pomodoro))
+    (evil-ex-define-cmd "po[modoro]" 'org-pomodoro)
+    (evil-ex-define-cmd "pp" 'org-pomodoro))
 #+end_src
 
 * Git
