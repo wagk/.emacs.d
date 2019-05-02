@@ -493,7 +493,8 @@ For some reason we can't do this in the scratch buffer
     :straight (:host github :repo "lolownia/org-pomodoro")
     :commands (org-pomodoro)
     :init
-    (evil-ex-define-cmd "po[modoro]" 'org-pomodoro))
+    (evil-ex-define-cmd "po[modoro]" 'org-pomodoro)
+    (evil-ex-define-cmd "pp" 'org-pomodoro))
 #+end_src
 
 * Git
@@ -2159,8 +2160,6 @@ Or evil-spongebob if you want to think of it that way.
      "g r"  'elfeed-search-fetch-visible
      "SPC"   nil
      "<SPC>" nil)
-    (elfeed-search-mode-map
-     "g r" 'elfeed-search-fetch-visible)
     :hook (elfeed-show-mode . (lambda () (setq-local truncate-lines nil)))
     :init
     (evil-define-command my-custom-elfeed (cmd)
