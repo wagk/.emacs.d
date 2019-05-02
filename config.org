@@ -2160,8 +2160,6 @@ Or evil-spongebob if you want to think of it that way.
      "g r"  'elfeed-search-fetch-visible
      "SPC"   nil
      "<SPC>" nil)
-    (elfeed-search-mode-map
-     "g r" 'elfeed-search-fetch-visible)
     :hook (elfeed-show-mode . (lambda () (setq-local truncate-lines nil)))
     :init
     (evil-define-command my-custom-elfeed (cmd)
