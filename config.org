@@ -494,7 +494,10 @@ For some reason we can't do this in the scratch buffer
     :commands (org-pomodoro)
     :init
     (evil-ex-define-cmd "po[modoro]" 'org-pomodoro)
-    (evil-ex-define-cmd "pp" 'org-pomodoro))
+    (evil-ex-define-cmd "pp" 'org-pomodoro)
+    :hook
+    ((org-pomodoro-finished . (lambda () (alert "Pomodoro finished!")))
+     (org-pomodoro-break-finished . (lambda () (alert "Pomodoro break finished!")))))
 #+end_src
 
 * Git
@@ -2249,4 +2252,13 @@ Wait a bit for the code to mature.
   (use-package hl-block-mode
     :disabled t
     :straight (:host github :repo "ideasman42/emacs-hl-block-mode"))
+#+end_src
+
+* Alert
+#+begin_src emacs-lisp :results output silent
+  (use-package alert
+    :straight (:host github :repo "jwiegley/alert")
+    :commands alert
+    :custom
+    (alert-default-style 'mode-line))
 #+end_src
