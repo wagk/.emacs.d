@@ -35,6 +35,7 @@
 *** [[https://www.reddit.com/r/slatestarcodex/.rss][/r/slatestarcodex]]                                              :reddit:
 Gwern's actual rss feed is broken or something, so we use reddit instead
 
+*** [[https://fs.blog/feed/][Farnam Street]]                                                    :blog:
 ** News                                                               :news:
 *** Channel News Asia
 **** [[https://www.channelnewsasia.com/rssfeeds/8395744][Channel News Asia (Asia)]]                                       :asia:
