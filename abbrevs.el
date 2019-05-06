@@ -59,6 +59,24 @@
 
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
 
+(define-abbrev-table 'ein:inspector-mode-abbrev-table '())
+
+(define-abbrev-table 'ein:ipdb-mode-abbrev-table '())
+
+(define-abbrev-table 'ein:notebook-multilang-mode-abbrev-table '())
+
+(define-abbrev-table 'ein:notebook-plain-mode-abbrev-table '())
+
+(define-abbrev-table 'ein:notebook-python-mode-abbrev-table '())
+
+(define-abbrev-table 'ein:notebooklist-mode-abbrev-table '())
+
+(define-abbrev-table 'ein:pager-mode-abbrev-table '())
+
+(define-abbrev-table 'ein:shared-output-mode-abbrev-table '())
+
+(define-abbrev-table 'ein:traceback-mode-abbrev-table '())
+
 (define-abbrev-table 'elisp-byte-code-mode-abbrev-table '())
 
 (define-abbrev-table 'elisp-refs-mode-abbrev-table '())
@@ -109,6 +127,7 @@
     ("alows" "allows" nil 1)
     ("anabled" "enabled" nil 1)
     ("answser" "answer" nil 1)
+    ("anywehre" "anywhere" nil 1)
     ("anywya" "anyway" nil 1)
     ("apend" "append" nil 1)
     ("apparnetly" "apparently" nil 1)
@@ -210,7 +229,7 @@
     ("knwo" "know" nil 1)
     ("laoder" "loader" nil 1)
     ("lical" "local" nil 2)
-    ("liek" "like" nil 1)
+    ("liek" "like" nil 2)
     ("lsit" "list" nil 1)
     ("malfunciton" "malfunction" nil 1)
     ("manifrst" "manifest" nil 1)
@@ -232,7 +251,7 @@
     ("ofrm" "form" nil 1)
     ("oging" "going" nil 2)
     ("onlinie" "online" nil 1)
-    ("ot" "to" nil 9)
+    ("ot" "to" nil 10)
     ("owuld" "would" nil 1)
     ("pariton" "partition" nil 1)
     ("possbile" "possible" nil 1)
@@ -268,7 +287,7 @@
     ("suew" "sure" nil 1)
     ("suppoer" "support" nil 1)
     ("systm" "system" nil 1)
-    ("taht" "that" nil 13)
+    ("taht" "that" nil 14)
     ("taks" "task" nil 1)
     ("tempalte" "template" nil 1)
     ("tempaltes" "templates" nil 1)
@@ -293,6 +312,7 @@
     ("wtih" "with" nil 2)
     ("wwell" "well" nil 1)
     ("yb" "by" nil 1)
+    ("yeaterday" "yesterday" nil 1)
    ))
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
@@ -332,6 +352,10 @@
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
 (define-abbrev-table 'js-mode-abbrev-table '())
+
+(define-abbrev-table 'js2-jsx-mode-abbrev-table '())
+
+(define-abbrev-table 'js2-mode-abbrev-table '())
 
 (define-abbrev-table 'json-mode-abbrev-table '())
 
@@ -434,6 +458,10 @@
 (define-abbrev-table 'sh-mode-abbrev-table '())
 
 (define-abbrev-table 'shell-mode-abbrev-table '())
+
+(define-abbrev-table 'skewer-clients-mode-abbrev-table '())
+
+(define-abbrev-table 'skewer-error-mode-abbrev-table '())
 
 (define-abbrev-table 'snippet-mode-abbrev-table '())
 
