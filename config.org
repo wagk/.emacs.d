@@ -509,13 +509,13 @@ to an empty string when not in use (it so appears anyway).
 We can override the insertion checks everytime =org-pomodoro-start= is
 called, and it should work anywhere.
 
-#+begin_src emacs-lisp :eval no-export
-  (-insert-at
-    (-find-index (lambda (sym)
-                   (eq sym 'evil-mode-line-tag))
-                 mode-line-format)
-    'org-pomodoro-mode-line mode-line-format)
-#+end_src
+# #+begin_src emacs-lisp :eval no-export
+#   (-insert-at
+#     (-find-index (lambda (sym)
+#                    (eq sym 'evil-mode-line-tag))
+#                  mode-line-format)
+#     'org-pomodoro-mode-line mode-line-format)
+# #+end_src
 
 #+begin_src emacs-lisp :results output silent
   (use-package org-pomodoro
@@ -538,6 +538,17 @@ called, and it should work anywhere.
   ;;                     (setq global-mode-string
   ;;                           (append '(org-pomodoro-mode-line)
   ;;                                   global-mode-string))))))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (customize-set-variable
+   'mode-line-format
+   (list "%e" mode-line-front-space mode-line-mule-info
+         mode-line-client mode-line-modified mode-line-auto-compile
+         mode-line-remote mode-line-frame-identification
+         mode-line-buffer-identification " " mode-line-position
+         evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
+         mode-line-modes mode-line-end-spaces))
 #+end_src
 
 * Git
