@@ -522,9 +522,20 @@ called, and it should work anywhere.
     :straight (:host github :repo "lolownia/org-pomodoro"
                :files (:defaults ("resources/" "resources/*")))
     :commands (org-pomodoro)
+    :custom
+    (org-pomdoro-length
+     20
+     "We'll up it back to 25 (and maybe more) later.")
+    ;; guild wars 2 has some excellent notification sounds
+    (org-pomodoro-finished-sound
+     (at-user-init-dir "notification2.wav"))
+    (org-pomodoro-short-break-sound
+     (at-user-init-dir "notification3.wav"))
+    (org-pomodoro-long-break-sound
+     (at-user-init-dir "notification1.wav"))
     :init
-    (evil-ex-define-cmd "po[modoro]" 'org-pomodoro)
-    (evil-ex-define-cmd "pp" 'org-pomodoro))
+    (evil-ex-define-cmd "doing" 'org-clock-goto)
+    (evil-ex-define-cmd "do" 'org-pomodoro))
     ;; :config
   ;;   (advice-add 'org-pomodoro-start
   ;;               :after
@@ -539,6 +550,9 @@ called, and it should work anywhere.
   ;;                           (append '(org-pomodoro-mode-line)
   ;;                                   global-mode-string))))))
 #+end_src
+
+
+Note that =customize-set-variable= is like =setq-default=.
 
 #+begin_src emacs-lisp :results output silent
   (customize-set-variable
@@ -1023,7 +1037,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
 
 #+begin_src emacs-lisp :results output silent
   (use-package smartparens
-    :defer 4
+    :defer 10
     :straight (:host github :repo "Fuco1/smartparens")
     :diminish smartparens-mode
     :commands (sp-local-pair)
@@ -2312,4 +2326,13 @@ Wait a bit for the code to mature.
     :commands alert
     :custom
     (alert-default-style 'fringe))
+#+end_src
+
+* Sound-wav
+=sound-wav= is used for org-pomodoro.
+
+#+begin_src emacs-lisp :results output silent
+  (use-package sound-wav
+    :straight (:host github :repo "syohex/emacs-sound-wav")
+    :commands sound-wav-play)
 #+end_src
