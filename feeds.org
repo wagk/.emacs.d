@@ -7,31 +7,23 @@
 ** A List of Things I actually Read                                    :hot:
 *** [[http://calnewport.com/blog/feed/][Study Hacks]]
 *** [[etodd.io/feed/][Evan Todd's Blog]]                                              :gamedev:
-*** [[http://feeds.feedburner.com/RockPaperShotgun][Rock, Paper, Shotgun]]                             :games:mainstream:agg:
-*** [[http://feeds.feedburner.com/WorldOfMatticus][World of Matticus]]                                                 :wow:
-*** [[http://feeds.feedburner.com/rudiusmedia/rch][Ryan Holiday]]                                                 :stoicism:
+*** [[http://feeds.feedburner.com/WorldOfMatticus][World of Matticus]]                                            :wow:blog:
+*** [[http://feeds.feedburner.com/rudiusmedia/rch][Ryan Holiday]]                                            :stoicism:blog:
 *** [[http://gdata.youtube.com/feeds/base/users/FZDSCHOOL/uploads?alt=rss&v=2&orderby=published&client=ytapi-youtube-profile][FZDSCHOOL]]                                                         :art:
 *** [[http://inventingsituations.net/feed/][Inventing Situations]]
 *** [[http://na.finalfantasyxiv.com/pr/blog/atom.xml][FINAL FANTASY XIV: Developers’ Blog]]                       :ffxiv:games:
 *** [[http://news.ycombinator.com/rss][Hacker News]]                                                        :hn:
 *** [[http://pedrothedagger.tumblr.com/rss][videogames: the blog]]                                   :gamedev:design:
 *** [[http://physiqonomics.com/feed/][Physiqonomics]]
-*** [[http://rulesformyunbornson.tumblr.com/rss][1001 rules for my unborn son]]
 *** [[http://slatestarcodex.com/feed/][Slate Star Codex]]
 *** [[http://unenumerated.blogspot.com/feeds/posts/default][Nick Szabo]]                                                       :blog:
 *** [[http://what-if.xkcd.com/feed.atom][What If?]]                                                         :xkcd:
 *** [[http://www.artofmanliness.com/feed/][The Art of Manliness]]
 *** [[http://www.cheerfulegg.com/feed/][cheerful.egg]]                                            :finance:local:
-*** [[http://www.dictionaryofobscuresorrows.com/rss][The Dictionary of Obscure Sorrows]]
-*** [[http://www.eugensystems.com/feed/][Eugensystems.com]]
-*** [[http://www.guildwars2guru.com/rss/writ/1-news/][Guild Wars 2 Guru]]                                           :games:gw2:
 *** [[http://www.gwern.net/atom.xml][Gwern]]
-*** [[http://www.mmo-champion.com/?type=rss;action=.xml;board=2.0;sa=news][MMO-Champion]]                                                      :wow:
 *** [[http://www.not-homu.eu/wiki/index.php?title=Special:RecentChanges&feed=atom][Ultimate Soundtr/a/ck  - Recent changes]]                         :music:
-*** [[http://www.quotationspage.com/data/qotd.rss][Quotes of the Day]]
 *** [[http://www.randygaul.net/feed/][Randy Gaul's Game Programming Blog]]                            :gamedev:
 *** [[http://www.reddit.com/r/bestof/.rss][/r/bestof]]                                                      :reddit:
-*** [[http://www.wowhead.com/news&rss][Wowhead News]]                                                      :wow:
 *** [[https://old.reddit.com/r/gwern/.rss][/r/gwern]]                                                       :reddit:
 *** [[https://scholars-stage.blogspot.com/feeds/posts/default?alt=rss][Scholar's Stage]]                                         :china:culture:
 *** [[https://www.reddit.com/r/slatestarcodex/.rss][/r/slatestarcodex]]                                              :reddit:
@@ -44,6 +36,12 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 **** [[https://www.channelnewsasia.com/rssfeeds/8395744][Channel News Asia (Asia)]]                                       :asia:
 **** [[https://www.channelnewsasia.com/rssfeeds/8396082][Channel News Asia (Singapore)]]                             :singapore:
 **** [[https://www.channelnewsasia.com/rssfeeds/8395884][Channel News Asia (World)]]                                     :world:
+*** Gaming                                                         :gaming:
+**** [[http://www.guildwars2guru.com/rss/writ/1-news/][Guild Wars 2 Guru]]                                               :gw2:
+**** [[http://www.eugensystems.com/feed/][Eugensystems.com]]                             :wargame:steel_division:
+**** [[http://feeds.feedburner.com/RockPaperShotgun][Rock, Paper, Shotgun]]
+**** [[http://www.wowhead.com/news&rss][Wowhead News]]                                                    :wow:
+**** [[http://www.mmo-champion.com/?type=rss;action=.xml;board=2.0;sa=news][MMO-Champion]]                                                    :wow:
 ** Images                                                              :art:
 *** Deviantart                                          :deviantart:artist:
 **** [[http://backend.deviantart.com/rss.xml?q=by:AoiOgataArtist/45894669&type=deviation][Aoi Ogata]]
@@ -549,3 +547,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 ** Unused
 Not sure if these feeds are still being maintained.
 *** [[http://loveandcompassionforall.tumblr.com/rss][Fat People Stories]]
+*** [[http://www.quotationspage.com/data/qotd.rss][Quotes of the Day]]
+*** [[http://www.dictionaryofobscuresorrows.com/rss][The Dictionary of Obscure Sorrows]]
+*** [[http://rulesformyunbornson.tumblr.com/rss][1001 rules for my unborn son]]

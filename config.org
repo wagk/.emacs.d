@@ -488,16 +488,81 @@ For some reason we can't do this in the scratch buffer
 #+end_src
 
 ** Org pomodoro
+:LOGBOOK:
+CLOCK: [2019-05-06 Mon 14:02]--[2019-05-06 Mon 14:27] =>  0:25
+:END:
+
+=mode-line-misc-info= is where the pomodoro is placed.
+
+It is behind =mode-line-modes= and if we want the pomodoro to be
+infront, we need to alter it there
+
+I think we should put =mode-line-format= just behind =evil-mode-line-tag=,
+or (vc-mode)
+
+We can use the following to insert =org-pomodoro-mode-line= at
+whereever we like on the modeline.
+
+The string seems to be inserted into the modeline once, and then set
+to an empty string when not in use (it so appears anyway).
+
+We can override the insertion checks everytime =org-pomodoro-start= is
+called, and it should work anywhere.
+
+# #+begin_src emacs-lisp :eval no-export
+#   (-insert-at
+#     (-find-index (lambda (sym)
+#                    (eq sym 'evil-mode-line-tag))
+#                  mode-line-format)
+#     'org-pomodoro-mode-line mode-line-format)
+# #+end_src
+
 #+begin_src emacs-lisp :results output silent
   (use-package org-pomodoro
-    :straight (:host github :repo "lolownia/org-pomodoro")
+    :straight (:host github :repo "lolownia/org-pomodoro"
+               :files (:defaults ("resources/" "resources/*")))
     :commands (org-pomodoro)
+    :custom
+    (org-pomdoro-length
+     20
+     "We'll up it back to 25 (and maybe more) later.")
+    ;; guild wars 2 has some excellent notification sounds
+    (org-pomodoro-finished-sound
+     (at-user-init-dir "notification2.wav"))
+    (org-pomodoro-short-break-sound
+     (at-user-init-dir "notification3.wav"))
+    (org-pomodoro-long-break-sound
+     (at-user-init-dir "notification1.wav"))
     :init
-    (evil-ex-define-cmd "po[modoro]" 'org-pomodoro)
-    (evil-ex-define-cmd "pp" 'org-pomodoro)
-    :hook
-    ((org-pomodoro-finished . (lambda () (alert "Pomodoro finished!")))
-     (org-pomodoro-break-finished . (lambda () (alert "Pomodoro break finished!")))))
+    (evil-ex-define-cmd "doing" 'org-clock-goto)
+    (evil-ex-define-cmd "do" 'org-pomodoro))
+    ;; :config
+  ;;   (advice-add 'org-pomodoro-start
+  ;;               :after
+  ;;               #'(lambda (&rest _)
+  ;;                   "Attempt to make the modeline come first, instead of
+  ;; behind the minor modes"
+  ;;                   (when (and global-mode-string
+  ;;                              (memq 'org-pomodoro-mode-line
+  ;;                                    global-mode-string))
+  ;;                     (delq 'org-pomodoro-mode-line global-mode-string)
+  ;;                     (setq global-mode-string
+  ;;                           (append '(org-pomodoro-mode-line)
+  ;;                                   global-mode-string))))))
+#+end_src
+
+
+Note that =customize-set-variable= is like =setq-default=.
+
+#+begin_src emacs-lisp :results output silent
+  (customize-set-variable
+   'mode-line-format
+   (list "%e" mode-line-front-space mode-line-mule-info
+         mode-line-client mode-line-modified mode-line-auto-compile
+         mode-line-remote mode-line-frame-identification
+         mode-line-buffer-identification " " mode-line-position
+         evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
+         mode-line-modes mode-line-end-spaces))
 #+end_src
 
 * Git
@@ -972,7 +1037,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
 
 #+begin_src emacs-lisp :results output silent
   (use-package smartparens
-    :defer 4
+    :defer 10
     :straight (:host github :repo "Fuco1/smartparens")
     :diminish smartparens-mode
     :commands (sp-local-pair)
@@ -2260,5 +2325,14 @@ Wait a bit for the code to mature.
     :straight (:host github :repo "jwiegley/alert")
     :commands alert
     :custom
-    (alert-default-style 'mode-line))
+    (alert-default-style 'fringe))
+#+end_src
+
+* Sound-wav
+=sound-wav= is used for org-pomodoro.
+
+#+begin_src emacs-lisp :results output silent
+  (use-package sound-wav
+    :straight (:host github :repo "syohex/emacs-sound-wav")
+    :commands sound-wav-play)
 #+end_src

@@ -400,9 +400,9 @@ recovery. Maybe eventually load dependencies and all that."
     :hook ((org-insert-heading . evil-insert-state))
     :config
     ;; (with-eval-after-load 'smartparens
-      ;; make smartparen autoskip "" because org-mode treats it as a string
-      ;; (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
-      ;; (sp-local-pair 'org-mode "$" "$"))
+    ;; make smartparen autoskip "" because org-mode treats it as a string
+    ;; (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
+    ;; (sp-local-pair 'org-mode "$" "$"))
     ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
     (defun my-org-reformat-buffer ()
       (interactive)
@@ -414,8 +414,7 @@ recovery. Maybe eventually load dependencies and all that."
     (use-package ox-confluence
       :ensure nil
       :commands org-confluence-export-as-confluence)
-    (add-to-list 'org-babel-load-languages '(shell . t))
-    (evil-ex-define-cmd "do[ing]" 'org-clock-goto))
+    (add-to-list 'org-babel-load-languages '(shell . t)))
 
   (use-package ivy
     :demand t
