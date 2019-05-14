@@ -7,7 +7,9 @@
 
 (define-abbrev-table 'Man-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -17,9 +19,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -163,7 +169,7 @@
     ("contnets" "contents" nil 1)
     ("coonstruct" "construct" nil 1)
     ("corresponsing" "corresponding" nil 1)
-    ("cosnt" "const" nil 2)
+    ("cosnt" "const" nil 4)
     ("couse" "course" nil 1)
     ("craeting" "creating" nil 1)
     ("currnet" "current" nil 1)
@@ -207,6 +213,7 @@
     ("hsould" "should" nil 5)
     ("hte" "the" nil 5)
     ("hting" "thing" nil 1)
+    ("htink" "think" nil 1)
     ("huntry" "hungry" nil 1)
     ("hwo" "who" nil 2)
     ("hwy" "why" nil 1)
@@ -228,6 +235,7 @@
     ("jbects" "objects" nil 1)
     ("karhtik" "Karthik" nil 1)
     ("knwo" "know" nil 1)
+    ("ksill" "skill" nil 1)
     ("laoder" "loader" nil 1)
     ("lical" "local" nil 2)
     ("liek" "like" nil 2)
@@ -252,7 +260,7 @@
     ("ofrm" "form" nil 1)
     ("oging" "going" nil 2)
     ("onlinie" "online" nil 1)
-    ("ot" "to" nil 10)
+    ("ot" "to" nil 12)
     ("owuld" "would" nil 1)
     ("pariton" "partition" nil 1)
     ("possbile" "possible" nil 1)
@@ -272,12 +280,13 @@
     ("secitons" "sections" nil 1)
     ("securit" "security" nil 1)
     ("segmentaiton" "Segmentation" nil 1)
-    ("shoudl" "should" nil 2)
+    ("shoudl" "should" nil 3)
     ("showind" "showing" nil 1)
     ("si" "is" nil 1)
     ("siad" "said" nil 1)
     ("simialr" "similar" nil 1)
     ("singapore" "Singapore" nil 7)
+    ("skeletion" "skeleton" nil 1)
     ("spawen" "spawn" nil 1)
     ("specfically" "specifically" nil 1)
     ("srue" "sure" nil 1)
@@ -288,7 +297,7 @@
     ("suew" "sure" nil 1)
     ("suppoer" "support" nil 1)
     ("systm" "system" nil 1)
-    ("taht" "that" nil 14)
+    ("taht" "that" nil 16)
     ("taks" "task" nil 1)
     ("tempalte" "template" nil 1)
     ("tempaltes" "templates" nil 1)
@@ -305,9 +314,9 @@
     ("uplaod" "upload" nil 2)
     ("vaidation" "validation" nil 1)
     ("waht" "what" nil 1)
-    ("whihc" "which" nil 1)
+    ("whihc" "which" nil 2)
     ("whoel" "whole" nil 1)
-    ("wnat" "want" nil 6)
+    ("wnat" "want" nil 7)
     ("wrpaper" "Wrapper" nil 1)
     ("wrt" "w.r.t" nil 5)
     ("wtih" "with" nil 2)
@@ -348,7 +357,9 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -416,7 +427,9 @@
 
 (define-abbrev-table 'mhtml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -432,7 +445,9 @@
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'powershell-mode-abbrev-table '())
 

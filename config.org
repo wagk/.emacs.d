@@ -528,11 +528,11 @@ called, and it should work anywhere.
      "We'll up it back to 25 (and maybe more) later.")
     ;; guild wars 2 has some excellent notification sounds
     (org-pomodoro-finished-sound
-     (at-user-init-dir "notification2.wav"))
-    (org-pomodoro-short-break-sound
-     (at-user-init-dir "notification3.wav"))
-    (org-pomodoro-long-break-sound
      (at-user-init-dir "notification1.wav"))
+    (org-pomodoro-short-break-sound
+     (at-user-init-dir "notification2.wav"))
+    (org-pomodoro-long-break-sound
+     (at-user-init-dir "notification3.wav"))
     :init
     (evil-ex-define-cmd "doing" 'org-clock-goto)
     (evil-ex-define-cmd "do" 'org-pomodoro))
@@ -619,6 +619,21 @@ config. This configuration is stored in =straight/versions/default.el=
     :after (magit)
     :config
     (evil-magit-init))
+#+end_src
+
+*** Magit Todo
+Currently disabled because we can't get it to work (it's not showing
+up, on windows at least).
+#+begin_src emacs-lisp :results output silent
+  (use-package magit-todos
+    :disabled t
+    :straight (:host github :repo "alphapapa/magit-todos")
+    :custom
+    (magit-todos-nice
+     nil
+     "`nice' does not exist on windows")
+    :hook
+    (magit-status-mode . magit-todos-mode))
 #+end_src
 
 ** Git Gutter
@@ -1197,6 +1212,9 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 There's an issue when re-entering the deft buffer where we're in
 normal mode and not insert mode. Not sure why that is happening, since
 the initial entry works as per =deft-mode-hook=
+
+There has been concerns about the performance of deft on folders
+containing a lot of files, and if the files are themselves large.
 
 #+begin_src emacs-lisp :results output silent
   (use-package deft
@@ -2320,16 +2338,19 @@ Wait a bit for the code to mature.
 #+end_src
 
 * Alert
+with =org-pomodoro= playing sounds now (pleasant ones), using the fringe
+now becomes too noisy.
+
 #+begin_src emacs-lisp :results output silent
   (use-package alert
     :straight (:host github :repo "jwiegley/alert")
-    :commands alert
-    :custom
-    (alert-default-style 'fringe))
+    :commands alert)
+    ;; :custom
+    ;; (alert-default-style 'fringe))
 #+end_src
 
 * Sound-wav
-=sound-wav= is used for org-pomodoro.
+=sound-wav= is used for =org-pomodoro=.
 
 #+begin_src emacs-lisp :results output silent
   (use-package sound-wav
