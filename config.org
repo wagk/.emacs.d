@@ -6,6 +6,57 @@
 - [[http://endlessparentheses.com/debugging-emacs-lisp-part-1-earn-your-independence.html][Introduction part 1]]
 - [[http://endlessparentheses.com/debugging-elisp-part-2-advanced-topics.html][Introduction part 2]]
 
+** debugger-mode-map
+0 .. 9                           digit-argument
+
+TAB                              forward-button
+RET                              debug-help-follow
+ESC                              Prefix Command
+SPC                              next-line
+-                                negative-argument
+R                                debugger-record-expression
+b                                debugger-frame
+c                                debugger-continue
+d                                debugger-step-through
+e                                debugger-eval-expression
+h                                describe-mode
+j                                debugger-jump
+l                                debugger-list-functions
+q                                top-level
+r                                debugger-return-value
+u                                debugger-frame-clear
+v                                debugger-toggle-locals
+<backtab>                        backward-button
+<mouse-2>                        push-button
+<normal-state>                   Prefix Command
+<remap>                          Prefix Command
+
+<normal-state> SPC              next-line
+<normal-state> E                debugger-eval-expression
+<normal-state> J                debugger-jump
+<normal-state> L                debugger-toggle-locals
+<normal-state> R                debugger-record-expression
+<normal-state> Z                Prefix Command
+<normal-state> c                debugger-continue
+<normal-state> d                debugger-step-through
+<normal-state> g                Prefix Command
+<normal-state> p                debugger-toggle-locals
+<normal-state> q                top-level
+<normal-state> r                debugger-return-value
+<normal-state> u                debugger-frame-clear
+<normal-state> x                debugger-eval-expression
+<normal-state> <S-tab>          backward-button
+<normal-state> <return>         debug-help-follow
+<normal-state> <tab>            forward-button
+
+C-M-i                           backward-button
+
+<normal-state> Z Q              evil-quit
+<normal-state> Z Z              top-level
+
+<normal-state> g b              debugger-frame
+<normal-state> g l              debugger-list-functions
+
 * Wgrep
 Being able to mass-edit using search results seem interesting
 http://blog.binchen.org/posts/use-wgrep-and-evil-to-replace-text-efficiently.html
@@ -745,6 +796,7 @@ Emulate the best feature of notepad
 
 ** Automatically refresh buffer when underlying file is changed externally
 #+begin_src emacs-lisp :results output silent
+  (customize-set-variable 'auto-revert-verbose nil)
   (global-auto-revert-mode t)
 #+end_src
 
@@ -958,8 +1010,30 @@ with Chinese/Japanese.
     :straight (:host github :repo "bbatsov/projectile")
     :commands (projectile-mode)
     :defer 4
+    :custom
+    (projectile-tags-command
+     "ctags -R -e -f \"%s\" %s \"%s\"")
     :config
-    (projectile-mode))
+    (projectile-mode)
+    (defun projectile-regenerate-ctags()
+      "ctags does not take in directories as arguments. It does, however, look at the current directory"
+      (interactive)
+      (let* ((project-root (projectile-project-root))
+             (tags-exclude (projectile-tags-exclude-patterns))
+             (tags-file (expand-file-name projectile-tags-file-name))
+             (command (format "ctags -R -e -f \"%s\" %s" tags-file tags-exclude))
+             shell-output exit-code)
+        (with-temp-buffer
+          (let ((temp-dir default-directory))
+            (cd project-root)
+            (setq exit-code (call-process-shell-command command nil (current-buffer))
+                  shell-output (string-trim
+                                (buffer-substring (point-min) (point-max))))
+            (cd temp-dir)))
+        (unless (zerop exit-code)
+          (error shell-output))
+        (visit-tags-table tags-file)
+        (message "Regenerated %s" tags-file))))
 #+end_src
 
 ** Helm-projectile
@@ -1617,6 +1691,7 @@ r-value references.
     (defun my-clang-format-before-save ()
       (require 'projectile)
       (require 'clang-format)
+      (require 'f)
       (when (f-exists?
              (expand-file-name ".clang-format"
                                (projectile-project-root)))
@@ -2256,7 +2331,7 @@ Or evil-spongebob if you want to think of it that way.
        ((string= cmd "log") (switch-to-buffer (elfeed-log-buffer)))
        (t (elfeed))))
     (evil-ex-define-cmd "el[feed]" 'my-custom-elfeed))
-#+end_src
+     #+end_src
 
 ** Elfeed org
 This is really really slow
@@ -2290,9 +2365,9 @@ This is really really slow
      "F" 'elfeed-goodies/show-ace-link)
     :custom
     (elfeed-goodies/entry-pane-position 'bottom))
-    ;; :config
-    ;; (elfeed-goodies/setup)
-    ;; (remove-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title))
+  ;; :config
+  ;; (elfeed-goodies/setup)
+  ;; (remove-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title))
 #+end_src
 
 * Ace Link
@@ -2345,8 +2420,8 @@ now becomes too noisy.
   (use-package alert
     :straight (:host github :repo "jwiegley/alert")
     :commands alert)
-    ;; :custom
-    ;; (alert-default-style 'fringe))
+  ;; :custom
+  ;; (alert-default-style 'fringe))
 #+end_src
 
 * Sound-wav
@@ -2356,4 +2431,57 @@ now becomes too noisy.
   (use-package sound-wav
     :straight (:host github :repo "syohex/emacs-sound-wav")
     :commands sound-wav-play)
+#+end_src
+* Counsel-etags
+#+begin_src emacs-lisp :results output silent
+  (use-package counsel-etags
+    :straight (:host github :repo "redguardtoo/counsel-etags")
+    :commands (counsel-etags-find-tag-at-point)
+    :general
+    (:keymaps 'prog-mode-map
+     :states 'normal
+     "<f12>" 'counsel-etags-find-tag-at-point)
+    :custom
+    (tags-revert-without-query t)
+    (large-file-warning-threshold nil)
+    (counsel-etags-tags-program
+     "ctags -e -L"
+     "Assuming we use *exuberant ctags*")
+    (counsel-etags-tags-program
+     (lambda (scan)
+       (require 'f)
+       ;; (let ((scan (if (boundp 'projectile-project-root)
+       ;;                 (projectile-project-root)
+       ;;                 scan-dir)))
+       (message "updating %s" scan)
+       (let ((tags-file (counsel-etags-get-tags-file-path scan))
+             (command (string-join
+                       (list counsel-etags-tags-program
+                             ;; "-o" (concat (directory-file-name scan-dir) "/TAGS")
+                             (string-join (mapcar (lambda (file)
+                                                    (concat "\"" file "\""))
+                                                  (f-entries scan))
+                                          " "))
+                       " ")))
+         (message "with command: %s" command)
+         (counsel-etags-async-shell-command command tags-file))))
+     "Assuming we use exuberant ctags. For some reason `projectile-project-root' binds to emacs.d."
+    :hook
+    (prog-mode . (lambda ()
+                   (add-hook 'after-save-hook
+                             'counsel-etags-virtual-update-tags
+                             'append 'local)))
+    :ensure-system-package
+    (ctags . "choco install -y ctags"))
+#+end_src
+
+* ctags
+#+begin_src emacs-lisp :results output silent
+  (use-package ctags-update
+    :straight (:host github :repo "jixiuf/ctags-update")
+    :hook
+    (prog-mode . (lambda ()
+                   (ctags-global-auto-update-mode)))
+    :commands (ctags-global-update-mode
+               ctags-update))
 #+end_src
