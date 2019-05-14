@@ -2464,8 +2464,8 @@ now becomes too noisy.
                                           " "))
                        " ")))
          (message "with command: %s" command)
-         (counsel-etags-async-shell-command command tags-file))))
-     "Assuming we use exuberant ctags. For some reason `projectile-project-root' binds to emacs.d."
+         (counsel-etags-async-shell-command command tags-file)))
+     "Assuming we use exuberant ctags. For some reason `projectile-project-root' binds to emacs.d.")
     :hook
     (prog-mode . (lambda ()
                    (add-hook 'after-save-hook
