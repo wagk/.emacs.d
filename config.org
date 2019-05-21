@@ -2313,8 +2313,12 @@ Or evil-spongebob if you want to think of it that way.
     :general
     (elfeed-show-mode-map
      :states '(normal motion)
-     "SPC"   nil
-     "<SPC>" nil)
+      "g O" (lambda ()
+              (interactive)
+              (let ((browse-url-browser-function 'eww-browse-url))
+                (elfeed-show-visit t)))
+      "SPC"   nil
+      "<SPC>" nil)
     (elfeed-search-mode-map
      :states '(normal motion)
      "g x"  'elfeed-search-browse-url ;; "g o" also does this in normal mode

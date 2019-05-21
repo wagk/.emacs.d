@@ -7,6 +7,8 @@
 
 (define-abbrev-table 'Man-mode-abbrev-table '())
 
+(define-abbrev-table 'ag-mode-abbrev-table '())
+
 (define-abbrev-table 'awk-mode-abbrev-table
   '(
    ))
@@ -163,13 +165,14 @@
     ("cna" "can" nil 8)
     ("commadn" "command" nil 1)
     ("conatin" "contain" nil 2)
+    ("conditiions" "conditions" nil 1)
     ("constrol" "control" nil 1)
     ("contain" "contain" nil 5)
     ("contian" "contain" nil 1)
     ("contnets" "contents" nil 1)
     ("coonstruct" "construct" nil 1)
     ("corresponsing" "corresponding" nil 1)
-    ("cosnt" "const" nil 4)
+    ("cosnt" "const" nil 5)
     ("couse" "course" nil 1)
     ("craeting" "creating" nil 1)
     ("currnet" "current" nil 1)
@@ -498,6 +501,8 @@
 (define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'woman-mode-abbrev-table '())
 
