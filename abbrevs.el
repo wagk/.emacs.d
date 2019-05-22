@@ -125,6 +125,7 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("FIle" "File" nil 10)
     ("WIth" "With" nil 5)
     ("aand" "and" nil 1)
     ("abstraciton" "abstraction" nil 1)
@@ -172,7 +173,7 @@
     ("contnets" "contents" nil 1)
     ("coonstruct" "construct" nil 1)
     ("corresponsing" "corresponding" nil 1)
-    ("cosnt" "const" nil 5)
+    ("cosnt" "const" nil 6)
     ("couse" "course" nil 1)
     ("craeting" "creating" nil 1)
     ("currnet" "current" nil 1)
@@ -222,6 +223,7 @@
     ("hwy" "why" nil 1)
     ("idendical" "identical" nil 1)
     ("idnetify" "identify" nil 1)
+    ("implementaiton" "implementation" nil 1)
     ("implementatoin" "implementation" nil 1)
     ("implmeented" "implemented" nil 1)
     ("informaiton" "Information" nil 1)
@@ -255,6 +257,7 @@
     ("msot" "most" nil 1)
     ("mulitple" "multiple" nil 1)
     ("naimin" "Naimin" nil 2)
+    ("namespce" "namespace" nil 1)
     ("nouse" "noise'" nil 1)
     ("nubmer" "number" nil 1)
     ("ocncrete" "concrete" nil 1)
@@ -283,7 +286,7 @@
     ("secitons" "sections" nil 1)
     ("securit" "security" nil 1)
     ("segmentaiton" "Segmentation" nil 1)
-    ("shoudl" "should" nil 3)
+    ("shoudl" "should" nil 4)
     ("showind" "showing" nil 1)
     ("si" "is" nil 1)
     ("siad" "said" nil 1)
@@ -312,10 +315,12 @@
     ("traaining" "training" nil 1)
     ("transfomr" "transform" nil 1)
     ("typign" "Typing" nil 1)
+    ("typname" "typename" nil 1)
     ("uninstallaiton" "uninstallation" nil 1)
     ("unknwon" "unknown" nil 1)
     ("uplaod" "upload" nil 2)
     ("vaidation" "validation" nil 1)
+    ("versionoing" "versioning" nil 1)
     ("waht" "what" nil 1)
     ("whihc" "which" nil 2)
     ("whoel" "whole" nil 1)
@@ -430,6 +435,8 @@
 
 (define-abbrev-table 'mhtml-mode-abbrev-table '())
 
+(define-abbrev-table 'nxml-mode-abbrev-table '())
+
 (define-abbrev-table 'objc-mode-abbrev-table
   '(
    ))
@@ -460,7 +467,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
@@ -496,11 +505,15 @@
 
 (define-abbrev-table 'use-package-statistics-mode-abbrev-table '())
 
+(define-abbrev-table 'vc-bzr-log-view-mode-abbrev-table '())
+
 (define-abbrev-table 'vc-git-log-edit-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-hg-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())
 

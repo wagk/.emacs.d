@@ -21,7 +21,6 @@
 *** [[http://www.artofmanliness.com/feed/][The Art of Manliness]]
 *** [[http://www.cheerfulegg.com/feed/][cheerful.egg]]                                            :finance:local:
 *** [[http://www.gwern.net/atom.xml][Gwern]]
-*** [[http://www.not-homu.eu/wiki/index.php?title=Special:RecentChanges&feed=atom][Ultimate Soundtr/a/ck  - Recent changes]]                         :music:
 *** [[http://www.randygaul.net/feed/][Randy Gaul's Game Programming Blog]]                            :gamedev:
 *** [[http://www.reddit.com/r/bestof/.rss][/r/bestof]]                                                      :reddit:
 *** [[https://old.reddit.com/r/gwern/.rss][/r/gwern]]                                                       :reddit:
@@ -37,7 +36,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 **** [[https://www.channelnewsasia.com/rssfeeds/8396082][Channel News Asia (Singapore)]]                             :singapore:
 **** [[https://www.channelnewsasia.com/rssfeeds/8395884][Channel News Asia (World)]]                                     :world:
 *** Gaming                                                         :gaming:
-**** [[http://www.guildwars2guru.com/rss/writ/1-news/][Guild Wars 2 Guru]]                                               :gw2:
 **** [[http://www.eugensystems.com/feed/][Eugensystems.com]]                             :wargame:steel_division:
 **** [[http://feeds.feedburner.com/RockPaperShotgun][Rock, Paper, Shotgun]]
 **** [[http://www.wowhead.com/news&rss][Wowhead News]]                                                    :wow:
@@ -87,7 +85,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 **** [[http://backend.deviantart.com/rss.xml?q=gallery%3Acrrristian%2F8430064&type=deviation&offset=0][crrristian]]
 **** [[http://backend.deviantart.com/rss.xml?q=gallery%3Acuptow555%2F12549315&type=deviation&offset=0][cuptow555]]
 **** [[http://backend.deviantart.com/rss.xml?q=gallery%3Acute-hamster%2F1376964&type=deviation&offset=0][cute-hamster]]
-**** [[http://backend.deviantart.com/rss.xml?q=gallery%3Adaarken%2F22894120&type=deviation&offset=0][daarken]]
 **** [[http://backend.deviantart.com/rss.xml?q=gallery%3Adavidrapozaart%2F8512856&type=deviation&offset=0][davidrapozaart]]
 [[http://backend.deviantart.com/rss.xml?q=gallery%3Adesignspartan%2F3676114&type=deviation&offset=0][designspartan]]
 **** [[http://backend.deviantart.com/rss.xml?q=gallery%3Adestructobot%2F9635853&type=deviation&offset=0][destructobot]]
@@ -231,7 +228,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://garrettartlair.blogspot.com/feeds/posts/default][Garrett Art Lair]]
 *** [[http://gorillaartfare.com/feed/][Gorilla Artfare]]
 *** [[http://gregbroadmore.blogspot.com/feeds/posts/default][The King of Fatboss]]
-*** [[http://gunnstration.blogspot.com/feeds/posts/default][Gunnstration]]
 *** [[http://gurneyjourney.blogspot.com/feeds/posts/default][Gurney Journey]]
 *** [[http://hall-art.blogspot.com/feeds/posts/default][Hall  Art]]
 *** [[http://haw-lin.com/feed-rss.php?url=haw-lin][M O O D]]
@@ -264,7 +260,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://ralphhorsley.blogspot.com/feeds/posts/default][Ralph Horsley]]
 *** [[http://rawgon.blogspot.com/feeds/posts/default][r      a      w         g      o      n]]
 *** [[http://sambrown36.blogspot.com/feeds/posts/default][sam brown]]
-*** [[http://scribblejames.blogspot.com/feeds/posts/default][scribble pad]]
 *** [[http://sketchpadofdoom.blogspot.com/feeds/posts/default][Sketchpad of Doom]]
 *** [[http://sketchpat.blogspot.com/feeds/posts/default][SKETCHPAT]]
 *** [[http://skul4aface.blogspot.com/feeds/posts/default][Aaron Beck]]
@@ -275,17 +270,13 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://theimaginenation.blogspot.com/feeds/posts/default][The Imagine Nation]]
 *** [[http://thesmearcampaign.blogspot.com/feeds/posts/default][The Smear Campaign]]
 *** [[http://toyhaven.blogspot.com/feeds/posts/default][toyhaven]]
-*** [[http://tsutpen.blogspot.com/feeds/posts/default][If Charlie Parker Was a Gunslinger,There'd Be a Whole Lot of Dead Copycats]]
 *** [[http://uawconceptart.blogspot.com/feeds/posts/default][UAW Concept Art]]
 *** [[http://underpaintings.blogspot.com/feeds/posts/default][Underpaintings]]
 *** [[http://virtualgouacheland.blogspot.com/feeds/posts/default][Virtual Gouache Land]]
 *** [[http://woutertulp.blogspot.com/feeds/posts/default][Wouter Tulp | Illustrator |]]
 *** [[http://wvs.topleftpixel.com/index.rdf][daily dose of imagery]]
-*** [[http://www.alexbroeckel.com/menalto/main.php?g2_view=rss.Render&g2_name=Updates][Alex Broeckel Concept Art and Illustration]]
-*** [[http://www.cgtalk.com/external.php?forumids=59][CGTalk - CG News]]
 *** [[http://www.fashionsnap.com/rss.xml][FASHIONSNAP.COM【ファッションスナップ・ドットコム】]]          :japanese:
 *** [[http://www.linesandcolors.com/feed/][lines and colors :: a blog about drawing, painting, illustration, comics, concept art and other visual arts]]
-*** [[http://www.luisgama.com/feeds/posts/default][Luis Gama Art]]
 *** [[http://www.moviedeskback.com/feed][Movie Wallpapers]]
 *** [[http://www.pixivision.net/en/rss][pixivision]]
 *** [[http://www.ronenbekerman.com/feed/][Ronen Bekerman»  – 3D Architectural Visualization Rendering Blog – Ronen Bekerman]]
@@ -311,7 +302,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 **** [[https://nekyou.com/feed/][Nekyou Scanlation]]
 **** [[http://www.evil-genius.us/feed/][Evil_Genius Manga Scanlations]]
 **** [[http://helveticascans.com/feed][Helvetica Scans » Feed]]
-**** [[https://reader.seaotterscans.com/rss.xml][Sea Otter Scans]]
 **** [[https://kobato.hologfx.com/reader/feeds/rss/][Doki Reader]]
 **** [[http://gravitytales.com/feed/the-kings-avatar-manhua][The King's Avatar Manhua]]
 **** [[https://championscans.com/feed/][Champion Scans]]
@@ -332,7 +322,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://www.fanfiction.net/atom/u/1596712/][FanFiction.Net - Hieronym's fanfiction]]
 *** [[http://hpmor.com/rss.xml][Harry Potter and the Methods of Rationality]]
 *** [[https://motheroflearninguniverse.wordpress.com/feed/][Mother of Learning (Worldbuilding)]]
-*** [[http://gravitytales.com/feed/the-good-student][The Good Student]]
 *** [[https://practicalguidetoevil.wordpress.com/feed/][A Practical Guide to Evil]]
 ** Computer Science                                                :compsci:
 *** [[http://www.drdobbs.com/rss/all][Dr. Dobb's All]]
@@ -366,7 +355,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://blog.tartanllama.xyz/feed.xml][Simon Brand]]
 *** [[http://blog.selfshadow.com/feed/][Self Shadow]]
 *** [[http://feeds.feedburner.com/Torrentfreak][TorrentFreak]]                                                      :hot:
-*** [[http://new.gafferongames.com/index.xml][Gaffer On Games]]
 *** [[https://deque.blog/feed/][Deque]]
 *** [[http://www.lenholgate.com/atom.xml][www.lenholgate.com - Rambling Comments - Len Holgate's C++ progamming blog]]
 *** [[https://mozillagfx.wordpress.com/feed/][Mozilla Gfx Team Blog]]
@@ -400,7 +388,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://irreal.org/blog/?feed=rss2][Irreal]]
 *** [[http://fgiesen.wordpress.com/feed/][The ryg blog]]
 *** [[http://www.drdobbs.com/news/cpp/rss][Dr. Dobb's C/C++ News]]
-*** [[http://progrium.com/blog/atom.xml][progrium :: Jeff Lindsay]]
 *** [[https://danluu.com/atom.xml][Dan Luu]]
 *** [[http://www.datagenetics.com/feed/rss.xml][DataGenetics]]
 *** [[http://nullprogram.com/feed/][null program]]
@@ -429,10 +416,8 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://kfrlib.com/blog/feed/][KFR]]
 *** [[http://journal.stuffwithstuff.com/rss.xml][journal.stuffwithstuff.com]]
 *** [[http://www.justsoftwaresolutions.co.uk/index.rss][Just Software Solutions Blog]]
-*** [[http://planet.emacsen.org/atom.xml][Planet Emacsen]]
 *** [[http://bholley.net/feed.xml][::bholley]]
 *** [[http://feeds.feedburner.com/GustavoDuarte][Gustavo Duarte]]
-*** [[http://blogs.technet.com/virtualization/rss.xml][Virtualization Blog]]
 *** [[https://bjouhier.wordpress.com/feed/][Bruno's Ramblings]]
 *** [[http://cacm.acm.org/news.rss][Communications of the ACM]]
 *** [[http://bannalia.blogspot.com/feeds/posts/default?alt=rss][Bannalia: trivial notes on themes diverse]]
@@ -443,7 +428,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://moodycamel.com/blog/feed][moodycamel.com blog]]
 *** [[http://www.adriancourreges.com/atom.xml][Adrian Courrèges]]
 *** [[http://feeds.feedburner.com/Clojure/coreBlog][Clojure/core Blog]]
-*** [[https://pcwalton.github.io/atom.xml][pcwalton]]
 *** [[http://googleresearch.blogspot.com/atom.xml][Google AI Blog]]                                                 :google:
 *** [[http://feeds.feedburner.com/mishadoff][mishadoff thoughts]]
 *** [[https://hownot2code.com/feed/][How Not To Code]]
@@ -465,7 +449,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://blog.seedly.sg/feed/][Seedly – Get Rich Or Die Tryin']]                               :finance:
 ** Military Things                                                :military:
 *** [[http://www.38north.org/feed/][38 North]]
-*** [[https://wavellroom.com/feed/][The Wavell Room]]
 *** [[https://gaijinass.com/feed/][Gaijinass]]
 ** Webcomics                                                        :comics:
 *** [[http://www.darthsanddroids.net/rss.xml][Darths and Droids]]
@@ -544,7 +527,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://feeds.feedburner.com/FlowingData][FlowingData]]
 *** [[http://feeds.feedburner.com/well-formed_data][Well-formed data]]
 *** [[http://www.informationisbeautiful.net/feed/][Information Is Beautiful]]
-*** [[http://feeds.infosthetics.com/infosthetics][information aesthetics]]
 ** Unused
 Not sure if these feeds are still being maintained.
 *** [[http://loveandcompassionforall.tumblr.com/rss][Fat People Stories]]
