@@ -906,6 +906,11 @@ Stolen from https://github.com/bbatsov/crux
   (customize-set-value 'read-buffer-completion-ignore-case t)
 #+end_src
 
+** Tags table defaults
+#+begin_src emacs-lisp :results output silent
+  (setq-default tags-add-tables nil)
+#+end_src
+
 * Display
 
 ** Prefer dark backgrounds
