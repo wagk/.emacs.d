@@ -1,5 +1,6 @@
+# -*- mode: snippet -*-
 # key: init
 # name: python-init
 # --
-def __init__(self$1)-> None:
+def __init__(self$1) -> None:
     ${2:raise NotImplementedError()}$0

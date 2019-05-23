@@ -187,8 +187,9 @@ https://www.emacswiki.org/emacs/Evil#toc24
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (general-define-key :keymaps 'global
-    "C-\\" 'my-evil-toggle-input-method)
+  (general-define-key
+   :keymaps 'global
+   "C-\\" 'my-evil-toggle-input-method)
 #+end_src
 
 * Text Objects
@@ -912,6 +913,22 @@ Stolen from https://github.com/bbatsov/crux
   (customize-set-value 'completion-ignore-case t)
   (customize-set-value 'read-file-name-completion-ignore-case t)
   (customize-set-value 'read-buffer-completion-ignore-case t)
+#+end_src
+
+** Copy file name to keyboard
+#+begin_src emacs-lisp :results output silent
+  (defun my-kill-path-to-keyboard ()
+    "https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
+    (interactive)
+    (let ((filename (if (equal major-mode 'dired-mode)
+                        default-directory
+                      (buffer-file-name))))
+      (when filename
+        (kill-new filename))))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "ypath" 'my-kill-path-to-keyboard)
 #+end_src
 
 ** Tags table defaults
@@ -2011,7 +2028,12 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (setq-default python-indent-offset 2)
+  (setq-default python-indent-offset 4)
+
+  (general-define-key
+   :keymaps 'python-mode-map
+   :states 'insert
+   "RET" 'comment-indent-new-line)
 #+end_src
 
 ** Virtual Environment
