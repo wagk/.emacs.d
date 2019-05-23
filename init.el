@@ -265,6 +265,8 @@ recovery. Maybe eventually load dependencies and all that."
     ;;   (raise-frame (call-interactively 'make-frame))
     ;;   (evil-edit file))
 
+    (evil-ex-define-cmd "bc[lose]"    'kill-this-buffer)
+
     (evil-ex-define-cmd "sh[ell]"     'shell) ;; at least shell shows its keymaps
     (evil-ex-define-cmd "tabn[ew]"    'make-frame)
     (evil-ex-define-cmd "tabe[dit]"   'make-frame)
