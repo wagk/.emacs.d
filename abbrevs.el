@@ -7,11 +7,7 @@
 
 (define-abbrev-table 'Man-mode-abbrev-table '())
 
-(define-abbrev-table 'ag-mode-abbrev-table '())
-
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -21,13 +17,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -244,9 +236,11 @@
     ("itemselts" "itemsets" nil 2)
     ("itme" "item" nil 1)
     ("itsems" "items" nil 1)
+    ("iwth" "with" nil 1)
     ("jbects" "objects" nil 1)
     ("karhtik" "Karthik" nil 1)
     ("knwo" "know" nil 1)
+    ("knwoing" "knowing" nil 1)
     ("ksill" "skill" nil 1)
     ("laoder" "loader" nil 1)
     ("lical" "local" nil 2)
@@ -382,9 +376,7 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -452,11 +444,7 @@
 
 (define-abbrev-table 'mhtml-mode-abbrev-table '())
 
-(define-abbrev-table 'nxml-mode-abbrev-table '())
-
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -472,9 +460,7 @@
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'powershell-mode-abbrev-table '())
 
@@ -539,4 +525,3 @@
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
-
