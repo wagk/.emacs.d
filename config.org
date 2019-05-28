@@ -732,6 +732,11 @@ Moved to init.el
     (set-frame-parameter (selected-frame) 'alpha value))
 #+end_src
 
+** Autosave file names
+#+begin_src emacs-lisp :results output silent
+  (setq-default auto-save-visited-file-name t)
+#+end_src
+
 ** Highlight line
 #+begin_src emacs-lisp :results output silent
 (global-hl-line-mode)
