@@ -7,7 +7,11 @@
 
 (define-abbrev-table 'Man-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'ag-mode-abbrev-table '())
+
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -17,9 +21,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -136,6 +144,7 @@
     ("applicaiton" "application" nil 1)
     ("applicatoins" "applications" nil 1)
     ("applicaton" "application" nil 1)
+    ("approrpiate" "appropriate" nil 1)
     ("artifactoyr" "artifactory" nil 1)
     ("artificailly" "artificially" nil 1)
     ("assocaited" "associated" nil 1)
@@ -236,11 +245,9 @@
     ("itemselts" "itemsets" nil 2)
     ("itme" "item" nil 1)
     ("itsems" "items" nil 1)
-    ("iwth" "with" nil 1)
     ("jbects" "objects" nil 1)
     ("karhtik" "Karthik" nil 1)
     ("knwo" "know" nil 1)
-    ("knwoing" "knowing" nil 1)
     ("ksill" "skill" nil 1)
     ("laoder" "loader" nil 1)
     ("lical" "local" nil 2)
@@ -267,18 +274,18 @@
     ("ofrm" "form" nil 1)
     ("oging" "going" nil 2)
     ("onlinie" "online" nil 1)
-    ("ot" "to" nil 14)
+    ("ot" "to" nil 15)
     ("owuld" "would" nil 1)
     ("pariton" "partition" nil 1)
     ("possbile" "possible" nil 1)
-    ("ppython" "python" nil 1)
+    ("ppython" "python" nil 2)
     ("prfer" "prefer" nil 1)
     ("probabiity" "probability" nil 1)
     ("proeprty" "property" nil 1)
     ("quaity" "quality" nil 1)
     ("raito" "Ratio" nil 1)
     ("recieve" "receive" nil 2)
-    ("remoivng" "Removing" nil 1)
+    ("remoivng" "Removing" nil 2)
     ("renaem" "Rename" nil 1)
     ("reqally" "really" nil 1)
     ("reusme" "resume" nil 1)
@@ -306,6 +313,7 @@
     ("submoduels" "submodules" nil 1)
     ("suew" "sure" nil 1)
     ("suppoer" "support" nil 1)
+    ("suspiciionos" "suspicions" nil 1)
     ("systm" "system" nil 1)
     ("taht" "that" nil 18)
     ("taks" "task" nil 1)
@@ -376,7 +384,9 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -444,7 +454,11 @@
 
 (define-abbrev-table 'mhtml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'nxml-mode-abbrev-table '())
+
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -460,7 +474,11 @@
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'perl-mode-abbrev-table '())
+
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'powershell-mode-abbrev-table '())
 
@@ -525,3 +543,4 @@
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
+
