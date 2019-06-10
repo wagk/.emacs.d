@@ -327,6 +327,15 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://practicalguidetoevil.wordpress.com/feed/][A Practical Guide to Evil]]
 ** Computer Science                                                :compsci:
 *** [[http://www.drdobbs.com/rss/all][Dr. Dobb's All]]
+*** [[https://blog.ploeh.dk/rss.xml][Mark Seemann]]
+- [[https://blog.ploeh.dk/][Frontpage]]
+: My name is Mark Seemann, and ploeh blog is my professional blog (not
+: that I have a personal blog). Here, I write about programming,
+: software development, and architecture.
+:
+: I'm a self-employed programmer and software architect living in
+: Copenhagen, Denmark. I enjoy reading, playing the guitar, good wine,
+: and gourmet food.
 *** [[http://thecodelesscode.com/rss][The Codeless Code]]                                                 :hot:
 *** [[http://emacshorrors.com/feed][Emacs Horrors]]
 *** [[http://scottmeyers.blogspot.com/feeds/posts/default?alt=rss][The View from Aristeia]]
