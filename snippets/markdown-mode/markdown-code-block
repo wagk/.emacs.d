@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# key: code
+# key: d
 # name: markdown-code-block
 # --
 \`\`\` $0
