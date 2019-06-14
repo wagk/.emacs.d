@@ -369,6 +369,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://deque.blog/feed/][Deque]]
 *** [[http://www.lenholgate.com/atom.xml][www.lenholgate.com - Rambling Comments - Len Holgate's C++ progamming blog]]
 *** [[https://mozillagfx.wordpress.com/feed/][Mozilla Gfx Team Blog]]
+*** [[https://kevv.net/feed/][Kevin Davis Blog]]
 *** [[http://eli.thegreenplace.net/feeds/all.atom.xml][Eli Bendersky's website]]
 *** [[https://medium.com/feed/discord-engineering/tagged/engineering][Engineering in Discord Blog on Medium]]
 *** [[https://this-week-in-rust.org/rss.xml][This Week in Rust]]
