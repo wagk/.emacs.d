@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: rust-match
 # key: match
+# name: rust-match
 # --
 match $1 {
-      $0
+  $0
 }

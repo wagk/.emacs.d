@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: test
-# name: rust-test-block
+# key: testmod
+# name: rust-test-mod
 # --
 #[cfg(test)]
 mod tests {

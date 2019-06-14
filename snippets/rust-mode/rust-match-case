@@ -1,0 +1,4 @@
+# key: m
+# name: rust-match-case
+# --
+$1 => $2

@@ -778,9 +778,9 @@ Emulate the best feature of notepad
   (customize-set-variable 'initial-buffer-choice user-frontpage-file)
 #+end_src
 
-** COMMENT Configure scratch buffer initial mode
+** Configure scratch buffer message
 #+begin_src emacs-lisp :results output silent
-  (setq initial-major-mode 'org-mode)
+  (setq initial-scratch-message nil)
 #+end_src
 
 ** Disable startup screen
@@ -936,6 +936,29 @@ Stolen from https://github.com/bbatsov/crux
   (setq-default tags-add-tables nil)
 #+end_src
 
+** If inside {}, [], or (), newline and indent
+#+begin_src emacs-lisp :results output silent
+  (defun* config-block-insert-newline (list)
+    "If the point is immediately bounded by {}, (), or [], indent it
+    properly, given an alist of (BEFORE . AFTER) characters.
+  Example, if the point is within {} like so {|}:
+  When newline is pressed, turn it into {
+      |
+  }
+  instead.
+  "
+    (interactive)
+    (loop for (begin . end) in list
+          when (and (string= begin (preceding-char))
+                    (string= end (following-char)))
+            do
+            (newline)
+            (indent-according-to-mode)
+            (forward-line -1)
+            (indent-according-to-mode)
+            (return-from config-block-insert-newline)))
+#+end_src
+
 * Display
 
 ** Prefer dark backgrounds
@@ -1044,7 +1067,6 @@ with Chinese/Japanese.
     (projectile-tags-command
      "ctags -R -e -f \"%s\" %s \"%s\"")
     :config
-    (projectile-mode)
     (defun projectile-regenerate-ctags()
       "ctags does not take in directories as arguments. It does, however, look at the current directory"
       (interactive)
@@ -1063,7 +1085,8 @@ with Chinese/Japanese.
         (unless (zerop exit-code)
           (error shell-output))
         (visit-tags-table tags-file)
-        (message "Regenerated %s" tags-file))))
+        (message "Regenerated %s" tags-file)))
+    (projectile-mode))
 #+end_src
 
 ** Helm-projectile
@@ -2309,7 +2332,7 @@ The only reason I'm keeping this and not discarding it is because it's currently
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (general-define-key :keymaps 'normal
+  (general-define-key :keymaps '(normal visual)
     "g S" 'evil-studlify)
 #+end_src
 
@@ -2436,8 +2459,13 @@ This is really really slow
 #+begin_src emacs-lisp :results output silent
   (general-define-key
    :keymaps 'Info-mode-map
-   "f" 'ace-link-info
-   "F" 'ace-link-info)
+    "f" 'ace-link-info
+    "F" 'ace-link-info)
+  (general-define-key
+   :keymaps 'Info-mode-map
+   :states 'normal
+    "]]" 'Info-next
+    "[[" 'Info-prev)
 #+end_src
 
 * Eww

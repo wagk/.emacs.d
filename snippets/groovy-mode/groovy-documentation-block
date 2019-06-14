@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: groovy-documentation-block
+# key: d
+# --
+/* $0 */
