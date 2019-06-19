@@ -1,6 +1,12 @@
 #+STARTUP: showeverything
 
 #+begin_quote
+Art is pain.
+
+Life is suffering.
+#+end_quote
+
+#+begin_quote
 You can't improve what you don't measure.
 #+end_quote
 
