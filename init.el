@@ -306,11 +306,47 @@ recovery. Maybe eventually load dependencies and all that."
     :config
     (evil-collection-init))
 
-  (straight-use-package '(org :local-repo nil))
+  ;; (straight-use-package '(org :local-repo nil))
 
-  (use-package org
+  ;; https://github.com/raxod502/straight.el/blob/develop/README.md#installing-org-with-straightel
+  (require 'subr-x)
+  (straight-use-package 'git)
+  
+  (defun org-git-version ()
+    "The Git version of org-mode.
+    Inserted by installing org-mode or when a release is made."
+    (require 'git)
+    (let ((git-repo (expand-file-name
+                      "straight/repos/org/" user-emacs-directory)))
+      (string-trim
+        (git-run "describe"
+                 "--match=release\*"
+                 "--abbrev=6"
+                 "HEAD"))))
+
+  (defun org-release ()
+    "The release version of org-mode.
+    Inserted by installing org-mode or when a release is made."
+    (require 'git)
+    (let ((git-repo (expand-file-name
+                      "straight/repos/org/" user-emacs-directory)))
+      (string-trim
+        (string-remove-prefix
+          "release_"
+          (git-run "describe"
+                   "--match=release\*"
+                   "--abbrev=0"
+                   "HEAD")))))
+
+  (provide 'org-version)
+
+  ;; We do this here because we want a directory to actually exist when the
+  ;; next form gets evaluated
+  (straight-use-package 'org-plus-contrib)
+
+  (use-package org-plus-contrib
     ;; doesn't have a straight recipe because it relies on make or something
-    :ensure org-plus-contrib
+    ;; :ensure org-plus-contrib
     ;; :straight (:repo "https://code.orgmode.org/bzg/org-mode.git"
     ;;            :local-repo "org"
     ;;            :files (:defaults "contrib/lisp/*.el")

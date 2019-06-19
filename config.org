@@ -938,7 +938,7 @@ Stolen from https://github.com/bbatsov/crux
 
 ** If inside {}, [], or (), newline and indent
 #+begin_src emacs-lisp :results output silent
-  (defun* config-block-insert-newline (list)
+  (defun config-block-insert-newline (list)
     "If the point is immediately bounded by {}, (), or [], indent it
     properly, given an alist of (BEFORE . AFTER) characters.
   Example, if the point is within {} like so {|}:
@@ -1009,7 +1009,8 @@ with Chinese/Japanese.
 #+begin_src emacs-lisp :results output silent
   (use-package aggressive-fill-paragraph
     :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode")
-    :hook (org-mode . aggressive-fill-paragraph-mode))
+    :hook ((org-mode . aggressive-fill-paragraph-mode)
+           (markdown-mode . aggressive-fill-paragraph-mode)))
 #+end_src
 
 ** Aggressive Indent
@@ -1067,7 +1068,7 @@ with Chinese/Japanese.
     (projectile-tags-command
      "ctags -R -e -f \"%s\" %s \"%s\"")
     :config
-    (defun projectile-regenerate-ctags()
+    (defun projectile-regenerate-ctags ()
       "ctags does not take in directories as arguments. It does, however, look at the current directory"
       (interactive)
       (let* ((project-root (projectile-project-root))
@@ -1181,7 +1182,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
 #+begin_src emacs-lisp :results output silent
   (use-package smartparens
     :defer 10
-    :straight (:host github :repo "Fuco1/smartparens")
+    :straight (:host github :repo "Fuco1/smartparens" :flavor melpa)
     :diminish smartparens-mode
     :commands (sp-local-pair)
     :general
@@ -1574,11 +1575,11 @@ We should look at customizing cider someday.
 
 * Help
 #+begin_src emacs-lisp :results output silent
-  (general-define-key
-   :keymaps 'help-mode-map
-   :states 'normal
-   "f" 'ace-link-help
-   "F" 'ace-link-help)
+  ;; (general-define-key
+  ;;  :keymaps 'help-mode-map
+  ;;  :states 'normal
+  ;;  "f" 'ace-link-help
+  ;;  "F" 'ace-link-help)
 #+end_src
 * Help+
 - Emacswiki :: https://www.emacswiki.org/emacs/HelpPlus
@@ -1633,18 +1634,6 @@ package manager
     :general
     (:states 'normal
      "g d" 'dumb-jump-go))
-#+end_src
-
-* COMMENT Helm Sources for Elisp info
-#+begin_src emacs-lisp :results output silent
-  (evil-define-command find-helm-info-emacs-elisp-cl (init)
-    "Helm for Emacs, Elisp, and CL-library info pages."
-    (interactive "<a>")
-    (helm :sources '(helm-source-info-emacs
-                     helm-source-info-elisp
-                     helm-source-info-cl)
-          :input init))
-  (evil-ex-define-cmd "elisp" 'find-helm-info-emacs-elisp-cl)
 #+end_src
 
 * Anki
@@ -1912,11 +1901,11 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
     ("C-h k"   'helpful-key
      "C-h f"   'helpful-callable
      "C-h v"   'helpful-variable
-     "C-h RET" 'helpful-at-point)
-    (helpful-mode-map
-     :states 'normal
-     "f" 'ace-link-help
-     "F" 'ace-link-help))
+     "C-h RET" 'helpful-at-point))
+    ;; (helpful-mode-map
+    ;;  :states 'normal
+    ;;  "f" 'ace-link-help
+    ;;  "F" 'ace-link-help))
 #+end_src
 
 * Elisp demos
@@ -2171,28 +2160,6 @@ https://millejoh.github.io/emacs-ipython-notebook/
     (evil-ex-define-cmd "fo[cus]" 'focus-mode))
 #+end_src
 
-* Ace Link
-#+begin_src emacs-lisp :results output silent
-  (use-package avy
-    :straight (:host github :repo "abo-abo/avy")
-    :config
-    ;; `ace-jump-eww' expects `avy-process'
-    (defalias 'avy-process 'avy--process))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (use-package ace-link
-    :straight (:host github :repo "abo-abo/ace-link")
-    :commands (ace-link-eww))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (general-define-key
-   :keymaps 'Info-mode-map
-   "f" 'ace-link-info
-   "F" 'ace-link-info)
-#+end_src
-
 * Pretty mode
 #+begin_src emacs-lisp :results output silent
   (use-package pretty-mode
@@ -2425,42 +2392,40 @@ This is really really slow
 
 ** Elfeed goodies
 #+begin_src emacs-lisp :results output silent
-  (use-package elfeed-goodies
-    :straight (:host github :repo "algernon/elfeed-goodies")
-    :after elfeed
-    :general
-    (elfeed-show-mode-map
-     :states 'normal
-     "f" 'elfeed-goodies/show-ace-link
-     "F" 'elfeed-goodies/show-ace-link)
-    :custom
-    (elfeed-goodies/entry-pane-position 'bottom))
-  ;; :config
-  ;; (elfeed-goodies/setup)
-  ;; (remove-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title))
+  ;; (use-package elfeed-goodies
+  ;;   :straight (:host github :repo "algernon/elfeed-goodies")
+  ;;   :after elfeed
+  ;;   :general
+  ;;   (elfeed-show-mode-map
+  ;;    :states 'normal
+  ;;    "f" 'elfeed-goodies/show-ace-link
+  ;;    "F" 'elfeed-goodies/show-ace-link)
+  ;;   :custom
+  ;;   (elfeed-goodies/entry-pane-position 'bottom))
+  ;; ;; :config
+  ;; ;; (elfeed-goodies/setup)
+  ;; ;; (remove-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title))
 #+end_src
 
 * Ace Link
 #+begin_src emacs-lisp :results output silent
   (use-package avy
-    :straight (:host github :repo "abo-abo/avy")
-    :config
-    ;; `ace-jump-eww' expects `avy-process'
-    (defalias 'avy-process 'avy--process))
+    :disabled t
+    :straight (:host github :repo "abo-abo/avy"))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (use-package ace-link
-    :straight (:host github :repo "abo-abo/ace-link")
-    :commands (ace-link-eww))
+  ;; (use-package ace-link
+  ;;   :straight (:host github :repo "abo-abo/ace-link")
+  ;;   :commands (ace-link-eww))
 #+end_src
 
 * Info mode
 #+begin_src emacs-lisp :results output silent
-  (general-define-key
-   :keymaps 'Info-mode-map
-    "f" 'ace-link-info
-    "F" 'ace-link-info)
+  ;; (general-define-key
+  ;;  :keymaps 'Info-mode-map
+  ;;   "f" 'ace-link-info
+  ;;   "F" 'ace-link-info)
   (general-define-key
    :keymaps 'Info-mode-map
    :states 'normal
@@ -2470,13 +2435,13 @@ This is really really slow
 
 * Eww
 #+begin_src emacs-lisp :results output silent
-  (use-package eww
-    :commands (eww)
-    :general
-    (:keymaps 'eww-mode-map
-     :states '(normal)
-     "f" 'ace-link-eww
-     "F" 'ace-link-eww))
+  ;; (use-package eww
+  ;;   :commands (eww)
+  ;;   :general
+  ;;   (:keymaps 'eww-mode-map
+  ;;    :states '(normal)
+  ;;    "f" 'ace-link-eww
+  ;;    "F" 'ace-link-eww))
 #+end_src
 * Hl Block Mode
 Wait a bit for the code to mature.
@@ -2493,7 +2458,7 @@ now becomes too noisy.
 
 #+begin_src emacs-lisp :results output silent
   (use-package alert
-    :straight (:host github :repo "jwiegley/alert")
+    :straight (:host github :repo "jwiegley/alert" :flavor melpa)
     :commands alert)
   ;; :custom
   ;; (alert-default-style 'fringe))
