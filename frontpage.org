@@ -7,10 +7,6 @@ Life is suffering.
 #+end_quote
 
 #+begin_quote
-You can't improve what you don't measure.
-#+end_quote
-
-#+begin_quote
 It is possible to commit no mistakes and still lose. That is not
 weakness. That is life.
 
@@ -26,6 +22,10 @@ problem, pitch manure, program a computer, cook a tasty meal, fight
 efficiently, die gallantly. Specialization is for insects.
 
 -- Robert Heinlein, Time Enough for Love
+#+end_quote
+
+#+begin_quote
+You can't improve what you don't measure.
 #+end_quote
 
 #+begin_quote
