@@ -834,6 +834,14 @@ Emulate the best feature of notepad
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+end_src
 
+** Bind whitespace-mode
+#+begin_src emacs-lisp :results output silent
+  (general-define-key
+   :states '(normal motion)
+   :prefix my-default-evil-leader-key
+    "," 'whitespace-mode)
+#+end_src
+
 ** After creating a new frame, immediately focus on that frame.
 #+begin_src emacs-lisp :results output silent
   (add-hook 'after-make-frame-functions 'select-frame)
@@ -1069,7 +1077,8 @@ with Chinese/Japanese.
      "ctags -R -e -f \"%s\" %s \"%s\"")
     :config
     (defun projectile-regenerate-ctags ()
-      "ctags does not take in directories as arguments. It does, however, look at the current directory"
+      "ctags does not take in directories as arguments. It does,
+  however, look at the current directory"
       (interactive)
       (let* ((project-root (projectile-project-root))
              (tags-exclude (projectile-tags-exclude-patterns))
@@ -1104,6 +1113,7 @@ with Chinese/Japanese.
 #+begin_src emacs-lisp :results output silent
   (use-package counsel-projectile
     :straight (:host github :repo "ericdanan/counsel-projectile")
+    :commands (council-projectile-ag)
     :general
     (:states '(normal motion)
      "+" 'counsel-projectile
@@ -1671,13 +1681,20 @@ package manager
     :commands ag)
 #+end_src
 
-** COMMENT Helm Ag
+** Ag Convenience Bindings
+Call =ag= when not in a project; call =projectile-ag= otherwise.
 #+begin_src emacs-lisp :results output silent
-  (use-package helm-ag
-    :disabled t
-    :straight (:host github :repo "syohex/emacs-helm-ag")
-    :commands (helm-ag
-               helm-ag-this-file))
+  (evil-define-command config-ag (arg)
+    (interactive "<a>")
+    (if arg
+        (if (projectile-project-p)
+            (projectile-ag arg)
+          (ag arg default-directory))
+      (if (projectile-project-p)
+          (call-interactively 'projectile-ag)
+        (call-interactively 'ag))))
+
+  (evil-ex-define-cmd "ag" #'config-ag)
 #+end_src
 
 * C++
@@ -2524,4 +2541,10 @@ now becomes too noisy.
                    (ctags-global-auto-update-mode)))
     :commands (ctags-global-update-mode
                ctags-update))
+#+end_src
+
+* Seml-mode
+#+begin_src emacs-lisp :results output silent
+  (use-package seml-mode
+    :straight (:host github :repo "conao3/seml-mode.el"))
 #+end_src

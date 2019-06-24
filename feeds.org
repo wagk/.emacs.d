@@ -37,7 +37,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 **** [[https://www.channelnewsasia.com/rssfeeds/8395884][Channel News Asia (World)]]                                     :world:
 *** Gaming                                                         :gaming:
 **** [[http://www.eugensystems.com/feed/][Eugensystems.com]]                             :wargame:steel_division:
-**** [[http://feeds.feedburner.com/RockPaperShotgun][Rock, Paper, Shotgun]]
 **** [[http://www.wowhead.com/news&rss][Wowhead News]]                                                    :wow:
 **** [[http://www.mmo-champion.com/?type=rss;action=.xml;board=2.0;sa=news][MMO-Champion]]                                                    :wow:
 ** Images                                                              :art:
