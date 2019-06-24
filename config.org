@@ -1683,18 +1683,22 @@ package manager
 
 ** Ag Convenience Bindings
 Call =ag= when not in a project; call =projectile-ag= otherwise.
-#+begin_src emacs-lisp :results output silent
-  (evil-define-command config-ag (arg)
-    (interactive "<a>")
-    (if arg
-        (if (projectile-project-p)
-            (projectile-ag arg)
-          (ag arg default-directory))
-      (if (projectile-project-p)
-          (call-interactively 'projectile-ag)
-        (call-interactively 'ag))))
 
-  (evil-ex-define-cmd "ag" #'config-ag)
+If additional arguments are passed into the command, use those as
+arguments. Otherwise default to the word at point, but allow the user
+to type it out.
+
+#+begin_src emacs-lisp :results output silent
+  (evil-define-command config-ag-explicit (arg)
+    (interactive "<a>")
+    (let ((search-term (if arg arg
+                         (read-string "Ag query: "
+                                      (thing-at-point 'word)))))
+      (if (projectile-project-p)
+          (projectile-ag search-term)
+        (ag search-term default-directory))))
+
+  (evil-ex-define-cmd "ag" #'config-ag-explicit)
 #+end_src
 
 * C++
