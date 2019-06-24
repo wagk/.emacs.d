@@ -651,7 +651,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
        ((string= cmd "log") (magit-log-all))
        ((or (string= cmd "status")
             (eq cmd nil)) (magit-status))
-       (t (message "Command %s is not recognised" cmd))))
+       (t (magit-shell-command cmd))))
     (evil-ex-define-cmd "git" 'ex-magit-cli)
     (evil-ex-define-cmd "gg" 'ex-magit-cli)
     :hook ((git-commit-setup . aggressive-fill-paragraph-mode)
