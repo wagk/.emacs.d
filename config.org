@@ -837,7 +837,7 @@ Emulate the best feature of notepad
 ** Bind whitespace-mode
 #+begin_src emacs-lisp :results output silent
   (general-define-key
-   :states '(normal motion)
+   :states 'normal
    :prefix my-default-evil-leader-key
     "," 'whitespace-mode)
 #+end_src
