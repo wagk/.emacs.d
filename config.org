@@ -1117,7 +1117,9 @@ with Chinese/Japanese.
     :general
     (:states '(normal motion)
      "+" 'counsel-projectile
-     "M-+" 'counsel-projectile-ag))
+     "M-+" 'counsel-projectile-ag)
+    :init
+    (evil-ex-define-cmd "ff" 'counsel-projectile-ag))
 #+end_src
 
 ** Org-Projectile
@@ -1893,12 +1895,9 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 
 ** Edit abbrevs mode
 #+begin_src emacs-lisp :results output silent
-  ;; (general-define-key
-  ;;  edit-abbrevs-mode-map
-  ;;  [remap evil-save-and-close] #'(lambda () (interactive)
-  ;;                                  (abbrev-edit-save-buffer)
-  ;;                                  (abbrev-edit-save-to-file)
-  ;;                                  (delete-window)))
+  (general-define-key
+   'edit-abbrevs-mode-map
+   [remap evil-save] 'abbrev-edit-save-buffer)
 #+end_src
 
 * Writeroom
@@ -1985,7 +1984,6 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
     :init
     (with-eval-after-load 'org-src
         (cl-pushnew '("groovy" . groovy) org-src-lang-modes)))
-
 #+end_src
 
 * Hy Mode                                                             :major:
