@@ -1119,7 +1119,7 @@ with Chinese/Japanese.
      "+" 'counsel-projectile
      "M-+" 'counsel-projectile-ag)
     :init
-    (evil-ex-define-cmd "ff" 'counsel-projectile-ag))
+    (evil-ex-define-cmd "ff" 'counsel-projectile))
 #+end_src
 
 ** Org-Projectile
