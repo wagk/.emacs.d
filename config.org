@@ -1123,7 +1123,6 @@ with Chinese/Japanese.
 #+end_src
 
 ** Org-Projectile
-
 #+begin_src emacs-lisp :results output silent
   (use-package org-projectile
     :straight (:host github :repo "IvanMalison/org-projectile")
