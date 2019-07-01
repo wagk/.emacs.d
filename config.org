@@ -1902,7 +1902,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 ** Edit abbrevs mode
 #+begin_src emacs-lisp :results output silent
   (general-define-key
-   'edit-abbrevs-mode-map
+   :keymaps 'edit-abbrevs-mode-map
    [remap evil-save] 'abbrev-edit-save-buffer)
 #+end_src
 
