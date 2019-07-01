@@ -1119,7 +1119,7 @@ with Chinese/Japanese.
      "+" 'counsel-projectile
      "M-+" 'counsel-projectile-ag)
     :init
-    (evil-ex-define-cmd "ff" 'counsel-projectile))
+    (evil-ex-define-cmd "pp" 'counsel-projectile))
 #+end_src
 
 ** Org-Projectile
@@ -1140,6 +1140,13 @@ with Chinese/Japanese.
     (org-projectile-per-project)
     (setq org-projectile-per-project-filepath ".todo"
           org-agenda-files (append org-agenda-files (org-projectile-todo-files))))
+#+end_src
+
+** Projectile Convenience Bindings
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "proot" '(lambda () (interactive)
+                                 (require 'projectile)
+                                 (dired (projectile-project-root))))
 #+end_src
 
 * Lisp
