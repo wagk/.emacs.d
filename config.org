@@ -725,7 +725,7 @@ that for the range we want
     :defer 10
     :config
     (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-    (global-hl-diff-mode))
+    (global-diff-hl-mode))
 #+end_src
 
 * Make Emacs Restartable
