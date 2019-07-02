@@ -132,7 +132,7 @@
     ("aand" "and" nil 1)
     ("abstraciton" "abstraction" nil 1)
     ("acocunt" "account" nil 1)
-    ("adn" "and" nil 10)
+    ("adn" "and" nil 11)
     ("ahve" "have" nil 1)
     ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
@@ -319,7 +319,8 @@
     ("scirpt" "script" nil 1)
     ("scoppe" "scope" nil 1)
     ("seciruty" "security" nil 1)
-    ("secitons" "sections" nil 1)
+    ("seciton" "section" nil 1)
+    ("secitons" "sections" nil 2)
     ("securit" "security" nil 1)
     ("segmentaiton" "Segmentation" nil 1)
     ("seme" "seem" nil 1)
@@ -342,7 +343,7 @@
     ("suppoer" "support" nil 1)
     ("suspiciionos" "suspicions" nil 1)
     ("systm" "system" nil 1)
-    ("taht" "that" nil 22)
+    ("taht" "that" nil 23)
     ("taks" "task" nil 1)
     ("tat" "that" nil 1)
     ("tempalte" "template" nil 2)
@@ -412,6 +413,8 @@
 (define-abbrev-table 'inferior-hy-mode-abbrev-table '())
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
+
+(define-abbrev-table 'ini-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-grep-mode-abbrev-table '())
 

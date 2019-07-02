@@ -691,7 +691,7 @@ up, on windows at least).
     (magit-status-mode . magit-todos-mode))
 #+end_src
 
-** Git Gutter
+** COMMENT Git Gutter
 #+begin_src emacs-lisp :results output silent
   (use-package git-gutter+
     :straight (:host github :repo "nonsequitur/git-gutter-plus")
@@ -717,6 +717,16 @@ up, on windows at least).
 
 Look at ~git-gutter+-diffinfo-at-point~ and see if we can leverage
 that for the range we want
+
+* Diff-hl
+#+begin_src emacs-lisp :results output silent
+  (use-package diff-hl
+    :straight (:host github :repo "dgutov/diff-hl")
+    :defer 10
+    :config
+    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+    (global-hl-diff-mode))
+#+end_src
 
 * Make Emacs Restartable
 Moved to init.el
