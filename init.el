@@ -272,7 +272,7 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-ex-define-cmd "tabe[dit]"   'make-frame)
     (evil-ex-define-cmd "init"        'find-user-init-file)
     (evil-ex-define-cmd "local"       'find-user-local-file)
-    (evil-ex-define-cmd "front[page]" 'find-user-frontpage-file)
+    (evil-ex-define-cmd "frontpage" 'find-user-frontpage-file)
     (evil-ex-define-cmd "config"      'find-user-config-file)
     (evil-ex-define-cmd "me[ssage]"   '(lambda () (interactive) (switch-to-buffer "*Messages*")))
     (evil-ex-define-cmd "sc[ratch]"   '(lambda () (interactive) (switch-to-buffer "*scratch*")))
@@ -311,7 +311,7 @@ recovery. Maybe eventually load dependencies and all that."
   ;; https://github.com/raxod502/straight.el/blob/develop/README.md#installing-org-with-straightel
   (require 'subr-x)
   (straight-use-package 'git)
-  
+
   (defun org-git-version ()
     "The Git version of org-mode.
     Inserted by installing org-mode or when a release is made."

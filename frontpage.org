@@ -7,10 +7,20 @@ Life is suffering.
 #+end_quote
 
 #+begin_quote
+Iron sharpens iron.
+#+end_quote
+
+#+begin_quote
 It is possible to commit no mistakes and still lose. That is not
 weakness. That is life.
 
 -- Jean Luc Picard
+#+end_quote
+
+#+begin_quote
+Everybody has a plan until they get punched in the mouth.
+
+-- Mike Tyson
 #+end_quote
 
 #+begin_quote
