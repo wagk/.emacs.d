@@ -37,7 +37,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 **** [[https://www.channelnewsasia.com/rssfeeds/8395884][Channel News Asia (World)]]                                     :world:
 *** Gaming                                                         :gaming:
 **** [[http://www.eugensystems.com/feed/][Eugensystems.com]]                             :wargame:steel_division:
-**** [[http://feeds.feedburner.com/RockPaperShotgun][Rock, Paper, Shotgun]]
 **** [[http://www.wowhead.com/news&rss][Wowhead News]]                                                    :wow:
 **** [[http://www.mmo-champion.com/?type=rss;action=.xml;board=2.0;sa=news][MMO-Champion]]                                                    :wow:
 ** Images                                                              :art:
@@ -327,6 +326,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://practicalguidetoevil.wordpress.com/feed/][A Practical Guide to Evil]]
 ** Computer Science                                                :compsci:
 *** [[http://www.drdobbs.com/rss/all][Dr. Dobb's All]]
+*** [[https://blog.ret2.io/feed.xml][Ret2 Systems Engineering Blog]]
 *** [[https://blog.ploeh.dk/rss.xml][Mark Seemann]]
 - [[https://blog.ploeh.dk/][Frontpage]]
 : My name is Mark Seemann, and ploeh blog is my professional blog (not

@@ -651,7 +651,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
        ((string= cmd "log") (magit-log-all))
        ((or (string= cmd "status")
             (eq cmd nil)) (magit-status))
-       (t (message "Command %s is not recognised" cmd))))
+       (t (magit-shell-command cmd))))
     (evil-ex-define-cmd "git" 'ex-magit-cli)
     (evil-ex-define-cmd "gg" 'ex-magit-cli)
     :hook ((git-commit-setup . aggressive-fill-paragraph-mode)
@@ -691,7 +691,7 @@ up, on windows at least).
     (magit-status-mode . magit-todos-mode))
 #+end_src
 
-** Git Gutter
+** COMMENT Git Gutter
 #+begin_src emacs-lisp :results output silent
   (use-package git-gutter+
     :straight (:host github :repo "nonsequitur/git-gutter-plus")
@@ -717,6 +717,16 @@ up, on windows at least).
 
 Look at ~git-gutter+-diffinfo-at-point~ and see if we can leverage
 that for the range we want
+
+* Diff-hl
+#+begin_src emacs-lisp :results output silent
+  (use-package diff-hl
+    :straight (:host github :repo "dgutov/diff-hl")
+    :defer 10
+    :config
+    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+    (global-diff-hl-mode))
+#+end_src
 
 * Make Emacs Restartable
 Moved to init.el
@@ -832,6 +842,14 @@ Emulate the best feature of notepad
 ** Strip Whitespace on save
 #+begin_src emacs-lisp :results output silent
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+end_src
+
+** Bind whitespace-mode
+#+begin_src emacs-lisp :results output silent
+  (general-define-key
+   :states 'normal
+   :prefix my-default-evil-leader-key
+    "," 'whitespace-mode)
 #+end_src
 
 ** After creating a new frame, immediately focus on that frame.
@@ -1069,7 +1087,8 @@ with Chinese/Japanese.
      "ctags -R -e -f \"%s\" %s \"%s\"")
     :config
     (defun projectile-regenerate-ctags ()
-      "ctags does not take in directories as arguments. It does, however, look at the current directory"
+      "ctags does not take in directories as arguments. It does,
+  however, look at the current directory"
       (interactive)
       (let* ((project-root (projectile-project-root))
              (tags-exclude (projectile-tags-exclude-patterns))
@@ -1104,14 +1123,16 @@ with Chinese/Japanese.
 #+begin_src emacs-lisp :results output silent
   (use-package counsel-projectile
     :straight (:host github :repo "ericdanan/counsel-projectile")
+    :commands (council-projectile-ag)
     :general
     (:states '(normal motion)
      "+" 'counsel-projectile
-     "M-+" 'counsel-projectile-ag))
+     "M-+" 'counsel-projectile-ag)
+    :init
+    (evil-ex-define-cmd "pp" 'counsel-projectile))
 #+end_src
 
 ** Org-Projectile
-
 #+begin_src emacs-lisp :results output silent
   (use-package org-projectile
     :straight (:host github :repo "IvanMalison/org-projectile")
@@ -1129,6 +1150,13 @@ with Chinese/Japanese.
     (org-projectile-per-project)
     (setq org-projectile-per-project-filepath ".todo"
           org-agenda-files (append org-agenda-files (org-projectile-todo-files))))
+#+end_src
+
+** Projectile Convenience Bindings
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "proot" '(lambda () (interactive)
+                                 (require 'projectile)
+                                 (dired (projectile-project-root))))
 #+end_src
 
 * Lisp
@@ -1671,13 +1699,24 @@ package manager
     :commands ag)
 #+end_src
 
-** COMMENT Helm Ag
+** Ag Convenience Bindings
+Call =ag= when not in a project; call =projectile-ag= otherwise.
+
+If additional arguments are passed into the command, use those as
+arguments. Otherwise default to the word at point, but allow the user
+to type it out.
+
 #+begin_src emacs-lisp :results output silent
-  (use-package helm-ag
-    :disabled t
-    :straight (:host github :repo "syohex/emacs-helm-ag")
-    :commands (helm-ag
-               helm-ag-this-file))
+  (evil-define-command config-ag-explicit (arg)
+    (interactive "<a>")
+    (let ((search-term (if arg arg
+                         (read-string "Ag query: "
+                                      (thing-at-point 'word)))))
+      (if (projectile-project-p)
+          (projectile-ag search-term)
+        (ag search-term default-directory))))
+
+  (evil-ex-define-cmd "ag" #'config-ag-explicit)
 #+end_src
 
 * C++
@@ -1872,12 +1911,9 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 
 ** Edit abbrevs mode
 #+begin_src emacs-lisp :results output silent
-  ;; (general-define-key
-  ;;  edit-abbrevs-mode-map
-  ;;  [remap evil-save-and-close] #'(lambda () (interactive)
-  ;;                                  (abbrev-edit-save-buffer)
-  ;;                                  (abbrev-edit-save-to-file)
-  ;;                                  (delete-window)))
+  (general-define-key
+   :keymaps 'edit-abbrevs-mode-map
+   [remap evil-save] 'abbrev-edit-save-buffer)
 #+end_src
 
 * Writeroom
@@ -1964,7 +2000,6 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
     :init
     (with-eval-after-load 'org-src
         (cl-pushnew '("groovy" . groovy) org-src-lang-modes)))
-
 #+end_src
 
 * Hy Mode                                                             :major:
@@ -2524,4 +2559,10 @@ now becomes too noisy.
                    (ctags-global-auto-update-mode)))
     :commands (ctags-global-update-mode
                ctags-update))
+#+end_src
+
+* Seml-mode
+#+begin_src emacs-lisp :results output silent
+  (use-package seml-mode
+    :straight (:host github :repo "conao3/seml-mode.el"))
 #+end_src
