@@ -695,6 +695,7 @@ up, on windows at least).
 #+begin_src emacs-lisp :results output silent
   (use-package git-gutter+
     :straight (:host github :repo "nonsequitur/git-gutter-plus")
+    :disabled t
     :general
     (:states  'normal
      :keymaps 'git-gutter+-mode-map
@@ -1209,10 +1210,14 @@ pressing RET autoformats it, instead of doing nothing as it does right now
 
 #+begin_src emacs-lisp :results output silent
   (use-package smartparens
-    :defer 10
     :straight (:host github :repo "Fuco1/smartparens" :flavor melpa)
     :diminish smartparens-mode
-    :commands (sp-local-pair)
+    :commands (sp-local-pair
+               smartparens-global-mode)
+    :hook
+    (prog-mode . (lambda () (interactive)
+                   (require 'smartparens-config) ;; load some default configurations
+                   (smartparens-global-mode)))
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -1225,8 +1230,6 @@ pressing RET autoformats it, instead of doing nothing as it does right now
      'always
      "Maintain chomp-like behavior of electric-pair")
     :config
-    (require 'smartparens-config) ;; load some default configurations
-    (smartparens-global-mode)
     ;;(smartparens-global-strict-mode)
     ;;(show-smartparens-global-mode)
     ;; define some helper functions
@@ -1234,7 +1237,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
                                              _actions
                                              _context)
       "adds that cool vim indent thing we always wanted, Refer to WHEN
-  segment of `sp-pair' documentation on what each parameter does"
+    segment of `sp-pair' documentation on what each parameter does"
       (newline)
       (indent-according-to-mode)
       (forward-line -1)
