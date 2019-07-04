@@ -338,6 +338,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 : and gourmet food.
 *** [[http://thecodelesscode.com/rss][The Codeless Code]]                                                 :hot:
 *** [[http://emacshorrors.com/feed][Emacs Horrors]]
+*** [[https://boats.gitlab.io/blog/index.xml][withoutboats]]                                                     :rust:
 *** [[http://scottmeyers.blogspot.com/feeds/posts/default?alt=rss][The View from Aristeia]]
 *** [[https://manishearth.github.io/atom.xml][In Pursuit of Laziness]]
 *** [[http://attractivechaos.wordpress.com/feed/][Attractive Chaos]]
