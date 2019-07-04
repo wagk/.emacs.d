@@ -1,7 +1,13 @@
 #+STARTUP: showeverything
 
 #+begin_quote
-You can't improve what you don't measure.
+Art is pain.
+
+Life is suffering.
+#+end_quote
+
+#+begin_quote
+Iron sharpens iron.
 #+end_quote
 
 #+begin_quote
@@ -9,6 +15,12 @@ It is possible to commit no mistakes and still lose. That is not
 weakness. That is life.
 
 -- Jean Luc Picard
+#+end_quote
+
+#+begin_quote
+Everybody has a plan until they get punched in the mouth.
+
+-- Mike Tyson
 #+end_quote
 
 #+begin_quote
@@ -20,6 +32,10 @@ problem, pitch manure, program a computer, cook a tasty meal, fight
 efficiently, die gallantly. Specialization is for insects.
 
 -- Robert Heinlein, Time Enough for Love
+#+end_quote
+
+#+begin_quote
+You can't improve what you don't measure.
 #+end_quote
 
 #+begin_quote

@@ -954,7 +954,7 @@ Stolen from https://github.com/bbatsov/crux
   (setq-default tags-add-tables nil)
 #+end_src
 
-** If inside {}, [], or (), newline and indent
+** COMMENT If inside {}, [], or (), newline and indent
 #+begin_src emacs-lisp :results output silent
   (defun config-block-insert-newline (list)
     "If the point is immediately bounded by {}, (), or [], indent it
