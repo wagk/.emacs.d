@@ -9,7 +9,6 @@
 *** [[etodd.io/feed/][Evan Todd's Blog]]                                              :gamedev:
 *** [[http://feeds.feedburner.com/WorldOfMatticus][World of Matticus]]                                            :wow:blog:
 *** [[http://feeds.feedburner.com/rudiusmedia/rch][Ryan Holiday]]                                            :stoicism:blog:
-*** [[http://gdata.youtube.com/feeds/base/users/FZDSCHOOL/uploads?alt=rss&v=2&orderby=published&client=ytapi-youtube-profile][FZDSCHOOL]]                                                         :art:
 *** [[http://inventingsituations.net/feed/][Inventing Situations]]
 *** [[http://na.finalfantasyxiv.com/pr/blog/atom.xml][FINAL FANTASY XIV: Developers’ Blog]]                       :ffxiv:games:
 *** [[http://news.ycombinator.com/rss][Hacker News]]                                                        :hn:
@@ -287,6 +286,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://miv4t.artstation.com/rss][true]]
 *** [[https://www.artstation.com/renart.rss][Julien Gauthier on ArtStation]]
 *** [[https://www.artstation.com/soonsanghong54.rss][Hong SoonSang on ArtStation]]
+*** [[http://gdata.youtube.com/feeds/base/users/FZDSCHOOL/uploads?alt=rss&v=2&orderby=published&client=ytapi-youtube-profile][FZDSCHOOL]]                                                         :art:
 ** Food                                                               :food:
 *** [[http://www.ramenadventures.com/feeds/posts/default?alt=rss][Ramen Adventures]]                                                :ramen:
 ** Mango and Animu                                                   :manga:
@@ -337,6 +337,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 : Copenhagen, Denmark. I enjoy reading, playing the guitar, good wine,
 : and gourmet food.
 *** [[http://thecodelesscode.com/rss][The Codeless Code]]                                                 :hot:
+*** [[https://lobste.rs/rss][Lobste.rs]]
 *** [[http://emacshorrors.com/feed][Emacs Horrors]]
 *** [[https://boats.gitlab.io/blog/index.xml][withoutboats]]                                                     :rust:
 *** [[http://scottmeyers.blogspot.com/feeds/posts/default?alt=rss][The View from Aristeia]]
@@ -457,6 +458,8 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 **** [[http://cpptruths.blogspot.com/feeds/posts/default?alt=rss][C++ Truths]]
 **** [[http://www.drdobbs.com/articles/cpp/rss][Dr. Dobb's C/C++ Articles]]
 **** [[http://www.cplusplus-soup.com/feeds/posts/default?alt=rss][C++ Soup!]]
+*** [[http://gmailblog.blogspot.com/atom.xml][Gmail Blog]]                                                     :google:
+*** [[http://googleblog.blogspot.com/atom.xml][The Official Google Blog]]                                       :google:
 ** Singapore                                                         :local:
 *** [[http://financialhorse.com/feed/][Financial Horse]]                                               :finance:
 *** [[https://blog.seedly.sg/feed/][Seedly – Get Rich Or Die Tryin']]                               :finance:
@@ -494,7 +497,6 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 ** Independent
 *** [[http://feedproxy.google.com/TechCrunch][TechCrunch]]                                                 :mainstream:
 *** [[http://notch.tumblr.com/rss][The Word of Notch]]
-*** [[http://gmailblog.blogspot.com/atom.xml][Gmail Blog]]                                                     :google:
 *** [[http://feeds.feedburner.com/home-designing][Interior Design Ideas]]                                          :design:
 *** [[http://wesley-burt.blogspot.com/feeds/posts/default][wesley burt]]
 *** [[http://wondertonic.tumblr.com/rss][WONDER-TONIC]]
@@ -504,11 +506,10 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://gdata.youtube.com/feeds/base/users/TEDtalksDirector/uploads?alt=rss&v=2&orderby=published&client=ytapi-youtube-profile][Uploads by TEDtalksDirector]]
 *** [[http://www.boston.com/bigpicture/index.xml][The Big Picture]]
 *** [[http://foxtrotalpha.jalopnik.com/rss][Foxtrot Alpha]]
-*** [[http://www.guildwars2.com/en/rss.xml][Guild Wars2]]
-*** [[http://www.teamfortress.com/rss.xml][TF2 Official Blog]]
+*** [[http://www.guildwars2.com/en/rss.xml][Guild Wars2]]                                                     :games:
+*** [[http://www.teamfortress.com/rss.xml][TF2 Official Blog]]                                               :games:
 *** [[http://www.fourhourworkweek.com/blog/feed/][The Blog of Author Tim Ferriss]]
 *** [[http://feeds.feedburner.com/contemporist][CONTEMPORIST]]
-*** [[http://googleblog.blogspot.com/atom.xml][The Official Google Blog]]                                       :google:
 *** [[http://shityoushouldknow.tumblr.com/rss][Shit You Should Know]]
 *** [[http://tanks.mod16.org/feed/][Swedish tank archives]]
 *** [[http://www.igmchicago.org/feed][IGM Forum]]

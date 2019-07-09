@@ -228,7 +228,7 @@
     ("followiong" "following" nil 1)
     ("follownig" "following" nil 1)
     ("framewokr" "framework" nil 1)
-    ("funciton" "function" nil 1)
+    ("funciton" "function" nil 2)
     ("guatds" "guards" nil 1)
     ("hapy" "happy" nil 1)
     ("heuritistic" "heuristic" nil 1)
@@ -263,7 +263,9 @@
     ("itemselts" "itemsets" nil 2)
     ("itme" "item" nil 1)
     ("itsems" "items" nil 1)
+    ("iwth" "with" nil 1)
     ("jbects" "objects" nil 1)
+    ("jsut" "just" nil 1)
     ("karhtik" "Karthik" nil 2)
     ("knwo" "know" nil 1)
     ("ksill" "skill" nil 1)
@@ -310,6 +312,7 @@
     ("recieve" "receive" nil 2)
     ("remoivng" "Removing" nil 2)
     ("renaem" "Rename" nil 2)
+    ("repoisoty" "repository" nil 1)
     ("reqally" "really" nil 1)
     ("rerason" "reason" nil 1)
     ("reusme" "resume" nil 1)
@@ -343,7 +346,7 @@
     ("suppoer" "support" nil 1)
     ("suspiciionos" "suspicions" nil 1)
     ("systm" "system" nil 1)
-    ("taht" "that" nil 23)
+    ("taht" "that" nil 24)
     ("taks" "task" nil 1)
     ("tat" "that" nil 1)
     ("tempalte" "template" nil 2)
@@ -528,9 +531,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
@@ -569,6 +570,8 @@
 (define-abbrev-table 'use-package-statistics-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-bzr-log-view-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-dir-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-log-edit-mode-abbrev-table '())
 
