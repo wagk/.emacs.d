@@ -1714,6 +1714,7 @@ to type it out.
     (interactive "<a>")
     (let ((search-term (if arg arg
                          (read-string "Ag query: "
+                                      nil nil
                                       (thing-at-point 'word)))))
       (if (projectile-project-p)
           (projectile-ag search-term)
@@ -2406,7 +2407,7 @@ Or evil-spongebob if you want to think of it that way.
        ((string= cmd "log") (switch-to-buffer (elfeed-log-buffer)))
        (t (elfeed))))
     (evil-ex-define-cmd "el[feed]" 'my-custom-elfeed))
-     #+end_src
+#+end_src
 
 ** Elfeed org
 This is really really slow
