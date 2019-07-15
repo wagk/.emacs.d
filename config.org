@@ -2570,3 +2570,12 @@ now becomes too noisy.
   (use-package seml-mode
     :straight (:host github :repo "conao3/seml-mode.el"))
 #+end_src
+
+* Annotations
+#+begin_src emacs-lisp :results output silent
+  (use-package annot
+    :straight (:host github :repo "ghoshi/annot"
+               :files (:defaults "src/annot.el"))
+    :commands (annot-edit/add
+               annot-remove))
+#+end_src
