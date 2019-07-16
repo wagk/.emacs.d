@@ -978,12 +978,15 @@ Stolen from https://github.com/bbatsov/crux
             (return-from config-block-insert-newline)))
 #+end_src
 
-** Line wrap
+
+** Set commands
 #+begin_src emacs-lisp :results output silent
-  (general-define-key
-   :keymaps 'normal
-   :prefix my-default-evil-leader-key
-    "/" 'visual-line-mode)
+  (evil-define-command config-ex-set-arg (cmd)
+    (interactive "<a>")
+    (cond
+     ((string= cmd "wrap") (visual-line-mode 1))
+     ((string= cmd "nowrap") (visual-line-mode -1))))
+  (evil-ex-define-cmd "set" 'config-ex-set-arg)
 #+end_src
 
 * Display
@@ -2584,6 +2587,25 @@ now becomes too noisy.
   (use-package annot
     :straight (:host github :repo "ghoshi/annot"
                :files (:defaults "src/annot.el"))
-    :commands (annot-edit/add
-               annot-remove))
+    :general
+    (:keymaps '(normal visual)
+     :prefix my-default-evil-leader-key
+     "//" 'annot-edit/add
+     "/d" 'annot-remove)
+    (:keymaps 'normal
+     :prefix my-default-evil-leader-key
+     "/n" 'annot-goto-next
+     "/N" 'annot-goto-previous
+     "/c" 'annot-to-comment))
+#+end_src
+
+* Ivy
+
+** Prescient
+#+begin_src emacs-lisp :results output silent
+  (use-package prescient
+    :straight (:host github :repo "raxod502/prescient.el")
+    :after ivy
+    :config
+    (ivy-prescient-mode))
 #+end_src
