@@ -978,6 +978,14 @@ Stolen from https://github.com/bbatsov/crux
             (return-from config-block-insert-newline)))
 #+end_src
 
+** Line wrap
+#+begin_src emacs-lisp :results output silent
+  (general-define-key
+   :keymaps 'normal
+   :prefix my-default-evil-leader-key
+    "/" 'visual-line-mode)
+#+end_src
+
 * Display
 
 ** Prefer dark backgrounds
