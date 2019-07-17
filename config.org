@@ -57,19 +57,6 @@ C-M-i                           backward-button
 <normal-state> g b              debugger-frame
 <normal-state> g l              debugger-list-functions
 
-* Wgrep
-Being able to mass-edit using search results seem interesting
-http://blog.binchen.org/posts/use-wgrep-and-evil-to-replace-text-efficiently.html
-
-Note that for some reason using plain old =ag= works while
-=counsel-ag= does not.
-
-#+begin_src emacs-lisp :results output silent
-  (use-package wgrep
-    :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
-    :commands (wgrep-change-to-wgrep-mode))
-#+end_src
-
 * Define useful constants
 #+begin_src emacs-lisp :results output silent
   (defconst my-inbox-org-file (if (boundp 'config-local-syncthing-folder)
@@ -2608,4 +2595,55 @@ now becomes too noisy.
     :after ivy
     :config
     (ivy-prescient-mode))
+#+end_src
+
+** Org todo tracking
+#+begin_src emacs-lisp :results output silent
+  (use-package ivy-todo
+    :straight (:host github :repo "Kungsgeten/ivy-todo")
+    :commands ivy-todo)
+#+end_src
+
+** Rich Display
+#+begin_src emacs-lisp :results output silent
+  (use-package ivy-rich
+    :straight (:host github :repo "Yevgnen/ivy-rich")
+    :after ivy
+    :config
+    (ivy-rich-mode 1))
+#+end_src
+
+** World Clock
+#+begin_src emacs-lisp :results output silent
+  (use-package counsel-world-clock
+    :straight (:host github :repo "kchenphy/counsel-world-clock")
+    :commands counsel-world-clock)
+#+end_src
+
+* Wgrep
+Being able to mass-edit using search results seem interesting
+http://blog.binchen.org/posts/use-wgrep-and-evil-to-replace-text-efficiently.html
+
+Note that for some reason using plain old =ag= works while
+=counsel-ag= does not.
+
+#+begin_src emacs-lisp :results output silent
+  (use-package wgrep
+    :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
+    :defer 20
+    :commands (wgrep-change-to-wgrep-mode))
+#+end_src
+
+* Company
+#+begin_src emacs-lisp :results output silent
+  (use-package company-mode
+    :straight (:host github :repo "company-mode/company-mode")
+    :defer 20
+    (global-company-mode))
+#+end_src
+
+* Language Server Protocol
+#+begin_src emacs-lisp :results output silent
+  (use-package lsp-mode
+    :straight (:host github :repo "emacs-lsp/lsp-mode"))
 #+end_src
