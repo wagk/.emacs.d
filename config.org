@@ -2568,5 +2568,6 @@ now becomes too noisy.
 * Seml-mode
 #+begin_src emacs-lisp :results output silent
   (use-package seml-mode
+    :defer 20
     :straight (:host github :repo "conao3/seml-mode.el"))
 #+end_src
