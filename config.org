@@ -2640,6 +2640,7 @@ Note that for some reason using plain old =ag= works while
   (use-package company-mode
     :straight (:host github :repo "company-mode/company-mode")
     :defer 20
+    :config
     (global-company-mode))
 #+end_src
 
