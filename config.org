@@ -2598,13 +2598,6 @@ now becomes too noisy.
     (ivy-prescient-mode))
 #+end_src
 
-** Org todo tracking
-#+begin_src emacs-lisp :results output silent
-  (use-package ivy-todo
-    :straight (:host github :repo "Kungsgeten/ivy-todo")
-    :commands ivy-todo)
-#+end_src
-
 ** Rich Display
 #+begin_src emacs-lisp :results output silent
   (use-package ivy-rich
@@ -2612,13 +2605,6 @@ now becomes too noisy.
     :after ivy
     :config
     (ivy-rich-mode 1))
-#+end_src
-
-** World Clock
-#+begin_src emacs-lisp :results output silent
-  (use-package counsel-world-clock
-    :straight (:host github :repo "kchenphy/counsel-world-clock")
-    :commands counsel-world-clock)
 #+end_src
 
 * Wgrep
