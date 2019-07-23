@@ -113,6 +113,8 @@
 
 (define-abbrev-table 'eww-mode-abbrev-table '())
 
+(define-abbrev-table 'flymake-diagnostics-buffer-mode-abbrev-table '())
+
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
 
 (define-abbrev-table 'gfm-mode-abbrev-table '())
@@ -132,7 +134,8 @@
     ("aand" "and" nil 1)
     ("abstraciton" "abstraction" nil 1)
     ("acocunt" "account" nil 1)
-    ("adn" "and" nil 11)
+    ("additioanl" "additional" nil 1)
+    ("adn" "and" nil 16)
     ("ahve" "have" nil 1)
     ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
@@ -147,7 +150,7 @@
     ("appication" "application" nil 1)
     ("applicaiton" "application" nil 1)
     ("applicatoins" "applications" nil 1)
-    ("applicaton" "application" nil 1)
+    ("applicaton" "application" nil 2)
     ("approrpiate" "appropriate" nil 1)
     ("artifactoyr" "artifactory" nil 1)
     ("artificailly" "artificially" nil 1)
@@ -156,7 +159,7 @@
     ("atuomatically" "automatically" nil 1)
     ("australia" "Australia" nil 3)
     ("batrch" "batch" nil 1)
-    ("becasue" "because" nil 5)
+    ("becasue" "because" nil 6)
     ("beelong" "belong" nil 1)
     ("belinging" "belonging" nil 1)
     ("bigfixes" "bugfixes" nil 1)
@@ -221,7 +224,7 @@
     ("fiel" "file" nil 3)
     ("fiels" "files" nil 2)
     ("finalncial" "financial" nil 1)
-    ("fo" "of" nil 36)
+    ("fo" "of" nil 44)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
     ("followinig" "following" nil 1)
@@ -263,7 +266,7 @@
     ("itemselts" "itemsets" nil 2)
     ("itme" "item" nil 1)
     ("itsems" "items" nil 1)
-    ("iwth" "with" nil 1)
+    ("iwth" "with" nil 2)
     ("jbects" "objects" nil 1)
     ("jsut" "just" nil 1)
     ("karhtik" "Karthik" nil 2)
@@ -271,11 +274,12 @@
     ("ksill" "skill" nil 1)
     ("laoder" "loader" nil 1)
     ("lical" "local" nil 2)
-    ("liek" "like" nil 3)
+    ("liek" "like" nil 4)
     ("localizaiton" "localization" nil 1)
     ("lsit" "list" nil 1)
     ("malfunciton" "malfunction" nil 1)
     ("manifrst" "manifest" nil 1)
+    ("mayually" "manually" nil 1)
     ("mdoule" "module" nil 1)
     ("mergw" "Merge" nil 2)
     ("mghit" "might" nil 1)
@@ -298,7 +302,7 @@
     ("oging" "going" nil 2)
     ("ohterwise" "otherwise" nil 1)
     ("onlinie" "online" nil 1)
-    ("ot" "to" nil 21)
+    ("ot" "to" nil 23)
     ("owuld" "would" nil 1)
     ("pariton" "partition" nil 1)
     ("possbile" "possible" nil 1)
@@ -319,7 +323,7 @@
     ("reutrn" "return" nil 1)
     ("rleease" "release" nil 1)
     ("schedulign" "scheduling" nil 1)
-    ("scirpt" "script" nil 1)
+    ("scirpt" "script" nil 2)
     ("scoppe" "scope" nil 1)
     ("seciruty" "security" nil 1)
     ("seciton" "section" nil 1)
@@ -327,7 +331,7 @@
     ("securit" "security" nil 1)
     ("segmentaiton" "Segmentation" nil 1)
     ("seme" "seem" nil 1)
-    ("shoudl" "should" nil 6)
+    ("shoudl" "should" nil 7)
     ("showind" "showing" nil 1)
     ("si" "is" nil 2)
     ("siad" "said" nil 1)
@@ -347,7 +351,7 @@
     ("suspiciionos" "suspicions" nil 1)
     ("systm" "system" nil 1)
     ("taht" "that" nil 24)
-    ("taks" "task" nil 1)
+    ("taks" "task" nil 2)
     ("tat" "that" nil 1)
     ("tempalte" "template" nil 2)
     ("tempaltes" "templates" nil 1)
@@ -451,6 +455,10 @@
 
 (define-abbrev-table 'log4e-mode-abbrev-table '())
 
+(define-abbrev-table 'lsp-browser-mode-abbrev-table '())
+
+(define-abbrev-table 'lsp-log-io-mode-abbrev-table '())
+
 (define-abbrev-table 'magit-cherry-mode-abbrev-table '())
 
 (define-abbrev-table 'magit-diff-mode-abbrev-table '())
@@ -531,7 +539,21 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
+
+(define-abbrev-table 'racket-describe-mode-abbrev-table '())
+
+(define-abbrev-table 'racket-logger-mode-abbrev-table '())
+
+(define-abbrev-table 'racket-mode-abbrev-table '())
+
+(define-abbrev-table 'racket-profile-mode-abbrev-table '())
+
+(define-abbrev-table 'racket-repl-mode-abbrev-table '())
+
+(define-abbrev-table 'racket-stepper-mode-abbrev-table '())
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
@@ -562,6 +584,8 @@
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
+
+(define-abbrev-table 'term-mode-abbrev-table '())
 
 (define-abbrev-table 'text-mode-abbrev-table '())
 

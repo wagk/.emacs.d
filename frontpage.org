@@ -35,6 +35,13 @@ efficiently, die gallantly. Specialization is for insects.
 #+end_quote
 
 #+begin_quote
+We don't rise to the level of our expectations, we fall to the level
+of our training.
+
+-- Archilochos
+#+end_quote
+
+#+begin_quote
 You can't improve what you don't measure.
 #+end_quote
 

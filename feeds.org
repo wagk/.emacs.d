@@ -461,6 +461,8 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 **** [[http://www.cplusplus-soup.com/feeds/posts/default?alt=rss][C++ Soup!]]
 *** [[http://gmailblog.blogspot.com/atom.xml][Gmail Blog]]                                                     :google:
 *** [[http://googleblog.blogspot.com/atom.xml][The Official Google Blog]]                                       :google:
+*** [[https://begriffs.com/atom.xml][Begriffs]]
+Joe Nelson's Blog
 ** Singapore                                                         :local:
 *** [[http://financialhorse.com/feed/][Financial Horse]]                                               :finance:
 *** [[https://blog.seedly.sg/feed/][Seedly – Get Rich Or Die Tryin']]                               :finance:
