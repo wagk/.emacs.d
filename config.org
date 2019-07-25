@@ -985,7 +985,9 @@ Stolen from https://github.com/bbatsov/crux
 #+begin_src emacs-lisp :results output silent
   (use-package eyebrowse
     :straight (:host github :repo "wasamasa/eyebrowse")
-    :commands eyebrowse-switch-to-window-config
+    :commands (eyebrowse-switch-to-window-config
+               eyebrowse-create-window-config
+               eyebrowse-close-window-config)
     :general
     (:states '(normal motion)
      "gt" 'eyebrowse-next-window-config
@@ -994,9 +996,10 @@ Stolen from https://github.com/bbatsov/crux
     (eyebrowse-wrap-around t)
     :init
     ;; TODO: convert to proper :tab* vim commands
-    (evil-ex-define-cmd "tabn[ew]"  'make-frame)
-    (evil-ex-define-cmd "tabe[dit]" 'make-frame)
-    (evil-ex-define-cmd "tabs"      'eyebrowse-switch-to-window-config)
+    (evil-ex-define-cmd "tabn[ew]"   'eyebrowse-create-window-config)
+    (evil-ex-define-cmd "tabe[dit]"  'make-frame)
+    (evil-ex-define-cmd "tabc[lose]" 'eyebrowse-close-window-config)
+    (evil-ex-define-cmd "tabs"       'eyebrowse-switch-to-window-config)
     :config
     (eyebrowse-mode))
 #+end_src
