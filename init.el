@@ -205,8 +205,9 @@ recovery. Maybe eventually load dependencies and all that."
      "C-l" 'evil-complete-next-line
      "C-u" 'evil-delete-whole-line)
     (:keymaps 'normal
-     "gt"     '(lambda () (interactive) (other-frame 1))
-     "gT"     '(lambda () (interactive) (other-frame -1))
+     ;; try eyebrowse instead
+     ;; "gt"     '(lambda () (interactive) (other-frame 1))
+     ;; "gT"     '(lambda () (interactive) (other-frame -1))
      "g o"    'ff-find-other-file)
      ;; "g a"    'describe-char)
     (:keymaps 'inner
@@ -268,8 +269,6 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-ex-define-cmd "bc[lose]"    'kill-this-buffer)
 
     (evil-ex-define-cmd "sh[ell]"     'shell) ;; at least shell shows its keymaps
-    (evil-ex-define-cmd "tabn[ew]"    'make-frame)
-    (evil-ex-define-cmd "tabe[dit]"   'make-frame)
     (evil-ex-define-cmd "init"        'find-user-init-file)
     (evil-ex-define-cmd "local"       'find-user-local-file)
     (evil-ex-define-cmd "frontpage" 'find-user-frontpage-file)

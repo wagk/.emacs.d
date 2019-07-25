@@ -976,6 +976,31 @@ Stolen from https://github.com/bbatsov/crux
   (evil-ex-define-cmd "set" 'config-ex-set-arg)
 #+end_src
 
+** Electric Indent
+#+begin_src emacs-lisp :results output silent
+  (electric-indent-mode)
+#+end_src
+
+* Window layout management
+#+begin_src emacs-lisp :results output silent
+  (use-package eyebrowse
+    :straight (:host github :repo "wasamasa/eyebrowse")
+    :commands eyebrowse-switch-to-window-config
+    :general
+    (:states '(normal motion)
+     "gt" 'eyebrowse-next-window-config
+     "gT" 'eyebrowse-prev-window-config)
+    :custom
+    (eyebrowse-wrap-around t)
+    :init
+    ;; TODO: convert to proper :tab* vim commands
+    (evil-ex-define-cmd "tabn[ew]"  'make-frame)
+    (evil-ex-define-cmd "tabe[dit]" 'make-frame)
+    (evil-ex-define-cmd "tabs"      'eyebrowse-switch-to-window-config)
+    :config
+    (eyebrowse-mode))
+#+end_src
+
 * Display
 
 ** Prefer dark backgrounds
@@ -1079,7 +1104,9 @@ with Chinese/Japanese.
 #+begin_src emacs-lisp :results output silent
   (use-package projectile
     :straight (:host github :repo "bbatsov/projectile")
-    :commands (projectile-mode)
+    :commands (projectile-mode
+               projectile-project-p
+               projectile-ag)
     :defer 4
     :custom
     (projectile-tags-command
@@ -1723,14 +1750,15 @@ to type it out.
     (let ((search-term (if arg arg
                          (let ((word (thing-at-point 'word)))
                            (read-string "Ag query: "
-                                        word nil word)))))
-      (if (projectile-project-p)
-          (projectile-ag search-term)
-        (ag search-term default-directory)))
-
-    (evil-ex-define-cmd "ag" #'config-ag-explicit))
+                                        word nil word))))
+          (root-dir (or (projectile-project-p)
+                      default-directory)))
+        (ag search-term root-dir)))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "ag" #'config-ag-explicit)
+#+end_src
 * C++
 ** Indentation of 4
 #+begin_src emacs-lisp :results output silent
@@ -2646,4 +2674,13 @@ Note that for some reason using plain old =ag= works while
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-mode
     :straight (:host github :repo "emacs-lsp/lsp-mode"))
+#+end_src
+
+* Code Folding
+#+begin_src emacs-lisp :results output silent
+  (use-package origami
+    :straight (:host github :repo "gregsexton/origami.el")
+    :defer 20
+    :config
+    (global-origami-mode))
 #+end_src
