@@ -628,17 +628,18 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
       "Calls specific magit functions"
       (interactive "<a>")
       (cond
-       ((string= cmd "pull") (magit-pull-from-pushremote nil))
-       ((string= cmd "commit") (magit-commit))
-       ((string= cmd "commit all") (magit-commit `("--all" "-m" ,(iso-8601-timestamp))))
-       ((string= cmd "push") (magit-push-current-to-pushremote nil))
-       ((string= cmd "commit push all") (progn
-                                          (magit-commit `("--all" "-m" ,(iso-8601-timestamp)))
-                                          (magit-push-current-to-pushremote nil)))
-       ((string= cmd "log") (magit-log-all))
-       ((or (string= cmd "status")
-            (eq cmd nil)) (magit-status))
-       (t (magit-shell-command cmd))))
+       ;; ((string= cmd "pull") (magit-pull-from-pushremote nil))
+       ;; ((string= cmd "commit") (magit-commit))
+       ;; ((string= cmd "commit all") (magit-commit `("--all" "-m" ,(iso-8601-timestamp))))
+       ;; ((string= cmd "push") (magit-push-current-to-pushremote nil))
+       ;; ((string= cmd "commit push all") (progn
+       ;;                                    (magit-commit `("--all" "-m" ,(iso-8601-timestamp)))
+       ;;                                    (magit-push-current-to-pushremote nil)))
+       ;; ((string= cmd "log") (magit-log-all))
+       ;; ((or (string= cmd "status")
+       ;;      (eq cmd nil)) (magit-status))
+       ((eq cmd nil) (magit-status))
+       (t (magit-shell-command (concat "git " cmd)))))
     (evil-ex-define-cmd "git" 'ex-magit-cli)
     (evil-ex-define-cmd "gg" 'ex-magit-cli)
     :hook ((git-commit-setup . aggressive-fill-paragraph-mode)
@@ -982,6 +983,7 @@ Stolen from https://github.com/bbatsov/crux
 #+end_src
 
 * Window layout management
+** Eyebrowse
 #+begin_src emacs-lisp :results output silent
   (use-package eyebrowse
     :straight (:host github :repo "wasamasa/eyebrowse")
@@ -994,14 +996,27 @@ Stolen from https://github.com/bbatsov/crux
      "gT" 'eyebrowse-prev-window-config)
     :custom
     (eyebrowse-wrap-around t)
+    (eyebrowse-new-workspace t
+                             "TODO: figure out a way to customise this more like :tabe")
     :init
     ;; TODO: convert to proper :tab* vim commands
     (evil-ex-define-cmd "tabn[ew]"   'eyebrowse-create-window-config)
-    (evil-ex-define-cmd "tabe[dit]"  'make-frame)
+    ;; (evil-ex-define-cmd "tabe[dit]"  'make-frame)
     (evil-ex-define-cmd "tabc[lose]" 'eyebrowse-close-window-config)
     (evil-ex-define-cmd "tabs"       'eyebrowse-switch-to-window-config)
     :config
-    (eyebrowse-mode))
+    (eyebrowse-mode)
+    (defun my-delete-window-config-or-frame (oldfun &rest old_args)
+      "Checks if there are other \"tabs\" when closing a frame.
+  If there is, close the tab, otherwise, delete the frame"
+      (interactive)
+      (let* ((configs (frame-parameter nil 'eyebrowse-window-configs))
+             (slots (mapcar 'car configs))
+             (size (length slots)))
+        (if (eq 1 size)
+            (oldfun)
+          (eyebrowse-close-window-config))))
+    (advice-add 'delete-frame :around 'my-delete-window-config-or-frame))
 #+end_src
 
 * Display
