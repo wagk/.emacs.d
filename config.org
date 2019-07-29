@@ -179,6 +179,10 @@ https://www.emacswiki.org/emacs/Evil#toc24
    "C-\\" 'my-evil-toggle-input-method)
 #+end_src
 
+** Interactive Codes
+Look at =evil-interactive-alist=, which seems to contain all the
+interactive codes provided.
+
 * Text Objects
 ** Latex Textobjects
 I appear to have stolen this from somewhere, probably because the original
@@ -999,9 +1003,14 @@ Stolen from https://github.com/bbatsov/crux
     (eyebrowse-new-workspace t
                              "TODO: figure out a way to customise this more like :tabe")
     :init
+    (evil-define-command my-new-evil-tab (file)
+      "Note that :h :tabe in vim indicates that it's file only, not
+  buffer."
+      (interactive "<f>")
+      (message "Argument is %S" file))
     ;; TODO: convert to proper :tab* vim commands
     (evil-ex-define-cmd "tabn[ew]"   'eyebrowse-create-window-config)
-    ;; (evil-ex-define-cmd "tabe[dit]"  'make-frame)
+    (evil-ex-define-cmd "tabe[dit]"  'my-new-evil-tab)
     (evil-ex-define-cmd "tabc[lose]" 'eyebrowse-close-window-config)
     (evil-ex-define-cmd "tabs"       'eyebrowse-switch-to-window-config)
     :config
@@ -1014,7 +1023,7 @@ Stolen from https://github.com/bbatsov/crux
              (slots (mapcar 'car configs))
              (size (length slots)))
         (if (eq 1 size)
-            (oldfun)
+            (call-interactively oldfun)
           (eyebrowse-close-window-config))))
     (advice-add 'delete-frame :around 'my-delete-window-config-or-frame))
 #+end_src
