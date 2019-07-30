@@ -2714,3 +2714,8 @@ In the =ag= buffer call =C-c C-p= to launch wgrep.
     :hook
     (prog-mode . origami-mode))
 #+end_src
+
+* Rot13
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "rot[13]" 'toggle-rot13-mode)
+#+end_src
