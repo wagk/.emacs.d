@@ -1786,6 +1786,36 @@ to type it out.
 #+begin_src emacs-lisp :results output silent
   (evil-ex-define-cmd "ag" #'config-ag-explicit)
 #+end_src
+
+* Ripgrep (rg)
+
+*rg* buffer bindings
+| Key | Description                              |
+|-----+------------------------------------------|
+| c   | Toggle case insensitive setting          |
+| d   | Change directory                         |
+| f   | Change file pattern                      |
+| g   | Rerun search                             |
+| i   | Toggle --no-ignore flag                  |
+| l   | List search buffers in a separate buffer |
+| r   | Edit search string as regexp             |
+| s   | Save search result to unique name        |
+| S   | Save search result, prompt for name      |
+| t   | Edit search string as literal            |
+| w   | Switch to wgrep mode                     |
+| C-f | Navigate forward in search history       |
+| C-b | Navigate backward in search history      |
+
+#+begin_src emacs-lisp :results output silent
+  (use-package rg
+    :straight (:host github :repo "dajva/rg.el")
+    :commands (rg
+               rg-project
+               rg-dwim
+               rg-literal)
+    :custom
+    (rg-ignore-case 'smart))
+#+end_src
 * C++
 ** Indentation of 4
 #+begin_src emacs-lisp :results output silent
