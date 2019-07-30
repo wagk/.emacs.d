@@ -1000,14 +1000,16 @@ Stolen from https://github.com/bbatsov/crux
      "gT" 'eyebrowse-prev-window-config)
     :custom
     (eyebrowse-wrap-around t)
-    (eyebrowse-new-workspace t
-                             "TODO: figure out a way to customise this more like :tabe")
+    (eyebrowse-new-workspace t)
     :init
     (evil-define-command my-new-evil-tab (file)
       "Note that :h :tabe in vim indicates that it's file only, not
   buffer."
       (interactive "<f>")
-      (message "Argument is %S" file))
+      (let ((eyebrowse-new-workspace (if file
+                                         (lambda () (find-file file))
+                                       eyebrowse-new-workspace)))
+        (eyebrowse-create-window-config)))
     ;; TODO: convert to proper :tab* vim commands
     (evil-ex-define-cmd "tabn[ew]"   'eyebrowse-create-window-config)
     (evil-ex-define-cmd "tabe[dit]"  'my-new-evil-tab)
