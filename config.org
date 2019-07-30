@@ -1010,7 +1010,6 @@ Stolen from https://github.com/bbatsov/crux
                                          (lambda () (find-file file))
                                        eyebrowse-new-workspace)))
         (eyebrowse-create-window-config)))
-    ;; TODO: convert to proper :tab* vim commands
     (evil-ex-define-cmd "tabn[ew]"   'eyebrowse-create-window-config)
     (evil-ex-define-cmd "tabe[dit]"  'my-new-evil-tab)
     (evil-ex-define-cmd "tabc[lose]" 'eyebrowse-close-window-config)
@@ -2241,11 +2240,11 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
     (evil-ex-define-cmd "journal" #'(lambda () (interactive)
                                       (org-journal-new-entry t)))
     (evil-ex-define-cmd "jj" 'org-journal-new-entry)
-    (when (boundp 'config-local-syncthing-folder)
-      (customize-set-value 'org-journal-dir (file-name-as-directory
-                                             (concat config-local-syncthing-folder "/notes/journal"))))
+    (customize-set-value 'org-journal-dir (file-name-as-directory
+                                           (concat config-local-syncthing-folder "/notes/journal")))
     :hook
-    ((org-journal-after-entry-create . evil-insert-state)))
+    ((org-journal-after-entry-create . evil-insert-state)
+     (org-journal-after-entry-create . toggle-rot13-mode)))
 #+end_src
 
 * Cmake
