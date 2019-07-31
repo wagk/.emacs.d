@@ -108,6 +108,17 @@ Disabled because I'm slowly turning into an Emacs citizen.
      "C-x"  'evil-numbers/dec-at-pt))
 #+end_src
 
+** Goggles
+#+begin_src emacs-lisp :results output silent
+  (use-package evil-goggles
+    :straight (:host github :repo "edkolev/evil-goggles")
+    :commands (evil-goggles-mode)
+    :init
+    (evil-ex-define-cmd "gog[gles]" 'evil-goggles-mode)
+    :config
+    (evil-goggles-use-diff-faces))
+#+end_src
+
 ** Evil Expat
 Adds the following ex commands:
 
@@ -2747,6 +2758,17 @@ In the =ag= buffer call =C-c C-p= to launch wgrep.
 #+end_src
 
 * Rot13
+Note that while the buffer will look rot13 encrypted, the final saved
+file will not itself be encrypted.
+
 #+begin_src emacs-lisp :results output silent
   (evil-ex-define-cmd "rot[13]" 'toggle-rot13-mode)
+#+end_src
+
+* PlantUML mode
+#+begin_src emacs-lisp :results output silent
+  (use-package plantuml-mode
+    :straight (:host github :repo "skuro/plantuml-mode")
+    :commands (plantuml-mode)
+    :mode "\\.plantuml\\'")
 #+end_src
