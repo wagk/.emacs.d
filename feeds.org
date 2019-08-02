@@ -1,3 +1,4 @@
+#+STARTUP: showeverything
 #+title: RSS feeds
 
 - agg :: Aggregators
@@ -327,6 +328,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 ** Computer Science                                                :compsci:
 *** [[http://www.drdobbs.com/rss/all][Dr. Dobb's All]]
 *** [[https://racket-news.com/feeds/all.atom.xml][Racket News]]
+*** [[https://jcs.org/rss][Joshua Stein]]
 *** [[https://blog.ret2.io/feed.xml][Ret2 Systems Engineering Blog]]
 *** [[https://blog.ploeh.dk/rss.xml][Mark Seemann]]
 - [[https://blog.ploeh.dk/][Frontpage]]

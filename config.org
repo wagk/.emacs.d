@@ -194,6 +194,15 @@ https://www.emacswiki.org/emacs/Evil#toc24
 Look at =evil-interactive-alist=, which seems to contain all the
 interactive codes provided.
 
+** Replace with Register
+#+begin_src emacs-lisp :results output silent
+  (use-package evil-replace-with-register
+    :straight (:host github :repo "Dewdrops/evil-ReplaceWithRegister")
+    :after evil
+    :config
+    (evil-replace-with-register-install))
+#+end_src
+
 * Text Objects
 ** Latex Textobjects
 I appear to have stolen this from somewhere, probably because the original
@@ -1172,16 +1181,6 @@ with Chinese/Japanese.
         (visit-tags-table tags-file)
         (message "Regenerated %s" tags-file)))
     (projectile-mode))
-#+end_src
-
-** Helm-projectile
-#+begin_src emacs-lisp :results output silent
-  (use-package helm-projectile
-    :disabled t
-    :straight (:host github :repo "bbatsov/helm-projectile")
-    :general
-    (:states '(normal motion)
-     "+" 'helm-projectile))
 #+end_src
 
 ** Ivy/Counsel Projectile
@@ -2709,9 +2708,9 @@ now becomes too noisy.
 #+begin_src emacs-lisp :results output silent
   (use-package ivy-rich
     :straight (:host github :repo "Yevgnen/ivy-rich")
-    :after ivy
-    :config
-    (ivy-rich-mode 1))
+    :init
+    (with-eval-after-load 'ivy
+      (ivy-rich-mode)))
 #+end_src
 
 * Wgrep
@@ -2726,8 +2725,8 @@ In the =ag= buffer call =C-c C-p= to launch wgrep.
 #+begin_src emacs-lisp :results output silent
   (use-package wgrep
     :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
-    :defer 20
-    :commands (wgrep-change-to-wgrep-mode))
+    :commands (wgrep-change-to-wgrep-mode
+               ivy-wgrep-change-to-wgrep-mode))
 #+end_src
 
 * Company
