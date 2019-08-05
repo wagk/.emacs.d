@@ -493,7 +493,8 @@ recovery. Maybe eventually load dependencies and all that."
     :general
     (ivy-minibuffer-map
      "M-j" 'ivy-next-line
-     "M-k" 'ivy-previous-line)
+     "M-k" 'ivy-previous-line
+     "<C-return>" 'ivy-immediate-done)
     (:states 'normal
      :prefix my-default-evil-leader-key
      "<SPC>" 'counsel-M-x)

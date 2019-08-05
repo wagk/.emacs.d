@@ -644,7 +644,8 @@ Currently disabled while we look at other, more maintained projects
 #+Begin_src emacs-lisp :results output silent
   (use-package org-brain
     :straight (:host github :repo "Kungsgeten/org-brain")
-    :commands (org-brain-visualize)
+    :commands (org-brain-visualize
+               counsel-brain)
     :custom
     (org-brain-path (if (boundp 'config-local-syncthing-folder)
                         (concat config-local-syncthing-folder "/wiki")
@@ -653,14 +654,16 @@ Currently disabled while we look at other, more maintained projects
     (org-brain-visualize-mode-map
      "SPC" nil
      "S-SPC" nil
-     "\C-w" 'evil-window-map)
+     "\C-w" 'evil-window-map
+     ":" 'evil-ex)
     :init
     (with-eval-after-load 'evil
       (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
     (evil-define-command my-org-brain-config (args)
       (interactive "<a>")
       (cond
-       (t (org-brain-visualize))))
+       ;;TODO: implement additional ex command line things
+       (t (call-interactively 'org-brain-visualize))))
     (evil-ex-define-cmd "wiki" 'my-org-brain-config))
 #+end_src
 
@@ -1893,6 +1896,10 @@ to type it out.
                rg-literal)
     :custom
     (rg-ignore-case 'smart)
+    :general
+    (rg-mode-map
+     :states '(motion normal)
+      "gg" 'evil-goto-first-line)
     :init
     (evil-define-command config-rg-explicit (arg)
       (interactive "<a>")
