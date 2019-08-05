@@ -134,7 +134,7 @@ exist, using the template specified in
     (unless (file-exists-p local-file)
       ;; output a templated local.el file into local.el
       (write-region (with-temp-buffer
-                      (insert-file-contents (at-user-init-dir "auto-insert/elisp-local-template"))
+                      (insert-file-contents (at-user-init-dir "local-template.el"))
                       (buffer-string)) nil local-file))
     (load local-file)))
 
