@@ -393,7 +393,7 @@ recovery. Maybe eventually load dependencies and all that."
     :mode
     ("\\.todo\\'" . org-mode)
     :general
-    (:states  'normal
+    (:states  '(normal motion)
      :keymaps 'org-mode-map
      "TAB"    'org-cycle
      "<tab>"  'org-cycle

@@ -651,14 +651,15 @@ Currently disabled while we look at other, more maintained projects
     (org-brain-path (if (boundp 'config-local-syncthing-folder)
                         (concat config-local-syncthing-folder "/wiki")
                       "~/wiki"))
+    :hook ((org-brain-visualize-text . evil-ex-nohighlight))
     :general
     (org-brain-visualize-mode-map
-     "SPC" nil
-     "S-SPC" nil
-     "\C-w" 'evil-window-map
-     ":" 'evil-ex
-     "/" 'evil-ex-search-forward
-     "?" 'evil-ex-search-backward)
+     "SPC"       nil
+     "S-SPC"     nil
+     "\C-w"     'evil-window-map
+     ":"        'evil-ex
+     "/"        'evil-ex-search-forward
+     "?"        'evil-ex-search-backward)
     :init
     (with-eval-after-load 'evil
       (evil-set-initial-state 'org-brain-visualize-mode 'emacs)
