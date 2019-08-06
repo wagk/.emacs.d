@@ -659,13 +659,13 @@ Currently disabled while we look at other, more maintained projects
      ":" 'evil-ex)
     :init
     (with-eval-after-load 'evil
-      (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
-    (evil-define-command my-org-brain-config (args)
-      (interactive "<a>")
-      (cond
-       ;;TODO: implement additional ex command line things
-       (t (call-interactively 'org-brain-visualize))))
-    (evil-ex-define-cmd "wiki" 'my-org-brain-config))
+      (evil-set-initial-state 'org-brain-visualize-mode 'emacs)
+      (evil-define-command my-org-brain-config (args)
+        (interactive "<a>")
+        (cond)
+        ;;TODO: implement additional ex command line things
+        (t (call-interactively 'org-brain-visualize)))
+      (evil-ex-define-cmd "wiki" 'my-org-brain-config)))
 #+end_src
 
 *** Usage
