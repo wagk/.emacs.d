@@ -656,15 +656,17 @@ Currently disabled while we look at other, more maintained projects
      "SPC" nil
      "S-SPC" nil
      "\C-w" 'evil-window-map
-     ":" 'evil-ex)
+     ":" 'evil-ex
+     "/" 'evil-ex-search-forward
+     "?" 'evil-ex-search-backward)
     :init
     (with-eval-after-load 'evil
       (evil-set-initial-state 'org-brain-visualize-mode 'emacs)
       (evil-define-command my-org-brain-config (args)
         (interactive "<a>")
-        (cond)
-        ;;TODO: implement additional ex command line things
-        (t (call-interactively 'org-brain-visualize)))
+        (cond
+         ;;TODO: implement additional ex command line things
+          (t (call-interactively 'org-brain-visualize))))
       (evil-ex-define-cmd "wiki" 'my-org-brain-config)))
 #+end_src
 
@@ -1327,13 +1329,31 @@ with Chinese/Japanese.
 #+end_src
 
 ** Rainbow Identifiers Mode
-
 It looks fairly jarring to be very honest.
 
 #+begin_src emacs-lisp :results output silent
   (use-package rainbow-identifiers
     :straight (:host github :repo "Fanael/rainbow-identifiers")
     :commands (rainbow-identifiers-mode))
+#+end_src
+
+** Rainbow Blocks
+#+begin_src emacs-lisp :results output silent
+  (use-package rainbow-blocks
+    :straight (:host github :repo "istib/rainbow-blocks")
+    :commands (rainbow-blocks-mode
+               rainbow-blocks-mode-enable))
+
+#+end_src
+
+** Prism mode
+Much like rainbow blocks mode, but better somehow
+#+begin_src emacs-lisp :results output silent
+  (use-package prism
+    :straight (:host github :repo "alphapapa/prism.el")
+    :disabled t ;; needs "anaphora" or something like that
+    :commands (prism-mode
+               prism-set-faces))
 #+end_src
 
 ** Smartparens
@@ -1390,7 +1410,7 @@ package is known as elisp-mode but it reads as emacs-lisp
 #+begin_src emacs-lisp :results output silent
   (use-package elisp-mode
     :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
-           (emacs-lisp-mode . rainbow-identifiers-mode)
+           (emacs-lisp-mode . rainbow-blocks-mode-enable)
            (emacs-lisp-mode . parinfer-mode)
            (emacs-lisp-mode . update-evil-shift-width)
            (emacs-lisp-mode . evil-cleverparens-mode)))
@@ -1654,6 +1674,7 @@ clojurescript-mode derives from clojure-mode
     :commands (clojure-mode
                clojurescript-mode)
     :hook ((clojure-mode . rainbow-delimiters-mode)
+           (clojure-mode . rainbow-blocks-mode-enable)
            (clojure-mode . parinfer-mode)
            (clojure-mode . update-evil-shift-width)
            (clojure-mode . show-paren-mode))
