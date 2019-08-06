@@ -668,7 +668,11 @@ Currently disabled while we look at other, more maintained projects
         (cond
          ;;TODO: implement additional ex command line things
           (t (call-interactively 'org-brain-visualize))))
-      (evil-ex-define-cmd "wiki" 'my-org-brain-config)))
+      (evil-ex-define-cmd "wiki" 'my-org-brain-config))
+    :config
+    ;; NOTE: We do this because when running on different machine we
+    ;; will need to update the IDs of entries.
+    (org-brain-update-id-locations))
 #+end_src
 
 *** Usage
@@ -1354,7 +1358,10 @@ Much like rainbow blocks mode, but better somehow
     :straight (:host github :repo "alphapapa/prism.el")
     :disabled t ;; needs "anaphora" or something like that
     :commands (prism-mode
-               prism-set-faces))
+               prism-set-faces)
+    :preface
+    (use-package anaphora
+      :straight (:host github :repo "rolandwalker/anaphora")))
 #+end_src
 
 ** Smartparens
@@ -2770,10 +2777,10 @@ now becomes too noisy.
   (use-package ctags-update
     :straight (:host github :repo "jixiuf/ctags-update")
     :hook
-    (prog-mode . (lambda ()
-                   (ctags-global-auto-update-mode)))
+    (prog-mode . turn-on-ctags-auto-update-mode)
     :commands (ctags-global-update-mode
-               ctags-update))
+               ctags-update
+               turn-on-ctags-auto-update-mode))
 #+end_src
 
 * Seml-mode
@@ -2784,6 +2791,8 @@ now becomes too noisy.
 #+end_src
 
 * Annotations
+Might be better done as an ex mode command or something.
+
 #+begin_src emacs-lisp :results output silent
   (use-package annot
     :straight (:host github :repo "ghoshi/annot"
@@ -2844,7 +2853,7 @@ In the =ag= buffer call =C-c C-p= to launch wgrep.
     :custom
     (company-idle-delay 2)
     :hook
-    (prog-mode . company-mode))
+    (prog-mode . global-company-mode))
 #+end_src
 
 * Language Server Protocol

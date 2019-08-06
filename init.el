@@ -94,6 +94,7 @@
   (package-initialize))
 
 (defun bootstrap-straight ()
+  ;; Requires (package-initialize) to be called
   ;; https://github.com/raxod502/straight.el
   (let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
         (bootstrap-version 3))
@@ -108,11 +109,27 @@
     (load bootstrap-file nil 'nomessage))
   (setq straight-cache-autoloads t))
 
+;; (defun bootstrap-quelpa ()
+;;   ;; Requires (package-initialize) to be called beforehand
+;;   (if (require 'quelpa nil t)
+;;     (quelpa-self-upgrade))
+;;   (with-temp-buffer
+;;     (url-insert-file-contents
+;;      "https://framagit.org/steckerhalter/quelpa/raw/master/bootstrap.el")
+;;     (eval-buffer)))
+
 (defun bootstrap-use-package ()
   "Checks if use-package is installed and installs it if it isn't.
   Then performs configuration of use-package variables"
+  ;; (unless (featurep 'quelpa)
+  ;;   (bootstrap-quelpa))
+  ;; (quelpa
+  ;;   '(quelpa-use-package
+  ;;     :fetcher git
+  ;;     :url "https://framagit.org/steckerhalter/quelpa-use-package.git"))
+  (require 'quelpa-use-package)
   (unless (featurep 'straight)
-    (my-bootstrap-straight))
+    (bootstrap-straight))
   (require 'straight)
   (customize-set-variable 'load-prefer-newer t)
   (straight-use-package '(use-package
@@ -152,6 +169,7 @@ recovery. Maybe eventually load dependencies and all that."
 (let ((gc-cons-threshold most-positive-fixnum))
   (bootstrap-package)
   (bootstrap-straight)
+  ;; (bootstrap-quelpa)
   (bootstrap-use-package)
 
   ;; Load local configuration variables
