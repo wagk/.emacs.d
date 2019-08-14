@@ -127,7 +127,7 @@
   ;;   '(quelpa-use-package
   ;;     :fetcher git
   ;;     :url "https://framagit.org/steckerhalter/quelpa-use-package.git"))
-  (require 'quelpa-use-package)
+  ;; (require 'quelpa-use-package)
   (unless (featurep 'straight)
     (bootstrap-straight))
   (require 'straight)

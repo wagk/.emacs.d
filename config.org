@@ -648,12 +648,13 @@ Currently disabled while we look at other, more maintained projects
                counsel-brain
                org-brain-switch-brain)
     :custom
-    (org-brain-path (if (boundp 'config-local-syncthing-folder)
-                        (concat config-local-syncthing-folder "/wiki")
-                      "~/wiki"))
+    (org-brain-path (concat (if (boundp 'config-local-syncthing-folder)
+                                config-local-syncthing-folder
+                              "~") "/wiki"))
     :hook ((org-brain-visualize-text . evil-ex-nohighlight))
     :general
     (org-brain-visualize-mode-map
+     "h" 'org-brain-add-child-headline ;; it's recommended to use this instead
      "SPC"       nil
      "S-SPC"     nil
      "\C-w"     'evil-window-map
