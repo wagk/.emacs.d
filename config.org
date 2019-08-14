@@ -138,6 +138,15 @@ Adds the following ex commands:
     :straight (:host github :repo "edkolev/evil-expat"))
 #+end_src
 
+** Matchit
+#+begin_src emacs-lisp :results output silent
+  (use-package evil-matchit
+    :straight (:host github :repo "redguardtoo/evil-matchit")
+    :after evil
+    :config
+    (global-evil-matchit-mode))
+#+end_src
+
 ** Visualstar
 Allows for * and # commands. which originally only worked on WORDs,
 to work on a visual selection too
@@ -269,6 +278,13 @@ package isn't being maintained or something
      "c" 'evilnc-inner-comment)
     (evil-outer-text-objects-map
      "c" 'evilnc-outer-commenter))
+#+end_src
+
+(Compatibility with evil-matchit)
+#+begin_src emacs-lisp :results output silent
+  (with-eval-after-load 'evil-matchit
+    (with-eval-after-load 'evil-nerd-commenter
+      (evilmi-load-plugin-rules '(mhtml-mode) '(template simple html))))
 #+end_src
 
 ** Syntax Text Objects
@@ -708,6 +724,13 @@ Currently disabled while we look at other, more maintained projects
 | w          | =org-brain-visualize-random=         | Visualize one of your entries at random.                                          |
 | W          | =org-brain-visualize-wander=         | Visualize at random, in a set interval. =W= again to cancel.                      |
 
+** Org bullets
+#+begin_src emacs-lisp :results output silent
+  (use-package org-bullets
+    :straight (:host github :repo "emacsorphanage/org-bullets")
+    :hook (org-mode . org-bullets-mode))
+#+end_src
+
 * Git
 ** Magit
 If magit complains about not finding the config on windows, it's
@@ -818,7 +841,18 @@ that for the range we want
 ** vdiff for magit
 #+begin_src emacs-lisp :results output silent
   (use-package vdiff-magit
-    :straight (:host github :repo "justbur/emacs-vdiff-magit"))
+    :straight (:host github :repo "justbur/emacs-vdiff-magit")
+    :after magit
+    :general
+    (magit-mode-map
+     "e" 'vdiff-magit-dwim
+     "E" 'vdiff-magit)
+    :init
+    (with-eval-after-load 'magit
+      (transient-suffix-put 'magit-dispatch "e" :description "vdiff (dwim)")
+      (transient-suffix-put 'magit-dispatch "e" :command 'vdiff-magit-dwim)
+      (transient-suffix-put 'magit-dispatch "E" :description "vdiff")
+      (transient-suffix-put 'magit-dispatch "E" :command 'vdiff-magit)))
 #+end_src
 
 * Diff-hl
@@ -2899,4 +2933,12 @@ file will not itself be encrypted.
     :straight (:host github :repo "skuro/plantuml-mode")
     :commands (plantuml-mode)
     :mode "\\.plantuml\\'")
+#+end_src
+
+* Hex conversion
+#+begin_src emacs-lisp :results output silent
+  (use-package 0xc
+    :straight (:host github :repo "AdamNiederer/0xc")
+    :commands (0xc-convert
+               0xc-convert-point))
 #+end_src
