@@ -809,6 +809,18 @@ up, on windows at least).
 Look at ~git-gutter+-diffinfo-at-point~ and see if we can leverage
 that for the range we want
 
+* vdiff
+#+begin_src emacs-lisp :results output silent
+  (use-package vdiff
+    :straight (:host github :repo "justbur/emacs-vdiff"))
+#+end_src
+
+** vdiff for magit
+#+begin_src emacs-lisp :results output silent
+  (use-package vdiff-magit
+    :straight (:host github :repo "justbur/emacs-vdiff-magit"))
+#+end_src
+
 * Diff-hl
 #+begin_src emacs-lisp :results output silent
   (use-package diff-hl
