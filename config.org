@@ -753,20 +753,34 @@ Currently disabled while we look at other, more maintained projects
 
 **** Hydra
 #+begin_src emacs-lisp :results output silent
-  (defhydra hydra-org-brain (org-brain-visualize-mode-map "")
-    "
-  _c_: add child
-  _C_: remove child
+  (with-eval-after-load 'org-brain
+   (defhydra hydra-org-brain (org-brain-visualize-mode-map "")
+     "
+  _p_: add parent _P_: remove parent _t_: edit title
+  _f_: add friend _F_: remove friend _T_: edit tags
+  _c_: add child  _C_: remove child  _m_: toggle visualisation
+  _*_,_h_: add child headline
   "
-    ("m" org-brain-visualize-mind-map)
-    ("b" org-brain-visualize-back)
-    ("h" org-brain-add-child-headline))
+     ("m" org-brain-visualize-mind-map)
+     ("b" org-brain-visualize-back)
+     ("h" org-brain-add-child-headline)
+     ("*" org-brain-add-child-headline)
+     ("c" org-brain-add-child)
+     ("C" org-brain-remove-child)
+     ("e" org-brain-annotate-edge)
+     ("p" org-brain-add-parent)
+     ("P" org-brain-remove-parent)
+     ("f" org-brain-add-friendship)
+     ("F" org-brain-remove-friendship)
+     ("t" org-brain-set-title)
+     ("T" org-brain-set-tags)))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (general-define-key
-   :keymaps 'org-brain-visualize-mode-map
-   ";" 'hydra-org-brain/body)
+  (with-eval-after-load 'org-brain
+    (general-define-key
+     :keymaps 'org-brain-visualize-mode-map
+     ";" 'hydra-org-brain/body))
 #+end_src
 
 ** Org bullets
