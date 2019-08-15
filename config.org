@@ -2,6 +2,32 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
+* On Hydras                                                       :hydra:doc:
+[[https://github.com/abo-abo/hydra#awesome-docstring][Github source]]
+
+This can be a simple string used to build the final hydra hint.
+However, if you start it with a newline, the key-highlighting and
+Ruby-style string interpolation becomes enabled.
+
+To highlight a key, just wrap it in underscores (=_=). Note that the key
+must belong to one of the heads. The key will be highlighted with the
+color that is appropriate to the behavior of the key, i.e. if the key
+will make the hydra exit, the color will be blue.
+
+To insert an empty character, use =^=. The only use of this is to have
+your code aligned as nicely as the result.
+
+To insert a dynamic Elisp variable, use =%`= followed by the variable.
+Each time the variable changes due to a head, the docstring will be
+updated. format-style width specifiers can be used.
+
+To insert a dynamic Elisp expression, use e.g. =%(length
+(dired-get-marked-files))=. If a head will change the amount of marked
+files, for example, it will be appropriately updated.
+
+If the result of the Elisp expression is a string and you don't want
+to quote it, use this form: =%s(shell-command-to-string "du -hs")=.
+
 * TODO Figure out Edebug and tracebacks
 - [[http://endlessparentheses.com/debugging-emacs-lisp-part-1-earn-your-independence.html][Introduction part 1]]
 - [[http://endlessparentheses.com/debugging-elisp-part-2-advanced-topics.html][Introduction part 2]]
@@ -670,13 +696,14 @@ Currently disabled while we look at other, more maintained projects
     :hook ((org-brain-visualize-text . evil-ex-nohighlight))
     :general
     (org-brain-visualize-mode-map
-     "h" 'org-brain-add-child-headline ;; it's recommended to use this instead
-     "SPC"       nil
-     "S-SPC"     nil
-     "\C-w"     'evil-window-map
-     ":"        'evil-ex
-     "/"        'evil-ex-search-forward
-     "?"        'evil-ex-search-backward)
+     "SPC"        nil
+     "S-SPC"      nil
+     "\C-w"      'evil-window-map
+     ":"         'evil-ex
+     "/"         'evil-ex-search-forward
+     "?"         'evil-ex-search-backward
+     "h"         'org-brain-add-child-headline ;; it's recommended to use this instead
+     "\C-c \C-w" 'org-brain-refile)
     :init
     (with-eval-after-load 'evil
       (evil-set-initial-state 'org-brain-visualize-mode 'emacs)
@@ -724,10 +751,29 @@ Currently disabled while we look at other, more maintained projects
 | w          | =org-brain-visualize-random=         | Visualize one of your entries at random.                                          |
 | W          | =org-brain-visualize-wander=         | Visualize at random, in a set interval. =W= again to cancel.                      |
 
+**** Hydra
+#+begin_src emacs-lisp :results output silent
+  (defhydra hydra-org-brain (org-brain-visualize-mode-map "")
+    "
+  _c_: add child
+  _C_: remove child
+  "
+    ("m" org-brain-visualize-mind-map)
+    ("b" org-brain-visualize-back)
+    ("h" org-brain-add-child-headline))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (general-define-key
+   :keymaps 'org-brain-visualize-mode-map
+   ";" 'hydra-org-brain/body)
+#+end_src
+
 ** Org bullets
 #+begin_src emacs-lisp :results output silent
   (use-package org-bullets
     :straight (:host github :repo "emacsorphanage/org-bullets")
+    :disabled t ;; feels slower, might be expensive
     :hook (org-mode . org-bullets-mode))
 #+end_src
 
