@@ -835,7 +835,14 @@ that for the range we want
 * vdiff
 #+begin_src emacs-lisp :results output silent
   (use-package vdiff
-    :straight (:host github :repo "justbur/emacs-vdiff"))
+    :straight (:host github :repo "justbur/emacs-vdiff")
+    :commands vdiff-hydra/body
+    :init
+    (evil-define-command ex-vdiff-cli (cmd)
+      (interactive "<a>")
+      (cond
+       (t (vdiff-current-file))))
+    (evil-ex-define-cmd "vdiff" 'ex-vdiff-cli))
 #+end_src
 
 ** vdiff for magit
