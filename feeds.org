@@ -327,6 +327,10 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://practicalguidetoevil.wordpress.com/feed/][A Practical Guide to Evil]]
 ** Computer Science                                                :compsci:
 *** [[http://www.drdobbs.com/rss/all][Dr. Dobb's All]]
+
+*** [[https://cybersecpolitics.blogspot.com/feeds/posts/default?alt=rss][CyberSecPolitics]]
+
+*** [[https://www.malwaretech.com/feed][Malwaretech]]
 *** [[https://racket-news.com/feeds/all.atom.xml][Racket News]]
 *** [[https://jcs.org/rss][Joshua Stein]]
 *** [[https://blog.ret2.io/feed.xml][Ret2 Systems Engineering Blog]]
