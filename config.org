@@ -92,6 +92,268 @@ C-M-i                           backward-button
                                   nil)))
 #+end_src
 
+* Quality of Life
+** Frame Transparency
+#+begin_src emacs-lisp :results output silent
+  ;;;###autoload
+  (defun my-set-frame-transparency (value)
+    "Set the transparency of the frame window to VALUE.
+  0=transparent/100=opaque"
+    (interactive "nTransparency Value 0 - 100 opaque:")
+    (set-frame-parameter (selected-frame) 'alpha value))
+#+end_src
+
+** Highlight line
+#+begin_src emacs-lisp :results output silent
+(global-hl-line-mode)
+#+end_src
+
+** Default input method
+We're sticking to Japanese for now
+#+begin_src emacs-lisp :results output silent
+  (setq default-input-method "japanese")
+#+end_src
+
+** Disable GUI Elements
+#+begin_src emacs-lisp :results output silent
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (window-divider-mode -1)
+#+end_src
+
+** Timestamp
+Emulate the best feature of notepad
+
+#+begin_src emacs-lisp :results output silent
+  (defun iso-8601-timestamp ()
+    (concat (format-time-string "%Y-%m-%d")
+            "T"
+            (format-time-string "%T")
+            (format-time-string "%z")))
+  (general-define-key
+   :states '(normal insert)
+    "<f5>" '(lambda () (interactive)
+              (if (eq major-mode 'org-mode)
+                  (org-time-stamp-inactive '(16))
+                (insert (iso-8601-timestamp)))))
+#+end_src
+
+** Do not truncate lines
+#+begin_src emacs-lisp :results output silent
+  (setq-default truncate-lines t)
+#+end_src
+
+** Open a startup file as initial buffer
+#+begin_src emacs-lisp :results output silent
+  (customize-set-variable 'initial-buffer-choice user-frontpage-file)
+#+end_src
+
+** Configure scratch buffer message
+#+begin_src emacs-lisp :results output silent
+  (setq initial-scratch-message nil)
+#+end_src
+
+** Disable startup screen
+#+begin_src emacs-lisp :results output silent
+  (setq inhibit-startup-screen t)
+#+end_src
+
+** Change "yes or no" to "y or n"
+#+begin_src emacs-lisp :results output silent
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+end_src
+
+** Require newlines at the end of all files
+#+begin_src emacs-lisp :results output silent
+  (setq-default require-final-newline t)
+#+end_src
+
+** Disable alert sounds
+#+begin_src emacs-lisp :results output silent
+  (setq ring-bell-function 'ignore)
+#+end_src
+
+** Automatically refresh buffer when underlying file is changed externally
+#+begin_src emacs-lisp :results output silent
+  (customize-set-variable 'auto-revert-verbose nil)
+  (global-auto-revert-mode t)
+#+end_src
+
+** Make window subprocess communications faster
+#+begin_src emacs-lisp :results output silent
+  (setq w32-pipe-read-delay 0)
+#+end_src
+
+** Set default tab width
+#+begin_src emacs-lisp :results output silent
+  (setq-default tab-width 4)
+#+end_src
+
+** Make <TAB> always indent
+#+begin_src emacs-lisp :results output silent
+  (setq tab-always-indent 'complete)
+#+end_src
+
+** Never indent with a TAB character
+#+begin_src emacs-lisp :results output silent
+  (setq-default indent-tabs-mode nil)
+#+end_src
+
+** Strip Whitespace on save
+#+begin_src emacs-lisp :results output silent
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+end_src
+
+** Bind whitespace-mode
+#+begin_src emacs-lisp :results output silent
+  (general-define-key
+   :states 'normal
+   :prefix my-default-evil-leader-key
+    "," 'whitespace-mode)
+#+end_src
+
+** After creating a new frame, immediately focus on that frame.
+#+begin_src emacs-lisp :results output silent
+  (add-hook 'after-make-frame-functions 'select-frame)
+#+end_src
+
+** Sentences should end after a single space, not two
+#+begin_src emacs-lisp :results output silent
+  (customize-set-variable 'sentence-end-double-space nil)
+#+end_src
+
+** Underscores should be considered as part of a word
+#+begin_src emacs-lisp :results output silent
+  (add-hook 'after-change-major-mode-hook '(lambda () (modify-syntax-entry ?_ "w")))
+#+end_src
+
+** Ensure that files being edited are recoverable
+#+begin_src emacs-lisp :results output silent
+  (setq delete-old-versions t
+        backup-by-copying t
+        version-control t
+        kept-new-versions 20
+        kept-old-versions 5
+        vc-make-backup-files t)
+  (setq savehist-save-minibuffer-history 1
+        savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
+  (setq history-length t
+        history-delete-duplicates t)
+  (savehist-mode 1)
+#+end_src
+
+** Stretch caret to cover full width of character
+http://pragmaticemacs.com/emacs/adaptive-cursor-width/
+#+begin_src emacs-lisp :results output silent
+  (setq x-stretch-cursor t)
+#+end_src
+
+** Display line numbers when editing code
+#+begin_src emacs-lisp :results output silent
+  (when (>= emacs-major-version 26)
+    (add-hook 'prog-mode-hook 'display-line-numbers-mode))
+#+end_src
+
+** Show matching parens
+#+begin_src emacs-lisp :results output silent
+  (customize-set-value 'show-paren-when-point-inside-paren t)
+  (customize-set-value 'show-paren-when-point-in-periphery t)
+  (add-hook 'prog-mode-hook 'show-paren-mode)
+#+end_src
+
+** Scroll like Vim
+#+begin_src emacs-lisp :results output silent
+  (setq scroll-step 1
+        scroll-margin 1
+        scroll-conservatively 9999)
+#+end_src
+
+** Activate hs-minor-mode on prog mode
+#+begin_src emacs-lisp :results output silent
+  (add-hook 'prog-mode-hook 'hs-minor-mode)
+#+end_src
+
+** Eval sexp and replace with results
+Stolen from https://github.com/bbatsov/crux
+
+#+begin_src emacs-lisp :results output silent
+  ;;;###autoload
+  (defun eval-and-replace ()
+    "Replace the preceding sexp with its value."
+    (interactive)
+    (let ((value (eval (elisp--preceding-sexp))))
+      (backward-kill-sexp)
+      (insert (format "%S" value))))
+#+end_src
+
+** Completion
+#+begin_src emacs-lisp :results output silent
+  (customize-set-value 'completion-ignore-case t)
+  (customize-set-value 'read-file-name-completion-ignore-case t)
+  (customize-set-value 'read-buffer-completion-ignore-case t)
+#+end_src
+
+** Copy file name to keyboard
+#+begin_src emacs-lisp :results output silent
+  (defun my-kill-path-to-keyboard ()
+    "https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
+    (interactive)
+    (let ((filename (if (equal major-mode 'dired-mode)
+                        default-directory
+                      (buffer-file-name))))
+      (when filename
+        (kill-new filename))))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "ypath" 'my-kill-path-to-keyboard)
+#+end_src
+
+** Tags table defaults
+#+begin_src emacs-lisp :results output silent
+  (setq-default tags-add-tables nil)
+#+end_src
+
+** COMMENT If inside {}, [], or (), newline and indent
+#+begin_src emacs-lisp :results output silent
+  (defun config-block-insert-newline (list)
+    "If the point is immediately bounded by {}, (), or [], indent it
+    properly, given an alist of (BEFORE . AFTER) characters.
+  Example, if the point is within {} like so {|}:
+  When newline is pressed, turn it into {
+      |
+  }
+  instead.
+  "
+    (interactive)
+    (loop for (begin . end) in list
+          when (and (string= begin (preceding-char))
+                    (string= end (following-char)))
+            do
+            (newline)
+            (indent-according-to-mode)
+            (forward-line -1)
+            (indent-according-to-mode)
+            (return-from config-block-insert-newline)))
+#+end_src
+
+
+** Set commands
+#+begin_src emacs-lisp :results output silent
+  (evil-define-command config-ex-set-arg (cmd)
+    (interactive "<a>")
+    (cond
+     ((string= cmd "wrap") (visual-line-mode 1))
+     ((string= cmd "nowrap") (visual-line-mode -1))))
+  (evil-ex-define-cmd "set" 'config-ex-set-arg)
+#+end_src
+
+** Electric Indent
+#+begin_src emacs-lisp :results output silent
+  (electric-indent-mode)
+#+end_src
+
 * Packaging
 #+begin_src emacs-lisp :results output silent
   (use-package auto-package-update
@@ -924,268 +1186,6 @@ that for the range we want
 
 * Make Emacs Restartable
 Moved to init.el
-
-* Quality of Life
-** Frame Transparency
-#+begin_src emacs-lisp :results output silent
-  ;;;###autoload
-  (defun my-set-frame-transparency (value)
-    "Set the transparency of the frame window to VALUE.
-  0=transparent/100=opaque"
-    (interactive "nTransparency Value 0 - 100 opaque:")
-    (set-frame-parameter (selected-frame) 'alpha value))
-#+end_src
-
-** Highlight line
-#+begin_src emacs-lisp :results output silent
-(global-hl-line-mode)
-#+end_src
-
-** Default input method
-We're sticking to Japanese for now
-#+begin_src emacs-lisp :results output silent
-  (setq default-input-method "japanese")
-#+end_src
-
-** Disable GUI Elements
-#+begin_src emacs-lisp :results output silent
-  (tool-bar-mode -1)
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
-  (window-divider-mode -1)
-#+end_src
-
-** Timestamp
-Emulate the best feature of notepad
-
-#+begin_src emacs-lisp :results output silent
-  (defun iso-8601-timestamp ()
-    (concat (format-time-string "%Y-%m-%d")
-            "T"
-            (format-time-string "%T")
-            (format-time-string "%z")))
-  (general-define-key
-   :states '(normal insert)
-    "<f5>" '(lambda () (interactive)
-              (if (eq major-mode 'org-mode)
-                  (org-time-stamp-inactive '(16))
-                (insert (iso-8601-timestamp)))))
-#+end_src
-
-** Do not truncate lines
-#+begin_src emacs-lisp :results output silent
-  (setq-default truncate-lines t)
-#+end_src
-
-** Open a startup file as initial buffer
-#+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'initial-buffer-choice user-frontpage-file)
-#+end_src
-
-** Configure scratch buffer message
-#+begin_src emacs-lisp :results output silent
-  (setq initial-scratch-message nil)
-#+end_src
-
-** Disable startup screen
-#+begin_src emacs-lisp :results output silent
-  (setq inhibit-startup-screen t)
-#+end_src
-
-** Change "yes or no" to "y or n"
-#+begin_src emacs-lisp :results output silent
-  (fset 'yes-or-no-p 'y-or-n-p)
-#+end_src
-
-** Require newlines at the end of all files
-#+begin_src emacs-lisp :results output silent
-  (setq-default require-final-newline t)
-#+end_src
-
-** Disable alert sounds
-#+begin_src emacs-lisp :results output silent
-  (setq ring-bell-function 'ignore)
-#+end_src
-
-** Automatically refresh buffer when underlying file is changed externally
-#+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'auto-revert-verbose nil)
-  (global-auto-revert-mode t)
-#+end_src
-
-** Make window subprocess communications faster
-#+begin_src emacs-lisp :results output silent
-  (setq w32-pipe-read-delay 0)
-#+end_src
-
-** Set default tab width
-#+begin_src emacs-lisp :results output silent
-  (setq-default tab-width 4)
-#+end_src
-
-** Make <TAB> always indent
-#+begin_src emacs-lisp :results output silent
-  (setq tab-always-indent 'complete)
-#+end_src
-
-** Never indent with a TAB character
-#+begin_src emacs-lisp :results output silent
-  (setq-default indent-tabs-mode nil)
-#+end_src
-
-** Strip Whitespace on save
-#+begin_src emacs-lisp :results output silent
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
-#+end_src
-
-** Bind whitespace-mode
-#+begin_src emacs-lisp :results output silent
-  (general-define-key
-   :states 'normal
-   :prefix my-default-evil-leader-key
-    "," 'whitespace-mode)
-#+end_src
-
-** After creating a new frame, immediately focus on that frame.
-#+begin_src emacs-lisp :results output silent
-  (add-hook 'after-make-frame-functions 'select-frame)
-#+end_src
-
-** Sentences should end after a single space, not two
-#+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'sentence-end-double-space nil)
-#+end_src
-
-** Underscores should be considered as part of a word
-#+begin_src emacs-lisp :results output silent
-  (add-hook 'after-change-major-mode-hook '(lambda () (modify-syntax-entry ?_ "w")))
-#+end_src
-
-** Ensure that files being edited are recoverable
-#+begin_src emacs-lisp :results output silent
-  (setq delete-old-versions t
-        backup-by-copying t
-        version-control t
-        kept-new-versions 20
-        kept-old-versions 5
-        vc-make-backup-files t)
-  (setq savehist-save-minibuffer-history 1
-        savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
-  (setq history-length t
-        history-delete-duplicates t)
-  (savehist-mode 1)
-#+end_src
-
-** Stretch caret to cover full width of character
-http://pragmaticemacs.com/emacs/adaptive-cursor-width/
-#+begin_src emacs-lisp :results output silent
-  (setq x-stretch-cursor t)
-#+end_src
-
-** Display line numbers when editing code
-#+begin_src emacs-lisp :results output silent
-  (when (>= emacs-major-version 26)
-    (add-hook 'prog-mode-hook 'display-line-numbers-mode))
-#+end_src
-
-** Show matching parens
-#+begin_src emacs-lisp :results output silent
-  (customize-set-value 'show-paren-when-point-inside-paren t)
-  (customize-set-value 'show-paren-when-point-in-periphery t)
-  (add-hook 'prog-mode-hook 'show-paren-mode)
-#+end_src
-
-** Scroll like Vim
-#+begin_src emacs-lisp :results output silent
-  (setq scroll-step 1
-        scroll-margin 1
-        scroll-conservatively 9999)
-#+end_src
-
-** Activate hs-minor-mode on prog mode
-#+begin_src emacs-lisp :results output silent
-  (add-hook 'prog-mode-hook 'hs-minor-mode)
-#+end_src
-
-** Eval sexp and replace with results
-Stolen from https://github.com/bbatsov/crux
-
-#+begin_src emacs-lisp :results output silent
-  ;;;###autoload
-  (defun eval-and-replace ()
-    "Replace the preceding sexp with its value."
-    (interactive)
-    (let ((value (eval (elisp--preceding-sexp))))
-      (backward-kill-sexp)
-      (insert (format "%S" value))))
-#+end_src
-
-** Completion
-#+begin_src emacs-lisp :results output silent
-  (customize-set-value 'completion-ignore-case t)
-  (customize-set-value 'read-file-name-completion-ignore-case t)
-  (customize-set-value 'read-buffer-completion-ignore-case t)
-#+end_src
-
-** Copy file name to keyboard
-#+begin_src emacs-lisp :results output silent
-  (defun my-kill-path-to-keyboard ()
-    "https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
-    (interactive)
-    (let ((filename (if (equal major-mode 'dired-mode)
-                        default-directory
-                      (buffer-file-name))))
-      (when filename
-        (kill-new filename))))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "ypath" 'my-kill-path-to-keyboard)
-#+end_src
-
-** Tags table defaults
-#+begin_src emacs-lisp :results output silent
-  (setq-default tags-add-tables nil)
-#+end_src
-
-** COMMENT If inside {}, [], or (), newline and indent
-#+begin_src emacs-lisp :results output silent
-  (defun config-block-insert-newline (list)
-    "If the point is immediately bounded by {}, (), or [], indent it
-    properly, given an alist of (BEFORE . AFTER) characters.
-  Example, if the point is within {} like so {|}:
-  When newline is pressed, turn it into {
-      |
-  }
-  instead.
-  "
-    (interactive)
-    (loop for (begin . end) in list
-          when (and (string= begin (preceding-char))
-                    (string= end (following-char)))
-            do
-            (newline)
-            (indent-according-to-mode)
-            (forward-line -1)
-            (indent-according-to-mode)
-            (return-from config-block-insert-newline)))
-#+end_src
-
-
-** Set commands
-#+begin_src emacs-lisp :results output silent
-  (evil-define-command config-ex-set-arg (cmd)
-    (interactive "<a>")
-    (cond
-     ((string= cmd "wrap") (visual-line-mode 1))
-     ((string= cmd "nowrap") (visual-line-mode -1))))
-  (evil-ex-define-cmd "set" 'config-ex-set-arg)
-#+end_src
-
-** Electric Indent
-#+begin_src emacs-lisp :results output silent
-  (electric-indent-mode)
-#+end_src
 
 * Window layout management
 ** Eyebrowse
