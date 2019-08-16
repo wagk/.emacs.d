@@ -755,25 +755,34 @@ Currently disabled while we look at other, more maintained projects
 #+begin_src emacs-lisp :results output silent
   (with-eval-after-load 'org-brain
    (defhydra hydra-org-brain (org-brain-visualize-mode-map "")
-     "
-  _p_: add parent _P_: remove parent _t_: edit title
-  _f_: add friend _F_: remove friend _T_: edit tags
-  _c_: add child  _C_: remove child  _m_: toggle visualisation
-  _*_,_h_: add child headline
-  "
-     ("m" org-brain-visualize-mind-map)
-     ("b" org-brain-visualize-back)
-     ("h" org-brain-add-child-headline)
-     ("*" org-brain-add-child-headline)
-     ("c" org-brain-add-child)
-     ("C" org-brain-remove-child)
-     ("e" org-brain-annotate-edge)
-     ("p" org-brain-add-parent)
-     ("P" org-brain-remove-parent)
-     ("f" org-brain-add-friendship)
-     ("F" org-brain-remove-friendship)
-     ("t" org-brain-set-title)
-     ("T" org-brain-set-tags)))
+     "org-brain bindings"
+     ("m" org-brain-visualize-mind-map "toggle mind map vis" :exit t)
+     ("b" org-brain-visualize-back "go to last node" :exit t)
+     ("h" org-brain-add-child-headline "add child headline" :exit t)
+     ("*" org-brain-add-child-headline "add child headline" :exit t)
+     ("c" org-brain-add-child "add child" :exit t)
+     ("C" org-brain-remove-child "remove child" :exit t)
+     ("e" org-brain-annotate-edge "annotate edge" :exit t)
+     ("p" org-brain-add-parent "add parent" :exit t)
+     ("P" org-brain-remove-parent "remove parent" :exit t)
+     ("f" org-brain-add-friendship "add friendship" :exit t)
+     ("F" org-brain-remove-friendship "remove friendship" :exit t)
+     ("n" org-brain-pin "pin entry" :exit t)
+     ("s" org-brain-select-dwim "select entry for batch processing" :exit t)
+     ("S" org-brain-select-map "prefix for batch process selected entries" :exit t)
+     ("t" org-brain-set-title "edit title" :exit t)
+     ("T" org-brain-set-tags "edit tags" :exit t)
+     ("d" org-brain-delete-entry "delete node" :exit t)
+     ("l" org-brain-visualize-add-resource "add new resource to entry" :exit t)
+     ("r" org-brain-open-resource "open resource" :exit t)
+     ("C-y" org-brain-visualize-paste-resource "add resource from keyboard" :exit t)
+     ("a" org-brain-visualize-attach "org-attach on headline" :exit t)
+     ("A" org-brain-archive "archive entry" :exit t)
+     ("o" org-brain-goto-current "open current node" :exit t)
+     ("O" org-brain-goto "open a node" :exit t)
+     ("v" org-brain-visualize "see another entry" :exit t)
+     ("w" org-brain-visualize-random "see random entry" :exit t)
+     ("W" org-brain-visualize-wander "see random entries on timer" :exit t)))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
@@ -2998,4 +3007,11 @@ file will not itself be encrypted.
     :straight (:host github :repo "AdamNiederer/0xc")
     :commands (0xc-convert
                0xc-convert-point))
+#+end_src
+
+* Zeal documentation at point
+#+begin_src emacs-lisp :results output silent
+  (use-package zeal-at-point
+    :straight (:host github :repo "jinzhu/zeal-at-point")
+    :commands zeal-at-point)
 #+end_src
