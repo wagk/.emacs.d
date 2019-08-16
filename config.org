@@ -2,6 +2,32 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
+* On Hydras                                                       :hydra:doc:
+[[https://github.com/abo-abo/hydra#awesome-docstring][Github source]]
+
+This can be a simple string used to build the final hydra hint.
+However, if you start it with a newline, the key-highlighting and
+Ruby-style string interpolation becomes enabled.
+
+To highlight a key, just wrap it in underscores (=_=). Note that the key
+must belong to one of the heads. The key will be highlighted with the
+color that is appropriate to the behavior of the key, i.e. if the key
+will make the hydra exit, the color will be blue.
+
+To insert an empty character, use =^=. The only use of this is to have
+your code aligned as nicely as the result.
+
+To insert a dynamic Elisp variable, use =%`= followed by the variable.
+Each time the variable changes due to a head, the docstring will be
+updated. format-style width specifiers can be used.
+
+To insert a dynamic Elisp expression, use e.g. =%(length
+(dired-get-marked-files))=. If a head will change the amount of marked
+files, for example, it will be appropriately updated.
+
+If the result of the Elisp expression is a string and you don't want
+to quote it, use this form: =%s(shell-command-to-string "du -hs")=.
+
 * TODO Figure out Edebug and tracebacks
 - [[http://endlessparentheses.com/debugging-emacs-lisp-part-1-earn-your-independence.html][Introduction part 1]]
 - [[http://endlessparentheses.com/debugging-elisp-part-2-advanced-topics.html][Introduction part 2]]
@@ -138,6 +164,15 @@ Adds the following ex commands:
     :straight (:host github :repo "edkolev/evil-expat"))
 #+end_src
 
+** Matchit
+#+begin_src emacs-lisp :results output silent
+  (use-package evil-matchit
+    :straight (:host github :repo "redguardtoo/evil-matchit")
+    :after evil
+    :config
+    (global-evil-matchit-mode))
+#+end_src
+
 ** Visualstar
 Allows for * and # commands. which originally only worked on WORDs,
 to work on a visual selection too
@@ -269,6 +304,13 @@ package isn't being maintained or something
      "c" 'evilnc-inner-comment)
     (evil-outer-text-objects-map
      "c" 'evilnc-outer-commenter))
+#+end_src
+
+(Compatibility with evil-matchit)
+#+begin_src emacs-lisp :results output silent
+  (with-eval-after-load 'evil-matchit
+    (with-eval-after-load 'evil-nerd-commenter
+      (evilmi-load-plugin-rules '(mhtml-mode) '(template simple html))))
 #+end_src
 
 ** Syntax Text Objects
@@ -654,13 +696,14 @@ Currently disabled while we look at other, more maintained projects
     :hook ((org-brain-visualize-text . evil-ex-nohighlight))
     :general
     (org-brain-visualize-mode-map
-     "h" 'org-brain-add-child-headline ;; it's recommended to use this instead
-     "SPC"       nil
-     "S-SPC"     nil
-     "\C-w"     'evil-window-map
-     ":"        'evil-ex
-     "/"        'evil-ex-search-forward
-     "?"        'evil-ex-search-backward)
+     "SPC"        nil
+     "S-SPC"      nil
+     "\C-w"      'evil-window-map
+     ":"         'evil-ex
+     "/"         'evil-ex-search-forward
+     "?"         'evil-ex-search-backward
+     "h"         'org-brain-add-child-headline ;; it's recommended to use this instead
+     "\C-c \C-w" 'org-brain-refile)
     :init
     (with-eval-after-load 'evil
       (evil-set-initial-state 'org-brain-visualize-mode 'emacs)
@@ -707,6 +750,46 @@ Currently disabled while we look at other, more maintained projects
 | v          | =org-brain-visualize=                | Choose and visualize a different entry                                            |
 | w          | =org-brain-visualize-random=         | Visualize one of your entries at random.                                          |
 | W          | =org-brain-visualize-wander=         | Visualize at random, in a set interval. =W= again to cancel.                      |
+
+**** Hydra
+#+begin_src emacs-lisp :results output silent
+  (with-eval-after-load 'org-brain
+   (defhydra hydra-org-brain (org-brain-visualize-mode-map "")
+     "
+  _p_: add parent _P_: remove parent _t_: edit title
+  _f_: add friend _F_: remove friend _T_: edit tags
+  _c_: add child  _C_: remove child  _m_: toggle visualisation
+  _*_,_h_: add child headline
+  "
+     ("m" org-brain-visualize-mind-map)
+     ("b" org-brain-visualize-back)
+     ("h" org-brain-add-child-headline)
+     ("*" org-brain-add-child-headline)
+     ("c" org-brain-add-child)
+     ("C" org-brain-remove-child)
+     ("e" org-brain-annotate-edge)
+     ("p" org-brain-add-parent)
+     ("P" org-brain-remove-parent)
+     ("f" org-brain-add-friendship)
+     ("F" org-brain-remove-friendship)
+     ("t" org-brain-set-title)
+     ("T" org-brain-set-tags)))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (with-eval-after-load 'org-brain
+    (general-define-key
+     :keymaps 'org-brain-visualize-mode-map
+     ";" 'hydra-org-brain/body))
+#+end_src
+
+** Org bullets
+#+begin_src emacs-lisp :results output silent
+  (use-package org-bullets
+    :straight (:host github :repo "emacsorphanage/org-bullets")
+    :disabled t ;; feels slower, might be expensive
+    :hook (org-mode . org-bullets-mode))
+#+end_src
 
 * Git
 ** Magit
@@ -798,6 +881,36 @@ up, on windows at least).
 
 Look at ~git-gutter+-diffinfo-at-point~ and see if we can leverage
 that for the range we want
+
+* vdiff
+#+begin_src emacs-lisp :results output silent
+  (use-package vdiff
+    :straight (:host github :repo "justbur/emacs-vdiff")
+    :commands vdiff-hydra/body
+    :init
+    (evil-define-command ex-vdiff-cli (cmd)
+      (interactive "<a>")
+      (cond
+       (t (vdiff-current-file))))
+    (evil-ex-define-cmd "vdiff" 'ex-vdiff-cli))
+#+end_src
+
+** vdiff for magit
+#+begin_src emacs-lisp :results output silent
+  (use-package vdiff-magit
+    :straight (:host github :repo "justbur/emacs-vdiff-magit")
+    :after magit
+    :general
+    (magit-mode-map
+     "e" 'vdiff-magit-dwim
+     "E" 'vdiff-magit)
+    :init
+    (with-eval-after-load 'magit
+      (transient-suffix-put 'magit-dispatch "e" :description "vdiff (dwim)")
+      (transient-suffix-put 'magit-dispatch "e" :command 'vdiff-magit-dwim)
+      (transient-suffix-put 'magit-dispatch "E" :description "vdiff")
+      (transient-suffix-put 'magit-dispatch "E" :command 'vdiff-magit)))
+#+end_src
 
 * Diff-hl
 #+begin_src emacs-lisp :results output silent
@@ -2877,4 +2990,12 @@ file will not itself be encrypted.
     :straight (:host github :repo "skuro/plantuml-mode")
     :commands (plantuml-mode)
     :mode "\\.plantuml\\'")
+#+end_src
+
+* Hex conversion
+#+begin_src emacs-lisp :results output silent
+  (use-package 0xc
+    :straight (:host github :repo "AdamNiederer/0xc")
+    :commands (0xc-convert
+               0xc-convert-point))
 #+end_src
