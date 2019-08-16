@@ -730,16 +730,6 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
       "Calls specific magit functions"
       (interactive "<a>")
       (cond
-       ;; ((string= cmd "pull") (magit-pull-from-pushremote nil))
-       ;; ((string= cmd "commit") (magit-commit))
-       ;; ((string= cmd "commit all") (magit-commit `("--all" "-m" ,(iso-8601-timestamp))))
-       ;; ((string= cmd "push") (magit-push-current-to-pushremote nil))
-       ;; ((string= cmd "commit push all") (progn
-       ;;                                    (magit-commit `("--all" "-m" ,(iso-8601-timestamp)))
-       ;;                                    (magit-push-current-to-pushremote nil)))
-       ;; ((string= cmd "log") (magit-log-all))
-       ;; ((or (string= cmd "status")
-       ;;      (eq cmd nil)) (magit-status))
        ((eq cmd nil) (magit-status))
        (t (magit-shell-command (concat "git " cmd)))))
     (evil-ex-define-cmd "git" 'ex-magit-cli)
