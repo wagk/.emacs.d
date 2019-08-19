@@ -1171,6 +1171,7 @@ that for the range we want
   (use-package vdiff-magit
     :straight (:host github :repo "justbur/emacs-vdiff-magit")
     :after magit
+    :disabled t
     :general
     (magit-mode-map
      "e" 'vdiff-magit-dwim
