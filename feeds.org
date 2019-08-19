@@ -7,6 +7,7 @@
 * Imported Feeds                                                     :elfeed:
 ** A List of Things I actually Read                                    :hot:
 *** [[http://calnewport.com/blog/feed/][Study Hacks]]
+*** [[https://www.lesswrong.com/feed.xml][Lesswrong]]
 *** [[etodd.io/feed/][Evan Todd's Blog]]                                              :gamedev:
 *** [[http://feeds.feedburner.com/WorldOfMatticus][World of Matticus]]                                            :wow:blog:
 *** [[http://feeds.feedburner.com/rudiusmedia/rch][Ryan Holiday]]                                            :stoicism:blog:
