@@ -330,6 +330,9 @@ recovery. Maybe eventually load dependencies and all that."
                                      (call-interactively 'evil-window-vsplit)
                                      (switch-to-buffer "*scratch*")))
 
+    (evil-ex-define-cmd "framen" 'make-frame)
+    (evil-ex-define-cmd "framec" 'delete-frame)
+
     ;; https://stackoverflow.com/questions/18102004/emacs-evil-mode-how-to-create-a-new-text-object-to-select-words-with-any-non-sp/22418983#22418983
     (defmacro /evil-define-and-bind-text-object (key start-regex end-regex)
       (let ((inner-name (make-symbol "inner-name"))

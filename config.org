@@ -3015,3 +3015,18 @@ file will not itself be encrypted.
     :straight (:host github :repo "jinzhu/zeal-at-point")
     :commands zeal-at-point)
 #+end_src
+
+* Edn format
+#+begin_src emacs-lisp :results output silent
+  (use-package edn
+    :straight (:host github :repo "expez/edn.el")
+    :commands (edn-read
+               edn-print-string))
+#+end_src
+
+* Novel reading
+#+begin_src emacs-lisp :results output silent
+  (use-package nov
+    :straight (:host github :repo "wasamasa/nov.el")
+    :mode ("\\.epub\\'" . nov-mode))
+#+end_src
