@@ -2981,6 +2981,7 @@ In the =ag= buffer call =C-c C-p= to launch wgrep.
 #+begin_src emacs-lisp :results output silent
   (use-package origami
     :straight (:host github :repo "gregsexton/origami.el")
+    :after evil
     :hook
     (prog-mode . origami-mode))
 #+end_src
