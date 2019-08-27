@@ -154,6 +154,11 @@ Emulate the best feature of notepad
   (setq initial-scratch-message nil)
 #+end_src
 
+** Configure scratch buffer mode
+#+begin_src emacs-lisp :results output silent
+  (customize-set-variable 'initial-major-mode 'org-mode)
+#+end_src
+
 ** Disable startup screen
 #+begin_src emacs-lisp :results output silent
   (setq inhibit-startup-screen t)
@@ -2996,11 +3001,18 @@ file will not itself be encrypted.
 #+end_src
 
 * PlantUML mode
+[[http://plantuml.com/index][Reference]]
+
 #+begin_src emacs-lisp :results output silent
   (use-package plantuml-mode
     :straight (:host github :repo "skuro/plantuml-mode")
     :commands (plantuml-mode)
-    :mode "\\.plantuml\\'")
+    :ensure-system-package
+    (plantuml . "choco install -y plantuml")
+    :mode "\\.plantuml\\'"
+    :init
+    (with-eval-after-load 'org-src
+      (cl-pushnew '("plantuml" . plantuml) org-src-lang-modes)))
 #+end_src
 
 * Hex conversion
