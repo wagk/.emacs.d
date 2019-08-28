@@ -154,6 +154,11 @@ Emulate the best feature of notepad
   (setq initial-scratch-message nil)
 #+end_src
 
+** Configure scratch buffer mode
+#+begin_src emacs-lisp :results output silent
+  (customize-set-variable 'initial-major-mode 'org-mode)
+#+end_src
+
 ** Disable startup screen
 #+begin_src emacs-lisp :results output silent
   (setq inhibit-startup-screen t)
@@ -1015,36 +1020,37 @@ Currently disabled while we look at other, more maintained projects
 
 **** Hydra
 #+begin_src emacs-lisp :results output silent
-  (with-eval-after-load 'org-brain
-   (defhydra hydra-org-brain (org-brain-visualize-mode-map "")
-     "org-brain bindings"
-     ("m" org-brain-visualize-mind-map "toggle mind map vis" :exit t)
-     ("b" org-brain-visualize-back "go to last node" :exit t)
-     ("h" org-brain-add-child-headline "add child headline" :exit t)
-     ("*" org-brain-add-child-headline "add child headline" :exit t)
-     ("c" org-brain-add-child "add child" :exit t)
-     ("C" org-brain-remove-child "remove child" :exit t)
-     ("e" org-brain-annotate-edge "annotate edge" :exit t)
-     ("p" org-brain-add-parent "add parent" :exit t)
-     ("P" org-brain-remove-parent "remove parent" :exit t)
-     ("f" org-brain-add-friendship "add friendship" :exit t)
-     ("F" org-brain-remove-friendship "remove friendship" :exit t)
-     ("n" org-brain-pin "pin entry" :exit t)
-     ("s" org-brain-select-dwim "select entry for batch processing" :exit t)
-     ("S" org-brain-select-map "prefix for batch process selected entries" :exit t)
-     ("t" org-brain-set-title "edit title" :exit t)
-     ("T" org-brain-set-tags "edit tags" :exit t)
-     ("d" org-brain-delete-entry "delete node" :exit t)
-     ("l" org-brain-visualize-add-resource "add new resource to entry" :exit t)
-     ("r" org-brain-open-resource "open resource" :exit t)
-     ("C-y" org-brain-visualize-paste-resource "add resource from keyboard" :exit t)
-     ("a" org-brain-visualize-attach "org-attach on headline" :exit t)
-     ("A" org-brain-archive "archive entry" :exit t)
-     ("o" org-brain-goto-current "open current node" :exit t)
-     ("O" org-brain-goto "open a node" :exit t)
-     ("v" org-brain-visualize "see another entry" :exit t)
-     ("w" org-brain-visualize-random "see random entry" :exit t)
-     ("W" org-brain-visualize-wander "see random entries on timer" :exit t)))
+  (with-eval-after-load 'hydra
+    (with-eval-after-load 'org-brain
+      (defhydra hydra-org-brain (org-brain-visualize-mode-map "")
+        "org-brain bindings"
+        ("m" org-brain-visualize-mind-map "toggle mind map vis" :exit t)
+        ("b" org-brain-visualize-back "go to last node" :exit t)
+        ("h" org-brain-add-child-headline "add child headline" :exit t)
+        ("*" org-brain-add-child-headline "add child headline" :exit t)
+        ("c" org-brain-add-child "add child" :exit t)
+        ("C" org-brain-remove-child "remove child" :exit t)
+        ("e" org-brain-annotate-edge "annotate edge" :exit t)
+        ("p" org-brain-add-parent "add parent" :exit t)
+        ("P" org-brain-remove-parent "remove parent" :exit t)
+        ("f" org-brain-add-friendship "add friendship" :exit t)
+        ("F" org-brain-remove-friendship "remove friendship" :exit t)
+        ("n" org-brain-pin "pin entry" :exit t)
+        ("s" org-brain-select-dwim "select entry for batch processing" :exit t)
+        ("S" org-brain-select-map "prefix for batch process selected entries" :exit t)
+        ("t" org-brain-set-title "edit title" :exit t)
+        ("T" org-brain-set-tags "edit tags" :exit t)
+        ("d" org-brain-delete-entry "delete node" :exit t)
+        ("l" org-brain-visualize-add-resource "add new resource to entry" :exit t)
+        ("r" org-brain-open-resource "open resource" :exit t)
+        ("C-y" org-brain-visualize-paste-resource "add resource from keyboard" :exit t)
+        ("a" org-brain-visualize-attach "org-attach on headline" :exit t)
+        ("A" org-brain-archive "archive entry" :exit t)
+        ("o" org-brain-goto-current "open current node" :exit t)
+        ("O" org-brain-goto "open a node" :exit t)
+        ("v" org-brain-visualize "see another entry" :exit t)
+        ("w" org-brain-visualize-random "see random entry" :exit t)
+        ("W" org-brain-visualize-wander "see random entries on timer" :exit t))))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
@@ -1125,7 +1131,9 @@ up, on windows at least).
     (magit-status-mode . magit-todos-mode))
 #+end_src
 
-** COMMENT Git Gutter
+*** Smerge-mode hydras
+
+** Git Gutter
 #+begin_src emacs-lisp :results output silent
   (use-package git-gutter+
     :straight (:host github :repo "nonsequitur/git-gutter-plus")
@@ -1266,6 +1274,24 @@ Moved to init.el
     (solarized-height-plus-2 1.0)
     (solarized-height-plus-3 1.0)
     (solarized-height-plus-4 1.0)
+    :init
+    (dolist (col
+             '((sol-base03  . "#002b36")
+               (sol-base02  . "#073642")
+               (sol-base01  . "#586e75")
+               (sol-base00  . "#657b83")
+               (sol-base0   . "#839496")
+               (sol-base1   . "#93a1a1")
+               (sol-base2   . "#eee8d5")
+               (sol-base3   . "#fdf6e3")
+               (sol-yellow  . "#b58900")
+               (sol-orange  . "#cb4b16")
+               (sol-red     . "#dc322f")
+               (sol-magenta . "#d33682")
+               (sol-violet  . "#6c71c4")
+               (sol-blue    . "#268bd2")
+               (sol-cyan    . "#2aa198")
+               (sol-green   . "#859900"))))
     :config
     (load-theme 'solarized-dark t))
 #+end_src
@@ -1306,10 +1332,13 @@ with Chinese/Japanese.
 
 #+begin_src emacs-lisp :results output silent
   (use-package yasnippet
-    :defer 3
+    :defer 20
     :straight (:host github :repo "joaotavora/yasnippet")
     :commands (yas-minor-mode
                yas-expand-snippet)
+    :hook
+    ((prog-mode . yas-minor-mode)
+     (org-mode . yas-minor-mode))
     :general
     (yas-keymap
      "C-j" 'yas-next-field-or-maybe-expand
@@ -1323,17 +1352,20 @@ with Chinese/Japanese.
      [remap evil-save-and-close]          'yas-load-snippet-buffer-and-close
      [remap evil-save-modified-and-close] 'yas-load-snippet-buffer-and-close
      [remap evil-quit]                    'kill-this-buffer)
-    :config
+    :custom
+    (yas-snippet-dirs (list (at-user-init-dir "/snippets")))
+    (yas-indent-line 'auto)
+    (yas-also-auto-indent-first-line t)
+    :init
     (evil-define-command ex-snippet (cmd)
       (interactive "<a>")
+      (require 'yasnippet)
       (cond
        ((string= cmd "reload") (yas-reload-all))
        ((string= cmd "add") (yas-new-snippet))
        (t (yas-visit-snippet-file))))
     (evil-ex-define-cmd "sni[ppets]" 'ex-snippet)
-    (setq-default yas-snippet-dirs (list (at-user-init-dir "/snippets")))
-    (setq yas-indent-line 'auto
-          yas-also-auto-indent-first-line t)
+    :config
     (defun yas-with-comment (str)
       (format "%s%s%s" comment-start str comment-end))
     (yas-global-mode))
@@ -1470,7 +1502,6 @@ Much like rainbow blocks mode, but better somehow
 #+begin_src emacs-lisp :results output silent
   (use-package prism
     :straight (:host github :repo "alphapapa/prism.el")
-    :disabled t ;; needs "anaphora" or something like that
     :commands (prism-mode
                prism-set-faces)
     :preface
@@ -2970,6 +3001,14 @@ In the =ag= buffer call =C-c C-p= to launch wgrep.
     (prog-mode . global-company-mode))
 #+end_src
 
+* Flycheck
+#+begin_src emacs-lisp :results output silent
+  (use-package flycheck
+    :straight (:host github :repo "flycheck/flycheck")
+    :hook
+    (prog-mode . global-flycheck-mode))
+#+end_src
+
 * Language Server Protocol
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-mode
@@ -2996,11 +3035,18 @@ file will not itself be encrypted.
 #+end_src
 
 * PlantUML mode
+[[http://plantuml.com/index][Reference]]
+
 #+begin_src emacs-lisp :results output silent
   (use-package plantuml-mode
     :straight (:host github :repo "skuro/plantuml-mode")
     :commands (plantuml-mode)
-    :mode "\\.plantuml\\'")
+    :ensure-system-package
+    (plantuml . "choco install -y plantuml")
+    :mode "\\.plantuml\\'"
+    :init
+    (with-eval-after-load 'org-src
+      (cl-pushnew '("plantuml" . plantuml) org-src-lang-modes)))
 #+end_src
 
 * Hex conversion
@@ -3032,3 +3078,13 @@ file will not itself be encrypted.
     :straight (:host github :repo "wasamasa/nov.el")
     :mode ("\\.epub\\'" . nov-mode))
 #+end_src
+* Hercules
+#+begin_src emacs-lisp :results output silent
+  (use-package hercules
+    :straight (:host gitlab :repo "jjzmajic/hercules.el")
+    :commands (hercules-def))
+#+end_src
+
+* Glasses-mode
+
+* Hexl-mode

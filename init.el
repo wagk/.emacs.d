@@ -24,6 +24,11 @@
 
 ;; buffer encoding systems
 ;; We do this here because the package system might need to know our preferences
+(set-charset-priority 'unicode)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(customize-set-value 'locale-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
 (defconst user-init-dir
@@ -36,24 +41,24 @@
   "Sets up the startup directory.")
 
 (defun at-user-init-dir (filename)
-  "Convenience function for files that path relative to `user-init-dir'"
+  "Concatenates FILENAME with path relative to `user-init-dir'."
   (expand-file-name (concat user-init-dir filename)))
 
 (defconst user-init-file
   (at-user-init-dir "init.el")
-  "Points to init.el")
+  "Points to init.el.")
 
 (defconst user-config-file
   (at-user-init-dir "config.org")
-  "Points to config.org")
+  "Points to config.org.")
 
 (defconst user-local-file
   (at-user-init-dir "local.el")
-  "Points to local.el")
+  "Points to local.el.")
 
 (defconst user-frontpage-file
   (at-user-init-dir "frontpage.org")
-  "Points to the file containing the startup message")
+  "Points to the file containing the startup message.")
 
 (defun find-user-init-file ()
   "Edit `user-init-file' without opening a new window."
@@ -82,18 +87,21 @@
      (message "%.06f seconds." (float-time (time-since time)))))
 
 (defun bootstrap-package ()
-  "Adds package repositories and calls `package-initialize'"
+  "Add package repositories and calls `package-initialize'."
   (require 'package)
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-  (add-to-list 'package-archives '("melpa-2" . "https://melpa.milkbox.net/packages/"))
-  (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
-  (add-to-list 'package-archives '("elpy" . "https://jorgenschaefer.github.io/packages/"))
-  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
-  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")) ; https://marmalade-repo.org/packages/#windowsinstructions
+  (dolist (x '(("melpa"        . "https://melpa.org/packages/")
+               ("melpa-2"      . "https://melpa.milkbox.net/packages/")
+               ("melpa-stable" . "https://stable.melpa.org/packages/")
+               ("elpy"         . "https://jorgenschaefer.github.io/packages/")
+               ("org"          . "https://orgmode.org/elpa/")
+               ("gnu"          . "https://elpa.gnu.org/packages/")
+               ("marmalade"    . "https://marmalade-repo.org/packages/")))
+    (add-to-list 'package-archives x))
   (package-initialize))
 
 (defun bootstrap-straight ()
+  "Load straight.el, downloading it if necessary.
+`package-initialize' must be called prior to this."
   ;; Requires (package-initialize) to be called
   ;; https://github.com/raxod502/straight.el
   (let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
@@ -119,8 +127,8 @@
 ;;     (eval-buffer)))
 
 (defun bootstrap-use-package ()
-  "Checks if use-package is installed and installs it if it isn't.
-  Then performs configuration of use-package variables"
+  "Check if use-package is installed and install it if it isn't.
+Then performs configuration of `use-package' variables."
   ;; (unless (featurep 'quelpa)
   ;;   (bootstrap-quelpa))
   ;; (quelpa
@@ -144,7 +152,7 @@
   (use-package use-package-ensure-system-package))
 
 (defun load-local-el ()
-  "Checks if there exists a local.el file. Creates one if it doesn't
+  "Check if there exists a local.el file. Create one if it doesn't.
 exist, using the template specified in
 'auto-insert/elisp-local-template'. Then loads the file"
   (let ((local-file (at-user-init-dir "local.el")))
@@ -156,7 +164,7 @@ exist, using the template specified in
     (load local-file)))
 
 (defun load-config-org-files (files)
-  "Given a list of org files, loads them sequentially in the order
+  "Given a list of org FILES, load them sequentially in the order.
 specified The list of files is assumed to be relative to
 `user-init-dir' TODO: Error checking; relative pathing, error
 recovery. Maybe eventually load dependencies and all that."
@@ -599,4 +607,5 @@ recovery. Maybe eventually load dependencies and all that."
    (org-babel-load-file (at-user-init-dir "config.org")))
 
   ;; Disable ANNOYING customize options
-  (setq custom-file (at-user-init-dir "custom.el")))
+  ;; (setq custom-file (at-user-init-dir "custom.el")))
+  (setq custom-file (make-temp-file "")))
