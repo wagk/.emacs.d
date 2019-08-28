@@ -2392,9 +2392,9 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 #+begin_src emacs-lisp :results output silent
   (use-package ob-hy
     :straight (:host github :repo "brantou/ob-hy")
-    :init
-    (with-eval-after-load 'hy-mode
-      (require 'ob-hy)))
+    :after hy-mode
+    :config
+    (require 'ob-hy))
 #+end_src
 
 * vlf-mode
