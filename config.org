@@ -1131,7 +1131,9 @@ up, on windows at least).
     (magit-status-mode . magit-todos-mode))
 #+end_src
 
-** COMMENT Git Gutter
+*** Smerge-mode hydras
+
+** Git Gutter
 #+begin_src emacs-lisp :results output silent
   (use-package git-gutter+
     :straight (:host github :repo "nonsequitur/git-gutter-plus")
@@ -1272,6 +1274,24 @@ Moved to init.el
     (solarized-height-plus-2 1.0)
     (solarized-height-plus-3 1.0)
     (solarized-height-plus-4 1.0)
+    :init
+    (dolist (col
+             '((sol-base03  . "#002b36")
+               (sol-base02  . "#073642")
+               (sol-base01  . "#586e75")
+               (sol-base00  . "#657b83")
+               (sol-base0   . "#839496")
+               (sol-base1   . "#93a1a1")
+               (sol-base2   . "#eee8d5")
+               (sol-base3   . "#fdf6e3")
+               (sol-yellow  . "#b58900")
+               (sol-orange  . "#cb4b16")
+               (sol-red     . "#dc322f")
+               (sol-magenta . "#d33682")
+               (sol-violet  . "#6c71c4")
+               (sol-blue    . "#268bd2")
+               (sol-cyan    . "#2aa198")
+               (sol-green   . "#859900"))))
     :config
     (load-theme 'solarized-dark t))
 #+end_src
@@ -1482,7 +1502,6 @@ Much like rainbow blocks mode, but better somehow
 #+begin_src emacs-lisp :results output silent
   (use-package prism
     :straight (:host github :repo "alphapapa/prism.el")
-    :disabled t ;; needs "anaphora" or something like that
     :commands (prism-mode
                prism-set-faces)
     :preface
@@ -2982,6 +3001,14 @@ In the =ag= buffer call =C-c C-p= to launch wgrep.
     (prog-mode . global-company-mode))
 #+end_src
 
+* Flycheck
+#+begin_src emacs-lisp :results output silent
+  (use-package flycheck
+    :straight (:host github :repo "flycheck/flycheck")
+    :hook
+    (prog-mode . global-flycheck-mode))
+#+end_src
+
 * Language Server Protocol
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-mode
@@ -3057,3 +3084,7 @@ file will not itself be encrypted.
     :straight (:host gitlab :repo "jjzmajic/hercules.el")
     :commands (hercules-def))
 #+end_src
+
+* Glasses-mode
+
+* Hexl-mode
