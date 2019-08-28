@@ -2985,7 +2985,8 @@ In the =ag= buffer call =C-c C-p= to launch wgrep.
 
 #+begin_src emacs-lisp :results output silent
   (use-package wgrep
-    :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
+    :straight (:host github :repo "mhayashi1120/Emacs-wgrep"
+               :files ("wgrep.el"))
     :commands (wgrep-change-to-wgrep-mode
                ivy-wgrep-change-to-wgrep-mode))
 #+end_src
