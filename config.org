@@ -826,9 +826,13 @@ For some reason we can't do this in the scratch buffer
 #+end_src
 
 ** Org Src
+Don't bind to C-c C-c because it might impact the src block's
+language's mappings.
+
 #+begin_src emacs-lisp :results output silent
   (use-package org-src
     :ensure nil
+    :disabled t
     :general
     (org-src-mode-map
      "C-c C-c" 'org-edit-src-exit))
