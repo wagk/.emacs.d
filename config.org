@@ -645,7 +645,7 @@ This is an expensive package to load, and I wonder why.
      ">" nil
      "<" nil)
     (evil-cleverparens-mode-map
-     :states 'normal
+     :states '(normal visual)
      "{" nil
      "}" nil))
 #+end_src
@@ -823,6 +823,15 @@ For some reason we can't do this in the scratch buffer
       (customize-set-value 'org-agenda-files
                           (add-to-list 'org-agenda-files
                                         deft-directory))))
+#+end_src
+
+** Org Src
+#+begin_src emacs-lisp :results output silent
+  (use-package org-src
+    :ensure nil
+    :general
+    (org-src-mode-map
+     "C-c C-c" 'org-edit-src-exit))
 #+end_src
 
 ** Org Download
@@ -1474,6 +1483,8 @@ with Chinese/Japanese.
 #+end_src
 
 ** Rainbow Delimiter Mode
+Consider deprecating this now we're trying out prism
+
 #+begin_src emacs-lisp :results output silent
   (use-package rainbow-delimiters
     :straight (:host github :repo "Fanael/rainbow-delimiters")
@@ -1491,16 +1502,19 @@ It looks fairly jarring to be very honest.
 #+end_src
 
 ** Rainbow Blocks
+Refer to prism
+
 #+begin_src emacs-lisp :results output silent
   (use-package rainbow-blocks
     :straight (:host github :repo "istib/rainbow-blocks")
+    :disabled t
     :commands (rainbow-blocks-mode
                rainbow-blocks-mode-enable))
-
 #+end_src
 
 ** Prism mode
-Much like rainbow blocks mode, but better somehow
+Much like rainbow blocks mode, but better.
+
 #+begin_src emacs-lisp :results output silent
   (use-package prism
     :straight (:host github :repo "alphapapa/prism.el")
@@ -1508,7 +1522,19 @@ Much like rainbow blocks mode, but better somehow
                prism-set-faces)
     :preface
     (use-package anaphora
-      :straight (:host github :repo "rolandwalker/anaphora")))
+      :straight (:host github :repo "rolandwalker/anaphora"))
+    :config
+    (prism-set-faces
+      :num 24
+      :colors
+      ;; (solarized-with-color-variables 'dark
+      ;;   (list green blue cyan violet magenta red orange yellow))
+      (list 'font-lock-constant-face 'font-lock-type-face
+            'font-lock-keyword-face 'font-lock-string-face)
+      :desaturations
+      (list 10 20 30)
+      :lightens
+      (list 0 -2.5 -5)))
 #+end_src
 
 ** Smartparens
@@ -1565,7 +1591,7 @@ package is known as elisp-mode but it reads as emacs-lisp
 #+begin_src emacs-lisp :results output silent
   (use-package elisp-mode
     :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
-           (emacs-lisp-mode . rainbow-blocks-mode-enable)
+           (emacs-lisp-mode . prism-mode)
            (emacs-lisp-mode . parinfer-mode)
            (emacs-lisp-mode . update-evil-shift-width)
            (emacs-lisp-mode . evil-cleverparens-mode)))
@@ -1680,7 +1706,12 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
 #+begin_src emacs-lisp :results output silent
   (use-package racket-mode
     :straight (:host github :repo "greghendershott/racket-mode")
+    :commands (racket-mode)
     :mode "\\.rkt\\'"
+    :hook ((racket-mode . rainbow-delimiters-mode)
+           (racket-mode . parinfer-mode)
+           (racket-mode . prism-mode)
+           (racket-mode . evil-cleverparens-mode))
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("rkt" . racket) org-src-lang-modes)))
@@ -1829,8 +1860,8 @@ clojurescript-mode derives from clojure-mode
     :commands (clojure-mode
                clojurescript-mode)
     :hook ((clojure-mode . rainbow-delimiters-mode)
-           (clojure-mode . rainbow-blocks-mode-enable)
            (clojure-mode . parinfer-mode)
+           (clojure-mode . prism-mode)
            (clojure-mode . update-evil-shift-width)
            (clojure-mode . show-paren-mode))
     :init
@@ -2382,7 +2413,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
      "RET" 'comment-indent-new-line)
     :hook ((hy-mode . rainbow-delimiters-mode)
            (hy-mode . parinfer-mode)
-           (hy-mode . rainbow-blocks-mode-enable)
+           (hy-mode . prism-mode)
            (hy-mode . update-evil-shift-width)
            (hy-mode . evil-cleverparens-mode)
            (hy-mode . show-paren-mode))
@@ -3047,8 +3078,8 @@ file will not itself be encrypted.
     :straight (:host github :repo "skuro/plantuml-mode")
     :commands (plantuml-mode)
     :custom
-    (plantuml-output-type "utxt")
-                          "Display using glorious text"
+    (plantuml-output-type "utxt"
+                          "Display using glorious text")
     :ensure-system-package
     (plantuml . "choco install -y plantuml")
     :mode "\\.plantuml\\'"
