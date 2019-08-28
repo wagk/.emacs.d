@@ -176,9 +176,10 @@ recovery. Maybe eventually load dependencies and all that."
 
 (defun my-straight-update-packages ()
   "When called, update all straight packages."
+  (interactive)
   (require 'straight)
   (straight-pull-all)
-  (straight-check-package)
+  (straight-check-all)
   (straight-prune-build))
 
 (let ((gc-cons-threshold most-positive-fixnum))
