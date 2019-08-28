@@ -960,6 +960,7 @@ Currently disabled while we look at other, more maintained projects
     (org-brain-path (concat (if (boundp 'config-local-syncthing-folder)
                                 config-local-syncthing-folder
                               "~") "/wiki"))
+    ;; because we don't enter visualize-mode in normal state
     :hook ((org-brain-visualize-text . evil-ex-nohighlight))
     :general
     (org-brain-visualize-mode-map
@@ -3045,6 +3046,9 @@ file will not itself be encrypted.
   (use-package plantuml-mode
     :straight (:host github :repo "skuro/plantuml-mode")
     :commands (plantuml-mode)
+    :custom
+    (plantuml-output-type "utxt")
+                          "Display using glorious text"
     :ensure-system-package
     (plantuml . "choco install -y plantuml")
     :mode "\\.plantuml\\'"
