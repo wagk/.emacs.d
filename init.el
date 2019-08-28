@@ -174,6 +174,13 @@ recovery. Maybe eventually load dependencies and all that."
         (org-babel-load-file (at-user-init-dir file))
       (error (message "There was an error when loading %s" file)))))
 
+(defun my-straight-update-packages ()
+  "When called, update all straight packages."
+  (require 'straight)
+  (straight-pull-all)
+  (straight-check-package)
+  (straight-prune-build))
+
 (let ((gc-cons-threshold most-positive-fixnum))
   (bootstrap-package)
   (bootstrap-straight)
