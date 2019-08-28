@@ -2381,6 +2381,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
      "RET" 'comment-indent-new-line)
     :hook ((hy-mode . rainbow-delimiters-mode)
            (hy-mode . parinfer-mode)
+           (hy-mode . rainbow-blocks-mode-enable)
            (hy-mode . update-evil-shift-width)
            (hy-mode . evil-cleverparens-mode)
            (hy-mode . show-paren-mode))
@@ -2393,6 +2394,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 #+begin_src emacs-lisp :results output silent
   (use-package ob-hy
     :straight (:host github :repo "brantou/ob-hy")
+    :after hy-mode
     :config
     (require 'ob-hy))
 #+end_src
