@@ -1523,12 +1523,12 @@ Much like rainbow blocks mode, but better.
   (use-package prism
     :straight (:host github :repo "alphapapa/prism.el")
     :commands (prism-mode
-               prism-set-faces)
+               prism-set-colors)
     :preface
     (use-package anaphora
       :straight (:host github :repo "rolandwalker/anaphora"))
     :config
-    (prism-set-faces
+    (prism-set-colors
       :num 24
       :colors
       ;; (solarized-with-color-variables 'dark
