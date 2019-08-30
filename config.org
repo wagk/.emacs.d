@@ -1543,8 +1543,7 @@ Much like rainbow blocks mode, but better.
       :colors
       ;; (solarized-with-color-variables 'dark
       ;;   (list green blue cyan violet magenta red orange yellow))
-      (list 'font-lock-constant-face 'font-lock-type-face
-            'font-lock-keyword-face 'font-lock-string-face)
+      (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
       :desaturations
       (list 10 20 30)
       :lightens
