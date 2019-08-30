@@ -1523,6 +1523,7 @@ Much like rainbow blocks mode, but better.
   (use-package prism
     :straight (:host github :repo "alphapapa/prism.el")
     :commands (prism-mode
+               prism-whitespace-mode
                prism-set-colors)
     :preface
     (use-package anaphora
@@ -2083,6 +2084,7 @@ to type it out.
 * Ripgrep (rg)
 
 *rg* buffer bindings
+
 | Key | Description                              |
 |-----+------------------------------------------|
 | c   | Toggle case insensitive setting          |
@@ -2114,14 +2116,14 @@ to type it out.
       "gg" 'evil-goto-first-line)
     :init
     (evil-define-command config-rg-explicit (arg)
-      (interactive "<a>")
-                                          ;TODO: Figure out how to programmatically generate a files list, which we need in addition to a query
+      (interactive "<a>") ;TODO: Figure out how to programmatically generate a files list, which we need in addition to a query
       (cond
        ;; ((and arg (projectile-project-p)) (rg-project arg))
        ((and (not arg) (projectile-project-p)) (call-interactively 'rg-project))
        ;; (arg (rg arg))
        (t (call-interactively 'rg))))
-    (evil-ex-define-cmd "rg" 'config-rg-explicit))
+    (evil-ex-define-cmd "rg" 'rg)
+    (evil-ex-define-cmd "prg" 'rg-project))
 #+end_src
 * C++
 ** Indentation of 4
@@ -3131,3 +3133,19 @@ file will not itself be encrypted.
 * Glasses-mode
 
 * Hexl-mode
+
+* Fill Column Indicator
+#+begin_src emacs-lisp :results output silent
+  (use-package fill-column-indicator
+    :straight (:host github :repo "alpaker/fill-column-indicator")
+    :commands (fci-mode))
+#+end_src
+
+* Devdocs
+#+begin_src emacs-lisp :results output silent
+  (use-package devdocs
+    :straight (:host github :repo "skeeto/devdocs-lookup")
+    :commands (devdocs-lookup)
+    :config
+    (devdocs-setup))
+#+end_src

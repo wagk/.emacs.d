@@ -555,55 +555,6 @@ recovery. Maybe eventually load dependencies and all that."
     :config
     (ivy-mode))
 
-  ;; (use-package helm
-  ;;   :disabled t
-  ;;   :demand t
-  ;;   :straight (:host github :repo "emacs-helm/helm")
-  ;;   :commands (helm-org-in-buffer-headings)
-  ;;   :general
-  ;;   (helm-map
-  ;;    "TAB" 'helm-execute-persistent-action)
-  ;;   :init
-  ;;   (defun find-helm-info-emacs-elisp-cl ()
-  ;;     "Helm for Emacs, Elisp, and CL-library info pages."
-  ;;     (interactive)
-  ;;     (helm :sources '(helm-source-info-emacs
-  ;;                      helm-source-info-elisp
-  ;;                      helm-source-info-cl)))
-  ;;   (evil-define-command ex-helm-apropos (cmd)
-  ;;     (interactive "<a>")
-  ;;     (cond
-  ;;      ((string= cmd "elisp") (find-helm-info-emacs-elisp-cl))
-  ;;      ((eq cmd nil) (helm-apropos))
-  ;;      (t (helm-apropos cmd))))
-  ;;   ;; (evil-define-command ex-list-bookmarks (filter)
-  ;;   ;;   (interactive "<a>")
-  ;;   ;;   (if filter
-  ;;   ;;       (bookmark-bmenu-filter-alist-by-regexp filter)
-  ;;   ;;     (list-bookmarks)))
-  ;;   (evil-ex-define-cmd "elisp"     'find-helm-info-emacs-elisp-cl)
-  ;;   (evil-ex-define-cmd "h[elp]"    'ex-helm-apropos)
-  ;;   :custom
-  ;;   (helm-idle-delay 0.0)
-  ;;   (helm-input-idle-delay 0.01)
-  ;;   (helm-quick-update t)
-  ;;   (helm-recentf-fuzzy-match t)
-  ;;   (helm-locate-fuzzy-match nil) ;; locate fuzzy is worthless
-  ;;   (helm-m-x-fuzzy-match t)
-  ;;   (helm-buffers-fuzzy-matching t)
-  ;;   (helm-semantic-fuzzy-match t)
-  ;;   (helm-apropos-fuzzy-match t)
-  ;;   (helm-imenu-fuzzy-match t)
-  ;;   (helm-lisp-fuzzy-completion t)
-  ;;   (helm-completion-in-region-fuzzy-match t)
-  ;;   (helm-split-window-in-side-p t)
-  ;;   (helm-use-frame-when-more-than-two-windows nil)
-  ;;   :config
-  ;;   (progn (helm-autoresize-mode)
-  ;;          (setq helm-autoresize-min-height 40 ;; these values are %
-  ;;                helm-autoresize-max-height 40))
-  ;;   (helm-mode))
-
   (use-package restart-emacs
     :straight (:host github :repo "iqbalansari/restart-emacs")
     :commands (restart-emacs)
