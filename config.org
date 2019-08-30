@@ -1082,6 +1082,15 @@ Currently disabled while we look at other, more maintained projects
     :hook (org-mode . org-bullets-mode))
 #+end_src
 
+** Export as epub
+Needs a working =zip= exe.
+
+#+begin_src emacs-lisp :results output silent
+  (use-package ox-epub
+    :straight (:host github :repo "ofosos/ox-epub")
+    :commands org-epub-export-to-epub)
+#+end_src
+
 * Git
 ** Magit
 If magit complains about not finding the config on windows, it's
