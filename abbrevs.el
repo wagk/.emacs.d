@@ -9,7 +9,9 @@
 
 (define-abbrev-table 'ag-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -19,9 +21,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -149,10 +155,8 @@
     ("apparnetly" "apparently" nil 1)
     ("appication" "application" nil 1)
     ("applicaiton" "application" nil 1)
-    ("applicatoin" "" nil 1)
     ("applicatoins" "applications" nil 1)
     ("applicaton" "application" nil 2)
-    ("appplication" "applicatoin" nil 1)
     ("approrpiate" "appropriate" nil 1)
     ("aready" "already" nil 1)
     ("artifactoyr" "artifactory" nil 1)
@@ -185,7 +189,6 @@
     ("cna" "can" nil 8)
     ("commadn" "command" nil 2)
     ("communicaiton" "communication" nil 1)
-    ("communicatoin" "communication" nil 1)
     ("complidcated" "complicated" nil 1)
     ("compoennts" "components" nil 1)
     ("conatin" "contain" nil 2)
@@ -216,7 +219,6 @@
     ("direcotyr" "directory" nil 1)
     ("directoyr" "directory" nil 5)
     ("dissimilairity" "dissimilarity" nil 1)
-    ("distrubuted" "distributed" nil 1)
     ("documentaiton" "documentation" nil 4)
     ("downlaod" "download" nil 2)
     ("downlaoded" "downloaded" nil 1)
@@ -264,6 +266,7 @@
     ("implementatoin" "implementation" nil 1)
     ("implmeented" "implemented" nil 1)
     ("implmenet" "implement" nil 2)
+    ("importatn" "important" nil 1)
     ("improt" "import" nil 1)
     ("informaiton" "information" nil 2)
     ("informaoiton" "information" nil 1)
@@ -385,7 +388,7 @@
     ("typign" "Typing" nil 1)
     ("typname" "typename" nil 1)
     ("tyring" "trying" nil 1)
-    ("uisng" "using" nil 2)
+    ("uisng" "using" nil 3)
     ("uninstallaiton" "uninstallation" nil 1)
     ("unknwon" "unknown" nil 1)
     ("uplaod" "upload" nil 3)
@@ -445,7 +448,9 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -519,7 +524,9 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -541,7 +548,9 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'poly-fallback-mode-abbrev-table '())
 
@@ -555,7 +564,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
