@@ -1522,8 +1522,7 @@ Much like rainbow blocks mode, but better.
 #+begin_src emacs-lisp :results output silent
   (use-package prism
     :straight (:host github :repo "alphapapa/prism.el")
-    :commands (prism-mode
-               prism-set-colors)
+    :commands (prism-mode)
     :preface
     (use-package anaphora
       :straight (:host github :repo "rolandwalker/anaphora"))
@@ -3024,8 +3023,7 @@ In the =ag= buffer call =C-c C-p= to launch wgrep.
 
 #+begin_src emacs-lisp :results output silent
   (use-package wgrep
-    :straight (:host github :repo "mhayashi1120/Emacs-wgrep"
-               :files ("wgrep.el"))
+    :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
     :commands (wgrep-change-to-wgrep-mode
                ivy-wgrep-change-to-wgrep-mode))
 #+end_src
