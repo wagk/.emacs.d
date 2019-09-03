@@ -40,24 +40,20 @@
          (t "~/.emacs.d/")))
   "Sets up the startup directory.")
 
-(defun at-user-init-dir (filename)
-  "Concatenates FILENAME with path relative to `user-init-dir'."
-  (expand-file-name (concat user-init-dir filename)))
-
 (defconst user-init-file
-  (at-user-init-dir "init.el")
+  (locate-user-emacs-file "init.el")
   "Points to init.el.")
 
 (defconst user-config-file
-  (at-user-init-dir "config.org")
+  (locate-user-emacs-file "config.org")
   "Points to config.org.")
 
 (defconst user-local-file
-  (at-user-init-dir "local.el")
+  (locate-user-emacs-file "local.el")
   "Points to local.el.")
 
 (defconst user-frontpage-file
-  (at-user-init-dir "frontpage.org")
+  (locate-user-emacs-file "frontpage.org")
   "Points to the file containing the startup message.")
 
 (defun find-user-init-file ()
@@ -155,11 +151,11 @@ Then performs configuration of `use-package' variables."
   "Check if there exists a local.el file. Create one if it doesn't.
 exist, using the template specified in
 'auto-insert/elisp-local-template'. Then loads the file"
-  (let ((local-file (at-user-init-dir "local.el")))
+  (let ((local-file (locate-user-emacs-file "local.el")))
     (unless (file-exists-p local-file)
       ;; output a templated local.el file into local.el
       (write-region (with-temp-buffer
-                      (insert-file-contents (at-user-init-dir "local-template.el"))
+                      (insert-file-contents (locate-user-emacs-file "local-template.el"))
                       (buffer-string)) nil local-file))
     (load local-file)))
 
@@ -171,7 +167,7 @@ recovery. Maybe eventually load dependencies and all that."
   (dolist (file files)
     (message "Loading %s" file)
     (condition-case nil
-        (org-babel-load-file (at-user-init-dir file))
+        (org-babel-load-file (locate-user-emacs-file file))
       (error (message "There was an error when loading %s" file)))))
 
 (defun my-straight-update-packages ()
@@ -564,8 +560,8 @@ recovery. Maybe eventually load dependencies and all that."
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
   (measure-time
-   (org-babel-load-file (at-user-init-dir "config.org")))
+   (org-babel-load-file (locate-user-emacs-file "config.org")))
 
   ;; Disable ANNOYING customize options
-  ;; (setq custom-file (at-user-init-dir "custom.el")))
+  ;; (setq custom-file (locate-user-emacs-file "custom.el")))
   (setq custom-file (make-temp-file "")))

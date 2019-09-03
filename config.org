@@ -915,11 +915,11 @@ called, and it should work anywhere.
      "We'll up it back to 25 (and maybe more) later.")
     ;; guild wars 2 has some excellent notification sounds
     (org-pomodoro-finished-sound
-     (at-user-init-dir "notification1.wav"))
+     (locate-user-emacs-file "notification1.wav"))
     (org-pomodoro-short-break-sound
-     (at-user-init-dir "notification2.wav"))
+     (locate-user-emacs-file "notification2.wav"))
     (org-pomodoro-long-break-sound
-     (at-user-init-dir "notification3.wav"))
+     (locate-user-emacs-file "notification3.wav"))
     :init
     (evil-ex-define-cmd "doing" 'org-clock-goto)
     (evil-ex-define-cmd "do" 'org-pomodoro))
@@ -1091,6 +1091,42 @@ Needs a working =zip= exe.
     :commands org-epub-export-to-epub)
 #+end_src
 
+** Screenshot from system clipboard
+[[http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-files-in-emacs-on-win10/][Source]]
+
+Note that currently the file thing isn't really generating a correct
+path.
+
+Note that for some reason if the directory does not exist we don't
+create one yet. We should.
+
+#+begin_src emacs-lisp :results output silent
+  (defun my-org-paste-clipboard-screenshot (&optional dir)
+    "Take a screenshot into a time stamped unique-named file in the
+       same directory as the org-buffer and insert a link to this file."
+    (interactive "D")
+    (unless (equal system-type 'windows-nt)
+      (user-error "Implementation currently only works on windows, this is %s"
+                  system-type))
+    (let ((filename (concat
+                     (make-temp-name
+                      (concat (file-name-as-directory dir)
+                              (-> (buffer-file-name)
+                                  file-name-nondirectory
+                                  file-name-sans-extension)
+                              "_"
+                              (format-time-string "%Y-%m-%d")))
+                     ".png")))
+      (unless (file-directory-p dir)
+        (make-directory dir))
+      (shell-command (concat "powershell -command \"Add-Type -AssemblyName System.Windows.Forms;if ($([System.Windows.Forms.Clipboard]::ContainsImage())) {$image = [System.Windows.Forms.Clipboard]::GetImage();[System.Drawing.Bitmap]$image.Save('"
+                             filename
+                             "',[System.Drawing.Imaging.ImageFormat]::Png); Write-Output 'clipboard content saved as file'} else {Write-Output 'clipboard does not contain image data'}\""))
+      (insert (concat "[[file:" filename "]]"))
+      (message "Image saved as %s" filename)
+      (org-display-inline-images)
+      filename))
+#+end_src
 * Git
 ** Magit
 If magit complains about not finding the config on windows, it's
@@ -1272,7 +1308,6 @@ Moved to init.el
 #+end_src
 
 * Display
-
 ** Prefer dark backgrounds
 #+begin_src emacs-lisp :results output silent
   (customize-set-variable 'frame-background-mode 'dark)
@@ -1334,9 +1369,7 @@ with Chinese/Japanese.
 #+end_src
 
 * Text
-
 ** Aggressive Fill Paragraph
-
 #+begin_src emacs-lisp :results output silent
   (use-package aggressive-fill-paragraph
     :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode")
@@ -1345,7 +1378,6 @@ with Chinese/Japanese.
 #+end_src
 
 ** Aggressive Indent
-
 #+begin_src emacs-lisp :results output silent
   (use-package aggressive-indent
     :straight (:host github :repo "malabarba/aggressive-indent-mode")
@@ -1353,7 +1385,6 @@ with Chinese/Japanese.
 #+end_src
 
 ** Yasnippet
-
 #+begin_src emacs-lisp :results output silent
   (use-package yasnippet
     :defer 20
@@ -1377,7 +1408,8 @@ with Chinese/Japanese.
      [remap evil-save-modified-and-close] 'yas-load-snippet-buffer-and-close
      [remap evil-quit]                    'kill-this-buffer)
     :custom
-    (yas-snippet-dirs (list (at-user-init-dir "/snippets")))
+    (yas-snippet-dirs (list (file-name-as-directory
+                             (locate-user-emacs-file "snippets"))))
     (yas-indent-line 'auto)
     (yas-also-auto-indent-first-line t)
     :init
@@ -1540,8 +1572,6 @@ Much like rainbow blocks mode, but better.
     (prism-set-colors
       :num 24
       :colors
-      ;; (solarized-with-color-variables 'dark
-      ;;   (list green blue cyan violet magenta red orange yellow))
       (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
       :desaturations
       (list 10 20 30)
@@ -2053,6 +2083,8 @@ package manager
     :straight (:host github :repo "joshwnj/json-mode")
     :mode "\\.json\\'"
     :commands (json-mode)
+    :hook
+    (json-mode . prism-mode)
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("json" . json) org-src-lang-modes)))
@@ -2286,7 +2318,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (setq abbrev-file-name (at-user-init-dir "abbrevs.el"))
+  (setq abbrev-file-name (locate-user-emacs-file "abbrevs.el"))
 #+end_src
 
 ** Silently
@@ -2463,7 +2495,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
     :init
     (add-to-list 'hippie-expand-try-functions-list #'yankpad-expand)
     :custom
-    (yankpad-file (at-user-init-dir "snippets.org")))
+    (yankpad-file (locate-user-emacs-file "snippets.org")))
 #+end_src
 
 * Smart tab
@@ -2535,6 +2567,8 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
     :straight (:host github :repo "yoshiki/yaml-mode")
     :mode ("\\.yml\\'"
            "\\.yaml\\'")
+    :hook
+    (yaml-mode . prism-whitespace-mode)
     :general
     (yaml-mode-map
      "RET" 'newline-and-indent)
@@ -2635,8 +2669,7 @@ keeping it until we figure out how to use it properly
 #+begin_src emacs-lisp :results output silent
   (use-package outshine
     :straight (:host github :repo "alphapapa/outshine")
-    :disabled t
-    :hook (prog-mode . outshine-mode))
+    :commands (outshine-mode))
 #+end_src
 
 * Org Kanban
@@ -2657,7 +2690,7 @@ can.
   (use-package bookmark+
     :disabled t
     :preface
-    (let ((bookmarkplus-dir (at-user-init-dir "local-packages/bookmark-plus/"))
+    (let ((bookmarkplus-dir (locate-user-emacs-file "local-packages/bookmark-plus/"))
           (emacswiki-base "https://www.emacswiki.org/emacs/download/")
           (bookmark-files '("bookmark+.el" "bookmark+-mac.el" "bookmark+-bmu.el"
                             "bookmark+-key.el" "bookmark+-lit.el" "bookmark+-1.el")))
@@ -2765,7 +2798,7 @@ Or evil-spongebob if you want to think of it that way.
 * Elfeed
 #+begin_src emacs-lisp :results output silent
   (defconst user-rss-feed-file
-    (at-user-init-dir "feeds.org")
+    (locate-user-emacs-file "feeds.org")
     "Points to config.org")
 
   (defun find-user-rss-feed-file ()
@@ -2828,7 +2861,7 @@ This is really really slow
     :commands (elfeed-org
                rmh-elfeed-org-process)
     :custom
-    (rmh-elfeed-org-files (list (at-user-init-dir "feeds.org")))
+    (rmh-elfeed-org-files (list (locate-user-emacs-file "feeds.org")))
     :init
     ;; We do it like this because we need this lazy loaded, but called
     ;; *before* `elfeed' is called
@@ -3043,6 +3076,9 @@ In the =ag= buffer call =C-c C-p= to launch wgrep.
   (use-package company-mode
     :straight (:host github :repo "company-mode/company-mode")
     :defer 10
+    :general
+    (company-active-map
+     "C-w" nil) ;; don't override vim controls
     :custom
     (company-idle-delay 2)
     :hook

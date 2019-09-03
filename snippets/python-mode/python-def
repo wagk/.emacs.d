@@ -2,5 +2,5 @@
 # name: def-python
 # key: def
 # --
-def ${1:foo}($2)${3:-> ${4:None}}:
+def ${1:foo}($2) ${3:-> ${4:None}}:
     ${5:raise NotImplementedError()}
