@@ -1092,19 +1092,13 @@ Needs a working =zip= exe.
 #+end_src
 
 ** Screenshot from system clipboard
-[[http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-files-in-emacs-on-win10/][Source]]
-
-Note that currently the file thing isn't really generating a correct
-path.
-
-Note that for some reason if the directory does not exist we don't
-create one yet. We should.
+[[http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-files-in-emacs-on-win10/][Source]], modified to allow the user to select a directory.
 
 #+begin_src emacs-lisp :results output silent
   (defun my-org-paste-clipboard-screenshot (&optional dir)
     "Take a screenshot into a time stamped unique-named file in the
        same directory as the org-buffer and insert a link to this file."
-    (interactive "D")
+    (interactive (list (read-directory-name "" "" "images")))
     (unless (equal system-type 'windows-nt)
       (user-error "Implementation currently only works on windows, this is %s"
                   system-type))
