@@ -31,15 +31,6 @@
 (customize-set-value 'locale-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-(defconst user-init-dir
-  (file-name-as-directory
-   (cond ((boundp 'user-emacs-directory)
-          user-emacs-directory)
-         ((boundp 'user-init-directory)
-          user-init-directory)
-         (t "~/.emacs.d/")))
-  "Sets up the startup directory.")
-
 (defconst user-init-file
   (locate-user-emacs-file "init.el")
   "Points to init.el.")
@@ -327,7 +318,8 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-ex-define-cmd "Vconfig" '(lambda () (interactive)
                                      (call-interactively 'evil-window-vsplit)
                                      (find-user-config-file)))
-    (evil-ex-define-cmd "me[ssage]"   '(lambda () (interactive) (switch-to-buffer "*Messages*")))
+    (evil-ex-define-cmd "me[ssage]" '(lambda () (interactive)
+                                       (switch-to-buffer "*Messages*")))
     (evil-ex-define-cmd "Smessage" '(lambda () (interactive)
                                      (call-interactively 'evil-window-split)
                                      (switch-to-buffer "*Messages*")))
