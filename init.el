@@ -366,8 +366,6 @@ recovery. Maybe eventually load dependencies and all that."
     :config
     (evil-collection-init))
 
-  ;; (straight-use-package '(org :local-repo nil))
-
   ;; https://github.com/raxod502/straight.el/blob/develop/README.md#installing-org-with-straightel
   (progn
     (require 'subr-x)
@@ -406,20 +404,6 @@ recovery. Maybe eventually load dependencies and all that."
   (straight-use-package 'org-plus-contrib)
 
   (use-package org-plus-contrib
-    ;; doesn't have a straight recipe because it relies on make or something
-    ;; :ensure org-plus-contrib
-    ;; :straight (:repo "https://code.orgmode.org/bzg/org-mode.git"
-    ;;            :local-repo "org"
-    ;;            :files (:defaults "contrib/lisp/*.el")
-    ;;            :includes (org))
-    ;; https://github.com/raxod502/straight.el#installing-org-with-straightel
-    ;; :straight (:repo "https://code.orgmode.org/bzg/org-mode.git"
-    ;;            :local-repo "org"
-    ;;            :files (:defaults "contrib/lisp/*.el")
-    ;;            :includes org)
-    ;; :straight (:local-repo "org"
-    ;;            :files (:defaults "contrib/lisp/*.el"))
-    ;; :straight (:includes org)
     :commands (orgtbl-mode
                org-babel-load-file)
     :mode
@@ -430,22 +414,12 @@ recovery. Maybe eventually load dependencies and all that."
      "TAB"    'org-cycle
      "<tab>"  'org-cycle
      "g x"    'org-open-at-point)
-    ;; (:states 'insert
-    ;;  :keymaps 'org-mode-map
-    ;;  "TAB"    'hippie-expand
-    ;;  "<tab>"  'hippie-expand)
     (:states 'normal
      :prefix my-default-evil-leader-key
      "o t" 'org-time-stamp
      "o T" '(lambda () (interactive)
               (org-time-stamp '(16)))
      "f f" 'counsel-org-goto)
-    ;; (:states 'normal
-    ;;  :keymaps 'org-mode-map
-    ;;  :prefix my-default-evil-leader-key
-    ;;  "l l" 'org-toggle-latex-fragment
-    ;;  "r r" 'org-refile
-    ;;  "a a" 'org-archive-subtree)
     (org-mode-map
      "C-S-c C-S-c" '(lambda () (interactive)
                       (org-toggle-checkbox '(4)))
