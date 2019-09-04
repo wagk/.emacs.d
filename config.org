@@ -3120,7 +3120,7 @@ file will not itself be encrypted.
     :straight (:host github :repo "skuro/plantuml-mode")
     :commands (plantuml-mode)
     :custom
-    (plantuml-output-type "utxt"
+    (plantuml-output-type "txt"
                           "Display using glorious text")
     :ensure-system-package
     (plantuml . "choco install -y plantuml")
@@ -3167,7 +3167,8 @@ file will not itself be encrypted.
 #+end_src
 
 * Glasses-mode
-
+Converts between camelCase and snake_case visually, without changing
+the underlying format
 * Hexl-mode
 
 * Fill Column Indicator

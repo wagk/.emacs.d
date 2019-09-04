@@ -501,22 +501,24 @@ recovery. Maybe eventually load dependencies and all that."
      5 "I think 5 am is a safe bet for the end of the day")
     (org-note-done 'note)
     :hook ((org-insert-heading . evil-insert-state))
+    :init
+    (with-eval-after-load 'org
+      (defun my-org-reformat-buffer ()
+        (interactive)
+        (when (y-or-n-p "Really format current buffer? ")
+          (let ((document (org-element-interpret-data (org-element-parse-buffer))))
+            (erase-buffer)
+            (insert document)
+            (goto-char (point-min)))))
+      (use-package ox-confluence
+        :ensure nil
+        :commands org-confluence-export-as-confluence))
     :config
     ;; (with-eval-after-load 'smartparens
     ;; make smartparen autoskip "" because org-mode treats it as a string
     ;; (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
     ;; (sp-local-pair 'org-mode "$" "$"))
     ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
-    (defun my-org-reformat-buffer ()
-      (interactive)
-      (when (y-or-n-p "Really format current buffer? ")
-        (let ((document (org-element-interpret-data (org-element-parse-buffer))))
-          (erase-buffer)
-          (insert document)
-          (goto-char (point-min)))))
-    (use-package ox-confluence
-      :ensure nil
-      :commands org-confluence-export-as-confluence)
     (add-to-list 'org-babel-load-languages '(shell . t)))
 
   (use-package ivy
