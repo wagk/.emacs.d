@@ -9,7 +9,9 @@
 
 (define-abbrev-table 'ag-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -19,9 +21,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -242,7 +248,7 @@
     ("follownig" "following" nil 1)
     ("fomrat" "format" nil 1)
     ("framewokr" "framework" nil 1)
-    ("funciton" "function" nil 2)
+    ("funciton" "function" nil 4)
     ("guatds" "guards" nil 1)
     ("hapy" "happy" nil 1)
     ("heuritistic" "heuristic" nil 1)
@@ -284,6 +290,7 @@
     ("jsut" "just" nil 1)
     ("karhtik" "Karthik" nil 2)
     ("knwo" "know" nil 1)
+    ("knwon" "known" nil 1)
     ("ksill" "skill" nil 1)
     ("laoder" "loader" nil 1)
     ("lical" "local" nil 2)
@@ -355,6 +362,7 @@
     ("simialr" "similar" nil 1)
     ("singapore" "Singapore" nil 7)
     ("skeletion" "skeleton" nil 1)
+    ("smaple" "sample" nil 1)
     ("somehting" "something" nil 1)
     ("spawen" "spawn" nil 1)
     ("specfically" "specifically" nil 1)
@@ -447,7 +455,9 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -521,7 +531,9 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -543,7 +555,9 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'poly-fallback-mode-abbrev-table '())
 

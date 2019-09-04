@@ -856,7 +856,8 @@ language's mappings.
     (:keymaps 'org-mode-map
      :states '(normal visual)
      :prefix my-default-evil-leader-key
-     "o l" 'my-worf-insert-internal-link)
+     "o l" 'my-worf-insert-internal-link
+     "l l" 'org-toggle-link-display)
     :init
     (defun my--worf-insert-internal-link-action (x)
       (save-excursion
