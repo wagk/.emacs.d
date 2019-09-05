@@ -3036,9 +3036,9 @@ Might be better done as an ex mode command or something.
 #+begin_src emacs-lisp :results output silent
   (use-package ivy-rich
     :straight (:host github :repo "Yevgnen/ivy-rich")
-    :init
-    (with-eval-after-load 'ivy
-      (ivy-rich-mode)))
+    :after ivy
+    :config
+    (ivy-rich-mode))
 #+end_src
 
 * Company
