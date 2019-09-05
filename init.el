@@ -201,12 +201,6 @@ recovery. Maybe eventually load dependencies and all that."
     :init
     (defconst my-default-evil-leader-key "SPC"))
 
-  (use-package hydra
-    :straight (:host github :repo "abo-abo/hydra")
-    :config
-    (use-package use-package-hydra
-      :straight (:host gitlab :repo "to1ne/use-package-hydra")))
-
   (use-package no-littering
     :straight (:host github :repo "emacscollective/no-littering"))
 

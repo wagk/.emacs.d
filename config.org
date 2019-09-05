@@ -359,6 +359,26 @@ Stolen from https://github.com/bbatsov/crux
   (electric-indent-mode)
 #+end_src
 
+* Which Key
+#+begin_src emacs-lisp :results output silent
+  (use-package which-key
+    :straight (:host github :repo "justbur/emacs-which-key")
+    :defer 10
+    :config
+    (which-key-mode))
+#+end_src
+
+* Hercules
+:PROPERTIES:
+:DEPENDENCIES: which-key
+:END:
+
+#+begin_src emacs-lisp :results output silent
+  (use-package hercules
+    :straight (:host gitlab :repo "jjzmajic/hercules.el")
+    :commands (hercules-def))
+#+end_src
+
 * Packaging
 #+begin_src emacs-lisp :results output silent
   (use-package auto-package-update
@@ -998,7 +1018,11 @@ Currently disabled while we look at other, more maintained projects
     :config
     ;; NOTE: We do this because when running on different machine we
     ;; will need to update the IDs of entries.
-    (org-brain-update-id-locations))
+    (org-brain-update-id-locations)
+    (hercules-def :toggle-funs #'org-brain-visualize-mode
+                  :hide-funs #'org-brain-visualize-quit
+                  :keymap 'org-brain-visualize-mode-map
+                  :transient t))
 #+end_src
 
 *** Usage
@@ -1032,48 +1056,6 @@ Currently disabled while we look at other, more maintained projects
 | v          | =org-brain-visualize=                | Choose and visualize a different entry                                            |
 | w          | =org-brain-visualize-random=         | Visualize one of your entries at random.                                          |
 | W          | =org-brain-visualize-wander=         | Visualize at random, in a set interval. =W= again to cancel.                      |
-
-**** Hydra
-#+begin_src emacs-lisp :results output silent
-  (with-eval-after-load 'hydra
-    (with-eval-after-load 'org-brain
-      (defhydra hydra-org-brain (org-brain-visualize-mode-map "")
-        "org-brain bindings"
-        ("m" org-brain-visualize-mind-map "toggle mind map vis" :exit t)
-        ("b" org-brain-visualize-back "go to last node" :exit t)
-        ("h" org-brain-add-child-headline "add child headline" :exit t)
-        ("*" org-brain-add-child-headline "add child headline" :exit t)
-        ("c" org-brain-add-child "add child" :exit t)
-        ("C" org-brain-remove-child "remove child" :exit t)
-        ("e" org-brain-annotate-edge "annotate edge" :exit t)
-        ("p" org-brain-add-parent "add parent" :exit t)
-        ("P" org-brain-remove-parent "remove parent" :exit t)
-        ("f" org-brain-add-friendship "add friendship" :exit t)
-        ("F" org-brain-remove-friendship "remove friendship" :exit t)
-        ("n" org-brain-pin "pin entry" :exit t)
-        ("s" org-brain-select-dwim "select entry for batch processing" :exit t)
-        ("S" org-brain-select-map "prefix for batch process selected entries" :exit t)
-        ("t" org-brain-set-title "edit title" :exit t)
-        ("T" org-brain-set-tags "edit tags" :exit t)
-        ("d" org-brain-delete-entry "delete node" :exit t)
-        ("l" org-brain-visualize-add-resource "add new resource to entry" :exit t)
-        ("r" org-brain-open-resource "open resource" :exit t)
-        ("C-y" org-brain-visualize-paste-resource "add resource from keyboard" :exit t)
-        ("a" org-brain-visualize-attach "org-attach on headline" :exit t)
-        ("A" org-brain-archive "archive entry" :exit t)
-        ("o" org-brain-goto-current "open current node" :exit t)
-        ("O" org-brain-goto "open a node" :exit t)
-        ("v" org-brain-visualize "see another entry" :exit t)
-        ("w" org-brain-visualize-random "see random entry" :exit t)
-        ("W" org-brain-visualize-wander "see random entries on timer" :exit t))))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (with-eval-after-load 'org-brain
-    (general-define-key
-     :keymaps 'org-brain-visualize-mode-map
-     ";" 'hydra-org-brain/body))
-#+end_src
 
 ** Org bullets
 #+begin_src emacs-lisp :results output silent
@@ -2085,6 +2067,22 @@ package manager
       (cl-pushnew '("json" . json) org-src-lang-modes)))
 #+end_src
 
+* Wgrep
+Being able to mass-edit using search results seem interesting
+http://blog.binchen.org/posts/use-wgrep-and-evil-to-replace-text-efficiently.html
+
+Note that for some reason using plain old =ag= works while
+=counsel-ag= does not.
+
+In the =ag= buffer call =C-c C-p= to launch wgrep.
+
+#+begin_src emacs-lisp :results output silent
+  (use-package wgrep
+    :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
+    :commands (wgrep-change-to-wgrep-mode
+               ivy-wgrep-change-to-wgrep-mode))
+#+end_src
+
 * Silver Searcher (Ag)
 #+begin_src emacs-lisp :results output silent
   (use-package ag
@@ -2116,6 +2114,9 @@ to type it out.
 #+end_src
 
 * Ripgrep (rg)
+:PROPERTIES:
+:DEPENDENCIES: wgrep
+:END:
 
 *rg* buffer bindings
 
@@ -2419,15 +2420,6 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
                                (shell-dirtrack-mode 0)
                                (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
                                (dirtrack-mode 1)))
-#+end_src
-
-* Which Key
-#+begin_src emacs-lisp :results output silent
-  (use-package which-key
-    :straight (:host github :repo "justbur/emacs-which-key")
-    :defer 10
-    :config
-    (which-key-mode))
 #+end_src
 
 * Groovy mode                                                         :major:
@@ -3049,22 +3041,6 @@ Might be better done as an ex mode command or something.
       (ivy-rich-mode)))
 #+end_src
 
-* Wgrep
-Being able to mass-edit using search results seem interesting
-http://blog.binchen.org/posts/use-wgrep-and-evil-to-replace-text-efficiently.html
-
-Note that for some reason using plain old =ag= works while
-=counsel-ag= does not.
-
-In the =ag= buffer call =C-c C-p= to launch wgrep.
-
-#+begin_src emacs-lisp :results output silent
-  (use-package wgrep
-    :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
-    :commands (wgrep-change-to-wgrep-mode
-               ivy-wgrep-change-to-wgrep-mode))
-#+end_src
-
 * Company
 #+begin_src emacs-lisp :results output silent
   (use-package company-mode
@@ -3122,6 +3098,7 @@ file will not itself be encrypted.
     :custom
     (plantuml-output-type "txt"
                           "Display using glorious text")
+    (plantuml-default-exec-mode 'executable)
     :ensure-system-package
     (plantuml . "choco install -y plantuml")
     :mode "\\.plantuml\\'"
@@ -3159,13 +3136,6 @@ file will not itself be encrypted.
     :straight (:host github :repo "wasamasa/nov.el")
     :mode ("\\.epub\\'" . nov-mode))
 #+end_src
-* Hercules
-#+begin_src emacs-lisp :results output silent
-  (use-package hercules
-    :straight (:host gitlab :repo "jjzmajic/hercules.el")
-    :commands (hercules-def))
-#+end_src
-
 * Glasses-mode
 Converts between camelCase and snake_case visually, without changing
 the underlying format
