@@ -92,6 +92,13 @@ C-M-i                           backward-button
                                   nil)))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (when (boundp 'config-local-syncthing-folder)
+    (defun find-user-syncthing-folder ()
+      (interactive)
+      (dired config-local-syncthing-folder)))
+#+end_src
+
 * Quality of Life
 ** Frame Transparency
 #+begin_src emacs-lisp :results output silent
