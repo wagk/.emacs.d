@@ -1019,7 +1019,7 @@ Currently disabled while we look at other, more maintained projects
     ;; NOTE: We do this because when running on different machine we
     ;; will need to update the IDs of entries.
     (org-brain-update-id-locations)
-    (hercules-def :toggle-funs #'org-brain-visualize-mode
+    (hercules-def :toggle-funs #'org-brain-visualize
                   :hide-funs #'org-brain-visualize-quit
                   :keymap 'org-brain-visualize-mode-map
                   :transient t))
@@ -3077,7 +3077,9 @@ Might be better done as an ex mode command or something.
     :straight (:host github :repo "gregsexton/origami.el")
     :after evil
     :hook
-    (prog-mode . origami-mode))
+    (prog-mode . origami-mode)
+    :config
+    (global-origami-mode))
 #+end_src
 
 * Rot13
