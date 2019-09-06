@@ -670,9 +670,7 @@ This is an expensive package to load, and I wonder why.
     (evil-cleverparens-mode-map
      :states '(visual normal)
      ">" nil
-     "<" nil)
-    (evil-cleverparens-mode-map
-     :states '(normal visual)
+     "<" nil
      "{" nil
      "}" nil))
 #+end_src
