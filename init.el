@@ -462,7 +462,7 @@ recovery. Maybe eventually load dependencies and all that."
     (org-refile-allow-creating-parent-nodes 'confirm)
     (org-highlight-latex-and-related '(latex))
     (org-insert-heading-respect-content nil)
-    (org-catch-invisible-edits 'show-and-error)
+    (org-catch-invisible-edits 'smart)
     (org-cycle-separator-lines 0)
     ;; (org-list-indent-offset 1)
     (org-extend-today-until
