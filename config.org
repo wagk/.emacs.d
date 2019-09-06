@@ -92,6 +92,13 @@ C-M-i                           backward-button
                                   nil)))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (when (boundp 'config-local-syncthing-folder)
+    (defun find-user-syncthing-folder ()
+      (interactive)
+      (dired config-local-syncthing-folder)))
+#+end_src
+
 * Quality of Life
 ** Frame Transparency
 #+begin_src emacs-lisp :results output silent
@@ -2448,9 +2455,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 #+begin_src emacs-lisp :results output silent
   (use-package ob-hy
     :straight (:host github :repo "brantou/ob-hy")
-    :after hy-mode
-    :config
-    (require 'ob-hy))
+    :after org-src)
 #+end_src
 
 * vlf-mode
@@ -2560,9 +2565,9 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
   (use-package org-journal
     :straight (:host github :repo "bastibe/org-journal")
     :commands org-journal-new-entry
-    ;; :custom
-    ;; (org-journal-time-format "%T")
-    ;; (org-journal-date-format "%A, %F" "Lets follow the ISO standard")
+    :custom
+    (org-journal-time-format "%T")
+    (org-journal-date-format "%A, %F" "Lets follow the ISO standard")
     ;; (org-journal-file-format "%F" "Lets follow the ISO standard")
     :init
     (evil-ex-define-cmd "journal" #'(lambda () (interactive)
