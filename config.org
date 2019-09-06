@@ -2039,18 +2039,9 @@ package manager
 
 * Anki
 
-** Markdown flavored anki editing                                 :disabled:
-#+begin_src emacs-lisp :results output silent
-  (use-package anki-mode
-    :disabled t
-    :straight (:host github :repo "davidshepherd7/anki-mode")
-    :commands (anki-mode-menu))
-#+end_src
-
 ** Orgmode flavored anki editing                                  :disabled:
 #+begin_src emacs-lisp :results output silent
   (use-package anki-editor
-    :disabled t
     :straight (:host github :repo "louietan/anki-editor"))
 #+end_src
 
@@ -2466,7 +2457,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 #+begin_src emacs-lisp :results output silent
   (use-package vlf
     :straight (:host github :repo "m00natic/vlfi")
-    :commands vlf-mode
+    :custom (vlf-application 'dont-ask)
     :config (require 'vlf-setup))
 #+end_src
 
@@ -3045,14 +3036,14 @@ Might be better done as an ex mode command or something.
 #+begin_src emacs-lisp :results output silent
   (use-package company-mode
     :straight (:host github :repo "company-mode/company-mode")
-    :defer 10
+    :commands (company-mode-on)
     :general
     (company-active-map
      "C-w" nil) ;; don't override vim controls
     :custom
     (company-idle-delay 2)
     :hook
-    (prog-mode . global-company-mode))
+    (prog-mode . company-mode-on))
 #+end_src
 
 * Flycheck

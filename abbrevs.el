@@ -246,6 +246,7 @@
     ("followinig" "following" nil 1)
     ("followiong" "following" nil 1)
     ("follownig" "following" nil 1)
+    ("follwo" "follow" nil 1)
     ("fomrat" "format" nil 1)
     ("framewokr" "framework" nil 1)
     ("funciton" "function" nil 4)
@@ -322,7 +323,7 @@
     ("oging" "going" nil 2)
     ("ohterwise" "otherwise" nil 1)
     ("onlinie" "online" nil 1)
-    ("ot" "to" nil 24)
+    ("ot" "to" nil 25)
     ("owuld" "would" nil 1)
     ("pariton" "partition" nil 1)
     ("ponit" "point" nil 1)
@@ -558,6 +559,8 @@
 (define-abbrev-table 'pike-mode-abbrev-table
   '(
    ))
+
+(define-abbrev-table 'plantuml-mode-abbrev-table '())
 
 (define-abbrev-table 'poly-fallback-mode-abbrev-table '())
 
