@@ -3041,14 +3041,15 @@ Might be better done as an ex mode command or something.
 #+begin_src emacs-lisp :results output silent
   (use-package company-mode
     :straight (:host github :repo "company-mode/company-mode")
-    :commands (company-mode-on)
+    :commands (company-mode-on
+               company-mode)
     :general
     (company-active-map
      "C-w" nil) ;; don't override vim controls
     :custom
     (company-idle-delay 2)
     :hook
-    (prog-mode . company-mode-on))
+    (prog-mode . company-mode))
 #+end_src
 
 * Flycheck
