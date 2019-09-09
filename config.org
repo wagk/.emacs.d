@@ -380,6 +380,9 @@ Stolen from https://github.com/bbatsov/crux
 :DEPENDENCIES: which-key
 :END:
 
+Using functions to enter and exit is a fair bit clunky, so I'm
+re-evaluating the need for this
+
 #+begin_src emacs-lisp :results output silent
   (use-package hercules
     :straight (:host gitlab :repo "jjzmajic/hercules.el")
@@ -1023,11 +1026,11 @@ Currently disabled while we look at other, more maintained projects
     :config
     ;; NOTE: We do this because when running on different machine we
     ;; will need to update the IDs of entries.
-    (org-brain-update-id-locations)
-    (hercules-def :toggle-funs #'org-brain-visualize
-                  :hide-funs #'org-brain-visualize-quit
-                  :keymap 'org-brain-visualize-mode-map
-                  :transient t))
+    (org-brain-update-id-locations))
+    ;; (hercules-def :toggle-funs #'org-brain-visualize
+    ;;               :hide-funs #'org-brain-visualize-quit
+    ;;               :keymap 'org-brain-visualize-mode-map
+    ;;               :transient t))
 #+end_src
 
 *** Usage
@@ -2047,7 +2050,13 @@ package manager
 ** Orgmode flavored anki editing                                  :disabled:
 #+begin_src emacs-lisp :results output silent
   (use-package anki-editor
-    :straight (:host github :repo "louietan/anki-editor"))
+    :straight (:host github :repo "louietan/anki-editor")
+    :commands (anki-editor-push-notes
+               anki-editor-retry-failure-notes
+               anki-editor-insert-note
+               anki-editor-cloze-region
+               anki-editor-export-subtree-to-html
+               anki-editor-convert-region-to-html))
 #+end_src
 
 * JSON                                                                :major:
