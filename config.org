@@ -2398,8 +2398,20 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 - Related Spacemacs Issue ::
   https://github.com/syl20bnr/spacemacs/issues/6820
 
+
+Let's try just creating the shell on the side instead of overtaking
+the thing
 #+begin_src emacs-lisp :results output silent
-  ;; (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
+  (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "Sshell" '(lambda () (interactive)
+                                   (call-interactively 'evil-window-split)
+                                   (shell)))
+  (evil-ex-define-cmd "Vshell" '(lambda () (interactive)
+                                   (call-interactively 'evil-window-vsplit)
+                                   (shell)))
 #+end_src
 
 * Make cursor always move to end when entering insert mode in comint modes
