@@ -2399,12 +2399,13 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
   https://github.com/syl20bnr/spacemacs/issues/6820
 
 #+begin_src emacs-lisp :results output silent
-  (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
+  ;; (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
 #+end_src
 
 * Make cursor always move to end when entering insert mode in comint modes
 #+begin_src emacs-lisp :results output silent
   (customize-set-value 'comint-scroll-to-bottom-on-input t)
+  (customize-set-value 'comint-prompt-read-only t)
 #+end_src
 
 * Make shell mode update working directory
