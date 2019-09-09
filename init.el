@@ -465,8 +465,8 @@ recovery. Maybe eventually load dependencies and all that."
     (org-catch-invisible-edits 'smart)
     (org-cycle-separator-lines 0)
     ;; (org-list-indent-offset 1)
-    (org-extend-today-until
-     5 "I think 5 am is a safe bet for the end of the day")
+    ;; (org-extend-today-until
+    ;;  5 "I think 5 am is a safe bet for the end of the day")
     (org-note-done 'note)
     :hook ((org-insert-heading . evil-insert-state))
     :init
