@@ -3163,6 +3163,9 @@ the underlying format
   (use-package devdocs
     :straight (:host github :repo "skeeto/devdocs-lookup")
     :commands (devdocs-lookup)
+    :custom
+    (evil-lookup-func '(lambda ()
+                         (call-interactively 'devdocs-lookup)))
     :config
     (devdocs-setup))
 #+end_src
