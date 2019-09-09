@@ -9,7 +9,11 @@
 
 (define-abbrev-table 'ag-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'apropos-mode-abbrev-table '())
+
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -19,9 +23,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -135,7 +143,7 @@
     ("abstraciton" "abstraction" nil 1)
     ("acocunt" "account" nil 1)
     ("additioanl" "additional" nil 1)
-    ("adn" "and" nil 18)
+    ("adn" "and" nil 19)
     ("ahve" "have" nil 1)
     ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
@@ -185,6 +193,7 @@
     ("classificaiton" "classification" nil 1)
     ("cna" "can" nil 8)
     ("commadn" "command" nil 2)
+    ("commadns" "commands" nil 1)
     ("communicaiton" "communication" nil 1)
     ("complidcated" "complicated" nil 1)
     ("compoennts" "components" nil 1)
@@ -239,7 +248,7 @@
     ("fiel" "file" nil 3)
     ("fiels" "files" nil 2)
     ("finalncial" "financial" nil 1)
-    ("fo" "of" nil 53)
+    ("fo" "of" nil 57)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
     ("followinig" "following" nil 1)
@@ -336,7 +345,7 @@
     ("quaity" "quality" nil 1)
     ("raito" "Ratio" nil 1)
     ("rapicly" "rapidly" nil 1)
-    ("recieve" "receive" nil 2)
+    ("recieve" "receive" nil 3)
     ("remoivng" "Removing" nil 2)
     ("renaem" "Rename" nil 2)
     ("repoisoty" "repository" nil 1)
@@ -459,7 +468,9 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -533,7 +544,9 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -555,7 +568,9 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'plantuml-mode-abbrev-table '())
 
@@ -571,7 +586,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
