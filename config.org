@@ -1269,6 +1269,7 @@ Moved to init.el
       "Note that :h :tabe in vim indicates that it's file only, not
   buffer."
       (interactive "<f>")
+      (require 'eyebrowse)
       (let ((eyebrowse-new-workspace (if file
                                          (lambda () (find-file file))
                                        eyebrowse-new-workspace)))
@@ -1277,6 +1278,18 @@ Moved to init.el
     (evil-ex-define-cmd "tabe[dit]"  'my-new-evil-tab)
     (evil-ex-define-cmd "tabc[lose]" 'eyebrowse-close-window-config)
     (evil-ex-define-cmd "tabs"       'eyebrowse-switch-to-window-config)
+    (evil-ex-define-cmd "tabconfig" '(lambda ()
+                                       (interactive)
+                                       (funcall-interactively
+                                        'my-new-evil-tab user-config-file)))
+    (evil-ex-define-cmd "tabinit" '(lambda ()
+                                     (interactive)
+                                     (funcall-interactively
+                                      'my-new-evil-tab user-init-file)))
+    (evil-ex-define-cmd "tablocal" '(lambda ()
+                                      (interactive)
+                                      (funcall-interactively
+                                       'my-new-evil-tab user-local-file)))
     :config
     (eyebrowse-mode)
     (defun my-delete-window-config-or-frame (oldfun &rest old_args)
@@ -3142,6 +3155,8 @@ file will not itself be encrypted.
 #+end_src
 
 * Edn format
+This is closer to the json serialization/deserialization module.
+
 #+begin_src emacs-lisp :results output silent
   (use-package edn
     :straight (:host github :repo "expez/edn.el")
