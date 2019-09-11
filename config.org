@@ -3200,3 +3200,11 @@ the underlying format
     :straight (:host github :repo "rpdillon/todotxt.el")
     :commands todotxt)
 #+end_src
+
+* Persistent scratch
+#+begin_src emacs-lisp :results output silent
+  (use-package persistent-scratch
+    :straight (:host github :repo "Fanael/persistent-scratch")
+    :config
+    (persistent-scratch-setup-default))
+#+end_src
