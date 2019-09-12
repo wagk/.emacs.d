@@ -188,8 +188,8 @@ Emulate the best feature of notepad
 
 ** Automatically refresh buffer when underlying file is changed externally
 #+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'auto-revert-verbose nil)
-  (global-auto-revert-mode t)
+  (customize-set-variable 'global-auto-revert-non-file-buffers nil)
+  (global-auto-revert-mode)
 #+end_src
 
 ** Make window subprocess communications faster
