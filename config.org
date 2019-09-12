@@ -366,6 +366,26 @@ Stolen from https://github.com/bbatsov/crux
   (electric-indent-mode)
 #+end_src
 
+** Buffer menu mode map config
+#+begin_src emacs-lisp :results output silent
+  (general-define-key
+   :keymaps 'Buffer-menu-mode-map
+   :states '(normal motion)
+   "C-d" 'evil-scroll-down)
+#+end_src
+* Apropos Configuration
+#+begin_src emacs-lisp :results output silent
+  (use-package apropos
+    :ensure nil
+    :custom
+    (apropos-do-all t)
+    :init
+    (evil-define-command my-apropos (pattern)
+      (interactive "<a>")
+      (apropos pattern))
+    (evil-ex-define-cmd "h[elp]" 'my-apropos))
+#+end_src
+
 * Which Key
 #+begin_src emacs-lisp :results output silent
   (use-package which-key
@@ -644,6 +664,7 @@ This is an expensive package to load, and I wonder why.
 
 #+begin_src emacs-lisp :results output silent
   (use-package targets
+    :disabled t ;; See what we're missing if we don't use this for now
     :straight (:host github :repo "noctuid/targets.el")
     :general
     (evil-inner-text-objects-map
@@ -1971,10 +1992,6 @@ We should look at customizing cider someday.
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (add-hook 'dired-mode-hook 'auto-revert-mode)
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
   (evil-define-command open-dired-window ()
     (interactive)
     (if buffer-file-name
@@ -2424,16 +2441,14 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 Let's try just creating the shell on the side instead of overtaking
 the thing
 #+begin_src emacs-lisp :results output silent
-  (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
+;;  (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "Sshell" '(lambda () (interactive)
-                                   (call-interactively 'evil-window-split)
-                                   (shell)))
-  (evil-ex-define-cmd "Vshell" '(lambda () (interactive)
-                                   (call-interactively 'evil-window-vsplit)
-                                   (shell)))
+  ;; (evil-ex-define-cmd "Sshell" '(lambda () (interactive)
+  ;;                                  (shell)))
+  ;; (evil-ex-define-cmd "Vshell" '(lambda () (interactive)
+  ;;                                  (shell)))
 #+end_src
 
 * Make cursor always move to end when entering insert mode in comint modes
@@ -3065,7 +3080,7 @@ Might be better done as an ex mode command or something.
 #+begin_src emacs-lisp :results output silent
   (use-package ivy-rich
     :straight (:host github :repo "Yevgnen/ivy-rich")
-    :after ivy
+    :defer 23
     :config
     (ivy-rich-mode))
 #+end_src
@@ -3205,6 +3220,7 @@ the underlying format
 #+begin_src emacs-lisp :results output silent
   (use-package persistent-scratch
     :straight (:host github :repo "Fanael/persistent-scratch")
+    :disabled t ;;  6 seconds to load lmao
     :config
     (persistent-scratch-setup-default))
 #+end_src

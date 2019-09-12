@@ -408,7 +408,8 @@ recovery. Maybe eventually load dependencies and all that."
      :keymaps 'org-mode-map
      "TAB"    'org-cycle
      "<tab>"  'org-cycle
-     "g x"    'org-open-at-point)
+     "g x"    'org-open-at-point
+     "C-c C-w" 'org-refile)
     (:states 'normal
      :prefix my-default-evil-leader-key
      "o t" 'org-time-stamp
