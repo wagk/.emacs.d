@@ -269,8 +269,8 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 
 ** Show matching parens
 #+begin_src emacs-lisp :results output silent
-  (customize-set-value 'show-paren-when-point-inside-paren t)
-  (customize-set-value 'show-paren-when-point-in-periphery t)
+  (customize-set-variable 'show-paren-when-point-inside-paren t)
+  (customize-set-variable 'show-paren-when-point-in-periphery t)
   (add-hook 'prog-mode-hook 'show-paren-mode)
 #+end_src
 
@@ -301,9 +301,9 @@ Stolen from https://github.com/bbatsov/crux
 
 ** Completion
 #+begin_src emacs-lisp :results output silent
-  (customize-set-value 'completion-ignore-case t)
-  (customize-set-value 'read-file-name-completion-ignore-case t)
-  (customize-set-value 'read-buffer-completion-ignore-case t)
+  (customize-set-variable 'completion-ignore-case t)
+  (customize-set-variable 'read-file-name-completion-ignore-case t)
+  (customize-set-variable 'read-buffer-completion-ignore-case t)
 #+end_src
 
 ** Copy file name to keyboard
@@ -555,8 +555,8 @@ interactive codes provided.
     (evil-replace-with-register-install))
 #+end_src
 
-* Text Objects
-** Latex Textobjects
+** Text Objects
+*** Latex Textobjects
 I appear to have stolen this from somewhere, probably because the original
 package isn't being maintained or something
 
@@ -581,7 +581,7 @@ package isn't being maintained or something
     :hook (LaTeX-mode . turn-on-evil-latex-textobjects-mode))
 #+end_src
 
-** Surround text objects
+*** Surround text objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-surround
     :straight (:host github :repo "emacs-evil/evil-surround")
@@ -590,22 +590,23 @@ package isn't being maintained or something
     (global-evil-surround-mode))
 #+end_src
 
-** Argument text objects
+*** Argument text objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-args
     :straight (:host github :repo "wcsmith/evil-args")
     :after (evil)
-    :custom
-    (evil-args-openers (push "<" evil-args-openers))
-    (evil-args-closers (push ">" evil-args-closers))
     :general
     (evil-inner-text-objects-map
      "a" 'evil-inner-arg)
     (evil-outer-text-objects-map
-     "a" 'evil-outer-arg))
+     "a" 'evil-outer-arg)
+    :config
+    ;; these variables don't exist until evil-arg loads
+    (push "<" evil-args-openers)
+    (push ">" evil-args-closers))
 #+end_src
 
-** Comment using text objects
+*** Comment using text objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-commentary
     :straight (:host github :repo "linktohack/evil-commentary")
@@ -614,7 +615,7 @@ package isn't being maintained or something
     (evil-commentary-mode))
 #+end_src
 
-** Comment Text Objects
+*** Comment Text Objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-nerd-commenter
     :straight (:host github :repo "redguardtoo/evil-nerd-commenter")
@@ -633,7 +634,7 @@ package isn't being maintained or something
       (evilmi-load-plugin-rules '(mhtml-mode) '(template simple html))))
 #+end_src
 
-** Syntax Text Objects
+*** Syntax Text Objects
 Bound to "h"
 
 #+begin_src emacs-lisp :results output silent
@@ -642,7 +643,7 @@ Bound to "h"
     :after evil)
 #+end_src
 
-** Indent text objects
+*** Indent text objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-indent-plus
     :straight (:host github :repo "TheBB/evil-indent-plus")
@@ -655,14 +656,14 @@ Bound to "h"
      "I" 'evil-indent-plus-a-indent-up))
 #+end_src
 
-** Line Text Objects
+*** Line Text Objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-textobj-line
     :straight (:host github :repo "syohex/evil-textobj-line")
     :after evil)
 #+end_src
 
-** Targets
+*** Targets
 This is an expensive package to load, and I wonder why.
 
 #+begin_src emacs-lisp :results output silent
@@ -685,7 +686,7 @@ This is an expensive package to load, and I wonder why.
                    :remote-key nil))
 #+end_src
 
-** Evil-cleverparens
+*** Evil-cleverparens
 #+begin_src emacs-lisp :results output silent
   (use-package evil-cleverparens
     :straight (:host github :repo "luxbock/evil-cleverparens")
@@ -702,7 +703,7 @@ This is an expensive package to load, and I wonder why.
      "}" nil))
 #+end_src
 
-** Sentences
+*** Sentences
 #+begin_src emacs-lisp :results output silent
     (use-package sentence-navigation
       :straight (:host github :repo "noctuid/emacs-sentence-navigation")
@@ -718,7 +719,7 @@ This is an expensive package to load, and I wonder why.
        "s" 'sentence-nav-evil-inner-sentence))
 #+end_src
 
-** [K]olumns
+*** [K]olumns
 #+begin_src emacs-lisp :results output silent
   (use-package evil-textobj-column
     :straight (:host github :repo "noctuid/evil-textobj-column")
@@ -872,7 +873,7 @@ For some reason we can't do this in the scratch buffer
                org-agenda-file-to-front)
     :config
     (with-eval-after-load 'deft
-      (customize-set-value 'org-agenda-files
+      (customize-set-variable 'org-agenda-files
                           (add-to-list 'org-agenda-files
                                         deft-directory))))
 #+end_src
@@ -1843,7 +1844,7 @@ containing a lot of files, and if the files are themselves large.
     (evil-set-initial-state 'deft-mode 'insert)
     :config
     (when (boundp 'config-local-syncthing-folder)
-      (customize-set-value 'deft-directory
+      (customize-set-variable 'deft-directory
                            (file-name-as-directory
                             (concat
                              (file-name-as-directory
@@ -2452,8 +2453,8 @@ the thing
 
 * Make cursor always move to end when entering insert mode in comint modes
 #+begin_src emacs-lisp :results output silent
-  (customize-set-value 'comint-scroll-to-bottom-on-input t)
-  (customize-set-value 'comint-prompt-read-only t)
+  (customize-set-variable 'comint-scroll-to-bottom-on-input t)
+  (customize-set-variable 'comint-prompt-read-only t)
 #+end_src
 
 * Make shell mode update working directory
@@ -2620,7 +2621,7 @@ the thing
     (evil-ex-define-cmd "journal" #'(lambda () (interactive)
                                       (org-journal-new-entry t)))
     (evil-ex-define-cmd "jj" 'org-journal-new-entry)
-    (customize-set-value 'org-journal-dir (file-name-as-directory
+    (customize-set-variable 'org-journal-dir (file-name-as-directory
                                            (concat config-local-syncthing-folder "/notes/journal")))
     :hook
     ((org-journal-after-entry-create . evil-insert-state)
