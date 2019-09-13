@@ -137,7 +137,7 @@
     ("abstraciton" "abstraction" nil 1)
     ("acocunt" "account" nil 1)
     ("additioanl" "additional" nil 1)
-    ("adn" "and" nil 21)
+    ("adn" "and" nil 22)
     ("ahve" "have" nil 2)
     ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
@@ -146,6 +146,7 @@
     ("anabled" "enabled" nil 1)
     ("anser" "answer" nil 1)
     ("answser" "answer" nil 1)
+    ("antyhing" "anything" nil 1)
     ("anywehre" "anywhere" nil 1)
     ("anywya" "anyway" nil 2)
     ("apaprently" "apparently" nil 1)
@@ -184,6 +185,7 @@
     ("byut" "but" nil 1)
     ("calng" "clang" nil 1)
     ("candiate" "candidate" nil 1)
+    ("cauisng" "causing" nil 1)
     ("charactrer" "character" nil 1)
     ("checkinf" "checking" nil 1)
     ("checkng" "checking" nil 1)
@@ -252,7 +254,7 @@
     ("fiel" "file" nil 3)
     ("fiels" "files" nil 4)
     ("finalncial" "financial" nil 1)
-    ("fo" "of" nil 59)
+    ("fo" "of" nil 60)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
     ("followinig" "following" nil 1)
@@ -361,6 +363,7 @@
     ("quaity" "quality" nil 1)
     ("raito" "Ratio" nil 1)
     ("rapicly" "rapidly" nil 1)
+    ("reciept" "receipt" nil 1)
     ("recieve" "receive" nil 3)
     ("reemergence" "re-emergence" nil 1)
     ("remoivng" "Removing" nil 2)
@@ -421,7 +424,7 @@
     ("thorugh" "through" nil 1)
     ("thwe" "the" nil 1)
     ("thwtwill" "that will" nil 1)
-    ("ti" "it" nil 4)
+    ("ti" "it" nil 5)
     ("ti's" "it's" nil 1)
     ("tlaking" "talking" nil 1)
     ("traaining" "training" nil 1)
@@ -452,7 +455,7 @@
     ("wrory" "worry" nil 1)
     ("wrpaper" "Wrapper" nil 1)
     ("wrt" "w.r.t" nil 6)
-    ("wtih" "with" nil 6)
+    ("wtih" "with" nil 7)
     ("wven" "even" nil 1)
     ("wwell" "well" nil 1)
     ("wya" "way" nil 2)
@@ -608,7 +611,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 

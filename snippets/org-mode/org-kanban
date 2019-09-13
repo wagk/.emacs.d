@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: org-kanban
+# key: kanban
+# --
+#+BEGIN: kanban :mirrored nil
+#+END:

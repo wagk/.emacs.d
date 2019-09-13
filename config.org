@@ -595,6 +595,9 @@ package isn't being maintained or something
   (use-package evil-args
     :straight (:host github :repo "wcsmith/evil-args")
     :after (evil)
+    :custom
+    (evil-args-openers (push "<" evil-args-openers))
+    (evil-args-closers (push ">" evil-args-closers))
     :general
     (evil-inner-text-objects-map
      "a" 'evil-inner-arg)
@@ -1267,11 +1270,7 @@ that for the range we want
     (global-diff-hl-mode))
 #+end_src
 
-* Make Emacs Restartable
-Moved to init.el
-
-* Window layout management
-** Eyebrowse
+* Eyebrowse
 #+begin_src emacs-lisp :results output silent
   (use-package eyebrowse
     :straight (:host github :repo "wasamasa/eyebrowse")
@@ -2703,6 +2702,14 @@ keeping it until we figure out how to use it properly
 #+end_src
 
 * Org Kanban
+This uses a custom org block, so we don't actually have to do anything
+more than spell out that block and evaluate it.
+
+#+begin_example
+#+BEGIN: kanban :mirrored nil
+#+END:
+#+end_example
+
 #+begin_src emacs-lisp :results output silent
   (use-package org-kanban
     :straight (:host github :repo "gizmomogwai/org-kanban")
