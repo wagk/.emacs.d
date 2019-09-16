@@ -224,6 +224,7 @@
     ("definiltey" "definitely" nil 1)
     ("definitiion" "definition" nil 1)
     ("deletino" "deletion" nil 1)
+    ("delibaration" "deliberation" nil 1)
     ("denstiy" "density" nil 1)
     ("depeer" "deeper" nil 1)
     ("dependecies" "dependencies" nil 1)
@@ -261,7 +262,7 @@
     ("fiel" "file" nil 4)
     ("fiels" "files" nil 4)
     ("finalncial" "financial" nil 1)
-    ("fo" "of" nil 60)
+    ("fo" "of" nil 61)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
     ("followinig" "following" nil 1)
@@ -394,6 +395,7 @@
     ("seleciton" "selection" nil 1)
     ("seme" "seem" nil 1)
     ("shoudl" "should" nil 8)
+    ("shoudnt" "shouldn't" nil 1)
     ("showind" "showing" nil 1)
     ("si" "is" nil 2)
     ("siad" "said" nil 1)
@@ -419,6 +421,7 @@
     ("synchronisaton" "synchronisation" nil 1)
     ("systm" "system" nil 1)
     ("taht" "that" nil 27)
+    ("taingint" "tainting" nil 1)
     ("taks" "task" nil 2)
     ("tat" "that" nil 1)
     ("tempalte" "template" nil 2)
@@ -438,6 +441,7 @@
     ("transfomr" "transform" nil 1)
     ("tremling" "trembling" nil 1)
     ("tyhe" "the" nil 2)
+    ("tyhen" "then" nil 1)
     ("typign" "Typing" nil 1)
     ("typingn" "typing" nil 1)
     ("typname" "typename" nil 1)
@@ -624,9 +628,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
