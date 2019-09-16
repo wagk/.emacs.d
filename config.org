@@ -1128,7 +1128,7 @@ Needs a working =zip= exe.
                                   file-name-nondirectory
                                   file-name-sans-extension)
                               "_"
-                              (format-time-string "%Y-%m-%d")))
+                              (format-time-string "%Y-%m-%dT%H%M%S")))
                      ".png")))
       (unless (file-directory-p dir)
         (make-directory dir))
