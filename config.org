@@ -964,6 +964,7 @@ called, and it should work anywhere.
                :files (:defaults ("resources/" "resources/*")))
     :commands (org-pomodoro)
     :custom
+    (org-pomodoro-manual-break t)
     ;; guild wars 2 has some excellent notification sounds
     ;; For some reason they need an absolute path
     (org-pomodoro-finished-sound
@@ -975,12 +976,15 @@ called, and it should work anywhere.
     :init
     (evil-ex-define-cmd "doing" 'org-clock-goto)
     (evil-ex-define-cmd "do" 'org-pomodoro)
-    (evil-ex-define-cmd "done" #'(lambda ()
-                                   (interactive)
-                                   (require 'org-pomodoro)
-                                   (when (org-clocking-p)
-                                     (org-pomodoro-kill)))))
-    ;; :config
+    (evil-ex-define-cmd "done"
+                        #'(lambda () (interactive)
+                            (require 'org-pomodoro)
+                            (cond
+                             ((equal org-pomodoro-state :overtime)
+                              (org-pomodoro))
+                             ((org-pomodoro-active-p)
+                              (org-pomodoro-kill))))))
+  ;; :config
   ;;   (advice-add 'org-pomodoro-start
   ;;               :after
   ;;               #'(lambda (&rest _)
@@ -992,7 +996,7 @@ called, and it should work anywhere.
   ;;                     (delq 'org-pomodoro-mode-line global-mode-string)
   ;;                     (setq global-mode-string
   ;;                           (append '(org-pomodoro-mode-line)
-  ;;                                   global-mode-string))))))
+  ;;                                   global-mode-string)))))
 #+end_src
 
 
