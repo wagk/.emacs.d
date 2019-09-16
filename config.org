@@ -964,16 +964,14 @@ called, and it should work anywhere.
                :files (:defaults ("resources/" "resources/*")))
     :commands (org-pomodoro)
     :custom
-    (org-pomdoro-length
-     20
-     "We'll up it back to 25 (and maybe more) later.")
     ;; guild wars 2 has some excellent notification sounds
+    ;; For some reason they need an absolute path
     (org-pomodoro-finished-sound
-     (locate-user-emacs-file "notification1.wav"))
+     (expand-file-name (locate-user-emacs-file "notification1.wav")))
     (org-pomodoro-short-break-sound
-     (locate-user-emacs-file "notification2.wav"))
+     (expand-file-name (locate-user-emacs-file "notification2.wav")))
     (org-pomodoro-long-break-sound
-     (locate-user-emacs-file "notification3.wav"))
+     (expand-file-name (locate-user-emacs-file "notification3.wav")))
     :init
     (evil-ex-define-cmd "doing" 'org-clock-goto)
     (evil-ex-define-cmd "do" 'org-pomodoro)
@@ -2577,7 +2575,7 @@ the thing
 #+begin_src emacs-lisp :results output silent
   (use-package powershell.el
     :straight (:host github :repo "jschaf/powershell.el")
-    :commands (powershell-mode)
+    :commands (powershell-mode powershell)
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("powershell" . powershell) org-src-lang-modes)
@@ -2998,6 +2996,7 @@ now becomes too noisy.
     :straight (:host github :repo "syohex/emacs-sound-wav")
     :commands sound-wav-play)
 #+end_src
+
 * Counsel-etags
 #+begin_src emacs-lisp :results output silent
   (use-package counsel-etags
