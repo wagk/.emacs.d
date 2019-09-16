@@ -11,7 +11,9 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -21,9 +23,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -203,6 +209,7 @@
     ("constrol" "control" nil 1)
     ("contain" "contain" nil 9)
     ("contian" "contain" nil 1)
+    ("contians" "contains" nil 1)
     ("contnets" "contents" nil 1)
     ("conundeum" "conundrum" nil 1)
     ("coonstruct" "construct" nil 1)
@@ -251,7 +258,7 @@
     ("expressoin" "expression" nil 1)
     ("feelinggs" "feelings" nil 1)
     ("fiarly" "fairly" nil 1)
-    ("fiel" "file" nil 3)
+    ("fiel" "file" nil 4)
     ("fiels" "files" nil 4)
     ("finalncial" "financial" nil 1)
     ("fo" "of" nil 60)
@@ -364,7 +371,7 @@
     ("raito" "Ratio" nil 1)
     ("rapicly" "rapidly" nil 1)
     ("reciept" "receipt" nil 1)
-    ("recieve" "receive" nil 3)
+    ("recieve" "receive" nil 4)
     ("reemergence" "re-emergence" nil 1)
     ("remoivng" "Removing" nil 2)
     ("renaem" "Rename" nil 2)
@@ -499,7 +506,9 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -573,7 +582,9 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -595,7 +606,9 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'plantuml-mode-abbrev-table '())
 

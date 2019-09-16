@@ -976,7 +976,12 @@ called, and it should work anywhere.
      (locate-user-emacs-file "notification3.wav"))
     :init
     (evil-ex-define-cmd "doing" 'org-clock-goto)
-    (evil-ex-define-cmd "do" 'org-pomodoro))
+    (evil-ex-define-cmd "do" 'org-pomodoro)
+    (evil-ex-define-cmd "done" #'(lambda ()
+                                   (interactive)
+                                   (require 'org-pomodoro)
+                                   (when (org-clocking-p)
+                                     (org-pomodoro-kill)))))
     ;; :config
   ;;   (advice-add 'org-pomodoro-start
   ;;               :after
