@@ -973,6 +973,7 @@ called, and it should work anywhere.
      (expand-file-name (locate-user-emacs-file "notification2.wav")))
     (org-pomodoro-long-break-sound
      (expand-file-name (locate-user-emacs-file "notification3.wav")))
+    (org-pomodoro-overtime-sound nil)
     :init
     (evil-ex-define-cmd "doing" 'org-clock-goto)
     (evil-ex-define-cmd "do" 'org-pomodoro)
