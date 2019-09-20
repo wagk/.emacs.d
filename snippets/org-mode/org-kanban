@@ -2,5 +2,5 @@
 # name: org-kanban
 # key: kanban
 # --
-#+BEGIN: kanban :mirrored nil
+#+BEGIN: kanban :mirrored nil :scope tree
 #+END:

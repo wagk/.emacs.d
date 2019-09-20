@@ -967,16 +967,22 @@ called, and it should work anywhere.
     (org-pomodoro-manual-break t)
     ;; guild wars 2 has some excellent notification sounds
     ;; For some reason they need an absolute path
-    (org-pomodoro-finished-sound
+    (org-pomodoro-overtime-sound
      (expand-file-name (locate-user-emacs-file "notification1.wav")))
     (org-pomodoro-short-break-sound
      (expand-file-name (locate-user-emacs-file "notification2.wav")))
     (org-pomodoro-long-break-sound
      (expand-file-name (locate-user-emacs-file "notification3.wav")))
-    (org-pomodoro-overtime-sound nil)
+    (org-pomodoro-finished-sound nil)
     :init
+    (evil-define-command my-pomodoro-start (&optional arg)
+      "Starts a pomodoro with the current headline, or the last pomodoro
+  if ! is provided."
+      (interactive "<!>")
+      (let ((prev_clock (when arg '(16))))
+        (org-pomodoro prev_clock)))
     (evil-ex-define-cmd "doing" 'org-clock-goto)
-    (evil-ex-define-cmd "do" 'org-pomodoro)
+    (evil-ex-define-cmd "do" 'my-pomodoro-start)
     (evil-ex-define-cmd "done"
                         #'(lambda () (interactive)
                             (require 'org-pomodoro)
