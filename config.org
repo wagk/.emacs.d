@@ -1155,6 +1155,16 @@ Needs a working =zip= exe.
       (org-display-inline-images)
       filename))
 #+end_src
+** Org Edna
+https://www.nongnu.org/org-edna-el/
+#+begin_src emacs-lisp :results output silent
+  (use-package org-edna
+    :straight (org-edna)
+    :after org
+    :config
+    (org-edna-load))
+#+end_src
+
 * Git
 ** Magit
 If magit complains about not finding the config on windows, it's
@@ -2809,7 +2819,7 @@ Further helper functions to add bookmarks:
                               (counsel-bookmark)))
 #+end_src
 
-* COMMENT Copy as Format
+* Copy as Format
 The only reason I'm keeping this and not discarding it is because it's currently
 - A monument to my hubris
 - Actually a pretty cool attempt at hacking elisp
@@ -2817,18 +2827,18 @@ The only reason I'm keeping this and not discarding it is because it's currently
 #+begin_src emacs-lisp :results output silent  (use-package copy-as-format
   (use-package copy-as-format
     :straight (:host github :repo "sshaw/copy-as-format")
-    :disabled t
-    :init
-    (evil-define-operator as-format (beg end &optional format-specifier)
-      :repeat nil
-      :move-point nil
-      (interactive "<r>")
-      (let ((temp-buffer (generate-new-buffer "copy-as-format-temp")))
-        (copy-to-buffer temp-buffer beg end)
-        (with-current-buffer temp-buffer
-          (mark-whole-buffer)
-          (copy-as-format))))
-   (evil-ex-define-cmd "copy-as-format" 'as-format))
+    :commands (copy-as-format))
+   ;;  :init
+   ;;  (evil-define-operator as-format (beg end &optional format-specifier)
+   ;;    :repeat nil
+   ;;    :move-point nil
+   ;;    (interactive "<r>")
+   ;;    (let ((temp-buffer (generate-new-buffer "copy-as-format-temp")))
+   ;;      (copy-to-buffer temp-buffer beg end)
+   ;;      (with-current-buffer temp-buffer
+   ;;        (mark-whole-buffer)
+   ;;        (copy-as-format))))
+   ;; (evil-ex-define-cmd "copy-as-format" 'as-format))
 #+end_src
 
 * Studlify operator
