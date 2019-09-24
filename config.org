@@ -3157,11 +3157,21 @@ Might be better done as an ex mode command or something.
 #+begin_src emacs-lisp :results output silent
   (use-package origami
     :straight (:host github :repo "gregsexton/origami.el")
+    :disabled t
     :after evil
     :hook
     (prog-mode . origami-mode)
     :config
     (global-origami-mode))
+#+end_src
+
+** Vimish Fold
+#+begin_src emacs-lisp :results output silent
+  (use-package vimish-fold
+    :straight (:host github :repo "mrkkrp/vimish-fold")
+    :after evil
+    :config
+    (vimish-fold-global-mode))
 #+end_src
 
 * Rot13
