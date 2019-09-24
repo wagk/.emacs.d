@@ -437,6 +437,8 @@ recovery. Maybe eventually load dependencies and all that."
     (org-support-shift-select
      t "Let me use J in org-mode please.")
     (org-startup-indented t)
+    (org-footnote-auto-label 'confirm)
+    (org-footnote-section nil)
     (org-indent-mode-turns-on-hiding-stars t)
     (org-src-tab-acts-natively t)
     (org-src-window-setup
