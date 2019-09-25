@@ -3157,8 +3157,18 @@ Might be better done as an ex mode command or something.
 #+begin_src emacs-lisp :results output silent
   (use-package origami
     :straight (:host github :repo "gregsexton/origami.el")
-    :disabled t
     :after evil
+    ;; :general
+    ;; (:states 'normal
+    ;;  "zC" 'origami-close-node-recursively
+    ;;  "zO" 'origami-open-node-recursively
+    ;;  "zA" 'origami-recursively-toggle-node
+    ;;  "zj" 'origami-forward-fold
+    ;;  "zk" #'(lambda () (interactive)
+    ;;           (call-interactively 'origami-previous-fold)
+    ;;           (call-interactively 'origami-next-fold))
+    ;;  "[z" 'origami-previous-fold
+    ;;  "]z" 'origami-next-fold)
     :hook
     (prog-mode . origami-mode)
     :config
@@ -3166,9 +3176,15 @@ Might be better done as an ex mode command or something.
 #+end_src
 
 ** Vimish Fold
+We might want to write an operator from this (look up :h zf), since it
+does not seem to be actually performing syntax-based folding
+
+Another thing to consider is how this overlay method will
+integrate/interfere with origami-mode.
 #+begin_src emacs-lisp :results output silent
   (use-package vimish-fold
     :straight (:host github :repo "mrkkrp/vimish-fold")
+    :disabled t
     :after evil
     :config
     (vimish-fold-global-mode))

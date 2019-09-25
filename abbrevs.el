@@ -11,9 +11,7 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -23,13 +21,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -147,7 +141,7 @@
     ("abstraciton" "abstraction" nil 1)
     ("acocunt" "account" nil 1)
     ("additioanl" "additional" nil 1)
-    ("adn" "and" nil 23)
+    ("adn" "and" nil 24)
     ("ahve" "have" nil 2)
     ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
@@ -267,7 +261,7 @@
     ("feelinggs" "feelings" nil 1)
     ("fiarly" "fairly" nil 1)
     ("fiel" "file" nil 6)
-    ("fiels" "files" nil 4)
+    ("fiels" "files" nil 5)
     ("finalncial" "financial" nil 1)
     ("fo" "of" nil 62)
     ("foer" "for" nil 1)
@@ -317,6 +311,7 @@
     ("insufficinetly" "insufficiently" nil 1)
     ("intenral" "internal" nil 1)
     ("intereeset" "interest" nil 1)
+    ("interfer" "interfere" nil 1)
     ("interiority" "inferiority" nil 1)
     ("intuitiion" "intuition" nil 1)
     ("irrelevatn" "irrelevant" nil 1)
@@ -345,7 +340,7 @@
     ("mdoule" "module" nil 1)
     ("mergw" "Merge" nil 2)
     ("mghit" "might" nil 1)
-    ("mgiht" "might" nil 4)
+    ("mgiht" "might" nil 5)
     ("minign" "mining" nil 2)
     ("mjigrate" "migrate" nil 1)
     ("mroe" "more" nil 2)
@@ -405,6 +400,7 @@
     ("segmentaiton" "Segmentation" nil 1)
     ("seleciton" "selection" nil 1)
     ("seme" "seem" nil 1)
+    ("separetly" "separately" nil 1)
     ("shoudl" "should" nil 8)
     ("shoudnt" "shouldn't" nil 1)
     ("showind" "showing" nil 1)
@@ -469,7 +465,7 @@
     ("verison" "version" nil 5)
     ("versionoing" "versioning" nil 1)
     ("waht" "what" nil 1)
-    ("watn" "want" nil 1)
+    ("watn" "want" nil 2)
     ("wehre" "where" nil 3)
     ("whihc" "which" nil 3)
     ("whoel" "whole" nil 1)
@@ -524,9 +520,7 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -600,9 +594,7 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -626,9 +618,7 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'plantuml-mode-abbrev-table '())
 
