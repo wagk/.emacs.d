@@ -913,16 +913,20 @@ language's mappings.
      "l l" 'org-toggle-link-display)
     :init
     (defun my--worf-insert-internal-link-action (x)
-      (save-excursion
-        (goto-char (cdr x))
-        (call-interactively 'org-store-link))
-      (org-insert-last-stored-link 1)
-      (delete-backward-char 1))
+      (let ((link (save-excursion
+                    (goto-char (cdr x))
+                    (call-interactively 'org-store-link))))
+       (org-insert-link nil (car link))))
+      ;; (call-interactively 'org-insert-link))
+      ;; (org-insert-last-stored-link 1)
+      ;; ;; otherwise deletes the whole visual selection. Including the
+      ;; ;; inserted link.
+      ;; (when (use-region-p)
+      ;;   (deactivate-mark))
+      ;; (delete-backward-char 1))
     (defun my-worf-insert-internal-link ()
       (interactive)
       ;; TODO: Why isn't this working?
-      (when (org-region-active-p)
-        (delete-active-region))
       (let ((cands (worf--goto-candidates)))
         (ivy-read "Heading: " cands
                   :action 'my--worf-insert-internal-link-action))))
@@ -2824,7 +2828,7 @@ The only reason I'm keeping this and not discarding it is because it's currently
 - A monument to my hubris
 - Actually a pretty cool attempt at hacking elisp
 
-#+begin_src emacs-lisp :results output silent  (use-package copy-as-format
+#+begin_src emacs-lisp :results output silent
   (use-package copy-as-format
     :straight (:host github :repo "sshaw/copy-as-format")
     :commands (copy-as-format))
