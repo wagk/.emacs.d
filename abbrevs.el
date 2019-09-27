@@ -203,6 +203,7 @@
     ("checkng" "checking" nil 1)
     ("chooose" "choose" nil 1)
     ("classificaiton" "classification" nil 1)
+    ("cloine" "clone" nil 3)
     ("cna" "can" nil 8)
     ("commadn" "command" nil 3)
     ("commadns" "commands" nil 1)
@@ -214,7 +215,7 @@
     ("confition" "condition" nil 1)
     ("constrol" "control" nil 1)
     ("contain" "contain" nil 10)
-    ("contian" "contain" nil 1)
+    ("contian" "contain" nil 2)
     ("contians" "contains" nil 1)
     ("contnets" "contents" nil 1)
     ("conundeum" "conundrum" nil 1)
@@ -261,6 +262,7 @@
     ("erhaps" "perhaps" nil 1)
     ("estabilhs" "establish" nil 1)
     ("excceeding" "exceeding" nil 1)
+    ("existinig" "existing" nil 1)
     ("exmaples" "examples" nil 1)
     ("experimentaiton" "experimentation" nil 1)
     ("expressoin" "expression" nil 1)
@@ -280,7 +282,7 @@
     ("foors" "doors" nil 1)
     ("framewokr" "framework" nil 1)
     ("frmo" "from" nil 1)
-    ("funciton" "function" nil 4)
+    ("funciton" "function" nil 5)
     ("guatds" "guards" nil 1)
     ("hapy" "happy" nil 1)
     ("heuritistic" "heuristic" nil 1)
@@ -368,7 +370,7 @@
     ("ohterwise" "otherwise" nil 1)
     ("onlinie" "online" nil 1)
     ("osmething" "something" nil 1)
-    ("ot" "to" nil 29)
+    ("ot" "to" nil 30)
     ("owuld" "would" nil 2)
     ("pariton" "partition" nil 1)
     ("partiaully" "partially" nil 1)
@@ -386,6 +388,7 @@
     ("rapicly" "rapidly" nil 1)
     ("reciept" "receipt" nil 1)
     ("recieve" "receive" nil 4)
+    ("reciever" "receiver" nil 2)
     ("reemergence" "re-emergence" nil 1)
     ("remoivng" "Removing" nil 2)
     ("renaem" "Rename" nil 2)
@@ -647,9 +650,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
