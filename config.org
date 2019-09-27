@@ -1150,7 +1150,7 @@ Needs a working =zip= exe.
       (shell-command (concat "powershell -command \"Add-Type -AssemblyName System.Windows.Forms;if ($([System.Windows.Forms.Clipboard]::ContainsImage())) {$image = [System.Windows.Forms.Clipboard]::GetImage();[System.Drawing.Bitmap]$image.Save('"
                              filename
                              "',[System.Drawing.Imaging.ImageFormat]::Png); Write-Output 'clipboard content saved as file'} else {Write-Output 'clipboard does not contain image data'}\""))
-      (insert (concat "[[file:" filename "]]"))
+      (insert (concat "[[file:" (file-relative-name filename) "]]"))
       (message "Image saved as %s" filename)
       (org-display-inline-images)
       filename))
