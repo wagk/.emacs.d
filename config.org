@@ -916,7 +916,7 @@ language's mappings.
       (let ((link (save-excursion
                     (goto-char (cdr x))
                     (call-interactively 'org-store-link))))
-       (org-insert-link nil (car link))))
+       (funcall-interactively 'org-insert-link nil (car link))))
       ;; (call-interactively 'org-insert-link))
       ;; (org-insert-last-stored-link 1)
       ;; ;; otherwise deletes the whole visual selection. Including the
