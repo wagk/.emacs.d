@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rust-log-warn
+# key: warn
+# --
+warn!("$0");

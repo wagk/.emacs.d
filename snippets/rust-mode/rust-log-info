@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rust-log-info
+# key: info
+# --
+info!("$0");

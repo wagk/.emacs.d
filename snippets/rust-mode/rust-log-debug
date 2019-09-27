@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rust-debug-log
+# key: debug
+# --
+debug!("$0");
