@@ -288,7 +288,14 @@ recovery. Maybe eventually load dependencies and all that."
     ;;   (evil-edit file))
 
     (evil-ex-define-cmd "bc[lose]"    'kill-this-buffer)
-
+    (evil-define-command my-evil-vsplit-buffer (buffer)
+      "Strictly speaking this isn't implemented in vim, which is why
+we're adding a custom function for it here."
+      :repeat nil
+      (interactive "<b>")
+      (evil-window-vsplit)
+      (evil-buffer buffer))
+    (evil-ex-define-cmd "vb[uffer]" 'my-evil-vsplit-buffer)
     (evil-ex-define-cmd "sh[ell]" 'shell) ;; at least shell shows its keymaps
     (evil-ex-define-cmd "init" 'find-user-init-file)
     (evil-ex-define-cmd "Sinit" '(lambda () (interactive)
