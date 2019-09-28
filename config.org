@@ -1169,6 +1169,15 @@ https://www.nongnu.org/org-edna-el/
     (org-edna-load))
 #+end_src
 
+
+#+begin_src emacs-lisp :results output silent
+  (general-define-key
+   :keymaps 'org-mode-map
+   :states '(normal)
+   :prefix my-default-evil-leader-key
+   "o p" 'my-org-paste-clipboard-screenshot)
+#+end_src
+
 * Git
 ** Magit
 If magit complains about not finding the config on windows, it's
