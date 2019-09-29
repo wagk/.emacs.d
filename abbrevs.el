@@ -205,7 +205,7 @@
     ("classificaiton" "classification" nil 1)
     ("cloine" "clone" nil 3)
     ("cna" "can" nil 8)
-    ("commadn" "command" nil 3)
+    ("commadn" "command" nil 4)
     ("commadns" "commands" nil 1)
     ("communicaiton" "communication" nil 1)
     ("complidcated" "complicated" nil 1)
@@ -232,6 +232,7 @@
     ("definitiion" "definition" nil 1)
     ("deletino" "deletion" nil 1)
     ("delibaration" "deliberation" nil 1)
+    ("demadn" "demand" nil 1)
     ("denstiy" "density" nil 1)
     ("depeer" "deeper" nil 1)
     ("dependecies" "dependencies" nil 1)
@@ -414,7 +415,7 @@
     ("shoudl" "should" nil 8)
     ("shoudnt" "shouldn't" nil 1)
     ("showind" "showing" nil 1)
-    ("si" "is" nil 2)
+    ("si" "is" nil 3)
     ("siad" "said" nil 1)
     ("simialr" "similar" nil 1)
     ("singapore" "Singapore" nil 7)
@@ -650,7 +651,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 

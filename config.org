@@ -85,8 +85,8 @@ C-M-i                           backward-button
 
 * Define useful constants
 #+begin_src emacs-lisp :results output silent
-  (defconst my-inbox-org-file (if (boundp 'config-local-syncthing-folder)
-                                  (concat config-local-syncthing-folder "/notes/inbox.org")
+  (defconst my-todo-org-file (if (boundp 'config-local-syncthing-folder)
+                                  (concat config-local-syncthing-folder "/todo.org")
                                 (progn
                                   (error "Unable to find the syncthing folder!")
                                   nil)))
@@ -848,9 +848,14 @@ Interesting Text Objects:
     :config
     (when (boundp 'config-local-syncthing-folder)
       (add-to-list 'org-capture-templates
-                   `("i" "Standard Inbox" entry
-                     (file ,my-inbox-org-file)
-                     "* TODO %? \nOPENED: %U"))))
+                    `("todo" "Personal Todo" entry
+                      (file+olp ,my-todo-org-file "Tasks")
+                      ,(concat "* TODO %^{DESCRIPTION} \n"
+                              ":PROPERTIES:\n"
+                              ":CREATED:  %U\n"
+                              ":END:\n"
+                              "%?")))))
+
     ;; when inserting a heading immediately go into insert mode
     ;; (when (boundp 'my-journal-org-file)
     ;;   (add-to-list 'org-capture-templates
@@ -1544,7 +1549,7 @@ with Chinese/Japanese.
     :init
     (with-eval-after-load 'org-capture
      (add-to-list 'org-capture-templates (org-projectile-project-todo-entry))) ;; here
-    (evil-ex-define-cmd "todo" #'(lambda () (interactive)
+    (evil-ex-define-cmd "ptodo" #'(lambda () (interactive)
                                    (require 'projectile)
                                    (require 'org-projectile)
                                    (find-file (org-projectile-get-project-todo-file
@@ -2624,12 +2629,18 @@ the thing
         (shell-command-to-string body))))
 #+end_src
 
-* Access inbox.org from evil command
+* Access todo.org from evil command
 #+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "in[box]" '(lambda ()
-                                 (interactive)
-                                 (if (boundp 'config-local-syncthing-folder)
-                                     (find-file my-inbox-org-file))))
+  (evil-define-command my-todo (&optional arg)
+    (interactive "<!>")
+    (when (boundp 'my-todo-org-file)
+      (if arg
+          (org-capture nil "todo")
+        (find-file my-todo-org-file))))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "todo" 'my-todo)
 #+end_src
 
 * Yaml-mode
