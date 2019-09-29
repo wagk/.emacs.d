@@ -2641,6 +2641,15 @@ the thing
 
 #+begin_src emacs-lisp :results output silent
   (evil-ex-define-cmd "todo" 'my-todo)
+  (evil-ex-define-cmd "Stodo" '(lambda () (interactive)
+                                 (call-interactively 'evil-window-split)
+                                 (find-file my-todo-org-file)))
+  (evil-ex-define-cmd "Vtodo" '(lambda () (interactive)
+                                 (call-interactively 'evil-window-vsplit)
+                                 (find-file my-todo-org-file)))
+  (evil-ex-define-cmd "tabtodo" '(lambda () (interactive)
+                                   (funcall-interactively
+                                    'my-new-evil-tab my-todo-org-file)))
 #+end_src
 
 * Yaml-mode
