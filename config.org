@@ -850,12 +850,12 @@ Interesting Text Objects:
       (add-to-list 'org-capture-templates
                     `("todo" "Personal Todo" entry
                       (file+olp ,my-todo-org-file "Tasks")
-                      ,(concat "* TODO %^{DESCRIPTION} \n"
+                      ,(concat "* TODO %^{DESCRIPTION} %^g \n"
                               ":PROPERTIES:\n"
                               ":CREATED:  %U\n"
                               ":END:\n"
-                              "%?")))))
-
+                              "%?")
+                      :prepend t))))
     ;; when inserting a heading immediately go into insert mode
     ;; (when (boundp 'my-journal-org-file)
     ;;   (add-to-list 'org-capture-templates
