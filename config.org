@@ -2946,6 +2946,7 @@ Or evil-spongebob if you want to think of it that way.
     :init
     (evil-define-command my-custom-elfeed (cmd)
       (interactive "<a>")
+      (require 'elfeed)
       (cond
        ((string= cmd "feeds") (find-user-rss-feed-file))
        ((string= cmd "reload") (reload-rss-feed-file))
