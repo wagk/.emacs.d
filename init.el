@@ -456,6 +456,7 @@ we're adding a custom function for it here."
     (org-default-notes-file "~/.todo")
     (org-M-RET-may-split-line nil)
     (org-return-follows-link t)
+    (org-todo-keywords '((sequence "TODO" "DONE(@)")))
     (org-enforce-todo-checkbox-dependencies
      nil "Sometimes we are able to skip dependencies as things happen")
     (org-enforce-todo-dependencies
