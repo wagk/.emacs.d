@@ -1065,7 +1065,9 @@ Currently disabled while we look at other, more maintained projects
      "/"         'evil-ex-search-forward
      "?"         'evil-ex-search-backward
      "h"         'org-brain-add-child-headline ;; it's recommended to use this instead
-     "\C-c \C-w" 'org-brain-refile)
+     "\C-c \C-w" 'org-brain-refile
+     "C-d"       'evil-scroll-down
+     "C-u"       'evil-scroll-up)
     :init
     (with-eval-after-load 'evil
       (evil-set-initial-state 'org-brain-visualize-mode 'emacs)
