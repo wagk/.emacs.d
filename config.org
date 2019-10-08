@@ -3334,3 +3334,14 @@ the underlying format
     :config
     (persistent-scratch-setup-default))
 #+end_src
+
+* Smerge vimdiff bindings
+#+begin_src emacs-lisp :results output silent
+  (general-define-key
+   :states '(normal motion)
+   :keymaps 'smerge-mode-map
+    "dp" 'smerge-keep-lower
+    "do" 'smerge-keep-upper
+    "[c" 'smerge-next
+    "]c" 'smerge-prev)
+#+end_src
