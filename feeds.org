@@ -328,6 +328,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[http://hpmor.com/rss.xml][Harry Potter and the Methods of Rationality]]
 *** [[https://motheroflearninguniverse.wordpress.com/feed/][Mother of Learning (Worldbuilding)]]
 *** [[https://practicalguidetoevil.wordpress.com/feed/][A Practical Guide to Evil]]
+
 ** Computer Science                                                :compsci:
 *** [[http://www.drdobbs.com/rss/all][Dr. Dobb's All]]
 *** [[https://cybersecpolitics.blogspot.com/feeds/posts/default?alt=rss][CyberSecPolitics]]
@@ -469,8 +470,11 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 **** [[http://www.cplusplus-soup.com/feeds/posts/default?alt=rss][C++ Soup!]]
 *** [[http://gmailblog.blogspot.com/atom.xml][Gmail Blog]]                                                     :google:
 *** [[http://googleblog.blogspot.com/atom.xml][The Official Google Blog]]                                       :google:
-*** [[https://begriffs.com/atom.xml][Begriffs]]
+*** [[https://begriffs.com/atom.xml][Begriffs]]                                                         :blog:
 Joe Nelson's Blog
+*** [[https://blog.pragmaticengineer.com/rss/][Pragmatic Engineer]]
+*** [[https://lethain.com/feeds/][Will Larson]]                                                      :blog:
+
 ** Singapore                                                         :local:
 *** [[http://financialhorse.com/feed/][Financial Horse]]                                               :finance:
 *** [[https://blog.seedly.sg/feed/][Seedly – Get Rich Or Die Tryin']]                               :finance:
