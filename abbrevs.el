@@ -11,9 +11,7 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -23,13 +21,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -147,7 +141,7 @@
     ("abstraciton" "abstraction" nil 1)
     ("acocunt" "account" nil 1)
     ("additioanl" "additional" nil 1)
-    ("adn" "and" nil 25)
+    ("adn" "and" nil 26)
     ("ahve" "have" nil 2)
     ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
@@ -193,7 +187,7 @@
     ("buildsript" "buildscript" nil 1)
     ("builidng" "building" nil 1)
     ("buisness" "business" nil 1)
-    ("byt" "by" nil 5)
+    ("byt" "by" nil 6)
     ("byut" "but" nil 1)
     ("calng" "clang" nil 1)
     ("candiate" "candidate" nil 1)
@@ -203,7 +197,7 @@
     ("checkng" "checking" nil 1)
     ("chooose" "choose" nil 1)
     ("classificaiton" "classification" nil 1)
-    ("cloine" "clone" nil 4)
+    ("cloine" "clone" nil 6)
     ("cna" "can" nil 8)
     ("commadn" "command" nil 4)
     ("commadns" "commands" nil 1)
@@ -214,7 +208,7 @@
     ("conditiions" "conditions" nil 1)
     ("confition" "condition" nil 1)
     ("constrol" "control" nil 1)
-    ("contain" "contain" nil 10)
+    ("contain" "contain" nil 15)
     ("contian" "contain" nil 2)
     ("contians" "contains" nil 1)
     ("contnets" "contents" nil 1)
@@ -251,7 +245,7 @@
     ("donw" "done" nil 1)
     ("downlaod" "download" nil 2)
     ("downlaoded" "downloaded" nil 1)
-    ("dur" "due" nil 1)
+    ("dur" "due" nil 3)
     ("eky" "key" nil 1)
     ("elast" "least" nil 1)
     ("elemnts" "elements" nil 1)
@@ -272,7 +266,7 @@
     ("fiel" "file" nil 6)
     ("fiels" "files" nil 5)
     ("finalncial" "financial" nil 1)
-    ("fo" "of" nil 63)
+    ("fo" "of" nil 69)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
     ("followinig" "following" nil 1)
@@ -359,6 +353,7 @@
     ("msot" "most" nil 1)
     ("muhch" "much" nil 1)
     ("mulitple" "multiple" nil 1)
+    ("naem" "name" nil 1)
     ("naimin" "Naimin" nil 2)
     ("namespce" "namespace" nil 1)
     ("ncie" "nice" nil 1)
@@ -394,7 +389,7 @@
     ("reciever" "receiver" nil 2)
     ("reemergence" "re-emergence" nil 1)
     ("remoivng" "Removing" nil 2)
-    ("renaem" "Rename" nil 2)
+    ("renaem" "Rename" nil 3)
     ("repoisoty" "repository" nil 1)
     ("reqally" "really" nil 1)
     ("rerason" "reason" nil 1)
@@ -431,6 +426,7 @@
     ("spawen" "spawn" nil 1)
     ("specfically" "specifically" nil 1)
     ("srue" "sure" nil 1)
+    ("staitc" "static" nil 1)
     ("storeage" "storage" nil 1)
     ("storytelilng" "storytelling" nil 1)
     ("strady" "steady" nil 1)
@@ -473,8 +469,10 @@
     ("uisng" "using" nil 3)
     ("uninstallaiton" "uninstallation" nil 1)
     ("unknwon" "unknown" nil 1)
+    ("unwrpa" "unwrap" nil 6)
     ("uplaod" "upload" nil 3)
     ("ussue" "issue" nil 1)
+    ("uwnrap" "unwrap" nil 2)
     ("vaidation" "validation" nil 1)
     ("variablae" "variables" nil 1)
     ("varibles" "variables" nil 1)
@@ -536,9 +534,7 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -612,9 +608,7 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -638,9 +632,7 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'plantuml-mode-abbrev-table '())
 
@@ -656,9 +648,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 

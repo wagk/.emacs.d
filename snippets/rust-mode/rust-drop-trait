@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: rust-drop-trait
+# key: drop
+# --
+impl Drop for ${1:Trait} {
+    fn drop(&mut self) {
+        $0
+    }
+}

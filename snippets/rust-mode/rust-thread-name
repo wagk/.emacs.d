@@ -1,0 +1,4 @@
+# key: threadname
+# name: rust-thread-name
+# --
+thread::current().name().unwrap()
