@@ -11,9 +11,7 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -23,13 +21,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -357,7 +351,7 @@
     ("msater" "Master" nil 1)
     ("msot" "most" nil 1)
     ("muhch" "much" nil 1)
-    ("mulitple" "multiple" nil 1)
+    ("mulitple" "multiple" nil 2)
     ("naimin" "Naimin" nil 2)
     ("namespce" "namespace" nil 1)
     ("nouse" "noise'" nil 1)
@@ -385,6 +379,7 @@
     ("probide" "provide" nil 1)
     ("proeprty" "property" nil 1)
     ("quaity" "quality" nil 1)
+    ("queueing" "queuing" nil 3)
     ("raito" "Ratio" nil 1)
     ("rapicly" "rapidly" nil 1)
     ("reciept" "receipt" nil 1)
@@ -532,9 +527,7 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -608,9 +601,7 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -634,9 +625,7 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'plantuml-mode-abbrev-table '())
 
@@ -652,9 +641,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
