@@ -63,6 +63,8 @@
 
 (define-abbrev-table 'diff-mode-abbrev-table '())
 
+(define-abbrev-table 'doctex-mode-abbrev-table '())
+
 (define-abbrev-table 'edebug-eval-mode-abbrev-table '())
 
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
@@ -367,6 +369,7 @@
     ("oging" "going" nil 3)
     ("ohterwise" "otherwise" nil 1)
     ("onlinie" "online" nil 1)
+    ("opne" "open" nil 1)
     ("osmething" "something" nil 1)
     ("ot" "to" nil 30)
     ("owuld" "would" nil 2)
@@ -548,6 +551,8 @@
 
 (define-abbrev-table 'json-mode-abbrev-table '())
 
+(define-abbrev-table 'latex-mode-abbrev-table '())
+
 (define-abbrev-table 'ledger-check-mode-abbrev-table '())
 
 (define-abbrev-table 'ledger-mode-abbrev-table '())
@@ -636,6 +641,8 @@
 
 (define-abbrev-table 'pike-mode-abbrev-table '())
 
+(define-abbrev-table 'plain-tex-mode-abbrev-table '())
+
 (define-abbrev-table 'plantuml-mode-abbrev-table '())
 
 (define-abbrev-table 'poly-fallback-mode-abbrev-table '())
@@ -688,6 +695,8 @@
 
 (define-abbrev-table 'skewer-error-mode-abbrev-table '())
 
+(define-abbrev-table 'slitex-mode-abbrev-table '())
+
 (define-abbrev-table 'snippet-mode-abbrev-table '())
 
 (define-abbrev-table 'special-mode-abbrev-table '())
@@ -697,6 +706,10 @@
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
 
 (define-abbrev-table 'term-mode-abbrev-table '())
+
+(define-abbrev-table 'tex-mode-abbrev-table '())
+
+(define-abbrev-table 'tex-shell-abbrev-table '())
 
 (define-abbrev-table 'text-mode-abbrev-table '())
 
