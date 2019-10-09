@@ -1325,7 +1325,9 @@ that for the range we want
     :straight (:host github :repo "wasamasa/eyebrowse")
     :commands (eyebrowse-switch-to-window-config
                eyebrowse-create-window-config
-               eyebrowse-close-window-config)
+               eyebrowse-close-window-config
+               eyebrowse-next-window-config
+               eyebrowse-prev-window-config)
     :general
     (:states '(normal motion)
      "gt" 'eyebrowse-next-window-config
@@ -1334,8 +1336,8 @@ that for the range we want
     (eyebrowse-wrap-around t)
     (eyebrowse-new-workspace t)
     :init
-    (evil-define-command "gt" 'eyebrowse-next-window-config)
-    (evil-define-command "gt" 'eyebrowse-prev-window-config)
+    (evil-ex-define-cmd "gt" 'eyebrowse-next-window-config)
+    (evil-ex-define-cmd "gT" 'eyebrowse-prev-window-config)
     (evil-define-command my-new-evil-tab (file)
       "Note that :h :tabe in vim indicates that it's file only, not
   buffer."

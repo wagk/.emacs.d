@@ -421,6 +421,7 @@
     ("skeletion" "skeleton" nil 1)
     ("smaple" "sample" nil 1)
     ("somehting" "something" nil 2)
+    ("somethign" "something" nil 2)
     ("someting" "something" nil 2)
     ("soundind" "sounding" nil 1)
     ("spawen" "spawn" nil 1)
@@ -496,7 +497,7 @@
     ("wya" "way" nil 2)
     ("yb" "by" nil 1)
     ("yeaterday" "yesterday" nil 1)
-    ))
+   ))
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
 
@@ -723,3 +724,4 @@
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
+
