@@ -400,6 +400,7 @@
     ("reemergence" "re-emergence" nil 1)
     ("remoivng" "Removing" nil 2)
     ("renaem" "Rename" nil 3)
+    ("replciate" "replicate" nil 1)
     ("repoisoty" "repository" nil 1)
     ("reqally" "really" nil 1)
     ("requireemnts" "requirements" nil 1)
@@ -495,7 +496,7 @@
     ("wehre" "where" nil 3)
     ("whihc" "which" nil 3)
     ("whoel" "whole" nil 1)
-    ("wnat" "want" nil 10)
+    ("wnat" "want" nil 11)
     ("wnhat" "what" nil 1)
     ("woild" "would" nil 1)
     ("womewhere" "somewhere" nil 1)
@@ -672,7 +673,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 

@@ -2,4 +2,4 @@
 # name: rust-log-info
 # key: info
 # --
-info!("$0");
+log::info!("$0");

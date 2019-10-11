@@ -2,4 +2,4 @@
 # name: rust-log-warn
 # key: warn
 # --
-warn!("$0");
+log::warn!("$0");
