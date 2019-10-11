@@ -287,6 +287,8 @@ recovery. Maybe eventually load dependencies and all that."
     ;;   (raise-frame (call-interactively 'make-frame))
     ;;   (evil-edit file))
 
+    ;; (defmacro generate-convenience-functions-for-file ())
+
     (evil-ex-define-cmd "bc[lose]"    'kill-this-buffer)
     (evil-define-command my-evil-vsplit-buffer (buffer)
       "Strictly speaking this isn't implemented in vim, which is why
@@ -304,6 +306,11 @@ we're adding a custom function for it here."
     (evil-ex-define-cmd "Vinit" '(lambda () (interactive)
                                    (call-interactively 'evil-window-vsplit)
                                    (find-user-init-file)))
+    (evil-ex-define-cmd "Tinit" '(lambda ()
+                                    (interactive)
+                                    (require 'eyebrowse)
+                                    (funcall-interactively)
+                                    'my-new-evil-tab user-init-file))
     (evil-ex-define-cmd "local" 'find-user-local-file)
     (evil-ex-define-cmd "Slocal" '(lambda () (interactive)
                                     (call-interactively 'evil-window-split)
@@ -311,6 +318,11 @@ we're adding a custom function for it here."
     (evil-ex-define-cmd "Vlocal" '(lambda () (interactive)
                                     (call-interactively 'evil-window-vsplit)
                                     (find-user-local-file)))
+    (evil-ex-define-cmd "Tlocal" '(lambda ()
+                                    (interactive)
+                                    (require 'eyebrowse)
+                                    (funcall-interactively
+                                      'my-new-evil-tab user-local-file)))
     (evil-ex-define-cmd "frontpage" 'find-user-frontpage-file)
     (evil-ex-define-cmd "config" 'find-user-config-file)
     (evil-ex-define-cmd "Sconfig" '(lambda () (interactive)
@@ -319,6 +331,11 @@ we're adding a custom function for it here."
     (evil-ex-define-cmd "Vconfig" '(lambda () (interactive)
                                      (call-interactively 'evil-window-vsplit)
                                      (find-user-config-file)))
+    (evil-ex-define-cmd "Tconfig" '(lambda ()
+                                     (interactive)
+                                     (require 'eyebrowse)
+                                     (funcall-interactively
+                                      'my-new-evil-tab user-config-file)))
     (evil-ex-define-cmd "me[ssage]" '(lambda () (interactive)
                                        (switch-to-buffer "*Messages*")))
     (evil-ex-define-cmd "Smessage" '(lambda () (interactive)

@@ -136,8 +136,7 @@ Emulate the best feature of notepad
   (defun iso-8601-timestamp ()
     (concat (format-time-string "%Y-%m-%d")
             "T"
-            (format-time-string "%T")
-            (format-time-string "%z")))
+            (format-time-string "%T")))
   (general-define-key
    :states '(normal insert)
     "<f5>" '(lambda () (interactive)
@@ -1351,18 +1350,6 @@ that for the range we want
     (evil-ex-define-cmd "tabe[dit]"  'my-new-evil-tab)
     (evil-ex-define-cmd "tabc[lose]" 'eyebrowse-close-window-config)
     (evil-ex-define-cmd "tabs"       'eyebrowse-switch-to-window-config)
-    (evil-ex-define-cmd "tabconfig" '(lambda ()
-                                       (interactive)
-                                       (funcall-interactively
-                                        'my-new-evil-tab user-config-file)))
-    (evil-ex-define-cmd "tabinit" '(lambda ()
-                                     (interactive)
-                                     (funcall-interactively
-                                      'my-new-evil-tab user-init-file)))
-    (evil-ex-define-cmd "tablocal" '(lambda ()
-                                      (interactive)
-                                      (funcall-interactively
-                                       'my-new-evil-tab user-local-file)))
     :config
     (eyebrowse-mode)
     (defun my-delete-window-config-or-frame (oldfun &rest old_args)
@@ -2056,6 +2043,10 @@ We should look at customizing cider someday.
   (evil-ex-define-cmd "Vex[plore]" '(lambda () (interactive)
                                       (call-interactively 'evil-window-vsplit)
                                       (open-dired-window)))
+  (evil-ex-define-cmd "Tex[plore]" '(lambda () (interactive)
+                                   (require 'eyebrowse)
+                                   (let ((eyebrowse-new-workspace 'open-dired-window))
+                                     (eyebrowse-create-window-config))))
 #+end_src
 
 note: use :Ex instead like Vim does
@@ -2662,7 +2653,7 @@ the thing
   (evil-ex-define-cmd "Vtodo" '(lambda () (interactive)
                                  (call-interactively 'evil-window-vsplit)
                                  (find-file my-todo-org-file)))
-  (evil-ex-define-cmd "tabtodo" '(lambda () (interactive)
+  (evil-ex-define-cmd "Ttodo" '(lambda () (interactive)
                                    (funcall-interactively
                                     'my-new-evil-tab my-todo-org-file)))
 #+end_src
