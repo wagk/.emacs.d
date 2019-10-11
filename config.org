@@ -2861,7 +2861,7 @@ Further helper functions to add bookmarks:
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "dd" '(lambda ()
+  (evil-ex-define-cmd "mm" '(lambda ()
                               (interactive)
                               (require 'counsel)
                               (counsel-bookmark)))
@@ -3118,6 +3118,7 @@ now becomes too noisy.
 #+begin_src emacs-lisp :results output silent
   (use-package ctags-update
     :straight (:host github :repo "jixiuf/ctags-update")
+    :disabled t
     :hook
     (prog-mode . turn-on-ctags-auto-update-mode)
     :commands (ctags-global-update-mode
