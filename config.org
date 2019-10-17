@@ -2223,29 +2223,35 @@ to type it out.
 | C-f | Navigate forward in search history       |
 | C-b | Navigate backward in search history      |
 
+*use =everything= to search with no filters. =all= searches with all
+filters*.
+
 #+begin_src emacs-lisp :results output silent
   (use-package rg
     :straight (:host github :repo "dajva/rg.el")
     :commands (rg
                rg-project
                rg-dwim
-               rg-literal)
+               rg-literal
+               rg-menu)
     :custom
     (rg-ignore-case 'smart)
     :general
     (rg-mode-map
      :states '(motion normal)
-      "gg" 'evil-goto-first-line)
+     "gg" 'evil-goto-first-line)
     :init
-    (evil-define-command config-rg-explicit (arg)
-      (interactive "<a>") ;TODO: Figure out how to programmatically generate a files list, which we need in addition to a query
-      (cond
-       ;; ((and arg (projectile-project-p)) (rg-project arg))
-       ((and (not arg) (projectile-project-p)) (call-interactively 'rg-project))
-       ;; (arg (rg arg))
-       (t (call-interactively 'rg))))
-    (evil-ex-define-cmd "rg" 'rg)
-    (evil-ex-define-cmd "prg" 'rg-project))
+    ;; (evil-define-command config-rg-explicit (arg)
+    ;;   (interactive "<a>") ;TODO: Figure out how to programmatically generate a files list, which we need in addition to a query
+    ;;   (cond
+    ;;    ;; ((and arg (projectile-project-p)) (rg-project arg))
+    ;;    ((and (not arg) (projectile-project-p)) (call-interactively 'rg-project))
+    ;;    ;; (arg (rg arg))
+    ;;    (t (call-interactively 'rg))))
+    (evil-ex-define-cmd "rg" 'rg-menu)
+    ;; (evil-ex-define-cmd "prg" 'rg-project)
+    :config
+    (rg-enable-menu))
 #+end_src
 * C++
 ** Indentation of 4
