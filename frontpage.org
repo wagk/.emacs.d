@@ -11,6 +11,10 @@ Iron sharpens iron.
 #+end_quote
 
 #+begin_quote
+Train like it's the real thing. Do the real thing like it's training.
+#+end_quote
+
+#+begin_quote
 It is possible to commit no mistakes and still lose. That is not
 weakness. That is life.
 
