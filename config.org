@@ -3193,12 +3193,11 @@ Not tracking master because it's currently broken for some reason.
   (use-package ivy-posframe
     :straight (:host github :repo "tumashu/ivy-posframe"
                :files ("ivy-posframe.el"))
-    :commands (ivy-posframe-mode)
     :after ivy
     :custom
     (ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
     :config
-    (ivy-posframe-mode))
+    (ivy-posframe-enable))
 #+end_src
 
 * Company
