@@ -1426,6 +1426,13 @@ with Chinese/Japanese.
    ((find-font (font-spec :name "Consolas")) (set-frame-font "Consolas-10" nil t)))
 #+end_src
 
+** Posframe
+#+begin_src emacs-lisp :results output silent
+  (use-package posframe
+    :disabled t
+    :straight (:host github :repo "tumashu/posframe"))
+#+end_src
+
 * Text
 ** Aggressive Fill Paragraph
 #+begin_src emacs-lisp :results output silent
@@ -2027,6 +2034,8 @@ We should look at customizing cider someday.
    "SPC" nil                         ; was shadowing leader key bindings
    "-" 'dired-up-directory
    "d" 'dired-create-directory
+   "/" 'counsel-find-file
+   "?" 'counsel-find-file
    "+" nil) ; don't block org-projectile
 #+end_src
 
@@ -3167,6 +3176,18 @@ Might be better done as an ex mode command or something.
     :defer 23
     :config
     (ivy-rich-mode))
+#+end_src
+
+** Posframe
+
+#+begin_src emacs-lisp :results output silent
+  (use-package ivy-posframe
+    :disabled t
+    :straight (:host github :repo "tumashu/ivy-posframe")
+    :commands (ivy-posframe-mode)
+    :after ivy
+    :custom
+    (ivy-posframe-display-functions-alist '((t. ivy-posframe-display))))
 #+end_src
 
 * Company
