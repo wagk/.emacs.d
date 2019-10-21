@@ -102,7 +102,8 @@
         (goto-char (point-max))
         (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage))
-  (setq straight-cache-autoloads t))
+  (setq straight-cache-autoloads t
+        straight-use-package-by-default t))
 
 ;; (defun bootstrap-quelpa ()
 ;;   ;; Requires (package-initialize) to be called beforehand
@@ -509,6 +510,7 @@ we're adding a custom function for it here."
             (goto-char (point-min)))))
       (use-package ox-confluence
         :ensure nil
+        :straight nil
         :commands org-confluence-export-as-confluence))
     :config
     ;; (with-eval-after-load 'smartparens

@@ -376,6 +376,7 @@ Stolen from https://github.com/bbatsov/crux
 #+begin_src emacs-lisp :results output silent
   (use-package apropos
     :ensure nil
+    :straight nil
     :custom
     (apropos-do-all t)
     :init
@@ -568,6 +569,7 @@ package isn't being maintained or something
 
 #+begin_src emacs-lisp :results output silent
   (use-package evil-latex-textobjects
+    :straight nil
     :load-path "local-packages/"
     :commands (turn-on-evil-latex-textobjects-mode)
     :general
@@ -814,6 +816,7 @@ Interesting Text Objects:
 #+begin_src emacs-lisp :results output silent
   (use-package org-capture
     :ensure nil ;; because org-capture is from org
+    :straight nil
     :after (org)
     :commands (org-capture
                org-capture-templates)
@@ -873,6 +876,7 @@ For some reason we can't do this in the scratch buffer
 #+begin_src emacs-lisp :results output silent
   (use-package org-agenda
     :ensure nil
+    :straight nil
     :commands (org-todo-list
                org-agenda-file-to-front)
     :config
@@ -889,6 +893,7 @@ language's mappings.
 #+begin_src emacs-lisp :results output silent
   (use-package org-src
     :ensure nil
+    :straight nil
     :disabled t
     :general
     (org-src-mode-map
@@ -1429,7 +1434,6 @@ with Chinese/Japanese.
 ** Posframe
 #+begin_src emacs-lisp :results output silent
   (use-package posframe
-    :disabled t
     :straight (:host github :repo "tumashu/posframe"))
 #+end_src
 
@@ -1697,6 +1701,7 @@ package is known as elisp-mode but it reads as emacs-lisp
 
 #+begin_src emacs-lisp :results output silent
   (use-package elisp-mode
+    :straight nil
     :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
            (emacs-lisp-mode . prism-mode)
            (emacs-lisp-mode . parinfer-mode)
@@ -2084,15 +2089,19 @@ package manager
 #+begin_src emacs-lisp :results output silent
   (use-package help+
     :defer 7
+    :straight nil
     :load-path "local-packages/")
   (use-package help-macro+
     :defer 7
+    :straight nil
     :load-path "local-packages/")
   (use-package help-mode+
     :defer 7
+    :straight nil
     :load-path "local-packages/")
   (use-package help-fns+
     :defer 7
+    :straight nil
     :commands (describe-keymap
                describe-buffer
                describe-command
@@ -3179,15 +3188,17 @@ Might be better done as an ex mode command or something.
 #+end_src
 
 ** Posframe
-
+Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package ivy-posframe
-    :disabled t
-    :straight (:host github :repo "tumashu/ivy-posframe")
+    :straight (:host github :repo "tumashu/ivy-posframe"
+               :files ("ivy-posframe.el"))
     :commands (ivy-posframe-mode)
     :after ivy
     :custom
-    (ivy-posframe-display-functions-alist '((t. ivy-posframe-display))))
+    (ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+    :config
+    (ivy-posframe-mode))
 #+end_src
 
 * Company
