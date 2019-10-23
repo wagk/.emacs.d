@@ -309,10 +309,10 @@ we're adding a custom function for it here."
                                    (call-interactively 'evil-window-vsplit)
                                    (find-user-init-file)))
     (evil-ex-define-cmd "Tinit" '(lambda ()
-                                    (interactive)
-                                    (require 'eyebrowse)
-                                    (funcall-interactively)
-                                    'my-new-evil-tab user-init-file))
+                                   (interactive)
+                                   (require 'eyebrowse)
+                                   (funcall-interactively)
+                                   'my-new-evil-tab user-init-file))
     (evil-ex-define-cmd "local" 'find-user-local-file)
     (evil-ex-define-cmd "Slocal" '(lambda () (interactive)
                                     (call-interactively 'evil-window-split)
@@ -324,7 +324,7 @@ we're adding a custom function for it here."
                                     (interactive)
                                     (require 'eyebrowse)
                                     (funcall-interactively
-                                      'my-new-evil-tab user-local-file)))
+                                     'my-new-evil-tab user-local-file)))
     (evil-ex-define-cmd "frontpage" 'find-user-frontpage-file)
     (evil-ex-define-cmd "config" 'find-user-config-file)
     (evil-ex-define-cmd "Sconfig" '(lambda () (interactive)
@@ -341,19 +341,19 @@ we're adding a custom function for it here."
     (evil-ex-define-cmd "me[ssage]" '(lambda () (interactive)
                                        (switch-to-buffer "*Messages*")))
     (evil-ex-define-cmd "Smessage" '(lambda () (interactive)
-                                     (call-interactively 'evil-window-split)
-                                     (switch-to-buffer "*Messages*")))
+                                      (call-interactively 'evil-window-split)
+                                      (switch-to-buffer "*Messages*")))
     (evil-ex-define-cmd "Vmessage" '(lambda () (interactive)
-                                     (call-interactively 'evil-window-vsplit)
-                                     (switch-to-buffer "*Messages*")))
+                                      (call-interactively 'evil-window-vsplit)
+                                      (switch-to-buffer "*Messages*")))
     (evil-ex-define-cmd "sc[ratch]"   '(lambda () (interactive)
                                          (switch-to-buffer "*scratch*")))
     (evil-ex-define-cmd "Sscratch" '(lambda () (interactive)
-                                     (call-interactively 'evil-window-split)
-                                     (switch-to-buffer "*scratch*")))
+                                      (call-interactively 'evil-window-split)
+                                      (switch-to-buffer "*scratch*")))
     (evil-ex-define-cmd "Vscratch" '(lambda () (interactive)
-                                     (call-interactively 'evil-window-vsplit)
-                                     (switch-to-buffer "*scratch*")))
+                                      (call-interactively 'evil-window-vsplit)
+                                      (switch-to-buffer "*scratch*")))
 
     (evil-ex-define-cmd "framen" 'make-frame)
     (evil-ex-define-cmd "framec" 'delete-frame)
@@ -382,11 +382,11 @@ we're adding a custom function for it here."
 
   (use-package evil-collection
     :straight (:host github :repo "emacs-evil/evil-collection"
-		     :files (:defaults ("modes" "modes/*"))
+               :files (:defaults ("modes" "modes/*")))
     :custom
     (evil-collection-setup-minibuffer t)
     :config
-    (evil-collection-init)))
+    (evil-collection-init))
 
   ;; https://github.com/raxod502/straight.el/blob/develop/README.md#installing-org-with-straightel
   (progn
@@ -398,9 +398,9 @@ we're adding a custom function for it here."
       Inserted by installing org-mode or when a release is made."
       (require 'git)
       (let ((git-repo (expand-file-name
-                        "straight/repos/org/" user-emacs-directory)))
+                       "straight/repos/org/" user-emacs-directory)))
         (string-trim
-          (git-run "describe"
+         (git-run "describe"
                   "--match=release\*"
                   "--abbrev=6"
                   "HEAD"))))
@@ -410,14 +410,14 @@ we're adding a custom function for it here."
       Inserted by installing org-mode or when a release is made."
       (require 'git)
       (let ((git-repo (expand-file-name
-                        "straight/repos/org/" user-emacs-directory)))
+                       "straight/repos/org/" user-emacs-directory)))
         (string-trim
-          (string-remove-prefix
-            "release_"
-            (git-run "describe"
-                    "--match=release\*"
-                    "--abbrev=0"
-                    "HEAD")))))
+         (string-remove-prefix
+          "release_"
+          (git-run "describe"
+                   "--match=release\*"
+                   "--abbrev=0"
+                   "HEAD")))))
 
     (provide 'org-version))
 
