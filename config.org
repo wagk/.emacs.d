@@ -1385,9 +1385,18 @@ Solarized)
 
 #+begin_src emacs-lisp :results output silent
   (load-theme 'eva02 t)
+  (with-eval-after-load 'prism
+    (prism-set-colors
+      :num 24
+      :colors
+      (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
+      :desaturations
+      (list 10 20 30)
+      :lightens
+      (list 0 -2.5 -5)))
 #+end_src
 
-** COMMENT Solarized
+** Solarized
 [[https://ethanschoonover.com/solarized/][Website with more descriptions]]
 
 #+begin_src emacs-lisp :results output silent
@@ -1423,9 +1432,16 @@ Solarized)
                    (sol-cyan    . "#2aa198")
                    (sol-green   . "#859900")))
       ;; TODO: set documentation string
-      (set (car col) (cdr col)))
-    :config
-    (load-theme 'solarized-dark t))
+      (set (car col) (cdr col))
+      (with-eval-after-load 'prism
+        (prism-set-colors
+          :num 24
+          :colors
+          (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
+          :desaturations
+          (list 10 20 30)
+          :lightens
+          (list 0 -2.5 -5)))))
 #+end_src
 
 ** Fonts
