@@ -381,11 +381,12 @@ we're adding a custom function for it here."
     (evil-mode))
 
   (use-package evil-collection
-    :straight (:host github :repo "emacs-evil/evil-collection")
+    :straight (:host github :repo "emacs-evil/evil-collection"
+		     :files (:defaults ("modes" "modes/*"))
     :custom
     (evil-collection-setup-minibuffer t)
     :config
-    (evil-collection-init))
+    (evil-collection-init)))
 
   ;; https://github.com/raxod502/straight.el/blob/develop/README.md#installing-org-with-straightel
   (progn

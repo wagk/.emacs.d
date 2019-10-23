@@ -86,7 +86,7 @@ C-M-i                           backward-button
 * Check for local.el defines
 #+begin_src emacs-lisp :results output silent
   (unless (boundp 'config-local-syncthing-folder)
-    (user-error "%s not bound!"))
+    (user-error "config-local-syncthing-folder not bound!"))
 #+end_src
 
 * Define useful constants
