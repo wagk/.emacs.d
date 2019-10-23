@@ -1384,16 +1384,23 @@ Personal theme that I'm maintaining (really stealing shamelessly from
 Solarized)
 
 #+begin_src emacs-lisp :results output silent
-  (load-theme 'eva02 t)
-  (with-eval-after-load 'prism
-    (prism-set-colors
-      :num 24
-      :colors
-      (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
-      :desaturations
-      (list 10 20 30)
-      :lightens
-      (list 0 -2.5 -5)))
+  (use-package eva02
+    :ensure nil
+    :defer t
+    :straight nil
+    :if (display-graphic-p)
+    :load-path "eva02-theme.el"
+    :config
+    (load-theme 'eva02 t)
+    (with-eval-after-load 'prism
+      (prism-set-colors
+       :num 24
+       :colors
+       (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
+       :desaturations
+       (list 10 20 30)
+       :lightens
+       (list 0 -2.5 -5))))
 #+end_src
 
 ** Solarized
@@ -1402,6 +1409,7 @@ Solarized)
 #+begin_src emacs-lisp :results output silent
   (use-package solarized-theme
     :straight (:host github :repo "bbatsov/solarized-emacs")
+    :if (display-graphic-p)
     :custom
     (solarized-use-variable-pitch nil)
     (solarized-distinct-fringe-background nil)
@@ -1432,18 +1440,25 @@ Solarized)
                    (sol-cyan    . "#2aa198")
                    (sol-green   . "#859900")))
       ;; TODO: set documentation string
-      (set (car col) (cdr col))))
-      ;; (with-eval-after-load 'prism
-      ;;   (prism-set-colors
-      ;;     :num 24
-      ;;     :colors
-      ;;     (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
-      ;;     :desaturations
-      ;;     (list 10 20 30)
-      ;;     :lightens
-      ;;     (list 0 -2.5 -5)))))
+      (set (car col) (cdr col)))
+    :config
+    (with-eval-after-load 'prism
+      (prism-set-colors
+       :num 24
+       :colors
+       (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
+       :desaturations
+       (list 10 20 30)
+       :lightens
+       (list 0 -2.5 -5))))
 #+end_src
 
+** Base16
+#+begin_src emacs-lisp :results output silent
+  (use-package base16-theme
+    :straight (:host github :repo "belak/base16-emacs")
+    :if (not (display-graphic-p)))
+#+end_src
 ** Fonts
 We are preferring these fonts because they look nicer and play nicer
 with Chinese/Japanese.
