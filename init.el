@@ -28,7 +28,7 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
-(customize-set-value 'locale-coding-system 'utf-8)
+(customize-set-variable 'locale-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
 (defconst user-init-file
@@ -230,7 +230,8 @@ recovery. Maybe eventually load dependencies and all that."
      ;; try eyebrowse instead
      ;; "gt"     '(lambda () (interactive) (other-frame 1))
      ;; "gT"     '(lambda () (interactive) (other-frame -1))
-     "g o"    'ff-find-other-file)
+     "g a" 'describe-char
+     "g o" 'ff-find-other-file)
      ;; "g a"    'describe-char)
     (:keymaps 'inner
      "e"      'my-evil-a-buffer)

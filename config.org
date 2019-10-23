@@ -83,13 +83,16 @@ C-M-i                           backward-button
 <normal-state> g b              debugger-frame
 <normal-state> g l              debugger-list-functions
 
+* Check for local.el defines
+#+begin_src emacs-lisp :results output silent
+  (unless (boundp 'config-local-syncthing-folder)
+    (user-error "%s not bound!"))
+#+end_src
+
 * Define useful constants
 #+begin_src emacs-lisp :results output silent
-  (defconst my-todo-org-file (if (boundp 'config-local-syncthing-folder)
-                                  (concat config-local-syncthing-folder "/todo.org")
-                                (progn
-                                  (error "Unable to find the syncthing folder!")
-                                  nil)))
+  (when (boundp 'config-local-syncthing-folder)
+      (defconst my-todo-org-file (concat config-local-syncthing-folder "/todo.org")))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
@@ -848,7 +851,7 @@ Interesting Text Objects:
     ;; (evil-ex-define-cmd "todo" 'my-capture-daydream)
     :hook (org-capture-mode . evil-insert-state)
     :config
-    (when (boundp 'config-local-syncthing-folder)
+    (when (boundp 'my-todo-org-file)
       (add-to-list 'org-capture-templates
                     `("todo" "Personal Todo" entry
                       (file+olp ,my-todo-org-file "Tasks")
@@ -1047,13 +1050,12 @@ Currently disabled while we look at other, more maintained projects
 #+Begin_src emacs-lisp :results output silent
   (use-package org-brain
     :straight (:host github :repo "Kungsgeten/org-brain")
+    :if (boundp 'config-local-syncthing-folder)
     :commands (org-brain-visualize
                counsel-brain
                org-brain-switch-brain)
     :custom
-    (org-brain-path (concat (if (boundp 'config-local-syncthing-folder)
-                                config-local-syncthing-folder
-                              "~") "/wiki"))
+    (org-brain-path (concat config-local-syncthing-folder "/wiki"))
     (org-brain-show-resources
      nil
      "https://github.com/Kungsgeten/org-brain/pull/203 I don't really
@@ -1377,7 +1379,15 @@ that for the range we want
   (set-terminal-parameter nil 'background-mode 'dark)
 #+end_src
 
-** Solarized
+** Eva-02
+Personal theme that I'm maintaining (really stealing shamelessly from
+Solarized)
+
+#+begin_src emacs-lisp :results output silent
+  (load-theme 'eva02 t)
+#+end_src
+
+** COMMENT Solarized
 [[https://ethanschoonover.com/solarized/][Website with more descriptions]]
 
 #+begin_src emacs-lisp :results output silent
@@ -1628,7 +1638,6 @@ Refer to prism
 
 ** Prism mode
 Much like rainbow blocks mode, but better.
-
 #+begin_src emacs-lisp :results output silent
   (use-package prism
     :straight (:host github :repo "alphapapa/prism.el")
@@ -1641,7 +1650,8 @@ Much like rainbow blocks mode, but better.
     (prism-set-colors
       :num 24
       :colors
-      (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
+      ;; (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
+      (list 'font-lock-constant-face 'font-lock-type-face 'font-lock-string-face)
       :desaturations
       (list 10 20 30)
       :lightens
@@ -1840,9 +1850,10 @@ containing a lot of files, and if the files are themselves large.
 #+begin_src emacs-lisp :results output silent
   (use-package deft
     :straight (:host github :repo "jrblevin/deft")
+    :if (boundp 'config-local-syncthing-folder)
     :commands (deft
-               deft-filter
-               deft-setup) ;; call this if no .deft folder is found
+                deft-filter
+                deft-setup) ;; call this if no .deft folder is found
     :custom
     (deft-auto-save-interval 0.0
       "Disable autosave because of permissions issues causing massive
@@ -1894,13 +1905,12 @@ containing a lot of files, and if the files are themselves large.
     (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
     (evil-set-initial-state 'deft-mode 'insert)
     :config
-    (when (boundp 'config-local-syncthing-folder)
-      (customize-set-variable 'deft-directory
-                           (file-name-as-directory
-                            (concat
-                             (file-name-as-directory
-                              config-local-syncthing-folder)
-                             "notes")))))
+    (customize-set-variable 'deft-directory
+                            (file-name-as-directory
+                             (concat
+                              (file-name-as-directory
+                               config-local-syncthing-folder)
+                              "notes"))))
 #+end_src
 
 * AES Encryption
@@ -2670,16 +2680,17 @@ the thing
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "todo" 'my-todo)
-  (evil-ex-define-cmd "Stodo" '(lambda () (interactive)
-                                 (call-interactively 'evil-window-split)
-                                 (find-file my-todo-org-file)))
-  (evil-ex-define-cmd "Vtodo" '(lambda () (interactive)
-                                 (call-interactively 'evil-window-vsplit)
-                                 (find-file my-todo-org-file)))
-  (evil-ex-define-cmd "Ttodo" '(lambda () (interactive)
+  (when (boundp 'my-todo-org-file)
+    (evil-ex-define-cmd "todo" 'my-todo)
+    (evil-ex-define-cmd "Stodo" '(lambda () (interactive)
+                                   (call-interactively 'evil-window-split)
+                                   (find-file my-todo-org-file)))
+    (evil-ex-define-cmd "Vtodo" '(lambda () (interactive)
+                                   (call-interactively 'evil-window-vsplit)
+                                   (find-file my-todo-org-file)))
+    (evil-ex-define-cmd "Ttodo" '(lambda () (interactive)
                                    (funcall-interactively
-                                    'my-new-evil-tab my-todo-org-file)))
+                                    'my-new-evil-tab my-todo-org-file))))
 #+end_src
 
 * Yaml-mode
@@ -2703,6 +2714,7 @@ the thing
 #+begin_src emacs-lisp :results output silent
   (use-package org-journal
     :straight (:host github :repo "bastibe/org-journal")
+    :if (boundp 'config-local-syncthing-folder)
     :commands org-journal-new-entry
     :custom
     (org-journal-time-format "%T")
@@ -2713,10 +2725,10 @@ the thing
                                       (org-journal-new-entry t)))
     (evil-ex-define-cmd "jj" 'org-journal-new-entry)
     (customize-set-variable 'org-journal-dir (file-name-as-directory
-                                           (concat config-local-syncthing-folder "/notes/journal")))
+                                              (concat config-local-syncthing-folder "/notes/journal")))
     :hook
-    ((org-journal-after-entry-create . evil-insert-state)
-     (org-journal-after-entry-create . toggle-rot13-mode)))
+    ((org-journal-after-entry-create . evil-insert-state)))
+  ;; (org-journal-after-entry-create . toggle-rot13-mode)))
 #+end_src
 
 * Cmake
