@@ -1432,16 +1432,16 @@ Solarized)
                    (sol-cyan    . "#2aa198")
                    (sol-green   . "#859900")))
       ;; TODO: set documentation string
-      (set (car col) (cdr col))
-      (with-eval-after-load 'prism
-        (prism-set-colors
-          :num 24
-          :colors
-          (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
-          :desaturations
-          (list 10 20 30)
-          :lightens
-          (list 0 -2.5 -5)))))
+      (set (car col) (cdr col))))
+      ;; (with-eval-after-load 'prism
+      ;;   (prism-set-colors
+      ;;     :num 24
+      ;;     :colors
+      ;;     (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
+      ;;     :desaturations
+      ;;     (list 10 20 30)
+      ;;     :lightens
+      ;;     (list 0 -2.5 -5)))))
 #+end_src
 
 ** Fonts
@@ -1661,17 +1661,17 @@ Much like rainbow blocks mode, but better.
                prism-whitespace-mode)
     :preface
     (use-package anaphora
-      :straight (:host github :repo "rolandwalker/anaphora"))
-    :config
-    (prism-set-colors
-      :num 24
-      :colors
-      ;; (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
-      (list 'font-lock-constant-face 'font-lock-type-face 'font-lock-string-face)
-      :desaturations
-      (list 10 20 30)
-      :lightens
-      (list 0 -2.5 -5)))
+      :straight (:host github :repo "rolandwalker/anaphora")))
+    ;; :config)
+    ;; (prism-set-colors
+    ;;   :num 24
+    ;;   :colors
+    ;;   ;; (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
+    ;;   (list 'font-lock-constant-face 'font-lock-type-face 'font-lock-string-face)
+    ;;   :desaturations
+    ;;   (list 10 20 30)
+    ;;   :lightens
+    ;;   (list 0 -2.5 -5)))
 #+end_src
 
 ** Smartparens
