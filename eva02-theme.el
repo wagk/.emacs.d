@@ -254,17 +254,6 @@
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
-(with-eval-after-load 'prism
-  (prism-set-colors
-    :num 24
-    :colors
-    ;; (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
-    (list 'default 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
-    :desaturations
-    (list 10 20 30)
-    :lightens
-    (list 0 -2.5 -5)))
-
 (provide-theme 'eva02)
 
 ;; Local Variables:

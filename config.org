@@ -1372,55 +1372,18 @@ that for the range we want
     (advice-add 'delete-frame :around 'my-delete-window-config-or-frame))
 #+end_src
 
-* Display
-** Prefer dark backgrounds
+* Themes
+** Base16
 #+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'frame-background-mode 'dark)
-  (set-terminal-parameter nil 'background-mode 'dark)
+  (use-package base16-theme
+    :straight (:host github :repo "belak/base16-emacs"))
 #+end_src
-
-** Eva-02
-Personal theme that I'm maintaining (really stealing shamelessly from
-Solarized)
-
-#+begin_src emacs-lisp :results output silent
-  (use-package eva02
-    :ensure nil
-    :defer t
-    :straight nil
-    :if (display-graphic-p)
-    :load-path "eva02-theme.el"
-    (defun load-eva02-theme ()
-      (interactive)
-      (load-theme 'eva02 t)
-      (with-eval-after-load 'prism
-        (prism-set-colors)
-        :num 24
-        :colors
-        (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
-        :desaturations
-        (list 10 20 30)
-        :lightens
-        (list 0 -2.5 -5))
-      (with-eval-after-load 'hl-todo
-        (customize-set-variable 'hl-todo-keyword-faces
-                                '(("TODO"   . "#ff0000")
-                                  ("DEBUG"  . "#ff0000")
-                                  ("BUG"    . "#ff0000")
-                                  ("REMOVE" . "#ff0000")
-                                  ("STUB"   . "#ff0000")
-                                  ("NOTE"   . "#ff0000")
-                                  ("HACK"   . "#ff0000")
-                                  ("FIXME"  . "#ff0000"))))))
-#+end_src
-
 ** Solarized
 [[https://ethanschoonover.com/solarized/][Website with more descriptions]]
 
 #+begin_src emacs-lisp :results output silent
   (use-package solarized-theme
     :straight (:host github :repo "bbatsov/solarized-emacs")
-    :if (display-graphic-p)
     :custom
     (solarized-use-variable-pitch nil)
     (solarized-distinct-fringe-background nil)
@@ -1456,14 +1419,14 @@ Solarized)
       (interactive)
       (load-theme 'solarized-dark t)
       (with-eval-after-load 'prism
-        (prism-set-colors)
-        :num 24
-        :colors
-        (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
-        :desaturations
-        (list 10 20 30)
-        :lightens
-        (list 0 -2.5 -5))
+        (prism-set-colors
+          :num 24
+          :colors
+          (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
+          :desaturations
+          (list 10 20 30)
+          :lightens
+          (list 0 -2.5 -5)))
       (with-eval-after-load 'hl-todo
         (customize-set-variable 'hl-todo-keyword-faces
                                 '(("TODO"   . "#b58900")
@@ -1475,13 +1438,53 @@ Solarized)
                                   ("HACK"   . "#6c71c4")
                                   ("FIXME"  . "#cb4b16"))))))
 #+end_src
+** Eva-02
+Personal theme that I'm maintaining (really stealing shamelessly from
+Solarized)
 
-** Base16
 #+begin_src emacs-lisp :results output silent
-  (use-package base16-theme
-    :straight (:host github :repo "belak/base16-emacs")
-    :if (not (display-graphic-p)))
+  (use-package eva02
+    :ensure nil
+    :defer t
+    :straight nil
+    :init
+    (defun load-eva02-theme ()
+      (interactive)
+      (load-theme 'eva02 t)
+      (with-eval-after-load 'prism
+        (prism-set-colors
+          :num 24
+          :colors
+          (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
+          :desaturations
+          (list 10 20 30)
+          :lightens
+          (list 0 -2.5 -5)))
+      (with-eval-after-load 'hl-todo
+        (customize-set-variable 'hl-todo-keyword-faces
+                                '(("TODO"   . "#ff0000")
+                                  ("DEBUG"  . "#ff0000")
+                                  ("BUG"    . "#ff0000")
+                                  ("REMOVE" . "#ff0000")
+                                  ("STUB"   . "#ff0000")
+                                  ("NOTE"   . "#ff0000")
+                                  ("HACK"   . "#ff0000")
+                                  ("FIXME"  . "#ff0000"))))))
 #+end_src
+
+* Display
+#+begin_src emacs-lisp :results output silent
+  (if (display-graphic-p)
+      (load-eva02-theme)
+    (load-theme 'base16 t))
+#+end_src
+
+** Prefer dark backgrounds
+#+begin_src emacs-lisp :results output silent
+  (customize-set-variable 'frame-background-mode 'dark)
+  (set-terminal-parameter nil 'background-mode 'dark)
+#+end_src
+
 ** Fonts
 We are preferring these fonts because they look nicer and play nicer
 with Chinese/Japanese.
@@ -2211,7 +2214,7 @@ package manager
 
 * Anki
 
-** Orgmode flavored anki editing                                  :disabled:
+** Orgmode flavored anki editing
 #+begin_src emacs-lisp :results output silent
   (use-package anki-editor
     :straight (:host github :repo "louietan/anki-editor")
