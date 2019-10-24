@@ -1390,17 +1390,28 @@ Solarized)
     :straight nil
     :if (display-graphic-p)
     :load-path "eva02-theme.el"
-    :config
-    (load-theme 'eva02 t)
-    (with-eval-after-load 'prism
-      (prism-set-colors
-       :num 24
-       :colors
-       (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
-       :desaturations
-       (list 10 20 30)
-       :lightens
-       (list 0 -2.5 -5))))
+    (defun load-eva02-theme ()
+      (interactive)
+      (load-theme 'eva02 t)
+      (with-eval-after-load 'prism
+        (prism-set-colors)
+        :num 24
+        :colors
+        (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
+        :desaturations
+        (list 10 20 30)
+        :lightens
+        (list 0 -2.5 -5))
+      (with-eval-after-load 'hl-todo
+        (customize-set-variable 'hl-todo-keyword-faces
+                                '(("TODO"   . "#ff0000")
+                                  ("DEBUG"  . "#ff0000")
+                                  ("BUG"    . "#ff0000")
+                                  ("REMOVE" . "#ff0000")
+                                  ("STUB"   . "#ff0000")
+                                  ("NOTE"   . "#ff0000")
+                                  ("HACK"   . "#ff0000")
+                                  ("FIXME"  . "#ff0000"))))))
 #+end_src
 
 ** Solarized
@@ -1441,16 +1452,28 @@ Solarized)
                    (sol-green   . "#859900")))
       ;; TODO: set documentation string
       (set (car col) (cdr col)))
-    :config
-    (with-eval-after-load 'prism
-      (prism-set-colors
-       :num 24
-       :colors
-       (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
-       :desaturations
-       (list 10 20 30)
-       :lightens
-       (list 0 -2.5 -5))))
+    (defun load-solarized-theme ()
+      (interactive)
+      (load-theme 'solarized-dark t)
+      (with-eval-after-load 'prism
+        (prism-set-colors)
+        :num 24
+        :colors
+        (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
+        :desaturations
+        (list 10 20 30)
+        :lightens
+        (list 0 -2.5 -5))
+      (with-eval-after-load 'hl-todo
+        (customize-set-variable 'hl-todo-keyword-faces
+                                '(("TODO"   . "#b58900")
+                                  ("DEBUG"  . "#d33682")
+                                  ("BUG"    . "#dc322f")
+                                  ("REMOVE" . "#dc322f")
+                                  ("STUB"   . "#859900")
+                                  ("NOTE"   . "#586e75")
+                                  ("HACK"   . "#6c71c4")
+                                  ("FIXME"  . "#cb4b16"))))))
 #+end_src
 
 ** Base16
@@ -2429,16 +2452,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
     ;;  "t t" 'my-helm-swoop-hl-todo)
     (:keymaps 'evil-normal-state-map
      "[ t"  'hl-todo-previous
-     "] t"  'hl-todo-next)
-    :custom
-    (hl-todo-keyword-faces `(("TODO"   . "#b58900")
-                             ("DEBUG"  . "#d33682")
-                             ("BUG"    . "#dc322f")
-                             ("REMOVE" . "#dc322f")
-                             ("STUB"   . "#859900")
-                             ("NOTE"   . "#586e75")
-                             ("HACK"   . "#6c71c4")
-                             ("FIXME"  . "#cb4b16"))))
+     "] t"  'hl-todo-next))
     ;; :init
     ;;TODO: Make this search for regexes
     ;; (defun my-helm-swoop-hl-todo () (interactive)
