@@ -1,0 +1,4 @@
+# key: \frac
+# name: latex-frac
+# --
+\frac{$1}{$2}$0
