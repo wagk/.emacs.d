@@ -28,7 +28,7 @@
 ;;; Code:
 
 (deftheme eva02)
-(let ((class '((class color) (min-colors 89)))
+(let ((class '((class color) (min-colors 89) (background dark)))
       (fg1 "#FF5701")
       (fg2 "#eb5001")
       (fg3 "#d64901")
@@ -47,21 +47,21 @@
       (var     "#FF5701")
       (warning "#ff0000")
       (warning2 "#ff8800"))
-  (custom-theme-set-faces
-   'eva02
+  (custom-theme-set-faces 'eva02
    `(default ((,class (:background ,bg1 :foreground ,fg1))))
    `(line-number ((,class (:weight thin :underline nil :foreground ,fg1 :background ,bg1))))
    `(font-lock-builtin-face ((,class (:foreground ,builtin))))
+   `(font-lock-preprocessor-face ((,class (:foreground ,builtin :weight bold))))
    `(font-lock-comment-face ((,class (:foreground ,comment))))
-   `(font-lock-negation-char-face ((,class (:foreground ,const))))
-   `(font-lock-reference-face ((,class (:foreground ,const))))
+   `(font-lock-negation-char-face ((,class (:foreground ,const :bold t))))
+   `(font-lock-reference-face ((,class (:foreground ,const :box (:line-width 1 :color ,const)))))
    `(font-lock-constant-face ((,class (:foreground ,const))))
    `(font-lock-doc-face ((,class (:foreground ,comment))))
    `(font-lock-function-name-face ((,class (:foreground ,func))))
-   `(font-lock-keyword-face ((,class (:bold ,class :foreground ,keyword))))
+   `(font-lock-keyword-face ((,class (:bold t :foreground ,keyword))))
    `(font-lock-string-face ((,class (:foreground ,str))))
    `(font-lock-type-face ((,class (:foreground ,type))))
-   `(font-lock-variable-name-face ((,class (:foreground ,var))))
+   `(font-lock-variable-name-face ((,class (:foreground ,var :underline t))))
    `(font-lock-warning-face ((,class (:foreground ,warning :background ,bg2))))
    `(region ((,class (:background ,fg1 :foreground ,bg1))))
    `(highlight ((,class (:foreground ,fg3 :background ,bg3))))
