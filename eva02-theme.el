@@ -72,7 +72,12 @@
    `(show-paren-match ((,class (:bold t :underline t))))
    `(isearch ((,class (:bold t :foreground ,warning :background ,bg3))))
    `(mode-line ((,class (:box (:line-width 1 :color nil) :bold t :foreground ,fg4 :background ,bg2))))
-   `(mode-line-inactive ((,class (:box (:line-width 1 :color nil :style pressed-button) :foreground ,var :background ,bg1 :weight normal))))
+   `(mode-line-inactive ((,class (:box (:line-width 1
+                                        :color nil
+                                        :style pressed-button)
+                                  :foreground ,var
+                                  :background ,bg1
+                                  :weight normal))))
    `(mode-line-buffer-id ((,class (:bold t :foreground ,func :background nil))))
    `(mode-line-highlight ((,class (:foreground ,keyword :box nil :weight bold))))
    `(mode-line-emphasis ((,class (:foreground ,fg1))))
@@ -95,14 +100,22 @@
    `(org-date ((,class (:underline t :foreground ,var))))
    `(org-footnote  ((,class (:underline t :foreground ,fg4))))
    `(org-link ((,class (:underline t :foreground ,type))))
+   `(org-mode-line-clock-overrun ((,class (:inherit (org-mode-line-clock)
+                                           :foreground ,warning
+                                           :box (:line-width 1 :color ,warning)))))
    `(org-special-keyword ((,class (:foreground ,func))))
    `(org-block ((,class (:foreground ,fg3))))
    `(org-quote ((,class (:inherit org-block :slant italic))))
    `(org-verse ((,class (:inherit org-block :slant italic))))
-   `(org-todo ((,class (:box (:line-width 1 :color ,fg3) :foreground ,keyword :bold t))))
+   `(org-todo ((,class (:box (:line-width 1 :color ,fg3)
+                        :foreground ,keyword
+                        :bold t))))
    `(org-done ((,class (:box (:line-width 1 :color ,const) :bold t :foreground ,builtin))))
    `(org-warning ((,class (:underline t :foreground ,warning))))
-   `(org-agenda-structure ((,class (:weight bold :foreground ,fg3 :box (:color ,fg4) :background ,bg3))))
+   `(org-agenda-structure ((,class (:weight bold
+                                    :foreground ,fg3
+                                    :box (:color ,fg4)
+                                    :background ,bg3))))
    `(org-agenda-date ((,class (:foreground ,var :height 1.1))))
    `(org-agenda-date-weekend ((,class (:weight normal :foreground ,fg4))))
    `(org-agenda-date-today ((,class (:weight bold :foreground ,keyword :height 1.4))))
@@ -173,20 +186,32 @@
    `(magit-item-highlight ((,class :background ,bg3)))
    `(magit-section-heading        ((,class (:foreground ,keyword :weight bold))))
    `(magit-hunk-heading           ((,class (:background ,bg3))))
-   `(magit-section-highlight      ((,class (:background ,bg2))))
+   `(magit-section-highlight      ((,class (:background ,bg1 :bold t))))
    `(magit-hunk-heading-highlight ((,class (:background ,bg3))))
    `(magit-diff-context-highlight ((,class (:background ,bg3 :foreground ,fg3))))
    `(magit-diffstat-added   ((,class (:foreground ,type))))
    `(magit-diffstat-removed ((,class (:foreground ,var))))
-   ;; `(magit-diff-hunk-heading ((,class (:foreground ,var))))
-   ;; `(magit-diff-context-highlight ((,class (:foreground ,var))))
-   ;; `(magit-diff-added-highlight ((,class (:foreground ,var))))
+   `(magit-diff-hunk-heading ((,class (:background ,var :foreground ,bg1))))
+   `(magit-diff-context ((,class (:background ,bg1))))
+   `(magit-diff-added ((,class (:foreground ,const))))
+   `(magit-diff-removed ((,class (:foreground ,warning))))
+   `(magit-diff-hunk-heading-highlight ((,class (:background ,type :foreground ,bg1))))
+   `(magit-diff-context-highlight ((,class (:foreground ,type :inherit magit-section-highlight))))
+   `(magit-diff-added-highlight ((,class (:foreground ,const
+                                          :inherit (magit-section-highlight
+                                                    magit-diff-added)))))
+   `(magit-diff-removed-highlight ((,class (:foreground ,warning
+                                            :inherit (magit-section-highlight
+                                                      magit-diff-removed)))))
    `(magit-process-ok ((,class (:foreground ,func :weight bold))))
    `(magit-process-ng ((,class (:foreground ,warning :weight bold))))
    `(magit-branch ((,class (:foreground ,const :weight bold))))
+   `(magit-branch-local ((,class (:foreground ,builtin :weight bold))))
+   `(magit-branch-remote ((,class (:foreground ,const :weight bold))))
    `(magit-log-author ((,class (:foreground ,fg3))))
    `(magit-hash ((,class (:foreground ,fg2))))
    `(magit-diff-file-header ((,class (:foreground ,fg2 :background ,bg3))))
+   `(magit-diff-hunk-heading-selection ((,class (:foreground ,warning :inherit magit-diff-hunk-heading))))
    `(lazy-highlight ((,class (:foreground ,fg2 :background ,bg3))))
    `(term ((,class (:foreground ,fg1 :background ,bg1))))
    `(term-color-black ((,class (:foreground ,bg3 :background ,bg3))))
