@@ -28,7 +28,7 @@
 ;;; Code:
 
 (deftheme eva02)
-(let ((class '((class color) (min-colors 89) (background dark)))
+(let ((class '((class color) (min-colors 89)))
       (fg1 "#FF5701")
       (fg2 "#eb5001")
       (fg3 "#d64901")
