@@ -2077,6 +2077,15 @@ We should look at customizing cider someday.
 
 * Rust                                                                :major:
 #+begin_src emacs-lisp :results output silent
+  (use-package cargo
+    :straight (:host github :repo "kwrooijen/cargo.el")
+    :after rust-mode
+    :diminish cargo-minor-mode
+    :commands cargo-minor-mode
+    :hook (rust-mode . cargo-minor-mode))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
   (use-package rust-mode
     :straight (:host github :repo "rust-lang/rust-mode")
     :mode

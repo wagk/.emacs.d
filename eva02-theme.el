@@ -85,6 +85,8 @@
    `(minibuffer-prompt ((,class (:bold t :foreground ,keyword))))
    `(default-italic ((,class (:italic t))))
    `(link ((,class (:foreground ,const :underline t))))
+   ;; `(compilation-warning ((,class (:foreground ,warning2))))
+   ;; `(compilation-error ((,class (:foreground ,warning))))
    `(org-code ((,class (:foreground ,fg2))))
    `(org-table ((,class (:foreground ,builtin))))
    `(org-hide ((,class (:foreground ,fg4))))
@@ -193,15 +195,13 @@
    `(magit-diffstat-removed ((,class (:foreground ,var))))
    `(magit-diff-hunk-heading ((,class (:background ,var :foreground ,bg1))))
    `(magit-diff-context ((,class (:background ,bg1))))
-   `(magit-diff-added ((,class (:foreground ,const))))
+   `(magit-diff-added ((,class (:foreground ,builtin))))
    `(magit-diff-removed ((,class (:foreground ,warning))))
    `(magit-diff-hunk-heading-highlight ((,class (:background ,type :foreground ,bg1))))
    `(magit-diff-context-highlight ((,class (:foreground ,type :inherit magit-section-highlight))))
-   `(magit-diff-added-highlight ((,class (:foreground ,const
-                                          :inherit (magit-section-highlight
+   `(magit-diff-added-highlight ((,class (:inherit (magit-section-highlight
                                                     magit-diff-added)))))
-   `(magit-diff-removed-highlight ((,class (:foreground ,warning
-                                            :inherit (magit-section-highlight
+   `(magit-diff-removed-highlight ((,class (:inherit (magit-section-highlight
                                                       magit-diff-removed)))))
    `(magit-process-ok ((,class (:foreground ,func :weight bold))))
    `(magit-process-ng ((,class (:foreground ,warning :weight bold))))
@@ -211,7 +211,8 @@
    `(magit-log-author ((,class (:foreground ,fg3))))
    `(magit-hash ((,class (:foreground ,fg2))))
    `(magit-diff-file-header ((,class (:foreground ,fg2 :background ,bg3))))
-   `(magit-diff-hunk-heading-selection ((,class (:foreground ,warning :inherit magit-diff-hunk-heading))))
+   `(magit-diff-hunk-heading-selection ((,class (:foreground ,warning
+                                                 :inherit magit-diff-hunk-heading))))
    `(lazy-highlight ((,class (:foreground ,fg2 :background ,bg3))))
    `(term ((,class (:foreground ,fg1 :background ,bg1))))
    `(term-color-black ((,class (:foreground ,bg3 :background ,bg3))))
@@ -224,7 +225,10 @@
    `(term-color-white ((,class (:foreground ,fg2 :background ,fg2))))
    `(rainbow-delimiters-unmatched-face ((,class :foreground ,warning)))
    `(helm-header ((,class (:foreground ,fg2 :background ,bg1 :underline nil :box nil))))
-   `(helm-source-header ((,class (:foreground ,keyword :background ,bg1 :underline nil :weight bold))))
+   `(helm-source-header ((,class (:foreground ,keyword
+                                  :background ,bg1
+                                  :underline nil
+                                  :weight bold))))
    `(helm-selection ((,class (:background ,bg2 :underline nil))))
    `(helm-selection-line ((,class (:background ,bg2))))
    `(helm-visible-mark ((,class (:foreground ,bg1 :background ,bg3))))
