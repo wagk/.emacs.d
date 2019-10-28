@@ -1050,6 +1050,7 @@ Currently disabled while we look at other, more maintained projects
 #+Begin_src emacs-lisp :results output silent
   (use-package org-brain
     :straight (:host github :repo "Kungsgeten/org-brain")
+    :defer 120
     :if (boundp 'config-local-syncthing-folder)
     :commands (org-brain-visualize
                counsel-brain
