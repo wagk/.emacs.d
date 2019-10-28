@@ -804,7 +804,7 @@ Interesting Text Objects:
       (add-hook 'org-agenda-mode-hook 'evil-org-mode))
     :config
     (evil-org-set-key-theme '(textobjects
-                              insert
+                              ;; insert ;; replaces c-t and c-d
                               navigation
                               additional
                               shift
@@ -2076,16 +2076,19 @@ recommended by the cider completion engine.
 
 We should look at customizing cider someday.
 
-* Rust                                                                :major:
+* Markdown                                                            :major:
 #+begin_src emacs-lisp :results output silent
-  (use-package cargo
-    :straight (:host github :repo "kwrooijen/cargo.el")
-    :after rust-mode
-    :diminish cargo-minor-mode
-    :commands cargo-minor-mode
-    :hook (rust-mode . cargo-minor-mode))
+  (use-package markdown-mode
+    :straight (:host github :repo "jrblevin/markdown-mode")
+    :mode "\\.md\\'"
+    :commands (markdown-mode)
+    :hook (markdown-mode . orgtbl-mode)
+    :init
+    (with-eval-after-load 'org-src
+      (cl-pushnew '("md" . markdown) org-src-lang-modes)))
 #+end_src
 
+* Rust                                                                :major:
 #+begin_src emacs-lisp :results output silent
   (use-package rust-mode
     :straight (:host github :repo "rust-lang/rust-mode")
@@ -2100,6 +2103,15 @@ We should look at customizing cider someday.
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("rust" . rust) org-src-lang-modes)))
+#+end_src
+
+Requires rust-mode and markdown-mode
+#+begin_src emacs-lisp :results output silent
+  (use-package cargo
+    :straight (:host github :repo "kwrooijen/cargo.el")
+    :diminish cargo-minor-mode
+    :commands cargo-minor-mode
+    :hook (rust-mode . cargo-minor-mode))
 #+end_src
 
 * TODO Dired
@@ -2188,18 +2200,6 @@ package manager
                describe-copying
                find-function-on-key)
     :load-path "local-packages/")
-#+end_src
-
-* Markdown                                                            :major:
-#+begin_src emacs-lisp :results output silent
-  (use-package markdown-mode
-    :straight (:host github :repo "jrblevin/markdown-mode")
-    :mode "\\.md\\'"
-    :commands (markdown-mode)
-    :hook (markdown-mode . orgtbl-mode)
-    :init
-    (with-eval-after-load 'org-src
-      (cl-pushnew '("md" . markdown) org-src-lang-modes)))
 #+end_src
 
 * Dumb Jump
