@@ -225,6 +225,7 @@
    `(org-sexp-date ((,class (:foreground ,fg4))))
    `(org-special-keyword ((,class (:foreground ,func))))
    `(org-table ((,class (:foreground ,builtin))))
+   `(org-tag ((,class (:foreground ,fg4))))
    `(org-todo ((,class (:box (:line-width 1 :color ,fg3) :foreground ,keyword :bold t))))
    `(org-verbatim ((,class (:foreground ,keyword))))
    `(org-verse ((,class (:inherit org-block :slant italic))))
