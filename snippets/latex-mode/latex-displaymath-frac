@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: latex-displaymath-frac
+# key: \dfrac
+# --
+\frac{\displaystyle $1}{\displaystyle $2}$0

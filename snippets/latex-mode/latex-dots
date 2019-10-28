@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
 # key: ...
-# name: latex-cdots
+# name: latex-dots
 # --
-\cdots$0
+\dots$0

@@ -209,7 +209,7 @@
    `(org-ellipsis ((,class (:foreground ,builtin))))
    `(org-footnote  ((,class (:underline t :foreground ,fg4))))
    `(org-hide ((,class (:foreground ,bg1))))
-   `(org-latex-and-related ((,class (:foreground ,builtin))))
+   `(org-latex-and-related ((,class (:italic t :foreground ,keyword))))
    `(org-level-1 ((,class (:bold t :foreground ,fg1 :height 1.1))))
    `(org-level-2 ((,class (:bold t :foreground ,fg1 :height 1.01))))
    `(org-level-3 ((,class (:bold t :foreground ,fg1 :height 1.001))))

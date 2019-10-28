@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: math-block
+# name: latex-math-block
 # key: math
 # --
-\begin{displaymath}
+\begin{align*}
   $0
-\end{displaymath}
+\end{align*}
