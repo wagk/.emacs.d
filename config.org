@@ -1456,7 +1456,8 @@ Solarized)
         (prism-set-colors
           :num 24
           :colors
-          (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
+          ;; (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
+          (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
           :desaturations
           (list 10 20 30)
           :lightens
@@ -1671,6 +1672,7 @@ Consider deprecating this now we're trying out prism
   (use-package rainbow-delimiters
     :straight (:host github :repo "Fanael/rainbow-delimiters")
     :commands (rainbow-delimiters-mode)
+    :custom (rainbow-delimiters-max-face-count 3)
     :hook (prog-mode . rainbow-delimiters-mode))
 #+end_src
 
