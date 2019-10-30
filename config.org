@@ -1461,7 +1461,8 @@ Solarized)
           :desaturations
           (list 10 20 30)
           :lightens
-          (list 0 -2.5 -5)))
+          ;; (list 0 -2.5 -5)))
+          (list 0 5 10)))
       (with-eval-after-load 'hl-todo
         (customize-set-variable 'hl-todo-keyword-faces
                                 '(("TODO"   . "#ff0000")
