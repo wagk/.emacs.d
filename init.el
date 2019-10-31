@@ -542,7 +542,7 @@ we're adding a custom function for it here."
      t
      "Make `ivy-switch-buffer' look more like `helm-mini'")
     :init
-    (evil-ex-define-cmd "bb" 'ivy-switch-buffer)
+    (evil-ex-define-cmd "bb" 'counsel-buffer-or-recentf)
     :config
     (ivy-mode))
 

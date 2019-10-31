@@ -2405,18 +2405,26 @@ r-value references.
     :commands (clang-format-region
                clang-format-buffer
                clang-format)
-    :init
+    :general
+    (c++-mode-map
+     :states '(normal)
+      "C-c C-f" '(lambda () (interactive)
+                   (if (region-active-p)
+                       (clang-format-region)
+                     (clang-format-buffer))))
+
+    ;; :init
     ;; IF there is a .clang-format, then use that to format before
     ;; saving
-    (defun my-clang-format-before-save ()
-      (require 'projectile)
-      (require 'clang-format)
-      (require 'f)
-      (when (f-exists?
-             (expand-file-name ".clang-format"
-                               (projectile-project-root)))
-        (add-hook 'before-save-hook 'clang-format-buffer t t)))
-    :hook (c++-mode . my-clang-format-before-save)
+    ;; (defun my-clang-format-before-save ()
+    ;;   (require 'projectile)
+    ;;   (require 'clang-format)
+    ;;   (require 'f)
+    ;;   (when (f-exists?
+    ;;          (expand-file-name ".clang-format"
+    ;;                            (projectile-project-root)))
+    ;;     (add-hook 'before-save-hook 'clang-format-buffer t t)))
+    ;; :hook (c++-mode . my-clang-format-before-save)
     :custom
     (clang-format-style-option "file"
                                "read from .clang-format"))
