@@ -2408,11 +2408,7 @@ r-value references.
     :general
     (c++-mode-map
      :states '(normal)
-      "C-c C-f" '(lambda () (interactive)
-                   (if (region-active-p)
-                       (clang-format-region)
-                     (clang-format-buffer))))
-
+      "C-c C-f" 'my-evil-clang-format)
     ;; :init
     ;; IF there is a .clang-format, then use that to format before
     ;; saving
@@ -2425,6 +2421,10 @@ r-value references.
     ;;                            (projectile-project-root)))
     ;;     (add-hook 'before-save-hook 'clang-format-buffer t t)))
     ;; :hook (c++-mode . my-clang-format-before-save)
+    :init
+    (evil-define-operator my-evil-clang-format (beg end)
+      (require 'clang-format)
+      (clang-format beg end))
     :custom
     (clang-format-style-option "file"
                                "read from .clang-format"))
