@@ -3428,6 +3428,7 @@ the underlying format
 * Devdocs
 #+begin_src emacs-lisp :results output silent
   (use-package devdocs
+    :disabled t ;; because we don't really use it
     :straight (:host github :repo "skeeto/devdocs-lookup")
     :commands (devdocs-lookup)
     :custom
@@ -3462,4 +3463,24 @@ the underlying format
     "do" 'smerge-keep-upper
     "[c" 'smerge-next
     "]c" 'smerge-prev)
+#+end_src
+
+* Search Engine Mode
+#+begin_src emacs-lisp :results output silent
+  (use-package engine-mode
+    :straight (:host github :repo "hrs/engine-mode")
+    :commands defengine
+    :general
+    (:states '(normal motion visual)
+     "K" '(lambda () (interactive)
+            (require 'engine-mode)
+            (let ((query (if (use-region-p)
+                             (buffer-substring (region-beginning) (region-end))
+                           (read-string
+                            "Search: "
+                            nil nil (thing-at-point 'word)))))
+              (engine/search-duckduckgo query))))
+    :config
+    (defengine duckduckgo
+      "https://duckduckgo.com/?q=%s"))
 #+end_src

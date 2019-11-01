@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: latex-prod
+# key: \prod
+# --
+\prod_{$1}^{$2}$0
