@@ -1057,10 +1057,10 @@ Currently disabled while we look at other, more maintained projects
                org-brain-switch-brain)
     :custom
     (org-brain-path (concat config-local-syncthing-folder "/wiki"))
-    (org-brain-show-resources
-     nil
-     "https://github.com/Kungsgeten/org-brain/pull/203 I don't really
-     use attachments either way so this does not affect me")
+    ;; (org-brain-show-resources
+    ;;  nil
+    ;;  "https://github.com/Kungsgeten/org-brain/pull/203 I don't really
+    ;;  use attachments either way so this does not affect me")
     ;; because we don't enter visualize-mode in normal state
     :hook ((org-brain-visualize-text . evil-ex-nohighlight))
     :general
