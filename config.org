@@ -2355,7 +2355,12 @@ filters*.
     (evil-ex-define-cmd "rg" 'rg-menu)
     ;; (evil-ex-define-cmd "prg" 'rg-project)
     :config
-    (rg-enable-menu))
+    (rg-enable-menu)
+    (rg-define-search search-everything-in-project
+      "Uses the everything filter for project searches"
+      :files "everything"
+      :dir project
+      :menu ("Search" "ep" "Unfiltered Project")))
 #+end_src
 * C++
 ** Indentation of 4
