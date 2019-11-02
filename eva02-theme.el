@@ -295,7 +295,7 @@
    `(web-mode-warning-face ((,class (:inherit ,font-lock-warning-face))))
    `(wgrep-delete-face ((,class (:foreground ,warning2))))
    `(wgrep-done-face ((,class (:inherit (diff-added)))))
-   `(wgrep-face ((,class (:italic t))))
+   `(wgrep-face ((,class (:foreground ,type))))
    `(wgrep-file-face ((,class (:inherit (diff-file-header)))))
    `(wgrep-reject-face ((,class (:foreground ,warning :bold t))))))
 
