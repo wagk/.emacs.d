@@ -254,6 +254,8 @@
    `(rainbow-delimiters-depth-3-face ((,class :foreground ,builtin)))
    `(rainbow-delimiters-unmatched-face ((,class :foreground ,warning :bold t)))
    `(region ((,class (:background ,comment :foreground ,fg1))))
+   `(tool-bar ((,class (:foreground ,const :bold t :box (:line-width -1 :color, const :style released-button)))))
+   `(tooltip ((,class (:foreground ,const :italic t :box (:line-width -1 :color ,const)))))
    `(rg-filename-face ((,class (:foreground ,builtin))))
    `(secondary-selection ((,class (:background ,bg2))))
    `(shadow ((,class (:foreground ,comment))))
@@ -290,7 +292,12 @@
    `(web-mode-keyword-face ((,class (:foreground ,keyword))))
    `(web-mode-string-face ((,class (:foreground ,str))))
    `(web-mode-type-face ((,class (:inherit ,font-lock-type-face))))
-   `(web-mode-warning-face ((,class (:inherit ,font-lock-warning-face))))))
+   `(web-mode-warning-face ((,class (:inherit ,font-lock-warning-face))))
+   `(wgrep-delete-face ((,class (:foreground ,warning2))))
+   `(wgrep-done-face ((,class (:inherit (diff-added)))))
+   `(wgrep-face ((,class (:italic t))))
+   `(wgrep-file-face ((,class (:inherit (diff-file-header)))))
+   `(wgrep-reject-face ((,class (:foreground ,warning :bold t))))))
 
 ;;;###autoload
 (when load-file-name
