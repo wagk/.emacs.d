@@ -1566,6 +1566,16 @@ with Chinese/Japanese.
     (yas-global-mode))
 #+end_src
 
+*** Auto-yasnippet
+#+begin_src emacs-lisp :results output silent
+  (use-package auto-yasnippet
+    :straight (:host github :repo "abo-abo/auto-yasnippet")
+    :commands (aya-create
+               aya-expand)
+    :custom
+    (aya-case-fold t "smartcasing"))
+#+end_src
+
 * Projectile
 #+begin_src emacs-lisp :results output silent
   (use-package projectile
@@ -1931,6 +1941,10 @@ containing a lot of files, and if the files are themselves large.
     (deft-file-naming-rules '((noslash . "-")
                               (nospace . "-")
                               (case-fn . downcase)))
+    (deft-directory (-> config-local-syncthing-folder
+                        file-name-as-directory
+                        (concat "notes")
+                        file-name-as-directory))
     :general
     (deft-mode-map
       [remap evil-quit] 'quit-window)
@@ -1964,14 +1978,7 @@ containing a lot of files, and if the files are themselves large.
       (deft))
     (evil-ex-define-cmd "n[ote]" 'ex-deft-forwarding-arg)
     (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
-    (evil-set-initial-state 'deft-mode 'insert)
-    :config
-    (customize-set-variable 'deft-directory
-                            (file-name-as-directory
-                             (concat
-                              (file-name-as-directory
-                               config-local-syncthing-folder)
-                              "notes"))))
+    (evil-set-initial-state 'deft-mode 'insert))
 #+end_src
 
 * AES Encryption
