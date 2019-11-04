@@ -331,6 +331,12 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 
 ** Computer Science                                                :compsci:
 *** [[http://www.drdobbs.com/rss/all][Dr. Dobb's All]]
+
+*** [[http://www.netmeister.org/blog/rss.xml][Netmeister]]                                                       :blog:
+:PROPERTIES:
+:HOMEPAGE: https://www.netmeister.org/index.html
+:END:
+
 *** [[https://cybersecpolitics.blogspot.com/feeds/posts/default?alt=rss][CyberSecPolitics]]
 *** [[https://www.malwaretech.com/feed][Malwaretech]]
 *** [[https://arp242.net/feed.xml][Martin Tournoij]]                                                  :blog:
