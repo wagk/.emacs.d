@@ -77,6 +77,7 @@
    `(diff-hunk-header ((,class (:background ,var :foreground ,bg1))))
    `(diff-removed ((,class (:foreground ,warning))))
    `(dired-flagged ((,class (:foreground ,warning2 :bold t))))
+   `(error ((,class (:foreground ,warning2 :bold t))))
    `(ffap ((,class (:foreground ,fg4))))
    `(font-latex-bold-face ((,class (:foreground ,type))))
    `(font-latex-italic-face ((,class (:foreground ,var :italic t))))
