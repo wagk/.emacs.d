@@ -2054,6 +2054,9 @@ clojurescript-mode derives from clojure-mode
            (clojure-mode . prism-mode)
            (clojure-mode . update-evil-shift-width)
            (clojure-mode . show-paren-mode))
+    :ensure-system-package
+    ((clj . "choco install -y clj")
+     (lein . "choco install -y lein"))
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("edn" . clojure) org-src-lang-modes)
