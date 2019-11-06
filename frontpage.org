@@ -14,6 +14,10 @@ I think I can like this syntax
          by angle brackets like so.]
         [another paragraph of things. We try to make things as flat as
          they can be.]
+        (src {:lang emacs-lisp
+              :results output
+              :silent}
+             (something haohogaag)) ; Look at how racket does this
         (- list)
         (- another list
            (- nested list)

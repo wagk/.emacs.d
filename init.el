@@ -177,9 +177,6 @@ recovery. Maybe eventually load dependencies and all that."
   ;; (bootstrap-quelpa)
   (bootstrap-use-package)
 
-  ;; Load local configuration variables
-  (load-local-el)
-
   ;; Load core configuration that I can't work without. Everything
   ;; else gets shoved into config.org except these.
 
@@ -290,71 +287,58 @@ recovery. Maybe eventually load dependencies and all that."
     ;;   (raise-frame (call-interactively 'make-frame))
     ;;   (evil-edit file))
 
-    ;; (defmacro generate-convenience-functions-for-file ())
+    (defmacro my-evil-define-split-vsplit-cmd (command body)
+      "Does split and vsplit, but not tab (for now) since that
+requires a different logic."
+      (require 'evil)
+      (let ((split-command-name (concat "S" command))
+            (vsplit-command-name (concat "V" command)))
+        `(progn
+           (evil-ex-define-cmd ,command
+                               #'(lambda () (interactive)
+                                   (funcall ,body)))
+           (evil-ex-define-cmd ,split-command-name
+                               #'(lambda () (interactive)
+                                   (call-interactively 'evil-window-split)
+                                   (funcall ,body)))
+           (evil-ex-define-cmd ,vsplit-command-name
+                               #'(lambda () (interactive)
+                                   (call-interactively 'evil-window-vsplit)
+                                   (funcall ,body))))))
 
-    (evil-ex-define-cmd "bc[lose]"    'kill-this-buffer)
-    (evil-define-command my-evil-vsplit-buffer (buffer)
+    (evil-ex-define-cmd "bc[lose]" 'kill-this-buffer)
+    (evil-define-command my-evil-vsplit-buffer (&optional buffer)
       "Strictly speaking this isn't implemented in vim, which is why
 we're adding a custom function for it here."
       :repeat nil
       (interactive "<b>")
       (evil-window-vsplit)
       (evil-buffer buffer))
+
     (evil-ex-define-cmd "vb[uffer]" 'my-evil-vsplit-buffer)
+
+    (evil-ex-define-cmd "frontpage" 'find-user-frontpage-file)
     (evil-ex-define-cmd "sh[ell]" 'shell) ;; at least shell shows its keymaps
-    (evil-ex-define-cmd "init" 'find-user-init-file)
-    (evil-ex-define-cmd "Sinit" '(lambda () (interactive)
-                                   (call-interactively 'evil-window-split)
-                                   (find-user-init-file)))
-    (evil-ex-define-cmd "Vinit" '(lambda () (interactive)
-                                   (call-interactively 'evil-window-vsplit)
-                                   (find-user-init-file)))
+    (my-evil-define-split-vsplit-cmd "init" 'find-user-init-file)
     (evil-ex-define-cmd "Tinit" '(lambda ()
                                    (interactive)
                                    (require 'eyebrowse)
-                                   (funcall-interactively)
-                                   'my-new-evil-tab user-init-file))
-    (evil-ex-define-cmd "local" 'find-user-local-file)
-    (evil-ex-define-cmd "Slocal" '(lambda () (interactive)
-                                    (call-interactively 'evil-window-split)
-                                    (find-user-local-file)))
-    (evil-ex-define-cmd "Vlocal" '(lambda () (interactive)
-                                    (call-interactively 'evil-window-vsplit)
-                                    (find-user-local-file)))
+                                   (funcall-interactively
+                                    'my-new-evil-tab user-init-file)))
+    (my-evil-define-split-vsplit-cmd "local" 'find-user-local-file)
     (evil-ex-define-cmd "Tlocal" '(lambda ()
                                     (interactive)
                                     (require 'eyebrowse)
                                     (funcall-interactively
                                      'my-new-evil-tab user-local-file)))
-    (evil-ex-define-cmd "frontpage" 'find-user-frontpage-file)
-    (evil-ex-define-cmd "config" 'find-user-config-file)
-    (evil-ex-define-cmd "Sconfig" '(lambda () (interactive)
-                                     (call-interactively 'evil-window-split)
-                                     (find-user-config-file)))
-    (evil-ex-define-cmd "Vconfig" '(lambda () (interactive)
-                                     (call-interactively 'evil-window-vsplit)
-                                     (find-user-config-file)))
+    (my-evil-define-split-vsplit-cmd "config" 'find-user-config-file)
     (evil-ex-define-cmd "Tconfig" '(lambda ()
                                      (interactive)
                                      (require 'eyebrowse)
                                      (funcall-interactively
                                       'my-new-evil-tab user-config-file)))
-    (evil-ex-define-cmd "me[ssage]" '(lambda () (interactive)
-                                       (switch-to-buffer "*Messages*")))
-    (evil-ex-define-cmd "Smessage" '(lambda () (interactive)
-                                      (call-interactively 'evil-window-split)
-                                      (switch-to-buffer "*Messages*")))
-    (evil-ex-define-cmd "Vmessage" '(lambda () (interactive)
-                                      (call-interactively 'evil-window-vsplit)
-                                      (switch-to-buffer "*Messages*")))
-    (evil-ex-define-cmd "sc[ratch]"   '(lambda () (interactive)
-                                         (switch-to-buffer "*scratch*")))
-    (evil-ex-define-cmd "Sscratch" '(lambda () (interactive)
-                                      (call-interactively 'evil-window-split)
-                                      (switch-to-buffer "*scratch*")))
-    (evil-ex-define-cmd "Vscratch" '(lambda () (interactive)
-                                      (call-interactively 'evil-window-vsplit)
-                                      (switch-to-buffer "*scratch*")))
+    (my-evil-define-split-vsplit-cmd "message" (lambda () (switch-to-buffer "*Messages*")))
+    (my-evil-define-split-vsplit-cmd "scratch" (lambda () (switch-to-buffer "*scratch*")))
 
     (evil-ex-define-cmd "framen" 'make-frame)
     (evil-ex-define-cmd "framec" 'delete-frame)
@@ -552,6 +536,10 @@ we're adding a custom function for it here."
     :commands (restart-emacs)
     :init
     (evil-ex-define-cmd "restart" 'restart-emacs))
+
+  ;; Load local configuration variables, we do it here so that
+  ;; local.el gets access to the "core" init loads
+  (load-local-el)
 
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
