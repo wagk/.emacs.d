@@ -2059,6 +2059,9 @@ clojurescript-mode derives from clojure-mode
            (clojure-mode . prism-mode)
            (clojure-mode . update-evil-shift-width)
            (clojure-mode . show-paren-mode))
+    :ensure-system-package
+    ((clj . "choco install -y clj")
+     (lein . "choco install -y lein"))
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("edn" . clojure) org-src-lang-modes)
@@ -2080,7 +2083,8 @@ This is actally fairly expensive to load
   (use-package cider
     :commands (cider-jack-in
                cider-connect)
-    :straight (:host github :repo "clojure-emacs/cider"))
+    :straight (:host github :repo "clojure-emacs/cider"
+               :files (:defaults "cider-test.el")))
 #+end_src
 
 We were unable to launch a shadow-cljs nREPL directly, but we are able
@@ -2617,16 +2621,28 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 
 
 Let's try just creating the shell on the side instead of overtaking
-the thing
+the thing, because that's what vim does.
+
+Though shell creation in emacs is a bit more annoying.
 #+begin_src emacs-lisp :results output silent
-;;  (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
+   (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
+#+end_src
+
+We can probably adapt this to powershell if we want.
+#+begin_src emacs-lisp :results output silent
+  (defun my-buffer-specific-shell (split-func)
+    (interactive)
+    (let ((name (-> (buffer-name)
+                    (concat "-*shell*"))))
+      (call-interactively split-func)
+      (shell name)))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  ;; (evil-ex-define-cmd "Sshell" '(lambda () (interactive)
-  ;;                                  (shell)))
-  ;; (evil-ex-define-cmd "Vshell" '(lambda () (interactive)
-  ;;                                  (shell)))
+  (evil-ex-define-cmd "Sshell" '(lambda () (interactive)
+                                  (my-buffer-specific-shell 'evil-window-split)))
+  (evil-ex-define-cmd "Vshell" '(lambda () (interactive)
+                                  (my-buffer-specific-shell 'evil-window-vsplit)))
 #+end_src
 
 * Make cursor always move to end when entering insert mode in comint modes

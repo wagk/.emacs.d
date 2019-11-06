@@ -65,6 +65,8 @@
    `(compilation-error ((,class (:bold t :foreground ,warning))))
    `(compilation-warning ((,class (:foreground ,warning2))))
    `(cursor ((,class (:background ,var))))
+   `(custom-button ((,class (:background ,fg1 :foreground ,bg1))))
+   `(custom-variable-tag ((,class (:foreground ,fg1 :bold t))))
    `(default ((,class (:background ,bg1 :foreground ,fg1))))
    `(default-italic ((,class (:italic t))))
    `(diff-added ((,class (:foreground ,builtin))))
@@ -77,6 +79,7 @@
    `(diff-hunk-header ((,class (:background ,var :foreground ,bg1))))
    `(diff-removed ((,class (:foreground ,warning))))
    `(dired-flagged ((,class (:foreground ,warning2 :bold t))))
+   `(error ((,class (:foreground ,warning2 :bold t))))
    `(ffap ((,class (:foreground ,fg4))))
    `(font-latex-bold-face ((,class (:foreground ,type))))
    `(font-latex-italic-face ((,class (:foreground ,var :italic t))))
@@ -305,7 +308,9 @@
    `(wgrep-done-face ((,class (:inherit (diff-added)))))
    `(wgrep-face ((,class (:foreground ,type))))
    `(wgrep-file-face ((,class (:inherit (diff-file-header)))))
-   `(wgrep-reject-face ((,class (:foreground ,warning :bold t))))))
+   `(wgrep-reject-face ((,class (:foreground ,warning :bold t))))
+   ;; `(widget-field ((,class (:background ,bg4 :box (:line-width -1 :color ,type)))))))
+   `(widget-field ((,class (:background ,bg4))))))
 
 ;;;###autoload
 (when load-file-name

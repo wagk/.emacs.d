@@ -1,5 +1,30 @@
 #+STARTUP: showeverything
 
+I think I can like this syntax
+#+BEGIN_SRC edn
+  {:title "something"}
+
+  (* headline and all that
+     {:property foo
+      :something bar
+      :proplist [baz etc]}
+     (* another headline
+        [this is a paragraph doing paragraph things
+         like I dunno. I guess it's ok for paragraphs to be demarcated
+         by angle brackets like so.]
+        [another paragraph of things. We try to make things as flat as
+         they can be.]
+        (- list)
+        (- another list
+           (- nested list)
+           (- something :: list))
+        (- back to first list level)
+        (- [] checkbox))
+     (* :TODO something
+        [I wonder if it's a good idea to try to adapt too much from
+         org-mode syntax]))
+#+END_SRC
+
 #+begin_quote
 Art is pain.
 
