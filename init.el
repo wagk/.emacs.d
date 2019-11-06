@@ -114,6 +114,7 @@
 ;;      "https://framagit.org/steckerhalter/quelpa/raw/master/bootstrap.el")
 ;;     (eval-buffer)))
 
+;;; Use package
 (defun bootstrap-use-package ()
   "Check if use-package is installed and install it if it isn't.
 Then performs configuration of `use-package' variables."
