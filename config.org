@@ -375,6 +375,11 @@ Stolen from https://github.com/bbatsov/crux
    :states '(normal motion)
    "C-d" 'evil-scroll-down)
 #+end_src
+
+** Don't compact font caches
+#+begin_src emacs-lisp :results output silent
+  (customize-set-value 'inhibit-compacting-font-caches t)
+#+end_src
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
   (use-package apropos
