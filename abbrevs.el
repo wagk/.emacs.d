@@ -31,6 +31,34 @@
 
 (define-abbrev-table 'change-log-mode-abbrev-table '())
 
+(define-abbrev-table 'cider-browse-ns-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-browse-spec-example-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-browse-spec-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-browse-spec-view-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-clojure-interaction-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-docview-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-inspector-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-repl-history-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-repl-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-stacktrace-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-test-report-mode-abbrev-table '())
+
+(define-abbrev-table 'clojure-mode-abbrev-table '())
+
+(define-abbrev-table 'clojurec-mode-abbrev-table '())
+
+(define-abbrev-table 'clojurescript-mode-abbrev-table '())
+
 (define-abbrev-table 'comint-mode-abbrev-table '())
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
@@ -145,7 +173,7 @@
     ("abstraciton" "abstraction" nil 1)
     ("acocunt" "account" nil 1)
     ("additioanl" "additional" nil 1)
-    ("adn" "and" nil 26)
+    ("adn" "and" nil 27)
     ("ahve" "have" nil 2)
     ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
@@ -176,6 +204,7 @@
     ("attepnt" "attempt" nil 1)
     ("atuomatically" "automatically" nil 1)
     ("australia" "Australia" nil 3)
+    ("authenticaiton" "authentication" nil 1)
     ("balanded" "balanced" nil 1)
     ("baloon" "balloon" nil 1)
     ("batrch" "batch" nil 1)
@@ -201,6 +230,7 @@
     ("checkng" "checking" nil 1)
     ("chooose" "choose" nil 1)
     ("classificaiton" "classification" nil 1)
+    ("clinet" "client" nil 1)
     ("cloine" "clone" nil 6)
     ("cna" "can" nil 8)
     ("commadn" "command" nil 4)
@@ -271,7 +301,7 @@
     ("fiel" "file" nil 6)
     ("fiels" "files" nil 5)
     ("finalncial" "financial" nil 1)
-    ("fo" "of" nil 69)
+    ("fo" "of" nil 70)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
     ("followinig" "following" nil 1)
@@ -301,7 +331,7 @@
     ("idnetify" "identify" nil 1)
     ("ifnormation" "information" nil 1)
     ("ignorieng" "ignoring" nil 1)
-    ("implementaiton" "implementation" nil 2)
+    ("implementaiton" "implementation" nil 3)
     ("implementatoin" "implementation" nil 1)
     ("implmeented" "implemented" nil 1)
     ("implmenet" "implement" nil 2)
@@ -389,11 +419,11 @@
     ("probide" "provide" nil 1)
     ("proeprty" "property" nil 1)
     ("quaity" "quality" nil 1)
-    ("queueing" "queuing" nil 3)
+    ("queueing" "queuing" nil 4)
     ("raito" "Ratio" nil 1)
     ("rapicly" "rapidly" nil 1)
-    ("reciept" "receipt" nil 1)
-    ("recieve" "receive" nil 4)
+    ("reciept" "receipt" nil 2)
+    ("recieve" "receive" nil 5)
     ("reciever" "receiver" nil 2)
     ("reemergence" "re-emergence" nil 1)
     ("remoivng" "Removing" nil 2)
@@ -423,7 +453,7 @@
     ("shoudnt" "shouldn't" nil 1)
     ("showind" "showing" nil 1)
     ("shraed" "shared" nil 1)
-    ("si" "is" nil 4)
+    ("si" "is" nil 5)
     ("siad" "said" nil 1)
     ("simialr" "similar" nil 1)
     ("singapore" "Singapore" nil 7)
@@ -459,7 +489,7 @@
     ("tempaltes" "templates" nil 1)
     ("thaty" "that" nil 2)
     ("thhe" "the" nil 1)
-    ("thier" "their" nil 1)
+    ("thier" "their" nil 2)
     ("thigns" "things" nil 1)
     ("thingks" "things" nil 1)
     ("thorugh" "through" nil 1)
@@ -619,6 +649,8 @@
 
 (define-abbrev-table 'mhtml-mode-abbrev-table '())
 
+(define-abbrev-table 'nrepl-messages-mode-abbrev-table '())
+
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
 (define-abbrev-table 'objc-mode-abbrev-table '())
@@ -692,6 +724,8 @@
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
 (define-abbrev-table 'seml-mode-abbrev-table '())
+
+(define-abbrev-table 'sesman-browser-mode-abbrev-table '())
 
 (define-abbrev-table 'sgml-mode-abbrev-table '())
 

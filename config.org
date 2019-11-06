@@ -2050,6 +2050,8 @@ containing a lot of files, and if the files are themselves large.
 * Clojure                                                             :major:
 clojurescript-mode derives from clojure-mode
 
+[[https://clojure.org/api/cheatsheet][Cheatsheet]]
+
 #+begin_src emacs-lisp :results output silent
   (use-package clojure-mode
     :straight (:host github :repo "clojure-emacs/clojure-mode")
@@ -2060,9 +2062,9 @@ clojurescript-mode derives from clojure-mode
            (clojure-mode . prism-mode)
            (clojure-mode . update-evil-shift-width)
            (clojure-mode . show-paren-mode))
-    :ensure-system-package
-    ((clj . "choco install -y clj")
-     (lein . "choco install -y lein"))
+    ;; :ensure-system-package
+    ;; ((clj . "choco install -y clj")
+    ;;  (lein . "choco install -y lein"))
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("edn" . clojure) org-src-lang-modes)
@@ -2095,6 +2097,16 @@ nREPL server runs on different ports, and neither were the ones
 recommended by the cider completion engine.
 
 We should look at customizing cider someday.
+
+** 4Clojure
+#+begin_src emacs-lisp :results output silent
+  (use-package 4clojure
+    :straight (:host github :repo "losingkeys/4clojure.el")
+    :commands (4clojure-open-question
+               4clojure-check-answers
+               4clojure-next-question
+               4clojure-previous-question))
+#+end_src
 
 * Markdown                                                            :major:
 #+begin_src emacs-lisp :results output silent
@@ -3517,4 +3529,14 @@ the underlying format
                             "Search: "
                             nil nil (thing-at-point 'word)))))
               (engine/search-duckduckgo query)))))
+#+end_src
+
+* Lorem Ipsum
+#+begin_src emacs-lisp :results output silent
+  (use-package lorem-ipsum
+    :straight (:host github :repo "jschaf/emacs-lorem-ipsum")
+    :commands
+    (lorem-ipsum-insert-paragraphs
+     lorem-ipsum-insert-sentences
+     lorem-ipsum-insert-list))
 #+end_src
