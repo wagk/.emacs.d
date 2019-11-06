@@ -1686,6 +1686,7 @@ Consider deprecating this now we're trying out prism
 
 #+begin_src emacs-lisp :results output silent
   (use-package rainbow-delimiters
+    :disabled t
     :straight (:host github :repo "Fanael/rainbow-delimiters")
     :commands (rainbow-delimiters-mode)
     :custom (rainbow-delimiters-max-face-count 3)
@@ -1788,8 +1789,8 @@ package is known as elisp-mode but it reads as emacs-lisp
 #+begin_src emacs-lisp :results output silent
   (use-package elisp-mode
     :straight nil
-    :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
-           (emacs-lisp-mode . prism-mode)
+    :hook ((emacs-lisp-mode . prism-mode)
+           ;; (emacs-lisp-mode . rainbow-delimiters-mode)
            (emacs-lisp-mode . parinfer-mode)
            (emacs-lisp-mode . update-evil-shift-width)
            (emacs-lisp-mode . evil-cleverparens-mode)))
@@ -1906,8 +1907,8 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
     :straight (:host github :repo "greghendershott/racket-mode")
     :commands (racket-mode)
     :mode "\\.rkt\\'"
-    :hook ((racket-mode . rainbow-delimiters-mode)
-           (racket-mode . parinfer-mode)
+    :hook ((racket-mode . parinfer-mode)
+           ;; (racket-mode . rainbow-delimiters-mode)
            (racket-mode . prism-mode)
            (racket-mode . evil-cleverparens-mode))
     :init
@@ -2054,8 +2055,8 @@ clojurescript-mode derives from clojure-mode
     :straight (:host github :repo "clojure-emacs/clojure-mode")
     :commands (clojure-mode
                clojurescript-mode)
-    :hook ((clojure-mode . rainbow-delimiters-mode)
-           (clojure-mode . parinfer-mode)
+    :hook ((clojure-mode . parinfer-mode)
+           ;; (clojure-mode . rainbow-delimiters-mode)
            (clojure-mode . prism-mode)
            (clojure-mode . update-evil-shift-width)
            (clojure-mode . show-paren-mode))
@@ -2682,8 +2683,8 @@ We can probably adapt this to powershell if we want.
     (hy-mode-map
      :states 'insert
      "RET" 'comment-indent-new-line)
-    :hook ((hy-mode . rainbow-delimiters-mode)
-           (hy-mode . parinfer-mode)
+    :hook ((hy-mode . parinfer-mode)
+           ;; (hy-mode . rainbow-delimiters-mode)
            (hy-mode . prism-mode)
            (hy-mode . update-evil-shift-width)
            (hy-mode . evil-cleverparens-mode)
