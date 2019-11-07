@@ -2637,19 +2637,22 @@ Though shell creation in emacs is a bit more annoying.
 
 We can probably adapt this to powershell if we want.
 #+begin_src emacs-lisp :results output silent
-  (defun my-buffer-specific-shell (split-func)
+  (defun my-buffer-specific-shell ()
     (interactive)
     (let ((name (-> (buffer-name)
                     (concat "-*shell*"))))
-      (call-interactively split-func)
       (shell name)))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "shell" '(lambda () (interactive)
+                                 (my-buffer-specific-shell)))
   (evil-ex-define-cmd "Sshell" '(lambda () (interactive)
-                                  (my-buffer-specific-shell 'evil-window-split)))
+                                  (evil-window-split)
+                                  (my-buffer-specific-shell)))
   (evil-ex-define-cmd "Vshell" '(lambda () (interactive)
-                                  (my-buffer-specific-shell 'evil-window-vsplit)))
+                                  (evil-window-vsplit)
+                                  (my-buffer-specific-shell)))
 #+end_src
 
 * Make cursor always move to end when entering insert mode in comint modes

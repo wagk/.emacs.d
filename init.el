@@ -318,7 +318,6 @@ we're adding a custom function for it here."
     (evil-ex-define-cmd "vb[uffer]" 'my-evil-vsplit-buffer)
 
     (evil-ex-define-cmd "frontpage" 'find-user-frontpage-file)
-    (evil-ex-define-cmd "sh[ell]" 'shell) ;; at least shell shows its keymaps
     (my-evil-define-split-vsplit-cmd "init" 'find-user-init-file)
     (evil-ex-define-cmd "Tinit" '(lambda ()
                                    (interactive)
