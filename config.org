@@ -1483,7 +1483,8 @@ Solarized)
 * Display
 #+begin_src emacs-lisp :results output silent
   (if (display-graphic-p)
-      (load-eva02-theme)
+      ;; (load-eva02-theme)
+      (load-solarized-theme)
     (load-theme 'base16 t))
 #+end_src
 
