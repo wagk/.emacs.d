@@ -2098,16 +2098,6 @@ recommended by the cider completion engine.
 
 We should look at customizing cider someday.
 
-** 4Clojure
-#+begin_src emacs-lisp :results output silent
-  (use-package 4clojure
-    :straight (:host github :repo "losingkeys/4clojure.el")
-    :commands (4clojure-open-question
-               4clojure-check-answers
-               4clojure-next-question
-               4clojure-previous-question))
-#+end_src
-
 * Markdown                                                            :major:
 #+begin_src emacs-lisp :results output silent
   (use-package markdown-mode
@@ -2373,6 +2363,10 @@ filters*.
     (rg-mode-map
      :states '(motion normal)
      "gg" 'evil-goto-first-line)
+    (grep-mode-map
+     :states '(motion normal)
+      "n" 'evil-ex-search-next
+      "N" 'evil-ex-search-previous)
     :init
     ;; (evil-define-command config-rg-explicit (arg)
     ;;   (interactive "<a>") ;TODO: Figure out how to programmatically generate a files list, which we need in addition to a query
