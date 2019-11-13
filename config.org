@@ -949,98 +949,6 @@ language's mappings.
                   :action 'my--worf-insert-internal-link-action))))
 #+end_src
 
-** Org pomodoro
-:LOGBOOK:
-CLOCK: [2019-05-06 Mon 14:02]--[2019-05-06 Mon 14:27] =>  0:25
-:END:
-
-=mode-line-misc-info= is where the pomodoro is placed.
-
-It is behind =mode-line-modes= and if we want the pomodoro to be
-infront, we need to alter it there
-
-I think we should put =mode-line-format= just behind =evil-mode-line-tag=,
-or (vc-mode)
-
-We can use the following to insert =org-pomodoro-mode-line= at
-whereever we like on the modeline.
-
-The string seems to be inserted into the modeline once, and then set
-to an empty string when not in use (it so appears anyway).
-
-We can override the insertion checks everytime =org-pomodoro-start= is
-called, and it should work anywhere.
-
-# #+begin_src emacs-lisp :eval no-export
-#   (-insert-at
-#     (-find-index (lambda (sym)
-#                    (eq sym 'evil-mode-line-tag))
-#                  mode-line-format)
-#     'org-pomodoro-mode-line mode-line-format)
-# #+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (use-package org-pomodoro
-    :straight (:host github :repo "lolownia/org-pomodoro"
-               :files (:defaults ("resources/" "resources/*")))
-    :commands (org-pomodoro)
-    :custom
-    (org-pomodoro-manual-break t)
-    ;; guild wars 2 has some excellent notification sounds
-    ;; For some reason they need an absolute path
-    (org-pomodoro-overtime-sound
-     (expand-file-name (locate-user-emacs-file "notification1.wav")))
-    (org-pomodoro-short-break-sound
-     (expand-file-name (locate-user-emacs-file "notification2.wav")))
-    (org-pomodoro-long-break-sound
-     (expand-file-name (locate-user-emacs-file "notification3.wav")))
-    (org-pomodoro-finished-sound nil)
-    :init
-    (evil-define-command my-pomodoro-start (&optional arg)
-      "Starts a pomodoro with the current headline, or the last pomodoro
-  if ! is provided."
-      (interactive "<!>")
-      (let ((prev_clock (when arg '(16))))
-        (org-pomodoro prev_clock)))
-    (evil-ex-define-cmd "doing" 'org-clock-goto)
-    (evil-ex-define-cmd "do" 'my-pomodoro-start)
-    (evil-ex-define-cmd "done"
-                        #'(lambda () (interactive)
-                            (require 'org-pomodoro)
-                            (cond
-                             ((equal org-pomodoro-state :overtime)
-                              (org-pomodoro))
-                             ((org-pomodoro-active-p)
-                              (org-pomodoro-kill))))))
-  ;; :config
-  ;;   (advice-add 'org-pomodoro-start
-  ;;               :after
-  ;;               #'(lambda (&rest _)
-  ;;                   "Attempt to make the modeline come first, instead of
-  ;; behind the minor modes"
-  ;;                   (when (and global-mode-string
-  ;;                              (memq 'org-pomodoro-mode-line
-  ;;                                    global-mode-string))
-  ;;                     (delq 'org-pomodoro-mode-line global-mode-string)
-  ;;                     (setq global-mode-string
-  ;;                           (append '(org-pomodoro-mode-line)
-  ;;                                   global-mode-string)))))
-#+end_src
-
-
-Note that =customize-set-variable= is like =setq-default=.
-
-#+begin_src emacs-lisp :results output silent
-  (customize-set-variable
-   'mode-line-format
-   (list "%e" mode-line-front-space mode-line-mule-info
-         mode-line-client mode-line-modified mode-line-auto-compile
-         mode-line-remote mode-line-frame-identification
-         mode-line-buffer-identification " " mode-line-position
-         evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
-         mode-line-modes mode-line-end-spaces))
-#+end_src
-
 ** Org wiki
 Currently disabled while we look at other, more maintained projects
 #+begin_src emacs-lisp :results output silent
@@ -1428,7 +1336,7 @@ that for the range we want
         (prism-set-colors
           :num 24
           :colors
-          (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
+          (list sol-green sol-cyan sol-blue sol-yellow)
           :desaturations
           (list 10 20 30)
           :lightens
@@ -1724,16 +1632,6 @@ Much like rainbow blocks mode, but better.
     :preface
     (use-package anaphora
       :straight (:host github :repo "rolandwalker/anaphora")))
-    ;; :config)
-    ;; (prism-set-colors
-    ;;   :num 24
-    ;;   :colors
-    ;;   ;; (list 'font-lock-constant-face 'font-lock-keyword-face 'font-lock-type-face 'font-lock-string-face)
-    ;;   (list 'font-lock-constant-face 'font-lock-type-face 'font-lock-string-face)
-    ;;   :desaturations
-    ;;   (list 10 20 30)
-    ;;   :lightens
-    ;;   (list 0 -2.5 -5)))
 #+end_src
 
 ** Smartparens
@@ -3537,4 +3435,118 @@ the underlying format
     (lorem-ipsum-insert-paragraphs
      lorem-ipsum-insert-sentences
      lorem-ipsum-insert-list))
+#+end_src
+
+* Pomodoro
+** Pomidor
+#+begin_src emacs-lisp :results output silent
+  (use-package pomidor
+    :straight (:host github :repo "TatriX/pomidor")
+    :commands pomidor
+    :general
+    (pomidor-mode-map
+     :states '(visual normal motion)
+      "RET" 'pomidor-stop
+      "SPC" 'pomidor-break)
+    :custom
+    (pomidor-sound-tick nil)
+    (pomidor-sound-tack nil)
+    (pomidor-sound-overwork
+     (expand-file-name (locate-user-emacs-file "notification1.wav")))
+    (pomidor-sound-break-over
+     (expand-file-name (locate-user-emacs-file "notification2.wav")))
+    :init
+    (evil-ex-define-cmd "pomo[doro]" 'pomidor))
+#+end_src
+
+** Org pomodoro
+:LOGBOOK:
+CLOCK: [2019-05-06 Mon 14:02]--[2019-05-06 Mon 14:27] =>  0:25
+:END:
+
+=mode-line-misc-info= is where the pomodoro is placed.
+
+It is behind =mode-line-modes= and if we want the pomodoro to be
+infront, we need to alter it there
+
+I think we should put =mode-line-format= just behind =evil-mode-line-tag=,
+or (vc-mode)
+
+We can use the following to insert =org-pomodoro-mode-line= at
+whereever we like on the modeline.
+
+The string seems to be inserted into the modeline once, and then set
+to an empty string when not in use (it so appears anyway).
+
+We can override the insertion checks everytime =org-pomodoro-start= is
+called, and it should work anywhere.
+
+# #+begin_src emacs-lisp :eval no-export
+#   (-insert-at
+#     (-find-index (lambda (sym)
+#                    (eq sym 'evil-mode-line-tag))
+#                  mode-line-format)
+#     'org-pomodoro-mode-line mode-line-format)
+# #+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (use-package org-pomodoro
+    :straight (:host github :repo "lolownia/org-pomodoro"
+               :files (:defaults ("resources/" "resources/*")))
+    :commands (org-pomodoro)
+    :custom
+    (org-pomodoro-manual-break t)
+    ;; guild wars 2 has some excellent notification sounds
+    ;; For some reason they need an absolute path
+    (org-pomodoro-overtime-sound
+     (expand-file-name (locate-user-emacs-file "notification1.wav")))
+    (org-pomodoro-short-break-sound
+     (expand-file-name (locate-user-emacs-file "notification2.wav")))
+    (org-pomodoro-long-break-sound
+     (expand-file-name (locate-user-emacs-file "notification3.wav")))
+    (org-pomodoro-finished-sound nil)
+    :init
+    (evil-define-command my-pomodoro-start (&optional arg)
+      "Starts a pomodoro with the current headline, or the last pomodoro
+  if ! is provided."
+      (interactive "<!>")
+      (let ((prev_clock (when arg '(16))))
+        (org-pomodoro prev_clock)))
+    (evil-ex-define-cmd "doing" 'org-clock-goto)
+    (evil-ex-define-cmd "do" 'my-pomodoro-start)
+    (evil-ex-define-cmd "done"
+                        #'(lambda () (interactive)
+                            (require 'org-pomodoro)
+                            (cond
+                             ((equal org-pomodoro-state :overtime)
+                              (org-pomodoro))
+                             ((org-pomodoro-active-p)
+                              (org-pomodoro-kill))))))
+  ;; :config
+  ;;   (advice-add 'org-pomodoro-start
+  ;;               :after
+  ;;               #'(lambda (&rest _)
+  ;;                   "Attempt to make the modeline come first, instead of
+  ;; behind the minor modes"
+  ;;                   (when (and global-mode-string
+  ;;                              (memq 'org-pomodoro-mode-line
+  ;;                                    global-mode-string))
+  ;;                     (delq 'org-pomodoro-mode-line global-mode-string)
+  ;;                     (setq global-mode-string
+  ;;                           (append '(org-pomodoro-mode-line)
+  ;;                                   global-mode-string)))))
+#+end_src
+
+
+Note that =customize-set-variable= is like =setq-default=.
+
+#+begin_src emacs-lisp :results output silent
+  (customize-set-variable
+   'mode-line-format
+   (list "%e" mode-line-front-space mode-line-mule-info
+         mode-line-client mode-line-modified mode-line-auto-compile
+         mode-line-remote mode-line-frame-identification
+         mode-line-buffer-identification " " mode-line-position
+         evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
+         mode-line-modes mode-line-end-spaces))
 #+end_src
