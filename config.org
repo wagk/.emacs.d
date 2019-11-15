@@ -1648,7 +1648,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
     :hook
     (prog-mode . (lambda () (interactive)
                    (require 'smartparens-config) ;; load some default configurations
-                   (smartparens-global-mode)))
+                   (require 'smartparens)))
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -1661,8 +1661,9 @@ pressing RET autoformats it, instead of doing nothing as it does right now
      'always
      "Maintain chomp-like behavior of electric-pair")
     :config
-    ;;(smartparens-global-strict-mode)
-    ;;(show-smartparens-global-mode)
+    (smartparens-global-mode)
+    (smartparens-global-strict-mode)
+    (show-smartparens-global-mode)
     ;; define some helper functions
     (defun my-add-newline-and-indent-braces (_opening_delimiter
                                              _actions
@@ -3512,8 +3513,8 @@ called, and it should work anywhere.
       (interactive "<!>")
       (let ((prev_clock (when arg '(16))))
         (org-pomodoro prev_clock)))
-    (evil-ex-define-cmd "doing" 'org-clock-goto)
     (evil-ex-define-cmd "do" 'my-pomodoro-start)
+    (evil-ex-define-cmd "doing" 'org-clock-goto)
     (evil-ex-define-cmd "done"
                         #'(lambda () (interactive)
                             (require 'org-pomodoro)
@@ -3521,7 +3522,16 @@ called, and it should work anywhere.
                              ((equal org-pomodoro-state :overtime)
                               (org-pomodoro))
                              ((org-pomodoro-active-p)
-                              (org-pomodoro-kill))))))
+                              (org-pomodoro-kill)))))
+    :config
+    (customize-set-variable
+     'mode-line-format
+     (list "%e" mode-line-front-space mode-line-mule-info
+           mode-line-client mode-line-modified mode-line-auto-compile
+           mode-line-remote mode-line-frame-identification
+           mode-line-buffer-identification " " mode-line-position
+           evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
+           mode-line-modes mode-line-end-spaces)))
   ;; :config
   ;;   (advice-add 'org-pomodoro-start
   ;;               :after
@@ -3539,14 +3549,3 @@ called, and it should work anywhere.
 
 
 Note that =customize-set-variable= is like =setq-default=.
-
-#+begin_src emacs-lisp :results output silent
-  (customize-set-variable
-   'mode-line-format
-   (list "%e" mode-line-front-space mode-line-mule-info
-         mode-line-client mode-line-modified mode-line-auto-compile
-         mode-line-remote mode-line-frame-identification
-         mode-line-buffer-identification " " mode-line-position
-         evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
-         mode-line-modes mode-line-end-spaces))
-#+end_src
