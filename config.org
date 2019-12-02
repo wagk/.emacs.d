@@ -1250,8 +1250,8 @@ that for the range we want
                eyebrowse-prev-window-config)
     :general
     (:states '(normal motion)
-     "gt" 'eyebrowse-next-window-config
-     "gT" 'eyebrowse-prev-window-config)
+     "gT" 'eyebrowse-next-window-config
+     "gt" 'eyebrowse-prev-window-config)
     :custom
     (eyebrowse-wrap-around t)
     (eyebrowse-new-workspace t)
