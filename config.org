@@ -2283,7 +2283,7 @@ filters*.
       "Uses the everything filter for project searches"
       :files "everything"
       :dir project
-      :menu ("Custom" "g" "Unfiltered Project")))
+      :menu ("Custom" "e" "Unfiltered Project")))
 #+end_src
 * C++
 ** Indentation of 4
