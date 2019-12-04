@@ -33,6 +33,9 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://apxhard.com/feed/][Apxhard]]                                                          :blog:
 *** [[https://languagelog.ldc.upenn.edu/nll/?feed=rss2][Language Log]]
 *** [[https://stronglang.wordpress.com/feed/][Strong Language]]
+
+*** [[https://acoup.blog/feed/][A collection of unmitigated pedantry]]                             :blog:
+Worldbuilding and warfare.
 ** News                                                               :news:
 *** Channel News Asia
 **** [[https://www.channelnewsasia.com/rssfeeds/8395744][Channel News Asia (Asia)]]                                       :asia:
