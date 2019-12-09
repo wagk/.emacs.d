@@ -1158,7 +1158,6 @@ Currently disabled because we can't get it to work (it's not showing
 up, on windows at least).
 #+begin_src emacs-lisp :results output silent
   (use-package magit-todos
-    :disabled t
     :straight (:host github :repo "alphapapa/magit-todos")
     :custom
     (magit-todos-nice
