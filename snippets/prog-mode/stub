@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: stub
-# key: ss
-# --
-`(yas-with-comment "STUB: ")`

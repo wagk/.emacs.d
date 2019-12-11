@@ -1105,6 +1105,42 @@ https://www.nongnu.org/org-edna-el/
    "o p" 'my-org-paste-clipboard-screenshot)
 #+end_src
 
+* hl-todo
+#+begin_src emacs-lisp :results output silent
+  (use-package hl-todo
+    :diminish t
+    :straight (:host github :repo "tarsius/hl-todo")
+    :commands (hl-todo-mode)
+    :hook ((prog-mode  . hl-todo-mode)
+           (yaml-mode  . hl-todo-mode))
+    :general
+    ;; (:states 'normal
+    ;;  :prefix my-default-evil-leader-key
+    ;;  "t t" 'my-helm-swoop-hl-todo)
+    (:keymaps 'evil-normal-state-map
+     "[ t"  'hl-todo-previous
+     "] t"  'hl-todo-next))
+    ;; :init
+    ;;TODO: Make this search for regexes
+    ;; (defun my-helm-swoop-hl-todo () (interactive)
+    ;;        (require 'helm-swoop)
+    ;;        (helm-swoop :$query hl-todo-regexp :$multiline 4)))
+    ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
+    ;; Not used because we don't incrementally search for todos
+    ;; (defun my-helm-hl-todo-items ()
+    ;;   "Show `hl-todo'-keyword items in buffer."
+    ;;   (interactive)
+    ;;   (hl-todo--setup)
+    ;;   (helm :sources (helm-build-in-buffer-source "hl-todo items"
+    ;;                    :data (current-buffer)
+    ;;                    :candidate-transformer (lambda (candidates)
+    ;;                                             (cl-loop for c in candidates
+    ;;                                                      when (string-match hl-todo--regexp c)
+    ;;                                                      collect c))
+    ;;                    :get-line #'buffer-substring)
+    ;;         :buffer "*helm hl-todo*"))
+#+end_src
+
 * Git
 ** Magit
 If magit complains about not finding the config on windows, it's
@@ -1344,11 +1380,7 @@ that for the range we want
         (customize-set-variable 'hl-todo-keyword-faces
                                 '(("TODO"   . "#b58900")
                                   ("DEBUG"  . "#d33682")
-                                  ("BUG"    . "#dc322f")
-                                  ("REMOVE" . "#dc322f")
-                                  ("STUB"   . "#859900")
                                   ("NOTE"   . "#586e75")
-                                  ("HACK"   . "#6c71c4")
                                   ("FIXME"  . "#cb4b16"))))))
 #+end_src
 ** Eva-02
@@ -1379,11 +1411,7 @@ Solarized)
         (customize-set-variable 'hl-todo-keyword-faces
                                 '(("TODO"   . "#ff0000")
                                   ("DEBUG"  . "#ff0000")
-                                  ("BUG"    . "#ff0000")
-                                  ("REMOVE" . "#ff0000")
-                                  ("STUB"   . "#ff0000")
                                   ("NOTE"   . "#ff0000")
-                                  ("HACK"   . "#ff0000")
                                   ("FIXME"  . "#ff0000"))))))
 #+end_src
 
@@ -2393,42 +2421,6 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
   (use-package hledger-mode
     :straight (:host github :repo "narendraj9/hledger-mode")
     :mode "\\.journal\\'")
-#+end_src
-
-* hl-todo
-#+begin_src emacs-lisp :results output silent
-  (use-package hl-todo
-    :diminish t
-    :straight (:host github :repo "tarsius/hl-todo")
-    :commands (hl-todo-mode)
-    :hook ((prog-mode  . hl-todo-mode)
-           (yaml-mode  . hl-todo-mode))
-    :general
-    ;; (:states 'normal
-    ;;  :prefix my-default-evil-leader-key
-    ;;  "t t" 'my-helm-swoop-hl-todo)
-    (:keymaps 'evil-normal-state-map
-     "[ t"  'hl-todo-previous
-     "] t"  'hl-todo-next))
-    ;; :init
-    ;;TODO: Make this search for regexes
-    ;; (defun my-helm-swoop-hl-todo () (interactive)
-    ;;        (require 'helm-swoop)
-    ;;        (helm-swoop :$query hl-todo-regexp :$multiline 4)))
-    ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
-    ;; Not used because we don't incrementally search for todos
-    ;; (defun my-helm-hl-todo-items ()
-    ;;   "Show `hl-todo'-keyword items in buffer."
-    ;;   (interactive)
-    ;;   (hl-todo--setup)
-    ;;   (helm :sources (helm-build-in-buffer-source "hl-todo items"
-    ;;                    :data (current-buffer)
-    ;;                    :candidate-transformer (lambda (candidates)
-    ;;                                             (cl-loop for c in candidates
-    ;;                                                      when (string-match hl-todo--regexp c)
-    ;;                                                      collect c))
-    ;;                    :get-line #'buffer-substring)
-    ;;         :buffer "*helm hl-todo*"))
 #+end_src
 
 * Abbrev
