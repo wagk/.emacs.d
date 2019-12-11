@@ -3331,6 +3331,7 @@ file will not itself be encrypted.
 * Zeal documentation at point
 #+begin_src emacs-lisp :results output silent
   (use-package zeal-at-point
+    :disabled t ;; using defengine
     :straight (:host github :repo "jinzhu/zeal-at-point")
     :commands zeal-at-point)
 #+end_src
