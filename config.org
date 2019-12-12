@@ -155,7 +155,9 @@ Emulate the best feature of notepad
 
 ** Open a startup file as initial buffer
 #+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'initial-buffer-choice user-frontpage-file)
+  (customize-set-variable 'initial-buffer-choice (if (boundp 'my-todo-org-file)
+                                                     my-todo-org-file
+                                                   user-config-file))
 #+end_src
 
 ** Configure scratch buffer message
