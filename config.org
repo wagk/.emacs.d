@@ -1279,6 +1279,9 @@ that for the range we want
 #+end_src
 
 * Eyebrowse
+- [ ] Use =counsel-bookmarked-directory--candidates= and implement
+  =tabm= or something with bookmark completion.
+
 #+begin_src emacs-lisp :results output silent
   (use-package eyebrowse
     :straight (:host github :repo "wasamasa/eyebrowse")
