@@ -1328,6 +1328,17 @@ that for the range we want
     (advice-add 'delete-frame :around 'my-delete-window-config-or-frame))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (customize-set-variable
+   'mode-line-format
+   (list "%e" mode-line-front-space mode-line-mule-info
+         mode-line-client mode-line-modified mode-line-auto-compile
+         mode-line-remote mode-line-frame-identification
+         mode-line-buffer-identification " " mode-line-position
+         evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
+         mode-line-modes mode-line-end-spaces))
+#+end_src
+
 * Themes
 ** Base16
 #+begin_src emacs-lisp :results output silent
@@ -2545,7 +2556,7 @@ We can probably adapt this to powershell if we want.
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "shell" '(lambda () (interactive)
+  (evil-ex-define-cmd "sh[ell]" '(lambda () (interactive)
                                  (my-buffer-specific-shell)))
   (evil-ex-define-cmd "Sshell" '(lambda () (interactive)
                                   (evil-window-split)
