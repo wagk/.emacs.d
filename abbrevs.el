@@ -210,7 +210,7 @@
     ("assocaited" "associated" nil 1)
     ("asynchtonous" "Asynchronous" nil 1)
     ("attepnt" "attempt" nil 1)
-    ("atuomatically" "automatically" nil 1)
+    ("atuomatically" "automatically" nil 2)
     ("australia" "Australia" nil 3)
     ("authenticaiton" "authentication" nil 1)
     ("balanded" "balanced" nil 1)
@@ -272,6 +272,7 @@
     ("denstiy" "density" nil 1)
     ("depeer" "deeper" nil 1)
     ("dependecies" "dependencies" nil 1)
+    ("deploymetn" "deployment" nil 1)
     ("descrives" "describes" nil 1)
     ("desing" "design" nil 3)
     ("detaisl" "details" nil 1)
@@ -323,6 +324,7 @@
     ("fucntion" "function" nil 1)
     ("funciton" "function" nil 5)
     ("guatds" "guards" nil 1)
+    ("hadnling" "handling" nil 1)
     ("hapy" "happy" nil 1)
     ("heuritistic" "heuristic" nil 1)
     ("homogeity" "homogeneity" nil 1)
@@ -404,6 +406,7 @@
     ("ncie" "nice" nil 1)
     ("nouse" "noise'" nil 1)
     ("nubmer" "number" nil 1)
+    ("nwo" "now" nil 1)
     ("ocmponents" "components" nil 1)
     ("ocncrete" "concrete" nil 1)
     ("ocurence" "occurrence" nil 1)
@@ -447,6 +450,7 @@
     ("resove" "resolve" nil 1)
     ("reusme" "resume" nil 1)
     ("reutrn" "return" nil 1)
+    ("rihgt" "right" nil 1)
     ("rleease" "release" nil 1)
     ("schedulign" "scheduling" nil 1)
     ("scirpt" "script" nil 2)
@@ -654,6 +658,8 @@
 
 (define-abbrev-table 'magit-submodule-list-mode-abbrev-table '())
 
+(define-abbrev-table 'magit-todos-list-mode-abbrev-table '())
+
 (define-abbrev-table 'markdown-mode-abbrev-table '())
 
 (define-abbrev-table 'markdown-view-mode-abbrev-table '())
@@ -716,9 +722,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
@@ -739,6 +743,8 @@
 (define-abbrev-table 'rg-mode-abbrev-table '())
 
 (define-abbrev-table 'rust-mode-abbrev-table '())
+
+(define-abbrev-table 'rxt-help-mode-abbrev-table '())
 
 (define-abbrev-table 'scss-mode-abbrev-table '())
 

@@ -134,10 +134,15 @@ Then performs configuration of `use-package' variables."
                            :repo "jwiegley/use-package"))
   (require 'use-package)
   ;; download packages if needed
-  (setq use-package-always-defer nil ;; we don't always lazy load because of explicitness
-        use-package-always-ensure nil ;; always make sure it never skips if not found. Disabled because we want straight to do the heavy lifting
-        use-package-verbose t
-        use-package-compute-statistics t)
+  (customize-set-variable 'use-package-always-defer nil
+                          "we don't always lazy load because of explicitness")
+  (customize-set-variable 'use-package-always-ensure nil
+                          "always make sure it never skips if not
+                          found. Disabled because we want straight to
+                          do the heavy lifting")
+  (customize-set-variable 'use-package-verbose t)
+  (customize-set-variable 'use-package-compute-statistics t)
+
   (use-package use-package-ensure-system-package))
 
 (defun load-local-el ()
@@ -208,6 +213,7 @@ recovery. Maybe eventually load dependencies and all that."
      disabled before even loading evil, see
      https://github.com/emacs-evil/evil-collection/issues/60")
 
+;;; Evil-mode
   (use-package evil
     :demand t
     :straight (:host github :repo "emacs-evil/evil")
@@ -339,8 +345,8 @@ we're adding a custom function for it here."
     (my-evil-define-split-vsplit-cmd "message" (lambda () (switch-to-buffer "*Messages*")))
     (my-evil-define-split-vsplit-cmd "scratch" (lambda () (switch-to-buffer "*scratch*")))
 
-    (evil-ex-define-cmd "framen" 'make-frame)
-    (evil-ex-define-cmd "framec" 'delete-frame)
+    ;; (evil-ex-define-cmd "framen" 'make-frame)
+    ;; (evil-ex-define-cmd "framec" 'delete-frame)
 
     ;; https://stackoverflow.com/questions/18102004/emacs-evil-mode-how-to-create-a-new-text-object-to-select-words-with-any-non-sp/22418983#22418983
     (defmacro /evil-define-and-bind-text-object (key start-regex end-regex)
@@ -363,6 +369,8 @@ we're adding a custom function for it here."
       "Select entire buffer"
       (evil-range (point-min) (point-max)))
     (evil-mode))
+
+  ;;; evil-collection
 
   (use-package evil-collection
     :straight (:host github :repo "emacs-evil/evil-collection"
@@ -408,6 +416,8 @@ we're adding a custom function for it here."
   ;; We do this here because we want a directory to actually exist when the
   ;; next form gets evaluated
   (straight-use-package 'org-plus-contrib)
+
+  ;;; org-mode
 
   (use-package org-plus-contrib
     :commands (orgtbl-mode
