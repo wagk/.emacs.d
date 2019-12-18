@@ -192,7 +192,7 @@ Emulate the best feature of notepad
 
 ** Automatically refresh buffer when underlying file is changed externally
 #+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'global-auto-revert-non-file-buffers nil)
+  (customize-set-variable 'global-auto-revert-non-file-buffers t)
   (global-auto-revert-mode)
 #+end_src
 
@@ -2526,51 +2526,42 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 * Make shell open in same window
 - Related Spacemacs Issue ::
   https://github.com/syl20bnr/spacemacs/issues/6820
+- Make shell mode update working directory :: [[https://emacs.stackexchange.com/questions/5589/automatically-update-default-directory-when-pwd-changes-in-shell-mode-and-term-m][stackoverflow]]
 
 
 Let's try just creating the shell on the side instead of overtaking
 the thing, because that's what vim does.
 
-Though shell creation in emacs is a bit more annoying.
 #+begin_src emacs-lisp :results output silent
-   (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
-#+end_src
-
-We can probably adapt this to powershell if we want.
-#+begin_src emacs-lisp :results output silent
-  (defun my-buffer-specific-shell ()
-    (interactive)
-    (let ((name (-> (buffer-name)
-                    (concat "-*shell*"))))
-      (shell name)))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "sh[ell]" '(lambda () (interactive)
-                                 (my-buffer-specific-shell)))
-  (evil-ex-define-cmd "Sshell" '(lambda () (interactive)
-                                  (evil-window-split)
-                                  (my-buffer-specific-shell)))
-  (evil-ex-define-cmd "Vshell" '(lambda () (interactive)
-                                  (evil-window-vsplit)
-                                  (my-buffer-specific-shell)))
-#+end_src
-
-* Make cursor always move to end when entering insert mode in comint modes
-#+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'comint-scroll-to-bottom-on-input t)
-  (customize-set-variable 'comint-prompt-read-only t)
-#+end_src
-
-* Make shell mode update working directory
-- Stackoverflow :: [[https://emacs.stackexchange.com/questions/5589/automatically-update-default-directory-when-pwd-changes-in-shell-mode-and-term-m][link]]
-
-
-#+begin_src emacs-lisp :results output silent
-  (add-hook 'shell-mode-hook (lambda ()
-                               (shell-dirtrack-mode 0)
-                               (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
-                               (dirtrack-mode 1)))
+  (use-package shell
+    :ensure nil
+    :straight nil
+    :commands shell
+    :custom
+    ;; Make cursor always move to end when entering insert mode in
+    ;; comint modes
+    (comint-scroll-to-bottom-on-input t)
+    (comint-prompt-read-only t)
+    :init
+    (defun my-buffer-specific-shell ()
+      (interactive)
+      (let ((name (-> (buffer-name)
+                      (concat "-*shell*"))))
+        (shell name)))
+    (evil-ex-define-cmd "sh[ell]" '(lambda () (interactive)
+                                     (my-buffer-specific-shell)))
+    (evil-ex-define-cmd "Sshell" '(lambda () (interactive)
+                                    (evil-window-split)
+                                    (my-buffer-specific-shell)))
+    (evil-ex-define-cmd "Vshell" '(lambda () (interactive)
+                                    (evil-window-vsplit)
+                                    (my-buffer-specific-shell)))
+    (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
+    :hook
+    ((shell-mode-hook . (lambda ()
+                          (shell-dirtrack-mode 0)
+                          (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
+                          (dirtrack-mode 1)))))
 #+end_src
 
 * Groovy mode                                                         :major:
