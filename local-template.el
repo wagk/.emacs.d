@@ -10,6 +10,11 @@
 
 (message "local.el is currently unconfigured!")
 
+;; fullscreen if you want it
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (toggle-frame-fullscreen)
+;; (toggle-frame-maximized)
+
 ;; Pre-init local declarations go here
 
 ;; (defconst config-local-dropbox-folder

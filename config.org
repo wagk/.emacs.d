@@ -1343,6 +1343,7 @@ that for the range we want
 ** Base16
 #+begin_src emacs-lisp :results output silent
   (use-package base16-theme
+    :disabled t
     :straight (:host github :repo "belak/base16-emacs"))
 #+end_src
 ** Solarized
