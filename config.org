@@ -1436,10 +1436,7 @@ Solarized)
 
 * Display
 #+begin_src emacs-lisp :results output silent
-  (if (display-graphic-p)
-      ;; (load-eva02-theme)
-      (load-solarized-theme)
-    (load-theme 'base16 t))
+  (load-solarized-theme)
 #+end_src
 
 ** Prefer dark backgrounds
@@ -2490,6 +2487,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
     :custom
     (writeroom-mode-line t)
     (writeroom-bottom-divider-width 0)
+    (writeroom-maximize-window nil)
     :general
     (:states 'normal
      "g z" 'writeroom-mode))
