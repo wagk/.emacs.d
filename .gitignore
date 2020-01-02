@@ -37,11 +37,11 @@ tempfiles/*
 /config.el
 /var/projectile/known-projects.el
 var/
-/straight
-!/straight/repos
 /custom.el
 /**/*.elc
 /tags
 tags.*
 **/#*#
 elpa/
+straight/
+!straight/repos/**/*
