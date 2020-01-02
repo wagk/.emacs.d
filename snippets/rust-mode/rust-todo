@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rust-todo
+# key: todo
+# --
+todo!();
