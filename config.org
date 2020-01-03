@@ -867,8 +867,17 @@ Interesting Text Objects:
                               ":CREATED:  %U\n"
                               ":END:\n"
                               "%?")
-                      :prepend t))))
-    ;; when inserting a heading immediately go into insert mode
+                      :prepend t))
+      (add-to-list 'org-capture-templates
+                   `("thoughts" "Personal Thoughts" entry
+                     (file+olp ,my-todo-org-file "Thoughts")
+                     ,(concat "* %^{DESCRIPTION} %^g \n"
+                              ":PROPERTIES:\n"
+                              ":CREATED:  %U\n"
+                              ":END:\n"
+                              "%?")))))
+
+  ;; when inserting a heading immediately go into insert mode
     ;; (when (boundp 'my-journal-org-file)
     ;;   (add-to-list 'org-capture-templates
     ;;                `("j" "Journal Entry" entry
@@ -1397,10 +1406,11 @@ that for the range we want
           (list 0 -2.5 -5)))
       (with-eval-after-load 'hl-todo
         (customize-set-variable 'hl-todo-keyword-faces
-                                '(("TODO"   . "#b58900")
-                                  ("DEBUG"  . "#d33682")
-                                  ("NOTE"   . "#586e75")
-                                  ("FIXME"  . "#cb4b16"))))))
+                                '(("TODO"    . "#b58900")
+                                  ("DEBUG"   . "#d33682")
+                                  ("NOTE"    . "#586e75")
+                                  ("IMPROVE" . "#586e75")
+                                  ("FIXME"   . "#cb4b16"))))))
 #+end_src
 ** Eva-02
 Personal theme that I'm maintaining (really stealing shamelessly from
@@ -1428,10 +1438,11 @@ Solarized)
           (list 0 5 10)))
       (with-eval-after-load 'hl-todo
         (customize-set-variable 'hl-todo-keyword-faces
-                                '(("TODO"   . "#ff0000")
-                                  ("DEBUG"  . "#ff0000")
-                                  ("NOTE"   . "#ff0000")
-                                  ("FIXME"  . "#ff0000"))))))
+                                '(("TODO"    . "#ff0000")
+                                  ("DEBUG"   . "#ff0000")
+                                  ("NOTE"    . "#ff0000")
+                                  ("IMPROVE" . "#ff0000")
+                                  ("FIXME"   . "#ff0000"))))))
 #+end_src
 
 * Display
