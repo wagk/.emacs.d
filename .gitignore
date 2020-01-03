@@ -43,5 +43,6 @@ var/
 tags.*
 **/#*#
 elpa/
-straight/
-!straight/repos/**/*
+straight/build/
+straight/links/
+straight/build-cache.el
