@@ -835,14 +835,14 @@ Interesting Text Objects:
     (:states 'motion
      ;; In evil it's jump to column number, which isn't that useful tbh
      "|" '(lambda () (interactive)
-              (require 'org-capture)
-              (if (featurep 'counsel-projectile)
-                  (counsel-projectile-org-capture)
-                (counsel-org-capture))))
-     ;; "c j" '((lambda () (interactive) (org-capture nil "j"))
-     ;;         :which-key "Capture journal entry")
-     ;; "c d" '((lambda () (interactive) (org-capture nil "d"))
-     ;;         :which-key "Capture daydream entry"))
+            (require 'org-capture)
+            (if (featurep 'counsel-projectile)
+                (counsel-projectile-org-capture)
+              (counsel-org-capture))))
+    ;; "c j" '((lambda () (interactive) (org-capture nil "j"))
+    ;;         :which-key "Capture journal entry")
+    ;; "c d" '((lambda () (interactive) (org-capture nil "d"))
+    ;;         :which-key "Capture daydream entry"))
     ;; (:prefix my-default-evil-leader-key
     ;;  :keymaps 'org-capture-mode-map
     ;;  :states 'normal
@@ -859,16 +859,21 @@ Interesting Text Objects:
     ;; (evil-ex-define-cmd "todo" 'my-capture-daydream)
     :hook (org-capture-mode . evil-insert-state)
     :config
+    (add-to-list 'org-capture-templates
+                 '("note" "Note for current clocked task" item
+                   (clock) "Note taken on %T \\\n %?"
+                   :clock-keep t
+                   :prepend t))
     (when (boundp 'my-todo-org-file)
       (add-to-list 'org-capture-templates
-                    `("todo" "Personal Todo" entry
-                      (file+olp ,my-todo-org-file "Tasks")
-                      ,(concat "* TODO %^{DESCRIPTION} %^g \n"
+                   `("todo" "Personal Todo" entry
+                     (file+olp ,my-todo-org-file "Tasks")
+                     ,(concat "* TODO %^{DESCRIPTION} %^g \n"
                               ":PROPERTIES:\n"
                               ":CREATED:  %U\n"
                               ":END:\n"
                               "%?")
-                      :prepend t))
+                     :prepend t))
       (add-to-list 'org-capture-templates
                    `("thoughts" "Personal Thoughts" entry
                      (file+olp ,my-todo-org-file "Thoughts")
@@ -878,16 +883,16 @@ Interesting Text Objects:
                               ":END:\n"
                               "%?")))))
   ;; when inserting a heading immediately go into insert mode
-    ;; (when (boundp 'my-journal-org-file)
-    ;;   (add-to-list 'org-capture-templates
-    ;;                `("j" "Journal Entry" entry
-    ;;                  (file ,my-journal-org-file)
-    ;;                  "* %U\n%?")
-    ;; (when (boundp 'my-daydream-org-file)
-    ;;   (add-to-list 'org-capture-templates
-    ;;                `("d" "Daydream Entry" entry
-    ;;                  (file ,my-daydream-org-file)
-    ;;                  "* %? \n %U"))
+  ;; (when (boundp 'my-journal-org-file)
+  ;;   (add-to-list 'org-capture-templates
+  ;;                `("j" "Journal Entry" entry
+  ;;                  (file ,my-journal-org-file)
+  ;;                  "* %U\n%?")
+  ;; (when (boundp 'my-daydream-org-file)
+  ;;   (add-to-list 'org-capture-templates
+  ;;                `("d" "Daydream Entry" entry
+  ;;                  (file ,my-daydream-org-file)
+  ;;                  "* %? \n %U"))
 #+end_src
 
 ** Org Agenda
@@ -3499,6 +3504,7 @@ called, and it should work anywhere.
   (use-package org-pomodoro
     :straight (:host github :repo "lolownia/org-pomodoro"
                :files (:defaults ("resources/" "resources/*")))
+    :defer 40
     :commands (org-pomodoro)
     :custom
     (org-pomodoro-manual-break t)
