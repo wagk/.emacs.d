@@ -115,7 +115,8 @@ C-M-i                           backward-button
 
 ** Highlight line
 #+begin_src emacs-lisp :results output silent
-(global-hl-line-mode)
+  (when (display-graphic-p)
+   (global-hl-line-mode))
 #+end_src
 
 ** Default input method
@@ -3552,3 +3553,9 @@ called, and it should work anywhere.
 
 
 Note that =customize-set-variable= is like =setq-default=.
+* Smooth Scrolling
+#+begin_src emacs-lisp :results output silent
+  (use-package smooth-scrolling
+    :straight (:host github :repo "aspiers/smooth-scrolling")
+    :commands smooth-scrolling-mode)
+#+end_src
