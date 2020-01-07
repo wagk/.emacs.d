@@ -1,0 +1,6 @@
+[submodule "straight/repos/cmake"]
+	path = straight/repos/cmake
+	url = https://gitlab.kitware.com/cmake/cmake.git
+[submodule "straight/repos/smooth-scrolling"]
+	path = straight/repos/smooth-scrolling
+	url = https://github.com/aspiers/smooth-scrolling.git

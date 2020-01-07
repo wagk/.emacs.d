@@ -2,4 +2,4 @@
 # name: improve
 # key: ii
 # --
-`(yas-with-comment "IMPROVE:")`
+`(yas-with-comment "IMPROVE: ")`

@@ -828,6 +828,7 @@ Interesting Text Objects:
     :ensure nil ;; because org-capture is from org
     :straight nil
     :after (org)
+    :defer 20
     :commands (org-capture
                org-capture-templates)
     :general
@@ -842,10 +843,10 @@ Interesting Text Objects:
      ;;         :which-key "Capture journal entry")
      ;; "c d" '((lambda () (interactive) (org-capture nil "d"))
      ;;         :which-key "Capture daydream entry"))
-    (:prefix my-default-evil-leader-key
-     :keymaps 'org-capture-mode-map
-     :states 'normal
-     "r r" 'org-capture-refile)
+    ;; (:prefix my-default-evil-leader-key
+    ;;  :keymaps 'org-capture-mode-map
+    ;;  :states 'normal
+    ;;  "r r" 'org-capture-refile)
     (org-capture-mode-map
      [remap evil-save-and-close]          'org-capture-finalize
      [remap evil-save-modified-and-close] 'org-capture-finalize
@@ -876,7 +877,6 @@ Interesting Text Objects:
                               ":CREATED:  %U\n"
                               ":END:\n"
                               "%?")))))
-
   ;; when inserting a heading immediately go into insert mode
     ;; (when (boundp 'my-journal-org-file)
     ;;   (add-to-list 'org-capture-templates
