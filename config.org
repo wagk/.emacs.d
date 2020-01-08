@@ -302,6 +302,7 @@ Stolen from https://github.com/bbatsov/crux
     (let ((value (eval (elisp--preceding-sexp))))
       (backward-kill-sexp)
       (insert (format "%S" value))))
+  (evil-ex-define-cmd "eval" 'eval-and-replace)
 #+end_src
 
 ** Completion
@@ -383,6 +384,25 @@ Stolen from https://github.com/bbatsov/crux
 #+begin_src emacs-lisp :results output silent
   (customize-set-value 'inhibit-compacting-font-caches t)
 #+end_src
+** Prefer dark backgrounds
+#+begin_src emacs-lisp :results output silent
+  (customize-set-variable 'frame-background-mode 'dark)
+  (set-terminal-parameter nil 'background-mode 'dark)
+#+end_src
+
+** Fonts
+We are preferring these fonts because they look nicer and play nicer
+with Chinese/Japanese.
+
+0123456789abcdefghijklmnopqrstuvwxyz [] () :;,. !@#$^&*
+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ {} <> "'`  ~-_/|\?
+
+#+begin_src emacs-lisp :results output silent
+  (cond
+   ((find-font (font-spec :name "Iosevka")) (set-frame-font "Iosevka-10" nil t))
+   ((find-font (font-spec :name "Consolas")) (set-frame-font "Consolas-10" nil t)))
+#+end_src
+
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
   (use-package apropos
@@ -1353,8 +1373,9 @@ that for the range we want
 ** Base16
 #+begin_src emacs-lisp :results output silent
   (use-package base16-theme
-    :disabled t
-    :straight (:host github :repo "belak/base16-emacs"))
+    ;; :straight (:host github :repo "belak/base16-emacs"
+    ;;            :files (:defaults ("build" "build/*")))
+    :straight t)
 #+end_src
 ** Solarized
 [[https://ethanschoonover.com/solarized/][Website with more descriptions]]
@@ -1395,12 +1416,15 @@ that for the range we want
       (set (car col) (cdr col)))
     (defun load-solarized-theme ()
       (interactive)
-      (load-theme 'solarized-dark t)
+      (if (display-graphic-p)
+          (load-theme 'solarized-dark t)
+        (load-theme 'solarized-gruvbox-dark t))
       (with-eval-after-load 'prism
         (prism-set-colors
           :num 24
           :colors
-          (list sol-green sol-cyan sol-blue sol-yellow)
+          ;; (list sol-green sol-cyan sol-blue sol-yellow)
+          (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
           :desaturations
           (list 10 20 30)
           :lightens
@@ -1452,32 +1476,18 @@ Solarized)
     :straight t)
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (use-package color-theme-solarized
+    :straight (:host github :repo "sellout/emacs-color-theme-solarized"))
+#+end_src
 * Display
 #+begin_src emacs-lisp :results output silent
-  ;; (load-solarized-theme)
-  (load-theme 'nord t)
+  ;; (when (display-graphic-p)
+  ;;   (load-solarized-theme))
+  (load-solarized-theme)
 #+end_src
 
-** Prefer dark backgrounds
-#+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'frame-background-mode 'dark)
-  (set-terminal-parameter nil 'background-mode 'dark)
-#+end_src
-
-** Fonts
-We are preferring these fonts because they look nicer and play nicer
-with Chinese/Japanese.
-
-0123456789abcdefghijklmnopqrstuvwxyz [] () :;,. !@#$^&*
-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ {} <> "'`  ~-_/|\?
-
-#+begin_src emacs-lisp :results output silent
-  (cond
-   ((find-font (font-spec :name "Iosevka")) (set-frame-font "Iosevka-10" nil t))
-   ((find-font (font-spec :name "Consolas")) (set-frame-font "Consolas-10" nil t)))
-#+end_src
-
-** Posframe
+* Posframe
 #+begin_src emacs-lisp :results output silent
   (use-package posframe
     :straight (:host github :repo "tumashu/posframe"))

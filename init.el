@@ -342,9 +342,10 @@ we're adding a custom function for it here."
                                      (require 'eyebrowse)
                                      (funcall-interactively
                                       'my-new-evil-tab user-config-file)))
-    (my-evil-define-split-vsplit-cmd "message" (lambda () (switch-to-buffer "*Messages*")))
-    (my-evil-define-split-vsplit-cmd "scratch" (lambda () (switch-to-buffer "*scratch*")))
+    (my-evil-define-split-vsplit-cmd "me[ssage]" (lambda () (switch-to-buffer "*Messages*")))
+    (my-evil-define-split-vsplit-cmd "sc[ratch]" (lambda () (switch-to-buffer "*scratch*")))
 
+    ad them
     ;; (evil-ex-define-cmd "framen" 'make-frame)
     ;; (evil-ex-define-cmd "framec" 'delete-frame)
 
@@ -496,6 +497,13 @@ we're adding a custom function for it here."
     (org-note-done 'note)
     :hook ((org-insert-heading . evil-insert-state))
     :init
+    (unless (display-graphic-p)
+      (general-define-key
+       :keymaps 'org-mode-map
+       :states '(normal insert motion)
+       ;; "C-^" 'org-insert-heading-after-current
+       "C-^" 'org-meta-return
+       "\236" 'org-insert-todo-heading-respect-content))
     (with-eval-after-load 'org
       (defun my-org-reformat-buffer ()
         (interactive)
@@ -558,3 +566,4 @@ we're adding a custom function for it here."
   ;; Disable ANNOYING customize options
   ;; (setq custom-file (locate-user-emacs-file "custom.el")))
   (setq custom-file (make-temp-file "")))
+(message "Configuration complete.")
