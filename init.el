@@ -558,3 +558,4 @@ we're adding a custom function for it here."
   ;; Disable ANNOYING customize options
   ;; (setq custom-file (locate-user-emacs-file "custom.el")))
   (setq custom-file (make-temp-file "")))
+(message "Configuration complete.")
