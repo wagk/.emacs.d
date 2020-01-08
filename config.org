@@ -1446,9 +1446,16 @@ Solarized)
                                   ("FIXME"   . "#ff0000"))))))
 #+end_src
 
+** Nord
+#+begin_src emacs-lisp :results output silent
+  (use-package nord-theme
+    :straight t)
+#+end_src
+
 * Display
 #+begin_src emacs-lisp :results output silent
-  (load-solarized-theme)
+  ;; (load-solarized-theme)
+  (load-theme 'nord t)
 #+end_src
 
 ** Prefer dark backgrounds
