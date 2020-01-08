@@ -240,7 +240,7 @@
     ("classificaiton" "classification" nil 1)
     ("clinet" "client" nil 1)
     ("cloine" "clone" nil 9)
-    ("cna" "can" nil 8)
+    ("cna" "can" nil 9)
     ("commadn" "command" nil 4)
     ("commadns" "commands" nil 1)
     ("communicaiton" "communication" nil 1)
@@ -249,6 +249,7 @@
     ("conatin" "contain" nil 2)
     ("conditiions" "conditions" nil 1)
     ("confition" "condition" nil 1)
+    ("consdier" "consider" nil 1)
     ("constrol" "control" nil 1)
     ("contain" "contain" nil 17)
     ("contian" "contain" nil 2)
@@ -419,7 +420,7 @@
     ("operaitons" "operations" nil 1)
     ("opne" "open" nil 1)
     ("osmething" "something" nil 1)
-    ("ot" "to" nil 30)
+    ("ot" "to" nil 31)
     ("owuld" "would" nil 2)
     ("pariton" "partition" nil 1)
     ("partiaully" "partially" nil 1)
@@ -723,7 +724,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
