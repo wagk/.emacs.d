@@ -1473,6 +1473,7 @@ Solarized)
 ** Nord
 #+begin_src emacs-lisp :results output silent
   (use-package nord-theme
+    :disabled t ;; it autoloads for some reason
     :straight t)
 #+end_src
 
