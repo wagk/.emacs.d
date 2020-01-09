@@ -2751,7 +2751,7 @@ the thing, because that's what vim does.
     :if (boundp 'config-local-syncthing-folder)
     :commands org-journal-new-entry
     :custom
-    (org-journal-time-format "%R")
+    (org-journal-time-format "%R ")
     (org-journal-date-format "%F, %A")
     (org-journal-file-type 'monthly)
     ;; (org-journal-file-format "%F" "Lets follow the ISO standard")

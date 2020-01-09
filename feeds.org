@@ -483,6 +483,7 @@ Worldbuilding and warfare.
 Joe Nelson's Blog
 *** [[https://blog.pragmaticengineer.com/rss/][Pragmatic Engineer]]
 *** [[https://lethain.com/feeds/][Will Larson]]                                                      :blog:
+*** [[https://www.joelonsoftware.com/feed/][Joel Blog]]                                                        :blog:
 
 ** Singapore                                                         :local:
 *** [[http://financialhorse.com/feed/][Financial Horse]]                                               :finance:
