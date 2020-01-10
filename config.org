@@ -810,8 +810,7 @@ Interesting Text Objects:
 #+begin_src emacs-lisp :results output silent
   (use-package evil-org
     :straight (:host github :repo "Somelauw/evil-org-mode")
-    :hook ((org-mode . evil-org-mode)
-           (org-agenda-mode . evil-org-mode))
+    :hook ((org-mode . evil-org-mode))
     :custom
     (evil-org-retain-visual-state-on-shift
      t "Let us chain < and > calls")
@@ -825,11 +824,6 @@ Interesting Text Objects:
     (evil-org-mode-map
      :states 'normal
      "g f" 'evil-org-open-links)
-    :init
-    (with-eval-after-load 'org-agenda
-      (require 'evil-org-agenda)
-      (evil-org-agenda-set-keys)
-      (add-hook 'org-agenda-mode-hook 'evil-org-mode))
     :config
     (evil-org-set-key-theme '(textobjects
                               ;; insert ;; replaces c-t and c-d
@@ -920,13 +914,23 @@ For some reason we can't do this in the scratch buffer
     :commands (org-todo-list
                org-agenda-file-to-front
                org-agenda)
+    :general
+    (:keymaps 'org-agenda-keymap
+     :states '(normal motion)
+     ;; Seems to be an unhandled case by evil-org
+     "RET" 'org-agenda-switch-to)
     :init
     (evil-ex-define-cmd "agenda" 'org-agenda)
+    :custom
+    (org-agenda-window-setup 'current-window)
     :config
+    (with-eval-after-load 'evil-org
+      (require 'evil-org-agenda)
+      (evil-org-agenda-set-keys))
     (with-eval-after-load 'deft
       (customize-set-variable 'org-agenda-files
-                          (add-to-list 'org-agenda-files
-                                        deft-directory))))
+                              (add-to-list 'org-agenda-files
+                                           deft-directory))))
 #+end_src
 
 ** Org Src
