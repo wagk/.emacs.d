@@ -918,7 +918,10 @@ For some reason we can't do this in the scratch buffer
     :ensure nil
     :straight nil
     :commands (org-todo-list
-               org-agenda-file-to-front)
+               org-agenda-file-to-front
+               org-agenda)
+    :init
+    (evil-ex-define-cmd "agenda" 'org-agenda)
     :config
     (with-eval-after-load 'deft
       (customize-set-variable 'org-agenda-files
@@ -1615,16 +1618,16 @@ Solarized)
                org-projectile-get-project-todo-file)
     :init
     (with-eval-after-load 'org-capture
-     (add-to-list 'org-capture-templates (org-projectile-project-todo-entry))) ;; here
+      (add-to-list 'org-capture-templates (org-projectile-project-todo-entry))) ;; here
     (evil-ex-define-cmd "ptodo" #'(lambda () (interactive)
-                                   (require 'projectile)
-                                   (require 'org-projectile)
-                                   (find-file (org-projectile-get-project-todo-file
-                                               (projectile-project-root)))))
+                                    (require 'projectile)
+                                    (require 'org-projectile)
+                                    (find-file (org-projectile-get-project-todo-file
+                                                (projectile-project-root)))))
     :config
     (org-projectile-per-project)
-    (setq org-projectile-per-project-filepath ".todo"
-          org-agenda-files (append org-agenda-files (org-projectile-todo-files))))
+    (customize-set-variable 'org-projectile-per-project-filepath "TODO")
+    (customize-set-variable 'org-agenda-files (append org-agenda-files (org-projectile-todo-files))))
 #+end_src
 
 ** Projectile Convenience Bindings
