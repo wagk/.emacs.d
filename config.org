@@ -921,6 +921,7 @@ For some reason we can't do this in the scratch buffer
      "RET" 'org-agenda-switch-to)
     :init
     (evil-ex-define-cmd "agenda" 'org-agenda)
+    (evil-ex-define-cmd "things" 'org-agenda)
     :custom
     (org-agenda-window-setup 'current-window)
     :config
@@ -3265,7 +3266,7 @@ Not tracking master because it's currently broken for some reason.
     :custom
     (ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
     :config
-    (ivy-posframe-enable))
+    (ivy-posframe-mode))
 #+end_src
 
 * Company

@@ -10,6 +10,9 @@
 
 (message "local.el is currently unconfigured!")
 
+;; (defconst config-local-syncthing-folder "/mnt/c/Users/pangt.ADS/Sync")
+;; (defconst config-local-dropbox-folder "/mnt/c/Users/pangt.ADS/Dropbox")
+
 ;; fullscreen if you want it
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; (toggle-frame-fullscreen)
@@ -24,5 +27,8 @@
 
 ;; (defun my-after-init-payload ()
 ;;   "Things to do after the init files are loaded"
+;; (with-eval-after-load 'org-agenda
+;;   (add-to-list 'org-agenda-files config-local-work-log-file)
+;;   (add-to-list 'org-agenda-files config-local-dropbox-todo-file)))
 ;;   )
 ;; (add-hook 'emacs-startup-hook 'my-after-init-payload)
