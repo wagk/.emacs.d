@@ -2507,9 +2507,20 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
     (writeroom-mode-line t)
     (writeroom-bottom-divider-width 0)
     (writeroom-maximize-window nil)
+    (writeroom-width 80)
+    (writeroom-restore-window-config nil)
     :general
     (:states 'normal
-     "g z" 'writeroom-mode))
+     "g z" 'writeroom-mode)
+    :hook
+    ((writeroom-mode . (lambda () (require 'focus)
+                         (if writeroom-mode
+                             (progn (focus-init)
+                                    (when display-line-numbers-mode
+                                      (display-line-numbers-mode -1)))
+                           (focus-terminate)
+                           (unless display-line-numbers-mode
+                             (display-line-numbers-mode)))))))
 #+end_src
 
 * Helpful
@@ -2575,7 +2586,7 @@ the thing, because that's what vim does.
                                     (my-buffer-specific-shell)))
     (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
     :hook
-    ((shell-mode-hook . (lambda ()
+    ((shell-mode . (lambda ()
                           (shell-dirtrack-mode 0)
                           (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
                           (dirtrack-mode 1)))))
@@ -2815,7 +2826,7 @@ https://millejoh.github.io/emacs-ipython-notebook/
     ;; (global-prettify-symbols-mode))
 #+end_src
 
-* Prettify Symbols Mode
+* Prettify iymbols Mode
 Use this instead of pretty mode because it's built in and shouldn't
 spaz out as much
 
@@ -3090,11 +3101,21 @@ This is really really slow
 #+begin_src emacs-lisp :results output silent
   ;; (use-package eww
   ;;   :commands (eww)
+  ;;   :if (display-browser-p)
   ;;   :general
   ;;   (:keymaps 'eww-mode-map
   ;;    :states '(normal)
   ;;    "f" 'ace-link-eww
   ;;    "F" 'ace-link-eww))
+
+  (unless (display-graphic-p)
+    (customize-set-variable 'browse-url-browser-function 'eww-browse-url))
+
+  (with-eval-after-load 'eww
+    (general-define-key
+     :keymaps 'eww-mode-map
+     :states 'normal
+      "g t" nil))
 #+end_src
 * Hl Block Mode
 Wait a bit for the code to mature.

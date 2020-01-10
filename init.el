@@ -74,7 +74,7 @@
      (message "%.06f seconds." (float-time (time-since time)))))
 
 (defun bootstrap-package ()
-  "Add package repositories and calls `package-initialize'."
+  "Add package repositories and call `package-initialize'."
   (require 'package)
   (dolist (x '(("melpa"        . "https://melpa.org/packages/")
                ("melpa-2"      . "https://melpa.milkbox.net/packages/")
@@ -102,8 +102,8 @@
         (goto-char (point-max))
         (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage))
-  (setq straight-cache-autoloads t
-        straight-use-package-by-default t))
+  (customize-set-variable 'straight-cache-autoloads t)
+  (customize-set-variable 'straight-use-package-by-default t))
 
 ;; (defun bootstrap-quelpa ()
 ;;   ;; Requires (package-initialize) to be called beforehand
