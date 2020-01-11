@@ -931,7 +931,13 @@ For some reason we can't do this in the scratch buffer
     (with-eval-after-load 'deft
       (customize-set-variable 'org-agenda-files
                               (add-to-list 'org-agenda-files
-                                           deft-directory))))
+                                           deft-directory)))
+    (when (boundp 'config-local-dropbox-folder)
+      (let ((dropbox-todo (concat config-local-dropbox-folder "/todo.org")))
+        (when (file-exists-p dropbox-todo)
+          (customize-set-variable 'org-agenda-files
+                                  (add-to-list 'org-agenda-files
+                                               dropbox-todo))))))
 #+end_src
 
 ** Org Src
@@ -1143,6 +1149,12 @@ https://www.nongnu.org/org-edna-el/
    :states '(normal)
    :prefix my-default-evil-leader-key
    "o p" 'my-org-paste-clipboard-screenshot)
+#+end_src
+
+** Org Om
+#+begin_src emacs-lisp :results output silent
+  (use-package om
+    :straight (:host github :repo "ndwarshuis/om.el"))
 #+end_src
 
 * hl-todo
