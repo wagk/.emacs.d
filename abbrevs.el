@@ -311,7 +311,7 @@
     ("fiel" "file" nil 6)
     ("fiels" "files" nil 5)
     ("finalncial" "financial" nil 1)
-    ("fo" "of" nil 83)
+    ("fo" "of" nil 84)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
     ("followinig" "following" nil 1)
@@ -514,7 +514,9 @@
     ("thwtwill" "that will" nil 1)
     ("ti" "it" nil 8)
     ("ti's" "it's" nil 1)
+    ("tkne" "token" nil 1)
     ("tlaking" "talking" nil 1)
+    ("tokne" "token" nil 1)
     ("traaining" "training" nil 1)
     ("transfomr" "transform" nil 1)
     ("tremling" "trembling" nil 1)
@@ -547,6 +549,7 @@
     ("wnhat" "what" nil 1)
     ("woild" "would" nil 1)
     ("womewhere" "somewhere" nil 1)
+    ("wrok" "work" nil 1)
     ("wrory" "worry" nil 1)
     ("wrpaper" "Wrapper" nil 1)
     ("wrt" "w.r.t" nil 6)
@@ -724,9 +727,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
