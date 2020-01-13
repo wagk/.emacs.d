@@ -1154,6 +1154,7 @@ https://www.nongnu.org/org-edna-el/
 ** Org Om
 #+begin_src emacs-lisp :results output silent
   (use-package om
+    :disabled t
     :straight (:host github :repo "ndwarshuis/om.el"))
 #+end_src
 
