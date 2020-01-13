@@ -3136,6 +3136,15 @@ This is really really slow
      :keymaps 'eww-mode-map
      :states 'normal
       "g t" nil))
+
+  (evil-define-command my-eww-ex-command (url)
+    (interactive "<a>")
+    (require 'eww)
+    (if url
+      (eww url)
+      (eww)))
+
+  (evil-ex-define-cmd "eww" 'my-eww-ex-command)
 #+end_src
 * Hl Block Mode
 Wait a bit for the code to mature.
