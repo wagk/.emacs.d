@@ -879,19 +879,15 @@ Interesting Text Objects:
                     `("todo" "Personal Todo" entry
                       (file+olp ,my-todo-org-file "Tasks")
                       ,(concat "* TODO %^{DESCRIPTION} %^g \n"
-                              ":PROPERTIES:\n"
-                              ":CREATED:  %U\n"
-                              ":END:\n"
-                              "%?")
+                               "SCHEDULED: %T\n"
+                               "%?")
                       :prepend t))
       (add-to-list 'org-capture-templates
                    `("thoughts" "Personal Thoughts" entry
                      (file+olp ,my-todo-org-file "Thoughts")
                      ,(concat "* %^{DESCRIPTION} %^g \n"
-                              ":PROPERTIES:\n"
-                              ":CREATED:  %U\n"
-                              ":END:\n"
-                              "%?")))))
+                               "SCHEDULED: %U\n"
+                               "%?")))))
   ;; when inserting a heading immediately go into insert mode
     ;; (when (boundp 'my-journal-org-file)
     ;;   (add-to-list 'org-capture-templates
