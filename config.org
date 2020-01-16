@@ -1,4 +1,17 @@
-te to the behavior of the key, i.e. if the key
+[[https://necromuralist.github.io/posts/org-babel-cheat-sheet/][Org Babel Cheatsheet]]
+[[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
+[[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
+
+* On Hydras                                                       :hydra:doc:
+[[https://github.com/abo-abo/hydra#awesome-docstring][Github source]]
+
+This can be a simple string used to build the final hydra hint.
+However, if you start it with a newline, the key-highlighting and
+Ruby-style string interpolation becomes enabled.
+
+To highlight a key, just wrap it in underscores (=_=). Note that the key
+must belong to one of the heads. The key will be highlighted with the
+color that is appropriate to the behavior of the key, i.e. if the key
 will make the hydra exit, the color will be blue.
 
 To insert an empty character, use =^=. The only use of this is to have
