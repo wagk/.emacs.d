@@ -918,6 +918,8 @@ For some reason we can't do this in the scratch buffer
                org-agenda-file-to-front
                org-agenda)
     :general
+    (:states 'motion
+     "C-|" 'org-agenda)
     (:keymaps 'org-agenda-keymap
      :states '(normal motion)
      ;; Seems to be an unhandled case by evil-org
