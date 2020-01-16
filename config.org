@@ -2275,31 +2275,24 @@ In the =ag= buffer call =C-c C-p= to launch wgrep.
 * Silver Searcher (Ag)
 #+begin_src emacs-lisp :results output silent
   (use-package ag
+    :disabled t ;; We use ripgrep now
     :straight (:host github :repo "Wilfred/ag.el")
-    :commands ag)
-#+end_src
-
-** Ag Convenience Bindings
-Call =ag= when not in a project; call =projectile-ag= otherwise.
-
-If additional arguments are passed into the command, use those as
-arguments. Otherwise default to the word at point, but allow the user
-to type it out.
-
-#+begin_src emacs-lisp :results output silent
-  (evil-define-command config-ag-explicit (arg)
-    (interactive "<a>")
-    (let ((search-term (if arg arg
-                         (let ((word (thing-at-point 'word)))
-                           (read-string "Ag query: "
-                                        word nil word))))
-          (root-dir (or (projectile-project-p)
-                      default-directory)))
-        (ag search-term root-dir)))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "ag" #'config-ag-explicit)
+    :commands ag
+    :init
+    (evil-define-command config-ag-explicit (arg)
+      "Call =ag= when not in a project; call =projectile-ag= otherwise.
+       If additional arguments are passed into the command, use those as
+       arguments. Otherwise default to the word at point, but allow the user
+       to type it out."
+      (interactive "<a>")
+      (let ((search-term (if arg arg
+                           (let ((word (thing-at-point 'word)))
+                             (read-string "Ag query: "
+                                          word nil word))))
+            (root-dir (or (projectile-project-p)
+                        default-directory)))
+          (ag search-term root-dir)))
+    (evil-ex-define-cmd "ag" #'config-ag-explicit))
 #+end_src
 
 * Ripgrep (rg)
