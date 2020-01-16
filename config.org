@@ -879,14 +879,14 @@ Interesting Text Objects:
                     `("todo" "Personal Todo" entry
                       (file+olp ,my-todo-org-file "Tasks")
                       ,(concat "* TODO %^{DESCRIPTION} %^g \n"
-                               "SCHEDULED: %T\n"
+                               "%U\n" ;; captured as property TIMESTAMP
                                "%?")
                       :prepend t))
       (add-to-list 'org-capture-templates
                    `("thoughts" "Personal Thoughts" entry
                      (file+olp ,my-todo-org-file "Thoughts")
                      ,(concat "* %^{DESCRIPTION} %^g \n"
-                               "SCHEDULED: %U\n"
+                               "%U\n" ;; captured as property TIMESTAMP
                                "%?")))))
   ;; when inserting a heading immediately go into insert mode
     ;; (when (boundp 'my-journal-org-file)
@@ -934,6 +934,14 @@ For some reason we can't do this in the scratch buffer
           (customize-set-variable 'org-agenda-files
                                   (add-to-list 'org-agenda-files
                                                dropbox-todo))))))
+#+end_src
+
+*** Super agenda
+#+begin_src emacs-lisp :results output silent
+  (use-package org-super-agenda
+    :straight t
+    :commands org-super-agenda-mode
+    :hook (org-agenda-mode . org-super-agenda-mode))
 #+end_src
 
 ** Org Src

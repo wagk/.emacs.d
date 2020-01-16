@@ -1,3 +1,9 @@
 [submodule "straight/repos/om.el"]
 	path = straight/repos/om.el
 	url = https://github.com/ndwarshuis/om.el.git
+[submodule "straight/repos/ts.el"]
+	path = straight/repos/ts.el
+	url = https://github.com/alphapapa/ts.el.git
+[submodule "straight/repos/org-super-agenda"]
+	path = straight/repos/org-super-agenda
+	url = https://github.com/alphapapa/org-super-agenda.git
