@@ -91,7 +91,8 @@
 `package-initialize' must be called prior to this."
   ;; Requires (package-initialize) to be called
   ;; https://github.com/raxod502/straight.el
-  (let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
+  (let ((bootstrap-file (concat user-emacs-directory
+                                "straight/repos/straight.el/bootstrap.el"))
         (bootstrap-version 3))
     (unless (file-exists-p bootstrap-file)
       (message "Bootstrapping Straight.el...")
@@ -102,6 +103,13 @@
         (goto-char (point-max))
         (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage))
+  (let ((lockfile (locate-user-emacs-file "packages.el"))
+        (profile-name 'personal))
+    (when (file-exists-p lockfile)
+      (customize-set-variable 'straight-profiles
+                              (add-to-list 'straight-profiles
+                                           (cons profile-name lockfile)))
+      (customize-set-variable 'straight-current-profile profile-name)))
   (customize-set-variable 'straight-cache-autoloads t)
   (customize-set-variable 'straight-use-package-by-default t))
 

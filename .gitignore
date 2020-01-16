@@ -43,6 +43,4 @@ var/
 tags.*
 **/#*#
 elpa/
-straight/build/
-straight/links/
-straight/build-cache.el
+straight/

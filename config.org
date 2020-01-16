@@ -83,6 +83,13 @@ C-M-i                           backward-button
 <normal-state> g b              debugger-frame
 <normal-state> g l              debugger-list-functions
 
+* Utility Libraries
+** Dash
+#+begin_src emacs-lisp :results output silent
+  (use-package dash
+    :straight t)
+#+end_src
+
 * Check for local.el defines
 #+begin_src emacs-lisp :results output silent
   (unless (boundp 'config-local-syncthing-folder)
@@ -1158,6 +1165,7 @@ https://www.nongnu.org/org-edna-el/
 ** Org Om
 #+begin_src emacs-lisp :results output silent
   (use-package om
+    :disabled t
     :straight (:host github :repo "ndwarshuis/om.el"))
 #+end_src
 
@@ -2843,7 +2851,7 @@ https://millejoh.github.io/emacs-ipython-notebook/
     ;; (global-prettify-symbols-mode))
 #+end_src
 
-* Prettify iymbols Mode
+* Prettify Symbols Mode
 Use this instead of pretty mode because it's built in and shouldn't
 spaz out as much
 
