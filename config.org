@@ -923,7 +923,7 @@ For some reason we can't do this in the scratch buffer
      ;; Seems to be an unhandled case by evil-org
      "RET" 'org-agenda-switch-to)
     :init
-    (evil-ex-define-cmd "agenda" 'org-agenda)
+    (evil-ex-define-cmd "ag[enda]" 'org-agenda)
     (evil-ex-define-cmd "things" 'org-agenda)
     :custom
     (org-agenda-window-setup 'current-window)
@@ -931,10 +931,10 @@ For some reason we can't do this in the scratch buffer
     (with-eval-after-load 'evil-org
       (require 'evil-org-agenda)
       (evil-org-agenda-set-keys))
-    (with-eval-after-load 'deft
-      (customize-set-variable 'org-agenda-files
-                              (add-to-list 'org-agenda-files
-                                           deft-directory)))
+    ;; (with-eval-after-load 'deft
+    ;;   (customize-set-variable 'org-agenda-files
+    ;;                           (add-to-list 'org-agenda-files
+    ;;                                        deft-directory)))
     (when (boundp 'config-local-dropbox-folder)
       (let ((dropbox-todo (concat config-local-dropbox-folder "/todo.org")))
         (when (file-exists-p dropbox-todo)
