@@ -24,12 +24,12 @@
 
 ;; buffer encoding systems
 ;; We do this here because the package system might need to know our preferences
-(set-charset-priority 'unicode)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
+(set-charset-priority        'unicode)
+(set-terminal-coding-system  'utf-8)
+(set-keyboard-coding-system  'utf-8)
 (set-selection-coding-system 'utf-8)
-(customize-set-variable 'locale-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
+(customize-set-variable      'locale-coding-system 'utf-8)
+(prefer-coding-system        'utf-8)
 
 (defconst user-init-file
   (locate-user-emacs-file "init.el")

@@ -1215,6 +1215,18 @@ https://www.nongnu.org/org-edna-el/
     ;;         :buffer "*helm hl-todo*"))
 #+end_src
 
+* Markdown                                                            :major:
+#+begin_src emacs-lisp :results output silent
+  (use-package markdown-mode
+    :straight (:host github :repo "jrblevin/markdown-mode")
+    :mode "\\.md\\'"
+    :commands (markdown-mode)
+    :hook (markdown-mode . orgtbl-mode)
+    :init
+    (with-eval-after-load 'org-src
+      (cl-pushnew '("md" . markdown) org-src-lang-modes)))
+#+end_src
+
 * Git
 ** Magit
 If magit complains about not finding the config on windows, it's
@@ -1228,7 +1240,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
 
 #+begin_src emacs-lisp :results output silent
   (use-package magit
-    :straight (:host github :repo "magit/magit")
+    :straight t
     :commands (magit-status
                magit-pull
                magit-commit)
@@ -1279,7 +1291,20 @@ up, on windows at least).
     (magit-status-mode . magit-todos-mode))
 #+end_src
 
-*** Smerge-mode hydras
+*** Magit github
+#+begin_src emacs-lisp :results output silent
+  (use-package forge
+    :straight t)
+#+end_src
+
+** Git-Link
+#+begin_src emacs-lisp :results output silent
+  (use-package git-link
+    :straight t
+    :commands (git-link
+               git-link-commit
+               git-link-homepage))
+#+end_src
 
 ** Git Gutter
 #+begin_src emacs-lisp :results output silent
@@ -1364,14 +1389,14 @@ that for the range we want
                eyebrowse-prev-window-config)
     :general
     (:states '(normal motion)
-     "gT" 'eyebrowse-next-window-config
-     "gt" 'eyebrowse-prev-window-config)
+     "gT" 'eyebrowse-prev-window-config
+     "gt" 'eyebrowse-next-window-config)
     :custom
     (eyebrowse-wrap-around t)
     (eyebrowse-new-workspace t)
     :init
-    (evil-ex-define-cmd "gT" 'eyebrowse-next-window-config)
-    (evil-ex-define-cmd "gt" 'eyebrowse-prev-window-config)
+    (evil-ex-define-cmd "gT" 'eyebrowse-prev-window-config)
+    (evil-ex-define-cmd "gt" 'eyebrowse-next-window-config)
     (evil-define-command my-new-evil-tab (file)
       "Note that :h :tabe in vim indicates that it's file only, not
   buffer."
@@ -1522,6 +1547,7 @@ Solarized)
 * Posframe
 #+begin_src emacs-lisp :results output silent
   (use-package posframe
+    :disabled t
     :straight (:host github :repo "tumashu/posframe"))
 #+end_src
 
@@ -2101,18 +2127,6 @@ nREPL server runs on different ports, and neither were the ones
 recommended by the cider completion engine.
 
 We should look at customizing cider someday.
-
-* Markdown                                                            :major:
-#+begin_src emacs-lisp :results output silent
-  (use-package markdown-mode
-    :straight (:host github :repo "jrblevin/markdown-mode")
-    :mode "\\.md\\'"
-    :commands (markdown-mode)
-    :hook (markdown-mode . orgtbl-mode)
-    :init
-    (with-eval-after-load 'org-src
-      (cl-pushnew '("md" . markdown) org-src-lang-modes)))
-#+end_src
 
 * Rust                                                                :major:
 #+begin_src emacs-lisp :results output silent
