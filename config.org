@@ -939,8 +939,14 @@ For some reason we can't do this in the scratch buffer
     ;;   (customize-set-variable 'org-agenda-files
     ;;                           (add-to-list 'org-agenda-files
     ;;                                        deft-directory)))
-    (when (boundp 'config-local-dropbox-folder)
-      (let ((dropbox-todo (concat config-local-dropbox-folder "/todo.org")))
+    (when (and (boundp 'config-local-dropbox-folder)
+               (boundp 'config-local-syncthing-folder))
+      (let ((dropbox-todo (concat config-local-dropbox-folder "/todo.org"))
+            (sync-todo (concat config-local-syncthing-folder "/todo.org")))
+        (when (file-exists-p sync-todo)
+          (customize-set-variable 'org-agenda-files
+                                  (add-to-list 'org-agenda-files
+                                               sync-todo)))
         (when (file-exists-p dropbox-todo)
           (customize-set-variable 'org-agenda-files
                                   (add-to-list 'org-agenda-files
