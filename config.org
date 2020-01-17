@@ -929,6 +929,8 @@ For some reason we can't do this in the scratch buffer
     (evil-ex-define-cmd "things" 'org-agenda)
     :custom
     (org-agenda-window-setup 'current-window)
+    (org-agenda-skip-unavailable-files t)
+    (org-agenda-time-leading-zero t)
     :config
     (with-eval-after-load 'evil-org
       (require 'evil-org-agenda)
