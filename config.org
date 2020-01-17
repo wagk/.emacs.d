@@ -1334,6 +1334,19 @@ up, on windows at least).
 Look at ~git-gutter+-diffinfo-at-point~ and see if we can leverage
 that for the range we want
 
+** Git timemachine
+#+begin_src emacs-lisp :results output silent
+  (use-package git-timemachine
+    :straight t
+    :commands git-timemachine)
+#+end_src
+
+** Git modes
+#+begin_src emacs-lisp :results output silent
+  (use-package git-modes
+    :straight t)
+#+end_src
+
 * vdiff
 #+begin_src emacs-lisp :results output silent
   (use-package vdiff
@@ -1537,6 +1550,11 @@ Solarized)
                                   ("FIXME"   . "#ff0000"))))))
 #+end_src
 
+
+#+begin_src emacs-lisp :results output silent
+  (use-package color-theme-sanityinc-solarized
+    :straight t)
+#+end_src
 * Display
 #+begin_src emacs-lisp :results output silent
   ;; (when (display-graphic-p)
@@ -3335,6 +3353,15 @@ Not tracking master because it's currently broken for some reason.
     (prog-mode . company-mode))
 #+end_src
 
+** Statistics
+#+begin_src emacs-lisp :results output silent
+  (use-package company-statistics
+    :straight t
+    :after company-mode
+    :config
+    (company-statistics-mode))
+#+end_src
+
 * Flycheck
 #+begin_src emacs-lisp :results output silent
   (use-package flycheck
@@ -3645,4 +3672,12 @@ Note that =customize-set-variable= is like =setq-default=.
   (use-package smooth-scrolling
     :straight (:host github :repo "aspiers/smooth-scrolling")
     :commands smooth-scrolling-mode)
+#+end_src
+
+* Link hinting
+#+begin_src emacs-lisp :results output silent
+  (use-package link-hint
+    :straight t
+    :commands (link-hint-open-link
+               link-hint-copy-link))
 #+end_src
