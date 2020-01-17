@@ -3310,6 +3310,7 @@ Might be better done as an ex mode command or something.
 Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package ivy-posframe
+    :disabled t
     :straight (:host github :repo "tumashu/ivy-posframe"
                :files ("ivy-posframe.el"))
     :after ivy
