@@ -99,7 +99,8 @@ C-M-i                           backward-button
 * Define useful constants
 #+begin_src emacs-lisp :results output silent
   (when (boundp 'config-local-syncthing-folder)
-      (defconst my-todo-org-file (concat config-local-syncthing-folder "/todo.org")))
+      (defconst my-todo-org-file (concat config-local-syncthing-folder "/todo.org"))
+      (defconst my-notes-org-file (concat config-local-syncthing-folder "/notes.org")))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
@@ -883,18 +884,13 @@ Interesting Text Objects:
     :config
     (when (boundp 'my-todo-org-file)
       (add-to-list 'org-capture-templates
-                    `("todo" "Personal Todo" entry
-                      (file+olp ,my-todo-org-file "Tasks")
-                      ,(concat "* TODO %^{DESCRIPTION} %^g \n"
-                               "%U\n" ;; captured as property TIMESTAMP
-                               "%?")
-                      :prepend t))
-      (add-to-list 'org-capture-templates
-                   `("thoughts" "Personal Thoughts" entry
-                     (file+olp ,my-todo-org-file "Thoughts")
-                     ,(concat "* %^{DESCRIPTION} %^g \n"
-                               "%U\n" ;; captured as property TIMESTAMP
-                               "%?")))))
+                   `("todo" "Personal Todo" entry
+                     (file ,my-todo-org-file)
+                     ,(concat "* TODO %^{DESCRIPTION} %^g \n"
+                              ":PROPERTIES:\n"
+                              ":CREATED:  %U\n" ;; captured as property TIMESTAMP
+                              ":END:\n"
+                              "%?")))))
   ;; when inserting a heading immediately go into insert mode
     ;; (when (boundp 'my-journal-org-file)
     ;;   (add-to-list 'org-capture-templates
@@ -2776,27 +2772,44 @@ the thing, because that's what vim does.
 
 * Access todo.org from evil command
 #+begin_src emacs-lisp :results output silent
-  (evil-define-command my-todo (&optional arg)
-    (interactive "<!>")
-    (when (boundp 'my-todo-org-file)
-      (if arg
-          (org-capture nil "todo")
-        (find-file my-todo-org-file))))
+  ;; (evil-define-command my-todo (&optional arg)
+  ;;   (interactive "<!>")
+  ;;   (when (boundp 'my-todo-org-file)
+  ;;     (if arg
+  ;;         (org-capture nil "todo")
+  ;;       (find-file my-todo-org-file))))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
   (when (boundp 'my-todo-org-file)
-    (evil-ex-define-cmd "todo" 'my-todo)
-    (evil-ex-define-cmd "Stodo" '(lambda () (interactive)
-                                   (call-interactively 'evil-window-split)
-                                   (find-file my-todo-org-file)))
-    (evil-ex-define-cmd "Vtodo" '(lambda () (interactive)
-                                   (call-interactively 'evil-window-vsplit)
-                                   (find-file my-todo-org-file)))
+    (my-evil-define-split-vsplit-cmd "todo" #'(lambda () (find-file my-todo-org-file)))
+    ;; (evil-ex-define-cmd "todo" 'my-todo)
+    ;; (evil-ex-define-cmd "Stodo" '(lambda () (interactive)
+    ;;                                (call-interactively 'evil-window-split)
+    ;;                                (find-file my-todo-org-file)))
+    ;; (evil-ex-define-cmd "Vtodo" '(lambda () (interactive)
+    ;;                                (call-interactively 'evil-window-vsplit)
+    ;;                                (find-file my-todo-org-file)))
     (evil-ex-define-cmd "Ttodo" '(lambda () (interactive)
                                    (funcall-interactively
                                     'my-new-evil-tab my-todo-org-file))))
 #+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (when (boundp 'my-notes-org-file)
+    (my-evil-define-split-vsplit-cmd "notes" #'(lambda () (find-file my-notes-org-file)))
+    ;; (evil-ex-define-cmd "notes" 'my-notes)
+    ;; (evil-ex-define-cmd "Snotes" '(lambda () (interactive)
+    ;;                                (call-interactively 'evil-window-split)
+    ;;                                (find-file my-notes-org-file)))
+    ;; (evil-ex-define-cmd "Vnotes" '(lambda () (interactive)
+    ;;                                (call-interactively 'evil-window-vsplit)
+    ;;                                (find-file my-notes-org-file)))
+    (evil-ex-define-cmd "Tnotes" '(lambda () (interactive)
+                                   (funcall-interactively
+                                    'my-new-evil-tab my-notes-org-file))))
+#+end_src
+
 
 * Yaml-mode
 #+begin_src emacs-lisp :results output silent
