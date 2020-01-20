@@ -90,6 +90,29 @@ C-M-i                           backward-button
     :straight t)
 #+end_src
 
+** File manipulation
+#+begin_src emacs-lisp :results output silent
+  (use-package f
+    :straight t)
+#+end_src
+
+** String manipulation
+#+begin_src emacs-lisp :results output silent
+  (use-package s
+    :straight t)
+#+end_src
+
+** Hash table manipulation
+#+begin_src emacs-lisp :results output silent
+  (use-package ht
+    :straight t)
+#+end_src
+
+** Time manipulation
+#+begin_src emacs-lisp :results output silent
+  (use-package ts
+    :straight t)
+#+end_src
 * Check for local.el defines
 #+begin_src emacs-lisp :results output silent
   (unless (boundp 'config-local-syncthing-folder)
@@ -935,18 +958,16 @@ For some reason we can't do this in the scratch buffer
     ;;   (customize-set-variable 'org-agenda-files
     ;;                           (add-to-list 'org-agenda-files
     ;;                                        deft-directory)))
-    (when (and (boundp 'config-local-dropbox-folder)
-               (boundp 'config-local-syncthing-folder))
-      (let ((dropbox-todo (concat config-local-dropbox-folder "/todo.org"))
-            (sync-todo (concat config-local-syncthing-folder "/todo.org")))
-        (when (file-exists-p sync-todo)
+    (when (boundp 'config-local-dropbox-folder)
+      (let ((todo (f-join config-local-dropbox-folder "todo.org")))
+        (when (f-exists-p todo)
           (customize-set-variable 'org-agenda-files
-                                  (add-to-list 'org-agenda-files
-                                               sync-todo)))
-        (when (file-exists-p dropbox-todo)
+                                  (add-to-list 'org-agenda-files todo)))))
+    (when (boundp 'config-local-syncthing-folder)
+      (let ((todo (f-join config-local-syncthing-folder "todo.org")))
+        (when (f-exists-p todo)
           (customize-set-variable 'org-agenda-files
-                                  (add-to-list 'org-agenda-files
-                                               dropbox-todo))))))
+                                  (add-to-list 'org-agenda-files todo))))))
 #+end_src
 
 *** Super agenda
