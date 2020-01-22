@@ -2630,7 +2630,14 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
     ("C-h k"   'helpful-key
      "C-h f"   'helpful-callable
      "C-h v"   'helpful-variable
-     "C-h RET" 'helpful-at-point))
+     "C-h RET" 'helpful-at-point)
+    :config
+    (with-eval-after-load 'link-hint
+      (general-define-key
+       :keymaps 'helpful-mode-map
+       :states 'normal
+       "f" 'link-hint-open-link
+       "y f" 'link-hint-copy-link)))
     ;; (helpful-mode-map
     ;;  :states 'normal
     ;;  "f" 'ace-link-help
@@ -3209,8 +3216,8 @@ This is really really slow
   (general-define-key
    :keymaps 'Info-mode-map
    :states 'normal
-    "]]" 'Info-next
-    "[[" 'Info-prev)
+   "]]" 'Info-next
+   "[[" 'Info-prev)
 #+end_src
 
 * Eww
