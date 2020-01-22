@@ -310,15 +310,15 @@ requires a different logic."
         `(progn
            (evil-ex-define-cmd ,command
                                #'(lambda () (interactive)
-                                   (funcall ,body)))
+                                   (funcall-interactively ,body)))
            (evil-ex-define-cmd ,split-command-name
                                #'(lambda () (interactive)
                                    (call-interactively 'evil-window-split)
-                                   (funcall ,body)))
+                                   (funcall-interactively ,body)))
            (evil-ex-define-cmd ,vsplit-command-name
                                #'(lambda () (interactive)
                                    (call-interactively 'evil-window-vsplit)
-                                   (funcall ,body))))))
+                                   (funcall-interactively ,body))))))
 
     (evil-ex-define-cmd "bc[lose]" 'kill-this-buffer)
     (evil-define-command my-evil-vsplit-buffer (&optional buffer)
@@ -350,6 +350,7 @@ we're adding a custom function for it here."
                                      (require 'eyebrowse)
                                      (funcall-interactively
                                       'my-new-evil-tab user-config-file)))
+    (my-evil-define-split-vsplit-cmd "buffers" 'buffer-menu)
     (my-evil-define-split-vsplit-cmd "me[ssage]" (lambda () (switch-to-buffer "*Messages*")))
     (my-evil-define-split-vsplit-cmd "sc[ratch]" (lambda () (switch-to-buffer "*scratch*")))
 

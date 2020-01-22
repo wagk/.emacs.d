@@ -3039,7 +3039,7 @@ Further helper functions to add bookmarks:
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "bm" 'list-bookmarks)
+  (my-evil-define-split-vsplit-cmd "bm" 'list-bookmarks)
 #+end_src
 
 #+begin_src emacs-lisp :results output silent

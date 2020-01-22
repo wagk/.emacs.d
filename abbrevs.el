@@ -161,6 +161,20 @@
 
 (define-abbrev-table 'flymake-diagnostics-buffer-mode-abbrev-table '())
 
+(define-abbrev-table 'forge-issue-list-mode-abbrev-table '())
+
+(define-abbrev-table 'forge-notifications-mode-abbrev-table '())
+
+(define-abbrev-table 'forge-post-mode-abbrev-table '())
+
+(define-abbrev-table 'forge-pullreq-list-mode-abbrev-table '())
+
+(define-abbrev-table 'forge-repository-list-mode-abbrev-table '())
+
+(define-abbrev-table 'forge-topic-list-mode-abbrev-table '())
+
+(define-abbrev-table 'forge-topic-mode-abbrev-table '())
+
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
 
 (define-abbrev-table 'gfm-mode-abbrev-table '())
@@ -172,6 +186,8 @@
 (define-abbrev-table 'git-gutter+-commit-mode-abbrev-table '())
 
 (define-abbrev-table 'git-rebase-mode-abbrev-table '())
+
+(define-abbrev-table 'gitconfig-mode-abbrev-table '())
 
 (define-abbrev-table 'global-abbrev-table
   '(
@@ -527,6 +543,7 @@
     ("typingn" "typing" nil 1)
     ("typname" "typename" nil 1)
     ("tyring" "trying" nil 1)
+    ("udpates" "updates" nil 1)
     ("uisng" "using" nil 3)
     ("uninstallaiton" "uninstallation" nil 1)
     ("unknwon" "unknown" nil 1)
@@ -654,6 +671,8 @@
 (define-abbrev-table 'magit-repolist-mode-abbrev-table '())
 
 (define-abbrev-table 'magit-revision-mode-abbrev-table '())
+
+(define-abbrev-table 'magit-section-mode-abbrev-table '())
 
 (define-abbrev-table 'magit-stash-mode-abbrev-table '())
 
