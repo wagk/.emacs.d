@@ -1234,14 +1234,29 @@ https://www.nongnu.org/org-edna-el/
 
 * Markdown                                                            :major:
 #+begin_src emacs-lisp :results output silent
+  (use-package edit-indirect
+    :straight t)
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
   (use-package markdown-mode
     :straight (:host github :repo "jrblevin/markdown-mode")
-    :mode "\\.md\\'"
+    :mode ("\\.md\\'" . markdown-mode)
     :commands (markdown-mode)
-    :hook (markdown-mode . orgtbl-mode)
     :init
+    (with-eval-after-load 'org-table
+      (defun orgtbl-to-gfm (table params)
+        "Convert the Orgtbl mode TABLE to GitHub Flavored Markdown."
+        (let* ((alignment (mapconcat (lambda (x) (if x "|--:" "|---")))
+                        org-table-last-alignment ""))
+          (params2
+            (list)
+            :splice t
+            :hline (concat alignment "|")
+            :lstart "| " :lend " |" :sep " | ")
+          (orgtbl-to-generic table (org-combine-plists params2 params)))))
     (with-eval-after-load 'org-src
-      (cl-pushnew '("md" . markdown) org-src-lang-modes)))
+      (cl-pushnew '("md" . gfm) org-src-lang-modes)))
 #+end_src
 
 * Git
