@@ -198,7 +198,7 @@
     ("acocunt" "account" nil 1)
     ("additioanl" "additional" nil 1)
     ("adn" "and" nil 28)
-    ("ahve" "have" nil 2)
+    ("ahve" "have" nil 3)
     ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
     ("alows" "allows" nil 1)
@@ -327,7 +327,7 @@
     ("fiel" "file" nil 6)
     ("fiels" "files" nil 5)
     ("finalncial" "financial" nil 1)
-    ("fo" "of" nil 84)
+    ("fo" "of" nil 85)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
     ("followinig" "following" nil 1)
@@ -390,6 +390,7 @@
     ("iunable" "unable" nil 1)
     ("iwth" "with" nil 3)
     ("jbects" "objects" nil 1)
+    ("jenkisn" "jenkins" nil 1)
     ("jsut" "just" nil 1)
     ("jujst" "just" nil 1)
     ("karhtik" "Karthik" nil 2)
@@ -436,7 +437,7 @@
     ("operaitons" "operations" nil 1)
     ("opne" "open" nil 1)
     ("osmething" "something" nil 1)
-    ("ot" "to" nil 32)
+    ("ot" "to" nil 33)
     ("owuld" "would" nil 2)
     ("pariton" "partition" nil 1)
     ("partiaully" "partially" nil 1)
@@ -747,7 +748,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
