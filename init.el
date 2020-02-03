@@ -163,7 +163,9 @@ exist, using the template specified in
       (write-region (with-temp-buffer
                       (insert-file-contents (locate-user-emacs-file "local-template.el"))
                       (buffer-string)) nil local-file))
-    (load local-file)))
+    (load local-file)
+    (when (fboundp 'my-after-init-code)
+      (add-hook 'after-init-hook #'my-after-init-code))))
 
 (defun load-config-org-files (files)
   "Given a list of org FILES, load them sequentially in the order.
@@ -217,7 +219,7 @@ recovery. Maybe eventually load dependencies and all that."
     :straight (:host github :repo "emacscollective/no-littering"))
 
   (customize-set-value 'evil-want-keybinding nil
-    "`evil-collections' wants this to be
+                       "`evil-collections' wants this to be
      disabled before even loading evil, see
      https://github.com/emacs-evil/evil-collection/issues/60")
 
@@ -244,7 +246,7 @@ recovery. Maybe eventually load dependencies and all that."
      ;; "gT"     '(lambda () (interactive) (other-frame -1))
      "g a" 'describe-char
      "g o" 'ff-find-other-file)
-     ;; "g a"    'describe-char)
+    ;; "g a"    'describe-char)
     (:keymaps 'inner
      "e"      'my-evil-a-buffer)
     (:keymaps 'outer
@@ -379,7 +381,7 @@ we're adding a custom function for it here."
       (evil-range (point-min) (point-max)))
     (evil-mode))
 
-  ;;; evil-collection
+;;; evil-collection
 
   (use-package evil-collection
     :straight (:host github :repo "emacs-evil/evil-collection"
@@ -426,7 +428,7 @@ we're adding a custom function for it here."
   ;; next form gets evaluated
   (straight-use-package 'org-plus-contrib)
 
-  ;;; org-mode
+;;; org-mode
 
   (use-package org-plus-contrib
     :commands (orgtbl-mode
@@ -509,7 +511,7 @@ we're adding a custom function for it here."
       (general-define-key
        :keymaps 'org-mode-map
        :states '(normal insert motion)
-       ;; "C-^" 'org-insert-heading-after-current
+        ;; "C-^" 'org-insert-heading-after-current
        "C-^" 'org-meta-return
        "\236" 'org-insert-todo-heading-respect-content))
     (with-eval-after-load 'org

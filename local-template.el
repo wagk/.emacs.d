@@ -25,10 +25,9 @@
 
 ;; Post-init local declarations go here
 
-;; (defun my-after-init-payload ()
+;; (defun my-after-init-code ()
 ;;   "Things to do after the init files are loaded"
 ;; (with-eval-after-load 'org-agenda
 ;;   (add-to-list 'org-agenda-files config-local-work-log-file)
 ;;   (add-to-list 'org-agenda-files config-local-dropbox-todo-file)))
 ;;   )
-;; (add-hook 'emacs-startup-hook 'my-after-init-payload)

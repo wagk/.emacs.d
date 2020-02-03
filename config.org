@@ -187,9 +187,9 @@ Emulate the best feature of notepad
 
 ** Open a startup file as initial buffer
 #+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'initial-buffer-choice (if (boundp 'my-todo-org-file)
-                                                     my-todo-org-file
-                                                   user-config-file))
+  ;; (customize-set-variable 'initial-buffer-choice (if (boundp 'my-todo-org-file)
+  ;;                                                    my-todo-org-file
+  ;;                                                  user-config-file))
 #+end_src
 
 ** Configure scratch buffer message
@@ -907,7 +907,7 @@ Interesting Text Objects:
     :config
     (when (boundp 'my-todo-org-file)
       (add-to-list 'org-capture-templates
-                   `("todo" "Personal Todo" entry
+                   `("tt" "Personal Todo" entry
                      (file ,my-todo-org-file)
                      ,(concat "* TODO %^{DESCRIPTION} %^g \n"
                               ":PROPERTIES:\n"
@@ -915,7 +915,7 @@ Interesting Text Objects:
                               ":END:\n"
                               "%?")))
       (add-to-list 'org-capture-templates
-                   `("note" "Personal Note" entry
+                   `("tn" "Personal Note" entry
                      (file ,my-notes-org-file)
                      ,(concat "* %^{DESCRIPTION} %^g \n"
                               ":PROPERTIES:\n"
@@ -955,6 +955,7 @@ For some reason we can't do this in the scratch buffer
     (evil-ex-define-cmd "ag[enda]" 'org-agenda)
     (evil-ex-define-cmd "things" 'org-agenda)
     :custom
+    (org-agenda-span 'month)
     (org-agenda-window-setup 'current-window)
     (org-agenda-skip-unavailable-files t)
     (org-agenda-time-leading-zero t)
@@ -3744,4 +3745,21 @@ Note that =customize-set-variable= is like =setq-default=.
     :straight t
     :commands (link-hint-open-link
                link-hint-copy-link))
+#+end_src
+
+* Dashboard
+#+begin_src emacs-lisp :results output silent
+  (use-package dashboard
+    :straight t
+    :custom
+    (dashboard-items '((agenda)
+                       (projects . 20)
+                       (bookmarks . 10)
+                       (recents . 5)))
+    (show-week-agenda-p t)
+    ;; (dashboard-startup-banner (locate-user-emacs-file "arbeit-macht-frei.png"))
+    (dashboard-startup-banner nil)
+    (dashboard-footer "Work sets you free.")
+    :config
+    (dashboard-setup-startup-hook))
 #+end_src
