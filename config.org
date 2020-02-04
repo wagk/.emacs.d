@@ -880,11 +880,7 @@ Interesting Text Objects:
     :general
     (:states 'motion
      ;; In evil it's jump to column number, which isn't that useful tbh
-     "|" '(lambda () (interactive)
-              (require 'org-capture)
-              (if (featurep 'counsel-projectile)
-                  (counsel-projectile-org-capture)
-                (counsel-org-capture))))
+     "|" 'my-counsel-org-capture)
      ;; "c j" '((lambda () (interactive) (org-capture nil "j"))
      ;;         :which-key "Capture journal entry")
      ;; "c d" '((lambda () (interactive) (org-capture nil "d"))
@@ -904,6 +900,13 @@ Interesting Text Objects:
     ;;   (org-capture nil "d")
     ;; (evil-ex-define-cmd "todo" 'my-capture-daydream)
     :hook (org-capture-mode . evil-insert-state)
+    :init
+    (defun my-counsel-org-capture ()
+      (require 'org-capture)
+      (interactive)
+      (if (featurep 'counsel-projectile)
+          (counsel-projectile-org-capture)
+        (counsel-org-capture)))
     :config
     (when (boundp 'my-todo-org-file)
       (add-to-list 'org-capture-templates
@@ -960,6 +963,16 @@ For some reason we can't do this in the scratch buffer
     (org-agenda-skip-unavailable-files t)
     (org-agenda-time-leading-zero t)
     :config
+    ;; This is exactly like the original `org-agenda-add'
+    ;; except that we call `my-counsel-org-capture' instead
+    ;; The timestamp feature is currently unused, though that might
+    ;; change in the future
+    (advice-add 'org-agenda-capture :override
+                '(lambda (&optional with-time)
+                    (interactive "P")
+                    (let ((org-overriding-default-time)
+                          (org-get-cursor-date (equal with-time 1)))
+                      (call-interactively 'my-counsel-org-capture))))
     (with-eval-after-load 'evil-org
       (require 'evil-org-agenda)
       (evil-org-agenda-set-keys))
