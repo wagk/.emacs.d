@@ -1479,7 +1479,7 @@ that for the range we want
     (evil-ex-define-cmd "tabs"       'eyebrowse-switch-to-window-config)
     :config
     (eyebrowse-mode)
-    (defun my-delete-window-config-or-frame (oldfun &rest old_args)
+    (defun my-delete-window-config-or-frame (oldfun &rest _old_args)
       "Checks if there are other \"tabs\" when closing a frame.
   If there is, close the tab, otherwise, delete the frame"
       (interactive)
@@ -2715,9 +2715,9 @@ the thing, because that's what vim does.
     (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
     :hook
     ((shell-mode . (lambda ()
-                          (shell-dirtrack-mode 0)
-                          (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
-                          (dirtrack-mode 1)))))
+                     (shell-dirtrack-mode 0)
+                     (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
+                     (dirtrack-mode 1)))))
 #+end_src
 
 * Groovy mode                                                         :major:
