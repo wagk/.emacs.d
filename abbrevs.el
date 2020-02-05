@@ -99,6 +99,8 @@
 
 (define-abbrev-table 'diff-mode-abbrev-table '())
 
+(define-abbrev-table 'display-time-world-mode-abbrev-table '())
+
 (define-abbrev-table 'doctex-mode-abbrev-table '())
 
 (define-abbrev-table 'edebug-eval-mode-abbrev-table '())
@@ -194,6 +196,7 @@
     ("FIle" "File" nil 10)
     ("WIth" "With" nil 5)
     ("aand" "and" nil 1)
+    ("aboyut" "about" nil 1)
     ("abstraciton" "abstraction" nil 1)
     ("acocunt" "account" nil 1)
     ("additioanl" "additional" nil 1)
@@ -327,7 +330,7 @@
     ("fiel" "file" nil 6)
     ("fiels" "files" nil 5)
     ("finalncial" "financial" nil 1)
-    ("fo" "of" nil 85)
+    ("fo" "of" nil 86)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
     ("followinig" "following" nil 1)
@@ -515,7 +518,7 @@
     ("syetem" "system" nil 1)
     ("synchronisaton" "synchronisation" nil 1)
     ("systm" "system" nil 1)
-    ("taht" "that" nil 35)
+    ("taht" "that" nil 37)
     ("taingint" "tainting" nil 1)
     ("taks" "task" nil 2)
     ("tat" "that" nil 1)
@@ -525,7 +528,7 @@
     ("thaty" "that" nil 2)
     ("thhe" "the" nil 1)
     ("thier" "their" nil 3)
-    ("thigns" "things" nil 1)
+    ("thigns" "things" nil 2)
     ("thingks" "things" nil 1)
     ("thorugh" "through" nil 1)
     ("thwe" "the" nil 1)

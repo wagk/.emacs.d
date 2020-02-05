@@ -910,7 +910,7 @@ Interesting Text Objects:
     :config
     (when (boundp 'my-todo-org-file)
       (add-to-list 'org-capture-templates
-                   `("tt" "Personal Todo" entry
+                   `("nt" "Personal Todo" entry
                      (file ,my-todo-org-file)
                      ,(concat "* TODO %^{DESCRIPTION} %^g \n"
                               ":PROPERTIES:\n"
@@ -918,7 +918,7 @@ Interesting Text Objects:
                               ":END:\n"
                               "%?")))
       (add-to-list 'org-capture-templates
-                   `("tn" "Personal Note" entry
+                   `("nn" "Personal Note" entry
                      (file ,my-notes-org-file)
                      ,(concat "* %^{DESCRIPTION} %^g \n"
                               ":PROPERTIES:\n"
