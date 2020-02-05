@@ -3834,5 +3834,14 @@ Note that =customize-set-variable= is like =setq-default=.
     (dashboard-startup-banner nil)
     (dashboard-footer "Work sets you free.")
     :config
-    (dashboard-setup-startup-hook))
+    (dashboard-setup-startup-hook)
+    (my-evil-define-split-vsplit-cmd "dash[board]"
+                                     #'(lambda () (interactive)
+                                         (switch-to-buffer "*dashboard*")))
+    (with-eval-after-load 'eyebrowse
+      (evil-ex-define-cmd "Tdash[board]"
+                          #'(lambda () (interactive)
+                              (require 'eyebrowse)
+                              (let ((eyebrowse-new-workspace "*dashboard*"))
+                                (eyebrowse-create-window-config))))))
 #+end_src
