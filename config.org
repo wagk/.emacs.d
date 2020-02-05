@@ -908,12 +908,12 @@ Interesting Text Objects:
           (counsel-projectile-org-capture)
         (counsel-org-capture)))
     :config
-    (with-eval-after-load 'eyebrowse
-      (add-hook 'org-capture-mode-hook
-                '(lambda ()
-                    (if eyebrowse-mode
-                        (eyebrowse-mode -1)
-                      (eyebrowse-mode)))))
+    ;; (with-eval-after-load 'eyebrowse
+    ;;   (add-hook 'org-capture-mode-hook
+    ;;             '(lambda ()
+    ;;                 (if eyebrowse-mode
+    ;;                     (eyebrowse-mode -1)
+    ;;                   (eyebrowse-mode)))))
     (when (boundp 'my-todo-org-file)
       (add-to-list 'org-capture-templates
                    `("nt" "Personal Todo" entry
@@ -1460,13 +1460,14 @@ that for the range we want
                eyebrowse-close-window-config
                eyebrowse-next-window-config
                eyebrowse-prev-window-config)
-    :general
-    (:states '(normal motion)
-     "gT" 'eyebrowse-prev-window-config
-     "gt" 'eyebrowse-next-window-config)
+    ;; :general
+    ;; (:states '(normal motion)
+    ;;  "gT" 'eyebrowse-prev-window-config
+    ;;  "gt" 'eyebrowse-next-window-config)
     :custom
     (eyebrowse-wrap-around t)
     (eyebrowse-new-workspace t)
+    (eyebrowse-keymap-prefix "")
     :init
     (evil-ex-define-cmd "gT" 'eyebrowse-prev-window-config)
     (evil-ex-define-cmd "gt" 'eyebrowse-next-window-config)
@@ -1485,9 +1486,11 @@ that for the range we want
     (evil-ex-define-cmd "tabs"       'eyebrowse-switch-to-window-config)
     :config
     (eyebrowse-mode)
+    (eyebrowse-setup-evil-keys)
     (defun my-delete-window-config-or-frame (oldfun &rest old_args)
       "Checks if there are other \"tabs\" when closing a frame.
   If there is, close the tab, otherwise, delete the frame"
+      (require 'eyebrowse)
       (interactive)
       (let* ((configs (frame-parameter nil 'eyebrowse-window-configs))
              (slots (mapcar 'car configs))
