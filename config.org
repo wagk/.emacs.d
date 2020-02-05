@@ -908,6 +908,12 @@ Interesting Text Objects:
           (counsel-projectile-org-capture)
         (counsel-org-capture)))
     :config
+    (with-eval-after-load 'eyebrowse
+      (add-hook 'org-capture-mode-hook
+                '(lambda ()
+                    (if eyebrowse-mode
+                        (eyebrowse-mode -1)
+                      (eyebrowse-mode)))))
     (when (boundp 'my-todo-org-file)
       (add-to-list 'org-capture-templates
                    `("nt" "Personal Todo" entry
