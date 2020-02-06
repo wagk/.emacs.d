@@ -1491,10 +1491,10 @@ that for the range we want
                                          (lambda () (find-file file))
                                        eyebrowse-new-workspace)))
         (eyebrowse-create-window-config)))
-    (evil-ex-define-cmd "Tabn[ew]"   'eyebrowse-create-window-config)
-    (evil-ex-define-cmd "Tabe[dit]"  'my-new-evil-tab)
-    (evil-ex-define-cmd "Tabc[lose]" 'eyebrowse-close-window-config)
-    (evil-ex-define-cmd "Tabs"       'eyebrowse-switch-to-window-config)
+    (evil-ex-define-cmd "tabn[ew]"   'eyebrowse-create-window-config)
+    (evil-ex-define-cmd "tabe[dit]"  'my-new-evil-tab)
+    (evil-ex-define-cmd "tabc[lose]" 'eyebrowse-close-window-config)
+    (evil-ex-define-cmd "tabs"       'eyebrowse-switch-to-window-config)
     :config
     (eyebrowse-mode)
     (eyebrowse-setup-evil-keys)
@@ -1504,7 +1504,7 @@ that for the range we want
       (eyebrowse-rename-window-config (frame-parameter nil 'eyebrowse-current-slot)
                                       name))
     (evil-ex-define-cmd "Trename" 'my-rename-eyebrowse-tab)
-    (defun my-delete-window-config-or-frame (oldfun &rest old_args)
+    (defun my-delete-window-config-or-frame (oldfun &rest _old_args)
       "Checks if there are other \"tabs\" when closing a frame.
   If there is, close the tab, otherwise, delete the frame"
       (require 'eyebrowse)
@@ -2741,9 +2741,9 @@ the thing, because that's what vim does.
     (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
     :hook
     ((shell-mode . (lambda ()
-                          (shell-dirtrack-mode 0)
-                          (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
-                          (dirtrack-mode 1)))))
+                     (shell-dirtrack-mode 0)
+                     (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
+                     (dirtrack-mode 1)))))
 #+end_src
 
 * Groovy mode                                                         :major:
@@ -3851,5 +3851,14 @@ Note that =customize-set-variable= is like =setq-default=.
     (dashboard-startup-banner nil)
     (dashboard-footer "Work sets you free.")
     :config
-    (dashboard-setup-startup-hook))
+    (dashboard-setup-startup-hook)
+    (my-evil-define-split-vsplit-cmd "dash[board]"
+                                     #'(lambda () (interactive)
+                                         (switch-to-buffer "*dashboard*")))
+    (with-eval-after-load 'eyebrowse
+      (evil-ex-define-cmd "Tdash[board]"
+                          #'(lambda () (interactive)
+                              (require 'eyebrowse)
+                              (let ((eyebrowse-new-workspace "*dashboard*"))
+                                (eyebrowse-create-window-config))))))
 #+end_src
