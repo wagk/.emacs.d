@@ -1505,8 +1505,6 @@ that for the range we want
     (evil-ex-define-cmd "tabc[lose]" 'eyebrowse-close-window-config)
     (evil-ex-define-cmd "tabs"       'eyebrowse-switch-to-window-config)
     :config
-    (eyebrowse-mode)
-    (eyebrowse-setup-evil-keys)
     (evil-define-command my-rename-eyebrowse-tab (name)
       (interactive "<a>")
       (require 'eyebrowse)
@@ -1524,7 +1522,10 @@ that for the range we want
         (if (eq 1 size)
             (call-interactively oldfun)
           (eyebrowse-close-window-config))))
-    (advice-add 'delete-frame :around 'my-delete-window-config-or-frame))
+    (advice-add 'delete-frame :around 'my-delete-window-config-or-frame)
+    (eyebrowse-mode)
+    (eyebrowse-setup-evil-keys)
+    (my-rename-eyebrowse-tab (buffer-name)))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
