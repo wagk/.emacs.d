@@ -1482,15 +1482,19 @@ that for the range we want
     :init
     (evil-ex-define-cmd "gT" 'eyebrowse-prev-window-config)
     (evil-ex-define-cmd "gt" 'eyebrowse-next-window-config)
-    (evil-define-command my-new-evil-tab (file)
+    (evil-define-command my-new-evil-tab (file-or-name)
       "Note that :h :tabe in vim indicates that it's file only, not
   buffer."
-      (interactive "<f>")
+      (interactive "<a>")
       (require 'eyebrowse)
-      (let ((eyebrowse-new-workspace (if file
-                                         (lambda () (find-file file))
-                                       eyebrowse-new-workspace)))
-        (eyebrowse-create-window-config)))
+      (let ((eyebrowse-new-workspace (if (file-exists-p file-or-name)
+                                         (lambda () (find-file file-or-name))
+                                       eyebrowse-new-workspace))
+            (tabname (if (file-exists-p file-or-name)
+                         (file-name-base file-or-name)
+                       file-or-name)))
+        (eyebrowse-create-window-config)
+        (my-rename-eyebrowse-tab tabname)))
     (evil-ex-define-cmd "tabn[ew]"   'eyebrowse-create-window-config)
     (evil-ex-define-cmd "tabe[dit]"  'my-new-evil-tab)
     (evil-ex-define-cmd "tabc[lose]" 'eyebrowse-close-window-config)
@@ -2883,7 +2887,8 @@ the thing, because that's what vim does.
     ;;                                (find-file my-todo-org-file)))
     (evil-ex-define-cmd "Ttodo" '(lambda () (interactive)
                                    (funcall-interactively
-                                    'my-new-evil-tab my-todo-org-file))))
+                                    'my-new-evil-tab my-todo-org-file)
+                                   (my-rename-eyebrowse-tab "todo"))))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
@@ -2898,7 +2903,8 @@ the thing, because that's what vim does.
     ;;                                (find-file my-notes-org-file)))
     (evil-ex-define-cmd "Tnotes" '(lambda () (interactive)
                                    (funcall-interactively
-                                    'my-new-evil-tab my-notes-org-file))))
+                                    'my-new-evil-tab my-notes-org-file)
+                                   (my-rename-eyebrowse-tab "notes"))))
 #+end_src
 
 
