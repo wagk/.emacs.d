@@ -1235,6 +1235,20 @@ https://www.nongnu.org/org-edna-el/
     :straight (:host github :repo "ndwarshuis/om.el"))
 #+end_src
 
+** Org Roam
+#+begin_src emacs-lisp :results output silent
+  (use-package org-roam
+    :disabled t
+    :hook (org-mode .org-roam-mode)
+    :straight (:host github :repo "jethrokuan/org-roam")
+    :custom
+    ;; DEBUG: Test
+    (org-roam-directory (-> config-local-syncthing-folder
+                            file-name-as-directory
+                            (concat "notes")
+                            file-name-as-directory)))
+#+end_src
+
 * hl-todo
 #+begin_src emacs-lisp :results output silent
   (use-package hl-todo
@@ -1482,7 +1496,7 @@ that for the range we want
     :init
     (evil-ex-define-cmd "gT" 'eyebrowse-prev-window-config)
     (evil-ex-define-cmd "gt" 'eyebrowse-next-window-config)
-    (evil-define-command my-new-evil-tab (file-or-name)
+    (evil-define-command my-new-evil-tab (arg)
       "Note that :h :tabe in vim indicates that it's file only, not
   buffer.
   If the argument is a file, name the tab with the file. otherwise name
@@ -1490,17 +1504,15 @@ that for the range we want
   buffer."
       (interactive "<a>")
       (require 'eyebrowse)
-      (let ((eyebrowse-new-workspace (if (file-exists-p file-or-name)
-                                         (lambda () (find-file file-or-name))
-                                       eyebrowse-new-workspace))
-            (tabname (if (file-exists-p file-or-name)
-                         (file-name-nondirectory file-or-name)
-                       file-or-name)))
-        (eyebrowse-create-window-config)
-        (my-rename-eyebrowse-tab (if (null file-or-name)
-                                     (buffer-name)
-                                   tabname))))
-    (evil-ex-define-cmd "tabn[ew]"   'eyebrowse-create-window-config)
+      (let ((eyebrowse-new-workspace (if (file-exists-p arg)
+                                         (lambda () (find-file arg))
+                                       eyebrowse-new-workspace)))
+        (eyebrowse-create-window-config))
+      (my-rename-eyebrowse-tab (cond ((null arg) (buffer-name)
+                                      ((file-exists-p arg)
+                                       (file-name-nondirectory arg))
+                                      (t arg)))))
+    (evil-ex-define-cmd "tabn[ew]"   'my-new-evil-tab)
     (evil-ex-define-cmd "tabe[dit]"  'my-new-evil-tab)
     (evil-ex-define-cmd "tabc[lose]" 'eyebrowse-close-window-config)
     (evil-ex-define-cmd "tabs"       'eyebrowse-switch-to-window-config)
@@ -1508,9 +1520,11 @@ that for the range we want
     (evil-define-command my-rename-eyebrowse-tab (name)
       (interactive "<a>")
       (require 'eyebrowse)
-      (eyebrowse-rename-window-config (frame-parameter nil 'eyebrowse-current-slot)
-                                      name))
-    (evil-ex-define-cmd "Trename" 'my-rename-eyebrowse-tab)
+      (eyebrowse-rename-window-config
+       (frame-parameter nil 'eyebrowse-current-slot)
+       name))
+    (evil-ex-define-cmd "Trename"   'my-rename-eyebrowse-tab)
+    (evil-ex-define-cmd "Tabrename" 'my-rename-eyebrowse-tab)
     (defun my-delete-window-config-or-frame (oldfun &rest _old_args)
       "Checks if there are other \"tabs\" when closing a frame.
   If there is, close the tab, otherwise, delete the frame"
