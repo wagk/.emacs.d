@@ -1246,7 +1246,8 @@ https://www.nongnu.org/org-edna-el/
     (org-roam-directory (-> config-local-syncthing-folder
                             file-name-as-directory
                             (concat "notes")
-                            file-name-as-directory)))
+                            file-name-as-directory))
+    (org-roam-buffer-width 0))
 #+end_src
 
 * hl-todo
@@ -2495,6 +2496,7 @@ filters*.
     (rg . "choco install -y ripgrep")
     :custom
     (rg-ignore-case 'smart)
+    (rg-keymap-prefix "")
     :general
     (rg-mode-map
      :states '(motion normal)
@@ -3120,6 +3122,11 @@ Further helper functions to add bookmarks:
 
 #+begin_src emacs-lisp :results output silent
   (my-evil-define-split-vsplit-cmd "bm" 'list-bookmarks)
+  ;;TODO: implement a tab version of this
+  (evil-ex-define-cmd "Tbm" '(lambda ()
+                               (interactive)
+                               (my-new-evil-tab nil)
+                               (funcall-interactively 'list-bookmarks)))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent

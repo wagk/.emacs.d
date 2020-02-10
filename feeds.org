@@ -36,6 +36,13 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 
 *** [[https://acoup.blog/feed/][A collection of unmitigated pedantry]]                             :blog:
 Worldbuilding and warfare.
+
+** Newsletters
+
+*** [[https://thegrowtheq.com/feed/][The Growth Equation]]
+
+*** [[https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine.rss][Matt Levine Money Stuff]]
+
 ** News                                                               :news:
 *** Channel News Asia
 **** [[https://www.channelnewsasia.com/rssfeeds/8395744][Channel News Asia (Asia)]]                                       :asia:
@@ -355,6 +362,8 @@ Worldbuilding and warfare.
 : I'm a self-employed programmer and software architect living in
 : Copenhagen, Denmark. I enjoy reading, playing the guitar, good wine,
 : and gourmet food.
+
+*** [[https://www.schneier.com/blog/atom.xml][Schneier on Security]]                                    :blog:security:
 *** [[http://thecodelesscode.com/rss][The Codeless Code]]                                                 :hot:
 *** [[https://lobste.rs/rss][Lobste.rs]]
 *** [[http://emacshorrors.com/feed][Emacs Horrors]]
@@ -387,6 +396,8 @@ Worldbuilding and warfare.
 *** [[https://blog.tartanllama.xyz/feed.xml][Simon Brand]]
 *** [[http://blog.selfshadow.com/feed/][Self Shadow]]
 *** [[http://feeds.feedburner.com/Torrentfreak][TorrentFreak]]                                                      :hot:
+
+*** [[https://ebababi.net/feed.xml][Nikolaos Anastopoulos]]                                            :blog:
 *** [[https://deque.blog/feed/][Deque]]
 *** [[http://www.lenholgate.com/atom.xml][www.lenholgate.com - Rambling Comments - Len Holgate's C++ progamming blog]]
 *** [[https://mozillagfx.wordpress.com/feed/][Mozilla Gfx Team Blog]]
@@ -484,6 +495,8 @@ Joe Nelson's Blog
 *** [[https://blog.pragmaticengineer.com/rss/][Pragmatic Engineer]]
 *** [[https://lethain.com/feeds/][Will Larson]]                                                      :blog:
 *** [[https://www.joelonsoftware.com/feed/][Joel Blog]]                                                        :blog:
+
+*** [[https://danielmiessler.com/feed/][Daniel Miessler]]                                                  :blog:
 
 ** Singapore                                                         :local:
 *** [[http://financialhorse.com/feed/][Financial Horse]]                                               :finance:
