@@ -803,6 +803,15 @@ This is an expensive package to load, and I wonder why.
      "K" 'evil-textobj-column-WORD))
 #+end_src
 
+** Unimpaired port
+#+begin_src emacs-lisp :results output silent
+  (use-package evil-unimpaired
+    :straight (:host github :repo "zmaas/evil-unimpaired")
+    :after evil
+    :config
+    (evil-unimpaired-mode))
+#+end_src
+
 * Helm
 ** Describe Modes
 #+begin_src emacs-lisp :results output silent
@@ -1238,8 +1247,7 @@ https://www.nongnu.org/org-edna-el/
 ** Org Roam
 #+begin_src emacs-lisp :results output silent
   (use-package org-roam
-    :disabled t
-    :hook (org-mode .org-roam-mode)
+    :hook (org-mode . org-roam-mode)
     :straight (:host github :repo "jethrokuan/org-roam")
     :custom
     ;; DEBUG: Test
@@ -1248,6 +1256,13 @@ https://www.nongnu.org/org-edna-el/
                             (concat "notes")
                             file-name-as-directory))
     (org-roam-buffer-width 0))
+#+end_src
+
+** Org Latex Fragment Toggle
+#+begin_src emacs-lisp :results output silent
+  (use-package org-fragtog
+    :straight (:host github :repo "io12/org-fragtog")
+    :hook (org-mode . org-fragtog-mode))
 #+end_src
 
 * hl-todo
