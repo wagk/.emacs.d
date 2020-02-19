@@ -1015,7 +1015,14 @@ For some reason we can't do this in the scratch buffer
       (let ((todo (f-join config-local-syncthing-folder "todo.org")))
         (when (f-exists-p todo)
           (customize-set-variable 'org-agenda-files
-                                  (add-to-list 'org-agenda-files todo))))))
+                                  (add-to-list 'org-agenda-files todo)))))
+    (my-evil-define-split-vsplit-cmd "ag" #'org-agenda)
+    (with-eval-after-load 'eyebrowse
+      (evil-ex-define-cmd "tag" #'(lambda () (interactive)
+                                    (my-new-evil-tab nil)
+                                    (funcall-interactively #'org-agenda))))
+    (add-to-list 'after-init-hook
+                 '(lambda () (funcall-interactively 'org-agenda-list))))
 #+end_src
 
 *** Super agenda
@@ -1247,15 +1254,14 @@ https://www.nongnu.org/org-edna-el/
 ** Org Roam
 #+begin_src emacs-lisp :results output silent
   (use-package org-roam
-    :hook (org-mode . org-roam-mode)
+    ;; :hook (org-mode . org-roam-mode)
     :straight (:host github :repo "jethrokuan/org-roam")
     :custom
     ;; DEBUG: Test
     (org-roam-directory (-> config-local-syncthing-folder
                             file-name-as-directory
                             (concat "notes")
-                            file-name-as-directory))
-    (org-roam-buffer-width 0))
+                            file-name-as-directory)))
 #+end_src
 
 ** Org Latex Fragment Toggle
@@ -1404,7 +1410,9 @@ up, on windows at least).
     :straight t
     :commands (git-link
                git-link-commit
-               git-link-homepage))
+               git-link-homepage)
+    :custom
+    (git-link-open-in-browser t))
 #+end_src
 
 ** Git Gutter
@@ -3887,6 +3895,7 @@ Note that =customize-set-variable= is like =setq-default=.
 * Dashboard
 #+begin_src emacs-lisp :results output silent
   (use-package dashboard
+    :disabled t
     :straight t
     :custom
     (dashboard-items '((agenda)

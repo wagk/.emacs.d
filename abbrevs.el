@@ -252,6 +252,7 @@
     ("calng" "clang" nil 1)
     ("candiate" "candidate" nil 1)
     ("cauisng" "causing" nil 1)
+    ("chagnes" "changes" nil 1)
     ("charactrer" "character" nil 1)
     ("checkinf" "checking" nil 1)
     ("checkng" "checking" nil 1)
@@ -756,9 +757,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
