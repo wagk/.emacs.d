@@ -11,7 +11,9 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -21,9 +23,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -343,11 +349,11 @@
     ("guatds" "guards" nil 1)
     ("hadnling" "handling" nil 1)
     ("hapy" "happy" nil 1)
+    ("hcanges" "changes" nil 1)
     ("heuritistic" "heuristic" nil 1)
     ("homogeity" "homogeneity" nil 1)
     ("honeslty" "honestly" nil 1)
     ("hsit" "shit" nil 1)
-    ("hsoul" nil 1)
     ("hsould" "should" nil 7)
     ("hte" "the" nil 9)
     ("hting" "thing" nil 1)
@@ -568,7 +574,7 @@
     ("varaibles" "variables" nil 1)
     ("variablae" "variables" nil 1)
     ("varibles" "variables" nil 1)
-    ("verison" "version" nil 5)
+    ("verison" "version" nil 6)
     ("versionoing" "versioning" nil 1)
     ("victom" "victim" nil 1)
     ("waht" "what" nil 2)
@@ -590,7 +596,7 @@
     ("wya" "way" nil 2)
     ("yb" "by" nil 1)
     ("yeaterday" "yesterday" nil 1)
-    ))
+   ))
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
 
@@ -628,7 +634,9 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -710,7 +718,9 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -734,7 +744,9 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
@@ -841,3 +853,4 @@
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
+
