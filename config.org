@@ -1000,10 +1000,10 @@ For some reason we can't do this in the scratch buffer
     ;; change in the future
     (advice-add 'org-agenda-capture :override
                 '(lambda (&optional with-time)
-                    (interactive "P")
-                    (let ((org-overriding-default-time)
-                          (org-get-cursor-date (equal with-time 1)))
-                      (call-interactively 'my-counsel-org-capture))))
+                   (interactive "P")
+                   (let ((org-overriding-default-time)
+                         (org-get-cursor-date (equal with-time 1)))
+                     (call-interactively 'my-counsel-org-capture))))
     (with-eval-after-load 'evil-org
       (require 'evil-org-agenda)
       (evil-org-agenda-set-keys))
@@ -1025,9 +1025,7 @@ For some reason we can't do this in the scratch buffer
     (with-eval-after-load 'eyebrowse
       (evil-ex-define-cmd "tag" #'(lambda () (interactive)
                                     (my-new-evil-tab nil)
-                                    (funcall-interactively #'org-agenda))))
-    (add-to-list 'after-init-hook
-                 '(lambda () (funcall-interactively 'org-agenda-list))))
+                                    (funcall-interactively #'org-agenda)))))
 #+end_src
 
 *** Super agenda
@@ -2128,6 +2126,7 @@ containing a lot of files, and if the files are themselves large.
     (deft-time-format "%Y%m%dT%H%M%z")
     (deft-use-filter-string-for-filename t)
     (deft-use-filename-as-title t)
+    (deft-file-limit 30)
     (deft-file-naming-rules '((noslash . "-")
                               (nospace . "-")
                               (case-fn . downcase)))
@@ -2168,7 +2167,9 @@ containing a lot of files, and if the files are themselves large.
       (deft))
     (evil-ex-define-cmd "n[ote]" 'ex-deft-forwarding-arg)
     (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
-    (evil-set-initial-state 'deft-mode 'insert))
+    (evil-set-initial-state 'deft-mode 'insert)
+    (with-eval-after-load 'org-agenda
+      (add-to-list 'org-agenda-files deft-directory)))
 #+end_src
 
 * AES Encryption
@@ -2655,6 +2656,11 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
   (use-package evil-ledger
     :straight (:host github :repo "atheriel/evil-ledger")
     :after (ledger-mode))
+#+end_src
+
+* Beancount
+#+begin_src emacs-lisp :results output silent
+  ;; (use-package beancount)
 #+end_src
 
 * Hledger                                                             :major:
