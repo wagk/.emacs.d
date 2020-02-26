@@ -468,7 +468,8 @@ we're adding a custom function for it here."
      variable")
     (org-support-shift-select
      t "Let me use J in org-mode please.")
-    (org-startup-indented t)
+    ;; (org-startup-indented t)
+    (org-startup-indented nil "Should get used to as little syntax sugar as possible")
     (org-footnote-auto-label 'confirm)
     (org-footnote-section nil)
     (org-indent-mode-turns-on-hiding-stars t)
@@ -501,6 +502,7 @@ we're adding a custom function for it here."
     (org-insert-heading-respect-content nil)
     (org-catch-invisible-edits 'smart)
     (org-cycle-separator-lines 0)
+    (org-link-descriptive nil "reduce syntax sugar")
     ;; (org-list-indent-offset 1)
     ;; (org-extend-today-until
     ;;  5 "I think 5 am is a safe bet for the end of the day")

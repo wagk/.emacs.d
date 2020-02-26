@@ -317,6 +317,7 @@
     ("elemtn" "element" nil 1)
     ("elme" "elem" nil 2)
     ("endpoiint" "endpoint" nil 1)
+    ("ensrue" "ensure" nil 1)
     ("eoms" "some" nil 1)
     ("eqausl" "equals" nil 1)
     ("erhaps" "perhaps" nil 1)
@@ -529,7 +530,7 @@
     ("syetem" "system" nil 1)
     ("synchronisaton" "synchronisation" nil 1)
     ("systm" "system" nil 1)
-    ("taht" "that" nil 42)
+    ("taht" "that" nil 43)
     ("taingint" "tainting" nil 1)
     ("taks" "task" nil 2)
     ("tat" "that" nil 1)
@@ -769,9 +770,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
@@ -856,3 +855,4 @@
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
+
