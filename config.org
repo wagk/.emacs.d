@@ -123,14 +123,14 @@ C-M-i                           backward-button
 #+begin_src emacs-lisp :results output silent
   (when (boundp 'config-local-syncthing-folder)
       (defconst my-todo-org-file (concat config-local-syncthing-folder "/todo.org"))
-      (defconst my-notes-org-file (concat config-local-syncthing-folder "/notes.org")))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (when (boundp 'config-local-syncthing-folder)
-    (defun find-user-syncthing-folder ()
-      (interactive)
-      (dired config-local-syncthing-folder)))
+      (defconst my-notes-org-file (concat config-local-syncthing-folder "/notes.org"))
+      (defconst my-notes-folder (-> config-local-syncthing-folder
+                                    file-name-as-directory
+                                    (concat "notes")
+                                    file-name-as-directory))
+      (defun find-user-syncthing-folder ()
+        (interactive)
+        (dired config-local-syncthing-folder)))
 #+end_src
 
 * Quality of Life
@@ -448,6 +448,58 @@ with Chinese/Japanese.
   (cond
    ((find-font (font-spec :name "Iosevka")) (set-frame-font "Iosevka-10" nil t))
    ((find-font (font-spec :name "Consolas")) (set-frame-font "Consolas-10" nil t)))
+#+end_src
+
+** Emacs bookmarks
+Save bookmarks immediately.
+#+begin_src emacs-lisp :results output silent
+  (setq bookmark-save-flag 1)
+#+end_src
+
+Further helper functions to add bookmarks:
+#+begin_src emacs-lisp :results output silent
+  ;;;###autoload
+  (defun config-define-bookmark (name path &optional overwrite annotation)
+    "Programmatically creates and stores bookmarks into the bookmark file.
+  We do this here because as of 2019-04-01T16:13:14+0800 we have no idea
+  if there is an existing interface to do this. If one is found this
+  will be marked obsolete and we'll move to that instead.
+
+  The bookmark list format is found at `bookmark-alist'.
+
+  NAME - Name of the bookmark.
+  PATH - filepath of the bookmark.
+  OVERWRITE - if true, overwrite an existing bookmark of the same name
+  if one currently exists.
+  ANNOTATION - Optional annotation of the bookmark.
+
+  If PATH does not point to anywhere valid, this function is a no-op and
+  no bookmark will be created."
+    (require 'bookmark)
+    (when (file-exists-p path)
+      (let* ((annot (if annotation annotation ""))
+             (alist `((filename . ,path)
+                      (front-context-string . "")
+                      (rear-context-string . "")
+                      (position . 0)
+                      (annotation . ,annot))))
+         (bookmark-store name alist overwrite))))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (my-evil-define-split-vsplit-cmd "bm" 'list-bookmarks)
+  (evil-ex-define-cmd "Tbm" '(lambda ()
+                               (interactive)
+                               (require 'eyebrowse)
+                               (my-new-evil-tab nil)
+                               (funcall-interactively 'list-bookmarks)))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "mm" '(lambda ()
+                              (interactive)
+                              (require 'counsel)
+                              (counsel-bookmark)))
 #+end_src
 
 * Apropos Configuration
@@ -2130,10 +2182,8 @@ containing a lot of files, and if the files are themselves large.
     (deft-file-naming-rules '((noslash . "-")
                               (nospace . "-")
                               (case-fn . downcase)))
-    (deft-directory (-> config-local-syncthing-folder
-                        file-name-as-directory
-                        (concat "notes")
-                        file-name-as-directory))
+    ;;TODO: don't assume `my-notes-folder' will always be defined
+    (deft-directory my-notes-folder)
     :general
     (deft-mode-map
       [remap evil-quit] 'quit-window)
@@ -3124,58 +3174,6 @@ can.
               bookmark-files)
       (byte-recompile-directory bookmarkplus-dir 0))
     :commands bmkp-bmenu-list)
-#+end_src
-
-** Emacs bookmarks
-Save bookmarks immediately.
-#+begin_src emacs-lisp :results output silent
-  (setq bookmark-save-flag 1)
-#+end_src
-
-Further helper functions to add bookmarks:
-#+begin_src emacs-lisp :results output silent
-  ;;;###autoload
-  (defun config-define-bookmark (name path &optional overwrite annotation)
-    "Programmatically creates and stores bookmarks into the bookmark file.
-  We do this here because as of 2019-04-01T16:13:14+0800 we have no idea
-  if there is an existing interface to do this. If one is found this
-  will be marked obsolete and we'll move to that instead.
-
-  The bookmark list format is found at `bookmark-alist'.
-
-  NAME - Name of the bookmark.
-  PATH - filepath of the bookmark.
-  OVERWRITE - if true, overwrite an existing bookmark of the same name
-  if one currently exists.
-  ANNOTATION - Optional annotation of the bookmark.
-
-  If PATH does not point to anywhere valid, this function is a no-op and
-  no bookmark will be created."
-    (require 'bookmark)
-    (when (file-exists-p path)
-      (let* ((annot (if annotation annotation ""))
-             (alist `((filename . ,path)
-                      (front-context-string . "")
-                      (rear-context-string . "")
-                      (position . 0)
-                      (annotation . ,annot))))
-         (bookmark-store name alist overwrite))))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (my-evil-define-split-vsplit-cmd "bm" 'list-bookmarks)
-  ;;TODO: implement a tab version of this
-  (evil-ex-define-cmd "Tbm" '(lambda ()
-                               (interactive)
-                               (my-new-evil-tab nil)
-                               (funcall-interactively 'list-bookmarks)))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "mm" '(lambda ()
-                              (interactive)
-                              (require 'counsel)
-                              (counsel-bookmark)))
 #+end_src
 
 * Copy as Format
