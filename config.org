@@ -2672,6 +2672,16 @@ r-value references.
     (evil-define-operator my-evil-clang-format (beg end)
       (require 'clang-format)
       (clang-format beg end))
+    (defun toggle-clang-format-on-save ()
+      "Toggle clang-format-buffer on a per-buffer level."
+      (interactive)
+      (unless (boundp 'toggle-clang-format-on-save)
+        (setq-local toggle-clang-format-on-save t))
+      (if (not toggle-clang-format-on-save)
+          (progn (add-hook 'before-save-hook 'clang-format-buffer t t)
+                 (setq-local toggle-clang-format-on-save t))
+        (remove-hook 'before-save-hook 'clang-format-buffer t)
+        (setq-local toggle-clang-format-on-save nil)))
     :custom
     (clang-format-style-option "file"
                                "read from .clang-format"))
