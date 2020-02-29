@@ -1564,10 +1564,10 @@ that for the range we want
                eyebrowse-close-window-config
                eyebrowse-next-window-config
                eyebrowse-prev-window-config)
-    ;; :general
-    ;; (:states '(normal motion)
-    ;;  "gT" 'eyebrowse-prev-window-config
-    ;;  "gt" 'eyebrowse-next-window-config)
+    :general
+    (:states 'motion
+     "gt" 'eyebrowse-next-window-config
+     "gT" 'eyebrowse-prev-window-config)
     :custom
     (eyebrowse-wrap-around t)
     (eyebrowse-new-workspace t)
@@ -1618,7 +1618,6 @@ that for the range we want
           (eyebrowse-close-window-config))))
     (advice-add 'delete-frame :around 'my-delete-window-config-or-frame)
     (eyebrowse-mode)
-    (eyebrowse-setup-evil-keys)
     (my-rename-eyebrowse-tab (buffer-name)))
 #+end_src
 
@@ -2679,9 +2678,11 @@ r-value references.
         (setq-local toggle-clang-format-on-save t))
       (if (not toggle-clang-format-on-save)
           (progn (add-hook 'before-save-hook 'clang-format-buffer t t)
-                 (setq-local toggle-clang-format-on-save t))
+                 (setq-local toggle-clang-format-on-save t)
+                 (message "toggle-clang-format-on-save t"))
         (remove-hook 'before-save-hook 'clang-format-buffer t)
-        (setq-local toggle-clang-format-on-save nil)))
+        (setq-local toggle-clang-format-on-save nil)
+        (message "toggle-clang-format-on-save nil")))
     :custom
     (clang-format-style-option "file"
                                "read from .clang-format"))
