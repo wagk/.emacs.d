@@ -377,7 +377,7 @@ Stolen from https://github.com/bbatsov/crux
 
 ** Match Braces
 #+begin_src emacs-lisp :results output silent
-  (electric-pair-mode)
+  ;; (electric-pair-mode)
 #+end_src
 
 ** COMMENT If inside {}, [], or (), newline and indent
@@ -958,10 +958,10 @@ Interesting Text Objects:
     (:states 'motion
      ;; In evil it's jump to column number, which isn't that useful tbh
      "|" 'my-counsel-org-capture)
-     ;; "c j" '((lambda () (interactive) (org-capture nil "j"))
-     ;;         :which-key "Capture journal entry")
-     ;; "c d" '((lambda () (interactive) (org-capture nil "d"))
-     ;;         :which-key "Capture daydream entry"))
+    ;; "c j" '((lambda () (interactive) (org-capture nil "j"))
+    ;;         :which-key "Capture journal entry")
+    ;; "c d" '((lambda () (interactive) (org-capture nil "d"))
+    ;;         :which-key "Capture daydream entry"))
     ;; (:prefix my-default-evil-leader-key
     ;;  :keymaps 'org-capture-mode-map
     ;;  :states 'normal
@@ -985,6 +985,10 @@ Interesting Text Objects:
           (counsel-projectile-org-capture)
         (counsel-org-capture)))
     :config
+    (use-package doct
+      ;; TODO: Move this to melpa instead of github once it's on it
+      :straight (:host github :repo "progfolio/doct")
+      :commands doct)
     ;; (with-eval-after-load 'eyebrowse
     ;;   (add-hook 'org-capture-mode-hook
     ;;             '(lambda ()
@@ -992,6 +996,13 @@ Interesting Text Objects:
     ;;                     (eyebrowse-mode -1)
     ;;                   (eyebrowse-mode)))))
     (when (boundp 'my-todo-org-file)
+      ;; (doct `(("Personal"
+      ;;          :file ,my-todo-org-file
+      ;;          :prepend t
+      ;;          :keys "t"
+      ;;          :children ("TODO"
+      ;;                     :keys "t"
+      ;;                     :todo-state "TODO"))))
       (add-to-list 'org-capture-templates
                    `("nt" "Personal Todo" entry
                      (file ,my-todo-org-file)
@@ -1555,6 +1566,7 @@ that for the range we want
 * Eyebrowse
 - [ ] Use =counsel-bookmarked-directory--candidates= and implement
   =tabm= or something with bookmark completion.
+- [ ] =:tabf= implementation
 
 #+begin_src emacs-lisp :results output silent
   (use-package eyebrowse
@@ -1564,10 +1576,10 @@ that for the range we want
                eyebrowse-close-window-config
                eyebrowse-next-window-config
                eyebrowse-prev-window-config)
-    ;; :general
-    ;; (:states '(normal motion)
-    ;;  "gT" 'eyebrowse-prev-window-config
-    ;;  "gt" 'eyebrowse-next-window-config)
+    :general
+    (:states 'motion
+     "gt" 'eyebrowse-next-window-config
+     "gT" 'eyebrowse-prev-window-config)
     :custom
     (eyebrowse-wrap-around t)
     (eyebrowse-new-workspace t)
@@ -1618,7 +1630,7 @@ that for the range we want
           (eyebrowse-close-window-config))))
     (advice-add 'delete-frame :around 'my-delete-window-config-or-frame)
     (eyebrowse-mode)
-    (eyebrowse-setup-evil-keys)
+    ;; (eyebrowse-setup-evil-keys)
     (my-rename-eyebrowse-tab (buffer-name)))
 #+end_src
 
@@ -1974,12 +1986,12 @@ pressing RET autoformats it, instead of doing nothing as it does right now
 #+begin_src emacs-lisp :results output silent
   (use-package smartparens
     ;; Back to electric-pair-mode
-    :disabled t
-    :straight (:host github :repo "Fuco1/smartparens" :flavor melpa)
+    :straight t
     :diminish smartparens-mode
     :commands (sp-local-pair
                smartparens-global-mode)
     :hook
+    ;; TODO: make this not just hooked on prog-mode
     (prog-mode . (lambda () (interactive)
                    (require 'smartparens-config) ;; load some default configurations
                    (require 'smartparens)))
@@ -1996,7 +2008,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
      "Maintain chomp-like behavior of electric-pair")
     :config
     (smartparens-global-mode)
-    (smartparens-global-strict-mode)
+    ;; (smartparens-global-strict-mode)
     (show-smartparens-global-mode)
     ;; define some helper functions
     (defun my-add-newline-and-indent-braces (_opening_delimiter
