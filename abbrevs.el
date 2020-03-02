@@ -249,7 +249,7 @@
     ("buisness" "business" nil 1)
     ("byt" "by" nil 7)
     ("byut" "but" nil 1)
-    ("calng" "clang" nil 1)
+    ("calng" "clang" nil 2)
     ("candiate" "candidate" nil 1)
     ("cauisng" "causing" nil 1)
     ("chagnes" "changes" nil 1)
@@ -271,14 +271,14 @@
     ("confition" "condition" nil 1)
     ("consdier" "consider" nil 1)
     ("constrol" "control" nil 1)
-    ("contain" "contain" nil 26)
+    ("contain" "contain" nil 27)
     ("contian" "contain" nil 2)
     ("contians" "contains" nil 1)
     ("contnets" "contents" nil 1)
     ("conundeum" "conundrum" nil 1)
     ("coonstruct" "construct" nil 1)
     ("corresponsing" "corresponding" nil 1)
-    ("cosnt" "const" nil 7)
+    ("cosnt" "const" nil 8)
     ("couse" "course" nil 1)
     ("cpecify" "specify" nil 1)
     ("craeting" "creating" nil 1)
@@ -346,7 +346,7 @@
     ("framewokr" "framework" nil 1)
     ("frmo" "from" nil 1)
     ("fucntion" "function" nil 1)
-    ("funciton" "function" nil 6)
+    ("funciton" "function" nil 7)
     ("guatds" "guards" nil 1)
     ("hadnling" "handling" nil 1)
     ("hapy" "happy" nil 1)
@@ -358,6 +358,7 @@
     ("hsould" "should" nil 7)
     ("hte" "the" nil 9)
     ("hting" "thing" nil 1)
+    ("htings" "things" nil 1)
     ("htink" "think" nil 1)
     ("htis" "this" nil 1)
     ("huntry" "hungry" nil 1)
@@ -381,7 +382,7 @@
     ("inot" "into" nil 1)
     ("insidek" "inside" nil 1)
     ("installatino" "installation" nil 1)
-    ("instruciton" "instruction" nil 1)
+    ("instruciton" "instruction" nil 2)
     ("insufficinetly" "insufficiently" nil 1)
     ("intenral" "internal" nil 1)
     ("intenrally" "internally" nil 1)
@@ -392,6 +393,7 @@
     ("irrelevatn" "irrelevant" nil 1)
     ("isnide" "inside" nil 1)
     ("isntaller" "installer" nil 1)
+    ("itc" "its" nil 1)
     ("itemselts" "itemsets" nil 2)
     ("itme" "item" nil 1)
     ("itsems" "items" nil 1)
@@ -434,6 +436,7 @@
     ("naimin" "Naimin" nil 2)
     ("namespce" "namespace" nil 1)
     ("ncie" "nice" nil 1)
+    ("nmae" "name" nil 1)
     ("nouse" "noise'" nil 1)
     ("ntoes" "notes" nil 1)
     ("nubmer" "number" nil 1)
@@ -484,7 +487,7 @@
     ("rerason" "reason" nil 1)
     ("resove" "resolve" nil 1)
     ("reusme" "resume" nil 1)
-    ("reutrn" "return" nil 1)
+    ("reutrn" "return" nil 2)
     ("rihgt" "right" nil 1)
     ("rleease" "release" nil 1)
     ("schedulign" "scheduling" nil 1)
@@ -531,7 +534,7 @@
     ("syetem" "system" nil 1)
     ("synchronisaton" "synchronisation" nil 1)
     ("systm" "system" nil 1)
-    ("taht" "that" nil 43)
+    ("taht" "that" nil 44)
     ("taingint" "tainting" nil 1)
     ("taks" "task" nil 2)
     ("tat" "that" nil 1)
@@ -578,6 +581,7 @@
     ("validat" "validate" nil 1)
     ("varaibles" "variables" nil 1)
     ("variablae" "variables" nil 1)
+    ("variatn" "variant" nil 1)
     ("varibles" "variables" nil 1)
     ("verison" "version" nil 6)
     ("versionoing" "versioning" nil 1)
@@ -601,7 +605,7 @@
     ("wya" "way" nil 2)
     ("yb" "by" nil 1)
     ("yeaterday" "yesterday" nil 1)
-   ))
+    ))
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
 
@@ -771,7 +775,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
@@ -856,4 +862,3 @@
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
-
