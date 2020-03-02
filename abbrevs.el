@@ -256,6 +256,7 @@
     ("charactrer" "character" nil 1)
     ("checkinf" "checking" nil 1)
     ("checkng" "checking" nil 1)
+    ("chekc" "check" nil 1)
     ("chooose" "choose" nil 1)
     ("classificaiton" "classification" nil 1)
     ("clinet" "client" nil 1)
@@ -334,7 +335,7 @@
     ("fiels" "files" nil 5)
     ("fien" "fine" nil 1)
     ("finalncial" "financial" nil 1)
-    ("fo" "of" nil 94)
+    ("fo" "of" nil 96)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
     ("followinig" "following" nil 1)
@@ -379,6 +380,7 @@
     ("informaoiton" "information" nil 1)
     ("infroamtion" "information" nil 1)
     ("infront" "in front" nil 1)
+    ("inifinite" "infinite" nil 1)
     ("inot" "into" nil 1)
     ("insidek" "inside" nil 1)
     ("installatino" "installation" nil 1)
@@ -411,7 +413,7 @@
     ("laxy" "lazy" nil 1)
     ("levl" "level" nil 1)
     ("lical" "local" nil 2)
-    ("liek" "like" nil 4)
+    ("liek" "like" nil 5)
     ("locaiton" "location" nil 1)
     ("localizaiton" "localization" nil 4)
     ("lsit" "list" nil 1)
@@ -533,7 +535,7 @@
     ("syetem" "system" nil 1)
     ("synchronisaton" "synchronisation" nil 1)
     ("systm" "system" nil 1)
-    ("taht" "that" nil 44)
+    ("taht" "that" nil 45)
     ("taingint" "tainting" nil 1)
     ("taks" "task" nil 2)
     ("tat" "that" nil 1)
@@ -774,9 +776,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
