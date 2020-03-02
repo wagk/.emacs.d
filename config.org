@@ -1043,7 +1043,7 @@ For some reason we can't do this in the scratch buffer
                org-agenda)
     :general
     (:states 'motion
-     "C-|" 'org-agenda)
+     "C-|" 'org-agenda-list)
     (:keymaps 'org-agenda-keymap
      :states '(normal motion)
      ;; Seems to be an unhandled case by evil-org

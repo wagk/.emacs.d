@@ -194,7 +194,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("FIle" "File" nil 10)
-    ("WIth" "With" nil 6)
+    ("WIth" "With" nil 7)
     ("aand" "and" nil 1)
     ("aboyut" "about" nil 1)
     ("abstraciton" "abstraction" nil 1)
@@ -213,6 +213,7 @@
     ("anywehre" "anywhere" nil 1)
     ("anywya" "anyway" nil 2)
     ("apaprently" "apparently" nil 1)
+    ("apears" "appears" nil 1)
     ("apend" "append" nil 1)
     ("apparnetly" "apparently" nil 1)
     ("appication" "application" nil 1)
@@ -243,6 +244,7 @@
     ("binaties" "binaries" nil 1)
     ("blansidhments" "blandishments" nil 1)
     ("blodk" "block" nil 1)
+    ("boyd" "body" nil 1)
     ("brnach" "branch" nil 1)
     ("buildsript" "buildscript" nil 1)
     ("builidng" "building" nil 1)
@@ -308,6 +310,7 @@
     ("documentaiton" "documentation" nil 4)
     ("doens't" "doesn't" nil 1)
     ("donw" "done" nil 1)
+    ("donwload" "download" nil 1)
     ("downlaod" "download" nil 2)
     ("downlaoded" "downloaded" nil 1)
     ("dur" "due" nil 3)
@@ -352,6 +355,7 @@
     ("hapy" "happy" nil 1)
     ("hcanges" "changes" nil 1)
     ("heuritistic" "heuristic" nil 1)
+    ("hoewver" "however" nil 1)
     ("homogeity" "homogeneity" nil 1)
     ("honeslty" "honestly" nil 1)
     ("hsit" "shit" nil 1)
@@ -534,10 +538,10 @@
     ("syetem" "system" nil 1)
     ("synchronisaton" "synchronisation" nil 1)
     ("systm" "system" nil 1)
-    ("taht" "that" nil 44)
+    ("taht" "that" nil 45)
     ("taingint" "tainting" nil 1)
     ("taks" "task" nil 2)
-    ("tat" "that" nil 1)
+    ("tat" "that" nil 2)
     ("tehn" "then" nil 1)
     ("tempalte" "template" nil 2)
     ("tempaltes" "templates" nil 1)
@@ -605,7 +609,7 @@
     ("wya" "way" nil 2)
     ("yb" "by" nil 1)
     ("yeaterday" "yesterday" nil 1)
-    ))
+   ))
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
 
@@ -862,3 +866,4 @@
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
+
