@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: groovy-fixme
+# key: ff
+# --
+// FIXME: $0

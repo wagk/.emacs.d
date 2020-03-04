@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# key: ff
+# name: emacs-lisp-fixme
+# --
+;; FIXME: $0

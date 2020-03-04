@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# key: dd
+# name: groovy-debug
+# --
+// DEBUG: ${1:Remove when done}

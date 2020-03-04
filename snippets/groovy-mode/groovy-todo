@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: groovy-todo
+# key: tt
+# --
+// TODO: ${1:implement}
