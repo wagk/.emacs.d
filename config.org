@@ -128,7 +128,7 @@ C-M-i                           backward-button
                                     file-name-as-directory))
       (defconst my-todo-org-file (-> my-notes-folder
                                      file-name-as-directory
-                                     (concat "/agenda.org")))
+                                     (concat "/raw/agenda.org")))
       (defconst my-notes-org-file (-> my-notes-folder
                                       file-name-as-directory
                                       (concat "/raw/notes.org")))
@@ -1089,19 +1089,19 @@ For some reason we can't do this in the scratch buffer
     ;;   (customize-set-variable 'org-agenda-files
     ;;                           (add-to-list 'org-agenda-files
     ;;                                        deft-directory)))
-    (when (boundp 'config-local-dropbox-folder)
-      (let ((todo (f-join config-local-dropbox-folder "todo.org")))
-        (when (f-exists-p todo)
-          (customize-set-variable 'org-agenda-files
-                                  (add-to-list 'org-agenda-files todo)))))
+    ;; (when (boundp 'config-local-dropbox-folder)
+    ;;   (let ((todo (f-join config-local-dropbox-folder "todo.org")))
+    ;;     (when (f-exists-p todo)
+    ;;       (customize-set-variable 'org-agenda-files
+    ;;                               (add-to-list 'org-agenda-files todo)))))
     (when (boundp 'config-local-syncthing-folder)
-      (let ((todo (f-join config-local-syncthing-folder "todo.org")))
-        (when (f-exists-p todo)
-          (customize-set-variable 'org-agenda-files
-                                  (add-to-list 'org-agenda-files todo)))))
-    (my-evil-define-split-vsplit-cmd "ag" #'org-agenda)
+      (when (f-exists-p my-todo-org-file)
+        (customize-set-variable 'org-agenda-files
+                                (add-to-list 'org-agenda-files
+                                             my-todo-org-file))))
+    (my-evil-define-split-vsplit-cmd "agenda" #'org-agenda)
     (with-eval-after-load 'eyebrowse
-      (evil-ex-define-cmd "tag" #'(lambda () (interactive)
+      (evil-ex-define-cmd "Tagenda" #'(lambda () (interactive)
                                     (my-new-evil-tab nil)
                                     (funcall-interactively #'org-agenda)))))
 #+end_src
@@ -2241,7 +2241,6 @@ containing a lot of files, and if the files are themselves large.
       (interactive "<a>")
       (deft-filter filter t)
       (deft))
-    (evil-ex-define-cmd "notes" 'ex-deft-forwarding-arg)
     (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
     (evil-ex-define-cmd "tn" '(lambda () (interactive)
                                 (funcall-interactively 'my-new-evil-tab nil)
@@ -3049,7 +3048,7 @@ the thing, because that's what vim does.
 
 #+begin_src emacs-lisp :results output silent
   (when (boundp 'my-notes-org-file)
-    (my-evil-define-split-vsplit-cmd "notes" #'(lambda () (find-file my-notes-org-file)))
+    (my-evil-define-split-vsplit-cmd "note[s]" #'(lambda () (find-file my-notes-org-file)))
     ;; (evil-ex-define-cmd "notes" 'my-notes)
     ;; (evil-ex-define-cmd "Snotes" '(lambda () (interactive)
     ;;                                (call-interactively 'evil-window-split)
@@ -3378,6 +3377,7 @@ This is really really slow
   (general-define-key
    :keymaps 'Info-mode-map
    :states 'normal
+   "f" 'link-hint-open-link
    "]]" 'Info-next
    "[[" 'Info-prev)
 #+end_src
