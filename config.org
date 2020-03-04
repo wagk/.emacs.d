@@ -160,6 +160,16 @@ We're sticking to Japanese for now
   (setq default-input-method "japanese")
 #+end_src
 
+** Recent files
+   #+begin_src emacs-lisp :results output silent
+     (use-package recentf
+       :ensure nil
+       :custom
+       (recentf-max-saved-items nil)
+       :config
+       (evil-ex-define-cmd "recent" 'counsel-recentf))
+   #+end_src
+
 ** Disable GUI Elements
 #+begin_src emacs-lisp :results output silent
   (tool-bar-mode -1)
@@ -962,7 +972,7 @@ Interesting Text Objects:
     :general
     (:states 'motion
      ;; In evil it's jump to column number, which isn't that useful tbh
-     "|" 'my-counsel-org-capture)
+     "C-|" 'my-counsel-org-capture)
     ;; "c j" '((lambda () (interactive) (org-capture nil "j"))
     ;;         :which-key "Capture journal entry")
     ;; "c d" '((lambda () (interactive) (org-capture nil "d"))
@@ -1048,7 +1058,7 @@ For some reason we can't do this in the scratch buffer
                org-agenda)
     :general
     (:states 'motion
-     "C-|" 'org-agenda-list)
+     "|" 'org-agenda-list)
     (:keymaps 'org-agenda-keymap
      :states '(normal motion)
      ;; Seems to be an unhandled case by evil-org
@@ -2188,7 +2198,7 @@ containing a lot of files, and if the files are themselves large.
       lag")
     ;; enc is just what we call encrypted files. we do this so that
     ;; org-agenda-files won't try to open journal.org
-    (deft-extensions '("org" "enc" "md")
+    (deft-extensions '("org" "md")
       "Set the extensions for deft notes")
     (deft-recursive t
       "Recursively search so we can organise by folders")
@@ -2216,8 +2226,8 @@ containing a lot of files, and if the files are themselves large.
      ;; first emacsy binding in a vim state [2018-03-21 Wed]
      "q"      'quit-window
      "p"      'deft-filter-yank
-     "r r"    'deft-archive-file
-     "d d"    'deft-delete-file)
+     "d d"    'deft-delete-file
+     "-"      'open-dired-window)
     (:keymaps 'deft-mode-map
      :states  'insert
      "C-w"    'deft-filter-decrement-word
@@ -2234,6 +2244,9 @@ containing a lot of files, and if the files are themselves large.
       (deft))
     (evil-ex-define-cmd "notes" 'ex-deft-forwarding-arg)
     (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
+    (evil-ex-define-cmd "tn" '(lambda () (interactive)
+                                (funcall-interactively 'my-new-evil-tab nil)
+                                (deft)))
     (evil-set-initial-state 'deft-mode 'insert)
     (with-eval-after-load 'org-agenda
       (add-to-list 'org-agenda-files deft-directory)))
