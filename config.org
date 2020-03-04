@@ -122,12 +122,16 @@ C-M-i                           backward-button
 * Define useful constants
 #+begin_src emacs-lisp :results output silent
   (when (boundp 'config-local-syncthing-folder)
-      (defconst my-todo-org-file (concat config-local-syncthing-folder "/todo.org"))
-      (defconst my-notes-org-file (concat config-local-syncthing-folder "/notes.org"))
       (defconst my-notes-folder (-> config-local-syncthing-folder
                                     file-name-as-directory
                                     (concat "notes")
                                     file-name-as-directory))
+      (defconst my-todo-org-file (-> my-notes-folder
+                                     file-name-as-directory
+                                     (concat "/agenda.org")))
+      (defconst my-notes-org-file (-> my-notes-folder
+                                      file-name-as-directory
+                                      (concat "/raw/notes.org")))
       (defun find-user-syncthing-folder ()
         (interactive)
         (dired config-local-syncthing-folder)))
@@ -1004,7 +1008,7 @@ Interesting Text Objects:
       ;;                     :keys "t"
       ;;                     :todo-state "TODO"))))
       (add-to-list 'org-capture-templates
-                   `("nt" "Personal Todo" entry
+                   `("tt" "Personal Todo" entry
                      (file ,my-todo-org-file)
                      ,(concat "* TODO %^{DESCRIPTION} %^g \n"
                               ":PROPERTIES:\n"
@@ -2227,7 +2231,7 @@ containing a lot of files, and if the files are themselves large.
       (interactive "<a>")
       (deft-filter filter t)
       (deft))
-    (evil-ex-define-cmd "n[ote]" 'ex-deft-forwarding-arg)
+    (evil-ex-define-cmd "notes" 'ex-deft-forwarding-arg)
     (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
     (evil-set-initial-state 'deft-mode 'insert)
     (with-eval-after-load 'org-agenda
