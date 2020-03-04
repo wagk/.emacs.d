@@ -221,6 +221,7 @@
     ("applicatoins" "applications" nil 1)
     ("applicaton" "application" nil 2)
     ("approrpiate" "appropriate" nil 1)
+    ("apsted" "pasted" nil 1)
     ("aready" "already" nil 1)
     ("arrial" "arrival" nil 1)
     ("artifactoyr" "artifactory" nil 1)
@@ -339,7 +340,7 @@
     ("fiels" "files" nil 5)
     ("fien" "fine" nil 1)
     ("finalncial" "financial" nil 1)
-    ("fo" "of" nil 96)
+    ("fo" "of" nil 97)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
     ("followinig" "following" nil 1)
@@ -364,7 +365,7 @@
     ("hsould" "should" nil 7)
     ("hte" "the" nil 9)
     ("hting" "thing" nil 1)
-    ("htings" "things" nil 1)
+    ("htings" "things" nil 2)
     ("htink" "think" nil 1)
     ("htis" "this" nil 1)
     ("huntry" "hungry" nil 1)
@@ -553,9 +554,10 @@
     ("theri" "their" nil 1)
     ("thhe" "the" nil 1)
     ("thier" "their" nil 3)
-    ("thigns" "things" nil 7)
+    ("thigns" "things" nil 8)
     ("thingks" "things" nil 1)
     ("thorugh" "through" nil 4)
+    ("ths" "the" nil 1)
     ("thwe" "the" nil 1)
     ("thwtwill" "that will" nil 1)
     ("ti" "it" nil 8)
@@ -782,7 +784,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 

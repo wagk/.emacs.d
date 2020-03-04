@@ -1725,7 +1725,6 @@ that for the range we want
                                 '(("TODO"    . "#b58900")
                                   ("DEBUG"   . "#d33682")
                                   ("NOTE"    . "#586e75")
-                                  ("IMPROVE" . "#586e75")
                                   ("FIXME"   . "#cb4b16"))))))
 #+end_src
 ** Eva-02
@@ -1757,7 +1756,6 @@ Solarized)
                                 '(("TODO"    . "#ff0000")
                                   ("DEBUG"   . "#ff0000")
                                   ("NOTE"    . "#ff0000")
-                                  ("IMPROVE" . "#ff0000")
                                   ("FIXME"   . "#ff0000"))))))
 #+end_src
 
@@ -2054,7 +2052,8 @@ package is known as elisp-mode but it reads as emacs-lisp
            ;; (emacs-lisp-mode . rainbow-delimiters-mode)
            (emacs-lisp-mode . parinfer-mode)
            (emacs-lisp-mode . update-evil-shift-width)
-           (emacs-lisp-mode . evil-cleverparens-mode)))
+           (emacs-lisp-mode . evil-cleverparens-mode)
+           (emacs-lisp-mode . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
            ;; (emacs-lisp-mode . (lambda ()
            ;;                      (mapc (lambda (pair) (push pair
            ;;                                            prettify-symbols-alist
@@ -2913,6 +2912,7 @@ the thing, because that's what vim does.
     :straight (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes")
     :mode (("\\.groovy\\'" . groovy-mode)
            ("\\Jenkinsfile\\'" . groovy-mode))
+    :hook ((groovy-mode . (lambda () (setq-local comment-start "// "))))
     :init
     (with-eval-after-load 'org-src
         (cl-pushnew '("groovy" . groovy) org-src-lang-modes)))

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: emacs-lisp-lambda
+# key: l
+# --
+(lambda ($1) $0)
