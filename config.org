@@ -867,6 +867,7 @@ This is an expensive package to load, and I wonder why.
 ** Unimpaired port
 #+begin_src emacs-lisp :results output silent
   (use-package evil-unimpaired
+    :disabled t ;; some conflict with hl-todo
     :straight (:host github :repo "zmaas/evil-unimpaired")
     :after evil
     :config
@@ -2692,7 +2693,7 @@ r-value references.
       "Toggle clang-format-buffer on a per-buffer level."
       (interactive)
       (unless (boundp 'toggle-clang-format-on-save)
-        (setq-local toggle-clang-format-on-save t))
+        (setq-local toggle-clang-format-on-save nil))
       (if (not toggle-clang-format-on-save)
           (progn (add-hook 'before-save-hook 'clang-format-buffer t t)
                  (setq-local toggle-clang-format-on-save t)
