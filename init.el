@@ -278,7 +278,7 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-auto-indent
      t
      "Automatically indent when inserting a newline")
-    :hook (evil-normal-state-entry . evil-ex-nohighlight)
+    :hook (evil-normal-state-entry-hook . evil-ex-nohighlight)
     :config
     (defun update-evil-shift-width ()
       "We do this otherwise packages like parinfer would mess up with
