@@ -150,7 +150,7 @@ Then performs configuration of `use-package' variables."
                           do the heavy lifting")
   (customize-set-variable 'use-package-verbose t)
   (customize-set-variable 'use-package-compute-statistics t)
-
+  (customize-set-variable 'use-package-hook-name-suffix nil)
   (use-package use-package-ensure-system-package))
 
 (defun load-local-el ()
@@ -278,7 +278,7 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-auto-indent
      t
      "Automatically indent when inserting a newline")
-    :hook (evil-normal-state-entry . evil-ex-nohighlight)
+    :hook (evil-normal-state-entry-hook . evil-ex-nohighlight)
     :config
     (defun update-evil-shift-width ()
       "We do this otherwise packages like parinfer would mess up with
@@ -490,6 +490,7 @@ we're adding a custom function for it here."
     (org-pretty-entities
      nil "It gets a bit annoying when you autocomplete braces")
     (org-log-done       'time)
+    (org-log-note-clock-out t)
     (org-log-redeadline 'time)
     (org-log-reschedule 'time)
     (org-blank-before-new-entry '((heading         . t)
@@ -507,16 +508,25 @@ we're adding a custom function for it here."
     ;; (org-extend-today-until
     ;;  5 "I think 5 am is a safe bet for the end of the day")
     (org-note-done 'note)
-    :hook ((org-insert-heading . evil-insert-state))
+    :hook ((org-insert-heading-hook . evil-insert-state))
     :init
     (unless (display-graphic-p)
       (general-define-key
        :keymaps 'org-mode-map
        :states '(normal insert motion)
-        ;; "C-^" 'org-insert-heading-after-current
+       ;; "C-^" 'org-insert-heading-after-current
        "C-^" 'org-meta-return
        "\236" 'org-insert-todo-heading-respect-content))
     (with-eval-after-load 'org
+      (add-hook 'org-mode-hook '(lambda ()
+                                  (with-eval-after-load 'elec-pair
+                                    (let ((org-pairs '((?= . ?=)
+                                                       (?/ . ?/)
+                                                       (?$ . ?$))))
+                                      (setq-local electric-pair-pairs
+                                                  (append electric-pair-pairs org-pairs))
+                                      (setq-local electric-pair-text-pairs
+                                                  electric-pair-pairs)))))
       (defun my-org-reformat-buffer ()
         (interactive)
         (when (y-or-n-p "Really format current buffer? ")
@@ -527,17 +537,11 @@ we're adding a custom function for it here."
       (use-package ox-confluence
         :ensure nil
         :straight nil
-        :commands org-confluence-export-as-confluence))
-    :config
-    ;; (with-eval-after-load 'smartparens
-    ;; make smartparen autoskip "" because org-mode treats it as a string
-    ;; (sp-local-pair 'org-mode "\"" nil :when '(:rem sp-in-string-p))
-    ;; (sp-local-pair 'org-mode "$" "$"))
+        :commands org-confluence-export-as-confluence)))
     ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
-    (add-to-list 'org-babel-load-languages '(shell . t)))
 
-  (use-package ivy
-    :demand t
+
+  (use-package ivy :demand t
     :straight (:host github :repo "abo-abo/swiper")
     :general
     (ivy-minibuffer-map
