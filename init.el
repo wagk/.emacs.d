@@ -490,6 +490,7 @@ we're adding a custom function for it here."
     (org-pretty-entities
      nil "It gets a bit annoying when you autocomplete braces")
     (org-log-done       'time)
+    (org-log-note-clock-out t)
     (org-log-redeadline 'time)
     (org-log-reschedule 'time)
     (org-blank-before-new-entry '((heading         . t)

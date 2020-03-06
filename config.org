@@ -1063,14 +1063,25 @@ For some reason we can't do this in the scratch buffer
      :states '(normal motion)
      ;; Seems to be an unhandled case by evil-org
      "RET" 'org-agenda-switch-to)
-    :init
-    (evil-ex-define-cmd "ag[enda]" 'org-agenda)
-    (evil-ex-define-cmd "things" 'org-agenda)
     :custom
     (org-agenda-span 'month)
     (org-agenda-window-setup 'current-window)
     (org-agenda-skip-unavailable-files t)
     (org-agenda-time-leading-zero t)
+    :init
+    (evil-ex-define-cmd "ag[enda]" 'org-agenda)
+    (evil-ex-define-cmd "things" 'org-agenda)
+    (defun my-org-super-agenda ()
+      "Calls `org-agenda-list' but customized using `org-super-agenda'."
+      (interactive)
+      (require 'org-agenda)
+      (require 'org-super-agenda)
+      (let ((org-super-agenda-groups
+             '((:name "Work"
+                :time-grid t
+                :todo ("TODO" "INSPECT" "WAIT")
+                :tag "work"))))
+        (org-agenda-list)))
     :config
     ;; This is exactly like the original `org-agenda-add'
     ;; except that we call `my-counsel-org-capture' instead
@@ -1102,8 +1113,8 @@ For some reason we can't do this in the scratch buffer
     (my-evil-define-split-vsplit-cmd "agenda" #'org-agenda)
     (with-eval-after-load 'eyebrowse
       (evil-ex-define-cmd "Tagenda" #'(lambda () (interactive)
-                                    (my-new-evil-tab nil)
-                                    (funcall-interactively #'org-agenda)))))
+                                        (my-new-evil-tab nil)
+                                        (funcall-interactively #'org-agenda)))))
 #+end_src
 
 *** Super agenda
