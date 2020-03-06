@@ -523,10 +523,10 @@ we're adding a custom function for it here."
                                     (let ((org-pairs '((?= . ?=)
                                                        (?/ . ?/)
                                                        (?$ . ?$))))
-                                      (customize-set-value 'electric-pair-pairs
-                                                           (append electric-pair-pairs org-pairs))
-                                      (customize-set-value 'electric-pair-text-pairs
-                                                           electric-pair-pairs)))))
+                                      (setq-local electric-pair-pairs
+                                                  (append electric-pair-pairs org-pairs))
+                                      (setq-local electric-pair-text-pairs
+                                                  electric-pair-pairs)))))
       (defun my-org-reformat-buffer ()
         (interactive)
         (when (y-or-n-p "Really format current buffer? ")
