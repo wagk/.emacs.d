@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: elisp-const
-# key: const
-# --
-(defconst $1)

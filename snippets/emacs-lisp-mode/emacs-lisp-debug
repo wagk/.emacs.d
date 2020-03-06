@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# key: dd
-# name: emacs-lisp-debug
-# --
-;; DEBUG: ${1:Remove when done}
