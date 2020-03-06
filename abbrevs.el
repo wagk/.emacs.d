@@ -11,9 +11,7 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -23,13 +21,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -200,7 +194,7 @@
     ("abstraciton" "abstraction" nil 1)
     ("acocunt" "account" nil 1)
     ("additioanl" "additional" nil 1)
-    ("adn" "and" nil 32)
+    ("adn" "and" nil 33)
     ("ahve" "have" nil 4)
     ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
@@ -343,6 +337,7 @@
     ("fo" "of" nil 97)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
+    ("folloiwng" "following" nil 1)
     ("followinig" "following" nil 1)
     ("followiong" "following" nil 1)
     ("follownig" "following" nil 1)
@@ -353,6 +348,7 @@
     ("frmo" "from" nil 1)
     ("fucntion" "function" nil 1)
     ("funciton" "function" nil 7)
+    ("globasl" "global" nil 1)
     ("guatds" "guards" nil 1)
     ("hadnling" "handling" nil 1)
     ("hapy" "happy" nil 1)
@@ -434,6 +430,7 @@
     ("mgiht" "might" nil 7)
     ("minign" "mining" nil 2)
     ("mjigrate" "migrate" nil 1)
+    ("modle" "model" nil 1)
     ("mroe" "more" nil 4)
     ("msater" "Master" nil 1)
     ("msot" "most" nil 1)
@@ -461,7 +458,7 @@
     ("operaitons" "operations" nil 1)
     ("opne" "open" nil 1)
     ("osmething" "something" nil 1)
-    ("ot" "to" nil 36)
+    ("ot" "to" nil 37)
     ("owuld" "would" nil 3)
     ("packats" "packets" nil 1)
     ("pariton" "partition" nil 1)
@@ -489,6 +486,7 @@
     ("renaem" "Rename" nil 3)
     ("replciate" "replicate" nil 1)
     ("repoisoty" "repository" nil 1)
+    ("repsonse" "response" nil 1)
     ("reqally" "really" nil 1)
     ("requireemnts" "requirements" nil 1)
     ("requrie" "require" nil 1)
@@ -652,9 +650,7 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -736,9 +732,7 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -762,9 +756,7 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
