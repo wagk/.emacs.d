@@ -2205,7 +2205,7 @@ containing a lot of files, and if the files are themselves large.
     (deft-use-filter-string-for-filename t)
     (deft-use-filename-as-title t)
     (deft-file-limit 30)
-    (deft-file-naming-rules '((noslash . "-")
+    (deft-file-naming-rules '(;; (noslash . "-")
                               (nospace . "-")
                               (case-fn . downcase)))
     ;;TODO: don't assume `my-notes-folder' will always be defined
@@ -2222,6 +2222,9 @@ containing a lot of files, and if the files are themselves large.
      "M-k"    'widget-backward)
     (:keymaps 'deft-mode-map
      :states  'normal
+     "o" 'deft-complete
+     "O" '(lambda () (interactive)
+            (deft-open-file-other-window t))
      ;; first emacsy binding in a vim state [2018-03-21 Wed]
      "q"      'quit-window
      "p"      'deft-filter-yank
@@ -2242,6 +2245,7 @@ containing a lot of files, and if the files are themselves large.
       (deft-filter filter t)
       (deft))
     (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
+    (my-evil-define-split-vsplit-cmd "n[ote]" 'deft)
     (evil-ex-define-cmd "tn" '(lambda () (interactive)
                                 (funcall-interactively 'my-new-evil-tab nil)
                                 (deft)))
