@@ -391,7 +391,7 @@ Stolen from https://github.com/bbatsov/crux
 
 ** Match Braces
 #+begin_src emacs-lisp :results output silent
-  ;; (electric-pair-mode)
+  (electric-pair-mode)
 #+end_src
 
 ** COMMENT If inside {}, [], or (), newline and indent
@@ -1890,7 +1890,7 @@ Solarized)
     :general
     (:states '(normal motion)
      "+" 'counsel-projectile
-     "M-+" 'counsel-projectile-ag)
+     "M-+" 'counsel-projectile-rg)
     :init
     (evil-ex-define-cmd "pp" 'counsel-projectile))
 #+end_src
@@ -1929,9 +1929,9 @@ Solarized)
     :straight (:host github :repo "DogLooksGood/parinfer-mode")
     :commands (parinfer-mode)
     :general
-    (parinfer-mode-map
-     "\"" nil) ;; let smartparens do its thing
-    (:states 'normal
+    ;; (parinfer-mode-map
+    ;;  "\"" nil) ;; let smartparens do its thing
+    (:states 'motion
      "g p" 'parinfer-toggle-mode)
     :custom
     (parinfer-auto-switch-indent-mode
@@ -1999,6 +1999,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
 #+begin_src emacs-lisp :results output silent
   (use-package smartparens
     ;; Back to electric-pair-mode
+    :disabled t
     :straight t
     :diminish smartparens-mode
     :commands (sp-local-pair
@@ -2006,8 +2007,8 @@ pressing RET autoformats it, instead of doing nothing as it does right now
     :hook
     ;; TODO: make this not just hooked on prog-mode
     (prog-mode-hook . (lambda () (interactive)
-                   (require 'smartparens-config) ;; load some default configurations
-                   (require 'smartparens)))
+                        (require 'smartparens-config) ;; load some default configurations
+                        (require 'smartparens)))
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -2405,35 +2406,49 @@ Requires rust-mode and markdown-mode
 [[https://gist.github.com/t-mart/610795fcf7998559ea80][Netrw map]]
 
 #+begin_src emacs-lisp :results output silent
-  (general-define-key
-   :states 'normal
-   :keymaps 'dired-mode-map
-   "<SPC>" nil                       ; was shadowing leader key bindings
-   "SPC" nil                         ; was shadowing leader key bindings
-   "-" 'dired-up-directory
-   "d" 'dired-create-directory
-   "/" 'counsel-find-file
-   "?" 'counsel-find-file
-   "+" nil) ; don't block org-projectile
+  (use-package dired
+    :demand t
+    :ensure nil
+    :straight nil
+    :general
+    (dired-mode-map
+     :states 'normal
+     "<SPC>" nil                     ; was shadowing leader key bindings
+     "SPC" nil                       ; was shadowing leader key bindings
+     "-" 'dired-up-directory
+     "d" 'dired-create-directory
+     "/" 'counsel-find-file
+     "?" 'counsel-find-file
+     "+" nil) ; don't block org-projectile
+    :config
+    (evil-define-command open-dired-window ()
+      (interactive)
+      (if buffer-file-name
+          (dired (file-name-directory (buffer-file-name)))
+        (dired default-directory)))
+    (evil-ex-define-cmd "Ex[plore]" 'open-dired-window)
+    (evil-ex-define-cmd "Sex[plore]" '(lambda () (interactive)
+                                        (call-interactively 'evil-window-split)
+                                        (open-dired-window)))
+    (evil-ex-define-cmd "Vex[plore]" '(lambda () (interactive)
+                                        (call-interactively 'evil-window-vsplit)
+                                        (open-dired-window)))
+    (evil-ex-define-cmd "Tex[plore]" '(lambda () (interactive)
+                                        (require 'eyebrowse)
+                                        (let ((eyebrowse-new-workspace 'open-dired-window))
+                                          (eyebrowse-create-window-config)))))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (evil-define-command open-dired-window ()
-    (interactive)
-    (if buffer-file-name
-        (dired (file-name-directory (buffer-file-name)))
-      (dired default-directory)))
-  (evil-ex-define-cmd "Ex[plore]" 'open-dired-window)
-  (evil-ex-define-cmd "Sex[plore]" '(lambda () (interactive)
-                                      (call-interactively 'evil-window-split)
-                                      (open-dired-window)))
-  (evil-ex-define-cmd "Vex[plore]" '(lambda () (interactive)
-                                      (call-interactively 'evil-window-vsplit)
-                                      (open-dired-window)))
-  (evil-ex-define-cmd "Tex[plore]" '(lambda () (interactive)
-                                   (require 'eyebrowse)
-                                   (let ((eyebrowse-new-workspace 'open-dired-window))
-                                     (eyebrowse-create-window-config))))
+  (use-package dired-hacks
+    :after dired
+    :straight (:host github :repo "Fuco1/dired-hacks")
+    :general
+    (dired-mode-map
+     :states 'normal
+      "z a" 'dired-subtree-toggle
+      "z o" 'dired-subtree-insert
+      "z c" 'dired-subtree-remove))
 #+end_src
 
 note: use :Ex instead like Vim does

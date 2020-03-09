@@ -11,7 +11,9 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -21,9 +23,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -195,7 +201,7 @@
     ("acocunt" "account" nil 1)
     ("additioanl" "additional" nil 1)
     ("adn" "and" nil 33)
-    ("ahve" "have" nil 4)
+    ("ahve" "have" nil 7)
     ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
     ("alows" "allows" nil 1)
@@ -209,7 +215,7 @@
     ("apaprently" "apparently" nil 1)
     ("apears" "appears" nil 1)
     ("apend" "append" nil 1)
-    ("apparnetly" "apparently" nil 1)
+    ("apparnetly" "apparently" nil 2)
     ("appication" "application" nil 1)
     ("applicaiton" "application" nil 1)
     ("applicatoins" "applications" nil 1)
@@ -221,6 +227,7 @@
     ("artifactoyr" "artifactory" nil 1)
     ("artifcts" "artifacts" nil 1)
     ("artificailly" "artificially" nil 1)
+    ("arugment" "argument" nil 1)
     ("assingment" "assignment" nil 1)
     ("assocaited" "associated" nil 1)
     ("asynchtonous" "Asynchronous" nil 1)
@@ -244,7 +251,7 @@
     ("buildsript" "buildscript" nil 1)
     ("builidng" "building" nil 1)
     ("buisness" "business" nil 1)
-    ("byt" "by" nil 7)
+    ("byt" "by" nil 8)
     ("byut" "but" nil 1)
     ("calng" "clang" nil 2)
     ("candiate" "candidate" nil 1)
@@ -269,7 +276,7 @@
     ("confition" "condition" nil 1)
     ("consdier" "consider" nil 1)
     ("constrol" "control" nil 1)
-    ("contain" "contain" nil 27)
+    ("contain" "contain" nil 29)
     ("contian" "contain" nil 2)
     ("contians" "contains" nil 1)
     ("contnets" "contents" nil 1)
@@ -326,7 +333,7 @@
     ("exmaples" "examples" nil 1)
     ("experimentaiton" "experimentation" nil 1)
     ("expressoin" "expression" nil 1)
-    ("extenral" "external" nil 1)
+    ("extenral" "external" nil 2)
     ("extenrally" "externally" nil 1)
     ("feelinggs" "feelings" nil 1)
     ("fiarly" "fairly" nil 1)
@@ -334,7 +341,7 @@
     ("fiels" "files" nil 5)
     ("fien" "fine" nil 1)
     ("finalncial" "financial" nil 1)
-    ("fo" "of" nil 97)
+    ("fo" "of" nil 99)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
     ("folloiwng" "following" nil 1)
@@ -346,7 +353,7 @@
     ("foors" "doors" nil 1)
     ("framewokr" "framework" nil 1)
     ("frmo" "from" nil 1)
-    ("fucntion" "function" nil 1)
+    ("fucntion" "function" nil 2)
     ("funciton" "function" nil 7)
     ("globasl" "global" nil 1)
     ("guatds" "guards" nil 1)
@@ -361,7 +368,7 @@
     ("hsould" "should" nil 7)
     ("hte" "the" nil 9)
     ("hting" "thing" nil 1)
-    ("htings" "things" nil 2)
+    ("htings" "things" nil 4)
     ("htink" "think" nil 1)
     ("htis" "this" nil 1)
     ("huntry" "hungry" nil 1)
@@ -393,7 +400,9 @@
     ("intereeset" "interest" nil 1)
     ("interfer" "interfere" nil 1)
     ("interiority" "inferiority" nil 1)
+    ("internalizaiton" "internationalization" nil 1)
     ("intuitiion" "intuition" nil 1)
+    ("investivation" "investigation" nil 1)
     ("irrelevatn" "irrelevant" nil 1)
     ("isnide" "inside" nil 1)
     ("isntaller" "installer" nil 1)
@@ -418,10 +427,11 @@
     ("lical" "local" nil 2)
     ("liek" "like" nil 5)
     ("locaiton" "location" nil 1)
-    ("localizaiton" "localization" nil 4)
+    ("localizaiton" "localization" nil 5)
     ("lsit" "list" nil 1)
     ("malfunciton" "malfunction" nil 1)
     ("manifrst" "manifest" nil 1)
+    ("manipualtion" "manipulation" nil 1)
     ("mayually" "manually" nil 1)
     ("mdoule" "module" nil 1)
     ("mergw" "Merge" nil 2)
@@ -431,6 +441,7 @@
     ("minign" "mining" nil 2)
     ("mjigrate" "migrate" nil 1)
     ("modle" "model" nil 1)
+    ("moiton" "motion" nil 2)
     ("mroe" "more" nil 4)
     ("msater" "Master" nil 1)
     ("msot" "most" nil 1)
@@ -459,6 +470,7 @@
     ("opne" "open" nil 1)
     ("osmething" "something" nil 1)
     ("ot" "to" nil 37)
+    ("otu" "out" nil 1)
     ("owuld" "would" nil 3)
     ("packats" "packets" nil 1)
     ("pariton" "partition" nil 1)
@@ -500,6 +512,7 @@
     ("scirpt" "script" nil 2)
     ("scoirng" "scoring" nil 1)
     ("scoppe" "scope" nil 1)
+    ("scropt" "script" nil 2)
     ("seciruty" "security" nil 1)
     ("seciton" "section" nil 1)
     ("secitons" "sections" nil 2)
@@ -540,7 +553,7 @@
     ("syetem" "system" nil 1)
     ("synchronisaton" "synchronisation" nil 1)
     ("systm" "system" nil 1)
-    ("taht" "that" nil 45)
+    ("taht" "that" nil 47)
     ("taingint" "tainting" nil 1)
     ("taks" "task" nil 2)
     ("tat" "that" nil 2)
@@ -548,11 +561,12 @@
     ("tempalte" "template" nil 2)
     ("tempaltes" "templates" nil 1)
     ("temporarrily" "temporarily" nil 1)
+    ("thaat" "that" nil 1)
     ("thaty" "that" nil 2)
     ("theri" "their" nil 1)
     ("thhe" "the" nil 1)
     ("thier" "their" nil 3)
-    ("thigns" "things" nil 8)
+    ("thigns" "things" nil 10)
     ("thingks" "things" nil 1)
     ("thorugh" "through" nil 4)
     ("ths" "the" nil 1)
@@ -574,6 +588,7 @@
     ("typingn" "typing" nil 1)
     ("typname" "typename" nil 1)
     ("tyring" "trying" nil 1)
+    ("udpate" "update" nil 1)
     ("udpates" "updates" nil 1)
     ("uisng" "using" nil 3)
     ("uninstallaiton" "uninstallation" nil 1)
@@ -650,7 +665,9 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -732,7 +749,9 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -756,7 +775,9 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 

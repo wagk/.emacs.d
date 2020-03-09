@@ -430,7 +430,9 @@ we're adding a custom function for it here."
 
 ;;; org-mode
 
-  (use-package org-plus-contrib
+  ;; (use-package org-plus-contrib
+  (use-package org
+    :ensure org-plus-contrib
     :commands (orgtbl-mode
                org-babel-load-file)
     :mode
@@ -504,6 +506,8 @@ we're adding a custom function for it here."
     (org-catch-invisible-edits 'smart)
     (org-cycle-separator-lines 0)
     (org-link-descriptive nil "reduce syntax sugar")
+    (org-adapt-indentation nil "Maintaining indentation for org-files
+    looks annoying when editing it as a plain text file")
     ;; (org-list-indent-offset 1)
     ;; (org-extend-today-until
     ;;  5 "I think 5 am is a safe bet for the end of the day")
@@ -514,31 +518,57 @@ we're adding a custom function for it here."
       (general-define-key
        :keymaps 'org-mode-map
        :states '(normal insert motion)
-       ;; "C-^" 'org-insert-heading-after-current
+        ;; "C-^" 'org-insert-heading-after-current
        "C-^" 'org-meta-return
        "\236" 'org-insert-todo-heading-respect-content))
-    (with-eval-after-load 'org
-      (add-hook 'org-mode-hook '(lambda ()
-                                  (with-eval-after-load 'elec-pair
-                                    (let ((org-pairs '((?= . ?=)
-                                                       (?/ . ?/)
-                                                       (?$ . ?$))))
-                                      (setq-local electric-pair-pairs
-                                                  (append electric-pair-pairs org-pairs))
-                                      (setq-local electric-pair-text-pairs
-                                                  electric-pair-pairs)))))
-      (defun my-org-reformat-buffer ()
-        (interactive)
-        (when (y-or-n-p "Really format current buffer? ")
-          (let ((document (org-element-interpret-data (org-element-parse-buffer))))
-            (erase-buffer)
-            (insert document)
-            (goto-char (point-min)))))
-      (use-package ox-confluence
-        :ensure nil
-        :straight nil
-        :commands org-confluence-export-as-confluence)))
-    ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
+    ;; (with-eval-after-load 'org
+    ;;   (add-hook 'org-mode-hook '(lambda ()
+    ;;                               (with-eval-after-load 'elec-pair
+    ;;                                 (let ((org-pairs '((?= . ?=)
+    ;;                                                    (?/ . ?/)
+    ;;                                                    (?$ . ?$))))
+    ;;                                   (setq-local electric-pair-pairs
+    ;;                                               (append electric-pair-pairs org-pairs))
+    ;;                                   (setq-local electric-pair-text-pairs
+    ;;                                               electric-pair-pairs)))))
+    ;;   (defun my-org-reformat-buffer ()
+    ;;     (interactive)
+    ;;     (when (y-or-n-p "Really format current buffer? ")
+    ;;       (let ((document (org-element-interpret-data (org-element-parse-buffer))))
+    ;;         (erase-buffer)
+    ;;         (insert document)
+    ;;         (goto-char (point-min)))))
+    ;;   (use-package ox-confluence
+    ;;     :ensure nil
+    ;;     :straight nil
+    ;;     :commands org-confluence-export-as-confluence))
+    :config
+    (evil-ex-define-cmd "start" 'org-clock-in-last)
+    (evil-ex-define-cmd "stop" 'org-clock-out)
+    (evil-ex-define-cmd "clock" 'org-clock-goto)
+    (add-hook 'org-mode-hook '(lambda ()
+                                (with-eval-after-load 'elec-pair
+                                  (let ((org-pairs '((?= . ?=)
+                                                     (?/ . ?/)
+                                                     (?* . ?*)
+                                                     (?$ . ?$))))
+                                    (setq-local electric-pair-pairs
+                                                (append electric-pair-pairs org-pairs))
+                                    (setq-local electric-pair-text-pairs
+                                                electric-pair-pairs)))))
+    (defun my-org-reformat-buffer ()
+      (interactive)
+      (when (y-or-n-p "Really format current buffer? ")
+        (let ((document (org-element-interpret-data (org-element-parse-buffer))))
+          (erase-buffer)
+          (insert document)
+          (goto-char (point-min)))))
+    (use-package ox-confluence
+      :ensure nil
+      :straight nil
+      :commands org-confluence-export-as-confluence))
+
+  ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
 
 
   (use-package ivy :demand t
