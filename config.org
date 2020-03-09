@@ -656,7 +656,7 @@ Disabled because it kept raising a warning during init about markerp
     :custom
     (evil-fringe-mark-show-special t)
     :hook
-    (prog-mode . evil-fringe-mark-mode))
+    (prog-mode-hook . evil-fringe-mark-mode))
 #+end_src
 
 ** Visual marks
@@ -723,7 +723,7 @@ package isn't being maintained or something
     (:keymaps 'evil-latex-textobjects-outer-map
      "e" nil
      "E" 'evil-latex-textobjects-an-env)
-    :hook (LaTeX-mode . turn-on-evil-latex-textobjects-mode))
+    :hook (LaTeX-mode-hook . turn-on-evil-latex-textobjects-mode))
 #+end_src
 
 *** Surround text objects
@@ -933,7 +933,7 @@ Interesting Text Objects:
 #+begin_src emacs-lisp :results output silent
   (use-package evil-org
     :straight (:host github :repo "Somelauw/evil-org-mode")
-    :hook ((org-mode . evil-org-mode))
+    :hook ((org-mode-hook . evil-org-mode))
     :custom
     (evil-org-retain-visual-state-on-shift
      t "Let us chain < and > calls")
@@ -991,7 +991,7 @@ Interesting Text Objects:
     ;;   (interactive)
     ;;   (org-capture nil "d")
     ;; (evil-ex-define-cmd "todo" 'my-capture-daydream)
-    :hook (org-capture-mode . evil-insert-state)
+    :hook (org-capture-mode-hook . evil-insert-state)
     :init
     (defun my-counsel-org-capture ()
       (require 'org-capture)
@@ -1111,7 +1111,7 @@ For some reason we can't do this in the scratch buffer
   (use-package org-super-agenda
     :straight t
     :commands org-super-agenda-mode
-    :hook (org-agenda-mode . org-super-agenda-mode))
+    :hook (org-agenda-mode-hook . org-super-agenda-mode))
 #+end_src
 
 ** Org Src
@@ -1132,8 +1132,8 @@ language's mappings.
 #+begin_src emacs-lisp :results output silent
   (use-package org-download
     :straight (:host github :repo "abo-abo/org-download")
-    :hook ((dired-mode . org-download-enable)
-           (org-mode . org-download-enable)))
+    :hook ((dired-mode-hook . org-download-enable)
+           (org-mode-hook . org-download-enable)))
 #+end_src
 
 ** Worf
@@ -1264,7 +1264,7 @@ Currently disabled while we look at other, more maintained projects
   (use-package org-bullets
     :straight (:host github :repo "emacsorphanage/org-bullets")
     :disabled t ;; feels slower, might be expensive
-    :hook (org-mode . org-bullets-mode))
+    :hook (org-mode-hook . org-bullets-mode))
 #+end_src
 
 ** Export as epub
@@ -1335,7 +1335,7 @@ https://www.nongnu.org/org-edna-el/
 ** Org Roam
 #+begin_src emacs-lisp :results output silent
   (use-package org-roam
-    ;; :hook (org-mode . org-roam-mode)
+    ;; :hook (org-mode-hook . org-roam-mode)
     :straight (:host github :repo "jethrokuan/org-roam")
     :custom
     ;; DEBUG: Test
@@ -1349,7 +1349,7 @@ https://www.nongnu.org/org-edna-el/
 #+begin_src emacs-lisp :results output silent
   (use-package org-fragtog
     :straight (:host github :repo "io12/org-fragtog")
-    :hook (org-mode . org-fragtog-mode))
+    :hook (org-mode-hook . org-fragtog-mode))
 #+end_src
 
 * hl-todo
@@ -1358,7 +1358,7 @@ https://www.nongnu.org/org-edna-el/
     :diminish t
     :straight (:host github :repo "tarsius/hl-todo")
     :commands (hl-todo-mode)
-    :hook ((prog-mode  . hl-todo-mode)
+    :hook ((prog-mode-hook  . hl-todo-mode)
            (yaml-mode  . hl-todo-mode))
     :general
     ;; (:states 'normal
@@ -1476,7 +1476,7 @@ up, on windows at least).
      nil
      "`nice' does not exist on windows")
     :hook
-    (magit-status-mode . magit-todos-mode))
+    (magit-status-mode-hook . magit-todos-mode))
 #+end_src
 
 *** Magit github
@@ -1509,7 +1509,7 @@ up, on windows at least).
      "g h s"  'git-gutter+-stage-hunks
      "g h u"  'git-gutter+-revert-hunks
      "g h h"  'git-gutter+-show-hunk-inline-at-point)
-    :hook (prog-mode . git-gutter+-mode)
+    :hook (prog-mode-hook . git-gutter+-mode)
     :init
     (use-package git-gutter-fringe+
       :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus")
@@ -1783,8 +1783,8 @@ Solarized)
 #+begin_src emacs-lisp :results output silent
   (use-package aggressive-fill-paragraph
     :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode")
-    :hook (;; (org-mode . aggressive-fill-paragraph-mode)
-           (markdown-mode . aggressive-fill-paragraph-mode)))
+    :hook (;; (org-mode-hook . aggressive-fill-paragraph-mode)
+           (markdown-mode-hook . aggressive-fill-paragraph-mode)))
 #+end_src
 
 ** Aggressive Indent
@@ -1802,8 +1802,8 @@ Solarized)
     :commands (yas-minor-mode
                yas-expand-snippet)
     :hook
-    ((prog-mode . yas-minor-mode)
-     (org-mode . yas-minor-mode))
+    ((prog-mode-hook . yas-minor-mode)
+     (org-mode-hook . yas-minor-mode))
     :general
     (yas-keymap
      "C-j" 'yas-next-field-or-maybe-expand
@@ -1956,7 +1956,7 @@ Consider deprecating this now we're trying out prism
     :straight (:host github :repo "Fanael/rainbow-delimiters")
     :commands (rainbow-delimiters-mode)
     :custom (rainbow-delimiters-max-face-count 3)
-    :hook (prog-mode . rainbow-delimiters-mode))
+    :hook (prog-mode-hook . rainbow-delimiters-mode))
 #+end_src
 
 ** Rainbow Identifiers Mode
@@ -2005,7 +2005,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
                smartparens-global-mode)
     :hook
     ;; TODO: make this not just hooked on prog-mode
-    (prog-mode . (lambda () (interactive)
+    (prog-mode-hook . (lambda () (interactive)
                    (require 'smartparens-config) ;; load some default configurations
                    (require 'smartparens)))
     :general
@@ -2048,13 +2048,13 @@ package is known as elisp-mode but it reads as emacs-lisp
 #+begin_src emacs-lisp :results output silent
   (use-package elisp-mode
     :straight nil
-    :hook ((emacs-lisp-mode . prism-mode)
-           ;; (emacs-lisp-mode . rainbow-delimiters-mode)
-           (emacs-lisp-mode . parinfer-mode)
-           (emacs-lisp-mode . update-evil-shift-width)
-           (emacs-lisp-mode . evil-cleverparens-mode)
-           (emacs-lisp-mode . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
-           ;; (emacs-lisp-mode . (lambda ()
+    :hook ((emacs-lisp-mode-hook . prism-mode)
+           ;; (emacs-lisp-mode-hook . rainbow-delimiters-mode)
+           (emacs-lisp-mode-hook . parinfer-mode)
+           (emacs-lisp-mode-hook . update-evil-shift-width)
+           (emacs-lisp-mode-hook . evil-cleverparens-mode)
+           (emacs-lisp-mode-hook . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
+           ;; (emacs-lisp-mode-hook . (lambda ()
            ;;                      (mapc (lambda (pair) (push pair
            ;;                                            prettify-symbols-alist
            ;;                            '(("nil"      . #x2205)
@@ -2167,10 +2167,10 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
     :straight (:host github :repo "greghendershott/racket-mode")
     :commands (racket-mode)
     :mode "\\.rkt\\'"
-    :hook ((racket-mode . parinfer-mode)
-           ;; (racket-mode . rainbow-delimiters-mode)
-           (racket-mode . prism-mode)
-           (racket-mode . evil-cleverparens-mode))
+    :hook ((racket-mode-hook . parinfer-mode)
+           ;; (racket-mode-hook . rainbow-delimiters-mode)
+           (racket-mode-hook . prism-mode)
+           (racket-mode-hook . evil-cleverparens-mode))
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("rkt" . racket) org-src-lang-modes)))
@@ -2267,7 +2267,7 @@ containing a lot of files, and if the files are themselves large.
                aes-enable-auto-decryption
                aes-encrypt-buffer-or-string
                aes-decrypt-buffer-or-string)
-    :hook (change-major-mode . (lambda ()
+    :hook (change-major-mode-hook . (lambda ()
                                  (when (aes-is-encrypted)
                                    (auto-save-mode -1)
                                    (aes-toggle-encryption))))
@@ -2325,11 +2325,11 @@ clojurescript-mode derives from clojure-mode
     :straight (:host github :repo "clojure-emacs/clojure-mode")
     :commands (clojure-mode
                clojurescript-mode)
-    :hook ((clojure-mode . parinfer-mode)
-           ;; (clojure-mode . rainbow-delimiters-mode)
-           (clojure-mode . prism-mode)
-           (clojure-mode . update-evil-shift-width)
-           (clojure-mode . show-paren-mode))
+    :hook ((clojure-mode-hook . parinfer-mode)
+           ;; (clojure-mode-hook . rainbow-delimiters-mode)
+           (clojure-mode-hook . prism-mode)
+           (clojure-mode-hook . update-evil-shift-width)
+           (clojure-mode-hook . show-paren-mode))
     ;; :ensure-system-package
     ;; ((clj . "choco install -y clj")
     ;;  (lein . "choco install -y lein"))
@@ -2389,7 +2389,7 @@ Requires rust-mode and markdown-mode
     :straight (:host github :repo "kwrooijen/cargo.el")
     :diminish cargo-minor-mode
     :commands cargo-minor-mode
-    :hook (rust-mode . cargo-minor-mode))
+    :hook (rust-mode-hook . cargo-minor-mode))
     ;; :init
     ;; (evil-define-command my-cargo-wrapper (arg)
     ;;   (interactive "<a>")
@@ -2527,7 +2527,7 @@ package manager
     :mode "\\.json\\'"
     :commands (json-mode)
     :hook
-    (json-mode . prism-mode)
+    (json-mode-hook . prism-mode)
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("json" . json) org-src-lang-modes)))
@@ -2700,7 +2700,7 @@ r-value references.
     ;;          (expand-file-name ".clang-format"
     ;;                            (projectile-project-root)))
     ;;     (add-hook 'before-save-hook 'clang-format-buffer t t)))
-    ;; :hook (c++-mode . my-clang-format-before-save)
+    ;; :hook (c++-mode-hook . my-clang-format-before-save)
     :init
     (evil-define-operator my-evil-clang-format (beg end)
       (require 'clang-format)
@@ -2824,7 +2824,7 @@ TODO: migrate beancount.el into this.
     (:states 'normal
      "g z" 'writeroom-mode)
     :hook
-    ((writeroom-mode . (lambda () (require 'focus)
+    ((writeroom-mode-hook . (lambda () (require 'focus)
                          (if writeroom-mode
                              (progn (focus-init)
                                     (when display-line-numbers-mode
@@ -2904,7 +2904,7 @@ the thing, because that's what vim does.
                                     (my-buffer-specific-shell)))
     (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
     :hook
-    ((shell-mode . (lambda ()
+    ((shell-mode-hook . (lambda ()
                      (shell-dirtrack-mode 0)
                      (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
                      (dirtrack-mode 1)))))
@@ -2916,7 +2916,7 @@ the thing, because that's what vim does.
     :straight (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes")
     :mode (("\\.groovy\\'" . groovy-mode)
            ("\\Jenkinsfile\\'" . groovy-mode))
-    :hook ((groovy-mode . (lambda () (setq-local comment-start "// "))))
+    :hook ((groovy-mode-hook . (lambda () (setq-local comment-start "// "))))
     :init
     (with-eval-after-load 'org-src
         (cl-pushnew '("groovy" . groovy) org-src-lang-modes)))
@@ -2931,12 +2931,12 @@ the thing, because that's what vim does.
     (hy-mode-map
      :states 'insert
      "RET" 'comment-indent-new-line)
-    :hook ((hy-mode . parinfer-mode)
-           ;; (hy-mode . rainbow-delimiters-mode)
-           (hy-mode . prism-mode)
-           (hy-mode . update-evil-shift-width)
-           (hy-mode . evil-cleverparens-mode)
-           (hy-mode . show-paren-mode))
+    :hook ((hy-mode-hook . parinfer-mode)
+           ;; (hy-mode-hook . rainbow-delimiters-mode)
+           (hy-mode-hook . prism-mode)
+           (hy-mode-hook . update-evil-shift-width)
+           (hy-mode-hook . evil-cleverparens-mode)
+           (hy-mode-hook . show-paren-mode))
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("hy" . hy) org-src-lang-modes)))
@@ -3074,7 +3074,7 @@ the thing, because that's what vim does.
     :mode ("\\.yml\\'"
            "\\.yaml\\'")
     :hook
-    (yaml-mode . prism-whitespace-mode)
+    (yaml-mode-hook . prism-whitespace-mode)
     :general
     (yaml-mode-map
      "RET" 'newline-and-indent)
@@ -3112,14 +3112,14 @@ the thing, because that's what vim does.
     :mode ("\\cmakelists.txt\\'" . cmake-mode)
     :ensure t ;; the package is nested in the greater cmake repo, and
               ;; not practical to use straight on (yet)
-    :hook (cmake-mode . hl-todo-mode))
+    :hook (cmake-mode-hook . hl-todo-mode))
 #+end_src
 
 ** Cmake-font-lock
 #+begin_src emacs-lisp :results output silent
   (use-package cmake-font-lock
     :straight (:host github :repo "Lindydancer/cmake-font-lock")
-    :hook (cmake-mode . cmake-font-lock-activate))
+    :hook (cmake-mode-hook . cmake-font-lock-activate))
 #+end_src
 
 * TOML mode for org-src
@@ -3310,7 +3310,7 @@ Or evil-spongebob if you want to think of it that way.
      "g r"  'elfeed-search-fetch-visible
      "SPC"   nil
      "<SPC>" nil)
-    :hook (elfeed-show-mode . (lambda () (setq-local truncate-lines nil)))
+    :hook (elfeed-show-mode-hook . (lambda () (setq-local truncate-lines nil)))
     :init
     (evil-define-command my-custom-elfeed (cmd)
       (interactive "<a>")
@@ -3481,7 +3481,7 @@ now becomes too noisy.
          (counsel-etags-async-shell-command command tags-file)))
      "Assuming we use exuberant ctags. For some reason `projectile-project-root' binds to emacs.d.")
     :hook
-    (prog-mode . (lambda ()
+    (prog-mode-hook . (lambda ()
                    (add-hook 'after-save-hook
                              'counsel-etags-virtual-update-tags
                              'append 'local)))
@@ -3495,7 +3495,7 @@ now becomes too noisy.
     :straight (:host github :repo "jixiuf/ctags-update")
     :disabled t
     :hook
-    (prog-mode . turn-on-ctags-auto-update-mode)
+    (prog-mode-hook . turn-on-ctags-auto-update-mode)
     :commands (ctags-global-update-mode
                ctags-update
                turn-on-ctags-auto-update-mode))
@@ -3573,7 +3573,7 @@ Not tracking master because it's currently broken for some reason.
     :custom
     (company-idle-delay 2)
     :hook
-    (prog-mode . company-mode))
+    (prog-mode-hook . company-mode))
 #+end_src
 
 ** Statistics
@@ -3590,7 +3590,7 @@ Not tracking master because it's currently broken for some reason.
   (use-package flycheck
     :straight (:host github :repo "flycheck/flycheck")
     :hook
-    (prog-mode . global-flycheck-mode))
+    (prog-mode-hook . global-flycheck-mode))
 #+end_src
 
 * Language Server Protocol
@@ -3598,7 +3598,7 @@ Not tracking master because it's currently broken for some reason.
   (use-package lsp-mode
     :straight (:host github :repo "emacs-lsp/lsp-mode")
     :hook
-    (prog-mode . lsp-mode))
+    (prog-mode-hook . lsp-mode))
 #+end_src
 
 * Code Folding
@@ -3618,7 +3618,7 @@ Not tracking master because it's currently broken for some reason.
      "[z" 'origami-previous-fold
      "]z" 'origami-next-fold)
     :hook
-    (prog-mode . origami-mode)
+    (prog-mode-hook . origami-mode)
     :config
     (global-origami-mode))
 #+end_src
