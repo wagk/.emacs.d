@@ -186,7 +186,7 @@ Emulate the best feature of notepad
             "T"
             (format-time-string "%T")))
   (general-define-key
-   :states '(normal insert)
+   :states '(normal motion insert)
     "<f5>" '(lambda () (interactive)
               (if (eq major-mode 'org-mode)
                   (org-time-stamp-inactive '(16))
@@ -2245,7 +2245,7 @@ containing a lot of files, and if the files are themselves large.
       (deft-filter filter t)
       (deft))
     (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
-    (my-evil-define-split-vsplit-cmd "notes" 'deft)
+    (my-evil-define-split-vsplit-cmd "n[otes]" 'deft)
     (evil-ex-define-cmd "tn" '(lambda () (interactive)
                                 (funcall-interactively 'my-new-evil-tab nil)
                                 (deft)))
@@ -2769,8 +2769,18 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 #+end_src
 
 * Beancount
+It's a minor mode, much like how magit's commit mode is a minor mode
 #+begin_src emacs-lisp :results output silent
-  ;; (use-package beancount)
+  (use-package beancount
+    :straight nil
+    :ensure nil
+    :load-path "local-packages/"
+    ;; :general
+    ;; (beancount-mode-map
+    ;;  :states '(normal motion insert)
+    ;;  "<f5>" '(lambda () (interactive)
+    ;;            (insert (format-time-string "%Y-%m-%d"))))
+    :hook ((org-mode-hook . beancount-mode)))
 #+end_src
 
 * Hledger                                                             :major:
@@ -2778,12 +2788,6 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
   (use-package hledger-mode
     :straight (:host github :repo "narendraj9/hledger-mode")
     :mode "\\.journal\\'")
-#+end_src
-
-* Beancount
-TODO: migrate beancount.el into this.
-#+begin_src emacs-lisp :results output silent
-
 #+end_src
 
 * Abbreviations
@@ -3067,18 +3071,18 @@ the thing, because that's what vim does.
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (when (boundp 'my-notes-org-file)
-    (my-evil-define-split-vsplit-cmd "note[s]" #'(lambda () (find-file my-notes-org-file)))
-    ;; (evil-ex-define-cmd "notes" 'my-notes)
-    ;; (evil-ex-define-cmd "Snotes" '(lambda () (interactive)
-    ;;                                (call-interactively 'evil-window-split)
-    ;;                                (find-file my-notes-org-file)))
-    ;; (evil-ex-define-cmd "Vnotes" '(lambda () (interactive)
-    ;;                                (call-interactively 'evil-window-vsplit)
-    ;;                                (find-file my-notes-org-file)))
-    (evil-ex-define-cmd "Tnotes" '(lambda () (interactive)
-                                    (funcall-interactively
-                                     'my-new-evil-tab my-notes-org-file))))
+  ;; (when (boundp 'my-notes-org-file)
+  ;;   (my-evil-define-split-vsplit-cmd "note[s]" #'(lambda () (find-file my-notes-org-file)))
+  ;;   ;; (evil-ex-define-cmd "notes" 'my-notes)
+  ;;   ;; (evil-ex-define-cmd "Snotes" '(lambda () (interactive)
+  ;;   ;;                                (call-interactively 'evil-window-split)
+  ;;   ;;                                (find-file my-notes-org-file)))
+  ;;   ;; (evil-ex-define-cmd "Vnotes" '(lambda () (interactive)
+  ;;   ;;                                (call-interactively 'evil-window-vsplit)
+  ;;   ;;                                (find-file my-notes-org-file)))
+  ;;   (evil-ex-define-cmd "Tnotes" '(lambda () (interactive)
+  ;;                                   (funcall-interactively
+  ;;                                    'my-new-evil-tab my-notes-org-file))))
 #+end_src
 
 
