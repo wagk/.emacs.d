@@ -549,7 +549,7 @@ we're adding a custom function for it here."
     (add-hook 'org-mode-hook '(lambda ()
                                 (with-eval-after-load 'elec-pair
                                   (let ((org-pairs '((?= . ?=)
-                                                     (?/ . ?/)
+                                                     ;; (?/ . ?/)
                                                      (?* . ?*)
                                                      (?$ . ?$))))
                                     (setq-local electric-pair-pairs

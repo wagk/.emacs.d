@@ -2441,11 +2441,13 @@ Requires rust-mode and markdown-mode
 
 #+begin_src emacs-lisp :results output silent
   (use-package dired-hacks
+    :ensure nil
     :after dired
     :straight (:host github :repo "Fuco1/dired-hacks")
     :general
     (dired-mode-map
      :states 'normal
+      "TAB" 'dired-subtree-toggle
       "z a" 'dired-subtree-toggle
       "z o" 'dired-subtree-insert
       "z c" 'dired-subtree-remove))
