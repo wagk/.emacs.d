@@ -124,8 +124,7 @@ C-M-i                           backward-button
   (when (boundp 'config-local-syncthing-folder)
       (defconst my-notes-folder (-> config-local-syncthing-folder
                                     file-name-as-directory
-                                    (concat "notes")
-                                    file-name-as-directory))
+                                    (concat "notes")))
       (defconst my-todo-org-file (-> my-notes-folder
                                      file-name-as-directory
                                      (concat "/raw/agenda.org")))
@@ -694,6 +693,7 @@ interactive codes provided.
 #+begin_src emacs-lisp :results output silent
   (use-package evil-replace-with-register
     :straight (:host github :repo "Dewdrops/evil-ReplaceWithRegister")
+    :disabled t ;; don't use it
     :after evil
     :config
     (evil-replace-with-register-install))
@@ -1085,25 +1085,21 @@ For some reason we can't do this in the scratch buffer
     (with-eval-after-load 'evil-org
       (require 'evil-org-agenda)
       (evil-org-agenda-set-keys))
-    ;; (with-eval-after-load 'deft
-    ;;   (customize-set-variable 'org-agenda-files
-    ;;                           (add-to-list 'org-agenda-files
-    ;;                                        deft-directory)))
-    ;; (when (boundp 'config-local-dropbox-folder)
-    ;;   (let ((todo (f-join config-local-dropbox-folder "todo.org")))
-    ;;     (when (f-exists-p todo)
-    ;;       (customize-set-variable 'org-agenda-files
-    ;;                               (add-to-list 'org-agenda-files todo)))))
-    (when (boundp 'config-local-syncthing-folder)
-      (when (f-exists-p my-todo-org-file)
-        (customize-set-variable 'org-agenda-files
-                                (add-to-list 'org-agenda-files
-                                             my-todo-org-file))))
+    (when (and (boundp 'config-local-syncthing-folder)
+               (f-exists-p my-notes-folder))
+      (require 'dash) ;; -concat
+      (customize-set-variable 'org-agenda-files
+                              (-concat org-agenda-files
+                                       (directory-files-recursively
+                                        my-notes-folder "\.org$"))))
+
     (my-evil-define-split-vsplit-cmd "agenda" #'org-agenda)
     (with-eval-after-load 'eyebrowse
-      (evil-ex-define-cmd "Tagenda" #'(lambda () (interactive)
-                                    (my-new-evil-tab nil)
-                                    (funcall-interactively #'org-agenda)))))
+      (evil-ex-define-cmd "Tagenda"
+                          #'(lambda () (interactive)
+                              (my-new-evil-tab nil)
+                              (funcall-interactively
+                               #'org-agenda)))))
 #+end_src
 
 *** Super agenda
@@ -1311,6 +1307,7 @@ https://www.nongnu.org/org-edna-el/
 #+begin_src emacs-lisp :results output silent
   (use-package org-edna
     :straight (org-edna)
+    :disabled t ;; re-enable once I'm better at org
     :after org
     :config
     (org-edna-load))
@@ -1482,7 +1479,8 @@ up, on windows at least).
 *** Magit github
 #+begin_src emacs-lisp :results output silent
   (use-package forge
-    :straight t)
+    :straight t
+    :after magit)
 #+end_src
 
 ** Git-Link
@@ -3331,11 +3329,10 @@ Or evil-spongebob if you want to think of it that way.
     :init
     (evil-define-command my-custom-elfeed (cmd)
       (interactive "<a>")
-      (require 'elfeed)
       (cond
        ((string= cmd "feeds") (find-user-rss-feed-file))
        ((string= cmd "reload") (reload-rss-feed-file))
-       ((string= cmd "log") (switch-to-buffer (elfeed-log-buffer)))
+       ;; ((string= cmd "log") (switch-to-buffer (elfeed-log-buffer)))
        (t (elfeed))))
     (evil-ex-define-cmd "el[feed]" 'my-custom-elfeed))
 #+end_src
