@@ -3322,6 +3322,8 @@ Or evil-spongebob if you want to think of it that way.
               (interactive)
               (let ((browse-url-browser-function 'eww-browse-url))
                 (elfeed-show-visit t)))
+      "f" 'link-hint-open-link
+      "y" 'link-hint-copy-link
       "SPC"   nil
       "<SPC>" nil)
     (elfeed-search-mode-map
