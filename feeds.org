@@ -43,6 +43,8 @@ Worldbuilding and warfare.
 
 *** [[https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine.rss][Matt Levine Money Stuff]]
 
+*** [[https://joy.recurse.com/feed.atom][Recurse]]
+
 ** News                                                               :news:
 *** Channel News Asia
 **** [[https://www.channelnewsasia.com/rssfeeds/8395744][Channel News Asia (Asia)]]                                       :asia:
