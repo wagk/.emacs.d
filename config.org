@@ -2772,13 +2772,14 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     :ensure nil
     :load-path "local-packages/"
     :custom
-    (beancount-mode-map-prefix [(control c) (control b)])
+    (beancount-mode-map-prefix [(control c) (control b)]))
     ;; :general
     ;; (beancount-mode-map
     ;;  :states '(normal motion insert)
     ;;  "<f5>" '(lambda () (interactive)
     ;;            (insert (format-time-string "%Y-%m-%d"))))
-    :hook ((org-mode-hook . beancount-mode)))
+    ;; causing fontification errors
+    ;; :hook ((org-mode-hook . beancount-mode)))
 #+end_src
 
 * Hledger                                                             :major:
