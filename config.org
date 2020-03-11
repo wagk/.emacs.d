@@ -123,14 +123,11 @@ C-M-i                           backward-button
 #+begin_src emacs-lisp :results output silent
   (when (boundp 'config-local-syncthing-folder)
       (defconst my-notes-folder (-> config-local-syncthing-folder
-                                    file-name-as-directory
-                                    (concat "notes")))
+                                    (f-join "notes")))
       (defconst my-todo-org-file (-> my-notes-folder
-                                     file-name-as-directory
-                                     (concat "/raw/agenda.org")))
+                                     (f-join "raw" "agenda.org")))
       (defconst my-notes-org-file (-> my-notes-folder
-                                      file-name-as-directory
-                                      (concat "/raw/notes.org")))
+                                      (f-join "raw" "notes.org")))
       (defun find-user-syncthing-folder ()
         (interactive)
         (dired config-local-syncthing-folder)))
@@ -1185,13 +1182,13 @@ Currently disabled while we look at other, more maintained projects
                counsel-brain
                org-brain-switch-brain)
     :custom
-    (org-brain-path (concat config-local-syncthing-folder "/wiki"))
+    (org-brain-path (f-join config-local-syncthing-folder "wiki"))
     ;; (org-brain-show-resources
     ;;  nil
     ;;  "https://github.com/Kungsgeten/org-brain/pull/203 I don't really
     ;;  use attachments either way so this does not affect me")
     ;; because we don't enter visualize-mode in normal state
-    :hook ((org-brain-visualize-text . evil-ex-nohighlight))
+    :hook ((org-brain-visualize-text-hook . evil-ex-nohighlight))
     :general
     (org-brain-visualize-mode-map
      "SPC"        nil
@@ -1356,7 +1353,7 @@ https://www.nongnu.org/org-edna-el/
     :straight (:host github :repo "tarsius/hl-todo")
     :commands (hl-todo-mode)
     :hook ((prog-mode-hook  . hl-todo-mode)
-           (yaml-mode  . hl-todo-mode))
+           (yaml-mode-hook  . hl-todo-mode))
     :general
     ;; (:states 'normal
     ;;  :prefix my-default-evil-leader-key
@@ -1438,8 +1435,8 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
        (t (magit-shell-command (concat "git " cmd)))))
     (evil-ex-define-cmd "git" 'ex-magit-cli)
     (evil-ex-define-cmd "gg" 'ex-magit-cli)
-    :hook ((git-commit-setup . aggressive-fill-paragraph-mode)
-           (git-commit-setup . markdown-mode)))
+    :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
+           (git-commit-setup-hook . markdown-mode)))
 #+end_src
 
 *** Evil bindings
@@ -2234,8 +2231,7 @@ containing a lot of files, and if the files are themselves large.
      :states  'insert
      "C-w"    'deft-filter-decrement-word
      "C-u"    'deft-filter-clear)
-    :hook ((deft-open-file . org-mode)
-           (deft-mode-hook . deft-refresh)
+    :hook ((deft-mode-hook . deft-refresh)
            (deft-mode-hook . evil-insert-state))
     :init
     (evil-define-command ex-deft-forwarding-arg (filter)
@@ -2775,6 +2771,8 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     :straight nil
     :ensure nil
     :load-path "local-packages/"
+    :custom
+    (beancount-mode-map-prefix [(control c) (control b)])
     ;; :general
     ;; (beancount-mode-map
     ;;  :states '(normal motion insert)
@@ -3107,22 +3105,22 @@ the thing, because that's what vim does.
 #+begin_src emacs-lisp :results output silent
   (use-package org-journal
     :straight (:host github :repo "bastibe/org-journal")
-    :if (boundp 'config-local-syncthing-folder)
+    :if (boundp 'my-notes-folder)
     :commands org-journal-new-entry
     :custom
     (org-journal-time-format "%R ")
     (org-journal-date-format "%F, %A")
-    (org-journal-file-type 'monthly)
-    ;; (org-journal-file-format "%F" "Lets follow the ISO standard")
+    (org-journal-file-type 'daily)
+    (org-journal-file-format "%Y-%m-%d" "Lets follow the ISO standard")
     :init
     (evil-ex-define-cmd "journal" #'(lambda () (interactive)
                                       (org-journal-new-entry t)))
     (evil-ex-define-cmd "jj" 'org-journal-new-entry)
-    (customize-set-variable 'org-journal-dir (file-name-as-directory
-                                              (concat config-local-syncthing-folder "/notes/journal")))
+    (customize-set-variable 'org-journal-dir (-> my-notes-folder
+                                                 (f-join "day")))
     :hook
-    ((org-journal-after-entry-create . evil-insert-state)))
-  ;; (org-journal-after-entry-create . toggle-rot13-mode)))
+    ((org-journal-after-entry-create-hook . evil-insert-state)))
+  ;; (org-journal-after-entry-create-hook . toggle-rot13-mode)))
 #+end_src
 
 * Cmake
@@ -3720,11 +3718,17 @@ Converts between camelCase and snake_case visually, without changing
 the underlying format
 * Hexl-mode
 
-* Fill Column Indicator
+* Fill Column Indicator (fci)
+
 #+begin_src emacs-lisp :results output silent
   (use-package fill-column-indicator
     :straight (:host github :repo "alpaker/fill-column-indicator")
-    :commands (fci-mode))
+    :commands (fci-mode)
+    :custom
+    (fci-rule-use-dashes t)
+    (fci-always-use-textual-rule t)
+    :hook
+    (prog-mode-hook . fci-mode))
 #+end_src
 
 * Devdocs
