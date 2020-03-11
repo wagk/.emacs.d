@@ -2232,7 +2232,7 @@ containing a lot of files, and if the files are themselves large.
      :states  'insert
      "C-w"    'deft-filter-decrement-word
      "C-u"    'deft-filter-clear)
-    :hook ((deft-mode-hook . deft-refresh)
+    :hook ((deft-mode-hook . deft-filter-clear)
            (deft-mode-hook . evil-insert-state))
     :init
     (evil-define-command ex-deft-forwarding-arg (filter)
