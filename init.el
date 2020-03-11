@@ -491,11 +491,11 @@ we're adding a custom function for it here."
      nil "Same reason as `org-enforce-todo-checkbox-dependencies'")
     (org-pretty-entities
      nil "It gets a bit annoying when you autocomplete braces")
-    (org-log-done       'time)
+    (org-log-done 'time)
     (org-log-note-clock-out t)
     (org-log-redeadline 'time)
     (org-log-reschedule 'time)
-    (org-blank-before-new-entry '((heading         . t)
+    (org-blank-before-new-entry '((heading . t)
                                   (plain-list-item . nil)))
     (org-refile-targets '((nil . (:maxlevel . 9))))
     (org-refile-use-outline-path t)

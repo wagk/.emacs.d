@@ -3114,7 +3114,7 @@ the thing, because that's what vim does.
     (org-journal-time-format "%R ")
     (org-journal-date-format "%F, %A")
     (org-journal-file-type 'daily)
-    (org-journal-file-format "%Y-%m-%d" "Lets follow the ISO standard")
+    (org-journal-file-format "%Y-%m-%d.org" "Lets follow the ISO standard")
     :init
     (evil-ex-define-cmd "journal" #'(lambda () (interactive)
                                       (org-journal-new-entry t)))
