@@ -1299,6 +1299,15 @@ Needs a working =zip= exe.
       (org-display-inline-images)
       filename))
 #+end_src
+
+#+begin_src emacs-lisp :results output
+  (general-define-key
+   :keymaps 'org-mode-map
+   :states '(normal)
+   :prefix my-default-evil-leader-key
+   "o p" 'my-org-paste-clipboard-screenshot)
+#+end_src
+
 ** Org Edna
 https://www.nongnu.org/org-edna-el/
 #+begin_src emacs-lisp :results output silent
@@ -1310,14 +1319,6 @@ https://www.nongnu.org/org-edna-el/
     (org-edna-load))
 #+end_src
 
-
-#+begin_src emacs-lisp :results output silent
-  (general-define-key
-   :keymaps 'org-mode-map
-   :states '(normal)
-   :prefix my-default-evil-leader-key
-   "o p" 'my-org-paste-clipboard-screenshot)
-#+end_src
 
 ** Org Om
 #+begin_src emacs-lisp :results output silent
@@ -2622,6 +2623,8 @@ filters*.
     :custom
     (rg-ignore-case 'smart)
     (rg-keymap-prefix "")
+    (rg-default-alias-fallback "everything")
+    (rg-buffer-name '(lambda () (format "*rg<%s>*" (buffer-name))))
     :general
     (rg-mode-map
      :states '(motion normal)
@@ -2909,8 +2912,7 @@ the thing, because that's what vim does.
     :init
     (defun my-buffer-specific-shell ()
       (interactive)
-      (let ((name (-> (buffer-name)
-                      (concat "-*shell*"))))
+      (let ((name (format "*shell<%s>*" (buffer-name))))
         (shell name)))
     (evil-ex-define-cmd "sh[ell]" '(lambda () (interactive)
                                      (my-buffer-specific-shell)))
@@ -2923,9 +2925,9 @@ the thing, because that's what vim does.
     (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
     :hook
     ((shell-mode-hook . (lambda ()
-                     (shell-dirtrack-mode 0)
-                     (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
-                     (dirtrack-mode 1)))))
+                          (shell-dirtrack-mode 0)
+                          (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
+                          (dirtrack-mode 1)))))
 #+end_src
 
 * Groovy mode                                                         :major:
