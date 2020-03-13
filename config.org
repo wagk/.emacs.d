@@ -1948,11 +1948,10 @@ Consider deprecating this now we're trying out prism
 
 #+begin_src emacs-lisp :results output silent
   (use-package rainbow-delimiters
-    :disabled t
     :straight (:host github :repo "Fanael/rainbow-delimiters")
     :commands (rainbow-delimiters-mode)
-    :custom (rainbow-delimiters-max-face-count 3)
-    :hook (prog-mode-hook . rainbow-delimiters-mode))
+    :custom (rainbow-delimiters-max-face-count 3))
+    ;; :hook (prog-mode-hook . rainbow-delimiters-mode))
 #+end_src
 
 ** Rainbow Identifiers Mode
@@ -3104,7 +3103,7 @@ the thing, because that's what vim does.
       (cl-pushnew '("yaml" . yaml) org-src-lang-modes)))
 #+end_src
 
-* Journal
+* Journal (Org Journal)
 #+begin_src emacs-lisp :results output silent
   (use-package org-journal
     :straight (:host github :repo "bastibe/org-journal")
@@ -4008,4 +4007,14 @@ Note that =customize-set-variable= is like =setq-default=.
                               (require 'eyebrowse)
                               (let ((eyebrowse-new-workspace "*dashboard*"))
                                 (eyebrowse-create-window-config))))))
+#+end_src
+
+* Highlight Indent Guides
+#+begin_src emacs-lisp :results output silent
+  (use-package highlight-indent-guides
+    :straight t
+    :commands (highlight-indent-guides-mode)
+    :custom
+    (highlight-indent-guides-method 'character)
+    (highlight-indent-guides-character ?\|))
 #+end_src

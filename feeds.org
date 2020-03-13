@@ -341,6 +341,9 @@ Worldbuilding and warfare.
 *** [[https://motheroflearninguniverse.wordpress.com/feed/][Mother of Learning (Worldbuilding)]]
 *** [[https://practicalguidetoevil.wordpress.com/feed/][A Practical Guide to Evil]]
 
+** Blogs
+*** [[https://terrytao.wordpress.com/feed/][Terrence Tao]]
+
 ** Computer Science                                                :compsci:
 *** [[http://www.drdobbs.com/rss/all][Dr. Dobb's All]]
 
