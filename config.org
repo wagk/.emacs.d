@@ -268,7 +268,7 @@ Emulate the best feature of notepad
   (general-define-key
    :states 'normal
    :prefix my-default-evil-leader-key
-    "," 'whitespace-mode)
+    "." 'whitespace-mode)
 #+end_src
 
 ** After creating a new frame, immediately focus on that frame.
@@ -1779,6 +1779,10 @@ Solarized)
 #+begin_src emacs-lisp :results output silent
   (use-package aggressive-fill-paragraph
     :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode")
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "=" 'aggressive-fill-paragraph-mode)
     :hook (;; (org-mode-hook . aggressive-fill-paragraph-mode)
            (markdown-mode-hook . aggressive-fill-paragraph-mode)))
 #+end_src
@@ -2648,7 +2652,17 @@ filters*.
       "Uses the everything filter for project searches"
       :files "everything"
       :dir project
-      :menu ("Custom" "e" "Unfiltered Project")))
+      :menu ("Custom" "e" "Unfiltered Project"))
+    (with-eval-after-load 'hl-todo
+      (rg-define-search search-hl-todo-keywords
+        "Uses the everything filter for project searches"
+        :query (-> (mapcar 'car hl-todo-keyword-faces)
+                   (string-join "|"))
+        :format regexp
+        :files "everything" ;; make this "all" maybe?
+        :dir project
+        :menu ("Custom" "hl" "`hl-todo' Keywords"))
+      (evil-ex-define-cmd "hl-todo" 'search-hl-todo-keywords)))
 #+end_src
 * C++
 ** Indentation of 4
@@ -4017,4 +4031,11 @@ Note that =customize-set-variable= is like =setq-default=.
     :custom
     (highlight-indent-guides-method 'character)
     (highlight-indent-guides-character ?\|))
+#+end_src
+
+* EditorConfig
+#+begin_src emacs-lisp :results output silent
+  (use-package editorconfig
+    :hook
+    (prog-mode-hook . editorconfig-mode))
 #+end_src
