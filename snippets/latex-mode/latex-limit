@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
 # name: latex-limit
-# key: \lim
+# key: lim
+# condition: (if (eq major-mode 'org-mode) (org-inside-LaTeX-fragment-p) t)
 # --
 \lim_{$1} $0

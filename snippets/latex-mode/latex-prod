@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
 # name: latex-prod
-# key: \prod
+# key: prod
+# condition: (if (eq major-mode 'org-mode) (org-inside-LaTeX-fragment-p) t)
 # --
 \prod_{$1}^{$2}$0

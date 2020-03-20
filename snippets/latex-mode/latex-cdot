@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# key: ...
-# name: latex-dots
+# key: .
+# name: latex-cdot
 # condition: (if (eq major-mode 'org-mode) (org-inside-LaTeX-fragment-p) t)
 # --
-\dots$0
+\cdot$0

@@ -1432,6 +1432,8 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
       "Calls specific magit functions"
       (interactive "<a>")
       (cond
+       ((eq cmd "repo") (progn (require 'git-link)
+                               (git-link-homepage)))
        ((eq cmd nil) (magit-status))
        (t (magit-shell-command (concat "git " cmd)))))
     (evil-ex-define-cmd "git" 'ex-magit-cli)
@@ -1470,6 +1472,10 @@ up, on windows at least).
     (magit-todos-nice
      nil
      "`nice' does not exist on windows")
+    :general
+    (magit-todos-item-section-map
+     "j T" nil
+     "j l" nil)
     :hook
     (magit-status-mode-hook . magit-todos-mode))
 #+end_src

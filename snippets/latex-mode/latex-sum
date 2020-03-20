@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
 # name: latex-sum
-# key: \sum
+# key: sum
+# condition: (if (eq major-mode 'org-mode) (org-inside-LaTeX-fragment-p) t)
 # --
 \sum_{$1}^{$2} $0
