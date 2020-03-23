@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: groovy-multiline-comment
+# key: d
+# --
+/* $0 */

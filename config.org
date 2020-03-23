@@ -1785,10 +1785,11 @@ Solarized)
 #+begin_src emacs-lisp :results output silent
   (use-package aggressive-fill-paragraph
     :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode")
+    :commands (aggressive-fill-paragraph-mode)
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
-     "=" 'aggressive-fill-paragraph-mode)
+     "g w" 'aggressive-fill-paragraph-mode)
     :hook (;; (org-mode-hook . aggressive-fill-paragraph-mode)
            (markdown-mode-hook . aggressive-fill-paragraph-mode)))
 #+end_src
@@ -1797,7 +1798,11 @@ Solarized)
 #+begin_src emacs-lisp :results output silent
   (use-package aggressive-indent
     :straight (:host github :repo "malabarba/aggressive-indent-mode")
-    :commands (aggressive-indent-mode))
+    :commands (aggressive-indent-mode)
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "=" 'aggressive-indent-mode))
 #+end_src
 
 ** Yasnippet
