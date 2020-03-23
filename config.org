@@ -84,35 +84,35 @@ C-M-i                           backward-button
 <normal-state> g l              debugger-list-functions
 
 * Utility Libraries
-** Dash
-#+begin_src emacs-lisp :results output silent
-  (use-package dash
-    :straight t)
-#+end_src
+# ** Dash
+# #+begin_src emacs-lisp :results output silent
+#   (use-package dash
+#     :straight t)
+# #+end_src
 
-** File manipulation
-#+begin_src emacs-lisp :results output silent
-  (use-package f
-    :straight t)
-#+end_src
+# ** File manipulation
+# #+begin_src emacs-lisp :results output silent
+#   (use-package f
+#     :straight t)
+# #+end_src
 
-** String manipulation
-#+begin_src emacs-lisp :results output silent
-  (use-package s
-    :straight t)
-#+end_src
+# ** String manipulation
+# #+begin_src emacs-lisp :results output silent
+#   (use-package s
+#     :straight t)
+# #+end_src
 
-** Hash table manipulation
-#+begin_src emacs-lisp :results output silent
-  (use-package ht
-    :straight t)
-#+end_src
+# ** Hash table manipulation
+# #+begin_src emacs-lisp :results output silent
+#   (use-package ht
+#     :straight t)
+# #+end_src
 
-** Time manipulation
-#+begin_src emacs-lisp :results output silent
-  (use-package ts
-    :straight t)
-#+end_src
+# ** Time manipulation
+# #+begin_src emacs-lisp :results output silent
+#   (use-package ts
+#     :straight t)
+# #+end_src
 * Check for local.el defines
 #+begin_src emacs-lisp :results output silent
   (unless (boundp 'config-local-syncthing-folder)
