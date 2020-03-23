@@ -84,35 +84,35 @@ C-M-i                           backward-button
 <normal-state> g l              debugger-list-functions
 
 * Utility Libraries
-** Dash
-#+begin_src emacs-lisp :results output silent
-  (use-package dash
-    :straight t)
-#+end_src
+# ** Dash
+# #+begin_src emacs-lisp :results output silent
+#   (use-package dash
+#     :straight t)
+# #+end_src
 
-** File manipulation
-#+begin_src emacs-lisp :results output silent
-  (use-package f
-    :straight t)
-#+end_src
+# ** File manipulation
+# #+begin_src emacs-lisp :results output silent
+#   (use-package f
+#     :straight t)
+# #+end_src
 
-** String manipulation
-#+begin_src emacs-lisp :results output silent
-  (use-package s
-    :straight t)
-#+end_src
+# ** String manipulation
+# #+begin_src emacs-lisp :results output silent
+#   (use-package s
+#     :straight t)
+# #+end_src
 
-** Hash table manipulation
-#+begin_src emacs-lisp :results output silent
-  (use-package ht
-    :straight t)
-#+end_src
+# ** Hash table manipulation
+# #+begin_src emacs-lisp :results output silent
+#   (use-package ht
+#     :straight t)
+# #+end_src
 
-** Time manipulation
-#+begin_src emacs-lisp :results output silent
-  (use-package ts
-    :straight t)
-#+end_src
+# ** Time manipulation
+# #+begin_src emacs-lisp :results output silent
+#   (use-package ts
+#     :straight t)
+# #+end_src
 * Check for local.el defines
 #+begin_src emacs-lisp :results output silent
   (unless (boundp 'config-local-syncthing-folder)
@@ -1785,10 +1785,11 @@ Solarized)
 #+begin_src emacs-lisp :results output silent
   (use-package aggressive-fill-paragraph
     :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode")
+    :commands (aggressive-fill-paragraph-mode)
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
-     "=" 'aggressive-fill-paragraph-mode)
+     "g w" 'aggressive-fill-paragraph-mode)
     :hook (;; (org-mode-hook . aggressive-fill-paragraph-mode)
            (markdown-mode-hook . aggressive-fill-paragraph-mode)))
 #+end_src
@@ -1797,7 +1798,13 @@ Solarized)
 #+begin_src emacs-lisp :results output silent
   (use-package aggressive-indent
     :straight (:host github :repo "malabarba/aggressive-indent-mode")
-    :commands (aggressive-indent-mode))
+    :commands (aggressive-indent-mode)
+    :custom
+    (aggressive-indent-comments-too t)
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "=" 'aggressive-indent-mode))
 #+end_src
 
 ** Yasnippet

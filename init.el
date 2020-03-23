@@ -223,6 +223,21 @@ recovery. Maybe eventually load dependencies and all that."
      disabled before even loading evil, see
      https://github.com/emacs-evil/evil-collection/issues/60")
 
+  (use-package dash
+    :straight t)
+
+  (use-package f
+    :straight t)
+
+  (use-package s
+    :straight t)
+
+  (use-package ht
+    :straight t)
+
+  (use-package ts
+    :straight t)
+
 ;;; Evil-mode
   (use-package evil
     :demand t
