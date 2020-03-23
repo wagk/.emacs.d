@@ -1799,6 +1799,8 @@ Solarized)
   (use-package aggressive-indent
     :straight (:host github :repo "malabarba/aggressive-indent-mode")
     :commands (aggressive-indent-mode)
+    :custom
+    (aggressive-indent-comments-too t)
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
