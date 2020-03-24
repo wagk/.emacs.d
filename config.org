@@ -4052,3 +4052,10 @@ Note that =customize-set-variable= is like =setq-default=.
     :hook
     (prog-mode-hook . editorconfig-mode))
 #+end_src
+
+* Web mode
+#+begin_src emacs-lisp :results output silent
+  (use-package web-mode
+    :straight t
+    :commands web-mode)
+#+end_src
