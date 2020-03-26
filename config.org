@@ -1007,6 +1007,12 @@ Interesting Text Objects:
     ;;                 (if eyebrowse-mode
     ;;                     (eyebrowse-mode -1)
     ;;                   (eyebrowse-mode)))))
+    (with-eval-after-load 'counsel
+      ;; Remove ^ prefix in ivy org capture
+      (require 'dash)
+      (customize-set-variable 'ivy-initial-inputs-alist
+                              (-remove (lambda (e) (eq (car e) 'counsel-org-capture))
+                                       ivy-initial-inputs-alist)))
     (when (boundp 'my-todo-org-file)
       ;; (doct `(("Personal"
       ;;          :file ,my-todo-org-file
@@ -1015,14 +1021,14 @@ Interesting Text Objects:
       ;;          :children ("TODO"
       ;;                     :keys "t"
       ;;                     :todo-state "TODO"))))
-      (add-to-list 'org-capture-templates
-                   `("tt" "Personal Todo" entry
-                     (file ,my-todo-org-file)
-                     ,(concat "* TODO %^{DESCRIPTION} %^g \n"
-                              ":PROPERTIES:\n"
-                              ":CREATED:  %U\n" ;; captured as property TIMESTAMP
-                              ":END:\n"
-                              "%?")))
+      ;; (add-to-list 'org-capture-templates
+      ;;              `("tt" "Personal Todo" entry
+      ;;                (file ,my-todo-org-file)
+      ;;                ,(concat "* TODO %^{DESCRIPTION} %^g \n"
+      ;;                         ":PROPERTIES:\n"
+      ;;                         ":CREATED:  %U\n" ;; captured as property TIMESTAMP
+      ;;                         ":END:\n"
+      ;;                         "%?")))
       (add-to-list 'org-capture-templates
                    `("nn" "Personal Note" entry
                      (file ,my-notes-org-file)
