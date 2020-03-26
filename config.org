@@ -3146,16 +3146,25 @@ the thing, because that's what vim does.
     (org-journal-time-format "%R ")
     (org-journal-date-format "%F, %A")
     (org-journal-file-type 'daily)
-    (org-journal-file-format "%Y-%m-%d.org" "Lets follow the ISO standard")
+    (org-journal-file-format "%Y-%m-%d.org"
+                             "Lets follow the ISO standard")
     :init
     (evil-ex-define-cmd "journal" #'(lambda () (interactive)
                                       (org-journal-new-entry t)))
     (evil-ex-define-cmd "jj" 'org-journal-new-entry)
-    (customize-set-variable 'org-journal-dir (-> my-notes-folder
-                                                 (f-join "day")))
+    (customize-set-variable 'org-journal-dir (f-join my-notes-folder
+                                                     "day"))
     :hook
-    ((org-journal-after-entry-create-hook . evil-insert-state)))
-  ;; (org-journal-after-entry-create-hook . toggle-rot13-mode)))
+    ((org-journal-after-entry-create-hook . evil-insert-state))
+    :config
+    (with-eval-after-load 'org-capture
+      (defun my-org-journal-find-location ()
+        (org-journal-new-entry t)
+        (goto-char (point-min)))
+      (add-to-list 'org-capture-templates
+                   '("jj" "Personal Journal Entry" entry
+                     (function my-org-journal-find-location)
+                     "* %(format-time-string org-journal-time-format)%?"))))
 #+end_src
 
 * Cmake
@@ -4049,7 +4058,11 @@ Note that =customize-set-variable= is like =setq-default=.
     :commands (highlight-indent-guides-mode)
     :custom
     (highlight-indent-guides-method 'character)
-    (highlight-indent-guides-character ?\|))
+    (highlight-indent-guides-character ?\|)
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "|" 'highlight-indent-guides-mode))
 #+end_src
 
 * EditorConfig

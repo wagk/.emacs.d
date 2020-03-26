@@ -11,7 +11,9 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -21,9 +23,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -194,8 +200,8 @@
     ("abstraciton" "abstraction" nil 1)
     ("acocunt" "account" nil 1)
     ("additioanl" "additional" nil 1)
-    ("adn" "and" nil 34)
-    ("ahve" "have" nil 7)
+    ("adn" "and" nil 35)
+    ("ahve" "have" nil 8)
     ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
     ("alows" "allows" nil 1)
@@ -262,7 +268,7 @@
     ("clinet" "client" nil 2)
     ("cloine" "clone" nil 9)
     ("closeing" "closing" nil 1)
-    ("cna" "can" nil 10)
+    ("cna" "can" nil 11)
     ("commadn" "command" nil 4)
     ("commadns" "commands" nil 1)
     ("communicaiton" "communication" nil 1)
@@ -321,11 +327,12 @@
     ("elemtn" "element" nil 1)
     ("elme" "elem" nil 2)
     ("endpoiint" "endpoint" nil 1)
-    ("ensrue" "ensure" nil 1)
+    ("ensrue" "ensure" nil 2)
     ("eoms" "some" nil 1)
     ("eqausl" "equals" nil 1)
     ("erhaps" "perhaps" nil 1)
     ("estabilhs" "establish" nil 2)
+    ("establihsment" "establishment" nil 1)
     ("excceeding" "exceeding" nil 1)
     ("existinig" "existing" nil 1)
     ("exmaples" "examples" nil 1)
@@ -339,7 +346,7 @@
     ("fiels" "files" nil 5)
     ("fien" "fine" nil 1)
     ("finalncial" "financial" nil 1)
-    ("fo" "of" nil 102)
+    ("fo" "of" nil 103)
     ("foer" "for" nil 1)
     ("folliwng" "following" nil 2)
     ("folloiwng" "following" nil 1)
@@ -473,7 +480,7 @@
     ("opne" "open" nil 1)
     ("oruters" "routers" nil 2)
     ("osmething" "something" nil 1)
-    ("ot" "to" nil 39)
+    ("ot" "to" nil 40)
     ("otu" "out" nil 1)
     ("owuld" "would" nil 3)
     ("packats" "packets" nil 1)
@@ -573,7 +580,7 @@
     ("tempalte" "template" nil 2)
     ("tempaltes" "templates" nil 1)
     ("temporarrily" "temporarily" nil 1)
-    ("th" "the" nil 4)
+    ("th" "the" nil 5)
     ("thaat" "that" nil 1)
     ("thaty" "that" nil 2)
     ("theri" "their" nil 2)
@@ -678,7 +685,9 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -760,7 +769,9 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -784,7 +795,9 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
@@ -804,7 +817,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
