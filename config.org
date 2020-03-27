@@ -871,6 +871,13 @@ This is an expensive package to load, and I wonder why.
      "K" 'evil-textobj-column-WORD))
 #+end_src
 
+*** XML Attributes
+#+begin_src emacs-lisp :results output silent
+  (use-package exato
+    :straight t
+    :after evil)
+#+end_src
+
 ** Unimpaired port
 #+begin_src emacs-lisp :results output silent
   (use-package evil-unimpaired
@@ -1029,6 +1036,16 @@ Interesting Text Objects:
       ;;                         ":CREATED:  %U\n" ;; captured as property TIMESTAMP
       ;;                         ":END:\n"
       ;;                         "%?")))
+      ;; (add-to-list 'org-capture-templates
+      ;;   (doct `(("Personal Note Test"
+      ;;            :keys "nt"
+      ;;            :file ,my-notes-org-file
+      ;;            :type entry
+      ;;            :template ("* %^{DESCRIPTION} %^g"
+      ;;                       ":PROPERTIES:"
+      ;;                       ":CREATED: %U" ;; captured as property TIMESTAMP
+      ;;                       ":END:"
+      ;;                       "%?")))))
       (add-to-list 'org-capture-templates
                    `("nn" "Personal Note" entry
                      (file ,my-notes-org-file)
@@ -1340,10 +1357,7 @@ https://www.nongnu.org/org-edna-el/
     :straight (:host github :repo "jethrokuan/org-roam")
     :custom
     ;; DEBUG: Test
-    (org-roam-directory (-> config-local-syncthing-folder
-                            file-name-as-directory
-                            (concat "notes")
-                            file-name-as-directory)))
+    (org-roam-directory my-notes-folder))
 #+end_src
 
 ** Org Latex Fragment Toggle
