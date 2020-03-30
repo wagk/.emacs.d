@@ -1047,6 +1047,12 @@ Interesting Text Objects:
       ;;                       ":END:"
       ;;                       "%?")))))
       (add-to-list 'org-capture-templates
+                   `("cc" "Current Clock" item
+                     (clock)
+                     "Note taken on %U \\\\\n%?"
+                     :prepend t
+                     :clock-resume t))
+      (add-to-list 'org-capture-templates
                    `("nn" "Personal Note" entry
                      (file ,my-notes-org-file)
                      ,(concat "* %^{DESCRIPTION} %^g \n"
