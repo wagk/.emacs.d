@@ -1476,7 +1476,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     (evil-ex-define-cmd "gg" 'ex-magit-cli)
     :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
            (git-commit-setup-hook . markdown-mode)
-           (git-commit-setup-hook . fci-mode)))
+           (git-commit-setup-hook . turn-on-fci-mode)))
 #+end_src
 
 *** Evil bindings
