@@ -223,6 +223,7 @@
     ("approrpiate" "appropriate" nil 1)
     ("apsted" "pasted" nil 1)
     ("aready" "already" nil 1)
+    ("arleady" "already" nil 1)
     ("arrial" "arrival" nil 1)
     ("artifactoyr" "artifactory" nil 1)
     ("artifcts" "artifacts" nil 1)
@@ -401,7 +402,7 @@
     ("inot" "into" nil 1)
     ("insidek" "inside" nil 1)
     ("installatino" "installation" nil 1)
-    ("instruciton" "instruction" nil 2)
+    ("instruciton" "instruction" nil 3)
     ("insufficinetly" "insufficiently" nil 1)
     ("intenral" "internal" nil 1)
     ("intenrally" "internally" nil 1)
@@ -435,6 +436,7 @@
     ("levl" "level" nil 1)
     ("lical" "local" nil 2)
     ("liek" "like" nil 5)
+    ("llmv" "llvm" nil 2)
     ("locaiton" "location" nil 1)
     ("localizaiton" "localization" nil 7)
     ("lsit" "list" nil 1)
@@ -590,7 +592,7 @@
     ("thier" "their" nil 3)
     ("thigns" "things" nil 15)
     ("thingks" "things" nil 1)
-    ("thorugh" "through" nil 4)
+    ("thorugh" "through" nil 5)
     ("ths" "the" nil 1)
     ("thwe" "the" nil 1)
     ("thwtwill" "that will" nil 1)
@@ -819,9 +821,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 

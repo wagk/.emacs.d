@@ -1372,6 +1372,16 @@ https://www.nongnu.org/org-edna-el/
     :hook (org-mode-hook . org-fragtog-mode))
 #+end_src
 
+** Org Habit
+#+begin_src emacs-lisp :results output silent
+  (use-package org-habit
+    :straight nil
+    :ensure nil
+    :after org
+    :custom
+    (org-habit-graph-column 70))
+#+end_src
+
 * hl-todo
 #+begin_src emacs-lisp :results output silent
   (use-package hl-todo
@@ -1464,7 +1474,8 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     (evil-ex-define-cmd "git" 'ex-magit-cli)
     (evil-ex-define-cmd "gg" 'ex-magit-cli)
     :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
-           (git-commit-setup-hook . markdown-mode)))
+           (git-commit-setup-hook . markdown-mode)
+           (git-commit-setup-hook . turn-on-fci-mode)))
 #+end_src
 
 *** Evil bindings
