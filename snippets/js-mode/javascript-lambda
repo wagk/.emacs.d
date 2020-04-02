@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: javascript-lambda
+# key: l
+# --
+($1) => $2
