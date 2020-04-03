@@ -208,6 +208,7 @@
     ("antyhing" "anything" nil 1)
     ("anywehre" "anywhere" nil 1)
     ("anywya" "anyway" nil 2)
+    ("aobut" "about" nil 1)
     ("apaprently" "apparently" nil 1)
     ("apears" "appears" nil 1)
     ("apend" "append" nil 1)
@@ -237,7 +238,7 @@
     ("balanded" "balanced" nil 1)
     ("baloon" "balloon" nil 1)
     ("batrch" "batch" nil 1)
-    ("becasue" "because" nil 7)
+    ("becasue" "because" nil 9)
     ("beelong" "belong" nil 1)
     ("belinging" "belonging" nil 1)
     ("beter" "better" nil 1)
@@ -292,6 +293,7 @@
     ("craeting" "creating" nil 1)
     ("currenly" "currently" nil 1)
     ("currnet" "current" nil 1)
+    ("currnetly" "currently" nil 1)
     ("decisoin" "decision" nil 1)
     ("decison" "decision" nil 1)
     ("definiltey" "definitely" nil 1)
@@ -316,7 +318,7 @@
     ("dissimilairity" "dissimilarity" nil 1)
     ("documentaiton" "documentation" nil 4)
     ("doens't" "doesn't" nil 1)
-    ("donw" "done" nil 1)
+    ("donw" "done" nil 2)
     ("donwload" "download" nil 1)
     ("downlaod" "download" nil 2)
     ("downlaoded" "downloaded" nil 1)
@@ -421,7 +423,7 @@
     ("itsems" "items" nil 1)
     ("itwon't" "it won't" nil 1)
     ("iunable" "unable" nil 1)
-    ("iwth" "with" nil 4)
+    ("iwth" "with" nil 5)
     ("jbects" "objects" nil 1)
     ("jenkisn" "jenkins" nil 3)
     ("jsut" "just" nil 2)
@@ -586,7 +588,7 @@
     ("tempalte" "template" nil 2)
     ("tempaltes" "templates" nil 1)
     ("temporarrily" "temporarily" nil 1)
-    ("th" "the" nil 5)
+    ("th" "the" nil 6)
     ("thaat" "that" nil 1)
     ("thaty" "that" nil 2)
     ("theri" "their" nil 2)
@@ -817,7 +819,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 

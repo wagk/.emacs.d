@@ -1390,6 +1390,40 @@ https://www.nongnu.org/org-edna-el/
     :custom
     (org-clock-clocked-in-display 'both)
     (org-clock-mode-line-total 'current))
+    ;; :config
+    ;; (defun my-org-clock-get-clock-string ()
+    ;;   "Form a clock-string, that will be shown in the mode line.
+    ;; If an effort estimate was defined for the current item, use
+    ;; 01:30/01:50 format (clocked/estimated).
+    ;; If not, show simply the clocked time like 01:50.
+
+    ;; We modify this such that if the customization
+    ;; `org-clock-mode-line-total' is `current', the effort estimate gets
+    ;; \"eaten\" by the total clocked time (so subsequent clock-in's will
+    ;; see the effort reduce)."
+    ;;   (let ((clocked-time (org-clock-get-clocked-time)))
+    ;;     (if org-clock-effort
+    ;;         (let* ((effort-in-minutes
+    ;;                 (if (eq org-clock-mode-line-total 'current)
+    ;;                     (-> (org-duration-to-minutes org-clock-effort)
+    ;;                         (- clocked-time))
+    ;;                   (org-duration-to-minutes org-clock-effort)))
+    ;;                (work-done-str
+    ;;                 (propertize (org-duration-from-minutes clocked-time)
+    ;;                             'face
+    ;;                             (if (and org-clock-task-overrun
+    ;;                                      (not org-clock-task-overrun-text))
+    ;;                                 'org-mode-line-clock-overrun
+    ;;                               'org-mode-line-clock)))
+    ;;                (effort-str (org-duration-from-minutes
+    ;;                             effort-in-minutes)))
+    ;;           (format (propertize " [%s/%s] (%s)" 'face 'org-mode-line-clock)
+    ;;                   work-done-str effort-str org-clock-heading))
+    ;;       (format (propertize " [%s] (%s)" 'face 'org-mode-line-clock)
+    ;;               (org-duration-from-minutes clocked-time)
+    ;;               org-clock-heading))))
+    ;; (advice-add 'org-clock-get-clock-string
+    ;;             :override 'my-org-clock-get-clock-string))
 #+end_src
 
 * hl-todo
@@ -3199,7 +3233,8 @@ the thing, because that's what vim does.
     (customize-set-variable 'org-journal-dir (f-join my-notes-folder
                                                      "day"))
     :hook
-    ((org-journal-after-entry-create-hook . evil-insert-state))
+    ((org-journal-after-entry-create-hook . evil-insert-state)
+     (org-journal-mode-hook . aggressive-fill-paragraph-mode))
     :config
     (with-eval-after-load 'org-capture
       (defun my-org-journal-find-location ()
