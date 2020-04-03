@@ -1116,8 +1116,8 @@ For some reason we can't do this in the scratch buffer
       (customize-set-variable 'org-agenda-files
                               (-concat org-agenda-files
                                        (directory-files-recursively
-                                        my-notes-folder "\.org$"))))
-
+                                        (f-join my-notes-folder "raw")
+                                        "\.org$"))))
     (my-evil-define-split-vsplit-cmd "agenda" #'org-agenda)
     (with-eval-after-load 'eyebrowse
       (evil-ex-define-cmd "Tagenda"
@@ -2310,7 +2310,11 @@ containing a lot of files, and if the files are themselves large.
                                 (deft)))
     (evil-set-initial-state 'deft-mode 'insert)
     (with-eval-after-load 'org-agenda
-      (add-to-list 'org-agenda-files deft-directory)))
+      (add-to-list 'org-agenda-files deft-directory))
+    :config
+    (require 'org-id)
+    (org-id-update-id-locations (directory-files-recursively
+                                 my-notes-folder "\.org$") t))
 #+end_src
 
 * AES Encryption
@@ -2915,16 +2919,16 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     (writeroom-restore-window-config nil)
     :general
     (:states 'normal
-     "g z" 'writeroom-mode)
-    :hook
-    ((writeroom-mode-hook . (lambda () (require 'focus)
-                         (if writeroom-mode
-                             (progn (focus-init)
-                                    (when display-line-numbers-mode
-                                      (display-line-numbers-mode -1)))
-                           (focus-terminate)
-                           (unless display-line-numbers-mode
-                             (display-line-numbers-mode)))))))
+     "g z" 'writeroom-mode))
+    ;; :hook
+    ;; ((writeroom-mode-hook . (lambda () (require 'focus)
+    ;;                      (if writeroom-mode
+    ;;                          (progn (focus-init)
+    ;;                                 (when display-line-numbers-mode
+    ;;                                   (display-line-numbers-mode -1)))
+    ;;                        (focus-terminate)
+    ;;                        (unless display-line-numbers-mode
+    ;;                          (display-line-numbers-mode)))))))
 #+end_src
 
 * Helpful
