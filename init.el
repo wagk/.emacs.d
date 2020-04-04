@@ -558,15 +558,6 @@ we're adding a custom function for it here."
     ;;     :straight nil
     ;;     :commands org-confluence-export-as-confluence))
     :config
-    (evil-define-command my-org-clock-manager (arg)
-      (interactive "<a>")
-      (cond
-       ((eq arg "in") (org-clock-in-last))
-       ((eq arg "out") (org-clock-out))
-       (t (org-clock-goto))))
-    ;; (evil-ex-define-cmd "start" 'org-clock-in-last)
-    ;; (evil-ex-define-cmd "stop" 'org-clock-out)
-    (evil-ex-define-cmd "clock" 'my-org-clock-manager)
     (add-hook 'org-mode-hook '(lambda ()
                                 (with-eval-after-load 'elec-pair
                                   (let ((org-pairs '((?= . ?=)

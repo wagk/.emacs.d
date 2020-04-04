@@ -1043,7 +1043,7 @@ Interesting Text Objects:
       ;; (add-to-list 'org-capture-templates
       ;;   (doct `(("Personal Note Test"
       ;;            :keys "nt"
-      ;;            :file ,my-notes-org-file
+      ;;            :file ,my-todo-org-file
       ;;            :type entry
       ;;            :template ("* %^{DESCRIPTION} %^g"
       ;;                       ":PROPERTIES:"
@@ -1058,7 +1058,7 @@ Interesting Text Objects:
                      :clock-resume t))
       (add-to-list 'org-capture-templates
                    `("nn" "Personal Note" entry
-                     (file ,my-notes-org-file)
+                     (file ,my-todo-org-file)
                      ,(concat "* %^{DESCRIPTION} %^g \n"
                               ":PROPERTIES:\n"
                               ":CREATED:  %U\n" ;; captured as property TIMESTAMP
@@ -1399,7 +1399,17 @@ https://www.nongnu.org/org-edna-el/
     :ensure nil
     :custom
     (org-clock-clocked-in-display 'both)
-    (org-clock-mode-line-total 'current))
+    (org-clock-mode-line-total 'current)
+    :config
+    (evil-define-command my-org-clock-manager (arg)
+      (interactive "<a>")
+      (cond
+        ((eq arg "in") (org-clock-in-last))
+        ((eq arg "out") (org-clock-out))
+        (t (org-clock-goto))))
+    ;; (evil-ex-define-cmd "start" 'org-clock-in-last)
+    ;; (evil-ex-define-cmd "stop" 'org-clock-out)
+    (evil-ex-define-cmd "clock" 'my-org-clock-manager))
     ;; :config
     ;; (defun my-org-clock-get-clock-string ()
     ;;   "Form a clock-string, that will be shown in the mode line.
