@@ -11,7 +11,9 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -21,9 +23,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -411,6 +417,7 @@
     ("interfer" "interfere" nil 1)
     ("interiority" "inferiority" nil 1)
     ("internalizaiton" "internationalization" nil 1)
+    ("interpretaiton" "interpretation" nil 1)
     ("intuitiion" "intuition" nil 1)
     ("investivation" "investigation" nil 1)
     ("irrelevatn" "irrelevant" nil 1)
@@ -426,7 +433,7 @@
     ("iwth" "with" nil 5)
     ("jbects" "objects" nil 1)
     ("jenkisn" "jenkins" nil 3)
-    ("jsut" "just" nil 2)
+    ("jsut" "just" nil 3)
     ("jujst" "just" nil 1)
     ("karhtik" "Karthik" nil 2)
     ("knwo" "know" nil 2)
@@ -693,7 +700,9 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -775,7 +784,9 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -799,7 +810,9 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 

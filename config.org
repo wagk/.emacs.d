@@ -419,7 +419,12 @@ Stolen from https://github.com/bbatsov/crux
     (interactive "<a>")
     (cond
      ((string= cmd "wrap") (visual-line-mode 1))
-     ((string= cmd "nowrap") (visual-line-mode -1))))
+     ((string= cmd "nowrap") (visual-line-mode -1))
+     ;; This isn't actually how colorcolumn worked in vi
+     ;; (read :h colorcolumn)
+     ((or (string= cmd "colorcolumn")
+          (string= cmd "cc")) (progn (require 'fill-column-indicator)
+                                     (fci-mode (if fci-mode -1 1))))))
   (evil-ex-define-cmd "set" 'config-ex-set-arg)
 #+end_src
 
