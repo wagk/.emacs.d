@@ -1826,7 +1826,7 @@ that for the range we want
         (customize-set-variable 'hl-todo-keyword-faces
                                 '(("TODO"    . "#b58900")
                                   ("DEBUG"   . "#d33682")
-                                  ("NOTE"    . "#586e75")
+                                  ;; ("NOTE"    . "#586e75")
                                   ("FIXME"   . "#cb4b16"))))))
 #+end_src
 ** Eva-02
@@ -1857,7 +1857,7 @@ Solarized)
         (customize-set-variable 'hl-todo-keyword-faces
                                 '(("TODO"    . "#ff0000")
                                   ("DEBUG"   . "#ff0000")
-                                  ("NOTE"    . "#ff0000")
+                                  ;; ("NOTE"    . "#ff0000")
                                   ("FIXME"   . "#ff0000"))))))
 #+end_src
 
@@ -2314,7 +2314,7 @@ containing a lot of files, and if the files are themselves large.
       "Set the extensions for deft notes")
     (deft-recursive t
       "Recursively search so we can organise by folders")
-    (deft-time-format "%Y%m%dT%H%M%z")
+    (deft-time-format "%Y-%m-%dT%H%M%z")
     (deft-use-filter-string-for-filename t)
     (deft-use-filename-as-title t)
     (deft-file-limit 30)
