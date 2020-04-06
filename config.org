@@ -2852,7 +2852,8 @@ r-value references.
     :init
     (evil-define-operator my-evil-clang-format (beg end)
       (require 'clang-format)
-      (clang-format beg end))
+      (save-mark-and-excursion
+        (clang-format beg end)))
     (defun toggle-clang-format-on-save ()
       "Toggle clang-format-buffer on a per-buffer level."
       (interactive)
