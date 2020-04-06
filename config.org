@@ -1092,7 +1092,8 @@ For some reason we can't do this in the scratch buffer
     (:keymaps 'org-agenda-keymap
      :states '(normal motion)
      ;; Seems to be an unhandled case by evil-org
-     "RET" 'org-agenda-switch-to)
+     "RET" 'org-agenda-switch-to
+     [remap evil-write] 'org-save-all-org-buffers)
     :init
     (evil-ex-define-cmd "ag[enda]" 'org-agenda)
     (evil-ex-define-cmd "things" 'org-agenda)
@@ -1143,6 +1144,9 @@ For some reason we can't do this in the scratch buffer
     :straight t
     :commands org-super-agenda-mode
     :hook (org-agenda-mode-hook . org-super-agenda-mode))
+    ;; :custom
+    ;; (org-super-agenda-groups
+    ;;  '()))
 #+end_src
 
 ** Org Src
