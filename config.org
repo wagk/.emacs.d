@@ -197,8 +197,8 @@ Emulate the best feature of notepad
 
 ** Open a startup file as initial buffer
 #+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'initial-buffer-choice
-                          (locate-user-emacs-file "config.org"))
+  ;; (customize-set-variable 'initial-buffer-choice
+  ;;                         (locate-user-emacs-file "config.org"))
 #+end_src
 
 ** Configure scratch buffer message
@@ -1108,6 +1108,8 @@ For some reason we can't do this in the scratch buffer
                                 (search . " %i %-12:c")))
     (org-agenda-breadcrumbs-separator "/")
     :config
+    (require 'evil-org-agenda)
+    (evil-org-agenda-set-keys)
     ;; This is exactly like the original `org-agenda-add'
     ;; except that we call `my-counsel-org-capture' instead
     ;; The timestamp feature is currently unused, though that might
@@ -1118,9 +1120,6 @@ For some reason we can't do this in the scratch buffer
                    (let ((org-overriding-default-time)
                          (org-get-cursor-date (equal with-time 1)))
                      (call-interactively 'my-counsel-org-capture))))
-    (with-eval-after-load 'evil-org
-      (require 'evil-org-agenda)
-      (evil-org-agenda-set-keys))
     (when (and (boundp 'config-local-syncthing-folder)
                (f-exists-p my-notes-folder))
       (require 'dash) ;; -concat
@@ -1376,7 +1375,8 @@ https://www.nongnu.org/org-edna-el/
     :straight (:host github :repo "jethrokuan/org-roam")
     :custom
     ;; DEBUG: Test
-    (org-roam-directory my-notes-folder))
+    (org-roam-directory my-notes-folder)
+    (org-roam-buffer-width 0.0))
 #+end_src
 
 ** Org Latex Fragment Toggle

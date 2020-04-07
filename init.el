@@ -625,3 +625,5 @@ we're adding a custom function for it here."
   ;; (setq custom-file (locate-user-emacs-file "custom.el")))
   (setq custom-file (make-temp-file "")))
 (message "Configuration complete.")
+
+(funcall-interactively 'org-agenda-list)
