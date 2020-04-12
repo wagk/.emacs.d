@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: latex-small-rightarrow
+# key: ->
+# --
+\rightarrow

@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: latex-rightarrow
-# key: ->
+# name: latex-Rightarrow
+# key: =>
 # --
-\rightarrow
+\Rightarrow
