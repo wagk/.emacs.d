@@ -727,7 +727,7 @@ package isn't being maintained or something
     :hook (LaTeX-mode-hook . turn-on-evil-latex-textobjects-mode))
 #+end_src
 
-*** Surround text objects
+*** [#A] Surround text objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-surround
     :straight (:host github :repo "emacs-evil/evil-surround")
@@ -736,7 +736,7 @@ package isn't being maintained or something
     (global-evil-surround-mode))
 #+end_src
 
-*** Argument text objects
+*** [#A] Argument text objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-args
     :straight (:host github :repo "wcsmith/evil-args")
@@ -785,11 +785,12 @@ Bound to "h"
 
 #+begin_src emacs-lisp :results output silent
   (use-package evil-textobj-syntax
+    :disabled t
     :straight (:host github :repo "laishulu/evil-textobj-syntax")
     :after evil)
 #+end_src
 
-*** Indent text objects
+*** [#B] Indent text objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-indent-plus
     :straight (:host github :repo "TheBB/evil-indent-plus")
@@ -1374,7 +1375,6 @@ https://www.nongnu.org/org-edna-el/
     ;; :hook (org-mode-hook . org-roam-mode)
     :straight (:host github :repo "jethrokuan/org-roam")
     :custom
-    ;; DEBUG: Test
     (org-roam-directory my-notes-folder)
     (org-roam-buffer-width 0.0))
 #+end_src
@@ -1581,7 +1581,10 @@ up, on windows at least).
      "j T" nil
      "j l" nil)
     :hook
-    (magit-status-mode-hook . magit-todos-mode))
+    (magit-status-mode-hook . magit-todos-mode)
+    :config
+    (with-eval-after-load 'evil-collection
+      (require 'evil-collection-magit-todos)))
 #+end_src
 
 *** Magit github
