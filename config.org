@@ -270,6 +270,16 @@ Emulate the best feature of notepad
     "." 'whitespace-mode)
 #+end_src
 
+** Show trailing whitespace
+#+begin_src emacs-lisp :results output silent
+  (customize-set-variable 'show-trailing-whitespace t)
+#+end_src
+
+** Indicate empty line
+#+begin_src emacs-lisp :results output silent
+  (customize-set-variable 'indicate-empty-lines t)
+#+end_src
+
 ** After creating a new frame, immediately focus on that frame.
 #+begin_src emacs-lisp :results output silent
   (add-hook 'after-make-frame-functions 'select-frame)
@@ -1577,14 +1587,13 @@ up, on windows at least).
      nil
      "`nice' does not exist on windows")
     :general
-    (magit-todos-item-section-map
-     "j T" nil
-     "j l" nil)
+    (general-define-key
+     :keymaps '(magit-todos-section-map magit-todos-item-section-map)
+     "jT" nil
+     "jl" nil
+     "j" nil)
     :hook
-    (magit-status-mode-hook . magit-todos-mode)
-    :config
-    (with-eval-after-load 'evil-collection
-      (require 'evil-collection-magit-todos)))
+    (magit-status-mode-hook . magit-todos-mode))
 #+end_src
 
 *** Magit github
