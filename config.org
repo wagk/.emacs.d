@@ -275,11 +275,6 @@ Emulate the best feature of notepad
   (customize-set-variable 'show-trailing-whitespace t)
 #+end_src
 
-** Indicate empty line
-#+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'indicate-empty-lines t)
-#+end_src
-
 ** After creating a new frame, immediately focus on that frame.
 #+begin_src emacs-lisp :results output silent
   (add-hook 'after-make-frame-functions 'select-frame)
