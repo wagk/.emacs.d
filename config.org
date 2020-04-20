@@ -2556,18 +2556,18 @@ Requires rust-mode and markdown-mode
      :states 'normal
      "<SPC>" nil                     ; was shadowing leader key bindings
      "SPC" nil                       ; was shadowing leader key bindings
-     "-" 'dired-up-directory
+     "-" 'dired-jump
      "d" 'dired-create-directory
      "/" 'counsel-find-file
      "?" 'counsel-find-file
      "+" nil) ; don't block org-projectile
     :config
-    (evil-define-command open-dired-window ()
-      (interactive)
-      (if buffer-file-name
-          (dired (file-name-directory (buffer-file-name)))
-        (dired default-directory)))
-    (evil-ex-define-cmd "Ex[plore]" 'open-dired-window)
+    ;; (evil-define-command open-dired-window ()
+    ;;   (interactive)
+    ;;   (if buffer-file-name
+    ;;       (dired (file-name-directory (buffer-file-name)))
+    ;;     (dired default-directory)))
+    (evil-ex-define-cmd "Ex[plore]" 'dired-jump)
     (evil-ex-define-cmd "Sex[plore]" '(lambda () (interactive)
                                         (call-interactively 'evil-window-split)
                                         (open-dired-window)))
@@ -2576,7 +2576,7 @@ Requires rust-mode and markdown-mode
                                         (open-dired-window)))
     (evil-ex-define-cmd "Tex[plore]" '(lambda () (interactive)
                                         (require 'eyebrowse)
-                                        (let ((eyebrowse-new-workspace 'open-dired-window))
+                                        (let ((eyebrowse-new-workspace 'dired-jump))
                                           (eyebrowse-create-window-config)))))
 #+end_src
 
