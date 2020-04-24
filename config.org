@@ -1063,6 +1063,16 @@ Interesting Text Objects:
                      :prepend t
                      :clock-resume t))
       (add-to-list 'org-capture-templates
+                   `("ii" "Immediate Clock" entry
+                     (file ,my-todo-org-file)
+                     ,(concat "* %^{DESCRIPTION} %^g \n"
+                              ":PROPERTIES:\n"
+                              ":CREATED:  %U\n" ;; captured as property TIMESTAMP
+                              ":END:\n"
+                              "%?")
+                     :prepend t
+                     :clock-in t))
+      (add-to-list 'org-capture-templates
                    `("nn" "Personal Note" entry
                      (file ,my-todo-org-file)
                      ,(concat "* %^{DESCRIPTION} %^g \n"
@@ -2077,6 +2087,11 @@ Consider deprecating this now we're trying out prism
   (use-package rainbow-delimiters
     :straight (:host github :repo "Fanael/rainbow-delimiters")
     :commands (rainbow-delimiters-mode)
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     ")" 'rainbow-delimiters-mode
+     "(" 'rainbow-delimiters-mode)
     :custom (rainbow-delimiters-max-face-count 3))
     ;; :hook (prog-mode-hook . rainbow-delimiters-mode))
 #+end_src
@@ -2540,18 +2555,18 @@ Requires rust-mode and markdown-mode
      :states 'normal
      "<SPC>" nil                     ; was shadowing leader key bindings
      "SPC" nil                       ; was shadowing leader key bindings
-     "-" 'dired-up-directory
+     "-" 'dired-jump
      "d" 'dired-create-directory
      "/" 'counsel-find-file
      "?" 'counsel-find-file
      "+" nil) ; don't block org-projectile
     :config
-    (evil-define-command open-dired-window ()
-      (interactive)
-      (if buffer-file-name
-          (dired (file-name-directory (buffer-file-name)))
-        (dired default-directory)))
-    (evil-ex-define-cmd "Ex[plore]" 'open-dired-window)
+    ;; (evil-define-command open-dired-window ()
+    ;;   (interactive)
+    ;;   (if buffer-file-name
+    ;;       (dired (file-name-directory (buffer-file-name)))
+    ;;     (dired default-directory)))
+    (evil-ex-define-cmd "Ex[plore]" 'dired-jump)
     (evil-ex-define-cmd "Sex[plore]" '(lambda () (interactive)
                                         (call-interactively 'evil-window-split)
                                         (open-dired-window)))
@@ -2560,7 +2575,7 @@ Requires rust-mode and markdown-mode
                                         (open-dired-window)))
     (evil-ex-define-cmd "Tex[plore]" '(lambda () (interactive)
                                         (require 'eyebrowse)
-                                        (let ((eyebrowse-new-workspace 'open-dired-window))
+                                        (let ((eyebrowse-new-workspace 'dired-jump))
                                           (eyebrowse-create-window-config)))))
 #+end_src
 
@@ -2858,8 +2873,7 @@ r-value references.
     :init
     (evil-define-operator my-evil-clang-format (beg end)
       (require 'clang-format)
-      (save-mark-and-excursion
-        (clang-format beg end)))
+      (clang-format beg end))
     (defun toggle-clang-format-on-save ()
       "Toggle clang-format-buffer on a per-buffer level."
       (interactive)
