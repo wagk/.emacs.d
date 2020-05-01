@@ -3,4 +3,4 @@
 # name: latex-cdot
 # condition: (if (eq major-mode 'org-mode) (org-inside-LaTeX-fragment-p) t)
 # --
-\cdot$0
+\cdot $0
