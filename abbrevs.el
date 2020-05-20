@@ -349,6 +349,7 @@
     ("expressoin" "expression" nil 1)
     ("extenral" "external" nil 2)
     ("extenrally" "externally" nil 1)
+    ("fasle" "false" nil 2)
     ("feelinggs" "feelings" nil 1)
     ("fiarly" "fairly" nil 1)
     ("fiel" "file" nil 7)
@@ -543,7 +544,7 @@
     ("resove" "resolve" nil 1)
     ("responsiblity" "responsibility" nil 1)
     ("reusme" "resume" nil 1)
-    ("reutrn" "return" nil 3)
+    ("reutrn" "return" nil 5)
     ("rihgt" "right" nil 1)
     ("rleease" "release" nil 1)
     ("schedulign" "scheduling" nil 1)
@@ -839,7 +840,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 

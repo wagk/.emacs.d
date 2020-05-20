@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: groovy-comment-block
+# key: d
+# --
+/* $0 */
