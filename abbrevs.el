@@ -11,9 +11,7 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bat-mode-abbrev-table '())
 
@@ -23,13 +21,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -194,15 +188,15 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("FIle" "File" nil 10)
-    ("WIth" "With" nil 7)
+    ("WIth" "With" nil 8)
     ("aand" "and" nil 1)
     ("aboyut" "about" nil 1)
     ("abstraciton" "abstraction" nil 1)
     ("accoutns" "accounts" nil 1)
     ("acocunt" "account" nil 1)
     ("additioanl" "additional" nil 1)
-    ("adn" "and" nil 35)
-    ("adversay" "adversary" nil 2)
+    ("adn" "and" nil 36)
+    ("adversay" "adversary" nil 3)
     ("ahve" "have" nil 9)
     ("aline" "alone" nil 2)
     ("alkready" "already" nil 1)
@@ -258,7 +252,7 @@
     ("buildsript" "buildscript" nil 1)
     ("builidng" "building" nil 1)
     ("buisness" "business" nil 1)
-    ("byt" "by" nil 8)
+    ("byt" "by" nil 10)
     ("byut" "but" nil 1)
     ("cahnge" "change" nil 1)
     ("calng" "clang" nil 2)
@@ -286,7 +280,7 @@
     ("connectinos" "connections" nil 1)
     ("consdier" "consider" nil 1)
     ("constrol" "control" nil 1)
-    ("contain" "contain" nil 30)
+    ("contain" "contain" nil 34)
     ("contian" "contain" nil 2)
     ("contians" "contains" nil 1)
     ("contnets" "contents" nil 1)
@@ -499,6 +493,7 @@
     ("operaitons" "operations" nil 1)
     ("opne" "open" nil 1)
     ("oruters" "routers" nil 2)
+    ("osme" "some" nil 1)
     ("osmething" "something" nil 2)
     ("ot" "to" nil 40)
     ("otu" "out" nil 1)
@@ -595,7 +590,7 @@
     ("syetem" "system" nil 1)
     ("synchronisaton" "synchronisation" nil 1)
     ("systm" "system" nil 1)
-    ("taht" "that" nil 49)
+    ("taht" "that" nil 50)
     ("taingint" "tainting" nil 1)
     ("taks" "task" nil 2)
     ("tat" "that" nil 2)
@@ -603,7 +598,7 @@
     ("tempalte" "template" nil 2)
     ("tempaltes" "templates" nil 1)
     ("temporarrily" "temporarily" nil 1)
-    ("th" "the" nil 7)
+    ("th" "the" nil 9)
     ("thaat" "that" nil 1)
     ("thaty" "that" nil 2)
     ("theri" "their" nil 2)
@@ -612,7 +607,7 @@
     ("thigns" "things" nil 19)
     ("thingks" "things" nil 1)
     ("thorugh" "through" nil 5)
-    ("ths" "the" nil 2)
+    ("ths" "the" nil 4)
     ("thwe" "the" nil 1)
     ("thwtwill" "that will" nil 1)
     ("ti" "it" nil 8)
@@ -656,7 +651,7 @@
     ("wehre" "where" nil 4)
     ("whihc" "which" nil 3)
     ("whoel" "whole" nil 1)
-    ("wnat" "want" nil 13)
+    ("wnat" "want" nil 14)
     ("wnhat" "what" nil 1)
     ("woild" "would" nil 1)
     ("womewhere" "somewhere" nil 1)
@@ -670,7 +665,7 @@
     ("wya" "way" nil 2)
     ("yb" "by" nil 1)
     ("yeaterday" "yesterday" nil 1)
-   ))
+    ))
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
 
@@ -708,9 +703,7 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -792,9 +785,7 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -818,9 +809,7 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
@@ -927,4 +916,3 @@
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
-
