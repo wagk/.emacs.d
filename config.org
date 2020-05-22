@@ -1830,8 +1830,8 @@ that for the range we want
     (defun load-solarized-theme ()
       (interactive)
       (if (display-graphic-p)
-          (load-theme 'solarized-light t)
-        (load-theme 'solarized-gruvbox-light t))
+          (load-theme 'solarized-dark t)
+        (load-theme 'solarized-gruvbox-dark t))
       (with-eval-after-load 'prism
         (prism-set-colors
           :num 24
