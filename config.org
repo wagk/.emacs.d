@@ -3720,9 +3720,7 @@ Might be better done as an ex mode command or something.
 #+begin_src emacs-lisp :results output silent
   (use-package prescient
     :straight (:host github :repo "raxod502/prescient.el")
-    :after ivy
-    :config
-    (ivy-prescient-mode))
+    :after ivy)
 #+end_src
 
 ** Rich Display
