@@ -533,7 +533,7 @@ we're adding a custom function for it here."
       (general-define-key
        :keymaps 'org-mode-map
        :states '(normal insert motion)
-        ;; "C-^" 'org-insert-heading-after-current
+       ;; "C-^" 'org-insert-heading-after-current
        "C-^" 'org-meta-return
        "\236" 'org-insert-todo-heading-respect-content))
     ;; (with-eval-after-load 'org
@@ -558,16 +558,17 @@ we're adding a custom function for it here."
     ;;     :straight nil
     ;;     :commands org-confluence-export-as-confluence))
     :config
-    (add-hook 'org-mode-hook '(lambda ()
-                                (with-eval-after-load 'elec-pair
-                                  (let ((org-pairs '((?= . ?=)
-                                                     ;; (?/ . ?/)
-                                                     (?* . ?*)
-                                                     (?$ . ?$))))
-                                    (setq-local electric-pair-pairs
-                                                (append electric-pair-pairs org-pairs))
-                                    (setq-local electric-pair-text-pairs
-                                                electric-pair-pairs)))))
+    (add-hook 'org-mode-hook
+              '(lambda ()
+                 (with-eval-after-load 'elec-pair
+                   (let ((org-pairs '((?= . ?=)
+                                      ;; (?/ . ?/)
+                                      (?* . ?*)
+                                      (?$ . ?$))))
+                     (setq-local electric-pair-pairs
+                                 (append electric-pair-pairs org-pairs))
+                     (setq-local electric-pair-text-pairs
+                                 electric-pair-pairs)))))
     (defun my-org-reformat-buffer ()
       (interactive)
       (when (y-or-n-p "Really format current buffer? ")
@@ -583,7 +584,8 @@ we're adding a custom function for it here."
   ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
 
 
-  (use-package ivy :demand t
+  (use-package ivy
+    :demand t
     :straight (:host github :repo "abo-abo/swiper")
     :general
     (ivy-minibuffer-map
