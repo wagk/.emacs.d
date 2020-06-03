@@ -1564,13 +1564,11 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
        (t (magit-shell-command (concat "git " cmd)))))
     (evil-ex-define-cmd "git" 'ex-magit-cli)
     (evil-ex-define-cmd "gg" 'ex-magit-cli)
+    (evil-ex-define-cmd "gb" 'magit-branch)
+    (evil-ex-define-cmd "gc" 'magit-commit)
     :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
            (git-commit-setup-hook . markdown-mode)
-           (git-commit-setup-hook . turn-on-fci-mode))
-    :general
-    (:states 'normal
-     :prefix my-default-evil-leader-key
-     "g g" 'magit-status))
+           (git-commit-setup-hook . turn-on-fci-mode)))
 #+end_src
 
 *** Evil bindings
