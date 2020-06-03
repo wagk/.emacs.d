@@ -1633,7 +1633,6 @@ up, on windows at least).
 #+begin_src emacs-lisp :results output silent
   (use-package git-gutter+
     :straight (:host github :repo "nonsequitur/git-gutter-plus")
-    :disabled t
     :general
     (:states  'normal
      :keymaps 'git-gutter+-mode-map
@@ -1705,6 +1704,7 @@ that for the range we want
 #+begin_src emacs-lisp :results output silent
   (use-package diff-hl
     :straight (:host github :repo "dgutov/diff-hl")
+    :disabled t
     :defer 10
     :config
     (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
