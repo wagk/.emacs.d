@@ -4055,6 +4055,8 @@ the underlying format
      :states '(visual normal motion)
       "RET" 'pomidor-stop
       "SPC" 'pomidor-break)
+    :custom-face
+    (pomidor-break-face ((t (:inherit 'font-lock-function-name-face))))
     :custom
     (pomidor-sound-tick nil)
     (pomidor-sound-tack nil)

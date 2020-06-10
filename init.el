@@ -305,6 +305,7 @@ recovery. Maybe eventually load dependencies and all that."
     (evil-auto-indent
      t
      "Automatically indent when inserting a newline")
+    (evil-want-fine-undo t)
     :hook (evil-normal-state-entry-hook . evil-ex-nohighlight)
     :config
     (defun update-evil-shift-width ()
