@@ -2410,6 +2410,15 @@ containing a lot of files, and if the files are themselves large.
                                  my-notes-folder "\.org$") t))
 #+end_src
 
+** TODO Zetteldeft
+- Propose using ex commands, with a "z" prefix (it does not seem to be
+  used, and z seems sufficiently out of the way.
+#+begin_src emacs-lisp :results output silent
+  (use-package zetteldeft
+    :straight (:host github :repo "efls/zetteldeft")
+    :custom (zetteldeft-id-format "%F-%H%M%S"))
+#+end_src
+
 * AES Encryption
 
 #+begin_src emacs-lisp :results output silent
