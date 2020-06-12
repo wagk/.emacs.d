@@ -2413,10 +2413,20 @@ containing a lot of files, and if the files are themselves large.
 ** TODO Zetteldeft
 - Propose using ex commands, with a "z" prefix (it does not seem to be
   used, and z seems sufficiently out of the way.
+
 #+begin_src emacs-lisp :results output silent
   (use-package zetteldeft
     :straight (:host github :repo "efls/zetteldeft")
-    :custom (zetteldeft-id-format "%F-%H%M%S"))
+    :commands (zetteldeft-new-file)
+    :custom
+    (zetteldeft-id-format "%F-%H%M%S")
+    (zetteldeft-link-indicator "@")
+    :config
+    (evil-ex-define-cmd "zz" 'zetteldeft-find-file)
+    (evil-ex-define-cmd "zc" 'zetteldeft-new-file)
+    (evil-ex-define-cmd "zi" 'zetteldeft-find-file-id-insert)
+    (evil-ex-define-cmd "zf" 'zetteldeft-follow-link)
+    (evil-ex-define-cmd "zl" 'zetteldeft-avy-link-search))
 #+end_src
 
 * AES Encryption
@@ -2628,7 +2638,14 @@ note: use :Ex instead like Vim does
     (el-get-emacswiki-build-local-recipes)
     (el-get-install 'dired+))
   (use-package dired+
-    :after dired)
+    :after dired
+    :custom-face
+    (diredp-dir-heading ((t (:inherit 'font-lock-warning-face :bold t))))
+    (diredp-dir-name ((t (:inherit 'font-lock-string-face :bold t))))
+    (diredp-file-name ((t (:inherit 'font-lock-function-name-face))))
+    (diredp-file-suffix ((t (:inherit 'font-lock-type-face))))
+    (diredp-ignored-file-name ((t (:inherit 'font-lock-comment-face))))
+    (diredp-flag-mark ((t (:inherit 'font-lock-keyword-face)))))
 #+end_src
 
 * Help
