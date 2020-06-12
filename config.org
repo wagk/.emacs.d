@@ -83,36 +83,6 @@ C-M-i                           backward-button
 <normal-state> g b              debugger-frame
 <normal-state> g l              debugger-list-functions
 
-* Utility Libraries
-# ** Dash
-# #+begin_src emacs-lisp :results output silent
-#   (use-package dash
-#     :straight t)
-# #+end_src
-
-# ** File manipulation
-# #+begin_src emacs-lisp :results output silent
-#   (use-package f
-#     :straight t)
-# #+end_src
-
-# ** String manipulation
-# #+begin_src emacs-lisp :results output silent
-#   (use-package s
-#     :straight t)
-# #+end_src
-
-# ** Hash table manipulation
-# #+begin_src emacs-lisp :results output silent
-#   (use-package ht
-#     :straight t)
-# #+end_src
-
-# ** Time manipulation
-# #+begin_src emacs-lisp :results output silent
-#   (use-package ts
-#     :straight t)
-# #+end_src
 * Check for local.el defines
 #+begin_src emacs-lisp :results output silent
   (unless (boundp 'config-local-syncthing-folder)
@@ -2396,7 +2366,8 @@ containing a lot of files, and if the files are themselves large.
       (interactive "<a>")
       (deft-filter filter t)
       (deft))
-    (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
+    ;; ;; the following is subsumed by zetteldeft
+    ;; (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
     ;; (my-evil-define-split-vsplit-cmd "n[otes]" 'deft)
     ;; (evil-ex-define-cmd "tn" '(lambda () (interactive)
     ;;                             (funcall-interactively 'my-new-evil-tab nil)
@@ -2417,15 +2388,30 @@ containing a lot of files, and if the files are themselves large.
 #+begin_src emacs-lisp :results output silent
   (use-package zetteldeft
     :straight (:host github :repo "efls/zetteldeft")
-    :commands (zetteldeft-new-file)
+    :commands (zetteldeft-new-file
+               zetteldeft-find-file
+               zetteldeft-tag-buffer)
     :custom
     (zetteldeft-id-format "%F-%H%M%S")
     (zetteldeft-link-indicator "@")
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "n n" 'zetteldeft-find-file
+     "n c" 'zetteldeft-new-file
+     "n s" 'zetteldeft-new-file-and-link
+     "n i" 'zetteldeft-find-file-id-insert
+     "n f" 'zetteldeft-follow-link
+     "n t" 'zetteldeft-avy-tag-search
+     "n T" 'zetteldeft-tag-buffer
+     "n l" 'zetteldeft-avy-link-search)
     :config
     (evil-ex-define-cmd "zz" 'zetteldeft-find-file)
     (evil-ex-define-cmd "zc" 'zetteldeft-new-file)
+    (evil-ex-define-cmd "zs" 'zetteldeft-new-file-and-link)
     (evil-ex-define-cmd "zi" 'zetteldeft-find-file-id-insert)
     (evil-ex-define-cmd "zf" 'zetteldeft-follow-link)
+    (evil-ex-define-cmd "zt" 'zetteldeft-avy-tag-search)
     (evil-ex-define-cmd "zl" 'zetteldeft-avy-link-search))
 #+end_src
 
