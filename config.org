@@ -509,7 +509,6 @@ Further helper functions to add bookmarks:
 #+begin_src emacs-lisp :results output silent
   (use-package which-key
     :straight (:host github :repo "justbur/emacs-which-key")
-    :defer 10
     :config
     (which-key-mode))
 #+end_src
@@ -2311,8 +2310,8 @@ containing a lot of files, and if the files are themselves large.
     :straight (:host github :repo "jrblevin/deft")
     :if (boundp 'config-local-syncthing-folder)
     :commands (deft
-                deft-filter
-                deft-setup) ;; call this if no .deft folder is found
+               deft-filter
+               deft-setup) ;; call this if no .deft folder is found
     :custom
     (deft-auto-save-interval 0.0
       "Disable autosave because of permissions issues causing massive
@@ -2323,7 +2322,7 @@ containing a lot of files, and if the files are themselves large.
       "Set the extensions for deft notes")
     (deft-recursive t
       "Recursively search so we can organise by folders")
-    (deft-time-format "%Y-%m-%dT%H%M%z")
+    (deft-time-format "%Y-%m-%d-%H:%M%z")
     (deft-use-filter-string-for-filename t)
     (deft-use-filename-as-title t)
     (deft-file-limit 30)
@@ -2366,8 +2365,7 @@ containing a lot of files, and if the files are themselves large.
       (interactive "<a>")
       (deft-filter filter t)
       (deft))
-    ;; ;; the following is subsumed by zetteldeft
-    ;; (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
+    (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
     ;; (my-evil-define-split-vsplit-cmd "n[otes]" 'deft)
     ;; (evil-ex-define-cmd "tn" '(lambda () (interactive)
     ;;                             (funcall-interactively 'my-new-evil-tab nil)
@@ -2384,16 +2382,23 @@ containing a lot of files, and if the files are themselves large.
 ** TODO Zetteldeft
 - Propose using ex commands, with a "z" prefix (it does not seem to be
   used, and z seems sufficiently out of the way.
+- We would like to be able to work with this schema using nothing but
+  ripgrep or some cli search tool. (i.e we want this to be emacs
+  agnostic. it might not be all that possible because org-mode is
+  strongly tied to emacs, but if the id can cross file format
+  boundaries (e.g if it can link to markdown or some other document)
+  then I think we have succeeded.
 
 #+begin_src emacs-lisp :results output silent
   (use-package zetteldeft
     :straight (:host github :repo "efls/zetteldeft")
-    :commands (zetteldeft-new-file
-               zetteldeft-find-file
-               zetteldeft-tag-buffer)
     :custom
-    (zetteldeft-id-format "%F-%H%M%S")
+    (zetteldeft-id-format "%s"
+                          "Single number. I want the ID to not rely on
+                          the structure of dates.")
     (zetteldeft-link-indicator "@")
+    (zetteldeft-id-regex "[[:alnum:]]+")
+    (zetteldeft-tag-regex "#[[:alnum:]_-]+")
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -2401,7 +2406,8 @@ containing a lot of files, and if the files are themselves large.
      "n c" 'zetteldeft-new-file
      "n s" 'zetteldeft-new-file-and-link
      "n i" 'zetteldeft-find-file-id-insert
-     "n f" 'zetteldeft-follow-link
+     "n f" 'zetteldeft-follow-link ;; does not seem to be working?
+     "n r" 'zetteldeft-file-rename
      "n t" 'zetteldeft-avy-tag-search
      "n T" 'zetteldeft-tag-buffer
      "n l" 'zetteldeft-avy-link-search)
@@ -2412,7 +2418,52 @@ containing a lot of files, and if the files are themselves large.
     (evil-ex-define-cmd "zi" 'zetteldeft-find-file-id-insert)
     (evil-ex-define-cmd "zf" 'zetteldeft-follow-link)
     (evil-ex-define-cmd "zt" 'zetteldeft-avy-tag-search)
-    (evil-ex-define-cmd "zl" 'zetteldeft-avy-link-search))
+    (evil-ex-define-cmd "zl" 'zetteldeft-avy-link-search)
+    (with-eval-after-load 'rg
+      (rg-define-search search-zettel
+        :dir deft-directory
+        :files "everything"
+        :confirm prefix
+        :menu ("Zettel" "zz" "Zetteldeft files")))
+    ;; Because of the regex we chose, the original implementation (which
+    ;; set the point to the end and then looked backwards for the first
+    ;; match, would find the wrong match (we want the one closest to the
+    ;; start of the temp buffer)). This fix resets the point to the
+    ;; start, and then matches forward.
+    ;; NOTE: This could be a PR
+    (advice-add 'zetteldeft--lift-id :override
+                (lambda (str)
+                  (with-temp-buffer
+                    (insert str)
+                    (goto-char 0)
+                    (when (re-search-forward zetteldeft-id-regex nil t 1)
+                      (match-string 0)))))
+    ;; When inserting the string and id, insert the string before the
+    ;; id, instead of after as is the default.
+    (advice-add 'zetteldeft-new-file-and-link :override
+                (lambda (str)
+                  (interactive (list (read-string "Note title: ")))
+                  (let* ((zdId (zetteldeft-generate-id))
+                         (zdStr (concat str " "
+                                        zetteldeft-link-indicator
+                                        zdId
+                                        zetteldeft-link-suffix)))
+                    (insert zdStr)
+                    (zetteldeft-new-file str zdId))))
+    ;; Remove whitespace after generating the tag because otherwise
+    ;; it'll show up as really distracting red blocks.
+    (advice-add 'zetteldeft-tag-buffer :after
+                'whitespace-cleanup)
+    ;; Add font lock for tags too while we're here. This feature might
+    ;; get implemented by zetteldeft in the future, so we might have to
+    ;; update this.
+    (font-lock-add-keywords 'org-mode
+                            `((,zetteldeft-tag-regex
+                               . font-lock-constant-face)))
+                               ;; . font-lock-regexp-grouping-backslash)))
+    ;; somehow we need to do this for the font customizations to show
+    ;; up, and even then it's not the most reliable
+    (org-mode-restart))
 #+end_src
 
 * AES Encryption
@@ -2576,6 +2627,7 @@ Requires rust-mode and markdown-mode
      "SPC" nil                       ; was shadowing leader key bindings
      "-" 'dired-jump
      "d" 'dired-create-directory
+     "e" 'dired-toggle-read-only ; similar interface to wgrep
      "/" 'counsel-find-file
      "?" 'counsel-find-file
      "+" nil) ; don't block org-projectile
@@ -2798,6 +2850,7 @@ filters*.
                rg-project
                rg-dwim
                rg-literal
+               rg-define-search
                rg-menu)
     :ensure-system-package
     (rg . "choco install -y ripgrep")
