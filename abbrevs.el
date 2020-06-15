@@ -163,6 +163,10 @@
 
 (define-abbrev-table 'flycheck-error-message-mode-abbrev-table '())
 
+(define-abbrev-table 'flycheck-explain-error-mode-abbrev-table '())
+
+(define-abbrev-table 'flycheck-verify-mode-abbrev-table '())
+
 (define-abbrev-table 'flymake-diagnostics-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'forge-issue-list-mode-abbrev-table '())
@@ -669,6 +673,7 @@
     ("wrpaper" "Wrapper" nil 1)
     ("wrt" "w.r.t" nil 8)
     ("wtih" "with" nil 7)
+    ("wuld" "would" nil 1)
     ("wven" "even" nil 1)
     ("wwell" "well" nil 1)
     ("wya" "way" nil 2)
@@ -850,9 +855,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 

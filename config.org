@@ -83,36 +83,6 @@ C-M-i                           backward-button
 <normal-state> g b              debugger-frame
 <normal-state> g l              debugger-list-functions
 
-* Utility Libraries
-# ** Dash
-# #+begin_src emacs-lisp :results output silent
-#   (use-package dash
-#     :straight t)
-# #+end_src
-
-# ** File manipulation
-# #+begin_src emacs-lisp :results output silent
-#   (use-package f
-#     :straight t)
-# #+end_src
-
-# ** String manipulation
-# #+begin_src emacs-lisp :results output silent
-#   (use-package s
-#     :straight t)
-# #+end_src
-
-# ** Hash table manipulation
-# #+begin_src emacs-lisp :results output silent
-#   (use-package ht
-#     :straight t)
-# #+end_src
-
-# ** Time manipulation
-# #+begin_src emacs-lisp :results output silent
-#   (use-package ts
-#     :straight t)
-# #+end_src
 * Check for local.el defines
 #+begin_src emacs-lisp :results output silent
   (unless (boundp 'config-local-syncthing-folder)
@@ -178,16 +148,14 @@ We're sticking to Japanese for now
 Emulate the best feature of notepad
 
 #+begin_src emacs-lisp :results output silent
-  (defun iso-8601-timestamp ()
-    (concat (format-time-string "%Y-%m-%d")
-            "T"
-            (format-time-string "%T")))
+  (defun iso-8601-timestamp (with-hours)
+    (insert (format-time-string (if with-hours "%F-%H%M" "%F"))))
   (general-define-key
    :states '(normal motion insert)
     "<f5>" '(lambda () (interactive)
-              (if (eq major-mode 'org-mode)
-                  (org-time-stamp-inactive '(16))
-                (insert (iso-8601-timestamp)))))
+              (iso-8601-timestamp nil))
+    "S-<f5>" '(lambda () (interactive)
+                (iso-8601-timestamp t)))
 #+end_src
 
 ** Do not truncate lines
@@ -539,7 +507,6 @@ Further helper functions to add bookmarks:
 #+begin_src emacs-lisp :results output silent
   (use-package which-key
     :straight (:host github :repo "justbur/emacs-which-key")
-    :defer 10
     :config
     (which-key-mode))
 #+end_src
@@ -2341,8 +2308,8 @@ containing a lot of files, and if the files are themselves large.
     :straight (:host github :repo "jrblevin/deft")
     :if (boundp 'config-local-syncthing-folder)
     :commands (deft
-                deft-filter
-                deft-setup) ;; call this if no .deft folder is found
+               deft-filter
+               deft-setup) ;; call this if no .deft folder is found
     :custom
     (deft-auto-save-interval 0.0
       "Disable autosave because of permissions issues causing massive
@@ -2353,7 +2320,7 @@ containing a lot of files, and if the files are themselves large.
       "Set the extensions for deft notes")
     (deft-recursive t
       "Recursively search so we can organise by folders")
-    (deft-time-format "%Y-%m-%dT%H%M%z")
+    (deft-time-format "%Y-%m-%d-%H:%M%z")
     (deft-use-filter-string-for-filename t)
     (deft-use-filename-as-title t)
     (deft-file-limit 30)
@@ -2396,7 +2363,6 @@ containing a lot of files, and if the files are themselves large.
       (interactive "<a>")
       (deft-filter filter t)
       (deft))
-    (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
     ;; (my-evil-define-split-vsplit-cmd "n[otes]" 'deft)
     ;; (evil-ex-define-cmd "tn" '(lambda () (interactive)
     ;;                             (funcall-interactively 'my-new-evil-tab nil)
@@ -2408,6 +2374,94 @@ containing a lot of files, and if the files are themselves large.
     (require 'org-id)
     (org-id-update-id-locations (directory-files-recursively
                                  my-notes-folder "\.org$") t))
+#+end_src
+
+** TODO Zetteldeft
+- Propose using ex commands, with a "z" prefix (it does not seem to be
+  used, and z seems sufficiently out of the way.
+- We would like to be able to work with this schema using nothing but
+  ripgrep or some cli search tool. (i.e we want this to be emacs
+  agnostic. it might not be all that possible because org-mode is
+  strongly tied to emacs, but if the id can cross file format
+  boundaries (e.g if it can link to markdown or some other document)
+  then I think we have succeeded.
+
+#+begin_src emacs-lisp :results output silent
+  (use-package zetteldeft
+    :straight (:host github :repo "efls/zetteldeft")
+    :custom
+    (zetteldeft-id-format "%s"
+                          "Single number. I want the ID to not rely on
+                          the structure of dates.")
+    (zetteldeft-link-indicator "@")
+    (zetteldeft-id-regex "[[:alnum:]]+")
+    (zetteldeft-tag-regex "#[[:alnum:]_-]+")
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "n n" 'zetteldeft-find-file
+     "n c" 'zetteldeft-new-file
+     "n s" 'zetteldeft-new-file-and-link
+     "n i" 'zetteldeft-find-file-id-insert
+     "n l" 'zetteldeft-follow-link
+     "n r" 'zetteldeft-file-rename
+     "n t" 'zetteldeft-avy-tag-search
+     "n T" 'zetteldeft-tag-buffer
+     "n f" 'zetteldeft-avy-link-search)
+    :config
+    (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
+    (evil-ex-define-cmd "nc" 'zetteldeft-new-file)
+    (evil-ex-define-cmd "ns" 'zetteldeft-new-file-and-link)
+    (evil-ex-define-cmd "ni" 'zetteldeft-find-file-id-insert)
+    (evil-ex-define-cmd "nl" 'zetteldeft-follow-link)
+    (evil-ex-define-cmd "nr" 'zetteldeft-file-rename)
+    (evil-ex-define-cmd "nt" 'zetteldeft-avy-tag-search)
+    (evil-ex-define-cmd "nf" 'zetteldeft-avy-link-search)
+    (with-eval-after-load 'rg
+      (rg-define-search search-zettel
+        :dir deft-directory
+        :files "everything"
+        :confirm prefix
+        :menu ("Zettel" "zz" "Zetteldeft files")))
+    ;; Because of the regex we chose, the original implementation (which
+    ;; set the point to the end and then looked backwards for the first
+    ;; match, would find the wrong match (we want the one closest to the
+    ;; start of the temp buffer)). This fix resets the point to the
+    ;; start, and then matches forward.
+    ;; NOTE: This could be a PR
+    (advice-add 'zetteldeft--lift-id :override
+                (lambda (str)
+                  (with-temp-buffer
+                    (insert str)
+                    (goto-char 0)
+                    (when (re-search-forward zetteldeft-id-regex nil t 1)
+                      (match-string 0)))))
+    ;; When inserting the string and id, insert the string before the
+    ;; id, instead of after as is the default.
+    (advice-add 'zetteldeft-new-file-and-link :override
+                (lambda (str)
+                  (interactive (list (read-string "Note title: ")))
+                  (let* ((zdId (zetteldeft-generate-id))
+                         (zdStr (concat str " "
+                                        zetteldeft-link-indicator
+                                        zdId
+                                        zetteldeft-link-suffix)))
+                    (insert zdStr)
+                    (zetteldeft-new-file str zdId))))
+    ;; Remove whitespace after generating the tag because otherwise
+    ;; it'll show up as really distracting red blocks.
+    (advice-add 'zetteldeft-tag-buffer :after
+                'whitespace-cleanup)
+    ;; Add font lock for tags too while we're here. This feature might
+    ;; get implemented by zetteldeft in the future, so we might have to
+    ;; update this.
+    (font-lock-add-keywords 'org-mode
+                            `((,zetteldeft-tag-regex
+                               . font-lock-constant-face)))
+                               ;; . font-lock-regexp-grouping-backslash)))
+    ;; somehow we need to do this for the font customizations to show
+    ;; up, and even then it's not the most reliable
+    (org-mode-restart))
 #+end_src
 
 * AES Encryption
@@ -2571,6 +2625,7 @@ Requires rust-mode and markdown-mode
      "SPC" nil                       ; was shadowing leader key bindings
      "-" 'dired-jump
      "d" 'dired-create-directory
+     "e" 'dired-toggle-read-only ; similar interface to wgrep
      "/" 'counsel-find-file
      "?" 'counsel-find-file
      "+" nil) ; don't block org-projectile
@@ -2618,6 +2673,15 @@ note: use :Ex instead like Vim does
   (unless (el-get-package-is-installed 'dired+)
     (el-get-emacswiki-build-local-recipes)
     (el-get-install 'dired+))
+  (use-package dired+
+    :after dired
+    :custom-face
+    (diredp-dir-heading ((t (:inherit 'font-lock-warning-face :bold t))))
+    (diredp-dir-name ((t (:inherit 'font-lock-string-face :bold t))))
+    (diredp-file-name ((t (:inherit 'font-lock-function-name-face))))
+    (diredp-file-suffix ((t (:inherit 'font-lock-type-face))))
+    (diredp-ignored-file-name ((t (:inherit 'font-lock-comment-face))))
+    (diredp-flag-mark ((t (:inherit 'font-lock-keyword-face)))))
 #+end_src
 
 * Help
@@ -2784,6 +2848,7 @@ filters*.
                rg-project
                rg-dwim
                rg-literal
+               rg-define-search
                rg-menu)
     :ensure-system-package
     (rg . "choco install -y ripgrep")
@@ -4053,6 +4118,8 @@ the underlying format
      :states '(visual normal motion)
       "RET" 'pomidor-stop
       "SPC" 'pomidor-break)
+    :custom-face
+    (pomidor-break-face ((t (:inherit 'font-lock-function-name-face))))
     :custom
     (pomidor-sound-tick nil)
     (pomidor-sound-tack nil)
