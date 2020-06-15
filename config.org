@@ -2674,6 +2674,8 @@ note: use :Ex instead like Vim does
     (el-get-emacswiki-build-local-recipes)
     (el-get-install 'dired+))
   (use-package dired+
+    :ensure nil
+    :straight nil
     :after dired
     :custom-face
     (diredp-dir-heading ((t (:inherit 'font-lock-warning-face :bold t))))
