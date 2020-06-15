@@ -2618,8 +2618,6 @@ note: use :Ex instead like Vim does
   (unless (el-get-package-is-installed 'dired+)
     (el-get-emacswiki-build-local-recipes)
     (el-get-install 'dired+))
-  (use-package dired+
-    :after dired)
 #+end_src
 
 * Help
