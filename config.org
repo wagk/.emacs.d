@@ -148,16 +148,14 @@ We're sticking to Japanese for now
 Emulate the best feature of notepad
 
 #+begin_src emacs-lisp :results output silent
-  (defun iso-8601-timestamp ()
-    (concat (format-time-string "%Y-%m-%d")
-            "T"
-            (format-time-string "%T")))
+  (defun iso-8601-timestamp (with-hours)
+    (insert (format-time-string (if with-hours "%F-%H%M" "%F"))))
   (general-define-key
    :states '(normal motion insert)
     "<f5>" '(lambda () (interactive)
-              (if (eq major-mode 'org-mode)
-                  (org-time-stamp-inactive '(16))
-                (insert (iso-8601-timestamp)))))
+              (iso-8601-timestamp nil))
+    "S-<f5>" '(lambda () (interactive)
+                (iso-8601-timestamp t)))
 #+end_src
 
 ** Do not truncate lines
@@ -2365,7 +2363,6 @@ containing a lot of files, and if the files are themselves large.
       (interactive "<a>")
       (deft-filter filter t)
       (deft))
-    (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
     ;; (my-evil-define-split-vsplit-cmd "n[otes]" 'deft)
     ;; (evil-ex-define-cmd "tn" '(lambda () (interactive)
     ;;                             (funcall-interactively 'my-new-evil-tab nil)
@@ -2406,19 +2403,20 @@ containing a lot of files, and if the files are themselves large.
      "n c" 'zetteldeft-new-file
      "n s" 'zetteldeft-new-file-and-link
      "n i" 'zetteldeft-find-file-id-insert
-     "n f" 'zetteldeft-follow-link ;; does not seem to be working?
+     "n l" 'zetteldeft-follow-link
      "n r" 'zetteldeft-file-rename
      "n t" 'zetteldeft-avy-tag-search
      "n T" 'zetteldeft-tag-buffer
-     "n l" 'zetteldeft-avy-link-search)
+     "n f" 'zetteldeft-avy-link-search)
     :config
-    (evil-ex-define-cmd "zz" 'zetteldeft-find-file)
-    (evil-ex-define-cmd "zc" 'zetteldeft-new-file)
-    (evil-ex-define-cmd "zs" 'zetteldeft-new-file-and-link)
-    (evil-ex-define-cmd "zi" 'zetteldeft-find-file-id-insert)
-    (evil-ex-define-cmd "zf" 'zetteldeft-follow-link)
-    (evil-ex-define-cmd "zt" 'zetteldeft-avy-tag-search)
-    (evil-ex-define-cmd "zl" 'zetteldeft-avy-link-search)
+    (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
+    (evil-ex-define-cmd "nc" 'zetteldeft-new-file)
+    (evil-ex-define-cmd "ns" 'zetteldeft-new-file-and-link)
+    (evil-ex-define-cmd "ni" 'zetteldeft-find-file-id-insert)
+    (evil-ex-define-cmd "nl" 'zetteldeft-follow-link)
+    (evil-ex-define-cmd "nr" 'zetteldeft-file-rename)
+    (evil-ex-define-cmd "nt" 'zetteldeft-avy-tag-search)
+    (evil-ex-define-cmd "nf" 'zetteldeft-avy-link-search)
     (with-eval-after-load 'rg
       (rg-define-search search-zettel
         :dir deft-directory
