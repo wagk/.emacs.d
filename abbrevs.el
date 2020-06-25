@@ -551,6 +551,7 @@
     ("rerason" "reason" nil 1)
     ("resove" "resolve" nil 1)
     ("responsiblity" "responsibility" nil 1)
+    ("retreive" "retrieve" nil 1)
     ("reusme" "resume" nil 1)
     ("reutrn" "return" nil 5)
     ("rihgt" "right" nil 1)
@@ -611,7 +612,7 @@
     ("tempalte" "template" nil 2)
     ("tempaltes" "templates" nil 1)
     ("temporarrily" "temporarily" nil 1)
-    ("th" "the" nil 10)
+    ("th" "the" nil 11)
     ("thaat" "that" nil 1)
     ("thaty" "that" nil 2)
     ("theri" "their" nil 2)
@@ -668,6 +669,7 @@
     ("wnhat" "what" nil 1)
     ("woild" "would" nil 1)
     ("womewhere" "somewhere" nil 1)
+    ("woudl" "would" nil 2)
     ("wrok" "work" nil 1)
     ("wrory" "worry" nil 1)
     ("wrpaper" "Wrapper" nil 1)
@@ -855,7 +857,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
 
