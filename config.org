@@ -2365,11 +2365,13 @@ containing a lot of files, and if the files are themselves large.
       that argument"
       (interactive "<a>")
       (deft-filter filter t)
-      (deft))
+      (call-interactively 'deft)
+      (evil-insert-state))
     ;; (my-evil-define-split-vsplit-cmd "n[otes]" 'deft)
     ;; (evil-ex-define-cmd "tn" '(lambda () (interactive)
     ;;                             (funcall-interactively 'my-new-evil-tab nil)
     ;;                             (deft)))
+    (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
     (evil-set-initial-state 'deft-mode 'insert)
     (with-eval-after-load 'org-agenda
       (add-to-list 'org-agenda-files deft-directory))
@@ -2411,8 +2413,7 @@ containing a lot of files, and if the files are themselves large.
      "n t" 'zetteldeft-avy-tag-search
      "n T" 'zetteldeft-tag-buffer
      "n f" 'zetteldeft-avy-link-search)
-    :config
-    (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
+    :init
     (evil-ex-define-cmd "nc" 'zetteldeft-new-file)
     (evil-ex-define-cmd "ns" 'zetteldeft-new-file-and-link)
     (evil-ex-define-cmd "ni" 'zetteldeft-find-file-id-insert)
@@ -2420,6 +2421,7 @@ containing a lot of files, and if the files are themselves large.
     (evil-ex-define-cmd "nr" 'zetteldeft-file-rename)
     (evil-ex-define-cmd "nt" 'zetteldeft-avy-tag-search)
     (evil-ex-define-cmd "nf" 'zetteldeft-avy-link-search)
+    :config
     (with-eval-after-load 'rg
       (rg-define-search search-zettel
         :dir deft-directory
