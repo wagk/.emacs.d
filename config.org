@@ -2322,9 +2322,10 @@ containing a lot of files, and if the files are themselves large.
       "Set the extensions for deft notes")
     (deft-recursive t
       "Recursively search so we can organise by folders")
-    (deft-time-format "%Y-%m-%d-%H:%M%z")
+    (deft-time-format "%Y-%m-%d")
     (deft-use-filter-string-for-filename t)
     (deft-use-filename-as-title t)
+    (deft-current-sort-method 'title)
     (deft-file-limit 30)
     (deft-file-naming-rules '(;;(noslash . "-") ;; we want to create directory structure on the fly
                               (nospace . "-")
@@ -2360,25 +2361,28 @@ containing a lot of files, and if the files are themselves large.
     :hook ((deft-mode-hook . deft-filter-clear)
            (deft-mode-hook . evil-insert-state))
     :init
-    (evil-define-command ex-deft-forwarding-arg (filter)
+    ;; (evil-define-command ex-deft-forwarding-arg (&optional filter)
+    (evil-define-command ex-deft-forwarding-arg ()
       "If given an argument, pre-populates the deft filter with
       that argument"
-      (interactive "<a>")
-      (deft-filter filter t)
+      ;; (interactive "<a>")
+      (interactive)
+      ;; (deft-filter filter t)
       (call-interactively 'deft)
+      (deft-filter-clear)
       (evil-insert-state))
     ;; (my-evil-define-split-vsplit-cmd "n[otes]" 'deft)
     ;; (evil-ex-define-cmd "tn" '(lambda () (interactive)
     ;;                             (funcall-interactively 'my-new-evil-tab nil)
     ;;                             (deft)))
-    (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
-    (evil-set-initial-state 'deft-mode 'insert)
-    (with-eval-after-load 'org-agenda
-      (add-to-list 'org-agenda-files deft-directory))
+    ;; (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
+    (my-evil-define-split-vsplit-cmd "nn" 'ex-deft-forwarding-arg)
     :config
     (require 'org-id)
     (org-id-update-id-locations (directory-files-recursively
-                                 my-notes-folder "\.org$") t))
+                                 my-notes-folder "\.org$") t)
+    (with-eval-after-load 'org-agenda
+      (add-to-list 'org-agenda-files deft-directory)))
 #+end_src
 
 ** TODO Zetteldeft
@@ -2394,13 +2398,14 @@ containing a lot of files, and if the files are themselves large.
 #+begin_src emacs-lisp :results output silent
   (use-package zetteldeft
     :straight (:host github :repo "efls/zetteldeft")
+    :after deft
     :custom
     (zetteldeft-id-format "%s"
                           "Single number. I want the ID to not rely on
                           the structure of dates.")
     (zetteldeft-link-indicator "@")
     (zetteldeft-id-regex "[[:alnum:]]+")
-    (zetteldeft-tag-regex "#[[:alnum:]_-]+")
+    (zetteldeft-tag-regex "#[[:alnum:]\:-]+")
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -2689,6 +2694,17 @@ note: use :Ex instead like Vim does
     (diredp-file-suffix ((t (:inherit 'font-lock-type-face))))
     (diredp-ignored-file-name ((t (:inherit 'font-lock-comment-face))))
     (diredp-flag-mark ((t (:inherit 'font-lock-keyword-face)))))
+#+end_src
+
+** w32-browser
+#+begin_src emacs-lisp :results output silent
+  (unless (el-get-package-is-installed 'w32-browser)
+    (el-get-emacswiki-build-local-recipes)
+    (el-get-install 'w32-browser))
+  (use-package w32-browser
+    :ensure nil
+    :straight nil
+    :after dired)
 #+end_src
 
 * Help
