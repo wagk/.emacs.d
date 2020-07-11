@@ -2426,6 +2426,8 @@ containing a lot of files, and if the files are themselves large.
     (evil-ex-define-cmd "nr" 'zetteldeft-file-rename)
     (evil-ex-define-cmd "nt" 'zetteldeft-avy-tag-search)
     (evil-ex-define-cmd "nf" 'zetteldeft-avy-link-search)
+    (with-eval-after-load 'deft
+      (require 'zetteldeft))
     :config
     (with-eval-after-load 'rg
       (rg-define-search search-zettel
