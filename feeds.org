@@ -343,6 +343,7 @@ Worldbuilding and warfare.
 
 ** Blogs
 *** [[https://terrytao.wordpress.com/feed/][Terrence Tao]]
+*** [[https://nickp.svbtle.com/feed][Nicholas Pilkington]]
 
 ** Computer Science                                                :compsci:
 *** [[http://www.drdobbs.com/rss/all][Dr. Dobb's All]]
