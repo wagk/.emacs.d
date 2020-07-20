@@ -83,24 +83,19 @@ C-M-i                           backward-button
 <normal-state> g b              debugger-frame
 <normal-state> g l              debugger-list-functions
 
-* Check for local.el defines
-#+begin_src emacs-lisp :results output silent
-  (unless (boundp 'config-local-syncthing-folder)
-    (user-error "config-local-syncthing-folder not bound!"))
-#+end_src
-
 * Define useful constants
 #+begin_src emacs-lisp :results output silent
-  (when (boundp 'config-local-syncthing-folder)
-      (defconst my-notes-folder (-> config-local-syncthing-folder
-                                    (f-join "notes")))
-      (defconst my-todo-org-file (-> my-notes-folder
-                                     (f-join "raw" "agenda.org")))
-      (defconst my-notes-org-file (-> my-notes-folder
-                                      (f-join "raw" "notes.org")))
-      (defun find-user-syncthing-folder ()
-        (interactive)
-        (dired config-local-syncthing-folder)))
+  (if (not (boundp 'config-local-syncthing-folder))
+      (display-warning "config-local-syncthing-folder not bound!")
+    (defconst my-notes-folder (-> config-local-syncthing-folder
+                                  (f-join "wiki")))
+    (defconst my-todo-org-file (-> config-local-syncthing-folder
+                                    (f-join "agenda.org")))
+    (defconst my-notes-org-file (-> my-notes-folder
+                                    (f-join "raw" "notes.org")))
+    (defun find-user-syncthing-folder ()
+      (interactive)
+      (dired config-local-syncthing-folder)))
 #+end_src
 
 * Quality of Life
@@ -359,7 +354,11 @@ Stolen from https://github.com/bbatsov/crux
 
 ** Match Braces
 #+begin_src emacs-lisp :results output silent
-  (electric-pair-mode)
+  (use-package elec-pair
+    :ensure nil
+    :straight nil
+    :config
+    (electric-pair-mode))
 #+end_src
 
 ** COMMENT If inside {}, [], or (), newline and indent
@@ -1108,9 +1107,15 @@ For some reason we can't do this in the scratch buffer
       (require 'dash) ;; -concat
       (customize-set-variable 'org-agenda-files
                               (-concat org-agenda-files
-                                       (directory-files-recursively
-                                        (f-join my-notes-folder "raw")
-                                        "\.org$"))))
+                                       (directory-files my-notes-folder
+                                                        t "\.org$")
+                                       (list (f-join
+                                              config-local-syncthing-folder
+                                              "agenda.org")))))
+    ;; (-concat org-agenda-files
+    ;;          (directory-files-recursively
+    ;;           (f-join my-notes-folder "raw")
+    ;;           "\.org$"))))
     (my-evil-define-split-vsplit-cmd "agenda" #'org-agenda)
     (with-eval-after-load 'eyebrowse
       (evil-ex-define-cmd "Tagenda"
@@ -3042,7 +3047,10 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     :ensure nil
     :load-path "local-packages/"
     :custom
-    (beancount-mode-map-prefix [(control c) (control b)]))
+    (beancount-mode-map-prefix [(control c) (control b)])
+    :config
+    (with-eval-after-load 'org-src
+      (cl-pushnew '("beancount" . beancount) org-src-lang-modes)))
     ;; :general
     ;; (beancount-mode-map
     ;;  :states '(normal motion insert)
