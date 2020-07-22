@@ -538,6 +538,7 @@ Joe Nelson's Blog
 *** [[http://existentialcomics.com/rss.xml][Existential Comics]]
 *** [[http://abstrusegoose.com/feed][Abstruse Goose]]
 *** [[http://feeds2.feedburner.com/rsspect/fJur][Dresden Codak]]
+*** [[https://killsixbilliondemons.com/feed/][Kill 6 Billion Demons]]
 ** Independent
 *** [[http://feedproxy.google.com/TechCrunch][TechCrunch]]                                                 :mainstream:
 *** [[http://notch.tumblr.com/rss][The Word of Notch]]
