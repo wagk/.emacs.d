@@ -3898,7 +3898,7 @@ Not tracking master because it's currently broken for some reason.
     (prog-mode-hook . global-flycheck-mode))
 #+end_src
 
-* Language Server Protocol
+* Language Server Protocol (LSP)
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-mode
     :straight (:host github :repo "emacs-lsp/lsp-mode")
@@ -3906,16 +3906,20 @@ Not tracking master because it's currently broken for some reason.
     (prog-mode-hook . lsp-mode))
 #+end_src
 
-* Code Folding
+* Code Folding (Origami)
 #+begin_src emacs-lisp :results output silent
   (use-package origami
     :straight (:host github :repo "gregsexton/origami.el")
     :after evil
     :general
     (:states 'normal
-     ;; "zC" 'origami-close-node-recursively
-     ;; "zO" 'origami-open-node-recursively
-     ;; "zA" 'origami-recursively-toggle-node
+     "zm" 'origami-close-all-nodes
+     "zr" 'origami-open-all-nodes
+     "zc" 'origami-close-node
+     "zC" 'origami-close-node-recursively
+     "zo" 'origami-open-node
+     "zO" 'origami-open-node-recursively
+     "za" 'origami-recursively-toggle-node
      "zj" 'origami-forward-fold
      "zk" #'(lambda () (interactive)
               (call-interactively 'origami-previous-fold)
