@@ -85,8 +85,7 @@ C-M-i                           backward-button
 
 * Define useful constants
 #+begin_src emacs-lisp :results output silent
-  (if (not (boundp 'config-local-syncthing-folder))
-      (display-warning "config-local-syncthing-folder not bound!")
+  (when (boundp 'config-local-syncthing-folder)
     (defconst my-notes-folder (-> config-local-syncthing-folder
                                   (f-join "wiki")))
     (defconst my-todo-org-file (-> config-local-syncthing-folder
@@ -1362,6 +1361,7 @@ Requires =sqlite=. Install using =choco install sqlite=
   (use-package org-roam
     ;; :hook (org-mode-hook . org-roam-mode)
     :straight (:host github :repo "jethrokuan/org-roam")
+    :if (boundp 'my-notes-folder)
     :custom
     (org-roam-buffer-width 0.3)
     (org-roam-directory my-notes-folder)
