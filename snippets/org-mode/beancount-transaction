@@ -3,8 +3,8 @@
 # key: tx
 # expand-env: ((yas-indent-line 'fixed))
 # --
+#+BEGIN_SRC beancount
 ${1:`(format-time-string "%Y-%m-%d")`} * "$2" "$3"
   ${4:Expenses:Food:$5} $6 ${7:SGD}
   ${8:Liabilities:DBS:Credit-card}
-
-$0
+#+END_SRC
