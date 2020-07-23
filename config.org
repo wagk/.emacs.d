@@ -1815,7 +1815,7 @@ that for the range we want
                    (sol-cyan    . "#2aa198")
                    (sol-green   . "#859900")))
       ;; TODO: set documentation string
-      (set (car col) (cdr col)))
+      (defconst (car col) (cdr col)))
     (defun load-solarized-theme ()
       (interactive)
       (if (display-graphic-p)
@@ -3821,9 +3821,15 @@ Might be better done as an ex mode command or something.
 #+begin_src emacs-lisp :results output silent
   (use-package annotate
     :straight (:host github :repo "bastibe/annotate.el")
+    ;; :custom-face
+    ;; (annotate-annotation
+    ;;  '((t (:background sol-base02
+    ;;        :foreground sol-cyan
+    ;;        :inherit default))))
     :general
     (:states '(normal visual)
      :prefix my-default-evil-leader-key
+                                          ; "r" for "remember"
      "r r" 'annotate-annotate
      "r s" 'annotate-show-annotation-summary))
 #+end_src
