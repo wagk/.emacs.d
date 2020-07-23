@@ -3819,7 +3819,18 @@ now becomes too noisy.
 Might be better done as an ex mode command or something.
 
 #+begin_src emacs-lisp :results output silent
+  (use-package annotate
+    :straight (:host github :repo "bastibe/annotate.el")
+    :general
+    (:states '(normal visual)
+     :prefix my-default-evil-leader-key
+     "r r" 'annotate-annotate
+     "r s" 'annotate-show-annotation-summary))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
   (use-package annot
+    :disabled t ;; trying out annotate.el instead
     :straight (:host github :repo "ghoshi/annot"
                :files (:defaults "src/annot.el"))
     :general
