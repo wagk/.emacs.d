@@ -3826,11 +3826,10 @@ Might be better done as an ex mode command or something.
 #+begin_src emacs-lisp :results output silent
   (use-package annotate
     :straight (:host github :repo "bastibe/annotate.el")
-    ;; :custom-face
-    ;; (annotate-annotation
-    ;;  '((t (:background sol-base02
-    ;;        :foreground sol-cyan
-    ;;        :inherit default))))
+    :custom
+    (annotate-annotation-position-policy :new-line)
+    :hook
+    (after-save-hook . annotate-save-annotation)
     :general
     (:states '(normal visual)
      :prefix my-default-evil-leader-key
