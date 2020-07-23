@@ -476,8 +476,8 @@ we're adding a custom function for it here."
      :prefix my-default-evil-leader-key
      "o t" 'org-time-stamp
      "o T" '(lambda () (interactive)
-              (org-time-stamp '(16)))
-     "f f" 'counsel-org-goto)
+              (org-time-stamp '(16))))
+     ;; "f f" 'counsel-org-goto)
     (org-mode-map
      "C-S-c C-S-c" '(lambda () (interactive)
                       (org-toggle-checkbox '(4)))

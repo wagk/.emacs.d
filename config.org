@@ -3570,6 +3570,24 @@ Or evil-spongebob if you want to think of it that way.
     :mode ("\\.go\\'" . go-mode))
 #+end_src
 
+* Ace Link
+#+begin_src emacs-lisp :results output silent
+  (use-package avy
+    :disabled t
+    :straight (:host github :repo "abo-abo/avy"))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (use-package ace-link
+    :straight (:host github :repo "abo-abo/ace-link")
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "f" 'ace-link)
+    :commands (ace-link
+               ace-link-eww))
+#+end_src
+
 * Elfeed
 #+begin_src emacs-lisp :results output silent
   (defconst user-rss-feed-file
@@ -3665,19 +3683,6 @@ This is really really slow
   ;; ;; :config
   ;; ;; (elfeed-goodies/setup)
   ;; ;; (remove-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title))
-#+end_src
-
-* Ace Link
-#+begin_src emacs-lisp :results output silent
-  (use-package avy
-    :disabled t
-    :straight (:host github :repo "abo-abo/avy"))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  ;; (use-package ace-link
-  ;;   :straight (:host github :repo "abo-abo/ace-link")
-  ;;   :commands (ace-link-eww))
 #+end_src
 
 * Info mode
