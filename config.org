@@ -3605,6 +3605,7 @@ Or evil-spongebob if you want to think of it that way.
 #+begin_src emacs-lisp :results output silent
   (use-package elfeed
     :straight (:host github :repo "skeeto/elfeed")
+    :if (f-exists? user-rss-feed-file)
     :ensure-system-package
     (curl . "choco install -y curl")
     :commands (elfeed)
@@ -3653,6 +3654,7 @@ This is really really slow
 #+begin_src emacs-lisp :results output silent
   (use-package elfeed-org
     :straight (:host github :repo "remyhonig/elfeed-org")
+    :if (f-exists? user-rss-feed-file)
     :commands (elfeed-org
                rmh-elfeed-org-process)
     :custom
