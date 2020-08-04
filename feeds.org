@@ -1,61 +1,54 @@
-#+STARTUP: showeverything
+#+startup: showeverything
 #+title: RSS feeds
 
 - agg :: Aggregators
 - hot :: Frontpage feeds
 
 * Imported Feeds                                                     :elfeed:
-** A List of Things I actually Read                                    :hot:
+** A List of Things I actually Read                                     :hot:
 *** [[http://calnewport.com/blog/feed/][Study Hacks]]
 *** [[https://www.lesswrong.com/feed.xml][Lesswrong]]
-*** [[etodd.io/feed/][Evan Todd's Blog]]                                              :gamedev:
-*** [[http://feeds.feedburner.com/WorldOfMatticus][World of Matticus]]                                            :wow:blog:
-*** [[http://feeds.feedburner.com/rudiusmedia/rch][Ryan Holiday]]                                            :stoicism:blog:
+*** [[etodd.io/feed/][Evan Todd's Blog]]                            :gamedev:
+*** [[http://feeds.feedburner.com/WorldOfMatticus][World of Matticus]] :wow:blog:
+*** [[http://feeds.feedburner.com/rudiusmedia/rch][Ryan Holiday]] :stoicism:blog:
 *** [[http://inventingsituations.net/feed/][Inventing Situations]]
-*** [[http://na.finalfantasyxiv.com/pr/blog/atom.xml][FINAL FANTASY XIV: Developers’ Blog]]                       :ffxiv:games:
-*** [[http://news.ycombinator.com/rss][Hacker News]]                                                        :hn:
-*** [[http://pedrothedagger.tumblr.com/rss][videogames: the blog]]                                   :gamedev:design:
+*** [[http://na.finalfantasyxiv.com/pr/blog/atom.xml][FINAL FANTASY XIV: Developers’ Blog]] :ffxiv:games:
+*** [[http://news.ycombinator.com/rss][Hacker News]]                     :hn:
+*** [[http://pedrothedagger.tumblr.com/rss][videogames: the blog]] :gamedev:design:
 *** [[http://physiqonomics.com/feed/][Physiqonomics]]
 *** [[http://slatestarcodex.com/feed/][Slate Star Codex]]
-*** [[http://unenumerated.blogspot.com/feeds/posts/default][Nick Szabo]]                                                       :blog:
-*** [[http://what-if.xkcd.com/feed.atom][What If?]]                                                         :xkcd:
+*** [[http://unenumerated.blogspot.com/feeds/posts/default][Nick Szabo]] :blog:
+*** [[http://what-if.xkcd.com/feed.atom][What If?]]                    :xkcd:
 *** [[http://www.artofmanliness.com/feed/][The Art of Manliness]]
-*** [[http://www.cheerfulegg.com/feed/][cheerful.egg]]                                            :finance:local:
+*** [[http://www.cheerfulegg.com/feed/][cheerful.egg]]        :finance:local:
 *** [[http://www.gwern.net/atom.xml][Gwern]]
-*** [[http://www.randygaul.net/feed/][Randy Gaul's Game Programming Blog]]                            :gamedev:
-*** [[http://www.reddit.com/r/bestof/.rss][/r/bestof]]                                                      :reddit:
-*** [[https://old.reddit.com/r/gwern/.rss][/r/gwern]]                                                       :reddit:
-*** [[https://scholars-stage.blogspot.com/feeds/posts/default?alt=rss][Scholar's Stage]]                                         :china:culture:
-*** [[https://www.reddit.com/r/slatestarcodex/.rss][/r/slatestarcodex]]                                              :reddit:
+*** [[http://www.randygaul.net/feed/][Randy Gaul's Game Programming Blog]] :gamedev:
+*** [[https://old.reddit.com/r/gwern/.rss][/r/gwern]]                :reddit:
+*** [[https://scholars-stage.blogspot.com/feeds/posts/default?alt=rss][Scholar's Stage]] :china:culture:
+*** [[https://www.reddit.com/r/slatestarcodex/.rss][/r/slatestarcodex]] :reddit:
 Gwern's actual rss feed is broken or something, so we use reddit instead
 
-*** [[https://fs.blog/feed/][Farnam Street]]                                                    :blog:
-*** [[https://apxhard.com/feed/][Apxhard]]                                                          :blog:
+*** [[https://fs.blog/feed/][Farnam Street]]                           :blog:
+*** [[https://apxhard.com/feed/][Apxhard]]                             :blog:
 *** [[https://languagelog.ldc.upenn.edu/nll/?feed=rss2][Language Log]]
 *** [[https://stronglang.wordpress.com/feed/][Strong Language]]
 
-*** [[https://acoup.blog/feed/][A collection of unmitigated pedantry]]                             :blog:
-Worldbuilding and warfare.
-
 ** Newsletters
-
 *** [[https://thegrowtheq.com/feed/][The Growth Equation]]
-
 *** [[https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine.rss][Matt Levine Money Stuff]]
-
 *** [[https://joy.recurse.com/feed.atom][Recurse]]
 
-** News                                                               :news:
+** News                                                                :news:
 *** Channel News Asia
-**** [[https://www.channelnewsasia.com/rssfeeds/8395744][Channel News Asia (Asia)]]                                       :asia:
-**** [[https://www.channelnewsasia.com/rssfeeds/8396082][Channel News Asia (Singapore)]]                             :singapore:
-**** [[https://www.channelnewsasia.com/rssfeeds/8395884][Channel News Asia (World)]]                                     :world:
-*** Gaming                                                         :gaming:
-**** [[http://www.eugensystems.com/feed/][Eugensystems.com]]                             :wargame:steel_division:
-**** [[http://www.wowhead.com/news&rss][Wowhead News]]                                                    :wow:
-**** [[http://www.mmo-champion.com/?type=rss;action=.xml;board=2.0;sa=news][MMO-Champion]]                                                    :wow:
-** Images                                                              :art:
-*** Deviantart                                          :deviantart:artist:
+**** [[https://www.channelnewsasia.com/rssfeeds/8395744][Channel News Asia (Asia)]] :asia:
+**** [[https://www.channelnewsasia.com/rssfeeds/8396082][Channel News Asia (Singapore)]] :singapore:
+**** [[https://www.channelnewsasia.com/rssfeeds/8395884][Channel News Asia (World)]] :world:
+*** Gaming                                                           :gaming:
+**** [[http://www.eugensystems.com/feed/][Eugensystems.com]] :wargame:steel_division:
+**** [[http://www.wowhead.com/news&rss][Wowhead News]]                  :wow:
+**** [[http://www.mmo-champion.com/?type=rss;action=.xml;board=2.0;sa=news][MMO-Champion]] :wow:
+** Images                                                               :art:
+*** Deviantart                                            :deviantart:artist:
 **** [[http://backend.deviantart.com/rss.xml?q=by:AoiOgataArtist/45894669&type=deviation][Aoi Ogata]]
 **** [[http://backend.deviantart.com/rss.xml?q=gallery:Artgerm/157933&type=deviation&offset=0][Artgerm]]
 **** [[http://backend.deviantart.com/rss.xml?q=gallery:Cushart/403507&type=deviation][Cushart]]
@@ -291,7 +284,7 @@ Worldbuilding and warfare.
 *** [[http://virtualgouacheland.blogspot.com/feeds/posts/default][Virtual Gouache Land]]
 *** [[http://woutertulp.blogspot.com/feeds/posts/default][Wouter Tulp | Illustrator |]]
 *** [[http://wvs.topleftpixel.com/index.rdf][daily dose of imagery]]
-*** [[http://www.fashionsnap.com/rss.xml][FASHIONSNAP.COM【ファッションスナップ・ドットコム】]]          :japanese:
+*** [[http://www.fashionsnap.com/rss.xml][FASHIONSNAP.COM【ファッションスナップ・ドットコム】]] :japanese:
 *** [[http://www.linesandcolors.com/feed/][lines and colors :: a blog about drawing, painting, illustration, comics, concept art and other visual arts]]
 *** [[http://www.moviedeskback.com/feed][Movie Wallpapers]]
 *** [[http://www.pixivision.net/en/rss][pixivision]]
@@ -302,13 +295,13 @@ Worldbuilding and warfare.
 *** [[https://miv4t.artstation.com/rss][true]]
 *** [[https://www.artstation.com/renart.rss][Julien Gauthier on ArtStation]]
 *** [[https://www.artstation.com/soonsanghong54.rss][Hong SoonSang on ArtStation]]
-*** [[http://gdata.youtube.com/feeds/base/users/FZDSCHOOL/uploads?alt=rss&v=2&orderby=published&client=ytapi-youtube-profile][FZDSCHOOL]]                                                         :art:
-** Food                                                               :food:
-*** [[http://www.ramenadventures.com/feeds/posts/default?alt=rss][Ramen Adventures]]                                                :ramen:
-** Mango and Animu                                                   :manga:
+*** [[http://gdata.youtube.com/feeds/base/users/FZDSCHOOL/uploads?alt=rss&v=2&orderby=published&client=ytapi-youtube-profile][FZDSCHOOL]] :art:
+** Food                                                                :food:
+*** [[http://www.ramenadventures.com/feeds/posts/default?alt=rss][Ramen Adventures]] :ramen:
+** Mango and Animu                                                    :manga:
 *** Aggregator
-**** [[https://mangadex.org/rss/follows/eab1e6f1b801bb1713a03d1f08d8faee][MangaDex RSS]]                                               :mangadex:
-*** Scanlator                                                       :scans:
+**** [[https://mangadex.org/rss/follows/eab1e6f1b801bb1713a03d1f08d8faee][MangaDex RSS]] :mangadex:
+*** Scanlator                                                         :scans:
 **** [[https://dropoutmanga.wordpress.com/feed/][#Dropout]]
 **** [[https://jaiminisbox.com/reader/feeds/rss][Jaimini's Box]]
 **** [[https://hametsunomegami.blogspot.com/feeds/posts/default?alt=rss][Hametsu no Megami Scans]]
@@ -332,7 +325,7 @@ Worldbuilding and warfare.
 **** [[https://pepperanon.blogspot.com/feeds/posts/default][Habanero Scans]]
 **** [[http://reader.sensescans.com/rss.xml][Sense-Scans]]
 **** [[http://mangastream.com/rss][MangaStream Releases]]
-** Fiction                                                         :fiction:
+** Fiction                                                          :fiction:
 *** [[http://www.fanfiction.net/atom/u/2269863/][FanFiction.Net - Less Wrong's fanfiction]]
 *** [[https://www.fanfiction.net/atom/u/4976703/][FanFiction.Net: alexanderwales]]
 *** [[http://unsongbook.com/?feed=rss2][Unsong]]
@@ -345,17 +338,20 @@ Worldbuilding and warfare.
 *** [[https://terrytao.wordpress.com/feed/][Terrence Tao]]
 *** [[https://nickp.svbtle.com/feed][Nicholas Pilkington]]
 
-** Computer Science                                                :compsci:
+*** [[https://acoup.blog/feed/][A collection of unmitigated pedantry]] :blog:
+Worldbuilding and warfare.
+
+** Computer Science                                                 :compsci:
 *** [[http://www.drdobbs.com/rss/all][Dr. Dobb's All]]
 
-*** [[http://www.netmeister.org/blog/rss.xml][Netmeister]]                                                       :blog:
+*** [[http://www.netmeister.org/blog/rss.xml][Netmeister]]             :blog:
 :PROPERTIES:
 :HOMEPAGE: https://www.netmeister.org/index.html
 :END:
 
 *** [[https://cybersecpolitics.blogspot.com/feeds/posts/default?alt=rss][CyberSecPolitics]]
 *** [[https://www.malwaretech.com/feed][Malwaretech]]
-*** [[https://arp242.net/feed.xml][Martin Tournoij]]                                                  :blog:
+*** [[https://arp242.net/feed.xml][Martin Tournoij]]                   :blog:
 *** [[https://racket-news.com/feeds/all.atom.xml][Racket News]]
 *** [[https://jcs.org/rss][Joshua Stein]]
 *** [[https://blog.ret2.io/feed.xml][Ret2 Systems Engineering Blog]]
@@ -369,11 +365,11 @@ Worldbuilding and warfare.
 : Copenhagen, Denmark. I enjoy reading, playing the guitar, good wine,
 : and gourmet food.
 
-*** [[https://www.schneier.com/blog/atom.xml][Schneier on Security]]                                    :blog:security:
-*** [[http://thecodelesscode.com/rss][The Codeless Code]]                                                 :hot:
+*** [[https://www.schneier.com/blog/atom.xml][Schneier on Security]] :blog:security:
+*** [[http://thecodelesscode.com/rss][The Codeless Code]]               :hot:
 *** [[https://lobste.rs/rss][Lobste.rs]]
 *** [[http://emacshorrors.com/feed][Emacs Horrors]]
-*** [[https://boats.gitlab.io/blog/index.xml][withoutboats]]                                                     :rust:
+*** [[https://boats.gitlab.io/blog/index.xml][withoutboats]]           :rust:
 *** [[http://scottmeyers.blogspot.com/feeds/posts/default?alt=rss][The View from Aristeia]]
 *** [[https://manishearth.github.io/atom.xml][In Pursuit of Laziness]]
 *** [[http://attractivechaos.wordpress.com/feed/][Attractive Chaos]]
@@ -388,8 +384,8 @@ Worldbuilding and warfare.
 *** [[http://bling.github.io/index.xml][bling on software]]
 *** [[http://sachachua.com/blog/feed][sacha chua :: living an awesome life]]
 *** [[http://aturon.github.io/blog/atom.xml][Aaron Turon]]
-*** [[http://vimcasts.org/feeds/itunes/][Vimcasts]]                                                          :vim:
-*** [[http://endlessparentheses.com/atom.xml][Endless Parentheses]]                                             :emacs:
+*** [[http://vimcasts.org/feeds/itunes/][Vimcasts]]                     :vim:
+*** [[http://endlessparentheses.com/atom.xml][Endless Parentheses]]   :emacs:
 *** [[https://blog.rust-lang.org/feed.xml][Rust Blog]]
 *** [[http://www.eetimes.com/rss_simple.asp][EETimes:]]
 *** [[http://blog.think-async.com/feeds/posts/default][Thinking Asynchronously in C++]]
@@ -401,9 +397,9 @@ Worldbuilding and warfare.
 *** [[http://www.wilfred.me.uk/rss.xml][Wilfred Hughes]]
 *** [[https://blog.tartanllama.xyz/feed.xml][Simon Brand]]
 *** [[http://blog.selfshadow.com/feed/][Self Shadow]]
-*** [[http://feeds.feedburner.com/Torrentfreak][TorrentFreak]]                                                      :hot:
+*** [[http://feeds.feedburner.com/Torrentfreak][TorrentFreak]]          :hot:
 
-*** [[https://ebababi.net/feed.xml][Nikolaos Anastopoulos]]                                            :blog:
+*** [[https://ebababi.net/feed.xml][Nikolaos Anastopoulos]]            :blog:
 *** [[https://deque.blog/feed/][Deque]]
 *** [[http://www.lenholgate.com/atom.xml][www.lenholgate.com - Rambling Comments - Len Holgate's C++ progamming blog]]
 *** [[https://mozillagfx.wordpress.com/feed/][Mozilla Gfx Team Blog]]
@@ -449,7 +445,7 @@ Worldbuilding and warfare.
 *** [[https://projectfailures.wordpress.com/feed/][Project Failures]]
 *** [[https://scottmeyers.blogspot.com/feeds/posts/default?alt=rss][The View from Aristeia - RSS]]
 *** [[http://unity3d.com/news.rss][Unity - News]]
-*** [[https://xania.org/feed][Matt Godbolt’s blog]]                                               :cpp:
+*** [[https://xania.org/feed][Matt Godbolt’s blog]]                     :cpp:
 *** [[https://www.jeremyong.com/feed.xml][ninepoints]]
 *** [[https://www.discoverdev.io/rss.xml][Discover Dev]]
 *** [[http://blog.wesleyac.com/feed.xml][Wesley Aptekar-Cassels]]
@@ -457,9 +453,9 @@ Worldbuilding and warfare.
 *** [[http://pizer.wordpress.com/feed/][Pizer’s Weblog]]
 *** [[http://www.howardism.org/index.xml][Howardism]]
 *** [[https://thephd.github.io///feed.xml][The Pasture]]
-*** [[http://www.electronicsweekly.com/feed/][Electronics Weekly]]                                         :mainstream:
+*** [[http://www.electronicsweekly.com/feed/][Electronics Weekly]] :mainstream:
 *** [[http://semimd.com/top-stories/feed/][Semiconductor Manufacturing and Design Community » Top Stories]]
-*** [[http://embracingcpp.blogspot.com/feeds/posts/default?alt=rss][Embracing C++ C#]]                                                  :cpp:
+*** [[http://embracingcpp.blogspot.com/feeds/posts/default?alt=rss][Embracing C++ C#]] :cpp:
 *** [[https://fgiesen.wordpress.com/feed/][The ryg blog]]
 *** [[http://blog.stephenwolfram.com/feed/][Stephen Wolfram Blog]]
 *** [[https://vgatherps.github.io/feed.xml][vgatherps]]
@@ -478,12 +474,12 @@ Worldbuilding and warfare.
 *** [[http://moodycamel.com/blog/feed][moodycamel.com blog]]
 *** [[http://www.adriancourreges.com/atom.xml][Adrian Courrèges]]
 *** [[http://feeds.feedburner.com/Clojure/coreBlog][Clojure/core Blog]]
-*** [[http://googleresearch.blogspot.com/atom.xml][Google AI Blog]]                                                 :google:
+*** [[http://googleresearch.blogspot.com/atom.xml][Google AI Blog]]  :google:
 *** [[http://feeds.feedburner.com/mishadoff][mishadoff thoughts]]
 *** [[https://hownot2code.com/feed/][How Not To Code]]
 *** [[http://www.ncameron.org/blog/rss/][featherweight musings]]
-*** cpp                                                               :cpp:
-**** [[http://www.reddit.com/r/cpp/.rss][/r/cpp]]                                                       :reddit:
+*** cpp                                                                 :cpp:
+**** [[http://www.reddit.com/r/cpp/.rss][/r/cpp]]                    :reddit:
 **** [[https://herbsutter.com/feed/][Sutter’s Mill]]
 **** [[http://www.fluentcpp.com/feed/][Fluent C++]]
 **** [[http://www.artima.com/cppsource/feeds/cppsource.rss][Articles published in The C++ Source]]
@@ -494,23 +490,23 @@ Worldbuilding and warfare.
 **** [[http://cpptruths.blogspot.com/feeds/posts/default?alt=rss][C++ Truths]]
 **** [[http://www.drdobbs.com/articles/cpp/rss][Dr. Dobb's C/C++ Articles]]
 **** [[http://www.cplusplus-soup.com/feeds/posts/default?alt=rss][C++ Soup!]]
-*** [[http://gmailblog.blogspot.com/atom.xml][Gmail Blog]]                                                     :google:
-*** [[http://googleblog.blogspot.com/atom.xml][The Official Google Blog]]                                       :google:
-*** [[https://begriffs.com/atom.xml][Begriffs]]                                                         :blog:
+*** [[http://gmailblog.blogspot.com/atom.xml][Gmail Blog]]           :google:
+*** [[http://googleblog.blogspot.com/atom.xml][The Official Google Blog]] :google:
+*** [[https://begriffs.com/atom.xml][Begriffs]]                        :blog:
 Joe Nelson's Blog
 *** [[https://blog.pragmaticengineer.com/rss/][Pragmatic Engineer]]
-*** [[https://lethain.com/feeds/][Will Larson]]                                                      :blog:
-*** [[https://www.joelonsoftware.com/feed/][Joel Blog]]                                                        :blog:
+*** [[https://lethain.com/feeds/][Will Larson]]                        :blog:
+*** [[https://www.joelonsoftware.com/feed/][Joel Blog]]                :blog:
 
-*** [[https://danielmiessler.com/feed/][Daniel Miessler]]                                                  :blog:
+*** [[https://danielmiessler.com/feed/][Daniel Miessler]]              :blog:
 
-** Singapore                                                         :local:
-*** [[http://financialhorse.com/feed/][Financial Horse]]                                               :finance:
-*** [[https://blog.seedly.sg/feed/][Seedly – Get Rich Or Die Tryin']]                               :finance:
-** Military Things                                                :military:
+** Singapore                                                          :local:
+*** [[http://financialhorse.com/feed/][Financial Horse]]            :finance:
+*** [[https://blog.seedly.sg/feed/][Seedly – Get Rich Or Die Tryin']] :finance:
+** Military Things                                                 :military:
 *** [[http://www.38north.org/feed/][38 North]]
 *** [[https://gaijinass.com/feed/][Gaijinass]]
-** Webcomics                                                        :comics:
+** Webcomics                                                         :comics:
 *** [[http://www.darthsanddroids.net/rss.xml][Darths and Droids]]
 *** [[http://well-of-souls.com/outsider/rss.xml][Outsider Comic]]
 *** [[http://www.mcyumi.com/feed/][Marine Corps Yumi]]
@@ -540,9 +536,9 @@ Joe Nelson's Blog
 *** [[http://feeds2.feedburner.com/rsspect/fJur][Dresden Codak]]
 *** [[https://killsixbilliondemons.com/feed/][Kill 6 Billion Demons]]
 ** Independent
-*** [[http://feedproxy.google.com/TechCrunch][TechCrunch]]                                                 :mainstream:
+*** [[http://feedproxy.google.com/TechCrunch][TechCrunch]]       :mainstream:
 *** [[http://notch.tumblr.com/rss][The Word of Notch]]
-*** [[http://feeds.feedburner.com/home-designing][Interior Design Ideas]]                                          :design:
+*** [[http://feeds.feedburner.com/home-designing][Interior Design Ideas]] :design:
 *** [[http://wesley-burt.blogspot.com/feeds/posts/default][wesley burt]]
 *** [[http://wondertonic.tumblr.com/rss][WONDER-TONIC]]
 *** [[http://feeds.feedburner.com/MakesMeThink][Makes Me Think - MMT - Today's Thought-Provoking Life Stories]]
@@ -551,8 +547,8 @@ Joe Nelson's Blog
 *** [[http://gdata.youtube.com/feeds/base/users/TEDtalksDirector/uploads?alt=rss&v=2&orderby=published&client=ytapi-youtube-profile][Uploads by TEDtalksDirector]]
 *** [[http://www.boston.com/bigpicture/index.xml][The Big Picture]]
 *** [[http://foxtrotalpha.jalopnik.com/rss][Foxtrot Alpha]]
-*** [[http://www.guildwars2.com/en/rss.xml][Guild Wars2]]                                                     :games:
-*** [[http://www.teamfortress.com/rss.xml][TF2 Official Blog]]                                               :games:
+*** [[http://www.guildwars2.com/en/rss.xml][Guild Wars2]]             :games:
+*** [[http://www.teamfortress.com/rss.xml][TF2 Official Blog]]        :games:
 *** [[http://www.fourhourworkweek.com/blog/feed/][The Blog of Author Tim Ferriss]]
 *** [[http://feeds.feedburner.com/contemporist][CONTEMPORIST]]
 *** [[http://shityoushouldknow.tumblr.com/rss][Shit You Should Know]]
@@ -573,10 +569,10 @@ Joe Nelson's Blog
 *** [[http://survivingtheworld.net/feed.xml][Surviving The World]]
 *** [[http://www.engadget.com/rss.xml][Engadget]]
 *** [[http://notetoself.typepad.com/note_to_self/atom.xml][note to self]]
-*** [[http://feeds.rocketnews24.com/rocketnews24/en][SoraNews24]]                                              :culture:japan:
+*** [[http://feeds.rocketnews24.com/rocketnews24/en][SoraNews24]] :culture:japan:
 *** [[http://feeds.gawker.com/kotaku/full][Kotaku]]
 *** [[http://feeds.feedburner.com/FuelYourCreativity][Fuel Your Creativity]]
-*** [[http://www.quantamagazine.org/feed/][Quanta Magazine]]                                               :science:
+*** [[http://www.quantamagazine.org/feed/][Quanta Magazine]]        :science:
 *** [[http://io9.com/index.xml][io9]]
 *** [[http://clientsfromhell.net/rss][Clients From Hell]]
 *** [[http://www.kuriositas.com/feeds/posts/default][Kuriositas]]
