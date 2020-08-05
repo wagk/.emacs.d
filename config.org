@@ -1553,8 +1553,6 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
       "Calls specific magit functions"
       (interactive "<a>")
       (cond
-       ((eq cmd "repo") (progn (require 'git-link)
-                               (git-link-homepage)))
        ((eq cmd nil) (magit-status))
        (t (magit-shell-command (concat "git " cmd)))))
     (evil-ex-define-cmd "git" 'ex-magit-cli)
@@ -1627,7 +1625,7 @@ up, on windows at least).
     :custom
     (git-link-open-in-browser t)
     :init
-    (evil-ex-define-cmd "gh" 'git-link-homepage))
+    (evil-ex-define-cmd "repo" 'git-link-homepage))
 #+end_src
 
 ** Git Gutter
@@ -1716,6 +1714,9 @@ that for the range we want
 - [ ] Use =counsel-bookmarked-directory--candidates= and implement
   =tabm= or something with bookmark completion.
 - [ ] =:tabf= implementation
+
+
+TODO: some way to better, more dynamically name the tabs
 
 #+begin_src emacs-lisp :results output silent
   (use-package eyebrowse
@@ -2630,7 +2631,9 @@ We should look at customizing cider someday.
      "RET" 'comment-indent-new-line)
     :init
     (with-eval-after-load 'org-src
-      (cl-pushnew '("rust" . rust) org-src-lang-modes)))
+      (cl-pushnew '("rust" . rust) org-src-lang-modes))
+    (with-eval-after-load 'lsp-mode
+      (add-hook 'rust-mode-hook 'lsp)))
 #+end_src
 
 Requires rust-mode and markdown-mode
@@ -3930,7 +3933,8 @@ Not tracking master because it's currently broken for some reason.
 * Language Server Protocol (LSP)
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-mode
-    :straight (:host github :repo "emacs-lsp/lsp-mode"))
+    :straight (:host github :repo "emacs-lsp/lsp-mode")
+    :commands (lsp))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
