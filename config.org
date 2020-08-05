@@ -487,6 +487,11 @@ Further helper functions to add bookmarks:
                               (counsel-bookmark)))
 #+end_src
 
+** Doctor mode
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "doc[tor]" 'doctor)
+#+end_src
+
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
   (use-package apropos
