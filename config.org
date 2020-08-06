@@ -2792,10 +2792,10 @@ package manager
     :custom
     (dumb-jump-selector 'ivy)
     :general
-    (:states '(normal motion)
-     "g d" 'dumb-jump-go
-     "C-]" 'my-evil-dumb-jump
-     "g C-]" 'my-evil-dumb-jump)
+    (:states '(normal)
+     "g D" 'dumb-jump-go
+     "C-]" 'my-evil-dumb-jump)
+     ;; "g C-]" 'my-evil-dumb-jump)
     :init
     (evil-define-motion my-evil-dumb-jump (arg)
       :jump t
@@ -3934,13 +3934,25 @@ Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-mode
     :straight (:host github :repo "emacs-lsp/lsp-mode")
-    :commands (lsp))
+    :commands (lsp)
+    :init
+    (defun my-lsp-mode-bind-keys ()
+      "Load these keybindings for lsp.
+  Typically once lsp has started"
+      (general-define-key
+       :states 'normal
+        "g D" 'lsp-find-definition
+        "C-]" 'lsp-find-definition))
+    :hook
+    (lsp-mode-hook . my-lsp-mode-bind-keys))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-ui
     :after lsp
-    :straight (:host github :repo "emacs-lsp/lsp-ui"))
+    :straight (:host github :repo "emacs-lsp/lsp-ui")
+    :custom
+    (lsp-ui-doc-delay 2.3))
 #+end_src
 
 ** LSP Java
