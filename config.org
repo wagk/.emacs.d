@@ -233,8 +233,10 @@ Emulate the best feature of notepad
 #+end_src
 
 ** Show trailing whitespace
+actually, don't (outside of text modes)
 #+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'show-trailing-whitespace t)
+  (add-hook 'prog-mode-hook
+    (customize-set-value 'show-trailing-whitespace t))
 #+end_src
 
 ** After creating a new frame, immediately focus on that frame.
