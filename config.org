@@ -1956,10 +1956,10 @@ Solarized)
     (yas-keymap
      "C-j" 'yas-next-field-or-maybe-expand
      "C-k" 'yas-prev-field)
-    (:states 'normal
+    (:states '(normal visual)
      :prefix my-default-evil-leader-key
-     "s s" 'yas-new-snippet
-     "s a" 'yas-insert-snippet
+     "s s" 'yas-insert-snippet
+     "s n" 'yas-new-snippet
      "s f" 'yas-visit-snippet-file)
     (snippet-mode-map
      [remap evil-save-and-close]          'yas-load-snippet-buffer-and-close
@@ -1976,9 +1976,10 @@ Solarized)
       (require 'yasnippet)
       (cond
        ((string= cmd "reload") (yas-reload-all))
-       ((string= cmd "add") (yas-new-snippet))
-       (t (yas-visit-snippet-file))))
-    (evil-ex-define-cmd "sni[ppets]" 'ex-snippet)
+       ((string= cmd "edit") (yas-visit-snippet-file))
+       ((string= cmd "new") (yas-new-snippet))
+       (t (yas-insert-snippet))))
+    (evil-ex-define-cmd "sn[ippets]" 'ex-snippet)
     :config
     (defun yas-with-comment (str)
       (format "%s%s%s" comment-start str comment-end))

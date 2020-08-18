@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: latex-vec
+# key: vec
+# expand-env: ((yas-wrap-around-region t))
+# --
+\vec\{$0\}
