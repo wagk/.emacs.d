@@ -83,7 +83,7 @@ C-M-i                           backward-button
 <normal-state> g b              debugger-frame
 <normal-state> g l              debugger-list-functions
 
-* Define useful constants
+* TODO Define useful constants
 #+begin_src emacs-lisp :results output silent
   (when (boundp 'config-local-syncthing-folder)
     (defconst my-notes-folder (-> config-local-syncthing-folder
