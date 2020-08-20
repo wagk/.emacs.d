@@ -83,7 +83,7 @@ C-M-i                           backward-button
 <normal-state> g b              debugger-frame
 <normal-state> g l              debugger-list-functions
 
-* Define useful constants
+* TODO Define useful constants
 #+begin_src emacs-lisp :results output silent
   (when (boundp 'config-local-syncthing-folder)
     (defconst my-notes-folder (-> config-local-syncthing-folder
@@ -201,7 +201,8 @@ Emulate the best feature of notepad
 
 ** Make window subprocess communications faster
 #+begin_src emacs-lisp :results output silent
-  (setq w32-pipe-read-delay 0)
+  (if (< emacs-major-version 27)
+    (setq w32-pipe-read-delay 0))
 #+end_src
 
 ** Set default tab width
@@ -506,11 +507,14 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     :if (>= emacs-major-version 27)
     :custom-face
     (tab-bar ((t (:inherit 'minibuffer-prompt :underline t))))
-    (tab-bar-tab ((t (:inherit 'minibuffer-prompt :bold t))))
-    (tab-bar-tab-inactive ((t (:inherit 'minibuffer-prompt))))
+    (tab-bar-tab ((t (:inherit 'minibuffer-prompt
+                      :bold t))))
+    (tab-bar-tab-inactive ((t (:inherit 'minibuffer-prompt
+                               :foreground "#586e75"))))
     :custom
     (tab-bar-close-last-tab-choice 'delete-frame)
-    (tab-bar-new-tab-choice (lambda () (create-file-buffer (read-file-name ""))))
+    (tab-bar-new-tab-choice t)
+    (tab-bar-close-button-show nil)
     (tab-bar-new-button-show nil)
     (tab-bar-close-tab-select 'left)
     (tab-bar-new-button nil)
@@ -518,12 +522,19 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     (tab-bar-mode)
     (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
     (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
-    (evil-ex-define-cmd "tabn[ew]"   'tab-bar-new-tab)
-    (evil-ex-define-cmd "tabe[dit]"  'tab-bar-new-tab)
+    (evil-ex-define-cmd "tabn[ew]" 'tab-bar-new-tab)
+    (evil-define-command my-tab-bar-tab-edit (file)
+      (interactive "<f>")
+      (let ((tab-bar-new-tab-choice
+             (lambda (&optional path)
+               (create-file-buffer (read-file-name
+                                    "" nil nil 'confirm file)))))
+        (tab-bar-new-tab)))
+    (evil-ex-define-cmd "tabe[dit]" 'my-tab-bar-tab-edit)
     ;;TODO: currently has issue where :q on a tab kills emacs
     (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
     ;;TODO: check if ivy has something for this someday
-    (evil-ex-define-cmd "tabs"       'tab-bar-select-tab-by-name)
+    (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
     (defun my-tab-bar-delete-tab-or-emacs (oldfun &rest _old_args)
       (interactive)
       (let* ((tabs (find-if (lambda (elem) (eq 'tabs (car elem)))
@@ -4441,5 +4452,6 @@ Note that =customize-set-variable= is like =setq-default=.
 #+begin_src emacs-lisp :results output silent
   (use-package web-mode
     :straight t
+    :if (< emacs-major-version 27)
     :commands web-mode)
 #+end_src
