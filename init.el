@@ -294,10 +294,12 @@ recovery. Maybe eventually load dependencies and all that."
      the `universal-argument' function that might augment a function
      call. We prefer the scrolling.")
     (evil-split-window-below
-     t
+     ;; t
+     nil
      "`set splitbelow` in vim")
     (evil-vsplit-window-right
-     t
+     ;; t
+     nil
      "`set splitright` in vim")
     (evil-move-beyond-eol
      t

@@ -477,8 +477,10 @@ Further helper functions to add bookmarks:
   (my-evil-define-split-vsplit-cmd "bm" 'list-bookmarks)
   (evil-ex-define-cmd "Tbm" '(lambda ()
                                (interactive)
-                               (require 'eyebrowse)
-                               (my-new-evil-tab nil)
+                               (if (>= emacs-major-version 27)
+                                   (tab-bar-new-tab)
+                                (require 'eyebrowse)
+                                (my-new-evil-tab nil))
                                (funcall-interactively 'list-bookmarks)))
 #+end_src
 
@@ -493,6 +495,48 @@ Further helper functions to add bookmarks:
 #+begin_src emacs-lisp :results output silent
   (evil-ex-define-cmd "doc[tor]" 'doctor)
 #+end_src
+
+** Tab bar mode                                                          :27:
+This only works if emacs version is 27 or above (there's already some
+evil integration), refer to Eyebrowse for Emacs version <27 tab handling
+#+begin_src emacs-lisp :results output silent
+  (use-package tab-bar
+    :ensure nil
+    :straight nil
+    :if (>= emacs-major-version 27)
+    :custom-face
+    (tab-bar ((t (:inherit 'minibuffer-prompt :underline t))))
+    (tab-bar-tab ((t (:inherit 'minibuffer-prompt :bold t))))
+    (tab-bar-tab-inactive ((t (:inherit 'minibuffer-prompt))))
+    :custom
+    (tab-bar-close-last-tab-choice 'delete-frame)
+    (tab-bar-new-tab-choice (lambda () (create-file-buffer (read-file-name ""))))
+    (tab-bar-new-button-show nil)
+    (tab-bar-close-tab-select 'left)
+    (tab-bar-new-button nil)
+    :config
+    (tab-bar-mode)
+    (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
+    (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
+    (evil-ex-define-cmd "tabn[ew]"   'tab-bar-new-tab)
+    (evil-ex-define-cmd "tabe[dit]"  'tab-bar-new-tab)
+    ;;TODO: currently has issue where :q on a tab kills emacs
+    (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
+    ;;TODO: check if ivy has something for this someday
+    (evil-ex-define-cmd "tabs"       'tab-bar-select-tab-by-name)
+    (defun my-tab-bar-delete-tab-or-emacs (oldfun &rest _old_args)
+      (interactive)
+      (let* ((tabs (find-if (lambda (elem) (eq 'tabs (car elem)))
+                            (frame-parameters)))
+             (num-tabs (length (cdr tabs))))
+        (if (eq num-tabs 1)
+            (call-interactively oldfun)
+          (tab-bar-close-tab))))
+    (advice-add 'delete-frame :around 'my-tab-bar-delete-tab-or-emacs))
+#+end_src
+
+** TODO Tab line mode
+Tab line is like tab bar but for windows
 
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
@@ -1008,12 +1052,6 @@ Interesting Text Objects:
       ;; TODO: Move this to melpa instead of github once it's on it
       :straight (:host github :repo "progfolio/doct")
       :commands doct)
-    ;; (with-eval-after-load 'eyebrowse
-    ;;   (add-hook 'org-capture-mode-hook
-    ;;             '(lambda ()
-    ;;                 (if eyebrowse-mode
-    ;;                     (eyebrowse-mode -1)
-    ;;                   (eyebrowse-mode)))))
     (with-eval-after-load 'counsel
       ;; Remove ^ prefix in ivy org capture
       (require 'dash)
@@ -1617,7 +1655,7 @@ up, on windows at least).
     :after magit)
 #+end_src
 
-** Git-Link
+** Git-link
 #+begin_src emacs-lisp :results output silent
   (use-package git-link
     :straight t
@@ -1628,6 +1666,13 @@ up, on windows at least).
     (git-link-open-in-browser t)
     :init
     (evil-ex-define-cmd "repo" 'git-link-homepage))
+#+end_src
+
+** Browse-at-remote
+#+begin_src emacs-lisp :results output silent
+  (use-package browse-at-remote
+    :straight t
+    :commands (browse-at-remote))
 #+end_src
 
 ** Git Gutter
@@ -1722,6 +1767,8 @@ TODO: some way to better, more dynamically name the tabs
 
 #+begin_src emacs-lisp :results output silent
   (use-package eyebrowse
+    ;; emacs 27 provides a tab-bar-mode to basically do this
+    :if (not (>= emacs-major-version 27))
     :straight (:host github :repo "wasamasa/eyebrowse")
     :commands (eyebrowse-switch-to-window-config
                eyebrowse-create-window-config
@@ -1769,7 +1816,7 @@ TODO: some way to better, more dynamically name the tabs
        name))
     (evil-ex-define-cmd "Trename"   'my-rename-eyebrowse-tab)
     (evil-ex-define-cmd "Tabrename" 'my-rename-eyebrowse-tab)
-    (defun my-delete-window-config-or-frame (oldfun &rest _old_args)
+    (defun my-eyebrowse-delete-window-config-or-frame (oldfun &rest _old_args)
       "Checks if there are other \"tabs\" when closing a frame.
   If there is, close the tab, otherwise, delete the frame"
       (require 'eyebrowse)
@@ -1780,21 +1827,22 @@ TODO: some way to better, more dynamically name the tabs
         (if (eq 1 size)
             (call-interactively oldfun)
           (eyebrowse-close-window-config))))
-    (advice-add 'delete-frame :around 'my-delete-window-config-or-frame)
+    (advice-add 'delete-frame :around 'my-eyebrowse-delete-window-config-or-frame)
     (eyebrowse-mode)
     ;; (eyebrowse-setup-evil-keys)
     (my-rename-eyebrowse-tab (buffer-name)))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (customize-set-variable
-   'mode-line-format
-   (list "%e" mode-line-front-space mode-line-mule-info
-         mode-line-client mode-line-modified mode-line-auto-compile
-         mode-line-remote mode-line-frame-identification
-         mode-line-buffer-identification " " mode-line-position
-         evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
-         mode-line-modes mode-line-end-spaces))
+  (with-eval-after-load 'eyebrowse
+   (customize-set-variable
+    'mode-line-format
+    (list "%e" mode-line-front-space mode-line-mule-info
+          mode-line-client mode-line-modified mode-line-auto-compile
+          mode-line-remote mode-line-frame-identification
+          mode-line-buffer-identification " " mode-line-position
+          evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
+          mode-line-modes mode-line-end-spaces)))
 #+end_src
 
 * Themes
@@ -3274,12 +3322,14 @@ the thing, because that's what vim does.
     :after org-src)
 #+end_src
 
-* vlf-mode
+* so-long-mode / vlf-mode
 #+begin_src emacs-lisp :results output silent
-  (use-package vlf
-    :straight (:host github :repo "m00natic/vlfi")
-    :custom (vlf-application 'dont-ask)
-    :config (require 'vlf-setup))
+  (if (>= emacs-major-version 27)
+      (global-so-long-mode)
+    (use-package vlf
+      :straight (:host github :repo "m00natic/vlfi")
+      :custom (vlf-application 'dont-ask)
+      :config (require 'vlf-setup)))
 #+end_src
 
 * Yankpad
