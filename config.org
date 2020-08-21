@@ -3254,7 +3254,8 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 * Make shell open in same window
 - Related Spacemacs Issue ::
   https://github.com/syl20bnr/spacemacs/issues/6820
-- Make shell mode update working directory :: [[https://emacs.stackexchange.com/questions/5589/automatically-update-default-directory-when-pwd-changes-in-shell-mode-and-term-m][stackoverflow]]
+- Make shell mode update working directory ::
+  [[https://emacs.stackexchange.com/questions/5589/automatically-update-default-directory-when-pwd-changes-in-shell-mode-and-term-m][stackoverflow]]
 
 
 Let's try just creating the shell on the side instead of overtaking
