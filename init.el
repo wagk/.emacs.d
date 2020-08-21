@@ -363,28 +363,33 @@ we're adding a custom function for it here."
 
     (evil-ex-define-cmd "vb[uffer]" 'my-evil-vsplit-buffer)
 
+    (defun my-new-cmd-tab (dest)
+      (interactive)
+      (if (>= emacs-major-version 27)
+          (let ((tab-bar-new-tab-choice dest))
+            (tab-bar-new-tab))
+        (require 'eyebrowse)
+        (funcall-interactively 'my-new-evil-tab dest)))
+
     (evil-ex-define-cmd "frontpage" 'find-user-frontpage-file)
     (my-evil-define-split-vsplit-cmd "init" 'find-user-init-file)
-    (evil-ex-define-cmd "Tinit" '(lambda ()
-                                   (interactive)
-                                   (require 'eyebrowse)
-                                   (funcall-interactively
-                                    'my-new-evil-tab user-init-file)))
-    (my-evil-define-split-vsplit-cmd "local" 'find-user-local-file)
-    (evil-ex-define-cmd "Tlocal" '(lambda ()
+    (evil-ex-define-cmd "Tinit" #'(lambda ()
                                     (interactive)
-                                    (require 'eyebrowse)
-                                    (funcall-interactively
-                                     'my-new-evil-tab user-local-file)))
-    (my-evil-define-split-vsplit-cmd "config" 'find-user-config-file)
-    (evil-ex-define-cmd "Tconfig" '(lambda ()
+                                    (my-new-cmd-tab user-init-file)))
+    (my-evil-define-split-vsplit-cmd "local" 'find-user-local-file)
+    (evil-ex-define-cmd "Tlocal" #'(lambda ()
                                      (interactive)
-                                     (require 'eyebrowse)
-                                     (funcall-interactively
-                                      'my-new-evil-tab user-config-file)))
+                                     (my-new-cmd-tab user-local-file)))
+    (my-evil-define-split-vsplit-cmd "config" 'find-user-config-file)
+    (evil-ex-define-cmd "Tconfig" #'(lambda () (interactive)
+                                      (my-new-cmd-tab user-config-file)))
     (my-evil-define-split-vsplit-cmd "buffers" 'buffer-menu)
-    (my-evil-define-split-vsplit-cmd "me[ssage]" (lambda () (switch-to-buffer "*Messages*")))
-    (my-evil-define-split-vsplit-cmd "sc[ratch]" (lambda () (switch-to-buffer "*scratch*")))
+    (my-evil-define-split-vsplit-cmd "me[ssage]"
+                                     #'(lambda ()
+                                         (switch-to-buffer "*Messages*")))
+    (my-evil-define-split-vsplit-cmd "sc[ratch]"
+                                     #'(lambda ()
+                                         (switch-to-buffer "*scratch*")))
 
     ;; (evil-ex-define-cmd "framen" 'make-frame)
     ;; (evil-ex-define-cmd "framec" 'delete-frame)
