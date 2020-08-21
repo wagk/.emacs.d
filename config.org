@@ -525,10 +525,7 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     (evil-ex-define-cmd "tabn[ew]" 'tab-bar-new-tab)
     (evil-define-command my-tab-bar-tab-edit (file)
       (interactive "<f>")
-      (let ((tab-bar-new-tab-choice
-             (lambda (&optional path)
-               (create-file-buffer (read-file-name
-                                    "" nil nil 'confirm file)))))
+      (let ((tab-bar-new-tab-choice (if file file "*scratch*")))
         (tab-bar-new-tab)))
     (evil-ex-define-cmd "tabe[dit]" 'my-tab-bar-tab-edit)
     ;;TODO: currently has issue where :q on a tab kills emacs
