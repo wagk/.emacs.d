@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: latex-vec
-# key: vec
+# name: latex-boldsymbol
+# key: bold
 # expand-env: ((yas-wrap-around-region (region-active-p))
 # --
-\vec\{$0\}
+\boldsymbol{$0}

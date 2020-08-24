@@ -3833,6 +3833,7 @@ now becomes too noisy.
 * Counsel-etags
 #+begin_src emacs-lisp :results output silent
   (use-package counsel-etags
+    :disabled t ;; using dumb-jump
     :straight (:host github :repo "redguardtoo/counsel-etags")
     :commands (counsel-etags-find-tag-at-point)
     :general
@@ -3866,9 +3867,9 @@ now becomes too noisy.
      "Assuming we use exuberant ctags. For some reason `projectile-project-root' binds to emacs.d.")
     :hook
     (prog-mode-hook . (lambda ()
-                   (add-hook 'after-save-hook
-                             'counsel-etags-virtual-update-tags
-                             'append 'local)))
+                        (add-hook 'after-save-hook
+                                  'counsel-etags-virtual-update-tags
+                                  'append 'local)))
     :ensure-system-package
     (ctags . "choco install -y ctags"))
 #+end_src
