@@ -3,4 +3,4 @@
 # key: bold
 # expand-env: ((yas-wrap-around-region (region-active-p))
 # --
-\boldsymbol{$0}
+\boldsymbol\{$0\}
