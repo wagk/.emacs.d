@@ -549,6 +549,8 @@ we're adding a custom function for it here."
     ;; (org-extend-today-until
     ;;  5 "I think 5 am is a safe bet for the end of the day")
     (org-note-done 'note)
+    (org-format-latex-options (plist-put org-format-latex-options
+                                         :scale 1.5))
     :hook ((org-insert-heading-hook . evil-insert-state))
     :init
     (unless (display-graphic-p)
