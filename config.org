@@ -1,3 +1,5 @@
+#+STARTUP: overview
+
 [[https://necromuralist.github.io/posts/org-babel-cheat-sheet/][Org Babel Cheatsheet]]
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
@@ -545,6 +547,11 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
 
 ** TODO Tab line mode
 Tab line is like tab bar but for windows
+
+** Desktop mode
+#+begin_src emacs-lisp :results output silent
+  (desktop-save-mode)
+#+end_src
 
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
@@ -3549,7 +3556,8 @@ https://millejoh.github.io/emacs-ipython-notebook/
 #+begin_src emacs-lisp :results output silent
   (use-package pretty-mode
     :straight (:host github :repo "pretty-mode/pretty-mode")
-    :defer t)
+    :defer t
+    :commands (pretty-mode))
     ;; :config
     ;; (global-pretty-mode)
     ;; (global-prettify-symbols-mode))
