@@ -4462,3 +4462,10 @@ Note that =customize-set-variable= is like =setq-default=.
     :if (< emacs-major-version 27)
     :commands web-mode)
 #+end_src
+
+* C# Mode
+#+begin_src emacs-lisp :results output silent
+  (use-package csharp-mode
+    :straight (:host github :repo "josteink/csharp-mode")
+    :mode ("\\.cs\\'" . csharp-mode))
+#+end_src

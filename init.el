@@ -20,7 +20,7 @@
 ;; (package-initialize)
 
 (setq user-full-name    "Pang Tun Jiang"
-      user-mail-address "pang.tun.jiang@gmail.com")
+      user-mail-address "mail@pangt.dev")
 
 ;; buffer encoding systems
 ;; We do this here because the package system might need to know our preferences
@@ -93,8 +93,9 @@
 `package-initialize' must be called prior to this."
   ;; Requires (package-initialize) to be called
   ;; https://github.com/raxod502/straight.el
-  (let ((bootstrap-file (concat user-emacs-directory
-                                "straight/repos/straight.el/bootstrap.el"))
+  (let ((bootstrap-file
+         (concat user-emacs-directory
+                 "straight/repos/straight.el/bootstrap.el"))
         (bootstrap-version 3))
     (unless (file-exists-p bootstrap-file)
       (message "Bootstrapping Straight.el...")
@@ -110,8 +111,10 @@
     (when (file-exists-p lockfile)
       (customize-set-variable 'straight-profiles
                               (add-to-list 'straight-profiles
-                                           (cons profile-name lockfile)))
-      (customize-set-variable 'straight-current-profile profile-name)))
+                                           (cons profile-name
+                                                 lockfile)))
+      (customize-set-variable 'straight-current-profile
+                              profile-name)))
   (customize-set-variable 'straight-cache-autoloads t)
   (customize-set-variable 'straight-use-package-by-default t))
 
@@ -163,7 +166,8 @@ exist, using the template specified in
     (unless (file-exists-p local-file)
       ;; output a templated local.el file into local.el
       (write-region (with-temp-buffer
-                      (insert-file-contents (locate-user-emacs-file "local-template.el"))
+                      (insert-file-contents (locate-user-emacs-file
+                                             "local-template.el"))
                       (buffer-string)) nil local-file))
     (load local-file)
     (when (fboundp 'my-after-init-code)
@@ -549,8 +553,6 @@ we're adding a custom function for it here."
     ;; (org-extend-today-until
     ;;  5 "I think 5 am is a safe bet for the end of the day")
     (org-note-done 'note)
-    (org-format-latex-options (plist-put org-format-latex-options
-                                         :scale 1.5))
     :hook ((org-insert-heading-hook . evil-insert-state))
     :init
     (unless (display-graphic-p)
@@ -582,6 +584,9 @@ we're adding a custom function for it here."
     ;;     :straight nil
     ;;     :commands org-confluence-export-as-confluence))
     :config
+    (customize-set-value 'org-format-latex-options
+                         (plist-put org-format-latex-options
+                                    :scale 1.5))
     (add-hook 'org-mode-hook
               '(lambda ()
                  (with-eval-after-load 'elec-pair
