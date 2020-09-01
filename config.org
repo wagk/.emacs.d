@@ -2584,10 +2584,10 @@ containing a lot of files, and if the files are themselves large.
                aes-enable-auto-decryption
                aes-encrypt-buffer-or-string
                aes-decrypt-buffer-or-string)
-    :hook (change-major-mode-hook . (lambda ()
-                                 (when (aes-is-encrypted)
-                                   (auto-save-mode -1)
-                                   (aes-toggle-encryption))))
+    ;; :hook (change-major-mode-hook . (lambda ()
+    ;;                                   (when (aes-is-encrypted)
+    ;;                                     (auto-save-mode -1)
+    ;;                                     (aes-toggle-encryption))))
     :init
     (evil-define-command ex-encrypt-buffer ()
       (interactive)
@@ -2595,9 +2595,10 @@ containing a lot of files, and if the files are themselves large.
           (aes-decrypt-current-buffer)
         (aes-encrypt-current-buffer)))
     (evil-ex-define-cmd "X" 'ex-encrypt-buffer)
-    (add-to-list 'auto-mode-alist '("\\.enc\\'" #'(lambda ()
-                                                    (when (aes-is-encrypted)
-                                                      (aes-toggle-encryption))) t)))
+    (add-to-list 'auto-mode-alist '("\\.enc\\'"
+                                    #'(lambda ()
+                                        (when (aes-is-encrypted)
+                                          (aes-toggle-encryption))) t)))
 #+end_src
 
 ** Encrypt operator

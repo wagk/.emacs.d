@@ -341,6 +341,9 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://acoup.blog/feed/][A collection of unmitigated pedantry]] :blog:
 Worldbuilding and warfare.
 
+*** [[https://frogkun.com/feed/][Frogkun]]
+Anime/weeb blog
+
 ** Computer Science                                                 :compsci:
 *** [[http://www.drdobbs.com/rss/all][Dr. Dobb's All]]
 
