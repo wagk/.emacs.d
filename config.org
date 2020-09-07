@@ -2515,9 +2515,20 @@ containing a lot of files, and if the files are themselves large.
      "n T" 'zetteldeft-tag-buffer
      "n f" 'zetteldeft-avy-link-search)
     :init
+    (evil-define-command my-zetteldeft-find-or-create-insert-file ()
+      "Tries to incrementally find a zettel.
+  If it exists, inserts the ID of the zettel.
+  Otherwise, creates a new zettel and inserts that instead."
+      (interactive)
+      (let ((input (ivy-read
+                    ""
+                    (directory-files deft-directory t ".org$"))))
+        (if (f-exists? input)
+            (zetteldeft-find-file-id-insert input)
+          (zetteldeft-new-file-and-link input))))
     (evil-ex-define-cmd "nc" 'zetteldeft-new-file)
     (evil-ex-define-cmd "ns" 'zetteldeft-new-file-and-link)
-    (evil-ex-define-cmd "ni" 'zetteldeft-find-file-id-insert)
+    (evil-ex-define-cmd "ni" 'my-zetteldeft-find-or-create-insert-file)
     (evil-ex-define-cmd "nl" 'zetteldeft-follow-link)
     (evil-ex-define-cmd "nr" 'zetteldeft-file-rename)
     (evil-ex-define-cmd "nt" 'zetteldeft-avy-tag-search)
