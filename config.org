@@ -479,6 +479,7 @@ Further helper functions to add bookmarks:
 #+begin_src emacs-lisp :results output silent
   (my-evil-define-split-vsplit-cmd "bm" 'list-bookmarks)
   (evil-ex-define-cmd "Tbm" '(lambda ()
+      ;; TODO: unify this implementation with my-new-cmd-tab
                                (interactive)
                                (if (>= emacs-major-version 27)
                                    (tab-bar-new-tab)
