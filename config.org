@@ -520,6 +520,7 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     (tab-bar-new-button-show nil)
     (tab-bar-close-tab-select 'left)
     (tab-bar-new-button nil)
+    (tab-bar-new-tab-to 'right)
     :config
     (tab-bar-mode)
     (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
