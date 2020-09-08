@@ -2474,6 +2474,14 @@ containing a lot of files, and if the files are themselves large.
     ;;                             (deft)))
     ;; (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
     (my-evil-define-split-vsplit-cmd "nn" 'ex-deft-forwarding-arg)
+    (evil-ex-define-cmd "Tnn"
+     '(lambda () (interactive)
+        ;; TODO: unify this implementation with my-new-cmd-tab
+        (if (>= emacs-major-version 27)
+            (tab-bar-new-tab)
+          (require 'eyebrowse)
+          (my-new-evil-tab nil))
+        (funcall-interactively 'ex-deft-forwarding-arg)))
     :config
     (require 'org-id)
     (org-id-update-id-locations (directory-files-recursively
