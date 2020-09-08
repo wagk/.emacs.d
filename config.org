@@ -3459,8 +3459,7 @@ the thing, because that's what vim does.
     ;;                                (call-interactively 'evil-window-vsplit)
     ;;                                (find-file my-todo-org-file)))
     (evil-ex-define-cmd "Ttodo" '(lambda () (interactive)
-                                   (funcall-interactively
-                                    'my-new-evil-tab my-todo-org-file))))
+                                   (my-new-cmd-tab my-todo-org-file))))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
