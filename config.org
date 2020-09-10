@@ -1196,12 +1196,14 @@ For some reason we can't do this in the scratch buffer
     ;;           (f-join my-notes-folder "raw")
     ;;           "\.org$"))))
     (my-evil-define-split-vsplit-cmd "agenda" #'org-agenda)
-    (with-eval-after-load 'eyebrowse
-      (evil-ex-define-cmd "Tagenda"
-                          #'(lambda () (interactive)
-                              (my-new-evil-tab nil)
-                              (funcall-interactively
-                               #'org-agenda)))))
+    (evil-ex-define-cmd "Tag[enda]"
+                        '(lambda () (interactive)
+                           ;; TODO: unify this implementation with my-new-cmd-tab
+                           (if (>= emacs-major-version 27)
+                               (tab-bar-new-tab)
+                             (require 'eyebrowse)
+                             (my-new-evil-tab nil))
+                           (funcall-interactively #'org-agenda-list))))
 #+end_src
 
 *** Super agenda
