@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: latex-frac
-# key: /
+# key: frac
 # condition: (if (eq major-mode 'org-mode) (org-inside-LaTeX-fragment-p) t)
 # --
 \frac{$1}{$2}$0
