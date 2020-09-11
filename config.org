@@ -573,6 +573,9 @@ Tab line is like tab bar but for windows
 #+begin_src emacs-lisp :results output silent
   (use-package which-key
     :straight (:host github :repo "justbur/emacs-which-key")
+    :general
+    (:states 'normal
+     "C-h M-k" 'which-key-show-keymap)
     :config
     (which-key-mode))
 #+end_src
@@ -2850,19 +2853,23 @@ package manager
 
 #+begin_src emacs-lisp :results output silent
   (use-package help+
+    :disabled t
     :defer 7
     :straight nil
     :load-path "local-packages/")
   (use-package help-macro+
     :defer 7
+    :disabled t
     :straight nil
     :load-path "local-packages/")
   (use-package help-mode+
     :defer 7
+    :disabled t
     :straight nil
     :load-path "local-packages/")
   (use-package help-fns+
     :defer 7
+    :disabled t
     :straight nil
     :commands (describe-keymap
                describe-buffer
