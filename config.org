@@ -4492,3 +4492,13 @@ Note that =customize-set-variable= is like =setq-default=.
     :straight (:host github :repo "josteink/csharp-mode")
     :mode ("\\.cs\\'" . csharp-mode))
 #+end_src
+
+* Fill Function Argument
+#+begin_src emacs-lisp :results output silent
+  (use-package fill-function-arguments
+    :straight (:host github :repo "davidshepherd7/fill-function-arguments")
+    :commands (fill-function-arguments-dwim)
+    :general
+    (:states 'normal
+     "g *" 'fill-function-arguments-dwim))
+#+end_src
