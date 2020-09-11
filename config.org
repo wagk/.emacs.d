@@ -3509,7 +3509,7 @@ the thing, because that's what vim does.
 #+begin_src emacs-lisp :results output silent
   (use-package org-journal
     :straight (:host github :repo "bastibe/org-journal")
-    :if (boundp 'my-notes-folder)
+    :if (boundp 'config-local-syncthing-folder)
     :commands org-journal-new-entry
     :custom
     (org-journal-time-format "%R ")
@@ -3521,8 +3521,9 @@ the thing, because that's what vim does.
     (evil-ex-define-cmd "journal" #'(lambda () (interactive)
                                       (org-journal-new-entry t)))
     (evil-ex-define-cmd "jj" 'org-journal-new-entry)
-    (customize-set-variable 'org-journal-dir (f-join my-notes-folder
-                                                     "day"))
+    (customize-set-variable 'org-journal-dir
+                            (f-join config-local-syncthing-folder
+                                    "day"))
     :hook
     ((org-journal-after-entry-create-hook . evil-insert-state)
      (org-journal-mode-hook . aggressive-fill-paragraph-mode))
