@@ -4505,6 +4505,7 @@ Note that =customize-set-variable= is like =setq-default=.
   (use-package fill-function-arguments
     :straight (:host github :repo "davidshepherd7/fill-function-arguments")
     :commands (fill-function-arguments-dwim)
+    :custom (fill-function-arguments-indent-after-fill t)
     :general
     (:states 'normal
      "g *" 'fill-function-arguments-dwim))
