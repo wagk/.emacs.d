@@ -4194,7 +4194,12 @@ the underlying format
     (fci-rule-use-dashes t)
     (fci-always-use-textual-rule t)
     :hook
-    (prog-mode-hook . fci-mode))
+    (prog-mode-hook . fci-mode)
+    :config
+    (advice-add 'load-theme :after
+                #'(lambda (&rest _args)
+                    (fci-mode -1)
+                    (fci-mode 1))))
 #+end_src
 
 * Devdocs
