@@ -4198,10 +4198,14 @@ the underlying format
     :hook
     (prog-mode-hook . fci-mode)
     :config
-    (advice-add 'load-theme :after
-                #'(lambda (&rest _args)
-                    (fci-mode -1)
-                    (fci-mode 1))))
+    (defun my-restart-fci-mode ()
+      "Turns fci-mode on and off for every buffer that has it on."
+      (dolist (buffer (buffer-list))
+        (with-current-buffer buffer
+          (when fci-mode
+            (fci-mode -1)
+            (fci-mode 1)))))
+    (advice-add 'load-theme :after #'my-restart-fci-mode))
 #+end_src
 
 * Devdocs
