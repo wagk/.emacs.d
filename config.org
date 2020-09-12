@@ -4201,7 +4201,8 @@ the underlying format
 * Hexl-mode
 
 * Fill Column Indicator (fci)
-
+Note that this makes origami-mode look pretty ugly (origami-mode's
+trailing dots only happen /after/ the fci column.)
 #+begin_src emacs-lisp :results output silent
   (use-package fill-column-indicator
     :straight (:host github :repo "alpaker/fill-column-indicator")
