@@ -4207,8 +4207,8 @@ the underlying format
     :straight (:host github :repo "alpaker/fill-column-indicator")
     :commands (fci-mode)
     :custom
-    (fci-rule-use-dashes t)
-    (fci-always-use-textual-rule t)
+    (fci-rule-use-dashes (not (display-graphic-p)))
+    (fci-always-use-textual-rule (not (display-graphic-p)))
     :hook
     (prog-mode-hook . fci-mode)
     :config
