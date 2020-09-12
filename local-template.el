@@ -8,8 +8,6 @@
 ;; Known keywords that the config currently uses are:
 ;; - `config-local-dropbox-folder' :: The path to the dropbox directory
 
-(message "local.el is currently unconfigured!")
-
 ;; (defconst config-local-syncthing-folder "/mnt/c/Users/pangt.ADS/Sync")
 ;; (defconst config-local-dropbox-folder "/mnt/c/Users/pangt.ADS/Dropbox")
 

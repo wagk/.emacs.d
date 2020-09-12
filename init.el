@@ -165,6 +165,7 @@ exist, using the template specified in
   (let ((local-file (locate-user-emacs-file "local.el")))
     (unless (file-exists-p local-file)
       ;; output a templated local.el file into local.el
+      (message "local.el is currently unconfigured! Creating new local.el...")
       (write-region (with-temp-buffer
                       (insert-file-contents (locate-user-emacs-file
                                              "local-template.el"))
