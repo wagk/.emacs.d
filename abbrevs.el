@@ -189,6 +189,7 @@
     ("funciton" "function" nil :count 8)
     ("funcitons" "functions" nil :count 1)
     ("functinos" "functions" nil :count 1)
+    ("functoin" "function" nil :count 1)
     ("globasl" "global" nil :count 1)
     ("guatds" "guards" nil :count 1)
     ("hadnler" "handler" nil :count 1)
