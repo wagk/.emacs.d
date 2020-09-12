@@ -560,6 +560,8 @@ Tab line is like tab bar but for windows
   (evil-ex-define-cmd "inbox"
                       #'(lambda ()
                           (interactive)
+                          ;;TODO: Find out a way to always open the same
+                          ;;tab so I don't have to constantly relog in.
                           (browse-url "https://beta.protonmail.com")))
 #+end_src
 
