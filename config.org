@@ -555,6 +555,14 @@ Tab line is like tab bar but for windows
   (desktop-save-mode)
 #+end_src
 
+** Open Email command
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "inbox"
+                      #'(lambda ()
+                          (interactive)
+                          (browse-url "https://beta.protonmail.com")))
+#+end_src
+
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
   (use-package apropos
