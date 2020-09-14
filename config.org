@@ -4501,6 +4501,7 @@ Note that =customize-set-variable= is like =setq-default=.
 #+end_src
 
 * Fill Function Argument
+It's... not very good.
 #+begin_src emacs-lisp :results output silent
   (use-package fill-function-arguments
     :straight (:host github :repo "davidshepherd7/fill-function-arguments")
