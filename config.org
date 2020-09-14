@@ -1935,28 +1935,28 @@ TODO: some way to better, more dynamically name the tabs
                    (sol-cyan    . "#2aa198")
                    (sol-green   . "#859900")))
       ;; TODO: set documentation string
-      (set (car col) (cdr col)))
-    (defun load-solarized-theme ()
-      (interactive)
-      (if (display-graphic-p)
-          (load-theme 'solarized-dark t)
-        (load-theme 'solarized-gruvbox-dark t))
-      (with-eval-after-load 'prism
-        (prism-set-colors
-          :num 24
-          :colors
-          ;; (list sol-green sol-cyan sol-blue sol-yellow)
-          (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
-          :desaturations
-          (list 10 20 30)
-          :lightens
-          (list 0 -2.5 -5)))
-      (with-eval-after-load 'hl-todo
-        (customize-set-variable 'hl-todo-keyword-faces
-                                '(("TODO"    . "#b58900")
-                                  ("DEBUG"   . "#d33682")
-                                  ;; ("NOTE"    . "#586e75")
-                                  ("FIXME"   . "#cb4b16"))))))
+      (set (car col) (cdr col))))
+    ;; (defun load-solarized-theme ()
+    ;;   (interactive)
+    ;;   (if (display-graphic-p)
+    ;;       (load-theme 'solarized-dark t)
+    ;;     (load-theme 'solarized-gruvbox-dark t))
+    ;;   (with-eval-after-load 'prism
+    ;;     (prism-set-colors
+    ;;       :num 24
+    ;;       :colors
+    ;;       ;; (list sol-green sol-cyan sol-blue sol-yellow)
+    ;;       (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
+    ;;       :desaturations
+    ;;       (list 10 20 30)
+    ;;       :lightens
+    ;;       (list 0 -2.5 -5)))
+    ;;   (with-eval-after-load 'hl-todo
+    ;;     (customize-set-variable 'hl-todo-keyword-faces
+    ;;                             '(("TODO"    . "#b58900")
+    ;;                               ("DEBUG"   . "#d33682")
+    ;;                               ;; ("NOTE"    . "#586e75")
+    ;;                               ("FIXME"   . "#cb4b16"))))))
 #+end_src
 ** Eva-02
 Personal theme that I'm maintaining (really stealing shamelessly from
