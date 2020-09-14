@@ -555,6 +555,29 @@ Tab line is like tab bar but for windows
   (desktop-save-mode)
 #+end_src
 
+** Open Email command
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "inbox"
+                      #'(lambda ()
+                          (interactive)
+                          ;;TODO: Find out a way to always open the same
+                          ;;tab so I don't have to constantly relog in.
+                          (browse-url "https://beta.protonmail.com")))
+#+end_src
+
+** Function to find all parent modes
+I wrote this for =fci-mode= restarting then I figured I could just check
+for the existence of =fci-mode= instead of finding through all the modes
+for the specific hook.
+#+begin_src emacs-lisp :results output silent
+  (defun my-find-major-mode-parents (mode)
+    "Recursively composes a list of all parent modes for a given
+  mode."
+    (when mode
+      (cons mode
+            (my-find-major-mode-parents (get-mode-local-parent mode)))))
+#+end_src
+
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
   (use-package apropos
@@ -1123,7 +1146,8 @@ Interesting Text Objects:
       (add-to-list 'org-capture-templates
                    `("nn" "Personal Note" entry
                      (file ,my-todo-org-file)
-                     ,(concat "* %^{DESCRIPTION} %^g \n"
+                     ,(concat "* TODO %^{DESCRIPTION} %^g \n"
+                              "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))\n"
                               ":PROPERTIES:\n"
                               ":CREATED:  %U\n" ;; captured as property TIMESTAMP
                               ":END:\n"
@@ -3509,7 +3533,7 @@ the thing, because that's what vim does.
 #+begin_src emacs-lisp :results output silent
   (use-package org-journal
     :straight (:host github :repo "bastibe/org-journal")
-    :if (boundp 'my-notes-folder)
+    :if (boundp 'config-local-syncthing-folder)
     :commands org-journal-new-entry
     :custom
     (org-journal-time-format "%R ")
@@ -3521,8 +3545,9 @@ the thing, because that's what vim does.
     (evil-ex-define-cmd "journal" #'(lambda () (interactive)
                                       (org-journal-new-entry t)))
     (evil-ex-define-cmd "jj" 'org-journal-new-entry)
-    (customize-set-variable 'org-journal-dir (f-join my-notes-folder
-                                                     "day"))
+    (customize-set-variable 'org-journal-dir
+                            (f-join config-local-syncthing-folder
+                                    "day"))
     :hook
     ((org-journal-after-entry-create-hook . evil-insert-state)
      (org-journal-mode-hook . aggressive-fill-paragraph-mode))
@@ -4034,7 +4059,7 @@ Not tracking master because it's currently broken for some reason.
 * Language Server Protocol (LSP)
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-mode
-    :straight (:host github :repo "emacs-lsp/lsp-mode")
+    :straight (:host github :repo "emacs-lsp/lsp-mode" :branch "master")
     :commands (lsp)
     :init
     (defun my-lsp-mode-bind-keys ()
@@ -4176,16 +4201,26 @@ the underlying format
 * Hexl-mode
 
 * Fill Column Indicator (fci)
-
+Note that this makes origami-mode look pretty ugly (origami-mode's
+trailing dots only happen /after/ the fci column.)
 #+begin_src emacs-lisp :results output silent
   (use-package fill-column-indicator
     :straight (:host github :repo "alpaker/fill-column-indicator")
     :commands (fci-mode)
     :custom
-    (fci-rule-use-dashes t)
-    (fci-always-use-textual-rule t)
+    (fci-rule-use-dashes (not (display-graphic-p)))
+    (fci-always-use-textual-rule (not (display-graphic-p)))
     :hook
-    (prog-mode-hook . fci-mode))
+    (prog-mode-hook . fci-mode)
+    :config
+    (defun my-restart-fci-mode ()
+      "Turns fci-mode on and off for every buffer that has it on."
+      (dolist (buffer (buffer-list))
+        (with-current-buffer buffer
+          (when fci-mode
+            (fci-mode -1)
+            (fci-mode 1)))))
+    (advice-add 'load-theme :after #'my-restart-fci-mode))
 #+end_src
 
 * Devdocs
