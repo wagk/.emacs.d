@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# key: def
+# key: f
 # name: cpp-function
 # --
 ${3:void} ${1:foo}($2)${4:
