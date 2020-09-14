@@ -4213,14 +4213,15 @@ trailing dots only happen /after/ the fci column.)
     :hook
     (prog-mode-hook . fci-mode)
     :config
-    (defun my-restart-fci-mode ()
+    (defun my-restart-fci-mode (&rest _args)
+      (interactive)
       "Turns fci-mode on and off for every buffer that has it on."
-      (dolist (buffer (buffer-list))
+      (loop-for-each buffer (buffer-list)
         (with-current-buffer buffer
           (when fci-mode
             (fci-mode -1)
             (fci-mode 1)))))
-    (advice-add 'load-theme :after #'my-restart-fci-mode))
+    (advice-add 'load-theme :after 'my-restart-fci-mode))
 #+end_src
 
 * Devdocs
