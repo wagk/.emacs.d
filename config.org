@@ -4233,12 +4233,13 @@ trailing dots only happen /after/ the fci column.)
     (defun my-restart-fci-mode (&rest _args)
       (interactive)
       "Turns fci-mode on and off for every buffer that has it on."
-      (loop-for-each buffer (buffer-list)
+      (dolist (buffer (buffer-list))
         (with-current-buffer buffer
           (when fci-mode
             (fci-mode -1)
-            (fci-mode 1)))))
-    (advice-add 'load-theme :after 'my-restart-fci-mode))
+            (fci-mode 1))))))
+    ;; Something's wrong with this
+    ;; (advice-add 'load-theme :after 'my-restart-fci-mode))
 #+end_src
 
 * Devdocs
