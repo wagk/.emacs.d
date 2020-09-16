@@ -19,6 +19,8 @@
 ;; You may delete these explanatory comments.
 ;; (package-initialize)
 
+(defconst my-init-start-time (current-time))
+
 (setq user-full-name    "Pang Tun Jiang"
       user-mail-address "mail@pangt.dev")
 
@@ -491,7 +493,7 @@ we're adding a custom function for it here."
      "o t" 'org-time-stamp
      "o T" '(lambda () (interactive)
               (org-time-stamp '(16))))
-     ;; "f f" 'counsel-org-goto)
+    ;; "f f" 'counsel-org-goto)
     (org-mode-map
      "C-S-c C-S-c" '(lambda () (interactive)
                       (org-toggle-checkbox '(4)))
@@ -562,7 +564,7 @@ we're adding a custom function for it here."
       (general-define-key
        :keymaps 'org-mode-map
        :states '(normal insert motion)
-       ;; "C-^" 'org-insert-heading-after-current
+        ;; "C-^" 'org-insert-heading-after-current
        "C-^" 'org-meta-return
        "\236" 'org-insert-todo-heading-respect-content))
     ;; (with-eval-after-load 'org
@@ -652,12 +654,14 @@ we're adding a custom function for it here."
 
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
-  (measure-time
-   (org-babel-load-file (locate-user-emacs-file "config.org")))
+  (org-babel-load-file (locate-user-emacs-file "config.org"))
+
+  (add-hook 'after-init-hook
+            #'(lambda ()
+                (message "Loaded .emacs.d in %.06f seconds."
+                        (float-time (time-since my-init-start-time)))))
 
   ;; Disable ANNOYING customize options
   ;; (setq custom-file (locate-user-emacs-file "custom.el")))
   (setq custom-file (make-temp-file "")))
 (message "Configuration complete.")
-
-(funcall-interactively 'org-agenda-list)
