@@ -440,7 +440,6 @@
     ("tempalte" "template" nil :count 2)
     ("tempaltes" "templates" nil :count 1)
     ("temporarrily" "temporarily" nil :count 1)
-    ("th" "the" nil :count 16)
     ("thaat" "that" nil :count 1)
     ("thaty" "that" nil :count 3)
     ("theri" "their" nil :count 2)
