@@ -2583,8 +2583,8 @@ containing a lot of files, and if the files are themselves large.
             (zetteldeft-find-file-id-insert input)
           (zetteldeft-new-file-and-link input))))
     (evil-ex-define-cmd "nc" 'zetteldeft-new-file)
-    (evil-ex-define-cmd "ns" 'zetteldeft-new-file-and-link)
-    (evil-ex-define-cmd "ni" 'my-zetteldeft-find-or-create-insert-file)
+    (evil-ex-define-cmd "ns" 'zetteldeft-new-file-and-backlink)
+    (evil-ex-define-cmd "ni" 'zetteldeft-fine-file-id-insert)
     (evil-ex-define-cmd "nl" 'zetteldeft-follow-link)
     (evil-ex-define-cmd "nr" 'zetteldeft-file-rename)
     (evil-ex-define-cmd "nt" 'zetteldeft-avy-tag-search)
@@ -2613,16 +2613,16 @@ containing a lot of files, and if the files are themselves large.
                       (match-string 0)))))
     ;; When inserting the string and id, insert the string before the
     ;; id, instead of after as is the default.
-    (advice-add 'zetteldeft-new-file-and-link :override
-                (lambda (str)
-                  (interactive (list (read-string "Note title: ")))
-                  (let* ((zdId (zetteldeft-generate-id))
-                         (zdStr (concat str " "
-                                        zetteldeft-link-indicator
-                                        zdId
-                                        zetteldeft-link-suffix)))
-                    (insert zdStr)
-                    (zetteldeft-new-file str zdId))))
+    ;; (advice-add 'zetteldeft-new-file-and-link :override
+    ;;             (lambda (str)
+    ;;               (interactive (list (read-string "Note title: ")))
+    ;;               (let* ((zdId (zetteldeft-generate-id))
+    ;;                      (zdStr (concat str " "
+    ;;                                     zetteldeft-link-indicator
+    ;;                                     zdId
+    ;;                                     zetteldeft-link-suffix)))
+    ;;                 (insert zdStr)
+    ;;                 (zetteldeft-new-file str zdId))))
     ;; Remove whitespace after generating the tag because otherwise
     ;; it'll show up as really distracting red blocks.
     (advice-add 'zetteldeft-tag-buffer :after
