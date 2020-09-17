@@ -1,40 +1,37 @@
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#orgec8ef76">1. README</a></li>
-<li><a href="#org36ac4fd">2. <code>local.el</code></a>
-<ul>
-<li><a href="#orgf23bcae">2.1. Known Variables</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-
-<a id="orgec8ef76"></a>
-
 # README
+## Build Commands
+Ensure the following dependencies are installed:
 
+(taken from [here][emacs-wsl])
 
-<a id="org36ac4fd"></a>
+```
+sudo apt install -y autoconf automake autotools-dev bsd-mailx build-essential \
+    diffstat gnutls-dev imagemagick libasound2-dev libc6-dev libdatrie-dev \
+    libdbus-1-dev libgconf2-dev libgif-dev libgnutls28-dev libgpm-dev libgtk2.0-dev \
+    libgtk-3-dev libice-dev libjpeg-dev liblockfile-dev liblqr-1-0 libm17n-dev \
+    libmagickwand-dev libncurses5-dev libncurses-dev libotf-dev libpng-dev \
+    librsvg2-dev libsm-dev libthai-dev libtiff5-dev libtiff-dev libtinfo-dev libtool \
+    libx11-dev libxext-dev libxi-dev libxml2-dev libxmu-dev libxmuu-dev libxpm-dev \
+    libxrandr-dev libxt-dev libxtst-dev libxv-dev quilt sharutils texinfo xaw3dg \
+    xaw3dg-dev xorg-dev xutils-dev zlib1g-dev libjansson-dev libxaw7-dev \
+    libselinux1-dev libmagick++-dev libacl1-dev gir1.2-javascriptcoregtk-4.0 \
+    gir1.2-webkit2-4.0 libenchant1c2a libglvnd-core-dev libicu-le-hb-dev \
+    libidn2-0-dev libjavascriptcoregtk-4.0-dev liboss4-salsa2 libsoup2.4-dev \
+    libsystemd-dev libwebkit2gtk-4.0-dev libx11-xcb-dev libxcb-dri2-0-dev \
+    libxcb-dri3-dev libxcb-glx0-dev libxcb-present-dev libxshmfence-dev \
+    x11proto-composite-dev x11proto-core-dev x11proto-damage-dev \
+    x11proto-fixes-dev
+```
 
-# `local.el`
+## `local.el`
 
 We define a `local.el` to store local links
 
 -   Do not expect `local.el` to exist all the time
 -   Do not expect `local.el` to define a consistent set of variables
--   Expect `local.el` to vary wildly in content throughout different machines
+-   Expect `local.el` to vary wildly in content throughout different
+    machines
 -   Basically don't trust `local.el`. It is a necessary evil
 
 
-<a id="orgf23bcae"></a>
-
-## Known Variables
-
-These variabes have been known to exist at some point
-
--   **/g-drive-folder:** const
-    The path to the local google drive folder, We use this
-    mostly so we can sync our org-journal and ledger files
+[emacs-wsl]: https://github.com/hubisan/emacs-wsl
