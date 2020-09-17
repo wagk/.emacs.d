@@ -2551,6 +2551,13 @@ containing a lot of files, and if the files are themselves large.
   (use-package zetteldeft
     :straight (:host github :repo "efls/zetteldeft")
     :after deft
+    :commands (zetteldeft-new-file
+               zetteldeft-new-file-and-backlink
+               zetteldeft-fine-file-id-insert
+               zetteldeft-follow-link
+               zetteldeft-file-rename
+               zetteldeft-avy-tag-search
+               zetteldeft-avy-link-search)
     :custom
     (zetteldeft-id-format "%s"
                           "Single number. I want the ID to not rely on
@@ -2589,8 +2596,6 @@ containing a lot of files, and if the files are themselves large.
     (evil-ex-define-cmd "nr" 'zetteldeft-file-rename)
     (evil-ex-define-cmd "nt" 'zetteldeft-avy-tag-search)
     (evil-ex-define-cmd "nf" 'zetteldeft-avy-link-search)
-    (with-eval-after-load 'deft
-      (require 'zetteldeft))
     :config
     (with-eval-after-load 'rg
       (rg-define-search search-zettel
