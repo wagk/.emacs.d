@@ -536,6 +536,7 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
     ;;TODO: check if ivy has something for this someday
     (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
+    (evil-ex-define-cmd "tt" 'tab-bar-select-tab-by-name)
     (defun my-tab-bar-delete-tab-or-emacs (oldfun &rest _old_args)
       (interactive)
       (let* ((tabs (find-if (lambda (elem) (eq 'tabs (car elem)))
