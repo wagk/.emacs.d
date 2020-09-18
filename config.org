@@ -399,8 +399,7 @@ Stolen from https://github.com/bbatsov/crux
      ;; This isn't actually how colorcolumn worked in vi
      ;; (read :h colorcolumn)
      ((or (string= cmd "colorcolumn")
-          (string= cmd "cc")) (progn (require 'fill-column-indicator)
-                                     (fci-mode (if fci-mode -1 1))))))
+          (string= cmd "cc")) (display-fill-column-indicator-mode))))
   (evil-ex-define-cmd "set" 'config-ex-set-arg)
 #+end_src
 
@@ -510,10 +509,9 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     :if (>= emacs-major-version 27)
     :custom-face
     (tab-bar ((t (:inherit 'minibuffer-prompt :underline t))))
-    (tab-bar-tab ((t (:inherit 'minibuffer-prompt
+    (tab-bar-tab ((t (:inherit 'font-lock-function-name-face
                       :bold t))))
-    (tab-bar-tab-inactive ((t (:inherit 'minibuffer-prompt
-                               :foreground "#586e75"))))
+    (tab-bar-tab-inactive ((t (:inherit 'font-lock-keyword-face))))
     :custom
     (tab-bar-close-last-tab-choice 'delete-frame)
     (tab-bar-new-tab-choice t)
@@ -1652,7 +1650,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     (evil-ex-define-cmd "gl" 'magit-log)
     :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
            (git-commit-setup-hook . markdown-mode)
-           (git-commit-setup-hook . turn-on-fci-mode)))
+           (git-commit-setup-hook . display-fill-column-indicator-mode)))
 #+end_src
 
 *** Evil bindings
@@ -1906,6 +1904,7 @@ TODO: some way to better, more dynamically name the tabs
 #+begin_src emacs-lisp :results output silent
   (use-package solarized-theme
     :straight (:host github :repo "bbatsov/solarized-emacs")
+    :disabled t
     :custom
     (solarized-use-variable-pitch nil)
     (solarized-distinct-fringe-background nil)
@@ -1936,88 +1935,72 @@ TODO: some way to better, more dynamically name the tabs
                    (sol-cyan    . "#2aa198")
                    (sol-green   . "#859900")))
       ;; TODO: set documentation string
-      (set (car col) (cdr col))))
-    ;; (defun load-solarized-theme ()
-    ;;   (interactive)
-    ;;   (if (display-graphic-p)
-    ;;       (load-theme 'solarized-dark t)
-    ;;     (load-theme 'solarized-gruvbox-dark t))
-    ;;   (with-eval-after-load 'prism
-    ;;     (prism-set-colors
-    ;;       :num 24
-    ;;       :colors
-    ;;       ;; (list sol-green sol-cyan sol-blue sol-yellow)
-    ;;       (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
-    ;;       :desaturations
-    ;;       (list 10 20 30)
-    ;;       :lightens
-    ;;       (list 0 -2.5 -5)))
-    ;;   (with-eval-after-load 'hl-todo
-    ;;     (customize-set-variable 'hl-todo-keyword-faces
-    ;;                             '(("TODO"    . "#b58900")
-    ;;                               ("DEBUG"   . "#d33682")
-    ;;                               ;; ("NOTE"    . "#586e75")
-    ;;                               ("FIXME"   . "#cb4b16"))))))
+      (set (car col) (cdr col)))
+    (defun load-solarized-theme ()
+      (interactive)
+      (if (display-graphic-p)
+          (load-theme 'solarized-dark t)
+        (load-theme 'solarized-gruvbox-dark t))
+      (with-eval-after-load 'prism
+        (prism-set-colors
+          :num 24
+          :colors
+          ;; (list sol-green sol-cyan sol-blue sol-yellow)
+          (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
+          :desaturations
+          (list 10 20 30)
+          :lightens
+          (list 0 -2.5 -5)))
+      (with-eval-after-load 'hl-todo
+        (customize-set-variable 'hl-todo-keyword-faces
+                                '(("TODO"    . "#b58900")
+                                  ("DEBUG"   . "#d33682")
+                                  ;; ("NOTE"    . "#586e75")
+                                  ("FIXME"   . "#cb4b16"))))))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (use-package color-theme-sanityinc-solarized
+    :after solarized-theme
+    :straight t)
 #+end_src
 ** Eva-02
 Personal theme that I'm maintaining (really stealing shamelessly from
 Solarized)
 
 #+begin_src emacs-lisp :results output silent
-  (use-package eva02
-    :ensure nil
-    :defer t
-    :straight nil
-    :init
-    (defun load-eva02-theme ()
-      (interactive)
-      (load-theme 'eva02 t)
-      (with-eval-after-load 'prism
-        (prism-set-colors
-          :num 24
-          :colors
-          ;; (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
-          (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
-          :desaturations
-          (list 10 20 30)
-          :lightens
-          ;; (list 0 -2.5 -5)))
-          (list 0 5 10)))
-      (with-eval-after-load 'hl-todo
-        (customize-set-variable 'hl-todo-keyword-faces
-                                '(("TODO"    . "#ff0000")
-                                  ("DEBUG"   . "#ff0000")
-                                  ;; ("NOTE"    . "#ff0000")
-                                  ("FIXME"   . "#ff0000"))))))
+  (defun load-eva02-theme ()
+    (interactive)
+    (load-theme 'eva02 t)
+    (with-eval-after-load 'prism
+      (prism-set-colors
+       :num 24
+       :colors
+       ;; (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
+       (list 'font-lock-keyword-face
+             'font-lock-builtin-face
+             'font-lock-variable-name-face)
+       :desaturations
+       (list 10 20 30)
+       :lightens
+       ;; (list 0 -2.5 -5)))
+       (list 0 5 10)))
+    (with-eval-after-load 'hl-todo
+      (customize-set-variable 'hl-todo-keyword-faces
+                              '(("TODO"    . "#ff0000")
+                                ("DEBUG"   . "#ff0000")
+                                ;; ("NOTE"    . "#ff0000")
+                                ("FIXME"   . "#ff0000")))))
 #+end_src
 
 
-#+begin_src emacs-lisp :results output silent
-  (use-package color-theme-sanityinc-solarized
-    :straight t)
-#+end_src
 * Display
 #+begin_src emacs-lisp :results output silent
   ;; (when (display-graphic-p)
   ;;   (load-solarized-theme))
   ;; (load-solarized-theme)
-  (load-theme 'solarized-dark t)
-  (with-eval-after-load 'prism
-    (prism-set-colors
-     :num 24
-     :colors
-     ;; (list sol-green sol-cyan sol-blue sol-yellow)
-     (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
-     :desaturations
-     (list 10 20 30)
-     :lightens
-     (list 0 -2.5 -5)))
-  (with-eval-after-load 'hl-todo
-    (customize-set-variable 'hl-todo-keyword-faces
-                            '(("TODO"    . "#b58900")
-                              ("DEBUG"   . "#d33682")
-                              ;; ("NOTE"    . "#586e75")
-                              ("FIXME"   . "#cb4b16"))))
+  ;; (load-theme 'solarized-dark t)
+  (load-eva02-theme)
 #+end_src
 
 * Posframe
@@ -4223,6 +4206,7 @@ Note that this makes origami-mode look pretty ugly (origami-mode's
 trailing dots only happen /after/ the fci column.)
 #+begin_src emacs-lisp :results output silent
   (use-package fill-column-indicator
+    :disabled t ;; use display-fill-column-indicator
     :straight (:host github :repo "alpaker/fill-column-indicator")
     :commands (fci-mode)
     :custom
@@ -4233,6 +4217,7 @@ trailing dots only happen /after/ the fci column.)
     :config
     (defun my-restart-fci-mode (&rest _args)
       (interactive)
+      (global)
       "Turns fci-mode on and off for every buffer that has it on."
       (dolist (buffer (buffer-list))
         (with-current-buffer buffer
