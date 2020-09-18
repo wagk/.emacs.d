@@ -234,6 +234,7 @@
    `(org-checkbox ((,class (:foreground ,type :bold t))))
    `(org-code ((,class (:foreground ,fg2))))
    `(org-date ((,class (:foreground ,type))))
+   `(org-document-info ((,class (:foreground ,func))))
    `(org-document-info-keyword ((,class (:foreground ,func :box (:line-width -1 :color ,const)))))
    `(org-document-title ((,class (:foreground ,const :bold t))))
    `(org-done ((,class (:box (:line-width -1 :color ,const) :bold t :foreground ,builtin))))
