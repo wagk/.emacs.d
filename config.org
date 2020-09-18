@@ -1736,8 +1736,27 @@ up, on windows at least).
     :init
     (use-package git-gutter-fringe+
       :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus")
-      :if (display-graphic-p)
-      :after git-gutter+)
+      :if (not (display-graphic-p))
+      :after git-gutter+
+      :config
+      (fringe-helper-define 'git-gutter-fr+-added nil
+        "........"
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "........")
+      (fringe-helper-define 'git-gutter-fr+-deleted nil
+        "........"
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "........"))
     :custom
     (git-gutter+-hide-gutter t))
 #+end_src
