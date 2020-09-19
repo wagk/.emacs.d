@@ -4296,7 +4296,7 @@ trailing dots only happen /after/ the fci column.)
 * Search Engine Mode
 #+begin_src emacs-lisp :results output silent
   (use-package engine-mode
-    :straight (:host github :repo "hrs/engine-mode")
+    :straight (:host github :repo "hrs/engine-mode" :branch "main")
     :commands defengine
     :general
     (:states '(normal motion visual)
