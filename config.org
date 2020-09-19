@@ -4077,6 +4077,8 @@ Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package flycheck
     :straight (:host github :repo "flycheck/flycheck")
+    :custom
+    (flycheck-indication-mode 'right-margin)
     :hook
     (prog-mode-hook . global-flycheck-mode))
 #+end_src
