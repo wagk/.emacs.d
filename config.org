@@ -1678,8 +1678,6 @@ up, on windows at least).
 #+begin_src emacs-lisp :results output silent
   (use-package magit-todos
     :straight (:host github :repo "alphapapa/magit-todos")
-    :ensure-system-package
-    (rg . "choco install -y ripgrep")
     :custom
     (magit-todos-nice
      nil
