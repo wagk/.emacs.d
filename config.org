@@ -1922,7 +1922,6 @@ TODO: some way to better, more dynamically name the tabs
 #+begin_src emacs-lisp :results output silent
   (use-package solarized-theme
     :straight (:host github :repo "bbatsov/solarized-emacs")
-    :disabled t
     :custom
     (solarized-use-variable-pitch nil)
     (solarized-distinct-fringe-background nil)
