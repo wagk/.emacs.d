@@ -359,6 +359,7 @@ Stolen from https://github.com/bbatsov/crux
 ** Match Braces
 #+begin_src emacs-lisp :results output silent
   (use-package elec-pair
+    :disabled t
     :ensure nil
     :straight nil
     :config
@@ -2192,8 +2193,8 @@ Solarized)
     :straight (:host github :repo "DogLooksGood/parinfer-mode")
     :commands (parinfer-mode)
     :general
-    ;; (parinfer-mode-map
-    ;;  "\"" nil) ;; let smartparens do its thing
+    (parinfer-mode-map
+     "\"" nil) ;; let smartparens do its thing
     (:states 'motion
      "g p" 'parinfer-toggle-mode)
     :custom
@@ -2263,11 +2264,10 @@ Much like rainbow blocks mode, but better.
 TODO: Make it so that if the point is inside {} or something similar,
 pressing RET autoformats it, instead of doing nothing as it does right now
 
+
 #+begin_src emacs-lisp :results output silent
   (use-package smartparens
-    ;; Back to electric-pair-mode
-    :disabled t
-    :straight t
+    :straight (:host github :repo "Fuco1/smartparens")
     :diminish smartparens-mode
     :commands (sp-local-pair
                smartparens-global-mode)
@@ -2276,6 +2276,8 @@ pressing RET autoformats it, instead of doing nothing as it does right now
     (prog-mode-hook . (lambda () (interactive)
                         (require 'smartparens-config) ;; load some default configurations
                         (require 'smartparens)))
+    :custom-face
+    (sp-pair-overlay-face ((t (:inherit default :underline nil))))
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -2290,7 +2292,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
     :config
     (smartparens-global-mode)
     ;; (smartparens-global-strict-mode)
-    (show-smartparens-global-mode)
+    ;; (show-smartparens-global-mode)
     ;; define some helper functions
     (defun my-add-newline-and-indent-braces (_opening_delimiter
                                              _actions

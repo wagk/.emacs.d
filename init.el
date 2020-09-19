@@ -594,20 +594,25 @@ we're adding a custom function for it here."
     ;;     :straight nil
     ;;     :commands org-confluence-export-as-confluence))
     :config
+    (with-eval-after-load 'smartparens
+      (defun my-dont-close-=-in-latex-fragment (_open action _context)
+        (when (eq action 'insert)
+          (org-inside-LaTeX-fragment-p)))
+      (sp-local-pair 'org-mode "=" "="
+                     :unless '(:add my-dont-close-=-in-latex-fragment)))
     (customize-set-value 'org-format-latex-options
                          (plist-put org-format-latex-options
                                     :scale 1.5))
-    (add-hook 'org-mode-hook
-              '(lambda ()
-                 (with-eval-after-load 'elec-pair
+    (with-eval-after-load 'elec-pair
+      (add-hook 'org-mode-hook
+                '(lambda ()
                    (let ((org-pairs '((?= . ?=)
-                                      ;; (?/ . ?/)
                                       (?* . ?*)
                                       (?$ . ?$))))
-                     (setq-local electric-pair-pairs
-                                 (append electric-pair-pairs org-pairs))
-                     (setq-local electric-pair-text-pairs
-                                 electric-pair-pairs)))))
+                      (setq-local electric-pair-pairs
+                                  (append electric-pair-pairs org-pairs))
+                      (setq-local electric-pair-text-pairs
+                                  electric-pair-pairs)))))
     (defun my-org-reformat-buffer ()
       (interactive)
       (when (y-or-n-p "Really format current buffer? ")
