@@ -203,6 +203,10 @@
    `(magit-diff-hunk-heading ((,class (:inherit (diff-hunk-header)))))
    `(magit-diff-hunk-heading-highlight ((,class (:background ,type :inherit (magit-diff-hunk-heading magit-section-highlight)))))
    `(magit-diff-hunk-heading-selection ((,class (:foreground ,warning :inherit (magit-diff-hunk-heading)))))
+   `(magit-diff-lines-heading ((,class (:box (:line-width -1 :color ,warning)
+                                        :foreground ,warning
+                                        :background ,bg4
+                                        :inherit (magit-diff-hunk-heading-highlight)))))
    `(magit-diff-removed ((,class (:foreground ,warning))))
    `(magit-diff-removed-highlight ((,class (:inherit (magit-section-highlight magit-diff-removed)))))
    `(magit-diffstat-added ((,class (:foreground ,type))))
