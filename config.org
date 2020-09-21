@@ -437,7 +437,7 @@ with Chinese/Japanese.
 #+begin_src emacs-lisp :results output silent
   (cond
    ((find-font (font-spec :name "Iosevka")) (set-frame-font "Iosevka-10" nil t))
-   ((find-font (font-spec :name "Consolas")) (set-frame-font "Consolas-10" nil t)))
+   ((find-font (font-spec :name "Courier")) (set-frame-font "Courier-10" nil t)))
 #+end_src
 
 ** Emacs bookmarks
