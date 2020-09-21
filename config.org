@@ -132,6 +132,13 @@ We're sticking to Japanese for now
        (evil-ex-define-cmd "recent" 'counsel-recentf))
    #+end_src
 
+** Display Fill Column Indicator
+#+begin_src emacs-lisp :results output silent
+  (add-hook 'prog-mode-hook
+            '(lambda ()
+               (display-fill-column-indicator-mode 'toggle)))
+#+end_src
+
 ** Disable GUI Elements
 #+begin_src emacs-lisp :results output silent
   (tool-bar-mode -1)
@@ -400,7 +407,8 @@ Stolen from https://github.com/bbatsov/crux
      ;; This isn't actually how colorcolumn worked in vi
      ;; (read :h colorcolumn)
      ((or (string= cmd "colorcolumn")
-          (string= cmd "cc")) (display-fill-column-indicator-mode))))
+          (string= cmd "cc")) (display-fill-column-indicator-mode
+                               'toggle))))
   (evil-ex-define-cmd "set" 'config-ex-set-arg)
 #+end_src
 
