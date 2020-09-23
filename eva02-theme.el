@@ -49,6 +49,10 @@
       (warning2 "#ff8800"))
   (custom-theme-set-faces 'eva02
    `(ac-completion-face ((,class (:underline t :foreground ,keyword))))
+   `(avy-lead-face ((,class (:background ,fg1 :foreground ,bg1))))
+   `(avy-lead-face-0 ((,class (:background ,fg2 :foreground ,bg1))))
+   `(avy-lead-face-1 ((,class (:background ,fg3 :foreground ,bg1))))
+   `(avy-lead-face-2 ((,class (:background ,fg4 :foreground ,bg1))))
    `(company-echo-common ((,class (:foreground ,bg1 :background ,fg1))))
    `(company-preview ((,class (:background ,bg1 :foreground ,var))))
    `(company-preview-common ((,class (:foreground ,bg2 :foreground ,fg3))))

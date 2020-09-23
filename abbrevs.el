@@ -173,7 +173,7 @@
     ("fiels" "files" nil :count 6)
     ("fien" "fine" nil :count 1)
     ("finalncial" "financial" nil :count 1)
-    ("fo" "of" nil :count 122)
+    ("fo" "of" nil :count 124)
     ("foer" "for" nil :count 1)
     ("folliwng" "following" nil :count 3)
     ("folloiwng" "following" nil :count 1)
@@ -457,6 +457,7 @@
     ("tkne" "token" nil :count 1)
     ("tlaking" "talking" nil :count 1)
     ("tokne" "token" nil :count 1)
+    ("tood" "todo" nil :count 1)
     ("towartds" "towards" nil :count 1)
     ("traaining" "training" nil :count 1)
     ("transaciton" "transaction" nil :count 1)
@@ -515,5 +516,4 @@
     ("yb" "by" nil :count 1)
     ("yeaterday" "yesterday" nil :count 1)
     ("yse" "yes" nil :count 1)
-   ))
-
+    ))
