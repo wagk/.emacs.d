@@ -222,7 +222,14 @@
    `(magit-log-author ((,class (:foreground ,fg3))))
    `(magit-log-date ((,class (:foreground ,type))))
    `(magit-log-graph ((,class (:foreground ,type))))
-   `(magit-mode-line-process-error ((,class (:inherit (error) :foreground ,warning :underline t))))
+   `(magit-mode-line-process ((,class (:foreground ,builtin
+                                       :box (:line-width -1)
+                                       :bold t))))
+    `(magit-mode-line-process-error ((,class (:inherit (error)
+                                              :foreground ,warning
+                                              :underline t
+                                              :bold t
+                                              :box (:line-width -1)))))
    `(magit-process-ng ((,class (:foreground ,warning :weight bold))))
    `(magit-process-ok ((,class (:foreground ,func :weight bold))))
    `(magit-section-heading ((,class (:foreground ,keyword :weight bold))))
