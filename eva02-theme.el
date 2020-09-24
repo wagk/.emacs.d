@@ -265,7 +265,7 @@
    `(org-document-info-keyword ((,class (:foreground ,func :box (:line-width -1 :color ,const)))))
    `(org-document-title ((,class (:foreground ,const :bold t))))
    `(org-done ((,class (:box (:line-width -1 :color ,const) :bold t :foreground ,builtin))))
-   `(org-drawer ((,class (:foreground ,comment))))
+   `(org-drawer ((,class (:foreground ,const))))
    `(org-ellipsis ((,class (:foreground ,builtin))))
    `(org-footnote  ((,class (:underline t :foreground ,fg4))))
    `(org-hide ((,class (:foreground ,bg1))))
