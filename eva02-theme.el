@@ -319,7 +319,7 @@
    `(term-color-red ((,class (:foreground ,keyword :background ,bg3))))
    `(term-color-white ((,class (:foreground ,fg2 :background ,fg2))))
    `(term-color-yellow ((,class (:foreground ,var :background ,var))))
-   `(tool-bar ((,class (:foreground ,const :bold t :box (:line-width -1 :color, const :style released-button)))))
+   `(tool-bar ((,class (:foreground ,const :bold t :box (:line-width -1 :color ,const :style released-button)))))
    `(tooltip ((,class (:foreground ,const :italic t :box (:line-width -1 :color ,const)))))
    `(trailing-whitespace ((,class (:foreground nil :background ,warning))))
    `(transient-argument ((,class (:foreground ,builtin))))
