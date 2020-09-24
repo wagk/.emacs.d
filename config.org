@@ -943,18 +943,20 @@ This is an expensive package to load, and I wonder why.
 
 *** Sentences
 #+begin_src emacs-lisp :results output silent
-    (use-package sentence-navigation
-      :straight (:host github :repo "noctuid/emacs-sentence-navigation")
-      :general
-      (:states 'motion
-       ")" 'sentence-nav-evil-forward
-       "(" 'sentence-nav-evil-backward
-       "g)" 'sentence-nav-evil-forward-end
-       "g(" 'sentence-nav-evil-backward-end)
-      (evil-outer-text-objects-map
-       "s" 'sentence-nav-evil-a-sentence)
-      (evil-inner-text-objects-map
-       "s" 'sentence-nav-evil-inner-sentence))
+  (use-package sentence-navigation
+    :straight (:host github :repo "noctuid/emacs-sentence-navigation")
+    ;; not actively updated, last commit 3 years ago, breaks with emacs 27
+    :disabled t
+    :general
+    (:states 'motion
+     ")" 'sentence-nav-evil-forward
+     "(" 'sentence-nav-evil-backward
+     "g)" 'sentence-nav-evil-forward-end
+     "g(" 'sentence-nav-evil-backward-end)
+    (evil-outer-text-objects-map
+     "s" 'sentence-nav-evil-a-sentence)
+    (evil-inner-text-objects-map
+     "s" 'sentence-nav-evil-inner-sentence))
 #+end_src
 
 *** [K]olumns
