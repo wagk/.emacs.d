@@ -2330,8 +2330,8 @@ package is known as elisp-mode but it reads as emacs-lisp
            ;; (emacs-lisp-mode-hook . rainbow-delimiters-mode)
            (emacs-lisp-mode-hook . parinfer-mode)
            (emacs-lisp-mode-hook . update-evil-shift-width)
-           (emacs-lisp-mode-hook . evil-cleverparens-mode)
-           (emacs-lisp-mode-hook . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
+           (emacs-lisp-mode-hook . evil-cleverparens-mode)))
+           ;; (emacs-lisp-mode-hook . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
            ;; (emacs-lisp-mode-hook . (lambda ()
            ;;                      (mapc (lambda (pair) (push pair
            ;;                                            prettify-symbols-alist
