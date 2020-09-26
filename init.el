@@ -398,7 +398,7 @@ we're adding a custom function for it here."
     (my-evil-define-split-vsplit-cmd "config" 'find-user-config-file)
     (evil-ex-define-cmd "Tconfig" #'(lambda () (interactive)
                                       (my-new-cmd-tab user-config-file)))
-    (my-evil-define-split-vsplit-cmd "buffers" 'buffer-menu)
+    (my-evil-define-split-vsplit-cmd "buffers" 'ibuffer)
     (my-evil-define-split-vsplit-cmd "me[ssage]"
                                      #'(lambda ()
                                          (switch-to-buffer "*Messages*")))

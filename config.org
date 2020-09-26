@@ -943,18 +943,20 @@ This is an expensive package to load, and I wonder why.
 
 *** Sentences
 #+begin_src emacs-lisp :results output silent
-    (use-package sentence-navigation
-      :straight (:host github :repo "noctuid/emacs-sentence-navigation")
-      :general
-      (:states 'motion
-       ")" 'sentence-nav-evil-forward
-       "(" 'sentence-nav-evil-backward
-       "g)" 'sentence-nav-evil-forward-end
-       "g(" 'sentence-nav-evil-backward-end)
-      (evil-outer-text-objects-map
-       "s" 'sentence-nav-evil-a-sentence)
-      (evil-inner-text-objects-map
-       "s" 'sentence-nav-evil-inner-sentence))
+  (use-package sentence-navigation
+    :straight (:host github :repo "noctuid/emacs-sentence-navigation")
+    ;; not actively updated, last commit 3 years ago, breaks with emacs 27
+    :disabled t
+    :general
+    (:states 'motion
+     ")" 'sentence-nav-evil-forward
+     "(" 'sentence-nav-evil-backward
+     "g)" 'sentence-nav-evil-forward-end
+     "g(" 'sentence-nav-evil-backward-end)
+    (evil-outer-text-objects-map
+     "s" 'sentence-nav-evil-a-sentence)
+    (evil-inner-text-objects-map
+     "s" 'sentence-nav-evil-inner-sentence))
 #+end_src
 
 *** [K]olumns
@@ -2328,8 +2330,8 @@ package is known as elisp-mode but it reads as emacs-lisp
            ;; (emacs-lisp-mode-hook . rainbow-delimiters-mode)
            (emacs-lisp-mode-hook . parinfer-mode)
            (emacs-lisp-mode-hook . update-evil-shift-width)
-           (emacs-lisp-mode-hook . evil-cleverparens-mode)
-           (emacs-lisp-mode-hook . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
+           (emacs-lisp-mode-hook . evil-cleverparens-mode)))
+           ;; (emacs-lisp-mode-hook . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
            ;; (emacs-lisp-mode-hook . (lambda ()
            ;;                      (mapc (lambda (pair) (push pair
            ;;                                            prettify-symbols-alist

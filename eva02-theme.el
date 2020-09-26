@@ -222,7 +222,14 @@
    `(magit-log-author ((,class (:foreground ,fg3))))
    `(magit-log-date ((,class (:foreground ,type))))
    `(magit-log-graph ((,class (:foreground ,type))))
-   `(magit-mode-line-process-error ((,class (:inherit (error) :foreground ,warning :underline t))))
+   `(magit-mode-line-process ((,class (:foreground ,builtin
+                                       :box (:line-width -1)
+                                       :bold t))))
+    `(magit-mode-line-process-error ((,class (:inherit (error)
+                                              :foreground ,warning
+                                              :underline t
+                                              :bold t
+                                              :box (:line-width -1)))))
    `(magit-process-ng ((,class (:foreground ,warning :weight bold))))
    `(magit-process-ok ((,class (:foreground ,func :weight bold))))
    `(magit-section-heading ((,class (:foreground ,keyword :weight bold))))
@@ -258,7 +265,7 @@
    `(org-document-info-keyword ((,class (:foreground ,func :box (:line-width -1 :color ,const)))))
    `(org-document-title ((,class (:foreground ,const :bold t))))
    `(org-done ((,class (:box (:line-width -1 :color ,const) :bold t :foreground ,builtin))))
-   `(org-drawer ((,class (:foreground ,comment))))
+   `(org-drawer ((,class (:foreground ,const))))
    `(org-ellipsis ((,class (:foreground ,builtin))))
    `(org-footnote  ((,class (:underline t :foreground ,fg4))))
    `(org-hide ((,class (:foreground ,bg1))))
@@ -312,7 +319,7 @@
    `(term-color-red ((,class (:foreground ,keyword :background ,bg3))))
    `(term-color-white ((,class (:foreground ,fg2 :background ,fg2))))
    `(term-color-yellow ((,class (:foreground ,var :background ,var))))
-   `(tool-bar ((,class (:foreground ,const :bold t :box (:line-width -1 :color, const :style released-button)))))
+   `(tool-bar ((,class (:foreground ,const :bold t :box (:line-width -1 :color ,const :style released-button)))))
    `(tooltip ((,class (:foreground ,const :italic t :box (:line-width -1 :color ,const)))))
    `(trailing-whitespace ((,class (:foreground nil :background ,warning))))
    `(transient-argument ((,class (:foreground ,builtin))))
