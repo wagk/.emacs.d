@@ -335,6 +335,7 @@
     ("pariton" "partition" nil :count 1)
     ("partiaully" "partially" nil :count 1)
     ("pattenr" "pattern" nil :count 1)
+    ("pirnt" "print" nil :count 1)
     ("platofrm" "platform" nil :count 1)
     ("poitns" "points" nil :count 1)
     ("ponit" "point" nil :count 2)
@@ -516,4 +517,5 @@
     ("yb" "by" nil :count 1)
     ("yeaterday" "yesterday" nil :count 1)
     ("yse" "yes" nil :count 1)
-    ))
+   ))
+
