@@ -1660,7 +1660,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     (evil-ex-define-cmd "gl" 'magit-log)
     :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
            (git-commit-setup-hook . markdown-mode)
-           (git-commit-setup-hook . display-fill-column-indicator-mode)))
+           (git-commit-setup-hook . (lambda () (display-fill-column-indicator-mode 1)))))
 #+end_src
 
 *** Evil bindings
