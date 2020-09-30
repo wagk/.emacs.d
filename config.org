@@ -512,8 +512,7 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     (tab-bar ((t (:inherit 'minibuffer-prompt :underline t))))
     (tab-bar-tab ((t (:inherit 'minibuffer-prompt
                       :bold t))))
-    (tab-bar-tab-inactive ((t (:inherit 'minibuffer-prompt
-                               :foreground "#586e75"))))
+    (tab-bar-tab-inactive ((t (:inherit 'font-lock-preprocessor-face))))
     :custom
     (tab-bar-close-last-tab-choice 'delete-frame)
     (tab-bar-new-tab-choice t)
@@ -577,6 +576,7 @@ for the specific hook.
       (cons mode
             (my-find-major-mode-parents (get-mode-local-parent mode)))))
 #+end_src
+
 
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
@@ -1993,13 +1993,15 @@ Solarized)
 
 #+begin_src emacs-lisp :results output silent
   (use-package color-theme-sanityinc-solarized
+    :after solarized-theme
     :straight t)
 #+end_src
 * Display
 #+begin_src emacs-lisp :results output silent
   ;; (when (display-graphic-p)
   ;;   (load-solarized-theme))
-  (load-solarized-theme)
+  ;; (load-solarized-theme)
+  (load-eva02-theme)
 #+end_src
 
 * Posframe
