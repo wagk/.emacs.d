@@ -2484,7 +2484,7 @@ containing a lot of files, and if the files are themselves large.
     (deft-use-filename-as-title t)
     (deft-current-sort-method 'title)
     (deft-filter-only-filenames t)
-    (deft-file-limit 30)
+    (deft-file-limit 300)
     (deft-file-naming-rules '(;;(noslash . "-") ;; we want to create directory structure on the fly
                               (nospace . "-")
                               (case-fn . downcase)))
