@@ -2565,8 +2565,9 @@ containing a lot of files, and if the files are themselves large.
   (use-package zetteldeft
     :straight (:host github :repo "efls/zetteldeft")
     :after deft
+    :demand t
     :commands (zetteldeft-new-file
-               zetteldeft-new-file-and-backlink
+               zetteldeft-new-file-and-link
                zetteldeft-fine-file-id-insert
                zetteldeft-follow-link
                zetteldeft-file-rename
@@ -2583,6 +2584,7 @@ containing a lot of files, and if the files are themselves large.
     (:states 'normal
      :prefix my-default-evil-leader-key
      "n n" 'zetteldeft-find-file
+     "n y" 'zetteldeft-copy-id-current-file
      "n c" 'zetteldeft-new-file
      "n s" 'zetteldeft-new-file-and-link
      "n i" 'zetteldeft-find-file-id-insert
@@ -2604,8 +2606,9 @@ containing a lot of files, and if the files are themselves large.
             (zetteldeft-find-file-id-insert input)
           (zetteldeft-new-file-and-link input))))
     (evil-ex-define-cmd "nc" 'zetteldeft-new-file)
-    (evil-ex-define-cmd "ns" 'zetteldeft-new-file-and-backlink)
-    (evil-ex-define-cmd "ni" 'zetteldeft-fine-file-id-insert)
+    (evil-ex-define-cmd "ny" 'zetteldeft-copy-id-current-file)
+    (evil-ex-define-cmd "ns" 'zetteldeft-new-file-and-link)
+    (evil-ex-define-cmd "ni" 'zetteldeft-find-file-id-insert)
     (evil-ex-define-cmd "nl" 'zetteldeft-follow-link)
     (evil-ex-define-cmd "nr" 'zetteldeft-file-rename)
     (evil-ex-define-cmd "nt" 'zetteldeft-avy-tag-search)
