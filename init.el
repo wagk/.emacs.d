@@ -600,6 +600,10 @@ we're adding a custom function for it here."
         (when (eq action 'insert)
           (org-inside-LaTeX-fragment-p)))
       (sp-local-pair 'org-mode "=" "="
+                     :unless '(:add my-dont-close-=-in-latex-fragment))
+      (sp-local-pair 'org-mode "_" "_"
+                     :unless '(:add my-dont-close-=-in-latex-fragment))
+      (sp-local-pair 'org-mode "*" "*"
                      :unless '(:add my-dont-close-=-in-latex-fragment)))
     (customize-set-value 'org-format-latex-options
                          (plist-put org-format-latex-options
