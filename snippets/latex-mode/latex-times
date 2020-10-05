@@ -1,0 +1,5 @@
+# key: x
+# name: latex-times
+# condition: (if (eq major-mode 'org-mode) (org-inside-LaTeX-fragment-p) t)
+# --
+\times $0
