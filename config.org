@@ -661,6 +661,59 @@ re-evaluating the need for this
                ace-link-eww))
 #+end_src
 
+* Smartparens
+
+TODO: Make it so that if the point is inside {} or something similar,
+pressing RET autoformats it, instead of doing nothing as it does right now
+
+
+#+begin_src emacs-lisp :results output silent
+  (use-package smartparens
+    :straight (:host github :repo "Fuco1/smartparens")
+    :diminish smartparens-mode
+    :commands (sp-local-pair
+               smartparens-global-mode)
+    :hook
+    ;; TODO: make this not just hooked on prog-mode
+    (prog-mode-hook . (lambda () (interactive)
+                        (require 'smartparens-config) ;; load some default configurations
+                        (require 'smartparens)))
+    :custom-face
+    (sp-pair-overlay-face ((t (:inherit default :underline nil))))
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "." 'smartparens-mode)
+    :custom
+    (sp-cancel-autoskip-on-backward-movement
+     nil
+     "We want to maintain the chomp-like behavior of electric-pair")
+    (sp-autoskip-closing-pair
+     'always
+     "Maintain chomp-like behavior of electric-pair")
+    :config
+    (smartparens-global-mode)
+    ;; (smartparens-global-strict-mode)
+    ;; (show-smartparens-global-mode)
+    ;; define some helper functions
+    (defun my-add-newline-and-indent-braces (_opening_delimiter
+                                             _actions
+                                             _context)
+      "adds that cool vim indent thing we always wanted, Refer to WHEN
+    segment of `sp-pair' documentation on what each parameter does"
+      (newline)
+      (indent-according-to-mode)
+      (forward-line -1)
+      (indent-according-to-mode))
+    ;; update the global definitions with some indenting
+    ;; I think that the nil is the flag that controls property inheritance
+    ;;note: for some reason tab isn't recognised. might be yasnippet intefering.
+    ;;learn to use ret for now
+    (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
+    (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
+    (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET"))))
+#+end_src
+
 * Evil
 ** Alignment
 #+begin_src emacs-lisp :results output silent
@@ -2269,59 +2322,6 @@ Much like rainbow blocks mode, but better.
     :preface
     (use-package anaphora
       :straight (:host github :repo "rolandwalker/anaphora")))
-#+end_src
-
-** Smartparens
-
-TODO: Make it so that if the point is inside {} or something similar,
-pressing RET autoformats it, instead of doing nothing as it does right now
-
-
-#+begin_src emacs-lisp :results output silent
-  (use-package smartparens
-    :straight (:host github :repo "Fuco1/smartparens")
-    :diminish smartparens-mode
-    :commands (sp-local-pair
-               smartparens-global-mode)
-    :hook
-    ;; TODO: make this not just hooked on prog-mode
-    (prog-mode-hook . (lambda () (interactive)
-                        (require 'smartparens-config) ;; load some default configurations
-                        (require 'smartparens)))
-    :custom-face
-    (sp-pair-overlay-face ((t (:inherit default :underline nil))))
-    :general
-    (:states 'normal
-     :prefix my-default-evil-leader-key
-     "." 'smartparens-mode)
-    :custom
-    (sp-cancel-autoskip-on-backward-movement
-     nil
-     "We want to maintain the chomp-like behavior of electric-pair")
-    (sp-autoskip-closing-pair
-     'always
-     "Maintain chomp-like behavior of electric-pair")
-    :config
-    (smartparens-global-mode)
-    ;; (smartparens-global-strict-mode)
-    ;; (show-smartparens-global-mode)
-    ;; define some helper functions
-    (defun my-add-newline-and-indent-braces (_opening_delimiter
-                                             _actions
-                                             _context)
-      "adds that cool vim indent thing we always wanted, Refer to WHEN
-    segment of `sp-pair' documentation on what each parameter does"
-      (newline)
-      (indent-according-to-mode)
-      (forward-line -1)
-      (indent-according-to-mode))
-    ;; update the global definitions with some indenting
-    ;; I think that the nil is the flag that controls property inheritance
-    ;;note: for some reason tab isn't recognised. might be yasnippet intefering.
-    ;;learn to use ret for now
-    (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-    (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-    (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET"))))
 #+end_src
 
 * Elisp                                                               :major:
