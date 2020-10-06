@@ -501,8 +501,6 @@ we're adding a custom function for it here."
               (org-time-stamp '(16))))
     ;; "f f" 'counsel-org-goto)
     (org-mode-map
-     "C-S-c C-S-c" '(lambda () (interactive)
-                      (org-toggle-checkbox '(4)))
      "C-c C-'" 'org-edit-special
      "<C-M-return>" 'org-insert-subheading
      "<C-M-S-return>" 'org-insert-todo-subheading)
@@ -595,6 +593,16 @@ we're adding a custom function for it here."
     ;;     :straight nil
     ;;     :commands org-confluence-export-as-confluence))
     :config
+    (defun my-org-convert-list-to-checkbox ()
+      (when (and (org-at-item-p)
+                 (not (org-at-item-checkbox-p)))
+        (org-toggle-checkbox '(4))))
+    ;; NOTE: for some reason, this hook is not being run
+    (add-hook 'org-ctrl-c-ctrl-c-final-hook 'my-org-convert-list-to-checkbox)
+    ;; NOTE: this is a hack, because I've learnt that this hook is not
+    ;; consistently being called.
+    (advice-add 'org-ctrl-c-ctrl-c :after
+                #'(lambda (&rest _) (run-hook-with-args-until-success 'org-ctrl-c-ctrl-c-final-hook)))
     (with-eval-after-load 'smartparens
       (defun my-dont-close-=-in-latex-fragment (_open action _context)
         (when (eq action 'insert)
