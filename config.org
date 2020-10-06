@@ -132,6 +132,13 @@ We're sticking to Japanese for now
        (evil-ex-define-cmd "recent" 'counsel-recentf))
    #+end_src
 
+** Display Fill Column Indicator
+#+begin_src emacs-lisp :results output silent
+  (add-hook 'prog-mode-hook
+            '(lambda ()
+               (display-fill-column-indicator-mode 'toggle)))
+#+end_src
+
 ** Disable GUI Elements
 #+begin_src emacs-lisp :results output silent
   (tool-bar-mode -1)
@@ -320,9 +327,7 @@ Stolen from https://github.com/bbatsov/crux
   (evil-define-command my-eval-and-replace (beg end _type)
     "Replace the preceding sexp with its value."
     (interactive "<v>")
-    (when-let ((value (eval-region beg end
-                                   (get-buffer (buffer-name)))))
-      (delete-active-region)))
+    (eval-region beg end (get-buffer (buffer-name))))
       ;; (insert (format "%S" value))))
 
   (evil-ex-define-cmd "eval" 'my-eval-and-replace)
@@ -359,6 +364,7 @@ Stolen from https://github.com/bbatsov/crux
 ** Match Braces
 #+begin_src emacs-lisp :results output silent
   (use-package elec-pair
+    :disabled t
     :ensure nil
     :straight nil
     :config
@@ -399,8 +405,8 @@ Stolen from https://github.com/bbatsov/crux
      ;; This isn't actually how colorcolumn worked in vi
      ;; (read :h colorcolumn)
      ((or (string= cmd "colorcolumn")
-          (string= cmd "cc")) (progn (require 'fill-column-indicator)
-                                     (fci-mode (if fci-mode -1 1))))))
+          (string= cmd "cc")) (display-fill-column-indicator-mode
+                               'toggle))))
   (evil-ex-define-cmd "set" 'config-ex-set-arg)
 #+end_src
 
@@ -437,7 +443,7 @@ with Chinese/Japanese.
 #+begin_src emacs-lisp :results output silent
   (cond
    ((find-font (font-spec :name "Iosevka")) (set-frame-font "Iosevka-10" nil t))
-   ((find-font (font-spec :name "Consolas")) (set-frame-font "Consolas-10" nil t)))
+   ((find-font (font-spec :name "Courier")) (set-frame-font "Courier-10" nil t)))
 #+end_src
 
 ** Emacs bookmarks
@@ -505,45 +511,47 @@ This only works if emacs version is 27 or above (there's already some
 evil integration), refer to Eyebrowse for Emacs version <27 tab handling
 #+begin_src emacs-lisp :results output silent
   (use-package tab-bar
-    :ensure nil
-    :straight nil
-    :if (>= emacs-major-version 27)
-    :custom-face
-    (tab-bar ((t (:inherit 'minibuffer-prompt :underline t))))
-    (tab-bar-tab ((t (:inherit 'minibuffer-prompt
-                      :bold t))))
-    (tab-bar-tab-inactive ((t (:inherit 'font-lock-preprocessor-face))))
-    :custom
-    (tab-bar-close-last-tab-choice 'delete-frame)
-    (tab-bar-new-tab-choice t)
-    (tab-bar-close-button-show nil)
-    (tab-bar-new-button-show nil)
-    (tab-bar-close-tab-select 'left)
-    (tab-bar-new-button nil)
-    (tab-bar-new-tab-to 'right)
-    :config
-    (tab-bar-mode)
-    (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
-    (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
-    (evil-ex-define-cmd "tabn[ew]" 'tab-bar-new-tab)
-    (evil-define-command my-tab-bar-tab-edit (file)
-      (interactive "<f>")
-      (let ((tab-bar-new-tab-choice (if file file "*scratch*")))
-        (tab-bar-new-tab)))
-    (evil-ex-define-cmd "tabe[dit]" 'my-tab-bar-tab-edit)
-    ;;TODO: currently has issue where :q on a tab kills emacs
-    (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
-    ;;TODO: check if ivy has something for this someday
-    (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
-    (defun my-tab-bar-delete-tab-or-emacs (oldfun &rest _old_args)
-      (interactive)
-      (let* ((tabs (find-if (lambda (elem) (eq 'tabs (car elem)))
-                            (frame-parameters)))
-             (num-tabs (length (cdr tabs))))
-        (if (eq num-tabs 1)
-            (call-interactively oldfun)
-          (tab-bar-close-tab))))
-    (advice-add 'delete-frame :around 'my-tab-bar-delete-tab-or-emacs))
+   :ensure nil
+   :straight nil
+   :if (>= emacs-major-version 27)
+   :custom-face
+   (tab-bar ((t (:inherit 'minibuffer-prompt :underline t))))
+   (tab-bar-tab ((t (:inherit 'font-lock-function-name-face
+                     :bold t
+                     :box (:line-width -1)))))
+   (tab-bar-tab-inactive ((t (:inherit 'font-lock-keyword-face :italic nil))))
+   :custom
+   (tab-bar-close-last-tab-choice 'delete-frame)
+   (tab-bar-new-tab-choice t)
+   (tab-bar-close-button-show nil)
+   (tab-bar-new-button-show nil)
+   (tab-bar-close-tab-select 'left)
+   (tab-bar-new-button nil)
+   (tab-bar-new-tab-to 'right)
+   :config
+   (tab-bar-mode)
+   (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
+   (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
+   (evil-ex-define-cmd "tabn[ew]" 'tab-bar-new-tab)
+   (evil-define-command my-tab-bar-tab-edit (file)
+     (interactive "<f>")
+     (let ((tab-bar-new-tab-choice (if file file "*scratch*")))
+       (tab-bar-new-tab)))
+   (evil-ex-define-cmd "tabe[dit]" 'my-tab-bar-tab-edit)
+   ;;TODO: currently has issue where :q on a tab kills emacs
+   (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
+   ;;TODO: check if ivy has something for this someday
+   (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
+   (evil-ex-define-cmd "tt" 'tab-bar-select-tab-by-name)
+   (defun my-tab-bar-delete-tab-or-emacs (oldfun &rest _old_args)
+     (interactive)
+     (let* ((tabs (find-if (lambda (elem) (eq 'tabs (car elem)))
+                           (frame-parameters)))
+            (num-tabs (length (cdr tabs))))
+       (if (eq num-tabs 1)
+           (call-interactively oldfun)
+         (tab-bar-close-tab))))
+   (advice-add 'delete-frame :around 'my-tab-bar-delete-tab-or-emacs))
 #+end_src
 
 ** TODO Tab line mode
@@ -934,18 +942,20 @@ This is an expensive package to load, and I wonder why.
 
 *** Sentences
 #+begin_src emacs-lisp :results output silent
-    (use-package sentence-navigation
-      :straight (:host github :repo "noctuid/emacs-sentence-navigation")
-      :general
-      (:states 'motion
-       ")" 'sentence-nav-evil-forward
-       "(" 'sentence-nav-evil-backward
-       "g)" 'sentence-nav-evil-forward-end
-       "g(" 'sentence-nav-evil-backward-end)
-      (evil-outer-text-objects-map
-       "s" 'sentence-nav-evil-a-sentence)
-      (evil-inner-text-objects-map
-       "s" 'sentence-nav-evil-inner-sentence))
+  (use-package sentence-navigation
+    :straight (:host github :repo "noctuid/emacs-sentence-navigation")
+    ;; not actively updated, last commit 3 years ago, breaks with emacs 27
+    :disabled t
+    :general
+    (:states 'motion
+     ")" 'sentence-nav-evil-forward
+     "(" 'sentence-nav-evil-backward
+     "g)" 'sentence-nav-evil-forward-end
+     "g(" 'sentence-nav-evil-backward-end)
+    (evil-outer-text-objects-map
+     "s" 'sentence-nav-evil-a-sentence)
+    (evil-inner-text-objects-map
+     "s" 'sentence-nav-evil-inner-sentence))
 #+end_src
 
 *** [K]olumns
@@ -1651,7 +1661,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     (evil-ex-define-cmd "gl" 'magit-log)
     :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
            (git-commit-setup-hook . markdown-mode)
-           (git-commit-setup-hook . turn-on-fci-mode)))
+           (git-commit-setup-hook . (lambda () (display-fill-column-indicator-mode 1)))))
 #+end_src
 
 *** Evil bindings
@@ -1678,8 +1688,6 @@ up, on windows at least).
 #+begin_src emacs-lisp :results output silent
   (use-package magit-todos
     :straight (:host github :repo "alphapapa/magit-todos")
-    :ensure-system-package
-    (rg . "choco install -y ripgrep")
     :custom
     (magit-todos-nice
      nil
@@ -1737,8 +1745,27 @@ up, on windows at least).
     :init
     (use-package git-gutter-fringe+
       :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus")
-      :if (display-graphic-p)
-      :after git-gutter+)
+      :if (not (display-graphic-p))
+      :after git-gutter+
+      :config
+      (fringe-helper-define 'git-gutter-fr+-added nil
+        "........"
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "........")
+      (fringe-helper-define 'git-gutter-fr+-deleted nil
+        "........"
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "..XXXX.."
+        "........"))
     :custom
     (git-gutter+-hide-gutter t))
 #+end_src
@@ -1958,36 +1985,39 @@ TODO: some way to better, more dynamically name the tabs
                                   ;; ("NOTE"    . "#586e75")
                                   ("FIXME"   . "#cb4b16"))))))
 #+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (use-package color-theme-sanityinc-solarized
+    :after solarized-theme
+    :straight t)
+#+end_src
 ** Eva-02
 Personal theme that I'm maintaining (really stealing shamelessly from
 Solarized)
 
 #+begin_src emacs-lisp :results output silent
-  (use-package eva02
-    :ensure nil
-    :defer t
-    :straight nil
-    :init
-    (defun load-eva02-theme ()
-      (interactive)
-      (load-theme 'eva02 t)
-      (with-eval-after-load 'prism
-        (prism-set-colors
-          :num 24
-          :colors
-          ;; (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
-          (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
-          :desaturations
-          (list 10 20 30)
-          :lightens
-          ;; (list 0 -2.5 -5)))
-          (list 0 5 10)))
-      (with-eval-after-load 'hl-todo
-        (customize-set-variable 'hl-todo-keyword-faces
-                                '(("TODO"    . "#ff0000")
-                                  ("DEBUG"   . "#ff0000")
-                                  ;; ("NOTE"    . "#ff0000")
-                                  ("FIXME"   . "#ff0000"))))))
+  (defun load-eva02-theme ()
+    (interactive)
+    (load-theme 'eva02 t)
+    (with-eval-after-load 'prism
+      (prism-set-colors
+       :num 24
+       :colors
+       ;; (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
+       (list 'font-lock-keyword-face
+             'font-lock-builtin-face
+             'font-lock-variable-name-face)
+       :desaturations
+       (list 10 20 30)
+       :lightens
+       ;; (list 0 -2.5 -5)))
+       (list 0 5 10)))
+    (with-eval-after-load 'hl-todo
+      (customize-set-variable 'hl-todo-keyword-faces
+                              '(("TODO"    . "#ff0000")
+                                ("DEBUG"   . "#ff0000")
+                                ;; ("NOTE"    . "#ff0000")
+                                ("FIXME"   . "#ff0000")))))
 #+end_src
 
 
@@ -2001,6 +2031,7 @@ Solarized)
   ;; (when (display-graphic-p)
   ;;   (load-solarized-theme))
   ;; (load-solarized-theme)
+  ;; (load-theme 'solarized-dark t)
   (load-eva02-theme)
 #+end_src
 
@@ -2174,8 +2205,8 @@ Solarized)
     :straight (:host github :repo "DogLooksGood/parinfer-mode")
     :commands (parinfer-mode)
     :general
-    ;; (parinfer-mode-map
-    ;;  "\"" nil) ;; let smartparens do its thing
+    (parinfer-mode-map
+     "\"" nil) ;; let smartparens do its thing
     (:states 'motion
      "g p" 'parinfer-toggle-mode)
     :custom
@@ -2245,11 +2276,10 @@ Much like rainbow blocks mode, but better.
 TODO: Make it so that if the point is inside {} or something similar,
 pressing RET autoformats it, instead of doing nothing as it does right now
 
+
 #+begin_src emacs-lisp :results output silent
   (use-package smartparens
-    ;; Back to electric-pair-mode
-    :disabled t
-    :straight t
+    :straight (:host github :repo "Fuco1/smartparens")
     :diminish smartparens-mode
     :commands (sp-local-pair
                smartparens-global-mode)
@@ -2258,6 +2288,8 @@ pressing RET autoformats it, instead of doing nothing as it does right now
     (prog-mode-hook . (lambda () (interactive)
                         (require 'smartparens-config) ;; load some default configurations
                         (require 'smartparens)))
+    :custom-face
+    (sp-pair-overlay-face ((t (:inherit default :underline nil))))
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -2272,7 +2304,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
     :config
     (smartparens-global-mode)
     ;; (smartparens-global-strict-mode)
-    (show-smartparens-global-mode)
+    ;; (show-smartparens-global-mode)
     ;; define some helper functions
     (defun my-add-newline-and-indent-braces (_opening_delimiter
                                              _actions
@@ -2302,8 +2334,8 @@ package is known as elisp-mode but it reads as emacs-lisp
            ;; (emacs-lisp-mode-hook . rainbow-delimiters-mode)
            (emacs-lisp-mode-hook . parinfer-mode)
            (emacs-lisp-mode-hook . update-evil-shift-width)
-           (emacs-lisp-mode-hook . evil-cleverparens-mode)
-           (emacs-lisp-mode-hook . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
+           (emacs-lisp-mode-hook . evil-cleverparens-mode)))
+           ;; (emacs-lisp-mode-hook . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
            ;; (emacs-lisp-mode-hook . (lambda ()
            ;;                      (mapc (lambda (pair) (push pair
            ;;                                            prettify-symbols-alist
@@ -2452,10 +2484,13 @@ containing a lot of files, and if the files are themselves large.
     (deft-recursive t
       "Recursively search so we can organise by folders")
     (deft-time-format "%Y-%m-%d")
+    ;; (deft-ignore-file-regexp "\\(?:^$\\)")
+    (deft-ignore-file-regexp "^\\.#\\|\\(?:\"\\\\\\(?:^\\)$\\)\\\\\"")
     (deft-use-filter-string-for-filename t)
     (deft-use-filename-as-title t)
     (deft-current-sort-method 'title)
-    (deft-file-limit 30)
+    (deft-filter-only-filenames t)
+    (deft-file-limit 300)
     (deft-file-naming-rules '(;;(noslash . "-") ;; we want to create directory structure on the fly
                               (nospace . "-")
                               (case-fn . downcase)))
@@ -2536,6 +2571,14 @@ containing a lot of files, and if the files are themselves large.
   (use-package zetteldeft
     :straight (:host github :repo "efls/zetteldeft")
     :after deft
+    :demand t
+    :commands (zetteldeft-new-file
+               zetteldeft-new-file-and-link
+               zetteldeft-fine-file-id-insert
+               zetteldeft-follow-link
+               zetteldeft-file-rename
+               zetteldeft-avy-tag-search
+               zetteldeft-avy-link-search)
     :custom
     (zetteldeft-id-format "%s"
                           "Single number. I want the ID to not rely on
@@ -2547,6 +2590,7 @@ containing a lot of files, and if the files are themselves large.
     (:states 'normal
      :prefix my-default-evil-leader-key
      "n n" 'zetteldeft-find-file
+     "n y" 'zetteldeft-copy-id-current-file
      "n c" 'zetteldeft-new-file
      "n s" 'zetteldeft-new-file-and-link
      "n i" 'zetteldeft-find-file-id-insert
@@ -2568,14 +2612,13 @@ containing a lot of files, and if the files are themselves large.
             (zetteldeft-find-file-id-insert input)
           (zetteldeft-new-file-and-link input))))
     (evil-ex-define-cmd "nc" 'zetteldeft-new-file)
+    (evil-ex-define-cmd "ny" 'zetteldeft-copy-id-current-file)
     (evil-ex-define-cmd "ns" 'zetteldeft-new-file-and-link)
-    (evil-ex-define-cmd "ni" 'my-zetteldeft-find-or-create-insert-file)
+    (evil-ex-define-cmd "ni" 'zetteldeft-find-file-id-insert)
     (evil-ex-define-cmd "nl" 'zetteldeft-follow-link)
     (evil-ex-define-cmd "nr" 'zetteldeft-file-rename)
     (evil-ex-define-cmd "nt" 'zetteldeft-avy-tag-search)
     (evil-ex-define-cmd "nf" 'zetteldeft-avy-link-search)
-    (with-eval-after-load 'deft
-      (require 'zetteldeft))
     :config
     (with-eval-after-load 'rg
       (rg-define-search search-zettel
@@ -2598,16 +2641,16 @@ containing a lot of files, and if the files are themselves large.
                       (match-string 0)))))
     ;; When inserting the string and id, insert the string before the
     ;; id, instead of after as is the default.
-    (advice-add 'zetteldeft-new-file-and-link :override
-                (lambda (str)
-                  (interactive (list (read-string "Note title: ")))
-                  (let* ((zdId (zetteldeft-generate-id))
-                         (zdStr (concat str " "
-                                        zetteldeft-link-indicator
-                                        zdId
-                                        zetteldeft-link-suffix)))
-                    (insert zdStr)
-                    (zetteldeft-new-file str zdId))))
+    ;; (advice-add 'zetteldeft-new-file-and-link :override
+    ;;             (lambda (str)
+    ;;               (interactive (list (read-string "Note title: ")))
+    ;;               (let* ((zdId (zetteldeft-generate-id))
+    ;;                      (zdStr (concat str " "
+    ;;                                     zetteldeft-link-indicator
+    ;;                                     zdId
+    ;;                                     zetteldeft-link-suffix)))
+    ;;                 (insert zdStr)
+    ;;                 (zetteldeft-new-file str zdId))))
     ;; Remove whitespace after generating the tag because otherwise
     ;; it'll show up as really distracting red blocks.
     (advice-add 'zetteldeft-tag-buffer :after
@@ -2841,12 +2884,12 @@ note: use :Ex instead like Vim does
     :straight nil
     :after dired
     :custom-face
-    (diredp-dir-heading ((t (:inherit 'font-lock-warning-face :bold t))))
-    (diredp-dir-name ((t (:inherit 'font-lock-string-face :bold t))))
-    (diredp-file-name ((t (:inherit 'font-lock-function-name-face))))
-    (diredp-file-suffix ((t (:inherit 'font-lock-type-face))))
+    (diredp-dir-heading ((t (:inherit font-lock-warning-face :bold t))))
+    (diredp-dir-name ((t (:inherit font-lock-string-face :bold t))))
+    (diredp-file-name ((t (:inherit font-lock-function-name-face))))
+    (diredp-file-suffix ((t (:inherit font-lock-type-face))))
     (diredp-ignored-file-name ((t (:inherit 'font-lock-comment-face))))
-    (diredp-flag-mark ((t (:inherit 'font-lock-keyword-face)))))
+    (diredp-flag-mark ((t (:inherit font-lock-keyword-face)))))
 #+end_src
 
 ** w32-browser
@@ -4054,6 +4097,8 @@ Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package flycheck
     :straight (:host github :repo "flycheck/flycheck")
+    :custom
+    (flycheck-indication-mode 'right-fringe)
     :hook
     (prog-mode-hook . global-flycheck-mode))
 #+end_src
@@ -4207,6 +4252,7 @@ Note that this makes origami-mode look pretty ugly (origami-mode's
 trailing dots only happen /after/ the fci column.)
 #+begin_src emacs-lisp :results output silent
   (use-package fill-column-indicator
+    :disabled t ;; use display-fill-column-indicator
     :straight (:host github :repo "alpaker/fill-column-indicator")
     :commands (fci-mode)
     :custom
@@ -4215,14 +4261,17 @@ trailing dots only happen /after/ the fci column.)
     :hook
     (prog-mode-hook . fci-mode)
     :config
-    (defun my-restart-fci-mode ()
+    (defun my-restart-fci-mode (&rest _args)
+      (interactive)
+      (global)
       "Turns fci-mode on and off for every buffer that has it on."
       (dolist (buffer (buffer-list))
         (with-current-buffer buffer
           (when fci-mode
             (fci-mode -1)
-            (fci-mode 1)))))
-    (advice-add 'load-theme :after #'my-restart-fci-mode))
+            (fci-mode 1))))))
+    ;; Something's wrong with this
+    ;; (advice-add 'load-theme :after 'my-restart-fci-mode))
 #+end_src
 
 * Devdocs
@@ -4268,7 +4317,7 @@ trailing dots only happen /after/ the fci column.)
 * Search Engine Mode
 #+begin_src emacs-lisp :results output silent
   (use-package engine-mode
-    :straight (:host github :repo "hrs/engine-mode")
+    :straight (:host github :repo "hrs/engine-mode" :branch "main")
     :commands defengine
     :general
     (:states '(normal motion visual)

@@ -19,17 +19,25 @@
 ;; You may delete these explanatory comments.
 ;; (package-initialize)
 
+(defconst my-init-start-time (current-time))
+
 (setq user-full-name    "Pang Tun Jiang"
       user-mail-address "mail@pangt.dev")
 
 ;; buffer encoding systems
 ;; We do this here because the package system might need to know our preferences
-(set-charset-priority        'unicode)
-(set-terminal-coding-system  'utf-8)
-(set-keyboard-coding-system  'utf-8)
-(set-selection-coding-system 'utf-8)
-(customize-set-variable      'locale-coding-system 'utf-8)
-(prefer-coding-system        'utf-8)
+(customize-set-variable        'locale-coding-system 'utf-8)
+(prefer-coding-system          'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(set-charset-priority          'unicode)
+(set-clipboard-coding-system   'utf-8)
+(set-default-coding-systems    'utf-8)
+(set-file-name-coding-system   'utf-8)
+(set-keyboard-coding-system    'utf-8)
+(set-selection-coding-system   'utf-8)
+(set-terminal-coding-system    'utf-8)
+(if (eq system-type "windows-nt")
+    (set-w32-system-coding-system  'utf-8))
 
 (defconst user-init-file
   (locate-user-emacs-file "init.el")
@@ -390,7 +398,7 @@ we're adding a custom function for it here."
     (my-evil-define-split-vsplit-cmd "config" 'find-user-config-file)
     (evil-ex-define-cmd "Tconfig" #'(lambda () (interactive)
                                       (my-new-cmd-tab user-config-file)))
-    (my-evil-define-split-vsplit-cmd "buffers" 'buffer-menu)
+    (my-evil-define-split-vsplit-cmd "buffers" 'ibuffer)
     (my-evil-define-split-vsplit-cmd "me[ssage]"
                                      #'(lambda ()
                                          (switch-to-buffer "*Messages*")))
@@ -491,7 +499,7 @@ we're adding a custom function for it here."
      "o t" 'org-time-stamp
      "o T" '(lambda () (interactive)
               (org-time-stamp '(16))))
-     ;; "f f" 'counsel-org-goto)
+    ;; "f f" 'counsel-org-goto)
     (org-mode-map
      "C-S-c C-S-c" '(lambda () (interactive)
                       (org-toggle-checkbox '(4)))
@@ -554,13 +562,15 @@ we're adding a custom function for it here."
     ;; (org-extend-today-until
     ;;  5 "I think 5 am is a safe bet for the end of the day")
     (org-note-done 'note)
+    :custom-face
+    (org-checkbox ((t (:bold t :box nil))))
     :hook ((org-insert-heading-hook . evil-insert-state))
     :init
     (unless (display-graphic-p)
       (general-define-key
        :keymaps 'org-mode-map
        :states '(normal insert motion)
-       ;; "C-^" 'org-insert-heading-after-current
+        ;; "C-^" 'org-insert-heading-after-current
        "C-^" 'org-meta-return
        "\236" 'org-insert-todo-heading-respect-content))
     ;; (with-eval-after-load 'org
@@ -585,20 +595,29 @@ we're adding a custom function for it here."
     ;;     :straight nil
     ;;     :commands org-confluence-export-as-confluence))
     :config
+    (with-eval-after-load 'smartparens
+      (defun my-dont-close-=-in-latex-fragment (_open action _context)
+        (when (eq action 'insert)
+          (org-inside-LaTeX-fragment-p)))
+      (sp-local-pair 'org-mode "=" "="
+                     :unless '(:add my-dont-close-=-in-latex-fragment))
+      (sp-local-pair 'org-mode "_" "_"
+                     :unless '(:add my-dont-close-=-in-latex-fragment))
+      (sp-local-pair 'org-mode "*" "*"
+                     :unless '(:add my-dont-close-=-in-latex-fragment)))
     (customize-set-value 'org-format-latex-options
                          (plist-put org-format-latex-options
                                     :scale 1.5))
-    (add-hook 'org-mode-hook
-              '(lambda ()
-                 (with-eval-after-load 'elec-pair
+    (with-eval-after-load 'elec-pair
+      (add-hook 'org-mode-hook
+                '(lambda ()
                    (let ((org-pairs '((?= . ?=)
-                                      ;; (?/ . ?/)
                                       (?* . ?*)
                                       (?$ . ?$))))
-                     (setq-local electric-pair-pairs
-                                 (append electric-pair-pairs org-pairs))
-                     (setq-local electric-pair-text-pairs
-                                 electric-pair-pairs)))))
+                      (setq-local electric-pair-pairs
+                                  (append electric-pair-pairs org-pairs))
+                      (setq-local electric-pair-text-pairs
+                                  electric-pair-pairs)))))
     (defun my-org-reformat-buffer ()
       (interactive)
       (when (y-or-n-p "Really format current buffer? ")
@@ -650,12 +669,14 @@ we're adding a custom function for it here."
 
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
-  (measure-time
-   (org-babel-load-file (locate-user-emacs-file "config.org")))
+  (org-babel-load-file (locate-user-emacs-file "config.org"))
+
+  (add-hook 'after-init-hook
+            #'(lambda ()
+                (message "Loaded .emacs.d in %.06f seconds."
+                        (float-time (time-since my-init-start-time)))))
 
   ;; Disable ANNOYING customize options
   ;; (setq custom-file (locate-user-emacs-file "custom.el")))
   (setq custom-file (make-temp-file "")))
 (message "Configuration complete.")
-
-(funcall-interactively 'org-agenda-list)
