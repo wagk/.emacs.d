@@ -603,6 +603,38 @@ we're adding a custom function for it here."
     ;; consistently being called.
     (advice-add 'org-ctrl-c-ctrl-c :after
                 #'(lambda (&rest _) (run-hook-with-args-until-success 'org-ctrl-c-ctrl-c-final-hook)))
+    (with-eval-after-load 'evil
+      ;; NOTE: define our own hacked evil-fill and evil-fill-and-move so it will work on list items
+      (evil-define-operator my-org-evil-fill (beg end)
+        "Fill text."
+        :move-point nil
+        :type line
+        (save-excursion
+          (condition-case nil
+              (if (org-at-item-p)
+                  (fill-paragraph nil t)
+                (fill-region beg end))
+            (error nil))))
+      ;; NOTE: this is not setting the point properly, as we would expect. so we won't modify this yet
+      ;; (evil-define-operator my-org-evil-fill-and-move (beg end)
+      ;;   "Fill text and move point to the end of the filled region."
+      ;;   :move-point nil
+      ;;   :type line
+      ;;   (let ((marker (make-marker)))
+      ;;     (move-marker marker (1- end))
+      ;;     (condition-case nil
+      ;;         (progn
+      ;;           (if (org-at-item-p)
+      ;;               (fill-paragraph nil t)
+      ;;             (fill-region beg end))
+      ;;           (goto-char marker)
+      ;;           (evil-first-non-blank))
+      ;;       (error nil))))
+      (general-define-key
+       :states 'normal
+       :keymaps 'org-mode-map
+        "gw" 'my-org-evil-fill))
+        ;; "gq" 'my-org-evil-fill-and-move))
     (with-eval-after-load 'smartparens
       (defun my-dont-close-=-in-latex-fragment (_open action _context)
         (when (eq action 'insert)
