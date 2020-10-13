@@ -795,7 +795,7 @@ Disabled because it kept raising a warning during init about markerp
 #+begin_src emacs-lisp :results output silent
   (use-package evil-fringe-mark
     :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
-    :disabled t
+    ;; :disabled t
     :custom
     (evil-fringe-mark-show-special t)
     :hook
