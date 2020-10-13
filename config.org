@@ -2092,8 +2092,8 @@ Solarized)
   ;; (when (display-graphic-p)
   ;;   (load-solarized-theme))
   ;; (load-solarized-theme)
-  ;; (load-theme 'solarized-dark t)
-  (load-eva02-theme)
+  (load-theme 'solarized-dark t)
+  ;; (load-eva02-theme)
 #+end_src
 
 * Posframe
