@@ -795,7 +795,7 @@ Disabled because it kept raising a warning during init about markerp
 #+begin_src emacs-lisp :results output silent
   (use-package evil-fringe-mark
     :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
-    :disabled t
+    ;; :disabled t
     :custom
     (evil-fringe-mark-show-special t)
     :hook
@@ -1206,6 +1206,14 @@ Interesting Text Objects:
                               "%?")
                      :prepend t
                      :clock-in t))
+      (add-to-list 'org-capture-templates
+                   `("ss" "Study Note" entry
+                     (file ,my-todo-org-file)
+                     ,(concat "* %^{DESCRIPTION} :study:%^g\n"
+                              ":PROPERTIES:\n"
+                              ":CREATED:  %U\n" ;; captured as property TIMESTAMP
+                              ":END:\n"
+                              "%?")))
       (add-to-list 'org-capture-templates
                    `("nn" "Personal Note" entry
                      (file ,my-todo-org-file)
@@ -2094,8 +2102,8 @@ Solarized)
   ;; (when (display-graphic-p)
   ;;   (load-solarized-theme))
   ;; (load-solarized-theme)
-  ;; (load-theme 'solarized-dark t)
-  (load-eva02-theme)
+  (load-theme 'solarized-dark t)
+  ;; (load-eva02-theme)
 #+end_src
 
 * Posframe
