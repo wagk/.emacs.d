@@ -1681,6 +1681,15 @@ Requires =sqlite=. Install using =choco install sqlite=
       (cl-pushnew '("md" . gfm) org-src-lang-modes)))
 #+end_src
 
+** Evil-markdown
+#+begin_src emacs-lisp :results output silent
+  (use-package evil-markdown
+    :after (:and evil markdown-mode)
+    :straight (:host github :repo "Somelauw/evil-markdown")
+    :commands (evil-markdown-mode)
+    :hook (markdown-mode-hook . evil-markdown-mode))
+#+end_src
+
 * Git
 ** Magit
 If magit complains about not finding the config on windows, it's
