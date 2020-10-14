@@ -1653,12 +1653,13 @@ Requires =sqlite=. Install using =choco install sqlite=
     ;;         :buffer "*helm hl-todo*"))
 #+end_src
 
-* Markdown                                                            :major:
+* Edit-Indirect
 #+begin_src emacs-lisp :results output silent
   (use-package edit-indirect
     :straight t)
 #+end_src
 
+* Markdown                                                            :major:
 #+begin_src emacs-lisp :results output silent
   (use-package markdown-mode
     :straight (:host github :repo "jrblevin/markdown-mode")
