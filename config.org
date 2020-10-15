@@ -798,8 +798,8 @@ Disabled because it kept raising a warning during init about markerp
     ;; :disabled t
     :custom
     (evil-fringe-mark-show-special t)
-    :hook
-    (prog-mode-hook . evil-fringe-mark-mode))
+    :config
+    (global-evil-fringe-mark-mode))
 #+end_src
 
 ** Visual marks
