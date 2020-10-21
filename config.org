@@ -1266,6 +1266,8 @@ For some reason we can't do this in the scratch buffer
                                 (tags . " %i %-12:c")
                                 (search . " %i %-12:c")))
     (org-agenda-breadcrumbs-separator "/")
+    :hook
+    (org-agenda-after-show-hook . org-narrow-to-subtree)
     :config
     (require 'evil-org-agenda)
     (evil-org-agenda-set-keys)
