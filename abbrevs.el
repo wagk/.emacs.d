@@ -117,6 +117,7 @@
     ("couse" "course" nil :count 1)
     ("cpecify" "specify" nil :count 1)
     ("craeting" "creating" nil :count 1)
+    ("crashign" "crashing" nil :count 1)
     ("currenly" "currently" nil :count 1)
     ("currnet" "current" nil :count 1)
     ("currnetly" "currently" nil :count 1)
@@ -333,6 +334,7 @@
     ("onlinie" "online" nil :count 1)
     ("operaitons" "operations" nil :count 1)
     ("opne" "open" nil :count 1)
+    ("optinoal" "optional" nil :count 1)
     ("oruters" "routers" nil :count 2)
     ("osme" "some" nil :count 2)
     ("osmething" "something" nil :count 2)
@@ -536,5 +538,4 @@
     ("yb" "by" nil :count 2)
     ("yeaterday" "yesterday" nil :count 1)
     ("yse" "yes" nil :count 1)
-   ))
-
+    ))
