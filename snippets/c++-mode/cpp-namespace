@@ -2,7 +2,7 @@
 # name: cpp-namespace
 # key: name
 # --
-namespace ${1:nsp}
+namespace $1
 {
   $0
 } // $1
