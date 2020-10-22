@@ -1,0 +1,8 @@
+# key: switch
+# name: cpp-switch
+# --
+switch($1) {
+$0
+default:
+  break;
+}
