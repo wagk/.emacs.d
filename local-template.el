@@ -18,6 +18,35 @@
 
 ;; Pre-init local declarations go here
 
+;; Sample configuration for org-capture
+
+;; (with-eval-after-load 'org-capture
+;;     (add-to-list 'org-capture-templates
+;;                  `("ww" "Work Task"
+;;                    entry
+;;                    (file ,config-local-work-log-file)
+;;                    ,(concat "* TODO %^{DESCRIPTION}\n"
+;;                             ":PROPERTIES:\n"
+;;                             ":CREATED:  %t\n"
+;;                             ":END:\n"
+;;                             "%?")
+;;                    :prepend t))
+;;     (add-to-list 'org-capture-templates
+;;                  `("wj" "Jira Work Task"
+;;                    entry
+;;                    ;; (file+olp ,config-local-work-log-file "Tasks")
+;;                    (file ,config-local-work-log-file)
+;;                    ,(concat "* TODO [%^{JIRA}] %^{DESCRIPTION} %(org-set-tags \":jira:\")\n"
+;;                             ":PROPERTIES:\n"
+;;                             ":CREATED:  %t\n"
+;;                             ":JIRA:     https://jira.autodesk.com/browse/%\\1\n"
+;;                             ":END:\n\n"
+;;                             "- What is the scope of work?\n"
+;;                             "  - [ ] %\\2\n"
+;;                             "- [ ] Update JIRA\n"
+;;                             "\n%?")
+;;                    :prepend t)))
+
 ;; (defconst config-local-dropbox-folder
 ;;   (directory-file-name "..."))
 
