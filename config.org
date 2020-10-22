@@ -30,7 +30,7 @@ files, for example, it will be appropriately updated.
 If the result of the Elisp expression is a string and you don't want
 to quote it, use this form: =%s(shell-command-to-string "du -hs")=.
 
-* TODO Figure out Edebug and tracebacks
+* Figure out Edebug and tracebacks
 - [[http://endlessparentheses.com/debugging-emacs-lisp-part-1-earn-your-independence.html][Introduction part 1]]
 - [[http://endlessparentheses.com/debugging-elisp-part-2-advanced-topics.html][Introduction part 2]]
 
@@ -85,7 +85,7 @@ C-M-i                           backward-button
 <normal-state> g b              debugger-frame
 <normal-state> g l              debugger-list-functions
 
-* TODO Define useful constants
+* Define useful constants
 #+begin_src emacs-lisp :results output silent
   (when (boundp 'config-local-syncthing-folder)
     (defconst my-notes-folder (-> config-local-syncthing-folder
@@ -559,7 +559,7 @@ Tab line is like tab bar but for windows
 
 ** Desktop mode
 #+begin_src emacs-lisp :results output silent
-  (desktop-save-mode)
+  ;;(desktop-save-mode)
 #+end_src
 
 ** Open Email command
