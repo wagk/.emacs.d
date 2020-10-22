@@ -1215,7 +1215,7 @@ Interesting Text Objects:
                               ":END:\n"
                               "%?")))
       (add-to-list 'org-capture-templates
-                   `("nn" "Personal Note" entry
+                   `("tt" "Personal Todo" entry
                      (file ,my-todo-org-file)
                      ,(concat "* TODO %^{DESCRIPTION} %^g \n"
                               "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))\n"
