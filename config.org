@@ -3337,6 +3337,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     (writeroom-mode-line t)
     (writeroom-bottom-divider-width 0)
     (writeroom-maximize-window nil)
+    (writeroom-fullscreen-effect 'maximized)
     (writeroom-width 80)
     (writeroom-restore-window-config nil)
     :general
