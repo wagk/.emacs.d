@@ -1226,12 +1226,12 @@ Interesting Text Objects:
       (add-to-list 'org-capture-templates
                    `("tt" "Task" entry
                      (file ,my-todo-org-file)
-                     ,(concat "* TODO %^{DESCRIPTION} %^g \n"
+                     ,(concat "* TODO [%] %^{DESCRIPTION} %^g \n"
                               "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))\n"
                               ":PROPERTIES:\n"
                               ":CREATED:  %U\n" ;; captured as property TIMESTAMP
                               ":END:\n"
-                              "%[templates/todo-guide.org]"
+                              "%(with-temp-buffer (insert-file-contents (f-join user-emacs-directory \"templates\" \"todo-guide.org\")) (buffer-string))\n"
                               "%?")))))
   ;; when inserting a heading immediately go into insert mode
     ;; (when (boundp 'my-journal-org-file)
