@@ -1321,10 +1321,21 @@ For some reason we can't do this in the scratch buffer
   (use-package org-super-agenda
     :straight t
     :commands org-super-agenda-mode
-    :hook (org-agenda-mode-hook . org-super-agenda-mode))
-    ;; :custom
-    ;; (org-super-agenda-groups
-    ;;  '()))
+    :hook (org-agenda-mode-hook . org-super-agenda-mode)
+    :custom
+    (org-super-agenda-groups
+     '((:name "Work"
+        :tag "work")
+       (:name "School"
+        :tag "school")
+       (:name "Personal"
+        :tag "personal")
+       (:name "Reminders"
+        :tag "note")))
+    :config
+    ;; don't let org-super-agenda override evil bindings
+    ;; https://github.com/codygman/doom-emacs-literate-config/commit/bcd6ee115db58d12a05ff4aa9ba60f96d87b81ba
+    (setq org-super-agenda-header-map (make-sparse-keymap)))
 #+end_src
 
 ** Org Src
