@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rust-assert
+# key: assert
+# --
+assert!($0);
