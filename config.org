@@ -1154,10 +1154,6 @@ Interesting Text Objects:
           (counsel-projectile-org-capture)
         (counsel-org-capture)))
     :config
-    (use-package doct
-      ;; TODO: Move this to melpa instead of github once it's on it
-      :straight (:host github :repo "progfolio/doct")
-      :commands doct)
     (with-eval-after-load 'counsel
       ;; Remove ^ prefix in ivy org capture
       (require 'dash)
@@ -1244,6 +1240,13 @@ Interesting Text Objects:
     ;;                `("d" "Daydream Entry" entry
     ;;                  (file ,my-daydream-org-file)
     ;;                  "* %? \n %U"))
+#+end_src
+
+*** Doct Org Capture Templates
+#+begin_src emacs-lisp :results output silent
+  (use-package doct
+    :straight (:host github :repo "progfolio/doct")
+    :commands doct)
 #+end_src
 
 ** Org Agenda
