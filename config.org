@@ -91,7 +91,7 @@ C-M-i                           backward-button
     (defconst my-notes-folder (-> config-local-syncthing-folder
                                   (f-join "wiki")))
     (defconst my-todo-org-file (-> config-local-syncthing-folder
-                                    (f-join "agenda.org")))
+                                    (f-join "todo.org")))
     (defconst my-notes-org-file (-> my-notes-folder
                                     (f-join "raw" "notes.org")))
     (defun find-user-syncthing-folder ()
