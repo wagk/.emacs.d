@@ -90,10 +90,12 @@ C-M-i                           backward-button
   (when (boundp 'config-local-syncthing-folder)
     (defconst my-notes-folder (-> config-local-syncthing-folder
                                   (f-join "wiki")))
+    (defconst my-text-raw-folder (-> config-local-syncthing-folder
+                                    (f-join "raw")))
     (defconst my-todo-org-file (-> config-local-syncthing-folder
                                     (f-join "todo.org")))
-    (defconst my-notes-org-file (-> my-notes-folder
-                                    (f-join "raw" "notes.org")))
+    (defconst my-text-routines-file (-> my-text-raw-folder
+                                      (f-join "routines.org")))
     (defun find-user-syncthing-folder ()
       (interactive)
       (dired config-local-syncthing-folder)))
@@ -1297,13 +1299,11 @@ For some reason we can't do this in the scratch buffer
     (when (and (boundp 'config-local-syncthing-folder)
                (f-exists-p my-notes-folder))
       (require 'dash) ;; -concat
-      (customize-set-variable 'org-agenda-files
-                              (-concat org-agenda-files
-                                       (directory-files my-notes-folder
-                                                        t "\.org$")
-                                       (list (f-join
-                                              config-local-syncthing-folder
-                                              "agenda.org")))))
+      (customize-set-variable
+       'org-agenda-files
+       (-concat org-agenda-files
+                `(,my-text-raw-folder ,my-todo-org-file)
+                (list))))
     ;; (-concat org-agenda-files
     ;;          (directory-files-recursively
     ;;           (f-join my-notes-folder "raw")
@@ -1332,9 +1332,10 @@ For some reason we can't do this in the scratch buffer
        (:name "School"
         :tag "school")
        (:name "Personal"
-        :tag "personal")
-       (:name "Reminders"
-        :tag "note")))
+        :tag "personal"
+        :and (:not (:habit t)))
+       (:name "Habits"
+        :habit t)))
     :config
     ;; don't let org-super-agenda override evil bindings
     ;; https://github.com/codygman/doom-emacs-literate-config/commit/bcd6ee115db58d12a05ff4aa9ba60f96d87b81ba
@@ -2593,9 +2594,10 @@ containing a lot of files, and if the files are themselves large.
     :config
     (require 'org-id)
     (org-id-update-id-locations (directory-files-recursively
-                                 my-notes-folder "\.org$") t)
+                                 deft-directory "\.org$") t)
     (with-eval-after-load 'org-agenda
-      (add-to-list 'org-agenda-files deft-directory)))
+      (add-to-list 'org-agenda-files
+                   (directory-files deft-directory t "\.org$"))))
 #+end_src
 
 ** TODO Zetteldeft
