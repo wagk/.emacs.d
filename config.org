@@ -4639,3 +4639,13 @@ It's... not very good.
     (:states 'normal
      "g *" 'fill-function-arguments-dwim))
 #+end_src
+
+* Spotify
+#+begin_src emacs-lisp :results output silent
+  (use-package spotify
+    ;; :straight (:host github :repo "danielfm/spotify.el")
+    :disabled t ;; can't find an `oauth2` package
+    :straight nil
+    :if (and (boundp 'my-spotify-oauth2-client-secret)
+             (boundp 'my-spotify-oauth2-client-id)))
+#+end_src
