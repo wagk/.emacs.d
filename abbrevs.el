@@ -335,6 +335,7 @@
     ("od" "of" nil :count 6)
     ("ofrm" "form" nil :count 1)
     ("oging" "going" nil :count 3)
+    ("ohter" "other" nil :count 1)
     ("ohterwise" "otherwise" nil :count 1)
     ("onlihne" "online" nil :count 1)
     ("onlinie" "online" nil :count 1)
