@@ -1327,9 +1327,9 @@ For some reason we can't do this in the scratch buffer
     :hook (org-agenda-mode-hook . org-super-agenda-mode)
     :custom
     (org-super-agenda-groups
-     '((:name "Ongoing Work"
+     '((:name "Ongoing Work. Try to keep this group small."
         :todo "ONGOING")
-       (:name "Blocked Work"
+       (:name "Blocked Work. Try not to wait too long."
         :todo "BLOCKED")
        (:name "Office Work"
         :tag "work")
