@@ -44,3 +44,4 @@ tags.*
 **/#*#
 elpa/
 straight/
+/org-roam.db
