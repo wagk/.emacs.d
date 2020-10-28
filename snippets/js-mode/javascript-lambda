@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: javascript-lambda
+# name: js-lambda
 # key: l
 # --
-($1) => $2
+$1 => $2
