@@ -534,12 +534,12 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
    (tab-bar-mode)
    (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
    (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
-   (evil-ex-define-cmd "tabn[ew]" 'tab-bar-new-tab)
    (evil-define-command my-tab-bar-tab-edit (file)
      (interactive "<f>")
      (let ((tab-bar-new-tab-choice (if file file "*scratch*")))
        (tab-bar-new-tab)))
-   (evil-ex-define-cmd "tabe[dit]" 'my-tab-bar-tab-edit)
+   (evil-ex-define-cmd "tabn[ew]" 'my-tab-bar-tab-edit)
+   (evil-ex-define-cmd "tabe[dit]" 'tab-bar-new-tab)
    ;;TODO: currently has issue where :q on a tab kills emacs
    (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
    ;;TODO: check if ivy has something for this someday
@@ -1327,11 +1327,15 @@ For some reason we can't do this in the scratch buffer
     :hook (org-agenda-mode-hook . org-super-agenda-mode)
     :custom
     (org-super-agenda-groups
-     '((:name "Work"
+     '((:name "Ongoing Work"
+        :todo "DOING")
+       (:name "Office work"
         :tag "work")
-       (:name "School"
+       (:name "Blocked work"
+        :todo "BLOCKED")
+       (:name "School work"
         :tag "school")
-       (:name "Personal"
+       (:name "Personal work"
         :tag "personal"
         :and (:not (:habit t)))
        (:name "Habits"
@@ -1568,6 +1572,7 @@ Requires =sqlite=. Install using =choco install sqlite=
   (use-package org-roam
     ;; :hook (org-mode-hook . org-roam-mode)
     :straight (:host github :repo "jethrokuan/org-roam")
+    :after deft
     :if (boundp 'my-notes-folder)
     :custom
     (org-roam-buffer-width 0.3)
@@ -1575,8 +1580,8 @@ Requires =sqlite=. Install using =choco install sqlite=
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
-     "r r" 'org-roam-find-file
-     "r b" 'org-roam-buffer-toggle-display)
+     "b r" 'org-roam-find-file
+     "b b" 'org-roam-buffer-toggle-display)
     (:states 'normal
      "C-M-|" 'org-roam-capture))
 #+end_src
