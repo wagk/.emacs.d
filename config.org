@@ -1328,14 +1328,14 @@ For some reason we can't do this in the scratch buffer
     :custom
     (org-super-agenda-groups
      '((:name "Ongoing Work"
-        :todo "DOING")
-       (:name "Office work"
-        :tag "work")
-       (:name "Blocked work"
+        :todo "ONGOING")
+       (:name "Blocked Work"
         :todo "BLOCKED")
-       (:name "School work"
+       (:name "Office Work"
+        :tag "work")
+       (:name "School Work"
         :tag "school")
-       (:name "Personal work"
+       (:name "Personal Work"
         :tag "personal"
         :and (:not (:habit t)))
        (:name "Habits"

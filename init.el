@@ -532,7 +532,7 @@ we're adding a custom function for it here."
     (org-default-notes-file "~/.todo")
     (org-M-RET-may-split-line nil)
     (org-return-follows-link t)
-    (org-todo-keywords '((sequence "TODO(t)" "DOING(w)" "BLOCKED(b@)" "DONE(d@)")))
+    (org-todo-keywords '((sequence "TODO(t)" "ONGOING(o)" "BLOCKED(b@)" "DONE(d@)")))
     (org-enforce-todo-checkbox-dependencies
      nil "Sometimes we are able to skip dependencies as things happen")
     (org-enforce-todo-dependencies
