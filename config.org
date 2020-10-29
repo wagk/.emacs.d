@@ -1417,7 +1417,7 @@ Currently disabled while we look at other, more maintained projects
 #+Begin_src emacs-lisp :results output silent
   (use-package org-brain
     :straight (:host github :repo "Kungsgeten/org-brain")
-    :defer 120
+    :disabled t
     :if (boundp 'config-local-syncthing-folder)
     :commands (org-brain-visualize
                counsel-brain
@@ -1574,18 +1574,52 @@ Requires =sqlite=. Install using =choco install sqlite=
   (use-package org-roam
     ;; :hook (org-mode-hook . org-roam-mode)
     :straight (:host github :repo "jethrokuan/org-roam")
-    :after deft
     :if (boundp 'my-notes-folder)
-    :custom
-    (org-roam-buffer-width 0.3)
-    (org-roam-directory my-notes-folder)
+    :commands (org-roam-jump-to-index)
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
-     "b r" 'org-roam-find-file
-     "b b" 'org-roam-buffer-toggle-display)
-    (:states 'normal
-     "C-M-|" 'org-roam-capture))
+     "n i" 'org-roam-insert
+     "n f" 'org-roam-find-file
+     "n b" 'org-roam-buffer-toggle-display)
+    :custom
+    (org-roam-buffer-width 0.3)
+    ;; (org-roam-directory my-notes-folder)
+    (org-roam-directory my-notes-folder)
+    (org-roam-index-file (f-join org-roam-directory "index.org"))
+    :hook
+    (after-init-hook . org-roam-mode)
+    :init
+    (evil-ex-define-cmd "wiki" 'org-roam-jump-to-index)
+    :config
+    (defun org-roam--extract-tags-regex (filepath)
+      (with-temp-buffer
+        (insert-file-contents filepath)
+        (save-match-data
+          (let* ((string (buffer-string))
+                 (pos 0)
+                 matches)
+            (while (string-match "#[[:alnum:]\:-]+" string pos)
+              (push (string-remove-prefix "#" (match-string 0 string)) matches)
+              (setq pos (match-end 0)))
+            matches))))
+    (customize-set-variable 'org-roam-tag-sources
+                            (add-to-list 'org-roam-tag-sources 'regex))
+    ;; Note that org-roam captures are incompatible with org-captures
+    ;; Note documentation on `org-roam-capture-templates'
+    (let* ((template '("rr" "Roam Entry" plain
+                       #'org-roam-capture--get-point "%?"
+                       :file-name "%<%s>-${slug}"
+                       :head "#+TITLE: ${title}\n"
+                       :unnarrowed t))
+           (template-immediate '("rn" "Immediate Roam Entry" plain
+                                 #'org-roam-capture--get-point "%?"
+                                 :file-name "%<%s>-${slug}"
+                                 :head "#+TITLE: ${title}\n"
+                                 :unnarrowed t
+                                 :immediate-finish t)))
+      (customize-set-value 'org-roam-capture-templates (list template))
+      (customize-set-value 'org-roam-capture-immediate-template template-immediate)))
 #+end_src
 
 ** Org Latex Fragment Toggle
@@ -2620,6 +2654,7 @@ containing a lot of files, and if the files are themselves large.
 #+begin_src emacs-lisp :results output silent
   (use-package zetteldeft
     :straight (:host github :repo "efls/zetteldeft")
+    :disabled t
     :after deft
     :demand t
     :commands (zetteldeft-new-file
