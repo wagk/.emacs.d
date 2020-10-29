@@ -1607,19 +1607,21 @@ Requires =sqlite=. Install using =choco install sqlite=
                             (add-to-list 'org-roam-tag-sources 'regex))
     ;; Note that org-roam captures are incompatible with org-captures
     ;; Note documentation on `org-roam-capture-templates'
-    (let* ((template '("rr" "Roam Entry" plain
-                       #'org-roam-capture--get-point "%?"
-                       :file-name "%<%s>-${slug}"
-                       :head "#+TITLE: ${title}\n"
-                       :unnarrowed t))
+    (let* ((template (list '("rr" "Roam Entry" plain
+                             #'org-roam-capture--get-point "%?"
+                             :file-name "%<%s>-${slug}"
+                             :head "#+TITLE: ${title}\n"
+                             :unnarrowed t)))
            (template-immediate '("rn" "Immediate Roam Entry" plain
                                  #'org-roam-capture--get-point "%?"
                                  :file-name "%<%s>-${slug}"
                                  :head "#+TITLE: ${title}\n"
                                  :unnarrowed t
                                  :immediate-finish t)))
-      (customize-set-value 'org-roam-capture-templates (list template))
-      (customize-set-value 'org-roam-capture-immediate-template template-immediate)))
+      (customize-set-value 'org-roam-capture-templates template)
+      (customize-set-value 'org-roam-capture-immediate-template template-immediate))
+    (advice-add 'org-roam--title-to-slug :filter-return
+                (lambda (str) (replace-regexp-in-string "_" "-" str))))
 #+end_src
 
 ** Org Latex Fragment Toggle
