@@ -1327,9 +1327,9 @@ For some reason we can't do this in the scratch buffer
     :hook (org-agenda-mode-hook . org-super-agenda-mode)
     :custom
     (org-super-agenda-groups
-     '((:name "Ongoing Work. Try to keep this group small."
+     '((:name "Ongoing Work. Try to keep this set small."
         :todo "ONGOING")
-       (:name "Blocked Work. Try not to wait too long."
+       (:name "Blocked Work. Try not to stall too long."
         :todo "BLOCKED")
        (:name "Office Work"
         :tag "work")
@@ -1340,6 +1340,8 @@ For some reason we can't do this in the scratch buffer
         :and (:not (:habit t)))
        (:name "Habits"
         :habit t)))
+       ;; (:name "Unscheduled Work"
+       ;;  :not (:scheduled t))))
     :config
     ;; don't let org-super-agenda override evil bindings
     ;; https://github.com/codygman/doom-emacs-literate-config/commit/bcd6ee115db58d12a05ff4aa9ba60f96d87b81ba
