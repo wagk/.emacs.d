@@ -553,7 +553,8 @@ we're adding a custom function for it here."
     (org-insert-heading-respect-content nil)
     (org-catch-invisible-edits 'smart)
     (org-cycle-separator-lines 0)
-    (org-link-descriptive nil "reduce syntax sugar")
+    ;; (org-link-descriptive nil "reduce syntax sugar")
+    (org-link-descriptive t)
     (org-adapt-indentation nil "Maintaining indentation for org-files
     looks annoying when editing it as a plain text file")
     ;; (org-list-indent-offset 1)
