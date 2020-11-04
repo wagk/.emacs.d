@@ -1296,6 +1296,7 @@ For some reason we can't do this in the scratch buffer
                    (let ((org-overriding-default-time)
                          (org-get-cursor-date (equal with-time 1)))
                      (call-interactively 'my-counsel-org-capture))))
+    (advice-add 'org-agenda-clock-in :after 'org-agenda-goto)
     (when (and (boundp 'config-local-syncthing-folder)
                (f-exists-p my-notes-folder))
       (require 'dash) ;; -concat
