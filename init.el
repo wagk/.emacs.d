@@ -638,15 +638,15 @@ we're adding a custom function for it here."
         "gw" 'my-org-evil-fill))
         ;; "gq" 'my-org-evil-fill-and-move))
     (with-eval-after-load 'smartparens
-      (defun my-dont-close-=-in-latex-fragment (_open action _context)
+      (defun my-dont-close-in-latex-fragment (_open action _context)
         (when (eq action 'insert)
           (org-inside-LaTeX-fragment-p)))
       (sp-local-pair 'org-mode "=" "="
-                     :unless '(:add my-dont-close-=-in-latex-fragment))
+                     :unless '(:add my-dont-close-in-latex-fragment))
       (sp-local-pair 'org-mode "_" "_"
-                     :unless '(:add my-dont-close-=-in-latex-fragment))
+                     :unless '(:add my-dont-close-in-latex-fragment))
       (sp-local-pair 'org-mode "*" "*"
-                     :unless '(:add my-dont-close-=-in-latex-fragment)))
+                     :unless '(:add my-dont-close-in-latex-fragment)))
     (customize-set-value 'org-format-latex-options
                          (plist-put org-format-latex-options
                                     :scale 1.5))
