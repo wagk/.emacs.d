@@ -4018,6 +4018,14 @@ now becomes too noisy.
   ;; (alert-default-style 'fringe))
 #+end_src
 
+** Windows Alert Toast
+#+begin_src emacs-lisp :results output silent
+  (use-package alert-toast
+    :straight (:host github :repo "gkowzan/alert-toast")
+    :if (eq system-type 'windows-nt)
+    :after alert)
+#+end_src
+
 * Sound-wav
 =sound-wav= is used for =org-pomodoro=.
 
