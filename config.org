@@ -1592,6 +1592,7 @@ Requires =sqlite=. Install using =choco install sqlite=
     (after-init-hook . org-roam-mode)
     :init
     (evil-ex-define-cmd "wiki" 'org-roam-jump-to-index)
+    (evil-ex-define-cmd "nn" 'org-roam-find-file)
     :config
     (defun org-roam--extract-tags-regex (filepath)
       (with-temp-buffer
@@ -2121,7 +2122,7 @@ TODO: some way to better, more dynamically name the tabs
         (customize-set-variable 'hl-todo-keyword-faces
                                 '(("TODO"    . "#b58900")
                                   ("DEBUG"   . "#d33682")
-                                  ;; ("NOTE"    . "#586e75")
+                                  ("NOTE"    . "#586e75")
                                   ("FIXME"   . "#cb4b16"))))))
 #+end_src
 
@@ -2555,7 +2556,9 @@ containing a lot of files, and if the files are themselves large.
 #+begin_src emacs-lisp :results output silent
   (use-package deft
     :straight (:host github :repo "jrblevin/deft")
+    :disabled t ;; try org-roam a bit
     :if (boundp 'config-local-syncthing-folder)
+
     :commands (deft
                deft-filter
                deft-setup) ;; call this if no .deft folder is found
