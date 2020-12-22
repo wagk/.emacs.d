@@ -145,7 +145,8 @@ We're sticking to Japanese for now
 #+begin_src emacs-lisp :results output silent
   (tool-bar-mode -1)
   (menu-bar-mode -1)
-  (scroll-bar-mode -1)
+  (if (boundp 'scroll-bar-mode)
+      (scroll-bar-mode -1))
   (window-divider-mode -1)
 #+end_src
 
@@ -444,7 +445,10 @@ with Chinese/Japanese.
 
 #+begin_src emacs-lisp :results output silent
   (cond
-   ((find-font (font-spec :name "Iosevka")) (set-frame-font "Iosevka-10" nil t))
+   ((find-font (font-spec :name "Iosevka"))
+    (cond
+      ((eq system-type 'darwin) (set-frame-font "Iosevka-14" nil t))
+      (t (set-frame-font "Iosevka-10" nil t))))
    ((find-font (font-spec :name "Courier")) (set-frame-font "Courier-10" nil t)))
 #+end_src
 
