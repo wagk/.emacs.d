@@ -2838,9 +2838,6 @@ clojurescript-mode derives from clojure-mode
            (clojure-mode-hook . prism-mode)
            (clojure-mode-hook . update-evil-shift-width)
            (clojure-mode-hook . show-paren-mode))
-    ;; :ensure-system-package
-    ;; ((clj . "choco install -y clj")
-    ;;  (lein . "choco install -y lein"))
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("edn" . clojure) org-src-lang-modes)
@@ -3168,8 +3165,6 @@ filters*.
                rg-literal
                rg-define-search
                rg-menu)
-    :ensure-system-package
-    (rg . "choco install -y ripgrep")
     :custom
     (rg-ignore-case 'smart)
     (rg-keymap-prefix "")
@@ -3880,8 +3875,6 @@ Or evil-spongebob if you want to think of it that way.
   (use-package elfeed
     :straight (:host github :repo "skeeto/elfeed")
     :if (f-exists? user-rss-feed-file)
-    :ensure-system-package
-    (curl . "choco install -y curl")
     :commands (elfeed)
     :custom
     (elfeed-search-title-max-width
@@ -4081,9 +4074,7 @@ now becomes too noisy.
     (prog-mode-hook . (lambda ()
                         (add-hook 'after-save-hook
                                   'counsel-etags-virtual-update-tags
-                                  'append 'local)))
-    :ensure-system-package
-    (ctags . "choco install -y ctags"))
+                                  'append 'local))))
 #+end_src
 
 * ctags
@@ -4306,8 +4297,6 @@ file will not itself be encrypted.
     (plantuml-output-type "txt"
                           "Display using glorious text")
     (plantuml-default-exec-mode 'executable)
-    :ensure-system-package
-    (plantuml . "choco install -y plantuml")
     :mode "\\.plantuml\\'"
     :init
     (with-eval-after-load 'org-src
