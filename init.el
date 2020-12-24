@@ -719,8 +719,8 @@ we're adding a custom function for it here."
                         (float-time (time-since my-init-start-time)))))
 
   ;; Disable ANNOYING customize options
-  ;; (setq custom-file (locate-user-emacs-file "custom.el")))
-  (setq custom-file (make-temp-file "")))
+  (setq custom-file (locate-user-emacs-file "custom.el")))
+  ;; (setq custom-file (make-temp-file "")))
 (message "Configuration complete.")
 
 (org-agenda-list)
