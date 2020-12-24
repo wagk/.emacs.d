@@ -216,6 +216,7 @@
     ("honeslty" "honestly" nil :count 1)
     ("hsit" "shit" nil :count 1)
     ("hsould" "should" nil :count 8)
+    ("htat" "that" nil :count 1)
     ("hte" "the" nil :count 14)
     ("hting" "thing" nil :count 1)
     ("htings" "things" nil :count 15)
