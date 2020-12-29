@@ -1596,7 +1596,7 @@ Requires =sqlite=. Install using =choco install sqlite=
     (after-init-hook . org-roam-mode)
     :init
     (evil-ex-define-cmd "wiki" 'org-roam-jump-to-index)
-    (evil-ex-define-cmd "notes" 'org-roam-jump-to-index)
+    (evil-ex-define-cmd "index" 'org-roam-jump-to-index)
     (evil-ex-define-cmd "nn" 'org-roam-find-file)
     (evil-ex-define-cmd "today" 'org-roam-dailies-today)
     :config
