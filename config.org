@@ -1600,7 +1600,7 @@ Requires =sqlite=. Install using =choco install sqlite=
     (evil-ex-define-cmd "nn" 'org-roam-find-file)
     :config
     (with-eval-after-load 'aggressive-fill-paragraph
-      (add-hook 'org-roam-caputre-after-find-file-hook 'aggressive-fill-paragraph-mode))
+      (add-hook 'org-roam-capture-after-find-file-hook 'aggressive-fill-paragraph-mode))
     (defun org-roam--extract-tags-regex (filepath)
       (with-temp-buffer
         (insert-file-contents filepath)
