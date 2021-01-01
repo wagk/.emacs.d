@@ -1616,26 +1616,24 @@ Requires =sqlite=. Install using =choco install sqlite=
                             (add-to-list 'org-roam-tag-sources 'regex))
     ;; Note that org-roam captures are incompatible with org-captures
     ;; Note documentation on `org-roam-capture-templates'
-    (let* ((template (list '("rr" "Roam Entry" plain
+    (let* ((template (list '("rr" "default" plain
                              #'org-roam-capture--get-point "%?"
                              :file-name "%<%s>-${slug}"
                              :head "#+TITLE: ${title}\n"
                              :unnarrowed t)))
-           (template-immediate '("rn" "Immediate Roam Entry" plain
-                                 #'org-roam-capture--get-point "%?"
-                                 :file-name "%<%s>-${slug}"
-                                 :head "#+TITLE: ${title}\n"
-                                 :unnarrowed t
-                                 :immediate-finish t))
-           (template-daily '("rd" "Diary Roam Entry" plain
-                             (function org-roam-capture--get-point) "%?"
-                             :file-name "/day/%<%s>"
-                             :head "#+TITLE: %<%s>\n\n"
-                             :unnarrowed t
-                             :immediate-finish t)))
+           (template-immediate (list '("rn" "immediate" plain
+                                       #'org-roam-capture--get-point "%?"
+                                       :file-name "%<%s>-${slug}"
+                                       :head "#+TITLE: ${title}\n"
+                                       :unnarrowed t
+                                       :immediate-finish t)))
+           (template-dailies (list `("d" "default diary" entry (function org-roam-capture--get-point)
+                                     "* %?"
+                                     :file-name ,(f-join org-roam-dailies-directory "%<%Y-%m-%d>")
+                                     :head "#+title: %<%Y-%m-%d>\n"))))
       (customize-set-value 'org-roam-capture-templates template)
       (customize-set-value 'org-roam-capture-immediate-template template-immediate)
-      (customize-set-value 'org-roam-dailies-capture-template template-daily))
+      (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
     (advice-add 'org-roam--title-to-slug :filter-return
                 (lambda (str) (replace-regexp-in-string "_" "-" str))))
 #+end_src
