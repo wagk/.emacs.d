@@ -1579,7 +1579,7 @@ Requires =sqlite=. Install using =choco install sqlite=
   (use-package org-roam
     ;; :hook (org-mode-hook . org-roam-mode)
     :straight (:host github :repo "jethrokuan/org-roam")
-    :if (boundp 'my-notes-folder)
+    ;; :if (boundp 'my-notes-folder)
     :commands (org-roam-jump-to-index)
     :general
     (:states 'normal
@@ -1591,8 +1591,8 @@ Requires =sqlite=. Install using =choco install sqlite=
     :custom
     (org-roam-buffer-width 0.3)
     ;; (org-roam-directory my-notes-folder)
-    (org-roam-directory my-notes-folder)
-    (org-roam-index-file (f-join org-roam-directory "index.org"))
+    ;; (org-roam-directory my-notes-folder)
+    ;; (org-roam-index-file (f-join org-roam-directory "index.org"))
     :hook
     (after-init-hook . org-roam-mode)
     :init
