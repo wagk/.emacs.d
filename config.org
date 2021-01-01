@@ -1586,6 +1586,7 @@ Requires =sqlite=. Install using =choco install sqlite=
      :prefix my-default-evil-leader-key
      "n i" 'org-roam-insert
      "n f" 'org-roam-find-file
+     "n d" 'org-roam-dailies-today
      "n b" 'org-roam-buffer-toggle-display)
     :custom
     (org-roam-buffer-width 0.3)
@@ -1598,6 +1599,8 @@ Requires =sqlite=. Install using =choco install sqlite=
     (evil-ex-define-cmd "wiki" 'org-roam-jump-to-index)
     (evil-ex-define-cmd "nn" 'org-roam-find-file)
     :config
+    (with-eval-after-load 'aggressive-fill-paragraph
+      (add-hook 'org-roam-caputre-after-find-file-hook 'aggressive-fill-paragraph-mode))
     (defun org-roam--extract-tags-regex (filepath)
       (with-temp-buffer
         (insert-file-contents filepath)
@@ -1623,9 +1626,16 @@ Requires =sqlite=. Install using =choco install sqlite=
                                  :file-name "%<%s>-${slug}"
                                  :head "#+TITLE: ${title}\n"
                                  :unnarrowed t
-                                 :immediate-finish t)))
+                                 :immediate-finish t))
+           (template-daily '("rd" "Diary Roam Entry" plain
+                             (function org-roam-capture--get-point) "%?"
+                             :file-name "/day/%<%s>"
+                             :head "#+TITLE: %<%s>\n\n"
+                             :unnarrowed t
+                             :immediate-finish t)))
       (customize-set-value 'org-roam-capture-templates template)
-      (customize-set-value 'org-roam-capture-immediate-template template-immediate))
+      (customize-set-value 'org-roam-capture-immediate-template template-immediate)
+      (customize-set-value 'org-roam-dailies-capture-template template-daily))
     (advice-add 'org-roam--title-to-slug :filter-return
                 (lambda (str) (replace-regexp-in-string "_" "-" str))))
 #+end_src
