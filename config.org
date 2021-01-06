@@ -1593,6 +1593,7 @@ Requires =sqlite=. Install using =choco install sqlite=
     ;; (org-roam-directory my-notes-folder)
     ;; (org-roam-directory my-notes-folder)
     ;; (org-roam-index-file (f-join org-roam-directory "index.org"))
+    (org-roam-dailies-directory "day/")
     :hook
     (after-init-hook . org-roam-mode)
     :init
