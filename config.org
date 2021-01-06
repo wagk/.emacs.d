@@ -1586,6 +1586,7 @@ Requires =sqlite=. Install using =choco install sqlite=
      :prefix my-default-evil-leader-key
      "n i" 'org-roam-insert
      "n f" 'org-roam-find-file
+     "n d" 'org-roam-dailies-today
      "n b" 'org-roam-buffer-toggle-display)
     :custom
     (org-roam-buffer-width 0.3)
@@ -1600,6 +1601,8 @@ Requires =sqlite=. Install using =choco install sqlite=
     (evil-ex-define-cmd "nn" 'org-roam-find-file)
     (evil-ex-define-cmd "today" 'org-roam-dailies-today)
     :config
+    (with-eval-after-load 'aggressive-fill-paragraph
+      (add-hook 'org-roam-capture-after-find-file-hook 'aggressive-fill-paragraph-mode))
     (defun org-roam--extract-tags-regex (filepath)
       (with-temp-buffer
         (insert-file-contents filepath)
@@ -1615,19 +1618,24 @@ Requires =sqlite=. Install using =choco install sqlite=
                             (add-to-list 'org-roam-tag-sources 'regex))
     ;; Note that org-roam captures are incompatible with org-captures
     ;; Note documentation on `org-roam-capture-templates'
-    (let* ((template (list '("rr" "Roam Entry" plain
+    (let* ((template (list '("rr" "default" plain
                              #'org-roam-capture--get-point "%?"
                              :file-name "%<%s>-${slug}"
                              :head "#+TITLE: ${title}\n"
                              :unnarrowed t)))
-           (template-immediate '("rn" "Immediate Roam Entry" plain
-                                 #'org-roam-capture--get-point "%?"
-                                 :file-name "%<%s>-${slug}"
-                                 :head "#+TITLE: ${title}\n"
-                                 :unnarrowed t
-                                 :immediate-finish t)))
+           (template-immediate (list '("rn" "immediate" plain
+                                       #'org-roam-capture--get-point "%?"
+                                       :file-name "%<%s>-${slug}"
+                                       :head "#+TITLE: ${title}\n"
+                                       :unnarrowed t
+                                       :immediate-finish t)))
+           (template-dailies (list `("d" "default diary" entry (function org-roam-capture--get-point)
+                                     "* %?"
+                                     :file-name ,(f-join org-roam-dailies-directory "%<%Y-%m-%d>")
+                                     :head "#+title: %<%Y-%m-%d>\n"))))
       (customize-set-value 'org-roam-capture-templates template)
-      (customize-set-value 'org-roam-capture-immediate-template template-immediate))
+      (customize-set-value 'org-roam-capture-immediate-template template-immediate)
+      (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
     (advice-add 'org-roam--title-to-slug :filter-return
                 (lambda (str) (replace-regexp-in-string "_" "-" str))))
 #+end_src
