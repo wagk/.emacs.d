@@ -1812,6 +1812,8 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
 
 *** Evil bindings
 
+2021-01-06 Now it's part of evil-collections
+
 [2019-02-18 Mon 12:49] Magit changed from magit-popup to transient,
 and that breaks this addon
 https://github.com/syl20bnr/spacemacs/issues/11978
@@ -1821,6 +1823,7 @@ config. This configuration is stored in =straight/versions/default.el=
 
 #+begin_src emacs-lisp :results output silent
   (use-package evil-magit
+    :disabled t
     :straight (:host github
                :repo "emacs-evil/evil-magit")
     :after (magit)
@@ -2135,6 +2138,7 @@ TODO: some way to better, more dynamically name the tabs
 #+begin_src emacs-lisp :results output silent
   (use-package color-theme-sanityinc-solarized
     :after solarized-theme
+    :disabled t
     :straight t)
 #+end_src
 ** Eva-02
