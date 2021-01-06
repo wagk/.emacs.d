@@ -46,3 +46,4 @@ elpa/
 straight/
 /org-roam.db
 /.git-credentials
+/eln-cache/
