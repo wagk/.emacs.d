@@ -441,7 +441,7 @@ we're adding a custom function for it here."
     :config
     (evil-collection-init))
 
-  ;; https://github.com/raxod502/straight.el/blob/develop/README.md#installing-org-with-straightel
+  ;; ;; https://github.com/raxod502/straight.el/blob/develop/README.md#installing-org-with-straightel
   (progn
     (require 'subr-x)
     (straight-use-package 'git)
@@ -474,15 +474,15 @@ we're adding a custom function for it here."
 
     (provide 'org-version))
 
-  ;; We do this here because we want a directory to actually exist when the
-  ;; next form gets evaluated
+  ;; ;; We do this here because we want a directory to actually exist when the
+  ;; ;; next form gets evaluated
   (straight-use-package 'org-plus-contrib)
 
 ;;; org-mode
 
-  ;; (use-package org-plus-contrib
-  (use-package org
-    :ensure org-plus-contrib
+  (use-package org-plus-contrib
+    ;; (use-package org
+    ;;   :ensure org-plus-contrib
     :commands (orgtbl-mode
                org-babel-load-file)
     :mode
@@ -570,7 +570,7 @@ we're adding a custom function for it here."
       (general-define-key
        :keymaps 'org-mode-map
        :states '(normal insert motion)
-        ;; "C-^" 'org-insert-heading-after-current
+       ;; "C-^" 'org-insert-heading-after-current
        "C-^" 'org-meta-return
        "\236" 'org-insert-todo-heading-respect-content))
     ;; (with-eval-after-load 'org
@@ -635,8 +635,8 @@ we're adding a custom function for it here."
       (general-define-key
        :states 'normal
        :keymaps 'org-mode-map
-        "gw" 'my-org-evil-fill))
-        ;; "gq" 'my-org-evil-fill-and-move))
+       "gw" 'my-org-evil-fill))
+    ;; "gq" 'my-org-evil-fill-and-move))
     (with-eval-after-load 'smartparens
       (defun my-dont-close-in-latex-fragment (_open action _context)
         (when (eq action 'insert)
@@ -656,10 +656,10 @@ we're adding a custom function for it here."
                    (let ((org-pairs '((?= . ?=)
                                       (?* . ?*)
                                       (?$ . ?$))))
-                      (setq-local electric-pair-pairs
-                                  (append electric-pair-pairs org-pairs))
-                      (setq-local electric-pair-text-pairs
-                                  electric-pair-pairs)))))
+                     (setq-local electric-pair-pairs
+                                 (append electric-pair-pairs org-pairs))
+                     (setq-local electric-pair-text-pairs
+                                 electric-pair-pairs)))))
     (defun my-org-reformat-buffer ()
       (interactive)
       (when (y-or-n-p "Really format current buffer? ")
@@ -716,7 +716,7 @@ we're adding a custom function for it here."
   (add-hook 'after-init-hook
             #'(lambda ()
                 (message "Loaded .emacs.d in %.06f seconds."
-                        (float-time (time-since my-init-start-time)))))
+                         (float-time (time-since my-init-start-time)))))
 
   ;; Disable ANNOYING customize options
   (setq custom-file (locate-user-emacs-file "custom.el")))
