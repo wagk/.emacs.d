@@ -4219,11 +4219,7 @@ Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package eglot
     :straight (:host github :repo "joaotavora/eglot")
-    :commands (eglot eglot-ensure)
-    :config
-    (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-    (add-hook 'c-mode-hook 'eglot-ensure)
-    (add-hook 'c++-mode-hook 'eglot-ensure))
+    :commands (eglot eglot-ensure))
 #+end_src
 
 
