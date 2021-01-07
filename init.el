@@ -442,41 +442,41 @@ we're adding a custom function for it here."
     (evil-collection-init))
 
   ;; ;; https://github.com/raxod502/straight.el/blob/develop/README.md#installing-org-with-straightel
-  (progn
-    (require 'subr-x)
-    (straight-use-package 'git)
+  ;; (progn
+  ;;   (require 'subr-x)
+  ;;   (straight-use-package 'git)
 
-    (defun org-git-version ()
-      "The Git version of org-mode.
-      Inserted by installing org-mode or when a release is made."
-      (require 'git)
-      (let ((git-repo (expand-file-name
-                       "straight/repos/org/" user-emacs-directory)))
-        (string-trim
-         (git-run "describe"
-                  "--match=release\*"
-                  "--abbrev=6"
-                  "HEAD"))))
+  ;;   (defun org-git-version ()
+  ;;     "The Git version of org-mode.
+  ;;     Inserted by installing org-mode or when a release is made."
+  ;;     (require 'git)
+  ;;     (let ((git-repo (expand-file-name
+  ;;                      "straight/repos/org/" user-emacs-directory)))
+  ;;       (string-trim
+  ;;        (git-run "describe"
+  ;;                 "--match=release\*"
+  ;;                 "--abbrev=6"
+  ;;                 "HEAD"))))
 
-    (defun org-release ()
-      "The release version of org-mode.
-      Inserted by installing org-mode or when a release is made."
-      (require 'git)
-      (let ((git-repo (expand-file-name
-                       "straight/repos/org/" user-emacs-directory)))
-        (string-trim
-         (string-remove-prefix
-          "release_"
-          (git-run "describe"
-                   "--match=release\*"
-                   "--abbrev=0"
-                   "HEAD")))))
+  ;;   (defun org-release ()
+  ;;     "The release version of org-mode.
+  ;;     Inserted by installing org-mode or when a release is made."
+  ;;     (require 'git)
+  ;;     (let ((git-repo (expand-file-name
+  ;;                      "straight/repos/org/" user-emacs-directory)))
+  ;;       (string-trim
+  ;;        (string-remove-prefix
+  ;;         "release_"
+  ;;         (git-run "describe"
+  ;;                  "--match=release\*"
+  ;;                  "--abbrev=0"
+  ;;                  "HEAD")))))
 
-    (provide 'org-version))
+  ;;   (provide 'org-version))
 
   ;; ;; We do this here because we want a directory to actually exist when the
   ;; ;; next form gets evaluated
-  (straight-use-package 'org-plus-contrib)
+  ;; (straight-use-package 'org-plus-contrib)
 
 ;;; org-mode
 
