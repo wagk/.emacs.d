@@ -441,48 +441,48 @@ we're adding a custom function for it here."
     :config
     (evil-collection-init))
 
-  ;; https://github.com/raxod502/straight.el/blob/develop/README.md#installing-org-with-straightel
-  (progn
-    (require 'subr-x)
-    (straight-use-package 'git)
+  ;; ;; https://github.com/raxod502/straight.el/blob/develop/README.md#installing-org-with-straightel
+  ;; (progn
+  ;;   (require 'subr-x)
+  ;;   (straight-use-package 'git)
 
-    (defun org-git-version ()
-      "The Git version of org-mode.
-      Inserted by installing org-mode or when a release is made."
-      (require 'git)
-      (let ((git-repo (expand-file-name
-                       "straight/repos/org/" user-emacs-directory)))
-        (string-trim
-         (git-run "describe"
-                  "--match=release\*"
-                  "--abbrev=6"
-                  "HEAD"))))
+  ;;   (defun org-git-version ()
+  ;;     "The Git version of org-mode.
+  ;;     Inserted by installing org-mode or when a release is made."
+  ;;     (require 'git)
+  ;;     (let ((git-repo (expand-file-name
+  ;;                      "straight/repos/org/" user-emacs-directory)))
+  ;;       (string-trim
+  ;;        (git-run "describe"
+  ;;                 "--match=release\*"
+  ;;                 "--abbrev=6"
+  ;;                 "HEAD"))))
 
-    (defun org-release ()
-      "The release version of org-mode.
-      Inserted by installing org-mode or when a release is made."
-      (require 'git)
-      (let ((git-repo (expand-file-name
-                       "straight/repos/org/" user-emacs-directory)))
-        (string-trim
-         (string-remove-prefix
-          "release_"
-          (git-run "describe"
-                   "--match=release\*"
-                   "--abbrev=0"
-                   "HEAD")))))
+  ;;   (defun org-release ()
+  ;;     "The release version of org-mode.
+  ;;     Inserted by installing org-mode or when a release is made."
+  ;;     (require 'git)
+  ;;     (let ((git-repo (expand-file-name
+  ;;                      "straight/repos/org/" user-emacs-directory)))
+  ;;       (string-trim
+  ;;        (string-remove-prefix
+  ;;         "release_"
+  ;;         (git-run "describe"
+  ;;                  "--match=release\*"
+  ;;                  "--abbrev=0"
+  ;;                  "HEAD")))))
 
-    (provide 'org-version))
+  ;;   (provide 'org-version))
 
-  ;; We do this here because we want a directory to actually exist when the
-  ;; next form gets evaluated
-  (straight-use-package 'org-plus-contrib)
+  ;; ;; We do this here because we want a directory to actually exist when the
+  ;; ;; next form gets evaluated
+  ;; (straight-use-package 'org-plus-contrib)
 
 ;;; org-mode
 
-  ;; (use-package org-plus-contrib
-  (use-package org
-    :ensure org-plus-contrib
+  (use-package org-plus-contrib
+    ;; (use-package org
+    ;;   :ensure org-plus-contrib
     :commands (orgtbl-mode
                org-babel-load-file)
     :mode
@@ -570,7 +570,7 @@ we're adding a custom function for it here."
       (general-define-key
        :keymaps 'org-mode-map
        :states '(normal insert motion)
-        ;; "C-^" 'org-insert-heading-after-current
+       ;; "C-^" 'org-insert-heading-after-current
        "C-^" 'org-meta-return
        "\236" 'org-insert-todo-heading-respect-content))
     ;; (with-eval-after-load 'org
@@ -635,8 +635,8 @@ we're adding a custom function for it here."
       (general-define-key
        :states 'normal
        :keymaps 'org-mode-map
-        "gw" 'my-org-evil-fill))
-        ;; "gq" 'my-org-evil-fill-and-move))
+       "gw" 'my-org-evil-fill))
+    ;; "gq" 'my-org-evil-fill-and-move))
     (with-eval-after-load 'smartparens
       (defun my-dont-close-in-latex-fragment (_open action _context)
         (when (eq action 'insert)
@@ -656,10 +656,10 @@ we're adding a custom function for it here."
                    (let ((org-pairs '((?= . ?=)
                                       (?* . ?*)
                                       (?$ . ?$))))
-                      (setq-local electric-pair-pairs
-                                  (append electric-pair-pairs org-pairs))
-                      (setq-local electric-pair-text-pairs
-                                  electric-pair-pairs)))))
+                     (setq-local electric-pair-pairs
+                                 (append electric-pair-pairs org-pairs))
+                     (setq-local electric-pair-text-pairs
+                                 electric-pair-pairs)))))
     (defun my-org-reformat-buffer ()
       (interactive)
       (when (y-or-n-p "Really format current buffer? ")
@@ -716,7 +716,7 @@ we're adding a custom function for it here."
   (add-hook 'after-init-hook
             #'(lambda ()
                 (message "Loaded .emacs.d in %.06f seconds."
-                        (float-time (time-since my-init-start-time)))))
+                         (float-time (time-since my-init-start-time)))))
 
   ;; Disable ANNOYING customize options
   (setq custom-file (locate-user-emacs-file "custom.el")))

@@ -1593,11 +1593,14 @@ Requires =sqlite=. Install using =choco install sqlite=
     ;; (org-roam-directory my-notes-folder)
     ;; (org-roam-directory my-notes-folder)
     ;; (org-roam-index-file (f-join org-roam-directory "index.org"))
+    (org-roam-dailies-directory "day/")
     :hook
     (after-init-hook . org-roam-mode)
     :init
     (evil-ex-define-cmd "wiki" 'org-roam-jump-to-index)
+    (evil-ex-define-cmd "index" 'org-roam-jump-to-index)
     (evil-ex-define-cmd "nn" 'org-roam-find-file)
+    (evil-ex-define-cmd "today" 'org-roam-dailies-today)
     :config
     (with-eval-after-load 'aggressive-fill-paragraph
       (add-hook 'org-roam-capture-after-find-file-hook 'aggressive-fill-paragraph-mode))
@@ -1818,6 +1821,8 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
 
 *** Evil bindings
 
+2021-01-06 Now it's part of evil-collections
+
 [2019-02-18 Mon 12:49] Magit changed from magit-popup to transient,
 and that breaks this addon
 https://github.com/syl20bnr/spacemacs/issues/11978
@@ -1827,6 +1832,7 @@ config. This configuration is stored in =straight/versions/default.el=
 
 #+begin_src emacs-lisp :results output silent
   (use-package evil-magit
+    :disabled t ;; merged into evil-collections
     :straight (:host github
                :repo "emacs-evil/evil-magit")
     :after (magit)
@@ -2141,6 +2147,7 @@ TODO: some way to better, more dynamically name the tabs
 #+begin_src emacs-lisp :results output silent
   (use-package color-theme-sanityinc-solarized
     :after solarized-theme
+    :disabled t
     :straight t)
 #+end_src
 ** Eva-02
@@ -2175,6 +2182,7 @@ Solarized)
 
 #+begin_src emacs-lisp :results output silent
   (use-package color-theme-sanityinc-solarized
+    :disabled t ;; native comp is failing on this package
     :after solarized-theme
     :straight t)
 #+end_src
@@ -4207,6 +4215,15 @@ Not tracking master because it's currently broken for some reason.
 #+end_src
 
 * Language Server Protocol (LSP)
+** eglot
+#+begin_src emacs-lisp :results output silent
+  (use-package eglot
+    :straight (:host github :repo "joaotavora/eglot")
+    :commands (eglot eglot-ensure))
+#+end_src
+
+
+** lsp-mode
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-mode
     :straight (:host github :repo "emacs-lsp/lsp-mode" :branch "master")
@@ -4231,7 +4248,13 @@ Not tracking master because it's currently broken for some reason.
     (lsp-ui-doc-delay 2.3))
 #+end_src
 
-** LSP Java
+*** dap-mode
+#+begin_src emacs-lisp :results output silent
+  (use-package dap-mode
+    :straight (:host github :repo "emacs-lsp/dap-mode")
+    :commands (dap-debug))
+#+end_src
+*** LSP Java
 Note that this will require:
 - Java 11
 - Maven
