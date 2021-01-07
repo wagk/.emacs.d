@@ -1575,6 +1575,10 @@ https://www.nongnu.org/org-edna-el/
 
 ** Org Roam
 Requires =sqlite=. Install using =choco install sqlite=
+
+- [ ] Add the files inside the roam directory as org agenda files?
+  It's going to be heavyweight.
+
 #+begin_src emacs-lisp :results output silent
   (use-package org-roam
     ;; :hook (org-mode-hook . org-roam-mode)
@@ -1599,8 +1603,10 @@ Requires =sqlite=. Install using =choco install sqlite=
     :init
     (evil-ex-define-cmd "wiki" 'org-roam-jump-to-index)
     (evil-ex-define-cmd "index" 'org-roam-jump-to-index)
-    (evil-ex-define-cmd "nn" 'org-roam-find-file)
+    (evil-ex-define-cmd "yesterday" 'org-roam-dailies-yesterday)
+    (evil-ex-define-cmd "ytd" 'org-roam-dailies-yesterday)
     (evil-ex-define-cmd "today" 'org-roam-dailies-today)
+    (evil-ex-define-cmd "nn" 'org-roam-find-file)
     :config
     (with-eval-after-load 'aggressive-fill-paragraph
       (add-hook 'org-roam-capture-after-find-file-hook 'aggressive-fill-paragraph-mode))
