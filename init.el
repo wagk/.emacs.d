@@ -445,7 +445,6 @@ we're adding a custom function for it here."
   ;; (progn
   ;;   (require 'subr-x)
   ;;   (straight-use-package 'git)
-
   ;;   (defun org-git-version ()
   ;;     "The Git version of org-mode.
   ;;     Inserted by installing org-mode or when a release is made."
@@ -457,7 +456,6 @@ we're adding a custom function for it here."
   ;;                 "--match=release\*"
   ;;                 "--abbrev=6"
   ;;                 "HEAD"))))
-
   ;;   (defun org-release ()
   ;;     "The release version of org-mode.
   ;;     Inserted by installing org-mode or when a release is made."
@@ -471,7 +469,6 @@ we're adding a custom function for it here."
   ;;                  "--match=release\*"
   ;;                  "--abbrev=0"
   ;;                  "HEAD")))))
-
   ;;   (provide 'org-version))
 
   ;; ;; We do this here because we want a directory to actually exist when the

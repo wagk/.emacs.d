@@ -1666,6 +1666,8 @@ Requires =sqlite=. Install using =choco install sqlite=
     :custom
     (org-clock-clocked-in-display 'both)
     (org-clock-mode-line-total 'current)
+    :init
+    (evil-ex-define-cmd "work" 'org-clock-goto)
     :config
     (evil-define-command my-org-clocking (arg)
       (interactive "<a>")
@@ -3063,20 +3065,24 @@ package manager
 #+begin_src emacs-lisp :results output silent
   (use-package dumb-jump
     :straight (:host github :repo "jacktasia/dumb-jump")
+    :commands
+    (dumb-jump-xref-activate)
     :custom
     (dumb-jump-selector 'ivy)
-    :general
-    (:states '(normal)
-     "g D" 'dumb-jump-go
-     "C-]" 'my-evil-dumb-jump)
-     ;; "g C-]" 'my-evil-dumb-jump)
-    :init
-    (evil-define-motion my-evil-dumb-jump (arg)
-      :jump t
-      (interactive "P")
-      (if arg
-          (dumb-jump-go-prompt)
-        (dumb-jump-go))))
+    ;; :general
+    ;; (:states '(normal)
+    ;;  "g D" 'dumb-jump-go
+    ;;  "C-]" 'my-evil-dumb-jump)
+    ;; ;; "g C-]" 'my-evil-dumb-jump)
+    :hook
+    (xref-backend-functions . dumb-jump-xref-activate))
+    ;; :init
+    ;; (evil-define-motion my-evil-dumb-jump (arg)
+    ;;   :jump t
+    ;;   (interactive "P")
+    ;;   (if arg
+    ;;       (dumb-jump-go-prompt)
+    ;;     (dumb-jump-go))))
 #+end_src
 
 * Anki
@@ -3230,7 +3236,11 @@ filters*.
 
 ** Default to K&R style
 #+begin_src emacs-lisp :results output silent
-  (setq-default c-default-style "k&r")
+  (with-eval-after-load 'cc-mode
+    (customize-set-value 'c-default-style
+                        (add-to-list 'c-default-style '(c++-mode . "k&r")))
+    (customize-set-value 'c-default-style
+                        (add-to-list 'c-default-style '(c-mode . "k&r"))))
 #+end_src
 
 ** Newline in comments should insert an indented comment
@@ -3685,6 +3695,8 @@ the thing, because that's what vim does.
 #+begin_src emacs-lisp :results output silent
   (use-package org-journal
     :straight (:host github :repo "bastibe/org-journal")
+    ;; disabling until https://github.com/bastibe/org-journal/issues/317 is resolved
+    :disabled t
     :if (boundp 'config-local-syncthing-folder)
     :commands org-journal-new-entry
     :custom
@@ -4219,9 +4231,11 @@ Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package eglot
     :straight (:host github :repo "joaotavora/eglot")
-    :commands (eglot eglot-ensure))
+    :commands (eglot eglot-ensure)
+    :hook
+    ((c-mode-hook . eglot-ensure)
+     (c++-mode-hook .eglot-ensure)))
 #+end_src
-
 
 ** lsp-mode
 #+begin_src emacs-lisp :results output silent
@@ -4597,7 +4611,6 @@ called, and it should work anywhere.
       (let ((prev_clock (when arg '(16))))
         (org-pomodoro prev_clock)))
     (evil-ex-define-cmd "do" 'my-pomodoro-start)
-    (evil-ex-define-cmd "doing" 'org-clock-goto)
     (evil-ex-define-cmd "done"
                         #'(lambda () (interactive)
                             (require 'org-pomodoro)
@@ -4707,7 +4720,8 @@ Note that =customize-set-variable= is like =setq-default=.
 #+begin_src emacs-lisp :results output silent
   (use-package csharp-mode
     :straight (:host github :repo "josteink/csharp-mode")
-    :mode ("\\.cs\\'" . csharp-mode))
+    :commands (csharp-mode)
+    :mode "\\.cs\\'")
 #+end_src
 
 * Fill Function Argument
@@ -4730,4 +4744,16 @@ It's... not very good.
     :straight nil
     :if (and (boundp 'my-spotify-oauth2-client-secret)
              (boundp 'my-spotify-oauth2-client-id)))
+#+end_src
+
+* Tree Sitter
+#+begin_src emacs-lisp :results output silent
+  (use-package tree-sitter
+    :config
+    (global-tree-sitter-mode))
+#+end_src
+
+** Tree Sitter Langs
+#+begin_src emacs-lisp :results output silent
+  (use-package tree-sitter-langs)
 #+end_src
