@@ -2990,31 +2990,31 @@ note: use :Ex instead like Vim does
 
 ** Dired+
 #+begin_src emacs-lisp :results output silent
-  (unless (el-get-package-is-installed 'dired+)
-    (el-get-emacswiki-build-local-recipes)
-    (el-get-install 'dired+))
-  (use-package dired+
-    :ensure nil
-    :straight nil
-    :after dired
-    :custom-face
-    (diredp-dir-heading ((t (:inherit font-lock-warning-face :bold t))))
-    (diredp-dir-name ((t (:inherit font-lock-string-face :bold t))))
-    (diredp-file-name ((t (:inherit font-lock-function-name-face))))
-    (diredp-file-suffix ((t (:inherit font-lock-type-face))))
-    (diredp-ignored-file-name ((t (:inherit 'font-lock-comment-face))))
-    (diredp-flag-mark ((t (:inherit font-lock-keyword-face)))))
+  ;; (unless (el-get-package-is-installed 'dired+)
+  ;;   (el-get-emacswiki-build-local-recipes)
+  ;;   (el-get-install 'dired+))
+  ;; (use-package dired+
+  ;;   :ensure nil
+  ;;   :straight nil
+  ;;   :after dired
+  ;;   :custom-face
+  ;;   (diredp-dir-heading ((t (:inherit font-lock-warning-face :bold t))))
+  ;;   (diredp-dir-name ((t (:inherit font-lock-string-face :bold t))))
+  ;;   (diredp-file-name ((t (:inherit font-lock-function-name-face))))
+  ;;   (diredp-file-suffix ((t (:inherit font-lock-type-face))))
+  ;;   (diredp-ignored-file-name ((t (:inherit 'font-lock-comment-face))))
+  ;;   (diredp-flag-mark ((t (:inherit font-lock-keyword-face)))))
 #+end_src
 
 ** w32-browser
 #+begin_src emacs-lisp :results output silent
-  (unless (el-get-package-is-installed 'w32-browser)
-    (el-get-emacswiki-build-local-recipes)
-    (el-get-install 'w32-browser))
-  (use-package w32-browser
-    :ensure nil
-    :straight nil
-    :after dired)
+  ;; (unless (el-get-package-is-installed 'w32-browser)
+  ;;   (el-get-emacswiki-build-local-recipes)
+  ;;   (el-get-install 'w32-browser))
+  ;; (use-package w32-browser
+  ;;   :ensure nil
+  ;;   :straight nil
+  ;;   :after dired)
 #+end_src
 
 * Help

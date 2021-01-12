@@ -201,22 +201,22 @@ recovery. Maybe eventually load dependencies and all that."
   (straight-check-all)
   (straight-prune-build))
 
-(defun my-bootstrap-el-get ()
-  (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-  (unless (require 'el-get nil 'noerror)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-  (el-get 'sync))
+;; (defun my-bootstrap-el-get ()
+;;   (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+;;   (unless (require 'el-get nil 'noerror)
+;;     (with-current-buffer
+;;         (url-retrieve-synchronously
+;;          "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+;;       (goto-char (point-max))
+;;       (eval-print-last-sexp)))
+;;   (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+;;   (el-get 'sync))
 
 (let ((gc-cons-threshold most-positive-fixnum))
   (bootstrap-package)
   (bootstrap-straight)
   ;; (bootstrap-quelpa)
-  (my-bootstrap-el-get)
+  ;; (my-bootstrap-el-get)
   (bootstrap-use-package)
 
   ;; Load core configuration that I can't work without. Everything
