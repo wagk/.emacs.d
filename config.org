@@ -4251,6 +4251,10 @@ Not tracking master because it's currently broken for some reason.
   (use-package eglot
     :straight (:host github :repo "joaotavora/eglot")
     :commands (eglot eglot-ensure)
+    :general
+    (eglot-mode-map
+     :states 'normal
+     "K" nil)
     :hook
     ((c-mode-hook . eglot-ensure)
      (c++-mode-hook . eglot-ensure)))
