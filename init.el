@@ -269,6 +269,7 @@ recovery. Maybe eventually load dependencies and all that."
   (use-package evil
     :demand t
     :straight (:host github :repo "emacs-evil/evil")
+    ;; :straight t
     :commands (evil-set-initial-state
                evil-insert-state
                evil-ex-define-cmd)
@@ -434,8 +435,9 @@ we're adding a custom function for it here."
 ;;; evil-collection
 
   (use-package evil-collection
-    :straight (:host github :repo "emacs-evil/evil-collection"
-               :files (:defaults ("modes" "modes/*")))
+    :straight t
+    ;;    :straight (:host github :repo "emacs-evil/evil-collection"
+    ;;               :files (:defaults ("modes" "modes/*")))
     :custom
     (evil-collection-setup-minibuffer t)
     :config

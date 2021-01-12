@@ -1655,8 +1655,13 @@ Requires =sqlite=. Install using =choco install sqlite=
 #+end_src
 
 ** Org Habit
+In emacs 28 there's an issue with it not updated to using 3 arguments
+for =define-obsolete-function-alias= (really dumb thing, but there it
+is)
+
 #+begin_src emacs-lisp :results output silent
   (use-package org-habit
+    :disabled t
     :straight nil
     :ensure nil
     :after org
@@ -3690,6 +3695,7 @@ the thing, because that's what vim does.
 * Journal (Org Journal)
 #+begin_src emacs-lisp :results output silent
   (use-package org-journal
+    :disabled t ;; we use org-roam now
     :straight (:host github :repo "bastibe/org-journal")
     :if (boundp 'config-local-syncthing-folder)
     :commands org-journal-new-entry
@@ -3754,6 +3760,7 @@ https://millejoh.github.io/emacs-ipython-notebook/
 
 #+begin_src emacs-lisp :results output silent
   (use-package ein
+    :disabled t
     :straight (:host github :repo "millejoh/emacs-ipython-notebook"))
 #+end_src
 
