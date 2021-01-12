@@ -2,4 +2,4 @@
 # name: todo
 # key: tt
 # --
-`(yas-with-comment "TODO:")` ${1:implement}
+`(yas-with-comment "TODO: ")`

@@ -517,47 +517,54 @@ This only works if emacs version is 27 or above (there's already some
 evil integration), refer to Eyebrowse for Emacs version <27 tab handling
 #+begin_src emacs-lisp :results output silent
   (use-package tab-bar
-   :ensure nil
-   :straight nil
-   :if (>= emacs-major-version 27)
-   :custom-face
-   (tab-bar ((t (:inherit 'minibuffer-prompt :underline t))))
-   (tab-bar-tab ((t (:inherit 'font-lock-function-name-face
-                     :bold t
-                     :box (:line-width -1)))))
-   (tab-bar-tab-inactive ((t (:inherit 'font-lock-keyword-face :italic nil))))
-   :custom
-   (tab-bar-close-last-tab-choice 'delete-frame)
-   (tab-bar-new-tab-choice t)
-   (tab-bar-close-button-show nil)
-   (tab-bar-new-button-show nil)
-   (tab-bar-close-tab-select 'left)
-   (tab-bar-new-button nil)
-   (tab-bar-new-tab-to 'right)
-   :config
-   (tab-bar-mode)
-   (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
-   (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
-   (evil-define-command my-tab-bar-tab-edit (file)
-     (interactive "<f>")
-     (let ((tab-bar-new-tab-choice (if file file "*scratch*")))
-       (tab-bar-new-tab)))
-   (evil-ex-define-cmd "tabn[ew]" 'my-tab-bar-tab-edit)
-   (evil-ex-define-cmd "tabe[dit]" 'tab-bar-new-tab)
-   ;;TODO: currently has issue where :q on a tab kills emacs
-   (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
-   ;;TODO: check if ivy has something for this someday
-   (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
-   (evil-ex-define-cmd "tt" 'tab-bar-select-tab-by-name)
-   (defun my-tab-bar-delete-tab-or-emacs (oldfun &rest _old_args)
-     (interactive)
-     (let* ((tabs (find-if (lambda (elem) (eq 'tabs (car elem)))
-                           (frame-parameters)))
-            (num-tabs (length (cdr tabs))))
-       (if (eq num-tabs 1)
-           (call-interactively oldfun)
-         (tab-bar-close-tab))))
-   (advice-add 'delete-frame :around 'my-tab-bar-delete-tab-or-emacs))
+    :ensure nil
+    :straight nil
+    :if (>= emacs-major-version 27)
+    :custom-face
+    (tab-bar ((t (:inherit 'minibuffer-prompt :underline t))))
+    (tab-bar-tab ((t (:inherit 'font-lock-function-name-face
+                      :bold t
+                      :box (:line-width -1)))))
+    (tab-bar-tab-inactive ((t (:inherit 'font-lock-keyword-face :italic nil))))
+    :custom
+    (tab-bar-close-last-tab-choice 'delete-frame)
+    (tab-bar-new-tab-choice t)
+    (tab-bar-close-button-show nil)
+    (tab-bar-new-button-show nil)
+    (tab-bar-close-tab-select 'left)
+    (tab-bar-new-button nil)
+    (tab-bar-new-tab-to 'right)
+    :config
+    (tab-bar-mode)
+    (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
+    (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
+    (with-eval-after-load 'org-agenda
+      (general-define-key
+       :keymaps 'org-agenda-mode-map
+       :states '(normal)
+       :prefix my-default-evil-leader-key
+       "g t" 'tab-bar-switch-to-next-tab
+       "g T" 'tab-bar-switch-to-prev-tab))
+    (evil-define-command my-tab-bar-tab-edit (file)
+      (interactive "<f>")
+      (let ((tab-bar-new-tab-choice (if file file "*scratch*")))
+        (tab-bar-new-tab)))
+    (evil-ex-define-cmd "tabn[ew]" 'my-tab-bar-tab-edit)
+    (evil-ex-define-cmd "tabe[dit]" 'tab-bar-new-tab)
+    ;;TODO: currently has issue where :q on a tab kills emacs
+    (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
+    ;;TODO: check if ivy has something for this someday
+    (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
+    (evil-ex-define-cmd "tt" 'tab-bar-select-tab-by-name)
+    (defun my-tab-bar-delete-tab-or-emacs (oldfun &rest _old_args)
+      (interactive)
+      (let* ((tabs (find-if (lambda (elem) (eq 'tabs (car elem)))
+                            (frame-parameters)))
+             (num-tabs (length (cdr tabs))))
+        (if (eq num-tabs 1)
+            (call-interactively oldfun)
+          (tab-bar-close-tab))))
+    (advice-add 'delete-frame :around 'my-tab-bar-delete-tab-or-emacs))
 #+end_src
 
 ** TODO Tab line mode
@@ -4226,6 +4233,18 @@ Not tracking master because it's currently broken for some reason.
     (prog-mode-hook . global-flycheck-mode))
 #+end_src
 
+** Flycheck Inline
+#+begin_src emacs-lisp :results output silent
+  (use-package flycheck-inline
+    :straight t
+    :after flycheck
+    :commands flycheck-inline-mode
+    :hook
+    (flyheck-mode-hook . flycheck-inline-mode)
+    :config
+    (global-flycheck-inline-mode))
+#+end_src
+
 * Language Server Protocol (LSP)
 ** eglot
 #+begin_src emacs-lisp :results output silent
@@ -4234,7 +4253,7 @@ Not tracking master because it's currently broken for some reason.
     :commands (eglot eglot-ensure)
     :hook
     ((c-mode-hook . eglot-ensure)
-     (c++-mode-hook .eglot-ensure)))
+     (c++-mode-hook . eglot-ensure)))
 #+end_src
 
 ** lsp-mode
@@ -4750,10 +4769,6 @@ It's... not very good.
 #+begin_src emacs-lisp :results output silent
   (use-package tree-sitter
     :config
+    (use-package tree-sitter-langs)
     (global-tree-sitter-mode))
-#+end_src
-
-** Tree Sitter Langs
-#+begin_src emacs-lisp :results output silent
-  (use-package tree-sitter-langs)
 #+end_src
