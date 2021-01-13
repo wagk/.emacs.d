@@ -447,7 +447,6 @@ we're adding a custom function for it here."
   ;; (progn
   ;;   (require 'subr-x)
   ;;   (straight-use-package 'git)
-
   ;;   (defun org-git-version ()
   ;;     "The Git version of org-mode.
   ;;     Inserted by installing org-mode or when a release is made."
@@ -459,7 +458,6 @@ we're adding a custom function for it here."
   ;;                 "--match=release\*"
   ;;                 "--abbrev=6"
   ;;                 "HEAD"))))
-
   ;;   (defun org-release ()
   ;;     "The release version of org-mode.
   ;;     Inserted by installing org-mode or when a release is made."
@@ -473,7 +471,6 @@ we're adding a custom function for it here."
   ;;                  "--match=release\*"
   ;;                  "--abbrev=0"
   ;;                  "HEAD")))))
-
   ;;   (provide 'org-version))
 
   ;; ;; We do this here because we want a directory to actually exist when the
@@ -557,7 +554,8 @@ we're adding a custom function for it here."
     (org-catch-invisible-edits 'smart)
     (org-cycle-separator-lines 0)
     ;; (org-link-descriptive nil "reduce syntax sugar")
-    (org-link-descriptive t)
+    (org-link-descriptive t
+                          "Open file links in current window instead of other window")
     (org-adapt-indentation nil "Maintaining indentation for org-files
     looks annoying when editing it as a plain text file")
     ;; (org-list-indent-offset 1)
@@ -568,6 +566,13 @@ we're adding a custom function for it here."
     (org-checkbox ((t (:bold t :box nil))))
     :hook ((org-insert-heading-hook . evil-insert-state))
     :init
+    (with-eval-after-load 'ol
+      (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file))
+      ;; (customize-set-variable
+      ;;  'org-link-frame-setup
+      ;;  (let ((alist (copy-alist org-link-frame-setup)))
+      ;;    (setf (cdr (assoc 'file alist)) 'find-file)
+      ;;    alist)))
     (unless (display-graphic-p)
       (general-define-key
        :keymaps 'org-mode-map
