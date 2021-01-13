@@ -4267,7 +4267,7 @@ Not tracking master because it's currently broken for some reason.
     :commands (eglot eglot-ensure)
     :general
     (eglot-mode-map
-     :states 'normal
+     :states '(normal visual)
      "K" nil)
     :hook
     ((c-mode-hook . eglot-ensure)
