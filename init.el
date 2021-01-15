@@ -568,11 +568,11 @@ we're adding a custom function for it here."
     :init
     (with-eval-after-load 'ol
       (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file))
-      ;; (customize-set-variable
-      ;;  'org-link-frame-setup
-      ;;  (let ((alist (copy-alist org-link-frame-setup)))
-      ;;    (setf (cdr (assoc 'file alist)) 'find-file)
-      ;;    alist)))
+    ;; (customize-set-variable
+    ;;  'org-link-frame-setup
+    ;;  (let ((alist (copy-alist org-link-frame-setup)))
+    ;;    (setf (cdr (assoc 'file alist)) 'find-file)
+    ;;    alist)))
     (unless (display-graphic-p)
       (general-define-key
        :keymaps 'org-mode-map
