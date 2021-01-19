@@ -448,7 +448,7 @@ with Chinese/Japanese.
    ((find-font (font-spec :name "Iosevka"))
     (cond
       ((eq system-type 'darwin) (set-frame-font "Iosevka-14" nil t))
-      (t (set-frame-font "Iosevka-10" nil t))))
+      (t (set-frame-font "Iosevka-12" nil t))))
    ((find-font (font-spec :name "Courier")) (set-frame-font "Courier-10" nil t)))
 #+end_src
 
