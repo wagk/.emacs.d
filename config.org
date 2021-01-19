@@ -1617,6 +1617,8 @@ Requires =sqlite=. Install using =choco install sqlite=
     (evil-ex-define-cmd "nn" 'org-roam-find-file)
     (evil-ex-define-cmd "today" 'org-roam-dailies-today)
     :config
+    (when (boundp 'config-local-syncthing-folder)
+      (customize-set-variable 'org-roam-directory my-notes-folder))
     (with-eval-after-load 'aggressive-fill-paragraph
       (add-hook 'org-roam-capture-after-find-file-hook 'aggressive-fill-paragraph-mode))
     (defun org-roam--extract-tags-regex (filepath)
