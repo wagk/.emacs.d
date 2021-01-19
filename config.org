@@ -1596,6 +1596,7 @@ Requires =sqlite=. Install using =choco install sqlite=
     (:states 'normal
      :prefix my-default-evil-leader-key
      "n i" 'org-roam-insert
+     "n t" 'org-roam-tag-add
      "n f" 'org-roam-find-file
      "n d" 'org-roam-dailies-today
      "n b" 'org-roam-buffer-toggle-display)
