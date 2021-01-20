@@ -4306,7 +4306,11 @@ Not tracking master because it's currently broken for some reason.
 *** Debug Adapter Mode (dap-mode)
 #+begin_src emacs-lisp :results output silent
   (use-package dap-mode
-    :after lsp-mode)
+    :after lsp-mode
+    :commands (dap-debug)
+    :hook
+    (dap-stopped-hook . (lambda (arg)
+                          (call-interactively #'dap-hydra))))
 #+end_src
 * Code Folding (Origami)
 #+begin_src emacs-lisp :results output silent
