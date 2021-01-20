@@ -2117,6 +2117,7 @@ TODO: some way to better, more dynamically name the tabs
 #+begin_src emacs-lisp :results output silent
   (use-package solarized-theme
     :straight (:host github :repo "bbatsov/solarized-emacs")
+    :if (display-graphic-p)
     :custom
     (solarized-use-variable-pitch nil)
     (solarized-distinct-fringe-background nil)
@@ -4266,6 +4267,7 @@ Not tracking master because it's currently broken for some reason.
 #+end_src
 
 * Language Server Protocol (LSP)
+
 ** eglot
 #+begin_src emacs-lisp :results output silent
   (use-package eglot
@@ -4275,10 +4277,29 @@ Not tracking master because it's currently broken for some reason.
     (eglot-mode-map
      :states '(normal visual)
      "K" nil
-     "M-K" 'eldoc-doc-buffer)
-    :hook
-    ((c-mode-hook . eglot-ensure)
-     (c++-mode-hook . eglot-ensure)))
+     "M-K" 'eldoc-doc-buffer))
+    ;; :hook
+    ;; ((c-mode-hook . eglot-ensure)
+    ;;  (c++-mode-hook . eglot-ensure)))
+#+end_src
+
+** lsp-mode
+#+begin_src emacs-lisp :results output silent
+  (use-package lsp-mode
+    :straight t
+    :commands (lsp-mode))
+#+end_src
+
+*** lsp-ui
+#+begin_src emacs-lisp :results output silent
+  (use-package lsp-ui
+    :after lsp-mode)
+#+end_src
+
+*** Debug Adapter Mode (dap-mode)
+#+begin_src emacs-lisp :results output silent
+  (use-package dap-mode
+    :after lsp-mode)
 #+end_src
 * Code Folding (Origami)
 #+begin_src emacs-lisp :results output silent
