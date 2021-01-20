@@ -448,7 +448,7 @@ with Chinese/Japanese.
    ((find-font (font-spec :name "Iosevka"))
     (cond
       ((eq system-type 'darwin) (set-frame-font "Iosevka-14" nil t))
-      (t (set-frame-font "Iosevka-10" nil t))))
+      (t (set-frame-font "Iosevka-12" nil t))))
    ((find-font (font-spec :name "Courier")) (set-frame-font "Courier-10" nil t)))
 #+end_src
 
@@ -1597,11 +1597,14 @@ Requires =sqlite=. Install using =choco install sqlite=
     ;; :hook (org-mode-hook . org-roam-mode)
     :straight (:host github :repo "jethrokuan/org-roam")
     ;; :if (boundp 'my-notes-folder)
-    :commands (org-roam-jump-to-index)
+    :commands (org-roam-jump-to-index
+               org-roam-mode)
+    :defer 10
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
      "n i" 'org-roam-insert
+     "n t" 'org-roam-tag-add
      "n f" 'org-roam-find-file
      "n d" 'org-roam-dailies-today
      "n b" 'org-roam-buffer-toggle-display)
@@ -1622,6 +1625,8 @@ Requires =sqlite=. Install using =choco install sqlite=
     (evil-ex-define-cmd "nn" 'org-roam-find-file)
     (evil-ex-define-cmd "today" 'org-roam-dailies-today)
     :config
+    (when (boundp 'config-local-syncthing-folder)
+      (customize-set-variable 'org-roam-directory my-notes-folder))
     (with-eval-after-load 'aggressive-fill-paragraph
       (add-hook 'org-roam-capture-after-find-file-hook 'aggressive-fill-paragraph-mode))
     (defun org-roam--extract-tags-regex (filepath)
@@ -1826,6 +1831,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     :commands (magit-status
                magit-pull
                magit-commit)
+    :defer 1
     :init
     (evil-define-command ex-magit-cli (cmd)
       "Calls specific magit functions"
@@ -1891,6 +1897,7 @@ up, on windows at least).
 #+begin_src emacs-lisp :results output silent
   (use-package forge
     :straight t
+    :defer 10
     :after magit)
 #+end_src
 
