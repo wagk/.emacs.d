@@ -2155,14 +2155,14 @@ TODO: some way to better, more dynamically name the tabs
         (load-theme 'solarized-gruvbox-dark t))
       (with-eval-after-load 'prism
         (prism-set-colors
-          :num 24
-          :colors
-          ;; (list sol-green sol-cyan sol-blue sol-yellow)
-          (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
-          :desaturations
-          (list 10 20 30)
-          :lightens
-          (list 0 -2.5 -5)))
+         :num 24
+         :colors
+         ;; (list sol-green sol-cyan sol-blue sol-yellow)
+         (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
+         :desaturations
+         (list 10 20 30)
+         :lightens
+         (list 0 -2.5 -5)))
       (with-eval-after-load 'hl-todo
         (customize-set-variable 'hl-todo-keyword-faces
                                 '(("TODO"    . "#b58900")
@@ -2215,10 +2215,10 @@ Solarized)
 #+end_src
 * Display
 #+begin_src emacs-lisp :results output silent
-  ;; (when (display-graphic-p)
-  ;;   (load-solarized-theme))
+  (when (display-graphic-p)
+    ;; (load-solarized-theme))
+    (load-theme 'solarized-dark t))
   ;; (load-solarized-theme)
-  (load-theme 'solarized-dark t)
   ;; (load-eva02-theme)
 #+end_src
 
