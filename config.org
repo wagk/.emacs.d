@@ -585,6 +585,12 @@ Tab line is like tab bar but for windows
                           (browse-url "https://beta.protonmail.com")))
 #+end_src
 
+** EDiff qol
+#+begin_src emacs-lisp :results output silent
+  (with-eval-after-load 'ediff
+    (setq ediff-window-setup-function 'ediff-setup-windows-plain))
+#+end_src
+
 ** Function to find all parent modes
 I wrote this for =fci-mode= restarting then I figured I could just check
 for the existence of =fci-mode= instead of finding through all the modes
