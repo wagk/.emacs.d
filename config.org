@@ -585,6 +585,12 @@ Tab line is like tab bar but for windows
                           (browse-url "https://beta.protonmail.com")))
 #+end_src
 
+** EDiff qol
+#+begin_src emacs-lisp :results output silent
+  (with-eval-after-load 'ediff
+    (setq ediff-window-setup-function 'ediff-setup-windows-plain))
+#+end_src
+
 ** Function to find all parent modes
 I wrote this for =fci-mode= restarting then I figured I could just check
 for the existence of =fci-mode= instead of finding through all the modes
@@ -2118,6 +2124,7 @@ TODO: some way to better, more dynamically name the tabs
 #+begin_src emacs-lisp :results output silent
   (use-package solarized-theme
     :straight (:host github :repo "bbatsov/solarized-emacs")
+    :if (display-graphic-p)
     :custom
     (solarized-use-variable-pitch nil)
     (solarized-distinct-fringe-background nil)
@@ -2156,14 +2163,14 @@ TODO: some way to better, more dynamically name the tabs
         (load-theme 'solarized-gruvbox-dark t))
       (with-eval-after-load 'prism
         (prism-set-colors
-          :num 24
-          :colors
-          ;; (list sol-green sol-cyan sol-blue sol-yellow)
-          (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
-          :desaturations
-          (list 10 20 30)
-          :lightens
-          (list 0 -2.5 -5)))
+         :num 24
+         :colors
+         ;; (list sol-green sol-cyan sol-blue sol-yellow)
+         (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
+         :desaturations
+         (list 10 20 30)
+         :lightens
+         (list 0 -2.5 -5)))
       (with-eval-after-load 'hl-todo
         (customize-set-variable 'hl-todo-keyword-faces
                                 '(("TODO"    . "#b58900")
@@ -2216,10 +2223,10 @@ Solarized)
 #+end_src
 * Display
 #+begin_src emacs-lisp :results output silent
-  ;; (when (display-graphic-p)
-  ;;   (load-solarized-theme))
+  (when (display-graphic-p)
+    ;; (load-solarized-theme))
+    (load-theme 'solarized-dark t))
   ;; (load-solarized-theme)
-  (load-theme 'solarized-dark t)
   ;; (load-eva02-theme)
 #+end_src
 
@@ -4267,6 +4274,7 @@ Not tracking master because it's currently broken for some reason.
 #+end_src
 
 * Language Server Protocol (LSP)
+
 ** eglot
 #+begin_src emacs-lisp :results output silent
   (use-package eglot
@@ -4275,10 +4283,34 @@ Not tracking master because it's currently broken for some reason.
     :general
     (eglot-mode-map
      :states '(normal visual)
-     "K" nil)
+     "K" nil
+     "M-K" 'eldoc-doc-buffer))
+    ;; :hook
+    ;; ((c-mode-hook . eglot-ensure)
+    ;;  (c++-mode-hook . eglot-ensure)))
+#+end_src
+
+** lsp-mode
+#+begin_src emacs-lisp :results output silent
+  (use-package lsp-mode
+    :straight t
+    :commands (lsp-mode))
+#+end_src
+
+*** lsp-ui
+#+begin_src emacs-lisp :results output silent
+  (use-package lsp-ui
+    :after lsp-mode)
+#+end_src
+
+*** Debug Adapter Mode (dap-mode)
+#+begin_src emacs-lisp :results output silent
+  (use-package dap-mode
+    :after lsp-mode
+    :commands (dap-debug)
     :hook
-    ((c-mode-hook . eglot-ensure)
-     (c++-mode-hook . eglot-ensure)))
+    (dap-stopped-hook . (lambda (arg)
+                          (call-interactively #'dap-hydra))))
 #+end_src
 * Code Folding (Origami)
 #+begin_src emacs-lisp :results output silent
@@ -4453,21 +4485,27 @@ trailing dots only happen /after/ the fci column.)
 * Search Engine Mode
 #+begin_src emacs-lisp :results output silent
   (use-package engine-mode
-    :straight (:host github :repo "hrs/engine-mode" :branch "main")
+    ;; :straight (:host github :repo "hrs/engine-mode" :branch "main")
+    :straight t
     :commands defengine
+    :init
+    (evil-define-command my-ddg-search (args)
+      (interactive "<a>")
+      (require 'engine-mode)
+      (unless (boundp 'engine/search-duckduckgo)
+        (defengine duckduckgo
+          "https://duckduckgo.com/?q=%s"))
+      (let ((query (if (use-region-p)
+                       (buffer-substring (region-beginning) (region-end))
+                     (read-string
+                      "Search: "
+                      nil nil (thing-at-point 'word)))))
+        (engine/search-duckduckgo query)))
+    ;; something's wrong here.
+    ;; (evil-ex-define-cmd "??" 'my-ddg-search)
     :general
     (:states '(normal motion visual)
-     "K" '(lambda () (interactive)
-            (require 'engine-mode)
-            (unless (boundp 'engine/search-duckduckgo)
-              (defengine duckduckgo
-                "https://duckduckgo.com/?q=%s"))
-            (let ((query (if (use-region-p)
-                             (buffer-substring (region-beginning) (region-end))
-                           (read-string
-                            "Search: "
-                            nil nil (thing-at-point 'word)))))
-              (engine/search-duckduckgo query)))))
+     "K" 'my-ddg-search))
 #+end_src
 
 * Lorem Ipsum
