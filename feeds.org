@@ -5,7 +5,7 @@
 - hot :: Frontpage feeds
 
 * Imported Feeds                                                     :elfeed:
-** A List of Things I actually Read                                     :hot:
+** A List of Things I actually Read                                     :interesting:
 *** [[http://calnewport.com/blog/feed/][Study Hacks]]
 *** [[https://www.lesswrong.com/feed.xml][Lesswrong]]
 *** [[http://etodd.io/feed/][Evan Todd's Blog]]                     :gamedev:
@@ -17,11 +17,13 @@
 *** [[http://pedrothedagger.tumblr.com/rss][videogames: the blog]] :gamedev:design:
 *** [[http://physiqonomics.com/feed/][Physiqonomics]]
 *** [[http://slatestarcodex.com/feed/][Slate Star Codex]]
+*** [[https://astralcodexten.substack.com/feed/][Astral Codex Ten]]
 *** [[http://unenumerated.blogspot.com/feeds/posts/default][Nick Szabo]] :blog:
 *** [[http://what-if.xkcd.com/feed.atom][What If?]]                    :xkcd:
 *** [[http://www.artofmanliness.com/feed/][The Art of Manliness]]
 *** [[http://www.cheerfulegg.com/feed/][cheerful.egg]]        :finance:local:
-*** [[http://www.gwern.net/atom.xml][Gwern]]
+*** COMMENT [[http://www.gwern.net/atom.xml][Gwern]]
+He disabled it.
 *** [[http://www.randygaul.net/feed/][Randy Gaul's Game Programming Blog]] :gamedev:
 *** [[https://old.reddit.com/r/gwern/.rss][/r/gwern]]                :reddit:
 *** [[https://scholars-stage.blogspot.com/feeds/posts/default?alt=rss][Scholar's Stage]] :china:culture:
@@ -38,7 +40,7 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine.rss][Matt Levine Money Stuff]]
 *** [[https://joy.recurse.com/feed.atom][Recurse]]
 
-** News                                                                :news:
+** News                                                                :mainstream:
 *** Channel News Asia
 **** [[https://www.channelnewsasia.com/rssfeeds/8395744][Channel News Asia (Asia)]] :asia:
 **** [[https://www.channelnewsasia.com/rssfeeds/8396082][Channel News Asia (Singapore)]] :singapore:
@@ -560,7 +562,6 @@ Joe Nelson's Blog
 *** [[http://www.hearthpwn.com/news.rss][Hearthstone News from HearthPwn]]
 *** [[http://lparchive.org/rss][Let's Play Archive Updates]]
 *** [[http://arstechnica.com/index.ars/rss][Ars Technica]]
-*** [[http://feeds.feedburner.com/breitbart][Breitbart News]]
 *** [[http://feeds.feedburner.com/Inhabitat][INHABITAT]]
 *** [[http://facesinplaces.blogspot.com/feeds/posts/default][Faces in Places]]
 *** [[http://iloapp.quelsolaar.com/blog/news?RSS][Quel Solaar]]

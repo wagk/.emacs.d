@@ -1218,6 +1218,8 @@ Interesting Text Objects:
                               ":PROPERTIES:\n"
                               ":CREATED:  %U\n" ;; captured as property TIMESTAMP
                               ":END:\n"
+                              ":LOGBOOK:\n"
+                              ":END:\n"
                               "%?")
                      :prepend t
                      :clock-in t))
@@ -1228,6 +1230,8 @@ Interesting Text Objects:
                               ":PROPERTIES:\n"
                               ":CREATED:  %U\n" ;; captured as property TIMESTAMP
                               ":END:\n"
+                              ":LOGBOOK:\n"
+                              ":END:\n"
                               "%?")))
       (add-to-list 'org-capture-templates
                    `("nn" "Note" entry
@@ -1236,6 +1240,8 @@ Interesting Text Objects:
                               "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))\n"
                               ":PROPERTIES:\n"
                               ":CREATED:  %U\n" ;; captured as property TIMESTAMP
+                              ":END:\n"
+                              ":LOGBOOK:\n"
                               ":END:\n"
                               "%?")))
       (add-to-list 'org-capture-templates
@@ -1246,7 +1252,9 @@ Interesting Text Objects:
                               ":PROPERTIES:\n"
                               ":CREATED:  %U\n" ;; captured as property TIMESTAMP
                               ":END:\n"
-                              "%(with-temp-buffer (insert-file-contents (f-join user-emacs-directory \"templates\" \"todo-guide.org\")) (buffer-string))\n"
+                              ":LOGBOOK:\n"
+                              ":END:\n"
+                              ;; "%(with-temp-buffer (insert-file-contents (f-join user-emacs-directory \"templates\" \"todo-guide.org\")) (buffer-string))\n"
                               "%?")))))
   ;; when inserting a heading immediately go into insert mode
     ;; (when (boundp 'my-journal-org-file)
@@ -3976,7 +3984,13 @@ Or evil-spongebob if you want to think of it that way.
        ((string= cmd "reload") (reload-rss-feed-file))
        ;; ((string= cmd "log") (switch-to-buffer (elfeed-log-buffer)))
        (t (elfeed))))
-    (evil-ex-define-cmd "el[feed]" 'my-custom-elfeed))
+    (evil-ex-define-cmd "el[feed]" 'my-custom-elfeed)
+    :config
+    (if (boundp 'my-syncthing-default-folder)
+      (customize-set-variable 'elfeed-db-directory
+                              (f-join my-syncthing-default-folder "elfeed"))
+      (message "Unable to find my-syncthing-default-folder, defaulting
+      to local elfeed db")))
 #+end_src
 
 ** Elfeed org
@@ -3985,6 +3999,7 @@ This is really really slow
   (use-package elfeed-org
     :straight (:host github :repo "remyhonig/elfeed-org")
     :if (f-exists? user-rss-feed-file)
+    :after elfeed
     :commands (elfeed-org
                rmh-elfeed-org-process)
     :custom
@@ -4015,6 +4030,13 @@ This is really really slow
   ;; ;; :config
   ;; ;; (elfeed-goodies/setup)
   ;; ;; (remove-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title))
+#+end_src
+
+** Elfeed Dashboard
+#+begin_src emacs-lisp :results output silent
+  (use-package elfeed-dashboard
+    :after elfeed
+    :straight t)
 #+end_src
 
 * Info mode
