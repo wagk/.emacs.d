@@ -397,6 +397,11 @@ Stolen from https://github.com/bbatsov/crux
             (return-from config-block-insert-newline)))
 #+end_src
 
+** Disable native compilation warnings
+#+begin_src emacs-lisp :results output silent
+  (when (and (featurep 'nativecomp) (native-comp-available-p))
+    (customize-set-variable 'comp-async-report-warnings-errors nil))
+#+end_src
 
 ** Set commands
 #+begin_src emacs-lisp :results output silent
@@ -3989,7 +3994,7 @@ Or evil-spongebob if you want to think of it that way.
     (if (boundp 'my-syncthing-default-folder)
       (customize-set-variable 'elfeed-db-directory
                               (f-join my-syncthing-default-folder "elfeed"))
-      (message "Unable to find my-syncthing-default-folder, defaulting
+      (message "Unable to find `my-syncthing-default-folder', defaulting
       to local elfeed db")))
 #+end_src
 
