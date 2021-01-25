@@ -3957,7 +3957,7 @@ Or evil-spongebob if you want to think of it that way.
      80
      "Update the max width of the title")
     (elfeed-search-filter
-     "@1-week-ago +unread +interesting "
+     "@1-day-ago +unread +interesting "
      "The trailing space is so that adding additional tags to filter
      won't be painful.")
     (elfeed-search-date-format
