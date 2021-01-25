@@ -397,6 +397,11 @@ Stolen from https://github.com/bbatsov/crux
             (return-from config-block-insert-newline)))
 #+end_src
 
+** Disable native compilation warnings
+#+begin_src emacs-lisp :results output silent
+  (when (and (featurep 'nativecomp) (native-comp-available-p))
+    (customize-set-variable 'comp-async-report-warnings-errors nil))
+#+end_src
 
 ** Set commands
 #+begin_src emacs-lisp :results output silent
@@ -3952,7 +3957,7 @@ Or evil-spongebob if you want to think of it that way.
      80
      "Update the max width of the title")
     (elfeed-search-filter
-     "@1-week-ago +unread +hot "
+     "@1-day-ago +unread +interesting "
      "The trailing space is so that adding additional tags to filter
      won't be painful.")
     (elfeed-search-date-format
@@ -3961,14 +3966,14 @@ Or evil-spongebob if you want to think of it that way.
     :general
     (elfeed-show-mode-map
      :states '(normal motion)
-      "g O" (lambda ()
-              (interactive)
-              (let ((browse-url-browser-function 'eww-browse-url))
-                (elfeed-show-visit t)))
-      "f" 'link-hint-open-link
-      "y" 'link-hint-copy-link
-      "SPC"   nil
-      "<SPC>" nil)
+     "g O" (lambda ()
+             (interactive)
+             (let ((browse-url-browser-function 'eww-browse-url))
+               (elfeed-show-visit t)))
+     "f" 'link-hint-open-link
+     "y" 'link-hint-copy-link
+     "SPC"   nil
+     "<SPC>" nil)
     (elfeed-search-mode-map
      :states '(normal motion)
      "g x"  'elfeed-search-browse-url ;; "g o" also does this in normal mode
@@ -3986,11 +3991,12 @@ Or evil-spongebob if you want to think of it that way.
        (t (elfeed))))
     (evil-ex-define-cmd "el[feed]" 'my-custom-elfeed)
     :config
-    (if (boundp 'my-syncthing-default-folder)
+    (if (not (boundp 'my-syncthing-default-folder))
+        (message "Unable to find `my-syncthing-default-folder',
+        defaulting to local elfeed db")
       (customize-set-variable 'elfeed-db-directory
                               (f-join my-syncthing-default-folder "elfeed"))
-      (message "Unable to find my-syncthing-default-folder, defaulting
-      to local elfeed db")))
+      (elfeed-db-load)))
 #+end_src
 
 ** Elfeed org
@@ -4030,6 +4036,14 @@ This is really really slow
   ;; ;; :config
   ;; ;; (elfeed-goodies/setup)
   ;; ;; (remove-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title))
+#+end_src
+
+** Elfeed Score
+#+begin_src emacs-lisp :results output silent
+  (use-package elfeed-score
+    :straight t
+    :after elfeed
+    :config (elfeed-score-enable))
 #+end_src
 
 ** Elfeed Dashboard
