@@ -1234,7 +1234,7 @@ Interesting Text Objects:
                               ":END:\n"
                               "%?")))
       (add-to-list 'org-capture-templates
-                   `("nn" "Note" entry
+                   `("nn" "Note, unscheduled TODO entry." entry
                      (file ,my-todo-org-file)
                      ,(concat "* TODO %^{DESCRIPTION} %^g \n"
                               "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))\n"
@@ -1245,7 +1245,7 @@ Interesting Text Objects:
                               ":END:\n"
                               "%?")))
       (add-to-list 'org-capture-templates
-                   `("tt" "Task" entry
+                   `("tt" "Task, General scheduled TODO entry." entry
                      (file ,my-todo-org-file)
                      ,(concat "* TODO [%] %^{DESCRIPTION} %^g \n"
                               "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))\n"
