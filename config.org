@@ -3991,12 +3991,15 @@ Or evil-spongebob if you want to think of it that way.
        (t (elfeed))))
     (evil-ex-define-cmd "el[feed]" 'my-custom-elfeed)
     :config
+    ;; https://mac.into.sh/elfeed/
     (if (not (boundp 'my-syncthing-default-folder))
         (message "Unable to find `my-syncthing-default-folder',
         defaulting to local elfeed db")
       (customize-set-variable 'elfeed-db-directory
                               (f-join my-syncthing-default-folder "elfeed"))
-      (elfeed-db-load)))
+      (elfeed-db-load)
+      (add-hook 'elfeed-show-mode-hook #'(lambda () (elfeed-search-update 1)))
+      (add-hook 'kill-emacs-hook #'elfeed-db-save)))
 #+end_src
 
 ** Elfeed org
