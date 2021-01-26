@@ -3986,6 +3986,7 @@ Or evil-spongebob if you want to think of it that way.
       (interactive "<a>")
       (cond
        ((string= cmd "feeds") (find-user-rss-feed-file))
+       ((string= cmd "feed") (find-user-rss-feed-file))
        ((string= cmd "reload") (reload-rss-feed-file))
        ;; ((string= cmd "log") (switch-to-buffer (elfeed-log-buffer)))
        (t (elfeed))))
