@@ -435,7 +435,6 @@ we're adding a custom function for it here."
 ;;; evil-collection
 
   (use-package evil-collection
-    :straight t
     ;;    :straight (:host github :repo "emacs-evil/evil-collection"
     ;;               :files (:defaults ("modes" "modes/*")))
     :custom
@@ -481,7 +480,8 @@ we're adding a custom function for it here."
 
   (use-package org-plus-contrib
     ;; (use-package org
-    ;;   :ensure org-plus-contrib
+    :straight (:includes org)
+    :ensure org-plus-contrib
     :commands (orgtbl-mode
                org-babel-load-file)
     :mode
@@ -577,9 +577,9 @@ we're adding a custom function for it here."
       (general-define-key
        :keymaps 'org-mode-map
        :states '(normal insert motion)
-       ;; "C-^" 'org-insert-heading-after-current
+        ;; "C-^" 'org-insert-heading-after-current
        "C-^" 'org-meta-return
-       "\236" 'org-insert-todo-heading-respect-content))
+       "\236" 'org-insert-todo-heading-respect-content)))
     ;; (with-eval-after-load 'org
     ;;   (add-hook 'org-mode-hook '(lambda ()
     ;;                               (with-eval-after-load 'elec-pair
@@ -601,19 +601,28 @@ we're adding a custom function for it here."
     ;;     :ensure nil
     ;;     :straight nil
     ;;     :commands org-confluence-export-as-confluence))
-    :config
+
+
+  ;; we do this because juggling between org, org-plus-contrib,
+  ;; straight, and emacs' built-in org is horrendous and causing the
+  ;; :config code to just not run
+  (with-eval-after-load 'org
     (defun my-org-convert-list-to-checkbox ()
       (when (and (org-at-item-p)
                  (not (org-at-item-checkbox-p)))
         (org-toggle-checkbox '(4))))
     ;; NOTE: for some reason, this hook is not being run
-    (add-hook 'org-ctrl-c-ctrl-c-final-hook 'my-org-convert-list-to-checkbox)
+    (add-hook 'org-ctrl-c-ctrl-c-final-hook
+              'my-org-convert-list-to-checkbox)
     ;; NOTE: this is a hack, because I've learnt that this hook is not
     ;; consistently being called.
     (advice-add 'org-ctrl-c-ctrl-c :after
-                #'(lambda (&rest _) (run-hook-with-args-until-success 'org-ctrl-c-ctrl-c-final-hook)))
+                #'(lambda (&rest _)
+                    (run-hook-with-args-until-success
+                     'org-ctrl-c-ctrl-c-final-hook)))
     (with-eval-after-load 'evil
-      ;; NOTE: define our own hacked evil-fill and evil-fill-and-move so it will work on list items
+      ;; NOTE: define our own hacked evil-fill and evil-fill-and-move
+      ;; so it will work on list items
       (evil-define-operator my-org-evil-fill (beg end)
         "Fill text."
         :move-point nil

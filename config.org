@@ -452,6 +452,11 @@ with Chinese/Japanese.
    ((find-font (font-spec :name "Courier")) (set-frame-font "Courier-10" nil t)))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (when (find-font (font-spec :name "Iosevka"))
+    (custom-set-faces '(variable-pitch ((t (:family "Iosevka"))))))
+#+end_src
+
 ** Emacs bookmarks
 Save bookmarks immediately.
 #+begin_src emacs-lisp :results output silent
