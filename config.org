@@ -397,6 +397,11 @@ Stolen from https://github.com/bbatsov/crux
             (return-from config-block-insert-newline)))
 #+end_src
 
+** Disable native compilation warnings
+#+begin_src emacs-lisp :results output silent
+  (when (and (featurep 'nativecomp) (native-comp-available-p))
+    (customize-set-variable 'comp-async-report-warnings-errors nil))
+#+end_src
 
 ** Set commands
 #+begin_src emacs-lisp :results output silent
@@ -1223,6 +1228,8 @@ Interesting Text Objects:
                               ":PROPERTIES:\n"
                               ":CREATED:  %U\n" ;; captured as property TIMESTAMP
                               ":END:\n"
+                              ":LOGBOOK:\n"
+                              ":END:\n"
                               "%?")
                      :prepend t
                      :clock-in t))
@@ -1233,25 +1240,31 @@ Interesting Text Objects:
                               ":PROPERTIES:\n"
                               ":CREATED:  %U\n" ;; captured as property TIMESTAMP
                               ":END:\n"
+                              ":LOGBOOK:\n"
+                              ":END:\n"
                               "%?")))
       (add-to-list 'org-capture-templates
-                   `("nn" "Note" entry
+                   `("nn" "Note, unscheduled TODO entry." entry
                      (file ,my-todo-org-file)
                      ,(concat "* TODO %^{DESCRIPTION} %^g \n"
                               "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))\n"
                               ":PROPERTIES:\n"
                               ":CREATED:  %U\n" ;; captured as property TIMESTAMP
                               ":END:\n"
+                              ":LOGBOOK:\n"
+                              ":END:\n"
                               "%?")))
       (add-to-list 'org-capture-templates
-                   `("tt" "Task" entry
+                   `("tt" "Task, General scheduled TODO entry." entry
                      (file ,my-todo-org-file)
                      ,(concat "* TODO [%] %^{DESCRIPTION} %^g \n"
                               "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))\n"
                               ":PROPERTIES:\n"
                               ":CREATED:  %U\n" ;; captured as property TIMESTAMP
                               ":END:\n"
-                              "%(with-temp-buffer (insert-file-contents (f-join user-emacs-directory \"templates\" \"todo-guide.org\")) (buffer-string))\n"
+                              ":LOGBOOK:\n"
+                              ":END:\n"
+                              ;; "%(with-temp-buffer (insert-file-contents (f-join user-emacs-directory \"templates\" \"todo-guide.org\")) (buffer-string))\n"
                               "%?")))))
   ;; when inserting a heading immediately go into insert mode
     ;; (when (boundp 'my-journal-org-file)
@@ -3949,7 +3962,7 @@ Or evil-spongebob if you want to think of it that way.
      80
      "Update the max width of the title")
     (elfeed-search-filter
-     "@1-week-ago +unread +hot "
+     "@1-day-ago +unread +interesting "
      "The trailing space is so that adding additional tags to filter
      won't be painful.")
     (elfeed-search-date-format
@@ -3958,14 +3971,14 @@ Or evil-spongebob if you want to think of it that way.
     :general
     (elfeed-show-mode-map
      :states '(normal motion)
-      "g O" (lambda ()
-              (interactive)
-              (let ((browse-url-browser-function 'eww-browse-url))
-                (elfeed-show-visit t)))
-      "f" 'link-hint-open-link
-      "y" 'link-hint-copy-link
-      "SPC"   nil
-      "<SPC>" nil)
+     "g O" (lambda ()
+             (interactive)
+             (let ((browse-url-browser-function 'eww-browse-url))
+               (elfeed-show-visit t)))
+     "f" 'link-hint-open-link
+     "y" 'link-hint-copy-link
+     "SPC"   nil
+     "<SPC>" nil)
     (elfeed-search-mode-map
      :states '(normal motion)
      "g x"  'elfeed-search-browse-url ;; "g o" also does this in normal mode
@@ -3978,10 +3991,21 @@ Or evil-spongebob if you want to think of it that way.
       (interactive "<a>")
       (cond
        ((string= cmd "feeds") (find-user-rss-feed-file))
+       ((string= cmd "feed") (find-user-rss-feed-file))
        ((string= cmd "reload") (reload-rss-feed-file))
        ;; ((string= cmd "log") (switch-to-buffer (elfeed-log-buffer)))
        (t (elfeed))))
-    (evil-ex-define-cmd "el[feed]" 'my-custom-elfeed))
+    (evil-ex-define-cmd "el[feed]" 'my-custom-elfeed)
+    :config
+    ;; https://mac.into.sh/elfeed/
+    (if (not (boundp 'my-syncthing-default-folder))
+        (message "Unable to find `my-syncthing-default-folder',
+        defaulting to local elfeed db")
+      (customize-set-variable 'elfeed-db-directory
+                              (f-join my-syncthing-default-folder "elfeed"))
+      (elfeed-db-load)
+      (add-hook 'elfeed-show-mode-hook #'(lambda () (elfeed-search-update 1)))
+      (add-hook 'kill-emacs-hook #'elfeed-db-save)))
 #+end_src
 
 ** Elfeed org
@@ -3990,6 +4014,7 @@ This is really really slow
   (use-package elfeed-org
     :straight (:host github :repo "remyhonig/elfeed-org")
     :if (f-exists? user-rss-feed-file)
+    :after elfeed
     :commands (elfeed-org
                rmh-elfeed-org-process)
     :custom
@@ -4020,6 +4045,21 @@ This is really really slow
   ;; ;; :config
   ;; ;; (elfeed-goodies/setup)
   ;; ;; (remove-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title))
+#+end_src
+
+** Elfeed Score
+#+begin_src emacs-lisp :results output silent
+  (use-package elfeed-score
+    :straight t
+    :after elfeed
+    :config (elfeed-score-enable))
+#+end_src
+
+** Elfeed Dashboard
+#+begin_src emacs-lisp :results output silent
+  (use-package elfeed-dashboard
+    :after elfeed
+    :straight t)
 #+end_src
 
 * Info mode
