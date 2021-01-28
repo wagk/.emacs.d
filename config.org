@@ -4235,16 +4235,26 @@ Not tracking master because it's currently broken for some reason.
 * Company
 #+begin_src emacs-lisp :results output silent
   (use-package company-mode
-    :straight (:host github :repo "company-mode/company-mode")
+    ;; :straight (:host github :repo "company-mode/company-mode")
+    :straight t
     :commands (company-mode-on
                company-mode)
     :general
     (company-active-map
      "C-w" nil) ;; don't override vim controls
-    :custom
-    (company-idle-delay 2)
+    ;; :custom
+    ;; (company-idle-delay 2)
     :hook
     (prog-mode-hook . company-mode))
+#+end_src
+
+** Company Quickhelp
+#+begin_src emacs-lisp :results output silent
+  (use-package company-quickhelp
+    :straight t
+    :after company-mode
+    :config
+    (company-quickhelp-mode))
 #+end_src
 
 ** Statistics

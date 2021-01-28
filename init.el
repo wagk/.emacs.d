@@ -446,6 +446,7 @@ we're adding a custom function for it here."
     ;;               :files (:defaults ("modes" "modes/*")))
     :custom
     (evil-collection-setup-minibuffer t)
+    (evil-collection-calendar-want-org-bindings t)
     :config
     (evil-collection-init))
 
@@ -584,30 +585,30 @@ we're adding a custom function for it here."
       (general-define-key
        :keymaps 'org-mode-map
        :states '(normal insert motion)
-        ;; "C-^" 'org-insert-heading-after-current
+       ;; "C-^" 'org-insert-heading-after-current
        "C-^" 'org-meta-return
        "\236" 'org-insert-todo-heading-respect-content)))
-    ;; (with-eval-after-load 'org
-    ;;   (add-hook 'org-mode-hook '(lambda ()
-    ;;                               (with-eval-after-load 'elec-pair
-    ;;                                 (let ((org-pairs '((?= . ?=)
-    ;;                                                    (?/ . ?/)
-    ;;                                                    (?$ . ?$))))
-    ;;                                   (setq-local electric-pair-pairs
-    ;;                                               (append electric-pair-pairs org-pairs))
-    ;;                                   (setq-local electric-pair-text-pairs
-    ;;                                               electric-pair-pairs)))))
-    ;;   (defun my-org-reformat-buffer ()
-    ;;     (interactive)
-    ;;     (when (y-or-n-p "Really format current buffer? ")
-    ;;       (let ((document (org-element-interpret-data (org-element-parse-buffer))))
-    ;;         (erase-buffer)
-    ;;         (insert document)
-    ;;         (goto-char (point-min)))))
-    ;;   (use-package ox-confluence
-    ;;     :ensure nil
-    ;;     :straight nil
-    ;;     :commands org-confluence-export-as-confluence))
+  ;; (with-eval-after-load 'org
+  ;;   (add-hook 'org-mode-hook '(lambda ()
+  ;;                               (with-eval-after-load 'elec-pair
+  ;;                                 (let ((org-pairs '((?= . ?=)
+  ;;                                                    (?/ . ?/)
+  ;;                                                    (?$ . ?$))))
+  ;;                                   (setq-local electric-pair-pairs
+  ;;                                               (append electric-pair-pairs org-pairs))
+  ;;                                   (setq-local electric-pair-text-pairs
+  ;;                                               electric-pair-pairs)))))
+  ;;   (defun my-org-reformat-buffer ()
+  ;;     (interactive)
+  ;;     (when (y-or-n-p "Really format current buffer? ")
+  ;;       (let ((document (org-element-interpret-data (org-element-parse-buffer))))
+  ;;         (erase-buffer)
+  ;;         (insert document)
+  ;;         (goto-char (point-min)))))
+  ;;   (use-package ox-confluence
+  ;;     :ensure nil
+  ;;     :straight nil
+  ;;     :commands org-confluence-export-as-confluence))
 
 
   ;; we do this because juggling between org, org-plus-contrib,
