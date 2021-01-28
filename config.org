@@ -3980,7 +3980,7 @@ Or evil-spongebob if you want to think of it that way.
      "g r"  'elfeed-search-fetch-visible
      "SPC"   nil
      "<SPC>" nil)
-    :hook (elfeed-show-mode-hook . (lambda () (setq-local truncate-lines nil)))
+    ;; :hook (elfeed-show-mode-hook . (lambda () (setq-local truncate-lines nil)))
     :init
     (evil-define-command my-custom-elfeed (cmd)
       (interactive "<a>")
@@ -3999,8 +3999,9 @@ Or evil-spongebob if you want to think of it that way.
       (customize-set-variable 'elfeed-db-directory
                               (f-join my-syncthing-default-folder "elfeed"))
       (elfeed-db-load)
-      (add-hook 'elfeed-show-mode-hook #'(lambda () (elfeed-search-update 1)))
-      (add-hook 'kill-emacs-hook #'elfeed-db-save)))
+      ;; TODO: trace if this hook... actually exists
+      ;; (add-hook 'elfeed-show-mode-hook #'(lambda () (elfeed-search-update 1)))
+      (add-hook 'kill-emacs-hook #'elfeed-db-save-safe)))
 #+end_src
 
 ** Elfeed org
