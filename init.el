@@ -265,6 +265,10 @@ recovery. Maybe eventually load dependencies and all that."
   (use-package ts
     :straight t)
 
+  (use-package undo-fu
+    :straight t
+    :when (< 28 emacs-major-version))
+
 ;;; Evil-mode
   (use-package evil
     :demand t
@@ -295,6 +299,9 @@ recovery. Maybe eventually load dependencies and all that."
     (:keymaps 'outer
      "e"      'my-evil-a-buffer)
     :custom
+    (evil-undo-system (if (>= 28 emacs-major-version)
+                          'undo-redo
+                        'undo-fu))
     (evil-want-Y-yank-to-eol
      t
      "Y has the default behavior of functioning identically to yy.
