@@ -457,6 +457,11 @@ with Chinese/Japanese.
    ((find-font (font-spec :name "Courier")) (set-frame-font "Courier-10" nil t)))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (when (find-font (font-spec :name "Iosevka"))
+    (custom-set-faces '(variable-pitch ((t (:family "Iosevka"))))))
+#+end_src
+
 ** Emacs bookmarks
 Save bookmarks immediately.
 #+begin_src emacs-lisp :results output silent
@@ -4272,15 +4277,25 @@ Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package company-mode
     :straight (:host github :repo "company-mode/company-mode")
+    ;; :straight t
     :commands (company-mode-on
                company-mode)
     :general
     (company-active-map
      "C-w" nil) ;; don't override vim controls
-    :custom
-    (company-idle-delay 2)
+    ;; :custom
+    ;; (company-idle-delay 2)
     :hook
     (prog-mode-hook . company-mode))
+#+end_src
+
+** Company Quickhelp
+#+begin_src emacs-lisp :results output silent
+  (use-package company-quickhelp
+    :straight t
+    :after company-mode
+    :config
+    (company-quickhelp-mode))
 #+end_src
 
 ** Statistics
