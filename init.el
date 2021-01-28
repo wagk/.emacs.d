@@ -446,7 +446,9 @@ we're adding a custom function for it here."
     ;;               :files (:defaults ("modes" "modes/*")))
     :custom
     (evil-collection-setup-minibuffer t)
-    (evil-collection-calendar-want-org-bindings t)
+    ;; the following causes a crash because:
+    ;; Lisp error: (void-variable org-agenda-diary-file)
+    ;; (evil-collection-calendar-want-org-bindings t)
     :config
     (evil-collection-init))
 

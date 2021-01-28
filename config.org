@@ -4275,8 +4275,8 @@ Not tracking master because it's currently broken for some reason.
 * Company
 #+begin_src emacs-lisp :results output silent
   (use-package company-mode
-    ;; :straight (:host github :repo "company-mode/company-mode")
-    :straight t
+    :straight (:host github :repo "company-mode/company-mode")
+    ;; :straight t
     :commands (company-mode-on
                company-mode)
     :general
