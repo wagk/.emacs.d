@@ -1093,6 +1093,11 @@ Use counsel instead
   (general-define-key "C-h b" 'counsel-descbinds)
 #+end_src
 
+* Emacsql
+#+begin_src emacs-lisp :results output silent
+  (use-package emacsql
+    :straight t)
+#+end_src
 * Org Mode
 ** Evil Org Bindings
 Full keybindings:
@@ -2415,7 +2420,8 @@ Solarized)
 ** Parinfer
 #+begin_src emacs-lisp :results output silent
   (use-package parinfer
-    :straight (:host github :repo "DogLooksGood/parinfer-mode")
+    ;; :straight (:host github :repo "DogLooksGood/parinfer-mode")
+    :straight t
     :commands (parinfer-mode)
     :general
     (parinfer-mode-map
