@@ -4858,3 +4858,13 @@ It's... not very good.
     (use-package tree-sitter-langs)
     (global-tree-sitter-mode))
 #+end_src
+
+* Scratch
+Not persistent scratch, just a custom scratch buffer
+#+begin_src emacs-lisp :results output silent
+  (use-package scratch
+    :straight t
+    :commands scratch
+    :init
+    (evil-ex-define-cmd "sc[ratch]" 'scratch))
+#+end_src
