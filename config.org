@@ -462,6 +462,10 @@ with Chinese/Japanese.
     (custom-set-faces '(variable-pitch ((t (:family "Iosevka"))))))
 #+end_src
 
+TODO:
+- [ ] Update variable-pitch to use iosevka-aile
+- [ ] Update fixed-pitch and fixed-pitch-serif
+
 ** Emacs bookmarks
 Save bookmarks immediately.
 #+begin_src emacs-lisp :results output silent
@@ -1855,6 +1859,10 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
                magit-pull
                magit-commit)
     :defer 1
+    :general
+    (magit-mode-map
+     :states '(normal)
+     "g x" 'magit-browse-thing)
     :init
     (evil-define-command ex-magit-cli (cmd)
       "Calls specific magit functions"
