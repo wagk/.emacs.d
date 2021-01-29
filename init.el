@@ -410,9 +410,9 @@ we're adding a custom function for it here."
     (my-evil-define-split-vsplit-cmd "me[ssage]"
                                      #'(lambda ()
                                          (switch-to-buffer "*Messages*")))
-    (my-evil-define-split-vsplit-cmd "sc[ratch]"
-                                     #'(lambda ()
-                                         (switch-to-buffer "*scratch*")))
+    ;; (my-evil-define-split-vsplit-cmd "sc[ratch]"
+    ;;                                  #'(lambda ()
+    ;;                                      (switch-to-buffer "*scratch*")))
 
     ;; (evil-ex-define-cmd "framen" 'make-frame)
     ;; (evil-ex-define-cmd "framec" 'delete-frame)

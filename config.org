@@ -462,6 +462,10 @@ with Chinese/Japanese.
     (custom-set-faces '(variable-pitch ((t (:family "Iosevka"))))))
 #+end_src
 
+TODO:
+- [ ] Update variable-pitch to use iosevka-aile
+- [ ] Update fixed-pitch and fixed-pitch-serif
+
 ** Emacs bookmarks
 Save bookmarks immediately.
 #+begin_src emacs-lisp :results output silent
@@ -1093,6 +1097,11 @@ Use counsel instead
   (general-define-key "C-h b" 'counsel-descbinds)
 #+end_src
 
+* Emacsql
+#+begin_src emacs-lisp :results output silent
+  (use-package emacsql
+    :straight t)
+#+end_src
 * Org Mode
 ** Evil Org Bindings
 Full keybindings:
@@ -1850,6 +1859,10 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
                magit-pull
                magit-commit)
     :defer 1
+    :general
+    (magit-mode-map
+     :states '(normal)
+     "g x" 'magit-browse-thing)
     :init
     (evil-define-command ex-magit-cli (cmd)
       "Calls specific magit functions"
@@ -2415,7 +2428,8 @@ Solarized)
 ** Parinfer
 #+begin_src emacs-lisp :results output silent
   (use-package parinfer
-    :straight (:host github :repo "DogLooksGood/parinfer-mode")
+    ;; :straight (:host github :repo "DogLooksGood/parinfer-mode")
+    :straight t
     :commands (parinfer-mode)
     :general
     (parinfer-mode-map
@@ -4844,4 +4858,14 @@ It's... not very good.
     :config
     (use-package tree-sitter-langs)
     (global-tree-sitter-mode))
+#+end_src
+
+* Scratch
+Not persistent scratch, just a custom scratch buffer
+#+begin_src emacs-lisp :results output silent
+  (use-package scratch
+    :straight t
+    :commands scratch
+    :init
+    (evil-ex-define-cmd "sc[ratch]" 'scratch))
 #+end_src
