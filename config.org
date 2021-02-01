@@ -1768,6 +1768,14 @@ is)
     ;;             :override 'my-org-clock-get-clock-string))
 #+end_src
 
+** Org Appear
+#+begin_src emacs-lisp :results output silent
+  (use-package org-appear
+    :straight (:host github :repo "awth13/org-appear")
+    :commands (org-appear-mode)
+    :hook (org-mode-hook . org-appear-mode))
+#+end_src
+
 * hl-todo
 #+begin_src emacs-lisp :results output silent
   (use-package hl-todo
