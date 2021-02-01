@@ -1099,7 +1099,7 @@ Use counsel instead
 
 * Emacsql
 #+begin_src emacs-lisp :results output silent
-  (use-package emacsql
+  (use-package emacsql-psql
     :straight t)
 #+end_src
 * Org Mode
@@ -2396,6 +2396,7 @@ Solarized)
 #+begin_src emacs-lisp :results output silent
   (use-package counsel-projectile
     :straight (:host github :repo "ericdanan/counsel-projectile")
+    :disabled t ;; try project-file-search
     :commands (council-projectile-ag)
     :general
     (:states '(normal motion)
@@ -2405,9 +2406,16 @@ Solarized)
     (evil-ex-define-cmd "pp" 'counsel-projectile))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (general-define-key
+   :states '(normal motion)
+   "+" 'project-find-file)
+#+end_src
+
 ** Org-Projectile
 #+begin_src emacs-lisp :results output silent
   (use-package org-projectile
+    :disabled t ;; we don't use this
     :straight (:host github :repo "IvanMalison/org-projectile")
     :commands (org-projectile-project-todo-entry
                org-projectile-get-project-todo-file)
@@ -4839,7 +4847,6 @@ Note that =customize-set-variable= is like =setq-default=.
 #+end_src
 
 * Fill Function Argument
-It's... not very good.
 #+begin_src emacs-lisp :results output silent
   (use-package fill-function-arguments
     :straight (:host github :repo "davidshepherd7/fill-function-arguments")
@@ -4854,8 +4861,8 @@ It's... not very good.
 #+begin_src emacs-lisp :results output silent
   (use-package spotify
     ;; :straight (:host github :repo "danielfm/spotify.el")
-    :disabled t ;; can't find an `oauth2` package
-    :straight nil
+    :straight t
+    ;; :disabled t ;; can't find an `oauth2` package
     :if (and (boundp 'my-spotify-oauth2-client-secret)
              (boundp 'my-spotify-oauth2-client-id)))
 #+end_src
@@ -4876,4 +4883,33 @@ Not persistent scratch, just a custom scratch buffer
     :commands scratch
     :init
     (evil-ex-define-cmd "sc[ratch]" 'scratch))
+#+end_src
+
+* Compiler Explorer
+#+begin_src emacs-lisp :results output silent
+  (use-package compiler-explorer
+    :straight (:host github :repo "mkcms/compiler-explorer.el")
+    :commands (compiler-explorer))
+#+end_src
+
+* Emacs-sourcetrail
+#+begin_src emacs-lisp :results output silent
+  (use-package emacs-sourcetrail
+    :straight (:host github :repo "CoatiSoftware/emacs-sourcetrail")
+    :commands (sourcetrail-mode
+               sourcetrail-send-location))
+#+end_src
+
+* Macrostep
+#+begin_src emacs-lisp :results output silent
+  (use-package macrostep
+    :straight t
+    :commands (macrostep-expand))
+#+end_src
+
+* Json Snatcher
+#+begin_src emacs-lisp :results output silent
+  (use-package json-snatcher
+    :straight t
+    :commands (jsons-print-path))
 #+end_src
