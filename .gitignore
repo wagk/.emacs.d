@@ -47,3 +47,4 @@ straight/
 /org-roam.db
 /.git-credentials
 /eln-cache/
+/compiler-explorer

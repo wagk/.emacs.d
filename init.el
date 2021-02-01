@@ -548,7 +548,9 @@ we're adding a custom function for it here."
     (org-enforce-todo-dependencies
      nil "Same reason as `org-enforce-todo-checkbox-dependencies'")
     (org-pretty-entities
-     nil "It gets a bit annoying when you autocomplete braces")
+     ;; nil "It gets a bit annoying when you autocomplete braces")
+     t "Try org-appear")
+    (org-hide-emphasis-markers t "Try org-appear")
     (org-log-done 'time)
     (org-log-note-clock-out t)
     (org-log-redeadline 'time)
