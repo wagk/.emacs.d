@@ -4285,6 +4285,7 @@ Might be better done as an ex mode command or something.
   (use-package ivy-rich
     :straight (:host github :repo "Yevgnen/ivy-rich")
     :defer 23
+    :after (ivy counsel)
     :config
     (ivy-rich-mode))
 #+end_src
