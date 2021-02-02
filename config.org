@@ -663,6 +663,7 @@ re-evaluating the need for this
 * Packaging
 #+begin_src emacs-lisp :results output silent
   (use-package auto-package-update
+    :disabled t
     :straight (:host github :repo "rranelli/auto-package-update.el")
     :commands (auto-package-update-now
                auto-package-update-at-time
@@ -1406,7 +1407,10 @@ language's mappings.
     :disabled t
     :general
     (org-src-mode-map
-     "C-c C-c" 'org-edit-src-exit))
+     "C-c C-c" 'org-edit-src-exit
+     [remap evil-save-and-close] 'org-edit-src-exit
+     [remap evil-save-modified-and-close] 'org-edit-src-exit
+     [remap evil-quit] 'org-edit-src-abort))
 #+end_src
 
 ** Org Download
