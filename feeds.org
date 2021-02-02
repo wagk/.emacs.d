@@ -5,7 +5,7 @@
 - hot :: Frontpage feeds
 
 * Imported Feeds                                                     :elfeed:
-** A List of Things I actually Read                                     :interesting:
+** A List of Things I actually Read                             :interesting:
 *** [[http://calnewport.com/blog/feed/][Study Hacks]]
 *** [[https://www.lesswrong.com/feed.xml][Lesswrong]]
 *** [[http://etodd.io/feed/][Evan Todd's Blog]]                     :gamedev:
@@ -24,6 +24,8 @@
 *** [[http://www.cheerfulegg.com/feed/][cheerful.egg]]        :finance:local:
 *** COMMENT [[http://www.gwern.net/atom.xml][Gwern]]
 He disabled it.
+
+*** [[https://sssscomic.com/ssss-feed.xml][Stand Still Stay Silent]]                                        :webcomic:
 *** [[http://www.randygaul.net/feed/][Randy Gaul's Game Programming Blog]] :gamedev:
 *** [[https://old.reddit.com/r/gwern/.rss][/r/gwern]]                :reddit:
 *** [[https://scholars-stage.blogspot.com/feeds/posts/default?alt=rss][Scholar's Stage]] :china:culture:
@@ -35,12 +37,12 @@ Gwern's actual rss feed is broken or something, so we use reddit instead
 *** [[https://languagelog.ldc.upenn.edu/nll/?feed=rss2][Language Log]]
 *** [[https://stronglang.wordpress.com/feed/][Strong Language]]
 
-** Newsletters
+** Newsletters                                                      :science:
 *** [[https://thegrowtheq.com/feed/][The Growth Equation]]
 *** [[https://www.bloomberg.com/opinion/authors/ARbTQlRLRjE/matthew-s-levine.rss][Matt Levine Money Stuff]]
 *** [[https://joy.recurse.com/feed.atom][Recurse]]
 
-** News                                                                :mainstream:
+** News                                                          :mainstream:
 *** Channel News Asia
 **** [[https://www.channelnewsasia.com/rssfeeds/8395744][Channel News Asia (Asia)]] :asia:
 **** [[https://www.channelnewsasia.com/rssfeeds/8396082][Channel News Asia (Singapore)]] :singapore:
@@ -511,7 +513,7 @@ Joe Nelson's Blog
 ** Military Things                                                 :military:
 *** [[http://www.38north.org/feed/][38 North]]
 *** [[https://gaijinass.com/feed/][Gaijinass]]
-** Webcomics                                                         :comics:
+** Webcomics                                                       :webcomic:
 *** [[http://www.darthsanddroids.net/rss.xml][Darths and Droids]]
 *** [[http://well-of-souls.com/outsider/rss.xml][Outsider Comic]]
 *** [[http://www.mcyumi.com/feed/][Marine Corps Yumi]]

@@ -1638,8 +1638,8 @@ Requires =sqlite=. Install using =choco install sqlite=
      :prefix my-default-evil-leader-key
      "n i" 'org-roam-insert
      "n t" 'org-roam-tag-add
+     "n a" 'org-roam-alias-add
      "n f" 'org-roam-find-file
-     "n d" 'org-roam-dailies-today
      "n b" 'org-roam-buffer-toggle-display)
     :custom
     (org-roam-buffer-width 0.3)
@@ -3200,6 +3200,13 @@ package manager
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("json" . json) org-src-lang-modes)))
+#+end_src
+
+** Json Snatcher
+#+begin_src emacs-lisp :results output silent
+  (use-package json-snatcher
+    :straight t
+    :commands (jsons-print-path))
 #+end_src
 
 * Wgrep
@@ -4914,13 +4921,6 @@ Not persistent scratch, just a custom scratch buffer
   (use-package macrostep
     :straight t
     :commands (macrostep-expand))
-#+end_src
-
-* Json Snatcher
-#+begin_src emacs-lisp :results output silent
-  (use-package json-snatcher
-    :straight t
-    :commands (jsons-print-path))
 #+end_src
 
 * Buttercup (Emacs Test Framework)
