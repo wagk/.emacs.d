@@ -637,9 +637,11 @@ for the specific hook.
 #+begin_src emacs-lisp :results output silent
   (use-package which-key
     :straight (:host github :repo "justbur/emacs-which-key")
+    :demand t
     :general
     (:states 'normal
-     "C-h M-k" 'which-key-show-keymap)
+     "C-h M-k" 'which-key-show-keymap
+     "C-h M-m" 'which-key-show-full-major-mode)
     :config
     (which-key-mode))
 #+end_src
@@ -1637,6 +1639,9 @@ Requires =sqlite=. Install using =choco install sqlite=
      "n b" 'org-roam-buffer-toggle-display)
     :custom
     (org-roam-buffer-width 0.3)
+    (org-roam-db-update-method (if (eq system-type 'windows-nt)
+                                   'immediate
+                                 'idle-timer))
     ;; (org-roam-directory my-notes-folder)
     ;; (org-roam-directory my-notes-folder)
     ;; (org-roam-index-file (f-join org-roam-directory "index.org"))
@@ -4284,7 +4289,6 @@ Might be better done as an ex mode command or something.
 #+begin_src emacs-lisp :results output silent
   (use-package ivy-rich
     :straight (:host github :repo "Yevgnen/ivy-rich")
-    :defer 23
     :after (ivy counsel)
     :config
     (ivy-rich-mode))
@@ -4913,4 +4917,20 @@ Not persistent scratch, just a custom scratch buffer
   (use-package json-snatcher
     :straight t
     :commands (jsons-print-path))
+#+end_src
+
+* Buttercup (Emacs Test Framework)
+#+begin_src emacs-lisp :results output silent
+  (use-package buttercup
+    :straight t)
+#+end_src
+
+* Typit
+#+begin_src emacs-lisp :results output silent
+  (use-package typit
+    :straight t
+    :commands
+    (typit-basic-test
+     typit-advanced-test
+     typit-test))
 #+end_src

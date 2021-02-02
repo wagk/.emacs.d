@@ -703,7 +703,7 @@ we're adding a custom function for it here."
   ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
 
 
-  (use-package ivy
+  (use-package counsel
     :demand t
     :straight (:host github :repo "abo-abo/swiper")
     :general
