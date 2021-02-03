@@ -4897,8 +4897,10 @@ Not persistent scratch, just a custom scratch buffer
 #+begin_src emacs-lisp :results output silent
   (use-package emacs-sourcetrail
     :straight (:host github :repo "CoatiSoftware/emacs-sourcetrail")
-    :commands (sourcetrail-mode
-               sourcetrail-send-location))
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "? ?" 'sourcetrail-send-location))
 #+end_src
 
 * Macrostep
