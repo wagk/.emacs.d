@@ -3020,7 +3020,7 @@ Requires rust-mode and markdown-mode
     ;; (evil-ex-define-cmd "cargo" 'my-cargo-wrapper))
 #+end_src
 
-* TODO Dired
+* Dired
 - Make it more like netrw
 
 
@@ -3041,7 +3041,7 @@ Requires rust-mode and markdown-mode
      "e" 'dired-toggle-read-only ; similar interface to wgrep
      "/" 'counsel-find-file
      "?" 'counsel-find-file
-     "+" nil) ; don't block org-projectile
+     "+" 'project-find-file) ; don't block org-projectile
     :config
     ;; (evil-define-command open-dired-window ()
     ;;   (interactive)
@@ -4266,11 +4266,15 @@ now becomes too noisy.
 * Annotations
 Might be better done as an ex mode command or something.
 
+This is a very finnicky package
+
 #+begin_src emacs-lisp :results output silent
   (use-package annotate
-    :straight (:host github :repo "bastibe/annotate.el")
+    ;; :straight (:host github :repo "bastibe/annotate.el")
+    :straight t
     :commands (annotate-save-annotations)
     :custom
+    (annotate-summary-ask-query nil)
     (annotate-annotation-position-policy :new-line)
     :hook
     (after-save-hook . annotate-save-annotations)
@@ -4279,6 +4283,7 @@ Might be better done as an ex mode command or something.
      :prefix my-default-evil-leader-key
                                           ; "r" for "remember"
      "r r" 'annotate-annotate
+     "r m" 'annotate-mode
      "r s" 'annotate-show-annotation-summary))
 #+end_src
 
