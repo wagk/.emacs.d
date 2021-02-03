@@ -637,9 +637,11 @@ for the specific hook.
 #+begin_src emacs-lisp :results output silent
   (use-package which-key
     :straight (:host github :repo "justbur/emacs-which-key")
+    :demand t
     :general
     (:states 'normal
-     "C-h M-k" 'which-key-show-keymap)
+     "C-h M-k" 'which-key-show-keymap
+     "C-h M-m" 'which-key-show-full-major-mode)
     :config
     (which-key-mode))
 #+end_src
@@ -661,6 +663,7 @@ re-evaluating the need for this
 * Packaging
 #+begin_src emacs-lisp :results output silent
   (use-package auto-package-update
+    :disabled t
     :straight (:host github :repo "rranelli/auto-package-update.el")
     :commands (auto-package-update-now
                auto-package-update-at-time
@@ -1404,7 +1407,10 @@ language's mappings.
     :disabled t
     :general
     (org-src-mode-map
-     "C-c C-c" 'org-edit-src-exit))
+     "C-c C-c" 'org-edit-src-exit
+     [remap evil-save-and-close] 'org-edit-src-exit
+     [remap evil-save-modified-and-close] 'org-edit-src-exit
+     [remap evil-quit] 'org-edit-src-abort))
 #+end_src
 
 ** Org Download
@@ -1632,11 +1638,14 @@ Requires =sqlite=. Install using =choco install sqlite=
      :prefix my-default-evil-leader-key
      "n i" 'org-roam-insert
      "n t" 'org-roam-tag-add
+     "n a" 'org-roam-alias-add
      "n f" 'org-roam-find-file
-     "n d" 'org-roam-dailies-today
      "n b" 'org-roam-buffer-toggle-display)
     :custom
     (org-roam-buffer-width 0.3)
+    (org-roam-db-update-method (if (eq system-type 'windows-nt)
+                                   'immediate
+                                 'idle-timer))
     ;; (org-roam-directory my-notes-folder)
     ;; (org-roam-directory my-notes-folder)
     ;; (org-roam-index-file (f-join org-roam-directory "index.org"))
@@ -3193,6 +3202,13 @@ package manager
       (cl-pushnew '("json" . json) org-src-lang-modes)))
 #+end_src
 
+** Json Snatcher
+#+begin_src emacs-lisp :results output silent
+  (use-package json-snatcher
+    :straight t
+    :commands (jsons-print-path))
+#+end_src
+
 * Wgrep
 Being able to mass-edit using search results seem interesting
 http://blog.binchen.org/posts/use-wgrep-and-evil-to-replace-text-efficiently.html
@@ -4284,7 +4300,6 @@ Might be better done as an ex mode command or something.
 #+begin_src emacs-lisp :results output silent
   (use-package ivy-rich
     :straight (:host github :repo "Yevgnen/ivy-rich")
-    :defer 23
     :after (ivy counsel)
     :config
     (ivy-rich-mode))
@@ -4910,9 +4925,18 @@ Not persistent scratch, just a custom scratch buffer
     :commands (macrostep-expand))
 #+end_src
 
-* Json Snatcher
+* Buttercup (Emacs Test Framework)
 #+begin_src emacs-lisp :results output silent
-  (use-package json-snatcher
+  (use-package buttercup
+    :straight t)
+#+end_src
+
+* Typit
+#+begin_src emacs-lisp :results output silent
+  (use-package typit
     :straight t
-    :commands (jsons-print-path))
+    :commands
+    (typit-basic-test
+     typit-advanced-test
+     typit-test))
 #+end_src
