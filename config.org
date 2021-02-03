@@ -656,6 +656,7 @@ re-evaluating the need for this
 
 #+begin_src emacs-lisp :results output silent
   (use-package hercules
+    :disabled t
     :straight (:host gitlab :repo "jjzmajic/hercules.el")
     :commands (hercules-def))
 #+end_src
@@ -702,10 +703,10 @@ re-evaluating the need for this
 TODO: Make it so that if the point is inside {} or something similar,
 pressing RET autoformats it, instead of doing nothing as it does right now
 
-
 #+begin_src emacs-lisp :results output silent
   (use-package smartparens
     :straight (:host github :repo "Fuco1/smartparens")
+    :defer 2
     :diminish smartparens-mode
     :commands (sp-local-pair
                smartparens-global-mode)
@@ -1404,12 +1405,18 @@ language's mappings.
   (use-package org-src
     :ensure nil
     :straight nil
-    :disabled t
+    :init
+    (defun my-evil-org-src-save-exit ()
+      (interactive)
+      (org-edit-src-save)
+      (org-edit-src-exit))
     :general
     (org-src-mode-map
-     "C-c C-c" 'org-edit-src-exit
-     [remap evil-save-and-close] 'org-edit-src-exit
-     [remap evil-save-modified-and-close] 'org-edit-src-exit
+     [remap evil-write] 'org-edit-src-save
+     ;; doesn't seem to be working, the saving part at least
+     [remap evil-save-and-close] #'my-evil-org-src-save-exit
+     ;; doesn't seem to be working, the saving part at least
+     [remap evil-save-modified-and-close] #'my-evil-org-src-save-exit
      [remap evil-quit] 'org-edit-src-abort))
 #+end_src
 
@@ -3047,11 +3054,11 @@ Requires rust-mode and markdown-mode
                                         (dired-jump)))
     (evil-ex-define-cmd "Vex[plore]" '(lambda () (interactive)
                                         (call-interactively 'evil-window-vsplit)
-                                        (dired-jump)))
-    (evil-ex-define-cmd "Tex[plore]" '(lambda () (interactive)
-                                        (require 'eyebrowse)
-                                        (let ((eyebrowse-new-workspace 'dired-jump))
-                                          (eyebrowse-create-window-config)))))
+                                        (dired-jump))))
+    ;; (evil-ex-define-cmd "Tex[plore]" '(lambda () (interactive)
+    ;;                                     (require 'eyebrowse)
+    ;;                                     (let ((eyebrowse-new-workspace 'dired-jump))
+    ;;                                       (eyebrowse-create-window-config)))))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
@@ -3352,7 +3359,12 @@ filters*.
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 #+end_src
 
-** COMMENT cpp-specific ligatures
+** Treat .hpp files as cpp files
+#+begin_src emacs-lisp :results output silent
+  (add-to-list 'auto-mode-alist '("\\.hpp\\'" . c++-mode))
+#+end_src
+
+** cpp-specific ligatures
 We do not support =&&= (and hence also =||=) because of conflicts with
 r-value references.
 #+begin_src emacs-lisp :results output silent
@@ -4419,6 +4431,7 @@ Not tracking master because it's currently broken for some reason.
   (use-package origami
     :straight (:host github :repo "gregsexton/origami.el")
     :after evil
+    :defer 2
     :general
     (:states 'normal
      "zm" 'origami-close-all-nodes
@@ -4912,10 +4925,20 @@ Not persistent scratch, just a custom scratch buffer
 #+begin_src emacs-lisp :results output silent
   (use-package emacs-sourcetrail
     :straight (:host github :repo "CoatiSoftware/emacs-sourcetrail")
+    :init
+    (defun my-sourcetrail-adjust-point ()
+      "`sourcetrail-send-location' needs the point to be at the end of
+  the symbol being sent. Otherwise it'll somehow link to the file
+  instead."
+      (interactive)
+      (save-excursion
+        (end-of-thing 'word)
+        (sourcetrail-send-location)))
     :general
-    (:states 'normal
-     :prefix my-default-evil-leader-key
-     "? ?" 'sourcetrail-send-location))
+    (:states '(normal visual)
+     "C-?" 'my-sourcetrail-adjust-point)
+    :config
+    (sourcetrail-mode))
 #+end_src
 
 * Macrostep
