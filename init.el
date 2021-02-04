@@ -705,7 +705,8 @@ we're adding a custom function for it here."
 
   (use-package counsel
     :demand t
-    :straight (:host github :repo "abo-abo/swiper")
+    ;; :straight (:host github :repo "abo-abo/swiper")
+    :straight t
     :general
     (ivy-minibuffer-map
      "M-j" 'ivy-next-line
