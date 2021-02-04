@@ -2478,7 +2478,7 @@ Solarized)
                  '(defaults       ; should be included.
                     pretty-parens  ; different paren styles for different modes.
                     evil           ; if you use evil.
-                    smart-tab      ; c-b & c-f jump positions and smart shift with tab & s-tab.
+                    ;; smart-tab      ; c-b & c-f jump positions and smart shift with tab & s-tab.
                     smart-yank))))   ; yank behavior depend on mode.
 #+end_src
 
@@ -3304,6 +3304,8 @@ filters*.
      :states '(motion normal)
       "n" 'evil-ex-search-next
       "N" 'evil-ex-search-previous)
+    (:states '(normal motion visual)
+     "C-+" 'rg-menu)
     :init
     ;; (evil-define-command config-rg-explicit (arg)
     ;;   (interactive "<a>") ;TODO: Figure out how to programmatically generate a files list, which we need in addition to a query
@@ -4413,7 +4415,7 @@ Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-mode
     :straight t
-    :commands (lsp-mode))
+    :commands (lsp lsp-deferred))
 #+end_src
 
 *** lsp-ui
@@ -4430,6 +4432,15 @@ Not tracking master because it's currently broken for some reason.
     :hook
     (dap-stopped-hook . (lambda (arg)
                           (call-interactively #'dap-hydra))))
+#+end_src
+
+*** lsp-ivy
+#+begin_src emacs-lisp :results output silent
+  (use-package lsp-ivy
+    :straight t
+    :commands (lsp-ivy-workspace-symbol
+               lsp-ivy-global-workspace-symbol)
+    :after lsp-mode)
 #+end_src
 * Code Folding (Origami)
 #+begin_src emacs-lisp :results output silent
