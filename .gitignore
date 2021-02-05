@@ -48,3 +48,4 @@ straight/
 /.git-credentials
 /eln-cache/
 /compiler-explorer
+/parinfer-rust/
