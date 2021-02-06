@@ -22,6 +22,8 @@
 *** [[http://what-if.xkcd.com/feed.atom][What If?]]                    :xkcd:
 *** [[http://www.artofmanliness.com/feed/][The Art of Manliness]]
 *** [[http://www.cheerfulegg.com/feed/][cheerful.egg]]        :finance:local:
+
+*** [[https://www.shamusyoung.com/twentysidedtale/?feed=rss2][Twenty-sided]]                                                :blog:gaming:
 *** COMMENT [[http://www.gwern.net/atom.xml][Gwern]]
 He disabled it.
 
