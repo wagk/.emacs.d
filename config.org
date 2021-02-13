@@ -2462,6 +2462,7 @@ Solarized)
   (use-package parinfer
     ;; :straight (:host github :repo "DogLooksGood/parinfer-mode")
     :straight t
+    :if (eq 'windows-nt system-type)
     :commands (parinfer-mode)
     :general
     (parinfer-mode-map
@@ -2478,8 +2479,29 @@ Solarized)
                  '(defaults       ; should be included.
                     pretty-parens  ; different paren styles for different modes.
                     evil           ; if you use evil.
-                    smart-tab      ; c-b & c-f jump positions and smart shift with tab & s-tab.
+                    ;; smart-tab      ; c-b & c-f jump positions and smart shift with tab & s-tab.
                     smart-yank))))   ; yank behavior depend on mode.
+#+end_src
+
+** Parinfer Rust Mode
+#+begin_src emacs-lisp :results output silent
+  (use-package parinfer-rust-mode
+    :straight t
+    :if (not (eq 'windows-nt system-type))
+    :commands (parinfer-rust-mode)
+    :general
+    (:states 'motion
+     "g p" 'parinfer-rust-toggle-paren-mode)
+    :custom
+    (parinfer-rust-auto-download t))
+#+end_src
+
+** my-maybe-init-parinfer
+#+begin_src emacs-lisp :results output silent
+  (defun my-maybe-init-parinfer ()
+    (if (not (eq 'windows-nt system-type))
+        (parinfer-rust-mode)
+      (parinfer-mode)))
 #+end_src
 
 ** Rainbow Delimiter Mode
@@ -2538,7 +2560,7 @@ package is known as elisp-mode but it reads as emacs-lisp
     :straight nil
     :hook ((emacs-lisp-mode-hook . prism-mode)
            ;; (emacs-lisp-mode-hook . rainbow-delimiters-mode)
-           (emacs-lisp-mode-hook . parinfer-mode)
+           (emacs-lisp-mode-hook . my-maybe-init-parinfer)
            (emacs-lisp-mode-hook . update-evil-shift-width)
            (emacs-lisp-mode-hook . evil-cleverparens-mode)))
            ;; (emacs-lisp-mode-hook . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
@@ -2655,7 +2677,7 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
     :straight (:host github :repo "greghendershott/racket-mode")
     :commands (racket-mode)
     :mode "\\.rkt\\'"
-    :hook ((racket-mode-hook . parinfer-mode)
+    :hook ((racket-mode-hook . my-maybe-init-parinfer)
            ;; (racket-mode-hook . rainbow-delimiters-mode)
            (racket-mode-hook . prism-mode)
            (racket-mode-hook . evil-cleverparens-mode))
@@ -2948,7 +2970,7 @@ clojurescript-mode derives from clojure-mode
     :straight (:host github :repo "clojure-emacs/clojure-mode")
     :commands (clojure-mode
                clojurescript-mode)
-    :hook ((clojure-mode-hook . parinfer-mode)
+    :hook ((clojure-mode-hook . my-maybe-init-parinfer)
            ;; (clojure-mode-hook . rainbow-delimiters-mode)
            (clojure-mode-hook . prism-mode)
            (clojure-mode-hook . update-evil-shift-width)
@@ -3304,6 +3326,8 @@ filters*.
      :states '(motion normal)
       "n" 'evil-ex-search-next
       "N" 'evil-ex-search-previous)
+    (:states '(normal motion visual)
+     "C-+" 'rg-menu)
     :init
     ;; (evil-define-command config-rg-explicit (arg)
     ;;   (interactive "<a>") ;TODO: Figure out how to programmatically generate a files list, which we need in addition to a query
@@ -3646,7 +3670,7 @@ the thing, because that's what vim does.
     (hy-mode-map
      :states 'insert
      "RET" 'comment-indent-new-line)
-    :hook ((hy-mode-hook . parinfer-mode)
+    :hook ((hy-mode-hook . my-maybe-init-parinfer)
            ;; (hy-mode-hook . rainbow-delimiters-mode)
            (hy-mode-hook . prism-mode)
            (hy-mode-hook . update-evil-shift-width)
@@ -4413,7 +4437,7 @@ Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-mode
     :straight t
-    :commands (lsp-mode))
+    :commands (lsp lsp-deferred))
 #+end_src
 
 *** lsp-ui
@@ -4430,6 +4454,15 @@ Not tracking master because it's currently broken for some reason.
     :hook
     (dap-stopped-hook . (lambda (arg)
                           (call-interactively #'dap-hydra))))
+#+end_src
+
+*** lsp-ivy
+#+begin_src emacs-lisp :results output silent
+  (use-package lsp-ivy
+    :straight t
+    :commands (lsp-ivy-workspace-symbol
+               lsp-ivy-global-workspace-symbol)
+    :after lsp-mode)
 #+end_src
 * Code Folding (Origami)
 #+begin_src emacs-lisp :results output silent
