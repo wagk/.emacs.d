@@ -2500,10 +2500,10 @@ Solarized)
 
 ** my-maybe-init-parinfer
 #+begin_src emacs-lisp :results output silent
-  (defun my-maybe-init-parinfer ()
-    (if (fboundp 'parinfer-rust-mode)
-        (parinfer-rust-mode)
-      (parinfer-mode)))
+    (defun my-maybe-init-parinfer ()
+      (if (not (eq 'windows-nt system-type))
+          (parinfer-rust-mode)
+        (parinfer-mode)))
 #+end_src
 
 ** Rainbow Delimiter Mode

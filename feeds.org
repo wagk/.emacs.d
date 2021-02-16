@@ -22,6 +22,8 @@
 *** [[http://what-if.xkcd.com/feed.atom][What If?]]                    :xkcd:
 *** [[http://www.artofmanliness.com/feed/][The Art of Manliness]]
 *** [[http://www.cheerfulegg.com/feed/][cheerful.egg]]        :finance:local:
+
+*** [[https://www.shamusyoung.com/twentysidedtale/?feed=rss2][Twenty-sided]]                                                :blog:gaming:
 *** COMMENT [[http://www.gwern.net/atom.xml][Gwern]]
 He disabled it.
 
@@ -405,8 +407,7 @@ Anime/weeb blog
 *** [[https://blog.tartanllama.xyz/feed.xml][Simon Brand]]
 *** [[http://blog.selfshadow.com/feed/][Self Shadow]]
 *** [[http://feeds.feedburner.com/Torrentfreak][TorrentFreak]]          :hot:
-
-*** [[https://ebababi.net/feed.xml][Nikolaos Anastopoulos]]            :blog:
+*** [[https://ebababi.net/feed.xml][Nikolaos Anastopoulos]]                                              :blog:
 *** [[https://deque.blog/feed/][Deque]]
 *** [[http://www.lenholgate.com/atom.xml][www.lenholgate.com - Rambling Comments - Len Holgate's C++ progamming blog]]
 *** [[https://mozillagfx.wordpress.com/feed/][Mozilla Gfx Team Blog]]
