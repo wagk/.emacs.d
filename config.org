@@ -1739,15 +1739,18 @@ is)
     :custom
     (org-clock-clocked-in-display 'both)
     (org-clock-mode-line-total 'current)
+    (org-clock-out-remove-zero-time-clocks t)
+    (org-clock-history-length 35)
     :init
-    (evil-ex-define-cmd "work" 'org-clock-goto)
-    :config
-    (evil-define-command my-org-clocking (arg)
-      (interactive "<a>")
+    (evil-define-command my-org-clocking ()
+      (interactive)
       (if (org-clocking-p)
           (org-clock-out)
         (org-clock-in-last)))
-    (evil-ex-define-cmd "clock" 'my-org-clocking))
+    (evil-ex-define-cmd "clock" 'my-org-clocking)
+    (evil-ex-define-cmd "clocks" #'(lambda () (interactive)
+                                     (org-clock-goto t))))
+
     ;; :config
     ;; (defun my-org-clock-get-clock-string ()
     ;;   "Form a clock-string, that will be shown in the mode line.
