@@ -3485,11 +3485,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 It's a minor mode, much like how magit's commit mode is a minor mode
 #+begin_src emacs-lisp :results output silent
   (use-package beancount
-    :straight nil
-    :ensure nil
-    :load-path "local-packages/"
-    :custom
-    (beancount-mode-map-prefix [(control c) (control b)])
+    :straight (:host github :repo "beancount/beancount-mode")
     :config
     (with-eval-after-load 'org-src
       (cl-pushnew '("beancount" . beancount) org-src-lang-modes)))
