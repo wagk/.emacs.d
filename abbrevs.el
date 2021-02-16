@@ -546,6 +546,7 @@
     ("wehre" "where" nil :count 4)
     ("whihc" "which" nil :count 4)
     ("whoel" "whole" nil :count 1)
+    ("wih" "with" nil :count 1)
     ("wiht" "with" nil :count 1)
     ("wnat" "want" nil :count 24)
     ("wnhat" "what" nil :count 1)
