@@ -1753,23 +1753,22 @@ is)
     (org-clock-out-remove-zero-time-clocks t)
     (org-clock-history-length 35)
     :init
+    (evil-ex-define-cmd "clocking" #'(lambda () (interactive)
+                                       (org-clock-goto t)))
     (evil-define-command my-org-clocking (&optional bang)
       "Note that adding a ! means you mark the current task as the
     default."
       (interactive "<!>")
-      (let ((make-default
-             (when (or bang (not (marker-position org-clock-default-task)))
-               '(16))))
-        (cond
-       ((org-clocking-p) (org-clock-out)
-         ((and (eq major-mode 'org-mode) (org-at-heading-p))
-          (org-clock-in make-default))
-         ((string-equal (buffer-name) "*Org Agenda*")
-          (org-agenda-clock-in make-default))
-         (t (org-clock-in '(4))))))))
-  (evil-ex-define-cmd "clock" 'my-org-clocking)
-  (evil-ex-define-cmd "clock?" #'(lambda () (interactive)
-                                 (org-clock-goto t)))
+      (cond
+        ((org-clocking-p) (org-clock-out))
+        ((and (eq major-mode 'org-mode) (org-at-heading-p))
+         (org-clock-in))
+        ((string-equal (buffer-name) "*Org Agenda*")
+         (org-agenda-clock-in))
+        (t (org-clock-in '(4))))
+      (when bang
+        (org-clock-mark-default-task)))
+    (evil-ex-define-cmd "clock" 'my-org-clocking))
 
   ;; :config
   ;; (defun my-org-clock-get-clock-string ()
@@ -1781,7 +1780,7 @@ is)
   ;; We modify this such that if the customization
   ;; `org-clock-mode-line-total' is `current', the effort estimate gets
   ;; \"eaten\" by the total clocked time (so subsequent clock-in's will
-  ;; see the effort reduce)."
+  ; see the effort reduce)."
   ;;   (let ((clocked-time (org-clock-get-clocked-time)))
   ;;     (if org-clock-effort
   ;;         (let* ((effort-in-minutes
