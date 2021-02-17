@@ -1755,53 +1755,56 @@ is)
     :init
     (evil-define-command my-org-clocking (&optional bang)
       "Note that adding a ! means you mark the current task as the
-  default."
+    default."
       (interactive "<!>")
-      (cond
-       ((org-clocking-p) (org-clock-out))
-       ((and (eq major-mode 'org-mode)
-             (org-at-heading-p))
-        (org-clock-in (when bang '(16))))
-       ((string-equal (buffer-name) "*Org Agenda*")
-        (org-agenda-clock-in (when bang '(16))))
-       (t (org-clock-in '(4)))))
-    (evil-ex-define-cmd "clock" 'my-org-clocking)
-    (evil-ex-define-cmd "clock?" #'(lambda () (interactive)
-                                     (org-clock-goto t))))
-    ;; :config
-    ;; (defun my-org-clock-get-clock-string ()
-    ;;   "Form a clock-string, that will be shown in the mode line.
-    ;; If an effort estimate was defined for the current item, use
-    ;; 01:30/01:50 format (clocked/estimated).
-    ;; If not, show simply the clocked time like 01:50.
+      (let ((make-default
+             (when (or bang (not (marker-position org-clock-default-task)))
+               '(16))))
+        (cond
+       ((org-clocking-p) (org-clock-out)
+         ((and (eq major-mode 'org-mode) (org-at-heading-p))
+          (org-clock-in make-default))
+         ((string-equal (buffer-name) "*Org Agenda*")
+          (org-agenda-clock-in make-default))
+         (t (org-clock-in '(4))))))))
+  (evil-ex-define-cmd "clock" 'my-org-clocking)
+  (evil-ex-define-cmd "clock?" #'(lambda () (interactive)
+                                 (org-clock-goto t)))
 
-    ;; We modify this such that if the customization
-    ;; `org-clock-mode-line-total' is `current', the effort estimate gets
-    ;; \"eaten\" by the total clocked time (so subsequent clock-in's will
-    ;; see the effort reduce)."
-    ;;   (let ((clocked-time (org-clock-get-clocked-time)))
-    ;;     (if org-clock-effort
-    ;;         (let* ((effort-in-minutes
-    ;;                 (if (eq org-clock-mode-line-total 'current)
-    ;;                     (-> (org-duration-to-minutes org-clock-effort)
-    ;;                         (- clocked-time))
-    ;;                   (org-duration-to-minutes org-clock-effort)))
-    ;;                (work-done-str
-    ;;                 (propertize (org-duration-from-minutes clocked-time)
-    ;;                             'face
-    ;;                             (if (and org-clock-task-overrun
-    ;;                                      (not org-clock-task-overrun-text))
-    ;;                                 'org-mode-line-clock-overrun
-    ;;                               'org-mode-line-clock)))
-    ;;                (effort-str (org-duration-from-minutes
-    ;;                             effort-in-minutes)))
-    ;;           (format (propertize " [%s/%s] (%s)" 'face 'org-mode-line-clock)
-    ;;                   work-done-str effort-str org-clock-heading))
-    ;;       (format (propertize " [%s] (%s)" 'face 'org-mode-line-clock)
-    ;;               (org-duration-from-minutes clocked-time)
-    ;;               org-clock-heading))))
-    ;; (advice-add 'org-clock-get-clock-string
-    ;;             :override 'my-org-clock-get-clock-string))
+  ;; :config
+  ;; (defun my-org-clock-get-clock-string ()
+  ;;   "Form a clock-string, that will be shown in the mode line.
+  ;; If an effort estimate was defined for the current item, use
+  ;; 01:30/01:50 format (clocked/estimated).
+  ;; If not, show simply the clocked time like 01:50.
+
+  ;; We modify this such that if the customization
+  ;; `org-clock-mode-line-total' is `current', the effort estimate gets
+  ;; \"eaten\" by the total clocked time (so subsequent clock-in's will
+  ;; see the effort reduce)."
+  ;;   (let ((clocked-time (org-clock-get-clocked-time)))
+  ;;     (if org-clock-effort
+  ;;         (let* ((effort-in-minutes
+  ;;                 (if (eq org-clock-mode-line-total 'current)
+  ;;                     (-> (org-duration-to-minutes org-clock-effort)
+  ;;                         (- clocked-time))
+  ;;                   (org-duration-to-minutes org-clock-effort)))
+  ;;                (work-done-str
+  ;;                 (propertize (org-duration-from-minutes clocked-time)
+  ;;                             'face
+  ;;                             (if (and org-clock-task-overrun
+  ;;                                      (not org-clock-task-overrun-text))
+  ;;                                 'org-mode-line-clock-overrun
+  ;;                               'org-mode-line-clock)))
+  ;;                (effort-str (org-duration-from-minutes
+  ;;                             effort-in-minutes)))
+  ;;           (format (propertize " [%s/%s] (%s)" 'face 'org-mode-line-clock)
+  ;;                   work-done-str effort-str org-clock-heading))
+  ;;       (format (propertize " [%s] (%s)" 'face 'org-mode-line-clock)
+  ;;               (org-duration-from-minutes clocked-time)
+  ;;               org-clock-heading))))
+  ;; (advice-add 'org-clock-get-clock-string
+  ;;             :override 'my-org-clock-get-clock-string))
 #+end_src
 
 ** Org Appear
