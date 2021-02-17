@@ -1742,14 +1742,15 @@ is)
     (org-clock-out-remove-zero-time-clocks t)
     (org-clock-history-length 35)
     :init
-    (evil-ex-define-cmd "work" 'org-clock-goto)
-    :config
-    (evil-define-command my-org-clocking (arg)
-      (interactive "<a>")
+    (evil-define-command my-org-clocking ()
+      (interactive)
       (if (org-clocking-p)
           (org-clock-out)
         (org-clock-in-last)))
-    (evil-ex-define-cmd "clock" 'my-org-clocking))
+    (evil-ex-define-cmd "clock" 'my-org-clocking)
+    (evil-ex-define-cmd "clocks" #'(lambda () (interactive)
+                                     (org-clock-goto t))))
+
     ;; :config
     ;; (defun my-org-clock-get-clock-string ()
     ;;   "Form a clock-string, that will be shown in the mode line.
@@ -3487,11 +3488,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 It's a minor mode, much like how magit's commit mode is a minor mode
 #+begin_src emacs-lisp :results output silent
   (use-package beancount
-    :straight nil
-    :ensure nil
-    :load-path "local-packages/"
-    :custom
-    (beancount-mode-map-prefix [(control c) (control b)])
+    :straight (:host github :repo "beancount/beancount-mode")
     :config
     (with-eval-after-load 'org-src
       (cl-pushnew '("beancount" . beancount) org-src-lang-modes)))
