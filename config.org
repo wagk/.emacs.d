@@ -1753,20 +1753,19 @@ is)
     (org-clock-out-remove-zero-time-clocks t)
     (org-clock-history-length 35)
     :init
-    (evil-define-command my-org-clocking ()
-      (interactive)
+    (evil-define-command my-org-clocking (&optional bang)
+      (interactive "<!>")
       (cond
        ((org-clocking-p) (org-clock-out))
        ((and (eq major-mode 'org-mode)
              (org-at-heading-p))
-        (org-clock-in))
+        (org-clock-in (when bang '(16))))
        ((string-equal (buffer-name) "*Org Agenda*")
-        (org-agenda-clock-in))
+        (org-agenda-clock-in (when bang '(16))))
        (t (org-clock-in '(4)))))
     (evil-ex-define-cmd "clock" 'my-org-clocking)
     (evil-ex-define-cmd "clocks" #'(lambda () (interactive)
                                      (org-clock-goto t))))
-
     ;; :config
     ;; (defun my-org-clock-get-clock-string ()
     ;;   "Form a clock-string, that will be shown in the mode line.
