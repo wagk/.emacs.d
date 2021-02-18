@@ -1756,6 +1756,7 @@ is)
     :ensure nil
     :custom
     (org-clock-clocked-in-display 'both)
+    (org-clock-persist 'history)
     (org-clock-mode-line-total 'current)
     (org-clock-out-remove-zero-time-clocks t)
     (org-clock-history-length 35)
