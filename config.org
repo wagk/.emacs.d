@@ -1203,23 +1203,34 @@ Interesting Text Objects:
                               (-remove (lambda (e) (eq (car e) 'counsel-org-capture))
                                        ivy-initial-inputs-alist)))
     (setq org-capture-templates
-          (doct '(("Current Clock"
-                   :keys "cc"
-                   :type entry
-                   :clock t
-                   :prepend t
-                   ;; leaving template to nil adds a backlink to the
-                   ;; parent item (probaby because it's the currently
-                   ;; clocked task). Interesting
-                   :template "* TODO %?"
-                   :clock-resume t)
-                  ("Note Clock"
-                   :keys "cn"
-                   :type entry
-                   :clock t
-                   :prepend t
-                   :template "* %?"
-                   :clock-resume t))))
+          (doct-add-to org-capture-templates
+                       '(("Clock Item"
+                          :keys "cc"
+                          :type item
+                          :clock t
+                          :prepend t
+                          ;; leaving template to nil adds a backlink to the
+                          ;; parent item (probaby because it's the currently
+                          ;; clocked task). Interesting
+                          :template "%?"
+                          :clock-resume t)
+                         ("Current Clock"
+                          :keys "ct"
+                          :type entry
+                          :clock t
+                          :prepend t
+                          ;; leaving template to nil adds a backlink to the
+                          ;; parent item (probaby because it's the currently
+                          ;; clocked task). Interesting
+                          :template "* TODO %?"
+                          :clock-resume t)
+                         ("Note Clock"
+                          :keys "cn"
+                          :type entry
+                          :clock t
+                          :prepend t
+                          :template "* %?"
+                          :clock-resume t))))
     ;; (add-to-list 'org-capture-templates
     ;;               `("cc" "Current Clock" item
     ;;                 (clock)
