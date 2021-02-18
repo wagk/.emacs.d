@@ -1211,6 +1211,13 @@ Interesting Text Objects:
                    ;; leaving template to nil adds a backlink to the
                    ;; parent item (probaby because it's the currently
                    ;; clocked task). Interesting
+                   :template "* TODO %?"
+                   :clock-resume t)
+                  ("Note Clock"
+                   :keys "cn"
+                   :type entry
+                   :clock t
+                   :prepend t
                    :template "* %?"
                    :clock-resume t))))
     ;; (add-to-list 'org-capture-templates
