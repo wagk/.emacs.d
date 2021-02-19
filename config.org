@@ -1808,7 +1808,7 @@ is)
         ((string-equal (buffer-name) "*Org Agenda*")
          (org-agenda-clock-in))
         (t (org-clock-in '(4))))
-      (when bang
+      (when (or bang (not (marker-position org-clock-default-task)))
         (org-clock-mark-default-task)))
     (evil-ex-define-cmd "clock" 'my-org-clocking))
 
