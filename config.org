@@ -519,6 +519,16 @@ Further helper functions to add bookmarks:
                               (interactive)
                               (require 'counsel)
                               (counsel-bookmark)))
+  (evil-ex-define-cmd "Tmm" '(lambda ()
+      ;; TODO: have counsel-bookmark run earlier so if we cancel we
+      ;; don't get a new tab
+                               (interactive)
+                               (require 'counsel)
+                               (if (>= emacs-major-version 27)
+                                   (tab-bar-new-tab)
+                                (require 'eyebrowse)
+                                (my-new-evil-tab nil))
+                               (funcall-interactively 'counsel-bookmark)))
 #+end_src
 
 ** Doctor mode
