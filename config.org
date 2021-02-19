@@ -1795,7 +1795,8 @@ is)
     (org-clock-history-length 35)
     :init
     (evil-ex-define-cmd "clocking" #'(lambda () (interactive)
-                                       (org-clock-goto t)))
+                                       (org-clock-goto
+                                        (not (org-clocking-p)))))
     (evil-define-command my-org-clocking (&optional bang)
       "Note that adding a ! means you mark the current task as the
     default."
