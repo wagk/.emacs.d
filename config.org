@@ -1206,7 +1206,6 @@ Interesting Text Objects:
           (counsel-projectile-org-capture)
         (counsel-org-capture)))
     :config
-    (org-clock-persistence-insinuate)
     (with-eval-after-load 'counsel
       ;; Remove ^ prefix in ivy org capture
       (require 'dash)
@@ -1794,14 +1793,21 @@ is)
     (org-clock-mode-line-total 'current)
     (org-clock-out-remove-zero-time-clocks t)
     (org-clock-history-length 35)
+    :general
+    (:states '(normal)
+     :prefix my-default-evil-leader-key
+     "cc" 'my-org-clocking
+     "cf" 'my-org-goto-clock)
     :init
-    (evil-ex-define-cmd "clocking" #'(lambda () (interactive)
-                                       (org-clock-goto
-                                        (not (org-clocking-p)))))
+    (defun my-org-goto-clock ()
+      (interactive)
+      (require 'org-clock)
+      (org-clock-goto (not (org-clocking-p))))
     (evil-define-command my-org-clocking (&optional bang)
       "Note that adding a ! means you mark the current task as the
     default."
       (interactive "<!>")
+      (require 'org-clock)
       (cond
         ((org-clocking-p) (org-clock-out))
         ((and (eq major-mode 'org-mode) (org-at-heading-p))
@@ -1811,7 +1817,11 @@ is)
         (t (org-clock-in '(4))))
       (when (or bang (not (marker-position org-clock-default-task)))
         (org-clock-mark-default-task)))
-    (evil-ex-define-cmd "clock" 'my-org-clocking))
+    (evil-ex-define-cmd "clock" #'my-org-clocking)
+    (evil-ex-define-cmd "clocking" #'my-org-goto-clock)
+    :config
+    (org-clock-persistence-insinuate)
+    (org-clock-load))
 
   ;; :config
   ;; (defun my-org-clock-get-clock-string ()
