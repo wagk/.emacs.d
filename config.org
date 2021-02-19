@@ -1218,6 +1218,7 @@ Interesting Text Objects:
                           :keys "cc"
                           :type item
                           :clock t
+                          :prepend t
                           ;; leaving template to nil adds a backlink to the
                           ;; parent item (probaby because it's the currently
                           ;; clocked task). Interesting
