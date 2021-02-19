@@ -1796,8 +1796,8 @@ is)
     :general
     (:states '(normal)
      :prefix my-default-evil-leader-key
-     "cc" 'my-org-clocking
-     "cf" 'my-org-goto-clock)
+     "c c" 'my-org-clocking
+     "c f" 'my-org-goto-clock)
     :init
     (defun my-org-goto-clock ()
       (interactive)
@@ -5020,7 +5020,13 @@ Not persistent scratch, just a custom scratch buffer
     :straight t
     :commands scratch
     :init
-    (evil-ex-define-cmd "sc[ratch]" 'scratch))
+    (evil-define-command my-scratch (&optional bang)
+      (interactive "<!>")
+      (if bang
+          (let ((current-prefix-arg 4))
+            (call-interactively 'scratch))
+        (call-interactively 'scratch)))
+    (evil-ex-define-cmd "sc[ratch]" 'my-scratch))
 #+end_src
 
 * Compiler Explorer
