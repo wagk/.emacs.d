@@ -552,13 +552,13 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     (tab-bar-mode)
     (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
     (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
-    (with-eval-after-load 'org-agenda
-      (general-define-key
-       :keymaps 'org-agenda-mode-map
-       :states '(normal)
-       :prefix my-default-evil-leader-key
-       "g t" 'tab-bar-switch-to-next-tab
-       "g T" 'tab-bar-switch-to-prev-tab))
+    ;; (with-eval-after-load 'org-agenda
+    ;;   (general-define-key
+    ;;    :keymaps 'org-agenda-mode-map
+    ;;    :states '(motion)
+    ;;    :prefix my-default-evil-leader-key
+    ;;    "g t" 'tab-bar-switch-to-next-tab
+    ;;    "g T" 'tab-bar-switch-to-prev-tab))
     (evil-define-command my-tab-bar-tab-edit (file)
       (interactive "<f>")
       (let ((tab-bar-new-tab-choice (if file file "*scratch*")))
@@ -1342,6 +1342,8 @@ For some reason we can't do this in the scratch buffer
      "|" 'org-agenda-list)
     (:keymaps 'org-agenda-keymap
      :states '(normal motion)
+     "g t" nil
+     "g T" nil
      ;; Seems to be an unhandled case by evil-org
      "RET" 'org-agenda-switch-to
      [remap evil-write] 'org-save-all-org-buffers)
@@ -1363,6 +1365,12 @@ For some reason we can't do this in the scratch buffer
     :config
     (require 'evil-org-agenda)
     (evil-org-agenda-set-keys)
+    (with-eval-after-load 'tab-bar
+      (general-define-key
+       :keymap org-agenda-mode-map
+       :states '(motion)
+       "g t" 'tab-bar-switch-to-next-tab
+       "g T" 'tab-bar-switch-to-prev-tab))
     ;; This is exactly like the original `org-agenda-add'
     ;; except that we call `my-counsel-org-capture' instead
     ;; The timestamp feature is currently unused, though that might
@@ -1403,6 +1411,10 @@ For some reason we can't do this in the scratch buffer
     :straight t
     :commands org-super-agenda-mode
     :hook (org-agenda-mode-hook . org-super-agenda-mode)
+    :general
+    (org-super-agenda-mode-map
+     "g t" nil
+     "g T" nil)
     :custom
     (org-super-agenda-groups
      '((:name "Ongoing Work. Try to keep this set small."
