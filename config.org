@@ -1206,6 +1206,7 @@ Interesting Text Objects:
           (counsel-projectile-org-capture)
         (counsel-org-capture)))
     :config
+    (org-clock-persistence-insinuate)
     (with-eval-after-load 'counsel
       ;; Remove ^ prefix in ivy org capture
       (require 'dash)
