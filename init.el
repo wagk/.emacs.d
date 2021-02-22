@@ -301,6 +301,7 @@ recovery. Maybe eventually load dependencies and all that."
     :custom
     (evil-undo-system (if (>= 28 emacs-major-version)
                           'undo-redo
+                        (require 'undo-fu)
                         'undo-fu))
     (evil-want-Y-yank-to-eol
      t
