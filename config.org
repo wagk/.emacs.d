@@ -4514,13 +4514,31 @@ Not tracking master because it's currently broken for some reason.
 *** lsp-ui
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-ui
-    :after lsp-mode)
+    :after lsp-mode
+    :straight t
+    :general
+    (lsp-ui-mode-map
+     [remap xref-find-definitions] #'lsp-ui-peek-find-definitions
+     [remap xref-find-references] #'lsp-ui-peek-find-references)
+    (lsp-ui-peek-mode-map
+     "j" 'lsp-ui-peek--select-next
+     "k" 'lsp-ui-peek--select-prev)
+    :custom-face
+    ;; (lsp-ui-peek-footer ((t (:foreground "b58900" :background "b58900")))))
+    (lsp-ui-peek-footer ((t (:inherit 'evil-ex-substitute-matches))))
+    (lsp-ui-peek-header ((t (:inherit 'lsp-ui-peek-footer))))
+    (lsp-ui-peek-highlight ((t (:inherit 'lsp-ui-peek-footer))))
+    (lsp-ui-peek-selection ((t (:inherit 'evil-ex-substitute-matches))))
+    :custom
+    (lsp-ui-sideline-enable nil)
+    (lsp-ui-peek-peek-height 23))
 #+end_src
 
 *** Debug Adapter Mode (dap-mode)
 #+begin_src emacs-lisp :results output silent
   (use-package dap-mode
     :after lsp-mode
+    :straight t
     :commands (dap-debug)
     :hook
     (dap-stopped-hook . (lambda (arg)
