@@ -1398,8 +1398,9 @@ For some reason we can't do this in the scratch buffer
       (customize-set-variable
        'org-agenda-files
        (-concat org-agenda-files
-                `(,my-text-raw-folder ,my-todo-org-file)
-                (list))))
+                `(,my-text-raw-folder
+                  ,my-todo-org-file
+                  ,(f-join config-local-syncthing-folder "mobile.org")))))
     ;; (-concat org-agenda-files
     ;;          (directory-files-recursively
     ;;           (f-join my-notes-folder "raw")
