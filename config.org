@@ -3593,30 +3593,46 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     :general
     (edit-abbrevs-mode-map
      [remap evil-save] 'abbrev-edit-save-buffer)
-    (:states 'normal
+    (:states '(normal visual)
      :prefix my-default-evil-leader-key
-     "a a" 'inverse-add-global-abbrev)
+     "a a" 'my-inverse-add-global-abbrev)
     :init
     ;; This makes it active globally
     (setq-default abbrev-mode t)
-    (evil-define-command ex-abbreviation (arg)
-      "Attempts to replicate the :abbreviate function in vim.
-    :ab - Shows you the abbreviation tables
-    :ab A B [C D E] - Expands \"A\" to \"B C D E\". At least 2 arguments
-    must be given, otherwise it's a no-op."
-      (interactive "<a>")
-      ;; TODO: figure out what happens if we want the expansion to have
-      ;; variable space length. We currently don't care, because odds are
-      ;; we want our expansion to look like good english anyway.
-      (if (not arg)
-          (edit-abbrevs)
-        (let* ((arguments (split-string arg))
-               (size (safe-length arguments)))
-          (cond
-           ((= size 1) nil) ;; no op, as far as I can tell
-           (t (let ((expansion (mapconcat 'identity (cdr arguments) " ")))
-                (define-global-abbrev (car arguments) expansion)))))))
-    (evil-ex-define-cmd "ab[breviate]" 'ex-abbreviation))
+    (evil-define-command my-inverse-add-global-abbrev (beg end _type)
+      "Generates an abbrev for the given visual selection."
+      (interactive "<v>")
+      (require 'abbrev)
+      ;; nil if there is no visual region; the number of words in the
+      ;; region otherwise
+      (if (and beg end)
+          (let ((current-prefix-arg 0))
+            (call-interactively 'add-global-abbrev))
+        (call-interactively 'inverse-add-global-abbrev))))
+      ;; (add-global-abbrev
+      ;;  (if (and beg end)
+      ;;      (-> (buffer-substring-no-properties beg end)
+      ;;          (split-string)
+      ;;          (length))
+      ;;    1))))
+      ;; (evil-define-command ex-abbreviation (arg)
+      ;;   "Attempts to replicate the :abbreviate function in vim.
+      ;; :ab - Shows you the abbreviation tables
+      ;; :ab A B [C D E] - Expands \"A\" to \"B C D E\". At least 2 arguments
+      ;; must be given, otherwise it's a no-op."
+      ;;   (interactive "<a>")
+      ;;   ;; TODO: figure out what happens if we want the expansion to have
+      ;;   ;; variable space length. We currently don't care, because odds are
+      ;;   ;; we want our expansion to look like good english anyway.
+      ;;   (if (not arg)
+      ;;       (edit-abbrevs)
+      ;;     (let* ((arguments (split-string arg))
+      ;;            (size (safe-length arguments)))
+      ;;       (cond
+      ;;        ((= size 1) nil) ;; no op, as far as I can tell
+      ;;        (t (let ((expansion (mapconcat 'identity (cdr arguments) " ")))
+      ;;             (define-global-abbrev (car arguments) expansion)))))))
+      ;; (evil-ex-define-cmd "ab[breviate]" 'ex-abbreviation))
 #+end_src
 
 * Writeroom

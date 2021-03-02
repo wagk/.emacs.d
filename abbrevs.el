@@ -83,6 +83,7 @@
     ("calng" "clang" nil :count 2)
     ("candiate" "candidate" nil :count 1)
     ("cauisng" "causing" nil :count 1)
+    ("chaanges" "changes" nil :count 1)
     ("chagnes" "changes" nil :count 1)
     ("charactrer" "character" nil :count 1)
     ("checkinf" "checking" nil :count 2)
