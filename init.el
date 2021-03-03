@@ -735,6 +735,10 @@ we're adding a custom function for it here."
     :init
     (evil-ex-define-cmd "restart" 'restart-emacs))
 
+  (progn
+   (setq custom-file (locate-user-emacs-file "custom.el"))
+   (load custom-file))
+
   ;; Load local configuration variables, we do it here so that
   ;; local.el gets access to the "core" init loads
   (load-local-el)
@@ -746,11 +750,8 @@ we're adding a custom function for it here."
   (add-hook 'after-init-hook
             #'(lambda ()
                 (message "Loaded .emacs.d in %.06f seconds."
-                         (float-time (time-since my-init-start-time)))))
+                         (float-time (time-since my-init-start-time))))))
 
-  ;; Disable ANNOYING customize options
-  (setq custom-file (locate-user-emacs-file "custom.el")))
-  ;; (setq custom-file (make-temp-file "")))
 (message "Configuration complete.")
 
 (org-agenda-list)
