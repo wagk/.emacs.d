@@ -3605,10 +3605,6 @@ It's a minor mode, much like how magit's commit mode is a minor mode
       (require 'abbrev)
       ;; nil if there is no visual region; the number of words in the
       ;; region otherwise
-      (if (and beg end)
-          (let ((current-prefix-arg 0))
-            (call-interactively 'add-global-abbrev))
-        (call-interactively 'inverse-add-global-abbrev))))
       ;; (add-global-abbrev
       ;;  (if (and beg end)
       ;;      (-> (buffer-substring-no-properties beg end)
@@ -3633,7 +3629,18 @@ It's a minor mode, much like how magit's commit mode is a minor mode
       ;;        (t (let ((expansion (mapconcat 'identity (cdr arguments) " ")))
       ;;             (define-global-abbrev (car arguments) expansion)))))))
       ;; (evil-ex-define-cmd "ab[breviate]" 'ex-abbreviation))
+      ;; (if (and beg end)
+      ;;     (let ((current-prefix-arg 0))
+      ;;       (call-interactively 'add-global-abbrev))
+      ;;   (call-interactively 'inverse-add-global-abbrev))
+      (let* ((name (if (region-active-p)
+                      (buffer-substring-no-properties beg end)
+                      (thing-at-point 'word)))
+             (exp (read-string (format "abbrev for \"%s\": " name))))
+        (define-abbrev global-abbrev-table (downcase name) exp))))
 #+end_src
+
+
 
 * Writeroom
 #+begin_src emacs-lisp :results output silent

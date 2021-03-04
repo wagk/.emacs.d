@@ -581,5 +581,4 @@
     ("wya" "way" nil :count 4)
     ("yb" "by" nil :count 2)
     ("yeaterday" "yesterday" nil :count 1)
-    ("yse" "yes" nil :count 1)
-   ))
+    ("yse" "yes" nil :count 1)))
