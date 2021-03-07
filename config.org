@@ -3562,6 +3562,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 #+begin_src emacs-lisp :results output silent
   (use-package beancount
     :straight (:host github :repo "beancount/beancount-mode")
+    :mode ("\\.beancount\\'" . beancount-mode)
     :config
     (with-eval-after-load 'org-src
       (cl-pushnew '("beancount" . beancount) org-src-lang-modes)))
