@@ -158,10 +158,16 @@ Emulate the best feature of notepad
     (insert (format-time-string (if with-hours "%F-%H%M" "%F"))))
   (general-define-key
    :states '(normal motion insert)
-    "<f5>" '(lambda () (interactive)
-              (iso-8601-timestamp nil))
-    "S-<f5>" '(lambda () (interactive)
-                (iso-8601-timestamp t)))
+   "<f5>" '(lambda () (interactive)
+             (iso-8601-timestamp nil))
+   "S-<f5>" '(lambda () (interactive)
+               (iso-8601-timestamp t)))
+  (general-define-key
+   :states '(normal)
+   "gz" '(lambda () (interactive)
+            (iso-8601-timestamp nil))
+   "gZ" '(lambda () (interactive)
+           (iso-8601-timestamp t)))
 #+end_src
 
 ** Do not truncate lines
@@ -2450,8 +2456,11 @@ Solarized)
 #+end_src
 
 * Projectile
+try using the built-in =project= functions instead
+
 #+begin_src emacs-lisp :results output silent
   (use-package projectile
+    :disabled t
     :straight (:host github :repo "bbatsov/projectile")
     :commands (projectile-mode
                projectile-project-p
@@ -2487,6 +2496,7 @@ Solarized)
 ** Ivy/Counsel Projectile
 #+begin_src emacs-lisp :results output silent
   (use-package counsel-projectile
+    :disabled t
     :straight (:host github :repo "ericdanan/counsel-projectile")
     :disabled t ;; try project-file-search
     :commands (council-projectile-ag)
@@ -2525,7 +2535,7 @@ Solarized)
     (customize-set-variable 'org-agenda-files (append org-agenda-files (org-projectile-todo-files))))
 #+end_src
 
-** Projectile Convenience Bindings
+** COMMENT Projectile Convenience Bindings
 #+begin_src emacs-lisp :results output silent
   (evil-ex-define-cmd "proot" '(lambda () (interactive)
                                  (require 'projectile)
@@ -3647,10 +3657,10 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     (writeroom-maximize-window nil)
     (writeroom-fullscreen-effect 'maximized)
     (writeroom-width 80)
-    (writeroom-restore-window-config nil)
-    :general
-    (:states 'normal
-     "g z" 'writeroom-mode))
+    (writeroom-restore-window-config nil))
+    ;; :general
+    ;; (:states 'normal
+    ;;  "g z" 'writeroom-mode))
     ;; :hook
     ;; ((writeroom-mode-hook . (lambda () (require 'focus)
     ;;                      (if writeroom-mode
