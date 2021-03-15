@@ -529,6 +529,24 @@ Further helper functions to add bookmarks:
                                 (require 'eyebrowse)
                                 (my-new-evil-tab nil))
                                (funcall-interactively 'counsel-bookmark)))
+  ;; (defun my-open-bookmark-in-tab ()
+  ;;   (interactive)
+  ;;   (require 'counsel)
+  ;;   (ivy-read "Create or jump to bookmark: "
+  ;;             (bookmark-all-names)
+  ;;             :history 'bookmark-history
+  ;;             :action (lambda (x)
+  ;;                       (cond ((and counsel-bookmark-avoid-dired
+  ;;                                   (member x (bookmark-all-names))
+  ;;                                   (file-directory-p (bookmark-location x)))
+  ;;                              (with-ivy-window
+  ;;                                (let ((default-directory (bookmark-location x)))
+  ;;                                  (counsel-find-file))))
+  ;;                             ((member x (bookmark-all-names))
+  ;;                              (with-ivy-window
+  ;;                                (bookmark-jump x)))
+  ;;                             (t (bookmark-set x))))))
+  ;; (evil-ex-define-cmd "Tmm")
 #+end_src
 
 ** Doctor mode
@@ -2012,14 +2030,18 @@ up, on windows at least).
     :straight (:host github :repo "alphapapa/magit-todos")
     :custom
     (magit-todos-nice
-     nil
+     (not (eq system-type 'windows-nt))
      "`nice' does not exist on windows")
     :general
-    (general-define-key
-     :keymaps '(magit-todos-section-map magit-todos-item-section-map)
+    (:keymaps
+     '(magit-todos-section-map magit-todos-item-section-map)
      "jT" nil
      "jl" nil
      "j" nil)
+    :commands
+    (magit-todos-list)
+    :init
+    (evil-ex-define-cmd "todo" 'magit-todos-list)
     :hook
     (magit-status-mode-hook . magit-todos-mode))
 #+end_src
@@ -4533,7 +4555,12 @@ Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-mode
     :straight t
-    :commands (lsp lsp-deferred))
+    :commands (lsp lsp-deferred)
+    :general
+    (lsp-mode-map
+     :states 'normal
+     :prefix my-default-evil-leader-key
+      "l a a" 'lsp-execute-code-action))
 #+end_src
 
 *** lsp-ui
