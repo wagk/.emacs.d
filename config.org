@@ -866,7 +866,7 @@ Disabled because it kept raising a warning during init about markerp
 #+begin_src emacs-lisp :results output silent
   (use-package evil-fringe-mark
     :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
-    ;; :disabled t
+    :disabled t
     :custom
     (evil-fringe-mark-show-special t)
     :config
@@ -876,6 +876,7 @@ Disabled because it kept raising a warning during init about markerp
 ** Visual marks
 #+begin_src emacs-lisp :results output silent
   (use-package evil-visual-mark-mode
+    :disabled t
     :straight (:host github :repo "roman/evil-visual-mark-mode")
     :commands evil-visual-mark-mode)
 #+end_src
@@ -4576,6 +4577,7 @@ Not tracking master because it's currently broken for some reason.
 *** lsp-ui
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-ui
+    :disabled t
     :after lsp-mode
     :straight t
     :general
@@ -5158,4 +5160,14 @@ Not persistent scratch, just a custom scratch buffer
     (typit-basic-test
      typit-advanced-test
      typit-test))
+#+end_src
+
+* Compilation Mode
+#+begin_src emacs-lisp :results output silent
+  (use-package compile
+    :general
+    (compilation-mode-map
+     :states 'normal
+     "]]" 'compilation-next-error
+     "[[" 'compilation-previous-error))
 #+end_src
