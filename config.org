@@ -3524,7 +3524,7 @@ r-value references.
 ** Clang Format
 #+begin_src emacs-lisp :results output silent
   (use-package clang-format
-    :straight (:host github :repo "sonatard/clang-format")
+    :straight (:host github :repo "emacsmirror/clang-format")
     :commands (clang-format-region
                clang-format-buffer
                clang-format)
@@ -3563,6 +3563,13 @@ r-value references.
     :custom
     (clang-format-style-option "file"
                                "read from .clang-format"))
+#+end_src
+
+** Clang-Format+
+#+begin_src emacs-lisp :results output silent
+  (use-package clang-format+
+    :after clang-format
+    :straight t)
 #+end_src
 
 * Disable autoformatting modes when drawing things
@@ -4573,14 +4580,16 @@ Not tracking master because it's currently broken for some reason.
   (use-package lsp-mode
     :straight t
     :commands (lsp lsp-deferred)
-    :general
-    (:states 'normal
+    :config
+    ;; this is necessary since `lsp-command-map' is not autoloadable
+    (general-define-key
+     :states 'normal
      :prefix my-default-evil-leader-key
      "l" lsp-command-map))
-    ;; (lsp-mode-map
-    ;;  :states 'normal
-    ;;  :prefix my-default-evil-leader-key
-    ;;   "l a a" 'lsp-execute-code-action))
+        ;; (lsp-mode-map
+        ;;  :states 'normal
+        ;;  :prefix my-default-evil-leader-key
+        ;;   "l a a" 'lsp-execute-code-action))
 #+end_src
 
 *** lsp-ui
@@ -5179,4 +5188,15 @@ Not persistent scratch, just a custom scratch buffer
      :states 'normal
      "]]" 'compilation-next-error
      "[[" 'compilation-previous-error))
+#+end_src
+
+* Project mode
+#+begin_src emacs-lisp :results output silent
+  (use-package project
+    :ensure nil
+    :straight nil
+    :init
+    (advice-add 'evil-make
+                :before
+                #'(lambda (&rest _) (require 'project))))
 #+end_src
