@@ -1901,6 +1901,11 @@ is)
     :commands (hl-todo-mode)
     :hook ((prog-mode-hook  . hl-todo-mode)
            (yaml-mode-hook  . hl-todo-mode))
+    :custom
+    (hl-todo-keyword-faces . '(("TODO"    . "#b58900")
+                               ("DEBUG"   . "#d33682")
+                               ("NOTE"    . "#586e75")
+                               ("FIXME"   . "#cb4b16")))
     :general
     ;; (:states 'normal
     ;;  :prefix my-default-evil-leader-key
@@ -2315,28 +2320,29 @@ TODO: some way to better, more dynamically name the tabs
                    (sol-cyan    . "#2aa198")
                    (sol-green   . "#859900")))
       ;; TODO: set documentation string
-      (set (car col) (cdr col)))
-    (defun load-solarized-theme ()
-      (interactive)
-      (if (display-graphic-p)
-          (load-theme 'solarized-dark t)
-        (load-theme 'solarized-gruvbox-dark t))
-      (with-eval-after-load 'prism
-        (prism-set-colors
-         :num 24
-         :colors
-         ;; (list sol-green sol-cyan sol-blue sol-yellow)
-         (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
-         :desaturations
-         (list 10 20 30)
-         :lightens
-         (list 0 -2.5 -5)))
-      (with-eval-after-load 'hl-todo
-        (customize-set-variable 'hl-todo-keyword-faces
-                                '(("TODO"    . "#b58900")
-                                  ("DEBUG"   . "#d33682")
-                                  ("NOTE"    . "#586e75")
-                                  ("FIXME"   . "#cb4b16"))))))
+      (set (car col) (cdr col))))
+    ;; (defun load-solarized-theme ()
+    ;;   (interactive)
+    ;;   (if (display-graphic-p)
+    ;;       (load-theme 'solarized-dark t)
+    ;;     (load-theme 'solarized-gruvbox-dark t))
+    ;;   (with-eval-after-load 'prism
+    ;;     (prism-set-colors
+    ;;      :num 24
+    ;;      :colors
+    ;;      ;; (list sol-green sol-cyan sol-blue sol-yellow)
+    ;;      (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
+    ;;      :desaturations
+    ;;      (list 10 20 30)
+    ;;      :lightens
+    ;;      (list 0 -2.5 -5)))
+    ;;   (with-eval-after-load 'hl-todo
+    ;;     (customize-set-variable 'hl-todo-keyword-faces
+    ;;                             '(("TODO"    . "#b58900")
+    ;;                               ("DEBUG"   . "#d33682")
+    ;;                               ("NOTE"    . "#586e75")
+    ;;                               ("FIXME"   . "#cb4b16")))))
+
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
@@ -2350,28 +2356,28 @@ Personal theme that I'm maintaining (really stealing shamelessly from
 Solarized)
 
 #+begin_src emacs-lisp :results output silent
-  (defun load-eva02-theme ()
-    (interactive)
-    (load-theme 'eva02 t)
-    (with-eval-after-load 'prism
-      (prism-set-colors
-       :num 24
-       :colors
-       ;; (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
-       (list 'font-lock-keyword-face
-             'font-lock-builtin-face
-             'font-lock-variable-name-face)
-       :desaturations
-       (list 10 20 30)
-       :lightens
-       ;; (list 0 -2.5 -5)))
-       (list 0 5 10)))
-    (with-eval-after-load 'hl-todo
-      (customize-set-variable 'hl-todo-keyword-faces
-                              '(("TODO"    . "#ff0000")
-                                ("DEBUG"   . "#ff0000")
-                                ;; ("NOTE"    . "#ff0000")
-                                ("FIXME"   . "#ff0000")))))
+  ;; (defun load-eva02-theme ()
+  ;;   (interactive)
+  ;;   (load-theme 'eva02 t)
+  ;;   (with-eval-after-load 'prism
+  ;;     (prism-set-colors
+  ;;      :num 24
+  ;;      :colors
+  ;;      ;; (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
+  ;;      (list 'font-lock-keyword-face
+  ;;            'font-lock-builtin-face
+  ;;            'font-lock-variable-name-face)
+  ;;      :desaturations
+  ;;      (list 10 20 30)
+  ;;      :lightens
+  ;;      ;; (list 0 -2.5 -5)))
+  ;;      (list 0 5 10)))
+  ;;   (with-eval-after-load 'hl-todo
+  ;;     (customize-set-variable 'hl-todo-keyword-faces
+  ;;                             '(("TODO"    . "#ff0000")
+  ;;                               ("DEBUG"   . "#ff0000")
+  ;;                               ;; ("NOTE"    . "#ff0000")
+  ;;                               ("FIXME"   . "#ff0000")))))
 #+end_src
 
 
@@ -3629,7 +3635,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
      [remap evil-save] 'abbrev-edit-save-buffer)
     (:states '(normal visual)
      :prefix my-default-evil-leader-key
-     "a a" 'my-inverse-add-global-abbrev)
+     "a a" 'inverse-add-global-abbrev)
     :init
     ;; This makes it active globally
     (setq-default abbrev-mode t)
@@ -4568,10 +4574,13 @@ Not tracking master because it's currently broken for some reason.
     :straight t
     :commands (lsp lsp-deferred)
     :general
-    (lsp-mode-map
-     :states 'normal
+    (:states 'normal
      :prefix my-default-evil-leader-key
-      "l a a" 'lsp-execute-code-action))
+     "l" 'lsp-command-map))
+    ;; (lsp-mode-map
+    ;;  :states 'normal
+    ;;  :prefix my-default-evil-leader-key
+    ;;   "l a a" 'lsp-execute-code-action))
 #+end_src
 
 *** lsp-ui
