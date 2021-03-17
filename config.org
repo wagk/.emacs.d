@@ -4576,7 +4576,7 @@ Not tracking master because it's currently broken for some reason.
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
-     "l" 'lsp-command-map))
+     "l" lsp-command-map))
     ;; (lsp-mode-map
     ;;  :states 'normal
     ;;  :prefix my-default-evil-leader-key
