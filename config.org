@@ -164,9 +164,9 @@ Emulate the best feature of notepad
                (iso-8601-timestamp t)))
   (general-define-key
    :states '(normal)
-   "gz" '(lambda () (interactive)
+   "gb" '(lambda () (interactive)
            (iso-8601-timestamp nil))
-   "gZ" '(lambda () (interactive)
+   "gB" '(lambda () (interactive)
            (iso-8601-timestamp t)))
 #+end_src
 
@@ -3691,30 +3691,30 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 
 * Writeroom
 #+begin_src emacs-lisp :results output silent
-    (use-package writeroom-mode
-      :straight (:host github :repo "joostkremers/writeroom-mode")
-      :commands (writeroom-mode)
-      :custom
-      (writeroom-mode-line t)
-      (writeroom-bottom-divider-width 0)
-      (writeroom-maximize-window nil)
-      (writeroom-fullscreen-effect 'maximized)
-      (writeroom-width 80)
-      (writeroom-restore-window-config nil)
-      ;; :general
-      ;; (:states 'normal
-      ;;  "g z" 'writeroom-mode)
-      :init
-      (evil-ex-define-cmd "write[room]" 'writeroom-mode))
-      ;; :hook
-      ;; ((writeroom-mode-hook . (lambda () (require 'focus)
-      ;;                      (if writeroom-mode
-      ;;                          (progn (focus-init)
-      ;;                                 (when display-line-numbers-mode
-      ;;                                   (display-line-numbers-mode -1)))
-      ;;                        (focus-terminate)
-      ;;                        (unless display-line-numbers-mode
-      ;;                          (display-line-numbers-mode)))))))
+  (use-package writeroom-mode
+    :straight (:host github :repo "joostkremers/writeroom-mode")
+    :commands (writeroom-mode)
+    :custom
+    (writeroom-mode-line t)
+    (writeroom-bottom-divider-width 0)
+    (writeroom-maximize-window nil)
+    (writeroom-fullscreen-effect 'maximized)
+    (writeroom-width 80)
+    (writeroom-restore-window-config nil)
+    ;; :general
+    ;; (:states 'normal
+    ;;  "g z" 'writeroom-mode)
+    :init
+    (evil-ex-define-cmd "writeroom" 'writeroom-mode))
+    ;; :hook
+    ;; ((writeroom-mode-hook . (lambda () (require 'focus)
+    ;;                      (if writeroom-mode
+    ;;                          (progn (focus-init)
+    ;;                                 (when display-line-numbers-mode
+    ;;                                   (display-line-numbers-mode -1)))
+    ;;                        (focus-terminate)
+    ;;                        (unless display-line-numbers-mode
+    ;;                          (display-line-numbers-mode)))))))
 #+end_src
 
 * Helpful
