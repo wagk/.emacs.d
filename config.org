@@ -5109,9 +5109,9 @@ Note that =customize-set-variable= is like =setq-default=.
 * Tree Sitter
 #+begin_src emacs-lisp :results output silent
   (use-package tree-sitter
+    :hook (c++-mode-hook . tree-sitter-mode)
     :config
-    (use-package tree-sitter-langs)
-    (global-tree-sitter-mode))
+    (use-package tree-sitter-langs))
 #+end_src
 
 * Scratch
@@ -5167,7 +5167,8 @@ Not persistent scratch, just a custom scratch buffer
 * Buttercup (Emacs Test Framework)
 #+begin_src emacs-lisp :results output silent
   (use-package buttercup
-    :straight t)
+    :straight t
+    :defer t) ;; uncomment when we actually need this
 #+end_src
 
 * Typit
