@@ -265,9 +265,17 @@ recovery. Maybe eventually load dependencies and all that."
   (use-package ts
     :straight t)
 
-  (use-package undo-fu
+  ;; (use-package undo-fu
+  ;;   :straight t
+  ;;   :when (< 28 emacs-major-version))
+
+  (use-package undo-tree
     :straight t
-    :when (< 28 emacs-major-version))
+    :custom
+    (undo-tree-visualizer-diff t)
+    (undo-tree-visualizer-timestamps t)
+    :config
+    (global-undo-tree-mode))
 
 ;;; Evil-mode
   (use-package evil
@@ -299,10 +307,11 @@ recovery. Maybe eventually load dependencies and all that."
     (:keymaps 'outer
      "e"      'my-evil-a-buffer)
     :custom
-    (evil-undo-system (if (>= 28 emacs-major-version)
-                          'undo-redo
-                        (require 'undo-fu)
-                        'undo-fu))
+    (evil-undo-system 'undo-tree)
+    ;; (evil-undo-system (if (>= 28 emacs-major-version)
+    ;;                       'undo-redo
+    ;;                     (require 'undo-fu)
+    ;;                     'undo-fu))
     (evil-want-Y-yank-to-eol
      t
      "Y has the default behavior of functioning identically to yy.
@@ -738,7 +747,7 @@ we're adding a custom function for it here."
   (progn
     (let ((custom (locate-user-emacs-file "custom.el")))
       (unless (f-exists-p custom)
-	(f-touch custom))
+        (f-touch custom))
       (setq custom-file custom)
       (load custom-file)))
 

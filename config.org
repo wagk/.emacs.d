@@ -164,9 +164,9 @@ Emulate the best feature of notepad
                (iso-8601-timestamp t)))
   (general-define-key
    :states '(normal)
-   "gz" '(lambda () (interactive)
-            (iso-8601-timestamp nil))
-   "gZ" '(lambda () (interactive)
+   "gb" '(lambda () (interactive)
+           (iso-8601-timestamp nil))
+   "gB" '(lambda () (interactive)
            (iso-8601-timestamp t)))
 #+end_src
 
@@ -535,6 +535,24 @@ Further helper functions to add bookmarks:
                                 (require 'eyebrowse)
                                 (my-new-evil-tab nil))
                                (funcall-interactively 'counsel-bookmark)))
+  ;; (defun my-open-bookmark-in-tab ()
+  ;;   (interactive)
+  ;;   (require 'counsel)
+  ;;   (ivy-read "Create or jump to bookmark: "
+  ;;             (bookmark-all-names)
+  ;;             :history 'bookmark-history
+  ;;             :action (lambda (x)
+  ;;                       (cond ((and counsel-bookmark-avoid-dired
+  ;;                                   (member x (bookmark-all-names))
+  ;;                                   (file-directory-p (bookmark-location x)))
+  ;;                              (with-ivy-window
+  ;;                                (let ((default-directory (bookmark-location x)))
+  ;;                                  (counsel-find-file))))
+  ;;                             ((member x (bookmark-all-names))
+  ;;                              (with-ivy-window
+  ;;                                (bookmark-jump x)))
+  ;;                             (t (bookmark-set x))))))
+  ;; (evil-ex-define-cmd "Tmm")
 #+end_src
 
 ** Doctor mode
@@ -848,7 +866,7 @@ Disabled because it kept raising a warning during init about markerp
 #+begin_src emacs-lisp :results output silent
   (use-package evil-fringe-mark
     :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
-    ;; :disabled t
+    :disabled t
     :custom
     (evil-fringe-mark-show-special t)
     :config
@@ -858,6 +876,7 @@ Disabled because it kept raising a warning during init about markerp
 ** Visual marks
 #+begin_src emacs-lisp :results output silent
   (use-package evil-visual-mark-mode
+    :disabled t
     :straight (:host github :repo "roman/evil-visual-mark-mode")
     :commands evil-visual-mark-mode)
 #+end_src
@@ -1882,6 +1901,11 @@ is)
     :commands (hl-todo-mode)
     :hook ((prog-mode-hook  . hl-todo-mode)
            (yaml-mode-hook  . hl-todo-mode))
+    :custom
+    (hl-todo-keyword-faces '(("TODO"    . "#b58900")
+                             ("DEBUG"   . "#d33682")
+                             ("NOTE"    . "#586e75")
+                             ("FIXME"   . "#cb4b16")))
     :general
     ;; (:states 'normal
     ;;  :prefix my-default-evil-leader-key
@@ -1889,25 +1913,25 @@ is)
     (:keymaps 'evil-normal-state-map
      "[ t"  'hl-todo-previous
      "] t"  'hl-todo-next))
-    ;; :init
-    ;;TODO: Make this search for regexes
-    ;; (defun my-helm-swoop-hl-todo () (interactive)
-    ;;        (require 'helm-swoop)
-    ;;        (helm-swoop :$query hl-todo-regexp :$multiline 4)))
-    ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
-    ;; Not used because we don't incrementally search for todos
-    ;; (defun my-helm-hl-todo-items ()
-    ;;   "Show `hl-todo'-keyword items in buffer."
-    ;;   (interactive)
-    ;;   (hl-todo--setup)
-    ;;   (helm :sources (helm-build-in-buffer-source "hl-todo items"
-    ;;                    :data (current-buffer)
-    ;;                    :candidate-transformer (lambda (candidates)
-    ;;                                             (cl-loop for c in candidates
-    ;;                                                      when (string-match hl-todo--regexp c)
-    ;;                                                      collect c))
-    ;;                    :get-line #'buffer-substring)
-    ;;         :buffer "*helm hl-todo*"))
+  ;; :init
+  ;;TODO: Make this search for regexes
+  ;; (defun my-helm-swoop-hl-todo () (interactive)
+  ;;        (require 'helm-swoop)
+  ;;        (helm-swoop :$query hl-todo-regexp :$multiline 4)))
+  ;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
+  ;; Not used because we don't incrementally search for todos
+  ;; (defun my-helm-hl-todo-items ()
+  ;;   "Show `hl-todo'-keyword items in buffer."
+  ;;   (interactive)
+  ;;   (hl-todo--setup)
+  ;;   (helm :sources (helm-build-in-buffer-source "hl-todo items"
+  ;;                    :data (current-buffer)
+  ;;                    :candidate-transformer (lambda (candidates)
+  ;;                                             (cl-loop for c in candidates
+  ;;                                                      when (string-match hl-todo--regexp c)
+  ;;                                                      collect c))
+  ;;                    :get-line #'buffer-substring)
+  ;;         :buffer "*helm hl-todo*"))
 #+end_src
 
 * Edit-Indirect
@@ -2018,14 +2042,18 @@ up, on windows at least).
     :straight (:host github :repo "alphapapa/magit-todos")
     :custom
     (magit-todos-nice
-     nil
+     (not (eq system-type 'windows-nt))
      "`nice' does not exist on windows")
     :general
-    (general-define-key
-     :keymaps '(magit-todos-section-map magit-todos-item-section-map)
+    (:keymaps
+     '(magit-todos-section-map magit-todos-item-section-map)
      "jT" nil
      "jl" nil
      "j" nil)
+    :commands
+    (magit-todos-list)
+    :init
+    (evil-ex-define-cmd "todo" 'magit-todos-list)
     :hook
     (magit-status-mode-hook . magit-todos-mode))
 #+end_src
@@ -2292,28 +2320,29 @@ TODO: some way to better, more dynamically name the tabs
                    (sol-cyan    . "#2aa198")
                    (sol-green   . "#859900")))
       ;; TODO: set documentation string
-      (set (car col) (cdr col)))
-    (defun load-solarized-theme ()
-      (interactive)
-      (if (display-graphic-p)
-          (load-theme 'solarized-dark t)
-        (load-theme 'solarized-gruvbox-dark t))
-      (with-eval-after-load 'prism
-        (prism-set-colors
-         :num 24
-         :colors
-         ;; (list sol-green sol-cyan sol-blue sol-yellow)
-         (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
-         :desaturations
-         (list 10 20 30)
-         :lightens
-         (list 0 -2.5 -5)))
-      (with-eval-after-load 'hl-todo
-        (customize-set-variable 'hl-todo-keyword-faces
-                                '(("TODO"    . "#b58900")
-                                  ("DEBUG"   . "#d33682")
-                                  ("NOTE"    . "#586e75")
-                                  ("FIXME"   . "#cb4b16"))))))
+      (set (car col) (cdr col))))
+    ;; (defun load-solarized-theme ()
+    ;;   (interactive)
+    ;;   (if (display-graphic-p)
+    ;;       (load-theme 'solarized-dark t)
+    ;;     (load-theme 'solarized-gruvbox-dark t))
+    ;;   (with-eval-after-load 'prism
+    ;;     (prism-set-colors
+    ;;      :num 24
+    ;;      :colors
+    ;;      ;; (list sol-green sol-cyan sol-blue sol-yellow)
+    ;;      (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
+    ;;      :desaturations
+    ;;      (list 10 20 30)
+    ;;      :lightens
+    ;;      (list 0 -2.5 -5)))
+    ;;   (with-eval-after-load 'hl-todo
+    ;;     (customize-set-variable 'hl-todo-keyword-faces
+    ;;                             '(("TODO"    . "#b58900")
+    ;;                               ("DEBUG"   . "#d33682")
+    ;;                               ("NOTE"    . "#586e75")
+    ;;                               ("FIXME"   . "#cb4b16")))))
+
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
@@ -2327,28 +2356,28 @@ Personal theme that I'm maintaining (really stealing shamelessly from
 Solarized)
 
 #+begin_src emacs-lisp :results output silent
-  (defun load-eva02-theme ()
-    (interactive)
-    (load-theme 'eva02 t)
-    (with-eval-after-load 'prism
-      (prism-set-colors
-       :num 24
-       :colors
-       ;; (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
-       (list 'font-lock-keyword-face
-             'font-lock-builtin-face
-             'font-lock-variable-name-face)
-       :desaturations
-       (list 10 20 30)
-       :lightens
-       ;; (list 0 -2.5 -5)))
-       (list 0 5 10)))
-    (with-eval-after-load 'hl-todo
-      (customize-set-variable 'hl-todo-keyword-faces
-                              '(("TODO"    . "#ff0000")
-                                ("DEBUG"   . "#ff0000")
-                                ;; ("NOTE"    . "#ff0000")
-                                ("FIXME"   . "#ff0000")))))
+  ;; (defun load-eva02-theme ()
+  ;;   (interactive)
+  ;;   (load-theme 'eva02 t)
+  ;;   (with-eval-after-load 'prism
+  ;;     (prism-set-colors
+  ;;      :num 24
+  ;;      :colors
+  ;;      ;; (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
+  ;;      (list 'font-lock-keyword-face
+  ;;            'font-lock-builtin-face
+  ;;            'font-lock-variable-name-face)
+  ;;      :desaturations
+  ;;      (list 10 20 30)
+  ;;      :lightens
+  ;;      ;; (list 0 -2.5 -5)))
+  ;;      (list 0 5 10)))
+  ;;   (with-eval-after-load 'hl-todo
+  ;;     (customize-set-variable 'hl-todo-keyword-faces
+  ;;                             '(("TODO"    . "#ff0000")
+  ;;                               ("DEBUG"   . "#ff0000")
+  ;;                               ;; ("NOTE"    . "#ff0000")
+  ;;                               ("FIXME"   . "#ff0000")))))
 #+end_src
 
 
@@ -2362,7 +2391,7 @@ Solarized)
 #+begin_src emacs-lisp :results output silent
   (when (display-graphic-p)
     ;; (load-solarized-theme))
-    (load-theme 'solarized-dark t))
+    (load-theme 'solarized-light-high-contrast t))
   ;; (load-solarized-theme)
   ;; (load-eva02-theme)
 #+end_src
@@ -3495,7 +3524,7 @@ r-value references.
 ** Clang Format
 #+begin_src emacs-lisp :results output silent
   (use-package clang-format
-    :straight (:host github :repo "sonatard/clang-format")
+    :straight (:host github :repo "emacsmirror/clang-format")
     :commands (clang-format-region
                clang-format-buffer
                clang-format)
@@ -3534,6 +3563,13 @@ r-value references.
     :custom
     (clang-format-style-option "file"
                                "read from .clang-format"))
+#+end_src
+
+** Clang-Format+
+#+begin_src emacs-lisp :results output silent
+  (use-package clang-format+
+    :after clang-format
+    :straight t)
 #+end_src
 
 * Disable autoformatting modes when drawing things
@@ -3606,7 +3642,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
      [remap evil-save] 'abbrev-edit-save-buffer)
     (:states '(normal visual)
      :prefix my-default-evil-leader-key
-     "a a" 'my-inverse-add-global-abbrev)
+     "a a" 'inverse-add-global-abbrev)
     :init
     ;; This makes it active globally
     (setq-default abbrev-mode t)
@@ -3616,10 +3652,6 @@ It's a minor mode, much like how magit's commit mode is a minor mode
       (require 'abbrev)
       ;; nil if there is no visual region; the number of words in the
       ;; region otherwise
-      (if (and beg end)
-          (let ((current-prefix-arg 0))
-            (call-interactively 'add-global-abbrev))
-        (call-interactively 'inverse-add-global-abbrev))))
       ;; (add-global-abbrev
       ;;  (if (and beg end)
       ;;      (-> (buffer-substring-no-properties beg end)
@@ -3644,7 +3676,18 @@ It's a minor mode, much like how magit's commit mode is a minor mode
       ;;        (t (let ((expansion (mapconcat 'identity (cdr arguments) " ")))
       ;;             (define-global-abbrev (car arguments) expansion)))))))
       ;; (evil-ex-define-cmd "ab[breviate]" 'ex-abbreviation))
+      ;; (if (and beg end)
+      ;;     (let ((current-prefix-arg 0))
+      ;;       (call-interactively 'add-global-abbrev))
+      ;;   (call-interactively 'inverse-add-global-abbrev))
+      (let* ((name (if (region-active-p)
+                      (buffer-substring-no-properties beg end)
+                      (thing-at-point 'word)))
+             (exp (read-string (format "abbrev for \"%s\": " name))))
+        (define-abbrev global-abbrev-table (downcase name) exp))))
 #+end_src
+
+
 
 * Writeroom
 #+begin_src emacs-lisp :results output silent
@@ -3657,10 +3700,12 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     (writeroom-maximize-window nil)
     (writeroom-fullscreen-effect 'maximized)
     (writeroom-width 80)
-    (writeroom-restore-window-config nil))
+    (writeroom-restore-window-config nil)
     ;; :general
     ;; (:states 'normal
-    ;;  "g z" 'writeroom-mode))
+    ;;  "g z" 'writeroom-mode)
+    :init
+    (evil-ex-define-cmd "writeroom" 'writeroom-mode))
     ;; :hook
     ;; ((writeroom-mode-hook . (lambda () (require 'focus)
     ;;                      (if writeroom-mode
@@ -4536,19 +4581,49 @@ Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-mode
     :straight t
-    :commands (lsp lsp-deferred))
+    :commands (lsp lsp-deferred)
+    :config
+    ;; this is necessary since `lsp-command-map' is not autoloadable
+    (general-define-key
+     :states 'normal
+     :prefix my-default-evil-leader-key
+     "l" lsp-command-map))
+        ;; (lsp-mode-map
+        ;;  :states 'normal
+        ;;  :prefix my-default-evil-leader-key
+        ;;   "l a a" 'lsp-execute-code-action))
 #+end_src
 
 *** lsp-ui
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-ui
-    :after lsp-mode)
+    :disabled t
+    :after lsp-mode
+    :straight t
+    :general
+    (lsp-ui-mode-map
+     [remap xref-find-definitions] #'lsp-ui-peek-find-definitions
+     ;; [remap xref-find-references] #'lsp-ui-peek-find-references
+     "C-," #'lsp-ui-peek-find-references)
+    (lsp-ui-peek-mode-map
+     "j" 'lsp-ui-peek--select-next
+     "k" 'lsp-ui-peek--select-prev)
+    :custom-face
+    ;; (lsp-ui-peek-footer ((t (:foreground "b58900" :background "b58900")))))
+    (lsp-ui-peek-footer ((t (:inherit 'evil-ex-substitute-matches))))
+    (lsp-ui-peek-header ((t (:inherit 'lsp-ui-peek-footer))))
+    (lsp-ui-peek-highlight ((t (:inherit 'lsp-ui-peek-footer))))
+    (lsp-ui-peek-selection ((t (:inherit 'evil-ex-substitute-matches))))
+    :custom
+    (lsp-ui-sideline-enable nil)
+    (lsp-ui-peek-peek-height 23))
 #+end_src
 
 *** Debug Adapter Mode (dap-mode)
 #+begin_src emacs-lisp :results output silent
   (use-package dap-mode
     :after lsp-mode
+    :straight t
     :commands (dap-debug)
     :hook
     (dap-stopped-hook . (lambda (arg)
@@ -5036,9 +5111,9 @@ Note that =customize-set-variable= is like =setq-default=.
 * Tree Sitter
 #+begin_src emacs-lisp :results output silent
   (use-package tree-sitter
+    :hook (c++-mode-hook . tree-sitter-mode)
     :config
-    (use-package tree-sitter-langs)
-    (global-tree-sitter-mode))
+    (use-package tree-sitter-langs))
 #+end_src
 
 * Scratch
@@ -5094,7 +5169,8 @@ Not persistent scratch, just a custom scratch buffer
 * Buttercup (Emacs Test Framework)
 #+begin_src emacs-lisp :results output silent
   (use-package buttercup
-    :straight t)
+    :straight t
+    :defer t) ;; uncomment when we actually need this
 #+end_src
 
 * Typit
@@ -5105,4 +5181,25 @@ Not persistent scratch, just a custom scratch buffer
     (typit-basic-test
      typit-advanced-test
      typit-test))
+#+end_src
+
+* Compilation Mode
+#+begin_src emacs-lisp :results output silent
+  (use-package compile
+    :general
+    (compilation-mode-map
+     :states 'normal
+     "]]" 'compilation-next-error
+     "[[" 'compilation-previous-error))
+#+end_src
+
+* Project mode
+#+begin_src emacs-lisp :results output silent
+  (use-package project
+    :ensure nil
+    :straight nil
+    :init
+    (advice-add 'evil-make
+                :before
+                #'(lambda (&rest _) (require 'project))))
 #+end_src
