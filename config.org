@@ -164,9 +164,9 @@ Emulate the best feature of notepad
                (iso-8601-timestamp t)))
   (general-define-key
    :states '(normal)
-   "gz" '(lambda () (interactive)
-            (iso-8601-timestamp nil))
-   "gZ" '(lambda () (interactive)
+   "gb" '(lambda () (interactive)
+           (iso-8601-timestamp nil))
+   "gB" '(lambda () (interactive)
            (iso-8601-timestamp t)))
 #+end_src
 
@@ -3700,10 +3700,12 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     (writeroom-maximize-window nil)
     (writeroom-fullscreen-effect 'maximized)
     (writeroom-width 80)
-    (writeroom-restore-window-config nil))
+    (writeroom-restore-window-config nil)
     ;; :general
     ;; (:states 'normal
-    ;;  "g z" 'writeroom-mode))
+    ;;  "g z" 'writeroom-mode)
+    :init
+    (evil-ex-define-cmd "writeroom" 'writeroom-mode))
     ;; :hook
     ;; ((writeroom-mode-hook . (lambda () (require 'focus)
     ;;                      (if writeroom-mode
@@ -5198,12 +5200,11 @@ Not persistent scratch, just a custom scratch buffer
     :ensure nil
     :straight nil
     :init
-    (advice-add 'evil-make
-                :before
+    (advice-add 'evil-make :before
                 #'(lambda (&rest _) (require 'project)))
     :config
     (with-eval-after-load 'rg
       (general-define-key
        :keymaps 'project-prefix-map
-        "g" 'rg-project)))
+       "g" 'rg-project)))
 #+end_src
