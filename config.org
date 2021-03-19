@@ -4513,6 +4513,7 @@ Not tracking master because it's currently broken for some reason.
                company-mode)
     :general
     (company-active-map
+     "RET" 'company-complete-selection
      "C-w" nil) ;; don't override vim controls
     ;; :custom
     ;; (company-idle-delay 2)
@@ -5199,7 +5200,11 @@ Not persistent scratch, just a custom scratch buffer
     :ensure nil
     :straight nil
     :init
-    (advice-add 'evil-make
-                :before
-                #'(lambda (&rest _) (require 'project))))
+    (advice-add 'evil-make :before
+                #'(lambda (&rest _) (require 'project)))
+    :config
+    (with-eval-after-load 'rg
+      (general-define-key
+       :keymaps 'project-prefix-map
+       "g" 'rg-project)))
 #+end_src
