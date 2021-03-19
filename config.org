@@ -5199,5 +5199,10 @@ Not persistent scratch, just a custom scratch buffer
     :init
     (advice-add 'evil-make
                 :before
-                #'(lambda (&rest _) (require 'project))))
+                #'(lambda (&rest _) (require 'project)))
+    :config
+    (with-eval-after-load 'rg
+      (general-define-key
+       :keymaps 'project-prefix-map
+        "g" 'rg-project)))
 #+end_src
