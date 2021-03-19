@@ -1749,19 +1749,19 @@ Requires =sqlite=. Install using =choco install sqlite=
       (customize-set-variable 'org-roam-directory my-notes-folder))
     (with-eval-after-load 'aggressive-fill-paragraph
       (add-hook 'org-roam-capture-after-find-file-hook 'aggressive-fill-paragraph-mode))
-    (defun org-roam--extract-tags-regex (filepath)
-      (with-temp-buffer
-        (insert-file-contents filepath)
-        (save-match-data
-          (let* ((string (buffer-string))
-                 (pos 0)
-                 matches)
-            (while (string-match "#[[:alnum:]\:-]+" string pos)
-              (push (string-remove-prefix "#" (match-string 0 string)) matches)
-              (setq pos (match-end 0)))
-            matches))))
-    (customize-set-variable 'org-roam-tag-sources
-                            (add-to-list 'org-roam-tag-sources 'regex))
+    ;; (defun org-roam--extract-tags-regex (filepath)
+    ;;   (with-temp-buffer
+    ;;     (insert-file-contents filepath)
+    ;;     (save-match-data
+    ;;       (let* ((string (buffer-string))
+    ;;              (pos 0)
+    ;;              matches)
+    ;;         (while (string-match "#[[:alnum:]\:-]+" string pos)
+    ;;           (push (string-remove-prefix "#" (match-string 0 string)) matches)
+    ;;           (setq pos (match-end 0)))
+    ;;         matches))))
+    ;; (customize-set-variable 'org-roam-tag-sources
+    ;;                         (add-to-list 'org-roam-tag-sources 'regex))
     ;; Note that org-roam captures are incompatible with org-captures
     ;; Note documentation on `org-roam-capture-templates'
     (let* ((template (list '("rr" "default" plain

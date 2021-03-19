@@ -504,10 +504,11 @@ we're adding a custom function for it here."
 
 ;;; org-mode
 
-  (use-package org-plus-contrib
-    ;; (use-package org
-    :straight (:includes org)
-    :ensure org-plus-contrib
+  ;; (use-package org-plus-contrib
+  (use-package org
+    ;; :straight (:includes org)
+    :straight (:local-repo nil)
+    ;; :ensure org-plus-contrib
     :commands (orgtbl-mode
                org-babel-load-file)
     :mode
