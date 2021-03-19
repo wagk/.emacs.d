@@ -269,6 +269,8 @@ recovery. Maybe eventually load dependencies and all that."
   ;;   :straight t
   ;;   :when (< 28 emacs-major-version))
 
+  ;; NOTE: reddit notes that there might still be some history
+  ;; corruption?
   (use-package undo-tree
     :straight t
     :custom
@@ -276,6 +278,10 @@ recovery. Maybe eventually load dependencies and all that."
     (undo-tree-visualizer-timestamps t)
     :config
     (global-undo-tree-mode))
+
+  ;; Needed for g; and g,
+  (use-package goto-chg
+    :straight t)
 
 ;;; Evil-mode
   (use-package evil
