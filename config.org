@@ -4800,7 +4800,8 @@ trailing dots only happen /after/ the fci column.)
     (persistent-scratch-setup-default))
 #+end_src
 
-* Smerge vimdiff bindings
+* COMMENT Smerge vimdiff bindings
+Not using this because we're going to try ediff
 #+begin_src emacs-lisp :results output silent
   (general-define-key
    :states '(normal motion)
