@@ -1431,6 +1431,7 @@ For some reason we can't do this in the scratch buffer
     ;;           (f-join my-notes-folder "raw")
     ;;           "\.org$"))))
     (my-evil-define-split-vsplit-cmd "agenda" #'org-agenda)
+    (my-evil-define-split-vsplit-cmd "aa" #'org-agenda)
     (evil-ex-define-cmd "Tag[enda]"
                         '(lambda () (interactive)
                            ;; TODO: unify this implementation with my-new-cmd-tab
