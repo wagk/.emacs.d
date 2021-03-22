@@ -265,6 +265,13 @@ recovery. Maybe eventually load dependencies and all that."
   (use-package ts
     :straight t)
 
+  (use-package restart-emacs
+    :straight (:host github :repo "iqbalansari/restart-emacs")
+    :commands (restart-emacs)
+    :init
+    (with-eval-after-load 'evil
+      (evil-ex-define-cmd "restart" 'restart-emacs)))
+
   ;; (use-package undo-fu
   ;;   :straight t
   ;;   :when (< 28 emacs-major-version))
@@ -504,10 +511,11 @@ we're adding a custom function for it here."
 
 ;;; org-mode
 
-  (use-package org-plus-contrib
-    ;; (use-package org
-    :straight (:includes org)
-    :ensure org-plus-contrib
+  ;; (use-package org-plus-contrib
+  (use-package org
+    ;; :straight (:includes org)
+    :straight (:local-repo nil)
+    ;; :ensure org-plus-contrib
     :commands (orgtbl-mode
                org-babel-load-file)
     :mode
@@ -743,12 +751,6 @@ we're adding a custom function for it here."
     (evil-ex-define-cmd "bb" 'counsel-buffer-or-recentf)
     :config
     (ivy-mode))
-
-  (use-package restart-emacs
-    :straight (:host github :repo "iqbalansari/restart-emacs")
-    :commands (restart-emacs)
-    :init
-    (evil-ex-define-cmd "restart" 'restart-emacs))
 
   (progn
     (let ((custom (locate-user-emacs-file "custom.el")))
