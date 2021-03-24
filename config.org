@@ -2011,6 +2011,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     (evil-ex-define-cmd "gl" 'magit-log)
     :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
            (git-commit-setup-hook . markdown-mode)
+           (git-commit-setup-hook . evil-markdown-mode)
            (git-commit-setup-hook . (lambda () (display-fill-column-indicator-mode 1)))))
 #+end_src
 
@@ -5189,6 +5190,8 @@ Not persistent scratch, just a custom scratch buffer
 * Compilation Mode
 #+begin_src emacs-lisp :results output silent
   (use-package compile
+    :custom
+    (compilation-auto-jump-to-first-error t)
     :general
     (compilation-mode-map
      :states 'normal
