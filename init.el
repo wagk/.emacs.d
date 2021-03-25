@@ -530,8 +530,8 @@ we're adding a custom function for it here."
     (:states 'normal
      :prefix my-default-evil-leader-key
      "o t" 'org-time-stamp
-     "o T" '(lambda () (interactive)
-              (org-time-stamp '(16))))
+     "o T" #'(lambda () (interactive)
+               (org-time-stamp '(16))))
     ;; "f f" 'counsel-org-goto)
     (org-mode-map
      "C-c C-'" 'org-edit-special
@@ -617,7 +617,7 @@ we're adding a custom function for it here."
        "C-^" 'org-meta-return
        "\236" 'org-insert-todo-heading-respect-content)))
   ;; (with-eval-after-load 'org
-  ;;   (add-hook 'org-mode-hook '(lambda ()
+  ;;   (add-hook 'org-mode-hook #'(lambda ()
   ;;                               (with-eval-after-load 'elec-pair
   ;;                                 (let ((org-pairs '((?= . ?=)
   ;;                                                    (?/ . ?/)
@@ -704,14 +704,14 @@ we're adding a custom function for it here."
                                     :scale 1.5))
     (with-eval-after-load 'elec-pair
       (add-hook 'org-mode-hook
-                '(lambda ()
-                   (let ((org-pairs '((?= . ?=)
-                                      (?* . ?*)
-                                      (?$ . ?$))))
-                     (setq-local electric-pair-pairs
-                                 (append electric-pair-pairs org-pairs))
-                     (setq-local electric-pair-text-pairs
-                                 electric-pair-pairs)))))
+                #'(lambda ()
+                    (let ((org-pairs '((?= . ?=)
+                                       (?* . ?*)
+                                       (?$ . ?$))))
+                      (setq-local electric-pair-pairs
+                                  (append electric-pair-pairs org-pairs))
+                      (setq-local electric-pair-text-pairs
+                                  electric-pair-pairs)))))
     (defun my-org-reformat-buffer ()
       (interactive)
       (when (y-or-n-p "Really format current buffer? ")
