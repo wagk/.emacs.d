@@ -747,8 +747,9 @@ we're adding a custom function for it here."
     (ivy-use-virtual-buffers
      t
      "Make `ivy-switch-buffer' look more like `helm-mini'")
+    (ivy-height 23)
     :init
-    (evil-ex-define-cmd "bb" 'counsel-buffer-or-recentf)
+    (evil-ex-define-cmd "bb" 'counsel-ibuffer)
     :config
     (ivy-mode))
 

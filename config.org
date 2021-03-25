@@ -1508,6 +1508,7 @@ language's mappings.
 ** Org Download
 #+begin_src emacs-lisp :results output silent
   (use-package org-download
+    :disabled t
     :straight (:host github :repo "abo-abo/org-download")
     :hook ((dired-mode-hook . org-download-enable)
            (org-mode-hook . org-download-enable)))
@@ -1518,6 +1519,7 @@ language's mappings.
 #+begin_src emacs-lisp :results output silent
   (use-package worf
     :straight (:host github :repo "abo-abo/worf")
+    :disabled t
     :commands worf--goto-candidates
     :general
     (:keymaps 'org-mode-map
