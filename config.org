@@ -2134,6 +2134,7 @@ Look at ~git-gutter+-diffinfo-at-point~ and see if we can leverage
 that for the range we want
 
 ** Git timemachine
+Note that there are evil-collection bindings for this
 #+begin_src emacs-lisp :results output silent
   (use-package git-timemachine
     :straight t
