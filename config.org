@@ -137,7 +137,7 @@ We're sticking to Japanese for now
 ** Display Fill Column Indicator
 #+begin_src emacs-lisp :results output silent
   (add-hook 'prog-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (display-fill-column-indicator-mode 'toggle)))
 #+end_src
 
@@ -158,15 +158,15 @@ Emulate the best feature of notepad
     (insert (format-time-string (if with-hours "%F-%H%M" "%F"))))
   (general-define-key
    :states '(normal motion insert)
-   "<f5>" '(lambda () (interactive)
+   "<f5>" #'(lambda () (interactive)
              (iso-8601-timestamp nil))
-   "S-<f5>" '(lambda () (interactive)
+   "S-<f5>" #'(lambda () (interactive)
                (iso-8601-timestamp t)))
   (general-define-key
    :states '(normal)
-   "gb" '(lambda () (interactive)
+   "gb" #'(lambda () (interactive)
            (iso-8601-timestamp nil))
-   "gB" '(lambda () (interactive)
+   "gB" #'(lambda () (interactive)
            (iso-8601-timestamp t)))
 #+end_src
 
@@ -270,7 +270,7 @@ actually, don't (outside of text modes)
 
 ** Underscores should be considered as part of a word
 #+begin_src emacs-lisp :results output silent
-  (add-hook 'after-change-major-mode-hook '(lambda () (modify-syntax-entry ?_ "w")))
+  (add-hook 'after-change-major-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 #+end_src
 
 ** Ensure that files being edited are recoverable
@@ -510,7 +510,7 @@ Further helper functions to add bookmarks:
 
 #+begin_src emacs-lisp :results output silent
   (my-evil-define-split-vsplit-cmd "bm" 'list-bookmarks)
-  (evil-ex-define-cmd "Tbm" '(lambda ()
+  (evil-ex-define-cmd "Tbm" #'(lambda ()
       ;; TODO: unify this implementation with my-new-cmd-tab
                                (interactive)
                                (if (>= emacs-major-version 27)
@@ -521,11 +521,11 @@ Further helper functions to add bookmarks:
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "mm" '(lambda ()
+  (evil-ex-define-cmd "mm" #'(lambda ()
                               (interactive)
                               (require 'counsel)
                               (counsel-bookmark)))
-  (evil-ex-define-cmd "Tmm" '(lambda ()
+  (evil-ex-define-cmd "Tmm" #'(lambda ()
       ;; TODO: have counsel-bookmark run earlier so if we cancel we
       ;; don't get a new tab
                                (interactive)
@@ -901,7 +901,7 @@ https://www.emacswiki.org/emacs/Evil#toc24
    "C-\\" 'my-evil-toggle-input-method)
 #+end_src
 
-** Interactive Codes
+** TODO Interactive Codes
 Look at =evil-interactive-alist=, which seems to contain all the
 interactive codes provided.
 
@@ -950,6 +950,9 @@ package isn't being maintained or something
     :config
     (global-evil-surround-mode))
 #+end_src
+
+**** TODO evil-embrace
+https://github.com/cute-jumper/evil-embrace.el/
 
 *** [#A] Argument text objects
 #+begin_src emacs-lisp :results output silent
@@ -1109,6 +1112,10 @@ This is an expensive package to load, and I wonder why.
     :config
     (evil-unimpaired-mode))
 #+end_src
+
+** TODO Asyncrun
+Just append =&= to the end of your command, emacs apparently just does
+the right thing.
 
 * Helm
 ** Describe Modes
@@ -1411,7 +1418,7 @@ For some reason we can't do this in the scratch buffer
     ;; The timestamp feature is currently unused, though that might
     ;; change in the future
     (advice-add 'org-agenda-capture :override
-                '(lambda (&optional with-time)
+                #'(lambda (&optional with-time)
                    (interactive "P")
                    (let ((org-overriding-default-time)
                          (org-get-cursor-date (equal with-time 1)))
@@ -1433,7 +1440,7 @@ For some reason we can't do this in the scratch buffer
     (my-evil-define-split-vsplit-cmd "agenda" #'org-agenda)
     (my-evil-define-split-vsplit-cmd "aa" #'org-agenda)
     (evil-ex-define-cmd "Tag[enda]"
-                        '(lambda () (interactive)
+                        #'(lambda () (interactive)
                            ;; TODO: unify this implementation with my-new-cmd-tab
                            (if (>= emacs-major-version 27)
                                (tab-bar-new-tab)
@@ -1990,6 +1997,8 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
                magit-pull
                magit-commit)
     :defer 1
+    :custom
+    (magit-blame-echo-style 'margin)
     :general
     (magit-mode-map
      :states '(normal)
@@ -2004,13 +2013,16 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     (evil-ex-define-cmd "git" 'ex-magit-cli)
     (evil-ex-define-cmd "gg" 'ex-magit-cli)
     (evil-ex-define-cmd "gb" 'magit-branch)
+    (evil-ex-define-cmd "gB" 'magit-blame)
     (evil-ex-define-cmd "gc" 'magit-commit)
     (evil-ex-define-cmd "gf" 'magit-fetch)
     (evil-ex-define-cmd "gp" 'magit-push)
     (evil-ex-define-cmd "gF" 'magit-pull)
     (evil-ex-define-cmd "gl" 'magit-log)
+    (evil-ex-define-cmd "gL" 'magit-log-buffer-file)
     :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
            (git-commit-setup-hook . markdown-mode)
+           (git-commit-setup-hook . evil-markdown-mode)
            (git-commit-setup-hook . (lambda () (display-fill-column-indicator-mode 1)))))
 #+end_src
 
@@ -2128,7 +2140,7 @@ up, on windows at least).
     (git-gutter+-hide-gutter t))
 #+end_src
 
-** Git hunk textobjects
+** TODO Git hunk textobjects
 
 Look at ~git-gutter+-diffinfo-at-point~ and see if we can leverage
 that for the range we want
@@ -2138,7 +2150,9 @@ Note that there are evil-collection bindings for this
 #+begin_src emacs-lisp :results output silent
   (use-package git-timemachine
     :straight t
-    :commands git-timemachine)
+    :commands git-timemachine
+    :init
+    (evil-ex-define-cmd "gtime" #'git-timemachine))
 #+end_src
 
 ** Git modes
@@ -2568,7 +2582,7 @@ try using the built-in =project= functions instead
 
 ** COMMENT Projectile Convenience Bindings
 #+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "proot" '(lambda () (interactive)
+  (evil-ex-define-cmd "proot" #'(lambda () (interactive)
                                  (require 'projectile)
                                  (dired (projectile-project-root))))
 #+end_src
@@ -2883,13 +2897,13 @@ containing a lot of files, and if the files are themselves large.
       (deft-filter-clear)
       (evil-insert-state))
     ;; (my-evil-define-split-vsplit-cmd "n[otes]" 'deft)
-    ;; (evil-ex-define-cmd "tn" '(lambda () (interactive)
+    ;; (evil-ex-define-cmd "tn" #'(lambda () (interactive)
     ;;                             (funcall-interactively 'my-new-evil-tab nil)
     ;;                             (deft)))
     ;; (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
     (my-evil-define-split-vsplit-cmd "nn" 'ex-deft-forwarding-arg)
     (evil-ex-define-cmd "Tnn"
-     '(lambda () (interactive)
+     #'(lambda () (interactive)
         ;; TODO: unify this implementation with my-new-cmd-tab
         (if (>= emacs-major-version 27)
             (tab-bar-new-tab)
@@ -3188,13 +3202,13 @@ Requires rust-mode and markdown-mode
     ;;       (dired (file-name-directory (buffer-file-name)))
     ;;     (dired default-directory)))
     (evil-ex-define-cmd "Ex[plore]" 'dired-jump)
-    (evil-ex-define-cmd "Sex[plore]" '(lambda () (interactive)
+    (evil-ex-define-cmd "Sex[plore]" #'(lambda () (interactive)
                                         (call-interactively 'evil-window-split)
                                         (dired-jump)))
-    (evil-ex-define-cmd "Vex[plore]" '(lambda () (interactive)
+    (evil-ex-define-cmd "Vex[plore]" #'(lambda () (interactive)
                                         (call-interactively 'evil-window-vsplit)
                                         (dired-jump))))
-    ;; (evil-ex-define-cmd "Tex[plore]" '(lambda () (interactive)
+    ;; (evil-ex-define-cmd "Tex[plore]" #'(lambda () (interactive)
     ;;                                     (require 'eyebrowse)
     ;;                                     (let ((eyebrowse-new-workspace 'dired-jump))
     ;;                                       (eyebrowse-create-window-config)))))
@@ -3434,7 +3448,7 @@ filters*.
     (rg-ignore-case 'smart)
     (rg-keymap-prefix "")
     (rg-default-alias-fallback "everything")
-    (rg-buffer-name '(lambda () (format "*rg<%s>*" (buffer-name))))
+    (rg-buffer-name #'(lambda () (format "*rg<%s>*" (buffer-name))))
     :general
     (rg-mode-map
      :states '(motion normal)
@@ -3578,7 +3592,7 @@ r-value references.
 You can consider =artist-mode= a featurewise superset of =picture-mode=.
 
 #+begin_src emacs-lisp :results output silent
-  (add-hook 'artist-mode-hook '(lambda () (aggressive-fill-paragraph-mode -1)))
+  (add-hook 'artist-mode-hook #'(lambda () (aggressive-fill-paragraph-mode -1)))
 #+end_src
 
 * Org source block handling for Artist-mode
@@ -3617,7 +3631,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     ;; :general
     ;; (beancount-mode-map
     ;;  :states '(normal motion insert)
-    ;;  "<f5>" '(lambda () (interactive)
+    ;;  "<f5>" #'(lambda () (interactive)
     ;;            (insert (format-time-string "%Y-%m-%d"))))
     ;; causing fontification errors
     ;; :hook ((org-mode-hook . beancount-mode)))
@@ -3779,12 +3793,12 @@ the thing, because that's what vim does.
       (interactive)
       (let ((name (format "*shell<%s>*" (buffer-name))))
         (shell name)))
-    (evil-ex-define-cmd "sh[ell]" '(lambda () (interactive)
+    (evil-ex-define-cmd "sh[ell]" #'(lambda () (interactive)
                                      (my-buffer-specific-shell)))
-    (evil-ex-define-cmd "Sshell" '(lambda () (interactive)
+    (evil-ex-define-cmd "Sshell" #'(lambda () (interactive)
                                     (evil-window-split)
                                     (my-buffer-specific-shell)))
-    (evil-ex-define-cmd "Vshell" '(lambda () (interactive)
+    (evil-ex-define-cmd "Vshell" #'(lambda () (interactive)
                                     (evil-window-vsplit)
                                     (my-buffer-specific-shell)))
     (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
@@ -3927,13 +3941,13 @@ the thing, because that's what vim does.
   (when (boundp 'my-todo-org-file)
     (my-evil-define-split-vsplit-cmd "todo" #'(lambda () (find-file my-todo-org-file)))
     ;; (evil-ex-define-cmd "todo" 'my-todo)
-    ;; (evil-ex-define-cmd "Stodo" '(lambda () (interactive)
+    ;; (evil-ex-define-cmd "Stodo" #'(lambda () (interactive)
     ;;                                (call-interactively 'evil-window-split)
     ;;                                (find-file my-todo-org-file)))
-    ;; (evil-ex-define-cmd "Vtodo" '(lambda () (interactive)
+    ;; (evil-ex-define-cmd "Vtodo" #'(lambda () (interactive)
     ;;                                (call-interactively 'evil-window-vsplit)
     ;;                                (find-file my-todo-org-file)))
-    (evil-ex-define-cmd "Ttodo" '(lambda () (interactive)
+    (evil-ex-define-cmd "Ttodo" #'(lambda () (interactive)
                                    (my-new-cmd-tab my-todo-org-file))))
 #+end_src
 
@@ -3941,13 +3955,13 @@ the thing, because that's what vim does.
   ;; (when (boundp 'my-notes-org-file)
   ;;   (my-evil-define-split-vsplit-cmd "note[s]" #'(lambda () (find-file my-notes-org-file)))
   ;;   ;; (evil-ex-define-cmd "notes" 'my-notes)
-  ;;   ;; (evil-ex-define-cmd "Snotes" '(lambda () (interactive)
+  ;;   ;; (evil-ex-define-cmd "Snotes" #'(lambda () (interactive)
   ;;   ;;                                (call-interactively 'evil-window-split)
   ;;   ;;                                (find-file my-notes-org-file)))
-  ;;   ;; (evil-ex-define-cmd "Vnotes" '(lambda () (interactive)
+  ;;   ;; (evil-ex-define-cmd "Vnotes" #'(lambda () (interactive)
   ;;   ;;                                (call-interactively 'evil-window-vsplit)
   ;;   ;;                                (find-file my-notes-org-file)))
-  ;;   (evil-ex-define-cmd "Tnotes" '(lambda () (interactive)
+  ;;   (evil-ex-define-cmd "Tnotes" #'(lambda () (interactive)
   ;;                                   (funcall-interactively
   ;;                                    'my-new-evil-tab my-notes-org-file))))
 #+end_src
@@ -4779,7 +4793,7 @@ trailing dots only happen /after/ the fci column.)
     :straight (:host github :repo "skeeto/devdocs-lookup")
     :commands (devdocs-lookup)
     :custom
-    (evil-lookup-func '(lambda ()
+    (evil-lookup-func #'(lambda ()
                          (call-interactively 'devdocs-lookup)))
     :config
     (devdocs-setup))
@@ -5190,6 +5204,8 @@ Not persistent scratch, just a custom scratch buffer
 * Compilation Mode
 #+begin_src emacs-lisp :results output silent
   (use-package compile
+    :custom
+    (compilation-auto-jump-to-first-error t)
     :general
     (compilation-mode-map
      :states 'normal
