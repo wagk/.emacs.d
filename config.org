@@ -1722,8 +1722,9 @@ Requires =sqlite=. Install using =choco install sqlite=
 #+begin_src emacs-lisp :results output silent
   (use-package org-roam
     ;; :hook (org-mode-hook . org-roam-mode)
-    :straight (:host github :repo "jethrokuan/org-roam")
+    ;; :straight (:host github :repo "org-roam/org-roam")
     ;; :if (boundp 'my-notes-folder)
+    :straight t
     :commands (org-roam-jump-to-index
                org-roam-mode)
     :defer 10
@@ -1802,7 +1803,7 @@ Requires =sqlite=. Install using =choco install sqlite=
     :straight (:host github :repo "nicolaspetton/nroam")
     :after org-roam
     :hook
-    (org-mode-hook . nroam-setup-maybe))
+    (org-roam-mode-hook . nroam-mode))
 #+end_src
 
 ** Org Latex Fragment Toggle
@@ -2162,6 +2163,11 @@ Note that there are evil-collection bindings for this
   (use-package git-timemachine
     :straight t
     :commands git-timemachine
+    ;; :general
+    ;; (git-timemachine-mode-map
+    ;;  :states 'normal
+    ;;  "\C-k" 'git-timemachine-show-next-revision
+    ;;  "\C-j" 'git-timemachine-show-previous-revision)
     :init
     (evil-ex-define-cmd "gtime" #'git-timemachine))
 #+end_src
