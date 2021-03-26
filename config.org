@@ -901,7 +901,7 @@ https://www.emacswiki.org/emacs/Evil#toc24
    "C-\\" 'my-evil-toggle-input-method)
 #+end_src
 
-** Interactive Codes
+** TODO Interactive Codes
 Look at =evil-interactive-alist=, which seems to contain all the
 interactive codes provided.
 
@@ -950,6 +950,9 @@ package isn't being maintained or something
     :config
     (global-evil-surround-mode))
 #+end_src
+
+**** TODO evil-embrace
+https://github.com/cute-jumper/evil-embrace.el/
 
 *** [#A] Argument text objects
 #+begin_src emacs-lisp :results output silent
@@ -1109,6 +1112,10 @@ This is an expensive package to load, and I wonder why.
     :config
     (evil-unimpaired-mode))
 #+end_src
+
+** TODO Asyncrun
+Just append =&= to the end of your command, emacs apparently just does
+the right thing.
 
 * Helm
 ** Describe Modes
@@ -1501,6 +1508,7 @@ language's mappings.
 ** Org Download
 #+begin_src emacs-lisp :results output silent
   (use-package org-download
+    :disabled t
     :straight (:host github :repo "abo-abo/org-download")
     :hook ((dired-mode-hook . org-download-enable)
            (org-mode-hook . org-download-enable)))
@@ -1511,6 +1519,7 @@ language's mappings.
 #+begin_src emacs-lisp :results output silent
   (use-package worf
     :straight (:host github :repo "abo-abo/worf")
+    :disabled t
     :commands worf--goto-candidates
     :general
     (:keymaps 'org-mode-map
@@ -2133,16 +2142,19 @@ up, on windows at least).
     (git-gutter+-hide-gutter t))
 #+end_src
 
-** Git hunk textobjects
+** TODO Git hunk textobjects
 
 Look at ~git-gutter+-diffinfo-at-point~ and see if we can leverage
 that for the range we want
 
 ** Git timemachine
+Note that there are evil-collection bindings for this
 #+begin_src emacs-lisp :results output silent
   (use-package git-timemachine
     :straight t
-    :commands git-timemachine)
+    :commands git-timemachine
+    :init
+    (evil-ex-define-cmd "gtime" #'git-timemachine))
 #+end_src
 
 ** Git modes
