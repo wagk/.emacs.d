@@ -1796,6 +1796,15 @@ Requires =sqlite=. Install using =choco install sqlite=
                 (lambda (str) (replace-regexp-in-string "_" "-" str))))
 #+end_src
 
+*** Nroam
+#+begin_src emacs-lisp :results output silent
+  (use-package nroam
+    :straight (:host github :repo "nicolaspetton/nroam")
+    :after org-roam
+    :hook
+    (org-mode-hook . nroam-setup-maybe))
+#+end_src
+
 ** Org Latex Fragment Toggle
 #+begin_src emacs-lisp :results output silent
   (use-package org-fragtog
