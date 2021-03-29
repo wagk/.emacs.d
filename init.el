@@ -102,9 +102,9 @@
   ;; Requires (package-initialize) to be called
   ;; https://github.com/raxod502/straight.el
   (let ((bootstrap-file
-         (concat user-emacs-directory
-                 "straight/repos/straight.el/bootstrap.el"))
-        (bootstrap-version 3))
+         (expand-file-name "straight/repos/straight.el/bootstrap.el"
+                           user-emacs-directory))
+        (bootstrap-version 5))
     (unless (file-exists-p bootstrap-file)
       (message "Bootstrapping Straight.el...")
       (with-current-buffer
@@ -514,7 +514,8 @@ we're adding a custom function for it here."
   ;; (use-package org-plus-contrib
   (use-package org
     ;; :straight (:includes org)
-    :straight (:local-repo nil)
+    ;; :straight (:local-repo nil)
+    :straight t
     ;; :ensure org-plus-contrib
     :commands (orgtbl-mode
                org-babel-load-file)
