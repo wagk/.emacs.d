@@ -123,7 +123,7 @@
                                                  lockfile)))
       (customize-set-variable 'straight-current-profile
                               profile-name)))
-  (customize-set-variable 'straight-cache-autoloads t)
+  (customize-set-variable 'straight-repository-branch "develop")
   (customize-set-variable 'straight-use-package-by-default t))
 
 ;; (defun bootstrap-quelpa ()
