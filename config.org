@@ -3386,6 +3386,14 @@ package manager
     :commands (jsons-print-path))
 #+end_src
 
+* YAML
+https://github.com/zkry/yaml.el/tree/9ebddb55238d746dc5a5d46db04c9f360c140b99
+#+begin_src emacs-lisp :results output silent
+  (use-package yaml
+    :straight t
+    :commands (yaml-parse-string))
+#+end_src
+
 * Wgrep
 Being able to mass-edit using search results seem interesting
 http://blog.binchen.org/posts/use-wgrep-and-evil-to-replace-text-efficiently.html
