@@ -5235,7 +5235,14 @@ Not persistent scratch, just a custom scratch buffer
     (compilation-mode-map
      :states 'normal
      "]]" 'compilation-next-error
-     "[[" 'compilation-previous-error))
+     "[[" 'compilation-previous-error)
+    :init
+    (defun my-colorize-completion-buffer ()
+      (require 'ansi-color)
+      (let ((inhibit-read-only t))
+        (ansi-color-apply-on-region (point-min) (point-max))))
+    :hook
+    (compilation-filter-hook . #'my-colorize-completion-buffer))
 #+end_src
 
 * Project mode
