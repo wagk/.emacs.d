@@ -3650,6 +3650,16 @@ It's a minor mode, much like how magit's commit mode is a minor mode
   (use-package beancount
     :straight (:host github :repo "beancount/beancount-mode")
     :mode ("\\.beancount\\'" . beancount-mode)
+    :init
+    (defun my-beancount-insert-date ()
+      "Does the same thing as `beancount-insert-date', but uses
+  `org-read-date' for more ergonomic date generation."
+      (interactive)
+      (unless (bolp) (newline)) ;; `beancount-insert-date' does this
+      (insert (org-read-date) " "))
+    :general
+    (beancount-mode-map
+     "M-RET" #'my-beancount-insert-date)
     :config
     (with-eval-after-load 'org-src
       (cl-pushnew '("beancount" . beancount) org-src-lang-modes)))
