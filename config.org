@@ -3762,6 +3762,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 #+begin_src emacs-lisp :results output silent
   (use-package helpful
     :straight (:host github :repo "Wilfred/helpful")
+    :defer 7
     :general
     ("C-h k"   'helpful-key
      "C-h f"   'helpful-callable
