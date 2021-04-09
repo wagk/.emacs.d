@@ -5260,3 +5260,12 @@ Not persistent scratch, just a custom scratch buffer
        :keymaps 'project-prefix-map
        "g" 'rg-project)))
 #+end_src
+
+* Calendar Mode
+#+begin_src emacs-lisp :results output silent
+  (use-package calendar
+    :ensure nil
+    :straight nil
+    :custom
+    (calendar-week-start-day 1 "monday"))
+#+end_src
