@@ -1722,8 +1722,9 @@ Requires =sqlite=. Install using =choco install sqlite=
 #+begin_src emacs-lisp :results output silent
   (use-package org-roam
     ;; :hook (org-mode-hook . org-roam-mode)
-    :straight (:host github :repo "jethrokuan/org-roam")
+    ;; :straight (:host github :repo "org-roam/org-roam")
     ;; :if (boundp 'my-notes-folder)
+    :straight t
     :commands (org-roam-jump-to-index
                org-roam-mode)
     :defer 10
@@ -1799,10 +1800,10 @@ Requires =sqlite=. Install using =choco install sqlite=
 *** Nroam
 #+begin_src emacs-lisp :results output silent
   (use-package nroam
-    :straight '(:host github :repo "nicolaspetton/nroam")
+    :straight (:host github :repo "nicolaspetton/nroam")
     :after org-roam
     :hook
-    (org-mode-hook . nroam-setup-maybe))
+    (org-roam-mode-hook . nroam-mode))
 #+end_src
 
 ** Org Latex Fragment Toggle
@@ -2162,6 +2163,11 @@ Note that there are evil-collection bindings for this
   (use-package git-timemachine
     :straight t
     :commands git-timemachine
+    ;; :general
+    ;; (git-timemachine-mode-map
+    ;;  :states 'normal
+    ;;  "\C-k" 'git-timemachine-show-next-revision
+    ;;  "\C-j" 'git-timemachine-show-previous-revision)
     :init
     (evil-ex-define-cmd "gtime" #'git-timemachine))
 #+end_src
@@ -3380,6 +3386,14 @@ package manager
     :commands (jsons-print-path))
 #+end_src
 
+* YAML
+https://github.com/zkry/yaml.el/tree/9ebddb55238d746dc5a5d46db04c9f360c140b99
+#+begin_src emacs-lisp :results output silent
+  (use-package yaml
+    :straight t
+    :commands (yaml-parse-string))
+#+end_src
+
 * Wgrep
 Being able to mass-edit using search results seem interesting
 http://blog.binchen.org/posts/use-wgrep-and-evil-to-replace-text-efficiently.html
@@ -3636,6 +3650,16 @@ It's a minor mode, much like how magit's commit mode is a minor mode
   (use-package beancount
     :straight (:host github :repo "beancount/beancount-mode")
     :mode ("\\.beancount\\'" . beancount-mode)
+    :init
+    (defun my-beancount-insert-date ()
+      "Does the same thing as `beancount-insert-date', but uses
+  `org-read-date' for more ergonomic date generation."
+      (interactive)
+      (unless (bolp) (newline)) ;; `beancount-insert-date' does this
+      (insert (org-read-date) " "))
+    :general
+    (beancount-mode-map
+     "M-RET" #'my-beancount-insert-date)
     :config
     (with-eval-after-load 'org-src
       (cl-pushnew '("beancount" . beancount) org-src-lang-modes)))
@@ -3748,6 +3772,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 #+begin_src emacs-lisp :results output silent
   (use-package helpful
     :straight (:host github :repo "Wilfred/helpful")
+    :defer 7
     :general
     ("C-h k"   'helpful-key
      "C-h f"   'helpful-callable
@@ -4191,7 +4216,7 @@ Or evil-spongebob if you want to think of it that way.
     :mode ("\\.go\\'" . go-mode))
 #+end_src
 
-* Elfeed
+* COMMENT Elfeed
 #+begin_src emacs-lisp :results output silent
   (defconst user-rss-feed-file
     (locate-user-emacs-file "feeds.org")
@@ -5221,7 +5246,14 @@ Not persistent scratch, just a custom scratch buffer
     (compilation-mode-map
      :states 'normal
      "]]" 'compilation-next-error
-     "[[" 'compilation-previous-error))
+     "[[" 'compilation-previous-error)
+    :init
+    (defun my-colorize-completion-buffer ()
+      (require 'ansi-color)
+      (let ((inhibit-read-only t))
+        (ansi-color-apply-on-region (point-min) (point-max))))
+    :hook
+    (compilation-filter-hook . #'my-colorize-completion-buffer))
 #+end_src
 
 * Project mode
@@ -5237,4 +5269,13 @@ Not persistent scratch, just a custom scratch buffer
       (general-define-key
        :keymaps 'project-prefix-map
        "g" 'rg-project)))
+#+end_src
+
+* Calendar Mode
+#+begin_src emacs-lisp :results output silent
+  (use-package calendar
+    :ensure nil
+    :straight nil
+    :custom
+    (calendar-week-start-day 1 "monday"))
 #+end_src
