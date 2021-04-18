@@ -540,6 +540,8 @@ we're adding a custom function for it here."
      "<C-M-S-return>" 'org-insert-todo-subheading)
     (org-src-mode-map
      "C-c C-'" 'org-src-edit-exit)
+    :custom-face
+    (org-headline-done ((t (:strike-through t))))
     :custom
     (org-list-description-max-indent
      5 "Ideally we should familiarize ourselves with adding a newline
