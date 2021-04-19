@@ -2036,6 +2036,10 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
            (git-commit-setup-hook . markdown-mode)
            (git-commit-setup-hook . evil-markdown-mode)
            (git-commit-setup-hook . (lambda () (display-fill-column-indicator-mode 1)))))
+    ;; TODO: figure out a way to have git submodule update all modules
+    ;; without using a universal prefix
+    ;; :config
+    ;; (transient-append-suffix 'magit-submodule "U" '("w" "Wip" magit-wip-log-current)))
 #+end_src
 
 *** Evil bindings
