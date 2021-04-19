@@ -458,6 +458,7 @@
     ("seme" "seem" nil :count 3)
     ("separeted" "separated" nil :count 1)
     ("separetly" "separately" nil :count 1)
+    ("shoud" "should" nil :count 1)
     ("shoudl" "should" nil :count 12)
     ("shoudnt" "shouldn't" nil :count 1)
     ("showind" "showing" nil :count 1)
