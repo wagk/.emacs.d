@@ -5192,7 +5192,8 @@ Note that =customize-set-variable= is like =setq-default=.
 * Tree Sitter
 #+begin_src emacs-lisp :results output silent
   (use-package tree-sitter
-    :hook (c++-mode-hook . tree-sitter-mode)
+    :hook ((c++-mode-hook . tree-sitter-mode)
+           (tree-sitter-after-on-hook . tree-sitter-hl-mode))
     :config
     (use-package tree-sitter-langs))
 #+end_src
