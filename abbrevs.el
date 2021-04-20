@@ -461,7 +461,8 @@
     ("seme" "seem" nil :count 3)
     ("separeted" "separated" nil :count 1)
     ("separetly" "separately" nil :count 1)
-    ("shoudl" "should" nil :count 14)
+    ("shoud" "should" nil :count 1)
+    ("shoudl" "should" nil :count 12)
     ("shoudnt" "shouldn't" nil :count 1)
     ("showind" "showing" nil :count 1)
     ("shraed" "shared" nil :count 1)
@@ -594,6 +595,4 @@
     ("wya" "way" nil :count 4)
     ("yb" "by" nil :count 2)
     ("yeaterday" "yesterday" nil :count 1)
-    ("yse" "yes" nil :count 1)
-   ))
-
+    ("yse" "yes" nil :count 1)))
