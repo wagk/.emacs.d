@@ -83,18 +83,19 @@
 
 (defun bootstrap-package ()
   "Add package repositories and call `package-initialize'."
-  (require 'package)
-  (dolist (x '(("melpa"        . "https://melpa.org/packages/")
-               ("melpa-2"      . "https://melpa.milkbox.net/packages/")
-               ("melpa-stable" . "https://stable.melpa.org/packages/")
-               ("elpy"         . "https://jorgenschaefer.github.io/packages/")
-               ("org"          . "https://orgmode.org/elpa/")
-               ("gnu"          . "https://elpa.gnu.org/packages/")
-               ("marmalade"    . "https://marmalade-repo.org/packages/")))
-    (add-to-list 'package-archives x))
-  (when (< emacs-major-version 27)
-    ;; package-initialize doesn't have to be called here in emacs 27
-    (package-initialize)))
+  (when package-enable-at-startup
+    (require 'package)
+    (dolist (x '(("melpa"        . "https://melpa.org/packages/")
+                 ("melpa-2"      . "https://melpa.milkbox.net/packages/")
+                 ("melpa-stable" . "https://stable.melpa.org/packages/")
+                 ("elpy"         . "https://jorgenschaefer.github.io/packages/")
+                 ("org"          . "https://orgmode.org/elpa/")
+                 ("gnu"          . "https://elpa.gnu.org/packages/")
+                 ("marmalade"    . "https://marmalade-repo.org/packages/")))
+      (add-to-list 'package-archives x)))
+    (when (< emacs-major-version 27)
+      ;; package-initialize doesn't have to be called here in emacs 27
+      (package-initialize)))
 
 (defun bootstrap-straight ()
   "Load straight.el, downloading it if necessary.
@@ -124,7 +125,9 @@
       (customize-set-variable 'straight-current-profile
                               profile-name)))
   (customize-set-variable 'straight-repository-branch "develop")
-  (customize-set-variable 'straight-use-package-by-default t))
+  (customize-set-variable 'straight-use-package-by-default t)
+  (customize-set-variable 'straight-check-for-modifications
+                          '(check-on-save find-when-checking)))
 
 ;; (defun bootstrap-quelpa ()
 ;;   ;; Requires (package-initialize) to be called beforehand
@@ -146,8 +149,6 @@ Then performs configuration of `use-package' variables."
   ;;     :fetcher git
   ;;     :url "https://framagit.org/steckerhalter/quelpa-use-package.git"))
   ;; (require 'quelpa-use-package)
-  (unless (featurep 'straight)
-    (bootstrap-straight))
   (require 'straight)
   (customize-set-variable 'load-prefer-newer t)
   (straight-use-package '(use-package
@@ -224,6 +225,7 @@ recovery. Maybe eventually load dependencies and all that."
 
   ;; https://github.com/emacscollective/auto-compile
   (use-package auto-compile
+    :disabled t
     :straight (:host github :repo "emacscollective/auto-compile")
     :custom
     (load-prefer-newer t)
@@ -233,7 +235,8 @@ recovery. Maybe eventually load dependencies and all that."
     (auto-compile-on-save-mode))
 
   (use-package async
-    :straight (:host github :repo "jwiegley/emacs-async")
+    ;; :straight (:host github :repo "jwiegley/emacs-async")
+    :straight t
     :config
     (async-bytecomp-package-mode 1))
 
@@ -771,10 +774,13 @@ we're adding a custom function for it here."
   ;;and the init load will fail
   (org-babel-load-file (locate-user-emacs-file "config.org"))
 
+  (message "Loaded config.org in %.06f seconds."
+           (float-time (time-since my-init-start-time)))
+
   (add-hook 'after-init-hook
             #'(lambda ()
-                (message "Loaded .emacs.d in %.06f seconds."
-                         (float-time (time-since my-init-start-time))))))
+                (message "Init in %.06f seconds."
+                         (float-time (time-since my-init-start-time)))) 50))
 
 (message "Configuration complete.")
 

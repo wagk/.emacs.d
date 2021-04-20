@@ -1351,16 +1351,16 @@ Interesting Text Objects:
                               ;; "%(with-temp-buffer (insert-file-contents (f-join user-emacs-directory \"templates\" \"todo-guide.org\")) (buffer-string))\n"
                               "%?")))))
   ;; when inserting a heading immediately go into insert mode
-    ;; (when (boundp 'my-journal-org-file)
-    ;;   (add-to-list 'org-capture-templates
-    ;;                `("j" "Journal Entry" entry
-    ;;                  (file ,my-journal-org-file)
-    ;;                  "* %U\n%?")
-    ;; (when (boundp 'my-daydream-org-file)
-    ;;   (add-to-list 'org-capture-templates
-    ;;                `("d" "Daydream Entry" entry
-    ;;                  (file ,my-daydream-org-file)
-    ;;                  "* %? \n %U"))
+  ;; (when (boundp 'my-journal-org-file)
+  ;;   (add-to-list 'org-capture-templates
+  ;;                `("j" "Journal Entry" entry
+  ;;                  (file ,my-journal-org-file)
+  ;;                  "* %U\n%?")
+  ;; (when (boundp 'my-daydream-org-file)
+  ;;   (add-to-list 'org-capture-templates
+  ;;                `("d" "Daydream Entry" entry
+  ;;                  (file ,my-daydream-org-file)
+  ;;                  "* %? \n %U"))
 #+end_src
 
 *** Doct Org Capture Templates
@@ -1419,10 +1419,10 @@ For some reason we can't do this in the scratch buffer
     ;; change in the future
     (advice-add 'org-agenda-capture :override
                 #'(lambda (&optional with-time)
-                   (interactive "P")
-                   (let ((org-overriding-default-time)
-                         (org-get-cursor-date (equal with-time 1)))
-                     (call-interactively 'my-counsel-org-capture))))
+                    (interactive "P")
+                    (let ((org-overriding-default-time)
+                          (org-get-cursor-date (equal with-time 1)))
+                      (call-interactively 'my-counsel-org-capture))))
     (advice-add 'org-agenda-clock-in :after 'org-agenda-goto)
     (when (and (boundp 'config-local-syncthing-folder)
                (f-exists-p my-notes-folder))
@@ -1441,12 +1441,12 @@ For some reason we can't do this in the scratch buffer
     (my-evil-define-split-vsplit-cmd "aa" #'org-agenda)
     (evil-ex-define-cmd "Tag[enda]"
                         #'(lambda () (interactive)
-                           ;; TODO: unify this implementation with my-new-cmd-tab
-                           (if (>= emacs-major-version 27)
-                               (tab-bar-new-tab)
-                             (require 'eyebrowse)
-                             (my-new-evil-tab nil))
-                           (funcall-interactively #'org-agenda-list))))
+                            ;; TODO: unify this implementation with my-new-cmd-tab
+                            (if (>= emacs-major-version 27)
+                                (tab-bar-new-tab)
+                              (require 'eyebrowse)
+                              (my-new-evil-tab nil))
+                            (funcall-interactively #'org-agenda-list))))
 #+end_src
 
 *** Super agenda
@@ -1474,8 +1474,8 @@ For some reason we can't do this in the scratch buffer
         :and (:not (:habit t)))
        (:name "Habits"
         :habit t)))
-       ;; (:name "Unscheduled Work"
-       ;;  :not (:scheduled t))))
+    ;; (:name "Unscheduled Work"
+    ;;  :not (:scheduled t))))
     :config
     ;; don't let org-super-agenda override evil bindings
     ;; https://github.com/codygman/doom-emacs-literate-config/commit/bcd6ee115db58d12a05ff4aa9ba60f96d87b81ba
@@ -1532,14 +1532,14 @@ language's mappings.
       (let ((link (save-excursion
                     (goto-char (cdr x))
                     (call-interactively 'org-store-link))))
-       (funcall-interactively 'org-insert-link nil (car link))))
-      ;; (call-interactively 'org-insert-link))
-      ;; (org-insert-last-stored-link 1)
-      ;; ;; otherwise deletes the whole visual selection. Including the
-      ;; ;; inserted link.
-      ;; (when (use-region-p)
-      ;;   (deactivate-mark))
-      ;; (delete-backward-char 1))
+        (funcall-interactively 'org-insert-link nil (car link))))
+    ;; (call-interactively 'org-insert-link))
+    ;; (org-insert-last-stored-link 1)
+    ;; ;; otherwise deletes the whole visual selection. Including the
+    ;; ;; inserted link.
+    ;; (when (use-region-p)
+    ;;   (deactivate-mark))
+    ;; (delete-backward-char 1))
     (defun my-worf-insert-internal-link ()
       (interactive)
       ;; TODO: Why isn't this working?
@@ -1594,16 +1594,16 @@ Currently disabled while we look at other, more maintained projects
         (interactive "<a>")
         (cond
          ;;TODO: implement additional ex command line things
-          (t (call-interactively 'org-brain-visualize))))
+         (t (call-interactively 'org-brain-visualize))))
       (evil-ex-define-cmd "wiki" 'my-org-brain-config))
     :config
     ;; NOTE: We do this because when running on different machine we
     ;; will need to update the IDs of entries.
     (org-brain-update-id-locations))
-    ;; (hercules-def :toggle-funs #'org-brain-visualize
-    ;;               :hide-funs #'org-brain-visualize-quit
-    ;;               :keymap 'org-brain-visualize-mode-map
-    ;;               :transient t))
+  ;; (hercules-def :toggle-funs #'org-brain-visualize
+  ;;               :hide-funs #'org-brain-visualize-quit
+  ;;               :keymap 'org-brain-visualize-mode-map
+  ;;               :transient t))
 #+end_src
 
 *** Usage
@@ -1670,8 +1670,8 @@ Needs a working =zip= exe.
                      (make-temp-name
                       (concat (file-name-as-directory dir)
                               (-> (buffer-file-name)
-                                  file-name-nondirectory
-                                  file-name-sans-extension)
+                                file-name-nondirectory
+                                file-name-sans-extension)
                               "_"
                               (format-time-string "%Y-%m-%dT%H%M%S")))
                      ".png")))
@@ -1726,8 +1726,11 @@ Requires =sqlite=. Install using =choco install sqlite=
     ;; :if (boundp 'my-notes-folder)
     :straight t
     :commands (org-roam-jump-to-index
-               org-roam-mode)
-    :defer 10
+               org-roam-mode
+               org-roam-dailies-yesterday
+               org-roam-dailies-today
+               org-roam-find-file)
+    ;; :defer 10
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -1745,8 +1748,8 @@ Requires =sqlite=. Install using =choco install sqlite=
     ;; (org-roam-directory my-notes-folder)
     ;; (org-roam-index-file (f-join org-roam-directory "index.org"))
     (org-roam-dailies-directory "day/")
-    :hook
-    (after-init-hook . org-roam-mode)
+    ;; :hook
+    ;; (after-init-hook . org-roam-mode)
     :init
     (evil-ex-define-cmd "wiki" 'org-roam-jump-to-index)
     (evil-ex-define-cmd "index" 'org-roam-jump-to-index)
@@ -1794,16 +1797,20 @@ Requires =sqlite=. Install using =choco install sqlite=
       (customize-set-value 'org-roam-capture-immediate-template template-immediate)
       (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
     (advice-add 'org-roam--title-to-slug :filter-return
-                (lambda (str) (replace-regexp-in-string "_" "-" str))))
+                (lambda (str) (replace-regexp-in-string "_" "-" str)))
+    (org-roam-mode))
 #+end_src
 
 *** Nroam
+org roam mode hook only activates once, not per roam file as we wanted.
+
 #+begin_src emacs-lisp :results output silent
   (use-package nroam
+    :disabled t
     :straight (:host github :repo "nicolaspetton/nroam")
     :after org-roam
     :hook
-    (org-roam-mode-hook . nroam-mode))
+    (org-mode-hook . nroam-mode))
 #+end_src
 
 ** Org Latex Fragment Toggle
@@ -1855,12 +1862,12 @@ is)
       (interactive "<!>")
       (require 'org-clock)
       (cond
-        ((org-clocking-p) (org-clock-out))
-        ((and (eq major-mode 'org-mode) (org-at-heading-p))
-         (org-clock-in))
-        ((string-equal (buffer-name) "*Org Agenda*")
-         (org-agenda-clock-in))
-        (t (org-clock-in '(4))))
+       ((org-clocking-p) (org-clock-out))
+       ((and (eq major-mode 'org-mode) (org-at-heading-p))
+        (org-clock-in))
+       ((string-equal (buffer-name) "*Org Agenda*")
+        (org-agenda-clock-in))
+       (t (org-clock-in '(4))))
       (when (or bang (not (marker-position org-clock-default-task)))
         (org-clock-mark-default-task)))
     (evil-ex-define-cmd "clock" #'my-org-clocking)
@@ -1879,7 +1886,7 @@ is)
   ;; We modify this such that if the customization
   ;; `org-clock-mode-line-total' is `current', the effort estimate gets
   ;; \"eaten\" by the total clocked time (so subsequent clock-in's will
-  ; see the effort reduce)."
+                                          ; see the effort reduce)."
   ;;   (let ((clocked-time (org-clock-get-clocked-time)))
   ;;     (if org-clock-effort
   ;;         (let* ((effort-in-minutes
@@ -1971,12 +1978,12 @@ is)
       (defun orgtbl-to-gfm (table params)
         "Convert the Orgtbl mode TABLE to GitHub Flavored Markdown."
         (let* ((alignment (mapconcat (lambda (x) (if x "|--:" "|---")))
-                        org-table-last-alignment ""))
+                          org-table-last-alignment ""))
           (params2
-            (list)
-            :splice t
-            :hline (concat alignment "|")
-            :lstart "| " :lend " |" :sep " | ")
+           (list)
+           :splice t
+           :hline (concat alignment "|")
+           :lstart "| " :lend " |" :sep " | ")
           (orgtbl-to-generic table (org-combine-plists params2 params)))))
     (with-eval-after-load 'org-src
       (cl-pushnew '("md" . gfm) org-src-lang-modes)))
@@ -2008,7 +2015,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     :commands (magit-status
                magit-pull
                magit-commit)
-    :defer 1
+    :defer 5
     :custom
     (magit-blame-echo-style 'margin)
     :general
@@ -2036,6 +2043,10 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
            (git-commit-setup-hook . markdown-mode)
            (git-commit-setup-hook . evil-markdown-mode)
            (git-commit-setup-hook . (lambda () (display-fill-column-indicator-mode 1)))))
+  ;; TODO: figure out a way to have git submodule update all modules
+  ;; without using a universal prefix
+  ;; :config
+  ;; (transient-append-suffix 'magit-submodule "U" '("w" "Wip" magit-wip-log-current)))
 #+end_src
 
 *** Evil bindings
@@ -2087,7 +2098,6 @@ up, on windows at least).
 #+begin_src emacs-lisp :results output silent
   (use-package forge
     :straight t
-    :defer 10
     :after magit)
 #+end_src
 
@@ -2114,7 +2124,8 @@ up, on windows at least).
 ** Git Gutter
 #+begin_src emacs-lisp :results output silent
   (use-package git-gutter+
-    :straight (:host github :repo "nonsequitur/git-gutter-plus")
+    ;; :straight (:host github :repo "nonsequitur/git-gutter-plus")
+    :straight t
     :general
     (:states  'normal
      :keymaps 'git-gutter+-mode-map
@@ -2126,28 +2137,29 @@ up, on windows at least).
     :hook (prog-mode-hook . git-gutter+-mode)
     :init
     (use-package git-gutter-fringe+
-      :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus")
+      ;; :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus")
+      :straight t
       :if (not (display-graphic-p))
       :after git-gutter+
       :config
       (fringe-helper-define 'git-gutter-fr+-added nil
-        "........"
-        "..XXXX.."
-        "..XXXX.."
-        "..XXXX.."
-        "..XXXX.."
-        "..XXXX.."
-        "..XXXX.."
-        "........")
+                            "........"
+                            "..XXXX.."
+                            "..XXXX.."
+                            "..XXXX.."
+                            "..XXXX.."
+                            "..XXXX.."
+                            "..XXXX.."
+                            "........")
       (fringe-helper-define 'git-gutter-fr+-deleted nil
-        "........"
-        "..XXXX.."
-        "..XXXX.."
-        "..XXXX.."
-        "..XXXX.."
-        "..XXXX.."
-        "..XXXX.."
-        "........"))
+                            "........"
+                            "..XXXX.."
+                            "..XXXX.."
+                            "..XXXX.."
+                            "..XXXX.."
+                            "..XXXX.."
+                            "..XXXX.."
+                            "........"))
     :custom
     (git-gutter+-hide-gutter t))
 #+end_src
@@ -2298,14 +2310,14 @@ TODO: some way to better, more dynamically name the tabs
 
 #+begin_src emacs-lisp :results output silent
   (with-eval-after-load 'eyebrowse
-   (customize-set-variable
-    'mode-line-format
-    (list "%e" mode-line-front-space mode-line-mule-info
-          mode-line-client mode-line-modified mode-line-auto-compile
-          mode-line-remote mode-line-frame-identification
-          mode-line-buffer-identification " " mode-line-position
-          evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
-          mode-line-modes mode-line-end-spaces)))
+    (customize-set-variable
+     'mode-line-format
+     (list "%e" mode-line-front-space mode-line-mule-info
+           mode-line-client mode-line-modified mode-line-auto-compile
+           mode-line-remote mode-line-frame-identification
+           mode-line-buffer-identification " " mode-line-position
+           evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
+           mode-line-modes mode-line-end-spaces)))
 #+end_src
 
 * Themes
@@ -2354,27 +2366,27 @@ TODO: some way to better, more dynamically name the tabs
                    (sol-green   . "#859900")))
       ;; TODO: set documentation string
       (set (car col) (cdr col))))
-    ;; (defun load-solarized-theme ()
-    ;;   (interactive)
-    ;;   (if (display-graphic-p)
-    ;;       (load-theme 'solarized-dark t)
-    ;;     (load-theme 'solarized-gruvbox-dark t))
-    ;;   (with-eval-after-load 'prism
-    ;;     (prism-set-colors
-    ;;      :num 24
-    ;;      :colors
-    ;;      ;; (list sol-green sol-cyan sol-blue sol-yellow)
-    ;;      (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
-    ;;      :desaturations
-    ;;      (list 10 20 30)
-    ;;      :lightens
-    ;;      (list 0 -2.5 -5)))
-    ;;   (with-eval-after-load 'hl-todo
-    ;;     (customize-set-variable 'hl-todo-keyword-faces
-    ;;                             '(("TODO"    . "#b58900")
-    ;;                               ("DEBUG"   . "#d33682")
-    ;;                               ("NOTE"    . "#586e75")
-    ;;                               ("FIXME"   . "#cb4b16")))))
+  ;; (defun load-solarized-theme ()
+  ;;   (interactive)
+  ;;   (if (display-graphic-p)
+  ;;       (load-theme 'solarized-dark t)
+  ;;     (load-theme 'solarized-gruvbox-dark t))
+  ;;   (with-eval-after-load 'prism
+  ;;     (prism-set-colors
+  ;;      :num 24
+  ;;      :colors
+  ;;      ;; (list sol-green sol-cyan sol-blue sol-yellow)
+  ;;      (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
+  ;;      :desaturations
+  ;;      (list 10 20 30)
+  ;;      :lightens
+  ;;      (list 0 -2.5 -5)))
+  ;;   (with-eval-after-load 'hl-todo
+  ;;     (customize-set-variable 'hl-todo-keyword-faces
+  ;;                             '(("TODO"    . "#b58900")
+  ;;                               ("DEBUG"   . "#d33682")
+  ;;                               ("NOTE"    . "#586e75")
+  ;;                               ("FIXME"   . "#cb4b16")))))
 
 #+end_src
 
@@ -2600,8 +2612,8 @@ try using the built-in =project= functions instead
 ** COMMENT Projectile Convenience Bindings
 #+begin_src emacs-lisp :results output silent
   (evil-ex-define-cmd "proot" #'(lambda () (interactive)
-                                 (require 'projectile)
-                                 (dired (projectile-project-root))))
+                                  (require 'projectile)
+                                  (dired (projectile-project-root))))
 #+end_src
 
 * Lisp
@@ -3889,6 +3901,7 @@ the thing, because that's what vim does.
   (if (>= emacs-major-version 27)
       (global-so-long-mode)
     (use-package vlf
+      :disabled t ;; merged into vlf, try built-in so-long instead
       :straight (:host github :repo "m00natic/vlfi")
       :custom (vlf-application 'dont-ask)
       :config (require 'vlf-setup)))
@@ -4006,7 +4019,8 @@ the thing, because that's what vim does.
 * Yaml-mode
 #+begin_src emacs-lisp :results output silent
   (use-package yaml-mode
-    :straight (:host github :repo "yoshiki/yaml-mode")
+    ;; :straight (:host github :repo "yoshiki/yaml-mode")
+    :straight t
     :mode ("\\.yml\\'"
            "\\.yaml\\'")
     :hook
@@ -4059,16 +4073,18 @@ the thing, because that's what vim does.
 * Cmake
 #+begin_src emacs-lisp :results output silent
   (use-package cmake-mode
+    :straight t
     :mode ("\\cmakelists.txt\\'" . cmake-mode)
-    :ensure t ;; the package is nested in the greater cmake repo, and
-              ;; not practical to use straight on (yet)
+    ;; :ensure t ;; the package is nested in the greater cmake repo, and
+    ;;           ;; not practical to use straight on (yet)
     :hook (cmake-mode-hook . hl-todo-mode))
 #+end_src
 
 ** Cmake-font-lock
 #+begin_src emacs-lisp :results output silent
   (use-package cmake-font-lock
-    :straight (:host github :repo "Lindydancer/cmake-font-lock")
+    ;; :straight (:host github :repo "Lindydancer/cmake-font-lock")
+    :straight t
     :hook (cmake-mode-hook . cmake-font-lock-activate))
 #+end_src
 
@@ -4082,7 +4098,8 @@ the thing, because that's what vim does.
 #+begin_src emacs-lisp :results output silent
   (use-package org-jira
     :defer t
-    :straight (:host github :repo "baohaojun/org-jira"))
+    ;; :straight (:host github :repo "baohaojun/org-jira"))
+    :straight t)
 #+end_src
 
 * Jupyter Notebook
@@ -4097,7 +4114,8 @@ https://millejoh.github.io/emacs-ipython-notebook/
 * Focus mode
 #+begin_src emacs-lisp :results output silent
   (use-package focus
-    :straight (:host github :repo "larstvei/Focus")
+    ;; :straight (:host github :repo "larstvei/Focus")
+    :straight t
     :commands focus-mode
     :init
     (evil-ex-define-cmd "fo[cus]" 'focus-mode))
@@ -4106,7 +4124,8 @@ https://millejoh.github.io/emacs-ipython-notebook/
 * Pretty mode
 #+begin_src emacs-lisp :results output silent
   (use-package pretty-mode
-    :straight (:host github :repo "pretty-mode/pretty-mode")
+    ;; :straight (:host github :repo "pretty-mode/pretty-mode")
+    :straight t
     :defer t
     :commands (pretty-mode))
     ;; :config
@@ -4128,7 +4147,8 @@ keeping it until we figure out how to use it properly
 
 #+begin_src emacs-lisp :results output silent
   (use-package outshine
-    :straight (:host github :repo "alphapapa/outshine")
+    ;; :straight (:host github :repo "alphapapa/outshine")
+    :straight t
     :commands (outshine-mode))
 #+end_src
 
@@ -4143,7 +4163,8 @@ more than spell out that block and evaluate it.
 
 #+begin_src emacs-lisp :results output silent
   (use-package org-kanban
-    :straight (:host github :repo "gizmomogwai/org-kanban")
+    ;; :straight (:host github :repo "gizmomogwai/org-kanban")
+    :straight t
     :defer 10)
 #+end_src
 
@@ -4181,6 +4202,7 @@ The only reason I'm keeping this and not discarding it is because it's currently
 
 #+begin_src emacs-lisp :results output silent
   (use-package copy-as-format
+    :disabled t
     :straight (:host github :repo "sshaw/copy-as-format")
     :commands (copy-as-format))
    ;;  :init
@@ -4212,7 +4234,8 @@ Or evil-spongebob if you want to think of it that way.
 * Go Mode                                                             :major:
 #+begin_src emacs-lisp :results output silent
   (use-package go-mode
-    :straight (:host github :repo "dominikh/go-mode.el")
+    ;; :straight (:host github :repo "dominikh/go-mode.el")
+    :straight t
     :mode ("\\.go\\'" . go-mode))
 #+end_src
 
@@ -4399,7 +4422,8 @@ now becomes too noisy.
 
 #+begin_src emacs-lisp :results output silent
   (use-package alert
-    :straight (:host github :repo "jwiegley/alert" :flavor melpa)
+    ;; :straight (:host github :repo "jwiegley/alert" :flavor melpa)
+    :straight t
     :commands alert)
   ;; :custom
   ;; (alert-default-style 'fringe))
@@ -4418,7 +4442,8 @@ now becomes too noisy.
 
 #+begin_src emacs-lisp :results output silent
   (use-package sound-wav
-    :straight (:host github :repo "syohex/emacs-sound-wav")
+    ;; :straight (:host github :repo "syohex/emacs-sound-wav")
+    :straight t
     :commands sound-wav-play)
 #+end_src
 
@@ -4480,7 +4505,8 @@ now becomes too noisy.
 #+begin_src emacs-lisp :results output silent
   (use-package seml-mode
     :defer 20
-    :straight (:host github :repo "conao3/seml-mode.el"))
+    ;; :straight (:host github :repo "conao3/seml-mode.el"))
+    :straight t)
 #+end_src
 
 * Annotations
@@ -5158,6 +5184,7 @@ Note that =customize-set-variable= is like =setq-default=.
     ;; :straight (:host github :repo "danielfm/spotify.el")
     :straight t
     ;; :disabled t ;; can't find an `oauth2` package
+    :commands (spotify-play)
     :if (and (boundp 'my-spotify-oauth2-client-secret)
              (boundp 'my-spotify-oauth2-client-id)))
 #+end_src
