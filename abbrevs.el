@@ -214,7 +214,6 @@
     ("follwo" "follow" nil :count 1)
     ("follwoing" "following" nil :count 3)
     ("fomrat" "format" nil :count 2)
-    ("foo" "fbb" nil :count 6)
     ("foors" "doors" nil :count 1)
     ("forseeable" "foreseeable" nil :count 1)
     ("framewokr" "framework" nil :count 1)
@@ -595,4 +594,6 @@
     ("wya" "way" nil :count 4)
     ("yb" "by" nil :count 2)
     ("yeaterday" "yesterday" nil :count 1)
-    ("yse" "yes" nil :count 1)))
+    ("yse" "yes" nil :count 1)
+   ))
+
