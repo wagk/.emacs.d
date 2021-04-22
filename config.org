@@ -5178,15 +5178,16 @@ Note that =customize-set-variable= is like =setq-default=.
      "g *" 'fill-function-arguments-dwim))
 #+end_src
 
-* Spotify
+* Spotify (now Smudge)
 #+begin_src emacs-lisp :results output silent
-  (use-package spotify
-    ;; :straight (:host github :repo "danielfm/spotify.el")
+  (use-package smudge
+    ;; :straight (:host github :repo "danielfm/smudge")
     :straight t
-    ;; :disabled t ;; can't find an `oauth2` package
-    :commands (spotify-play)
     :if (and (boundp 'my-spotify-oauth2-client-secret)
-             (boundp 'my-spotify-oauth2-client-id)))
+             (boundp 'my-spotify-oauth2-client-id))
+    :custom
+    (smudge-oauth2-client-secret my-spotify-oauth2-client-secret)
+    (smudge-oauth2-client-id my-spotify-oauth2-client-id))
 #+end_src
 
 * Tree Sitter
