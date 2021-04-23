@@ -866,9 +866,8 @@ Disabled because it kept raising a warning during init about markerp
 #+begin_src emacs-lisp :results output silent
   (use-package evil-fringe-mark
     :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
-    :disabled t
     :custom
-    (evil-fringe-mark-show-special t)
+    (evil-fringe-mark-show-special nil)
     :config
     (global-evil-fringe-mark-mode))
 #+end_src
@@ -4520,18 +4519,24 @@ This is a very finnicky package
     ;; :straight (:host github :repo "bastibe/annotate.el")
     :straight t
     :commands (annotate-save-annotations)
+    :custom-face
+    (annotate-highlight ((t (:box (:line-width -1)))))
     :custom
     (annotate-summary-ask-query nil)
-    (annotate-annotation-position-policy :new-line)
+    (annotate-annotation-position-policy :by-length)
+    (annotate-use-echo-area nil)
     :hook
     (after-save-hook . annotate-save-annotations)
     :general
     (:states '(normal visual)
      :prefix my-default-evil-leader-key
-                                          ; "r" for "remember"
+                                          ;; "r" for "remember"
      "r r" 'annotate-annotate
      "r m" 'annotate-mode
-     "r s" 'annotate-show-annotation-summary))
+     "r s" 'annotate-show-annotation-summary)
+    (:states '(normal)
+     "[ r" 'annotate-goto-previous-annotation
+     "] r" 'annotate-goto-next-annotation))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
