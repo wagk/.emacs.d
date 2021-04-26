@@ -5274,6 +5274,8 @@ Not persistent scratch, just a custom scratch buffer
 * Compilation Mode
 #+begin_src emacs-lisp :results output silent
   (use-package compile
+    :straight nil
+    :ensure nil
     :custom
     (compilation-auto-jump-to-first-error t)
     :general
@@ -5287,7 +5289,7 @@ Not persistent scratch, just a custom scratch buffer
       (let ((inhibit-read-only t))
         (ansi-color-apply-on-region (point-min) (point-max))))
     :hook
-    (compilation-filter-hook . #'my-colorize-completion-buffer))
+    (compilation-filter-hook . my-colorize-completion-buffer))
 #+end_src
 
 * Project mode
