@@ -93,9 +93,9 @@
                  ("gnu"          . "https://elpa.gnu.org/packages/")
                  ("marmalade"    . "https://marmalade-repo.org/packages/")))
       (add-to-list 'package-archives x)))
-    (when (< emacs-major-version 27)
-      ;; package-initialize doesn't have to be called here in emacs 27
-      (package-initialize)))
+  (when (< emacs-major-version 27)
+    ;; package-initialize doesn't have to be called here in emacs 27
+    (package-initialize)))
 
 (defun bootstrap-straight ()
   "Load straight.el, downloading it if necessary.
@@ -343,12 +343,12 @@ recovery. Maybe eventually load dependencies and all that."
      the `universal-argument' function that might augment a function
      call. We prefer the scrolling.")
     (evil-split-window-below
-     ;; t
-     nil
+     t
+     ;; nil
      "`set splitbelow` in vim")
     (evil-vsplit-window-right
-     ;; t
-     nil
+     t
+     ;; nil
      "`set splitright` in vim")
     (evil-move-beyond-eol
      t
