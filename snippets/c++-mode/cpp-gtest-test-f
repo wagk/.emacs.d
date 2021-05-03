@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: cpp-gtest-test-f
+# key: test
+# --
+TEST_${1:F}($2, $3) {
+  $0
+}

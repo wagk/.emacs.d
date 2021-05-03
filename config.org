@@ -2160,7 +2160,7 @@ up, on windows at least).
                             "..XXXX.."
                             "........"))
     :custom
-    (git-gutter+-hide-gutter t))
+    (git-gutter+-hide-gutter nil))
 #+end_src
 
 ** TODO Git hunk textobjects
@@ -2435,7 +2435,7 @@ Solarized)
 #+begin_src emacs-lisp :results output silent
   (when (display-graphic-p)
     ;; (load-solarized-theme))
-    (load-theme 'solarized-light-high-contrast t))
+    (load-theme 'solarized-dark-high-contrast t))
   ;; (load-solarized-theme)
   ;; (load-eva02-theme)
 #+end_src
@@ -5279,7 +5279,7 @@ Not persistent scratch, just a custom scratch buffer
     :straight nil
     :ensure nil
     :custom
-    (compilation-auto-jump-to-first-error t)
+    (compilation-auto-jump-to-first-error nil)
     :general
     (compilation-mode-map
      :states 'normal
