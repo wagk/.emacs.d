@@ -2088,7 +2088,7 @@ up, on windows at least).
     :commands
     (magit-todos-list)
     :init
-    (evil-ex-define-cmd "todo" 'magit-todos-list)
+    (evil-ex-define-cmd "gtodo" 'magit-todos-list)
     :hook
     (magit-status-mode-hook . magit-todos-mode))
 #+end_src
@@ -2125,6 +2125,7 @@ up, on windows at least).
   (use-package git-gutter+
     ;; :straight (:host github :repo "nonsequitur/git-gutter-plus")
     :straight t
+    :after magit
     :general
     (:states  'normal
      :keymaps 'git-gutter+-mode-map
@@ -2134,6 +2135,8 @@ up, on windows at least).
      "g h u"  'git-gutter+-revert-hunks
      "g h h"  'git-gutter+-show-hunk-inline-at-point)
     :hook (prog-mode-hook . git-gutter+-mode)
+    :config
+    (global-git-gutter+-mode)
     :init
     (use-package git-gutter-fringe+
       ;; :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus")
@@ -5303,10 +5306,16 @@ Not persistent scratch, just a custom scratch buffer
     (advice-add 'evil-make :before
                 #'(lambda (&rest _) (require 'project)))
     :config
+    (with-eval-after-load 'ivy
+      (general-define-key
+       :keymaps 'project-prefix-map
+       "c" 'counsel-compile))
     (with-eval-after-load 'rg
       (general-define-key
        :keymaps 'project-prefix-map
        "g" 'rg-project)))
+      ;; (cl-letf (((symbol-function 'compile) #'counsel-compile))
+      ;;   (project-compile)))
 #+end_src
 
 * Calendar Mode
