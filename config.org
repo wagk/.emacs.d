@@ -5181,8 +5181,8 @@ Note that =customize-set-variable= is like =setq-default=.
 * Spotify (now Smudge)
 #+begin_src emacs-lisp :results output silent
   (use-package smudge
-    ;; :straight (:host github :repo "danielfm/smudge")
-    :straight t
+    :straight (:host github :repo "danielfm/smudge")
+    ;; :straight t
     :if (and (boundp 'my-spotify-oauth2-client-secret)
              (boundp 'my-spotify-oauth2-client-id))
     :custom
