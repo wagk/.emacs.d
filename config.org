@@ -2443,13 +2443,6 @@ Solarized)
   ;; (load-eva02-theme)
 #+end_src
 
-* Posframe
-#+begin_src emacs-lisp :results output silent
-  (use-package posframe
-    :disabled t
-    :straight (:host github :repo "tumashu/posframe"))
-#+end_src
-
 * Text
 ** Aggressive Fill Paragraph
 #+begin_src emacs-lisp :results output silent
@@ -3302,6 +3295,7 @@ note: use :Ex instead like Vim does
   ;;  "f" 'ace-link-help
   ;;  "F" 'ace-link-help)
 #+end_src
+
 * Help+
 - Emacswiki :: https://www.emacswiki.org/emacs/HelpPlus
 
@@ -4564,7 +4558,9 @@ This is a very finnicky package
 #+begin_src emacs-lisp :results output silent
   (use-package prescient
     :straight (:host github :repo "raxod502/prescient.el")
-    :after ivy)
+    :after ivy
+    :config
+    (prescient-persist-mode))
 #+end_src
 
 ** Rich Display
@@ -4580,9 +4576,9 @@ This is a very finnicky package
 Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package ivy-posframe
-    :disabled t
-    :straight (:host github :repo "tumashu/ivy-posframe"
-               :files ("ivy-posframe.el"))
+    ;; :straight (:host github :repo "tumashu/ivy-posframe"
+    ;;            :files ("ivy-posframe.el"))
+    :straight t
     :after ivy
     :custom
     (ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
@@ -4593,13 +4589,13 @@ Not tracking master because it's currently broken for some reason.
 * Company
 #+begin_src emacs-lisp :results output silent
   (use-package company-mode
-    :straight (:host github :repo "company-mode/company-mode")
-    ;; :straight t
+    ;; :straight (:host github :repo "company-mode/company-mode")
+    :straight t
     :commands (company-mode-on
                company-mode)
     :general
     (company-active-map
-     "RET" 'company-complete-selection
+     ;; "RET" 'company-complete-selection
      "C-w" nil) ;; don't override vim controls
     ;; :custom
     ;; (company-idle-delay 2)
@@ -5325,4 +5321,10 @@ Not persistent scratch, just a custom scratch buffer
     :straight nil
     :custom
     (calendar-week-start-day 1 "monday"))
+#+end_src
+
+* Hydras
+#+begin_src emacs-lisp :results output silent
+  (use-package hydra
+    :straight t)
 #+end_src
