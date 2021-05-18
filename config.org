@@ -4578,6 +4578,7 @@ Not tracking master because it's currently broken for some reason.
   (use-package ivy-posframe
     ;; :straight (:host github :repo "tumashu/ivy-posframe"
     ;;            :files ("ivy-posframe.el"))
+    :disabled t
     :straight t
     :after ivy
     :custom
@@ -5197,6 +5198,7 @@ Note that =customize-set-variable= is like =setq-default=.
 * Tree Sitter
 #+begin_src emacs-lisp :results output silent
   (use-package tree-sitter
+    :disabled t ;; font lock is very buggy
     :hook ((c++-mode-hook . tree-sitter-mode)
            (tree-sitter-after-on-hook . tree-sitter-hl-mode))
     :custom-face
