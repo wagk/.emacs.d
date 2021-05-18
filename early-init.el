@@ -7,5 +7,7 @@
          (native-comp-available-p))
     (setq comp-deferred-compilation t))
 
+(defvaralias 'comp-deferred-compilation-deny-list 'native-comp-deferred-compilation-deny-list)
+
 ;; (when (boundp 'auto-compile-on-load-mode))
   ;; auto-compile exists

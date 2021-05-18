@@ -102,6 +102,10 @@
 `package-initialize' must be called prior to this."
   ;; Requires (package-initialize) to be called
   ;; https://github.com/raxod502/straight.el
+  (customize-set-variable 'straight-repository-branch "develop")
+  (customize-set-variable 'straight-use-package-by-default t)
+  (customize-set-variable 'straight-check-for-modifications
+                          '(check-on-save find-when-checking))
   (let ((bootstrap-file
          (expand-file-name "straight/repos/straight.el/bootstrap.el"
                            user-emacs-directory))
@@ -123,11 +127,7 @@
                                            (cons profile-name
                                                  lockfile)))
       (customize-set-variable 'straight-current-profile
-                              profile-name)))
-  (customize-set-variable 'straight-repository-branch "develop")
-  (customize-set-variable 'straight-use-package-by-default t)
-  (customize-set-variable 'straight-check-for-modifications
-                          '(check-on-save find-when-checking)))
+                              profile-name))))
 
 ;; (defun bootstrap-quelpa ()
 ;;   ;; Requires (package-initialize) to be called beforehand
