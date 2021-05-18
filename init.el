@@ -316,7 +316,8 @@ recovery. Maybe eventually load dependencies and all that."
      ;; "gt"     '(lambda () (interactive) (other-frame 1))
      ;; "gT"     '(lambda () (interactive) (other-frame -1))
      "g a" 'describe-char
-     "g o" 'ff-find-other-file)
+     "g o" 'ff-find-other-file
+     "g O" 'ff-find-other-file-other-window)
     ;; "g a"    'describe-char)
     (:keymaps 'inner
      "e"      'my-evil-a-buffer)
