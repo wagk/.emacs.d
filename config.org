@@ -5307,7 +5307,9 @@ Not persistent scratch, just a custom scratch buffer
     (with-eval-after-load 'ivy
       (general-define-key
        :keymaps 'project-prefix-map
-       "c" 'counsel-compile))
+       "c" 'counsel-compile)
+      (with-eval-after-load 'savehist
+        (add-to-list 'savehist-additional-variables 'counsel-compile-history)))
     (with-eval-after-load 'rg
       (general-define-key
        :keymaps 'project-prefix-map
