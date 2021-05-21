@@ -2086,9 +2086,14 @@ up, on windows at least).
      "jl" nil
      "j" nil)
     :commands
-    (magit-todos-list)
+    (magit-todos-list ivy-magit-todos)
     :init
-    (evil-ex-define-cmd "gtodo" 'magit-todos-list)
+    (with-eval-after-load 'ivy
+      (evil-ex-define-cmd "gtodo" 'magit-todos-list)
+      ;; (general-with-eval-after-load 'counsel
+      (general-define-key
+        :keymaps 'project-prefix-map
+        "t" 'ivy-magit-todos))
     :hook
     (magit-status-mode-hook . magit-todos-mode))
 #+end_src
@@ -3535,11 +3540,12 @@ filters*.
                         (add-to-list 'c-default-style '(c-mode . "k&r"))))
 #+end_src
 
-** Newline in comments should insert an indented comment
+** TODO Newline in comments should insert an indented comment
+Disable this for now so to check if it still mangles company-mode bindings
 #+begin_src emacs-lisp :results output silent
-  (general-define-key :states 'insert
-                      :keymaps 'c-mode-base-map
-                      "RET" 'comment-indent-new-line)
+  ;; (general-define-key :states 'insert
+  ;;                     :keymaps 'c-mode-base-map
+  ;;                     "RET" 'comment-indent-new-line)
 #+end_src
 
 ** Treat .h files as cpp files
@@ -4598,6 +4604,9 @@ Not tracking master because it's currently broken for some reason.
     (company-active-map
      ;; "RET" 'company-complete-selection
      "C-w" nil) ;; don't override vim controls
+    (company-active-map
+     :states 'insert
+     "RET" 'company-complete-selection)
     ;; :custom
     ;; (company-idle-delay 2)
     :hook
@@ -4777,6 +4786,7 @@ file will not itself be encrypted.
 
 #+begin_src emacs-lisp :results output silent
   (use-package plantuml-mode
+    :disabled t ;; org-babel builds this in natively now iirc
     :straight (:host github :repo "skuro/plantuml-mode")
     :commands (plantuml-mode)
     :custom
