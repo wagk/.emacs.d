@@ -866,9 +866,8 @@ Disabled because it kept raising a warning during init about markerp
 #+begin_src emacs-lisp :results output silent
   (use-package evil-fringe-mark
     :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
-    :disabled t
     :custom
-    (evil-fringe-mark-show-special t)
+    (evil-fringe-mark-show-special nil)
     :config
     (global-evil-fringe-mark-mode))
 #+end_src
@@ -2087,9 +2086,14 @@ up, on windows at least).
      "jl" nil
      "j" nil)
     :commands
-    (magit-todos-list)
+    (magit-todos-list ivy-magit-todos)
     :init
-    (evil-ex-define-cmd "todo" 'magit-todos-list)
+    (with-eval-after-load 'ivy
+      (evil-ex-define-cmd "gtodo" 'magit-todos-list)
+      ;; (general-with-eval-after-load 'counsel
+      (general-define-key
+        :keymaps 'project-prefix-map
+        "t" 'ivy-magit-todos))
     :hook
     (magit-status-mode-hook . magit-todos-mode))
 #+end_src
@@ -2126,6 +2130,7 @@ up, on windows at least).
   (use-package git-gutter+
     ;; :straight (:host github :repo "nonsequitur/git-gutter-plus")
     :straight t
+    :after magit
     :general
     (:states  'normal
      :keymaps 'git-gutter+-mode-map
@@ -2135,6 +2140,8 @@ up, on windows at least).
      "g h u"  'git-gutter+-revert-hunks
      "g h h"  'git-gutter+-show-hunk-inline-at-point)
     :hook (prog-mode-hook . git-gutter+-mode)
+    :config
+    (global-git-gutter+-mode)
     :init
     (use-package git-gutter-fringe+
       ;; :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus")
@@ -2161,7 +2168,7 @@ up, on windows at least).
                             "..XXXX.."
                             "........"))
     :custom
-    (git-gutter+-hide-gutter t))
+    (git-gutter+-hide-gutter nil))
 #+end_src
 
 ** TODO Git hunk textobjects
@@ -2175,11 +2182,11 @@ Note that there are evil-collection bindings for this
   (use-package git-timemachine
     :straight t
     :commands git-timemachine
-    ;; :general
-    ;; (git-timemachine-mode-map
-    ;;  :states 'normal
-    ;;  "\C-k" 'git-timemachine-show-next-revision
-    ;;  "\C-j" 'git-timemachine-show-previous-revision)
+    :general
+    (git-timemachine-mode-map
+     :states 'normal
+     "M-k" 'git-timemachine-show-next-revision
+     "M-j" 'git-timemachine-show-previous-revision)
     :init
     (evil-ex-define-cmd "gtime" #'git-timemachine))
 #+end_src
@@ -2436,16 +2443,9 @@ Solarized)
 #+begin_src emacs-lisp :results output silent
   (when (display-graphic-p)
     ;; (load-solarized-theme))
-    (load-theme 'solarized-light-high-contrast t))
+    (load-theme 'solarized-dark-high-contrast t))
   ;; (load-solarized-theme)
   ;; (load-eva02-theme)
-#+end_src
-
-* Posframe
-#+begin_src emacs-lisp :results output silent
-  (use-package posframe
-    :disabled t
-    :straight (:host github :repo "tumashu/posframe"))
 #+end_src
 
 * Text
@@ -3300,6 +3300,7 @@ note: use :Ex instead like Vim does
   ;;  "f" 'ace-link-help
   ;;  "F" 'ace-link-help)
 #+end_src
+
 * Help+
 - Emacswiki :: https://www.emacswiki.org/emacs/HelpPlus
 
@@ -3539,11 +3540,12 @@ filters*.
                         (add-to-list 'c-default-style '(c-mode . "k&r"))))
 #+end_src
 
-** Newline in comments should insert an indented comment
+** TODO Newline in comments should insert an indented comment
+Disable this for now so to check if it still mangles company-mode bindings
 #+begin_src emacs-lisp :results output silent
-  (general-define-key :states 'insert
-                      :keymaps 'c-mode-base-map
-                      "RET" 'comment-indent-new-line)
+  ;; (general-define-key :states 'insert
+  ;;                     :keymaps 'c-mode-base-map
+  ;;                     "RET" 'comment-indent-new-line)
 #+end_src
 
 ** Treat .h files as cpp files
@@ -4519,18 +4521,24 @@ This is a very finnicky package
     ;; :straight (:host github :repo "bastibe/annotate.el")
     :straight t
     :commands (annotate-save-annotations)
+    :custom-face
+    (annotate-highlight ((t (:box (:line-width -1)))))
     :custom
     (annotate-summary-ask-query nil)
-    (annotate-annotation-position-policy :new-line)
+    (annotate-annotation-position-policy :by-length)
+    (annotate-use-echo-area nil)
     :hook
     (after-save-hook . annotate-save-annotations)
     :general
     (:states '(normal visual)
      :prefix my-default-evil-leader-key
-                                          ; "r" for "remember"
+                                          ;; "r" for "remember"
      "r r" 'annotate-annotate
      "r m" 'annotate-mode
-     "r s" 'annotate-show-annotation-summary))
+     "r s" 'annotate-show-annotation-summary)
+    (:states '(normal)
+     "[ r" 'annotate-goto-previous-annotation
+     "] r" 'annotate-goto-next-annotation))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
@@ -4556,7 +4564,9 @@ This is a very finnicky package
 #+begin_src emacs-lisp :results output silent
   (use-package prescient
     :straight (:host github :repo "raxod502/prescient.el")
-    :after ivy)
+    :after ivy
+    :config
+    (prescient-persist-mode))
 #+end_src
 
 ** Rich Display
@@ -4572,9 +4582,10 @@ This is a very finnicky package
 Not tracking master because it's currently broken for some reason.
 #+begin_src emacs-lisp :results output silent
   (use-package ivy-posframe
+    ;; :straight (:host github :repo "tumashu/ivy-posframe"
+    ;;            :files ("ivy-posframe.el"))
     :disabled t
-    :straight (:host github :repo "tumashu/ivy-posframe"
-               :files ("ivy-posframe.el"))
+    :straight t
     :after ivy
     :custom
     (ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
@@ -4585,14 +4596,17 @@ Not tracking master because it's currently broken for some reason.
 * Company
 #+begin_src emacs-lisp :results output silent
   (use-package company-mode
-    :straight (:host github :repo "company-mode/company-mode")
-    ;; :straight t
+    ;; :straight (:host github :repo "company-mode/company-mode")
+    :straight t
     :commands (company-mode-on
                company-mode)
     :general
     (company-active-map
-     "RET" 'company-complete-selection
+     ;; "RET" 'company-complete-selection
      "C-w" nil) ;; don't override vim controls
+    (company-active-map
+     :states 'insert
+     "RET" 'company-complete-selection)
     ;; :custom
     ;; (company-idle-delay 2)
     :hook
@@ -4772,6 +4786,7 @@ file will not itself be encrypted.
 
 #+begin_src emacs-lisp :results output silent
   (use-package plantuml-mode
+    :disabled t ;; org-babel builds this in natively now iirc
     :straight (:host github :repo "skuro/plantuml-mode")
     :commands (plantuml-mode)
     :custom
@@ -5193,8 +5208,11 @@ Note that =customize-set-variable= is like =setq-default=.
 * Tree Sitter
 #+begin_src emacs-lisp :results output silent
   (use-package tree-sitter
+    :disabled t ;; font lock is very buggy
     :hook ((c++-mode-hook . tree-sitter-mode)
            (tree-sitter-after-on-hook . tree-sitter-hl-mode))
+    :custom-face
+    (tree-sitter-hl-face:type.builtin ((t (:inherit 'tree-sitter-hl-face:keyword))))
     :config
     (use-package tree-sitter-langs))
 #+end_src
@@ -5269,8 +5287,10 @@ Not persistent scratch, just a custom scratch buffer
 * Compilation Mode
 #+begin_src emacs-lisp :results output silent
   (use-package compile
+    :straight nil
+    :ensure nil
     :custom
-    (compilation-auto-jump-to-first-error t)
+    (compilation-auto-jump-to-first-error nil)
     :general
     (compilation-mode-map
      :states 'normal
@@ -5280,9 +5300,9 @@ Not persistent scratch, just a custom scratch buffer
     (defun my-colorize-completion-buffer ()
       (require 'ansi-color)
       (let ((inhibit-read-only t))
-        (ansi-color-apply-on-region (point-min) (point-max))))
+        (ansi-color-apply-on-region compilation-filter-start (point))))
     :hook
-    (compilation-filter-hook . #'my-colorize-completion-buffer))
+    (compilation-filter-hook . my-colorize-completion-buffer))
 #+end_src
 
 * Project mode
@@ -5294,10 +5314,18 @@ Not persistent scratch, just a custom scratch buffer
     (advice-add 'evil-make :before
                 #'(lambda (&rest _) (require 'project)))
     :config
+    (with-eval-after-load 'ivy
+      (general-define-key
+       :keymaps 'project-prefix-map
+       "c" 'counsel-compile)
+      (with-eval-after-load 'savehist
+        (add-to-list 'savehist-additional-variables 'counsel-compile-history)))
     (with-eval-after-load 'rg
       (general-define-key
        :keymaps 'project-prefix-map
        "g" 'rg-project)))
+      ;; (cl-letf (((symbol-function 'compile) #'counsel-compile))
+      ;;   (project-compile)))
 #+end_src
 
 * Calendar Mode
@@ -5307,4 +5335,10 @@ Not persistent scratch, just a custom scratch buffer
     :straight nil
     :custom
     (calendar-week-start-day 1 "monday"))
+#+end_src
+
+* Hydras
+#+begin_src emacs-lisp :results output silent
+  (use-package hydra
+    :straight t)
 #+end_src

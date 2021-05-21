@@ -49,3 +49,4 @@ straight/
 /eln-cache/
 /compiler-explorer
 /parinfer-rust/
+/.cache/

@@ -1,4 +1,4 @@
-# key: cout
+# key: print
 # name: cpp-cout
 # --
 std::cout << "$0" << std::endl;

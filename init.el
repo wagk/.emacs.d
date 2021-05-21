@@ -93,15 +93,19 @@
                  ("gnu"          . "https://elpa.gnu.org/packages/")
                  ("marmalade"    . "https://marmalade-repo.org/packages/")))
       (add-to-list 'package-archives x)))
-    (when (< emacs-major-version 27)
-      ;; package-initialize doesn't have to be called here in emacs 27
-      (package-initialize)))
+  (when (< emacs-major-version 27)
+    ;; package-initialize doesn't have to be called here in emacs 27
+    (package-initialize)))
 
 (defun bootstrap-straight ()
   "Load straight.el, downloading it if necessary.
 `package-initialize' must be called prior to this."
   ;; Requires (package-initialize) to be called
   ;; https://github.com/raxod502/straight.el
+  (customize-set-variable 'straight-repository-branch "develop")
+  (customize-set-variable 'straight-use-package-by-default t)
+  (customize-set-variable 'straight-check-for-modifications
+                          '(check-on-save find-when-checking))
   (let ((bootstrap-file
          (expand-file-name "straight/repos/straight.el/bootstrap.el"
                            user-emacs-directory))
@@ -123,11 +127,7 @@
                                            (cons profile-name
                                                  lockfile)))
       (customize-set-variable 'straight-current-profile
-                              profile-name)))
-  (customize-set-variable 'straight-repository-branch "develop")
-  (customize-set-variable 'straight-use-package-by-default t)
-  (customize-set-variable 'straight-check-for-modifications
-                          '(check-on-save find-when-checking)))
+                              profile-name))))
 
 ;; (defun bootstrap-quelpa ()
 ;;   ;; Requires (package-initialize) to be called beforehand
@@ -316,7 +316,8 @@ recovery. Maybe eventually load dependencies and all that."
      ;; "gt"     '(lambda () (interactive) (other-frame 1))
      ;; "gT"     '(lambda () (interactive) (other-frame -1))
      "g a" 'describe-char
-     "g o" 'ff-find-other-file)
+     "g o" 'ff-find-other-file
+     "g O" 'ff-find-other-file-other-window)
     ;; "g a"    'describe-char)
     (:keymaps 'inner
      "e"      'my-evil-a-buffer)
@@ -343,12 +344,12 @@ recovery. Maybe eventually load dependencies and all that."
      the `universal-argument' function that might augment a function
      call. We prefer the scrolling.")
     (evil-split-window-below
-     ;; t
-     nil
+     t
+     ;; nil
      "`set splitbelow` in vim")
     (evil-vsplit-window-right
-     ;; t
-     nil
+     t
+     ;; nil
      "`set splitright` in vim")
     (evil-move-beyond-eol
      t

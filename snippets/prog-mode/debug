@@ -2,4 +2,4 @@
 # key: dd
 # name: debug
 # --
-`(yas-with-comment "DEBUG:")` ${1:Remove when done}
+`(yas-with-comment "DEBUG:")` $0
