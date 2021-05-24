@@ -270,10 +270,12 @@ recovery. Maybe eventually load dependencies and all that."
 
   (use-package restart-emacs
     :straight (:host github :repo "iqbalansari/restart-emacs")
-    :commands (restart-emacs)
+    :commands (restart-emacs restart-emacs-start-new-emacs)
     :init
     (with-eval-after-load 'evil
-      (evil-ex-define-cmd "restart" 'restart-emacs)))
+      (evil-ex-define-cmd "restart" 'restart-emacs)
+      (evil-ex-define-cmd "restarttest"
+                          'restart-emacs-start-new-emacs)))
 
   ;; (use-package undo-fu
   ;;   :straight t
