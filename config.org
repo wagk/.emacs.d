@@ -2018,6 +2018,9 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     :custom
     (magit-blame-echo-style 'margin)
     :general
+    (general-define-key
+      :keymaps 'project-prefix-map
+      "v" 'magit-status)
     (magit-mode-map
      :states '(normal)
      "g x" 'magit-browse-thing)
@@ -3585,6 +3588,9 @@ r-value references.
                clang-format)
     :general
     (c++-mode-map
+     :states '(normal)
+      "C-c C-f" 'my-evil-clang-format)
+    (java-mode-map
      :states '(normal)
       "C-c C-f" 'my-evil-clang-format)
     ;; :init
