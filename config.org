@@ -3191,9 +3191,11 @@ We should look at customizing cider someday.
       (add-hook 'rust-mode-hook 'lsp)))
 #+end_src
 
+** Cargo
 Requires rust-mode and markdown-mode
 #+begin_src emacs-lisp :results output silent
   (use-package cargo
+    :disabled t
     :straight (:host github :repo "kwrooijen/cargo.el")
     :diminish cargo-minor-mode
     :commands cargo-minor-mode
@@ -3204,6 +3206,20 @@ Requires rust-mode and markdown-mode
     ;;   (cond
     ;;    ()))
     ;; (evil-ex-define-cmd "cargo" 'my-cargo-wrapper))
+#+end_src
+
+** Cargo-Mode
+#+begin_src emacs-lisp :results output silent
+  (use-package cargo-mode
+    :straight (:host github :repo "ayrat555/cargo-mode"))
+    :hook (rust-mode-hook . cargo-mode)
+    :commands
+    (cargo-execute-task
+     cargo-mode-test
+     cargo-mode-last-command
+     cargo-mode-build
+     cargo-mode-test-current-buffer
+     cargo-mode-test-current-test))
 #+end_src
 
 * Dired
@@ -4524,6 +4540,7 @@ This is a very finnicky package
 
 #+begin_src emacs-lisp :results output silent
   (use-package annotate
+    :disabled t
     ;; :straight (:host github :repo "bastibe/annotate.el")
     :straight t
     :commands (annotate-save-annotations)
