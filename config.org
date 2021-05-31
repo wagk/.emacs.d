@@ -3211,8 +3211,7 @@ Requires rust-mode and markdown-mode
 ** Cargo-Mode
 #+begin_src emacs-lisp :results output silent
   (use-package cargo-mode
-    :straight (:host github :repo "ayrat555/cargo-mode"))
-    :hook (rust-mode-hook . cargo-mode)
+    :straight (:host github :repo "ayrat555/cargo-mode")
     :commands
     (cargo-execute-task
      cargo-mode-test
