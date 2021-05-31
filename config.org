@@ -5376,3 +5376,21 @@ Not persistent scratch, just a custom scratch buffer
     :config
     (explain-pause-mode))
   #+end_src
+
+* devdocs
+#+begin_src emacs-lisp :results output silent
+  (use-package devdocs
+    :straight (:host github :repo "blahgeek/emacs-devdocs-browser")
+    :commands
+    (devdocs-browser-open
+     devdocs-browser-open-in
+     devdocs-browser-list-docs
+     devdocs-browser-update-docs
+     devdocs-browser-install-doc
+     devdocs-browser-uninstall-doc
+     devdocs-browser-upgrade-doc
+     devdocs-browser-download-offline-data
+     devdocs-browser-remove-offline-data)
+    :init
+    (evil-ex-define-cmd "dd" 'devdocs-browser-open))
+#+end_src
