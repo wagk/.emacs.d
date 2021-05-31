@@ -4247,7 +4247,7 @@ Or evil-spongebob if you want to think of it that way.
     :mode ("\\.go\\'" . go-mode))
 #+end_src
 
-* COMMENT Elfeed
+* Elfeed
 #+begin_src emacs-lisp :results output silent
   (defconst user-rss-feed-file
     (locate-user-emacs-file "feeds.org")
