@@ -324,22 +324,23 @@ Stolen from https://github.com/bbatsov/crux
 
 #+begin_src emacs-lisp :results output silent
   ;; ;;;###autoload
-  ;; (defun eval-and-replace ()
-  ;;   "Replace the preceding sexp with its value."
-  ;;   (interactive)
-  ;;   (let ((value (eval (elisp--preceding-sexp))))
-  ;;     (backward-kill-sexp)
-  ;;     (insert (format "%S" value))))
-  ;; (evil-ex-define-cmd "eval" 'eval-and-replace)
+  (defun eval-and-replace ()
+    "Replace the preceding sexp with its value."
+    (interactive)
+    (let ((value (eval (elisp--preceding-sexp))))
+      (backward-kill-sexp)
+      (insert (format "%S" value))))
+  (evil-ex-define-cmd "eval" 'eval-and-replace)
 
+  ;;TODO: it's not working somehow
   ;;;###autoload
   (evil-define-command my-eval-and-replace (beg end _type)
     "Replace the preceding sexp with its value."
     (interactive "<v>")
-    (eval-region beg end (get-buffer (buffer-name))))
-      ;; (insert (format "%S" value))))
+    (let ((value (eval-region beg end (get-buffer (buffer-name)))))
+      (insert (format "%S" value))))
 
-  (evil-ex-define-cmd "eval" 'my-eval-and-replace)
+  (evil-ex-define-cmd "eval" 'eval-and-replace)
 #+end_src
 
 ** Completion
@@ -2018,6 +2019,9 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     :custom
     (magit-blame-echo-style 'margin)
     :general
+    (general-define-key
+      :keymaps 'project-prefix-map
+      "v" 'magit-status)
     (magit-mode-map
      :states '(normal)
      "g x" 'magit-browse-thing)
@@ -3540,12 +3544,11 @@ filters*.
                         (add-to-list 'c-default-style '(c-mode . "k&r"))))
 #+end_src
 
-** TODO Newline in comments should insert an indented comment
-Disable this for now so to check if it still mangles company-mode bindings
+** Newline in comments should insert an indented comment
 #+begin_src emacs-lisp :results output silent
-  ;; (general-define-key :states 'insert
-  ;;                     :keymaps 'c-mode-base-map
-  ;;                     "RET" 'comment-indent-new-line)
+  (general-define-key :states 'insert
+                      :keymaps 'c-mode-base-map
+                      "C-<return>" 'comment-indent-new-line)
 #+end_src
 
 ** Treat .h files as cpp files
@@ -3587,6 +3590,9 @@ r-value references.
     (c++-mode-map
      :states '(normal)
       "C-c C-f" 'my-evil-clang-format)
+    (java-mode-map
+     :states '(normal)
+      "C-c C-f" 'my-evil-clang-format)
     ;; :init
     ;; IF there is a .clang-format, then use that to format before
     ;; saving
@@ -3620,7 +3626,7 @@ r-value references.
                                "read from .clang-format"))
 #+end_src
 
-** Clang-Format+
+*** Clang-Format+
 #+begin_src emacs-lisp :results output silent
   (use-package clang-format+
     :after clang-format
@@ -5362,3 +5368,11 @@ Not persistent scratch, just a custom scratch buffer
   (use-package calibredb
     :straight t)
 #+end_src
+
+* explain-pause-mode
+#+begin_src emacs-lisp :results output silent
+  (use-package explain-pause-mode
+    :straight (:host github :repo "lastquestion/explain-pause-mode")
+    :config
+    (explain-pause-mode))
+  #+end_src
