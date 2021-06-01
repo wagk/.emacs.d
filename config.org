@@ -3191,9 +3191,11 @@ We should look at customizing cider someday.
       (add-hook 'rust-mode-hook 'lsp)))
 #+end_src
 
+** Cargo
 Requires rust-mode and markdown-mode
 #+begin_src emacs-lisp :results output silent
   (use-package cargo
+    :disabled t
     :straight (:host github :repo "kwrooijen/cargo.el")
     :diminish cargo-minor-mode
     :commands cargo-minor-mode
@@ -3204,6 +3206,19 @@ Requires rust-mode and markdown-mode
     ;;   (cond
     ;;    ()))
     ;; (evil-ex-define-cmd "cargo" 'my-cargo-wrapper))
+#+end_src
+
+** Cargo-Mode
+#+begin_src emacs-lisp :results output silent
+  (use-package cargo-mode
+    :straight (:host github :repo "ayrat555/cargo-mode")
+    :commands
+    (cargo-execute-task
+     cargo-mode-test
+     cargo-mode-last-command
+     cargo-mode-build
+     cargo-mode-test-current-buffer
+     cargo-mode-test-current-test))
 #+end_src
 
 * Dired
@@ -4247,7 +4262,7 @@ Or evil-spongebob if you want to think of it that way.
     :mode ("\\.go\\'" . go-mode))
 #+end_src
 
-* COMMENT Elfeed
+* Elfeed
 #+begin_src emacs-lisp :results output silent
   (defconst user-rss-feed-file
     (locate-user-emacs-file "feeds.org")
@@ -4524,6 +4539,7 @@ This is a very finnicky package
 
 #+begin_src emacs-lisp :results output silent
   (use-package annotate
+    :disabled t
     ;; :straight (:host github :repo "bastibe/annotate.el")
     :straight t
     :commands (annotate-save-annotations)
@@ -5376,3 +5392,21 @@ Not persistent scratch, just a custom scratch buffer
     :config
     (explain-pause-mode))
   #+end_src
+
+* devdocs
+#+begin_src emacs-lisp :results output silent
+  (use-package devdocs
+    :straight (:host github :repo "blahgeek/emacs-devdocs-browser")
+    :commands
+    (devdocs-browser-open
+     devdocs-browser-open-in
+     devdocs-browser-list-docs
+     devdocs-browser-update-docs
+     devdocs-browser-install-doc
+     devdocs-browser-uninstall-doc
+     devdocs-browser-upgrade-doc
+     devdocs-browser-download-offline-data
+     devdocs-browser-remove-offline-data)
+    :init
+    (evil-ex-define-cmd "dd" 'devdocs-browser-open))
+#+end_src
