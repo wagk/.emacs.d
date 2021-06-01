@@ -3213,7 +3213,7 @@ Requires rust-mode and markdown-mode
   (use-package cargo-mode
     :straight (:host github :repo "ayrat555/cargo-mode")
     :commands
-    (cargo-execute-task
+    (cargo-mode-execute-task
      cargo-mode-test
      cargo-mode-last-command
      cargo-mode-build
