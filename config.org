@@ -1806,11 +1806,11 @@ org roam mode hook only activates once, not per roam file as we wanted.
 
 #+begin_src emacs-lisp :results output silent
   (use-package nroam
-    :disabled t
     :straight (:host github :repo "nicolaspetton/nroam")
     :after org-roam
     :hook
-    (org-mode-hook . nroam-mode))
+    (org-mode-hook . (lambda () (when org-roam-mode
+                                 (nroam-mode)))))
 #+end_src
 
 ** Org Latex Fragment Toggle
@@ -3195,7 +3195,6 @@ We should look at customizing cider someday.
 Requires rust-mode and markdown-mode
 #+begin_src emacs-lisp :results output silent
   (use-package cargo
-    :disabled t
     :straight (:host github :repo "kwrooijen/cargo.el")
     :diminish cargo-minor-mode
     :commands cargo-minor-mode
