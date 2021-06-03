@@ -3963,7 +3963,8 @@ the thing, because that's what vim does.
 
 * Python
 #+begin_src emacs-lisp :results output silent
-  (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               (add-to-list 'org-babel-load-languages '(python . t)))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
@@ -4821,7 +4822,6 @@ file will not itself be encrypted.
 
 #+begin_src emacs-lisp :results output silent
   (use-package plantuml-mode
-    :disabled t ;; org-babel builds this in natively now iirc
     :straight (:host github :repo "skuro/plantuml-mode")
     :commands (plantuml-mode)
     :custom
@@ -4834,6 +4834,11 @@ file will not itself be encrypted.
       (cl-pushnew '("plantuml" . plantuml) org-src-lang-modes)))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (customize-set-value 'org-plantuml-exec-mode 'plantuml)
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               (add-to-list 'org-babel-load-languages '(plantuml . t)))
+#+end_src
 * Hex conversion
 #+begin_src emacs-lisp :results output silent
   (use-package 0xc
