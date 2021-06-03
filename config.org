@@ -1808,9 +1808,22 @@ org roam mode hook only activates once, not per roam file as we wanted.
   (use-package nroam
     :straight (:host github :repo "nicolaspetton/nroam")
     :after org-roam
-    :hook
-    (org-mode-hook . (lambda () (when org-roam-mode
-                                 (nroam-mode)))))
+    :general
+    (:states 'normal
+      :prefix my-default-evil-leader-key
+      "n r" #'my-enable-nroam-mode-maybe)
+    :commands nroam-mode
+    :hook (org-mode-hook . my-enable-nroam-mode-maybe)
+    :init
+    (defun my-in-org-roam-dir-p ()
+      (interactive)
+      (let ((path (buffer-file-name (current-buffer))))
+        (and path (f-descendant-of? org-roam-directory path))))
+    (defun my-enable-nroam-mode-maybe ()
+      "Enables nroam only if it is found to be inside an org-roam directory"
+      (interactive)
+      (when (my-in-org-roam-dir-p)
+          (nroam-mode))))
 #+end_src
 
 ** Org Latex Fragment Toggle
