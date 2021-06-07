@@ -608,6 +608,7 @@ we're adding a custom function for it here."
     ;;  5 "I think 5 am is a safe bet for the end of the day")
     (org-note-done 'note)
     :custom-face
+    ;; (org-block ((t (:))))
     (org-checkbox ((t (:bold t :box nil))))
     :hook ((org-insert-heading-hook . evil-insert-state))
     :init
