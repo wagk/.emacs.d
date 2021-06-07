@@ -114,8 +114,8 @@ C-M-i                           backward-button
 
 ** Highlight line
 #+begin_src emacs-lisp :results output silent
-  (when (display-graphic-p)
-   (global-hl-line-mode))
+  ;; (when (display-graphic-p)
+  ;;  (global-hl-line-mode))
 #+end_src
 
 ** Default input method
@@ -466,7 +466,13 @@ with Chinese/Japanese.
 
 #+begin_src emacs-lisp :results output silent
   (when (find-font (font-spec :name "Iosevka"))
-    (custom-set-faces '(variable-pitch ((t (:family "Iosevka"))))))
+    (custom-set-faces '(fixed-pitch ((t (:family "Iosevka")))))
+    (custom-set-faces '(variable-pitch ((t (:family "Iosevka")))))
+    (custom-set-faces '(fixed-pitch-serif ((t (:family "Iosevka"))))))
+  (when (find-font (font-spec :name "Iosevka Etoile"))
+    (custom-set-faces '(variable-pitch ((t (:family "Iosevka Etoile"))))))
+  (when (find-font (font-spec :name "Iosevka Aile"))
+    (custom-set-faces '(fixed-pitch-serif ((t (:family "Iosevka Aile"))))))
 #+end_src
 
 TODO:
@@ -1148,6 +1154,7 @@ Use counsel instead
   (use-package emacsql-psql
     :straight t)
 #+end_src
+
 * Org Mode
 ** Evil Org Bindings
 Full keybindings:
@@ -1402,6 +1409,8 @@ For some reason we can't do this in the scratch buffer
                                 (tags . " %i %-12:c")
                                 (search . " %i %-12:c")))
     (org-agenda-breadcrumbs-separator "/")
+    :custom-face
+    (org-agenda-done ((t (:inherit org-agenda-done :strike-through t))))
     :hook
     (org-agenda-after-show-hook . org-narrow-to-subtree)
     :config
@@ -2355,6 +2364,49 @@ TODO: some way to better, more dynamically name the tabs
 ** Solarized
 [[https://ethanschoonover.com/solarized/][Website with more descriptions]]
 
+Solarized 1.0.0beta2[a] Color Palette[8]
+| Color   |    |     |     | sRGB    |     |     |     | xterm | Terminal  | Usage                          |
+|---------+----+-----+-----+---------+-----+-----+-----+-------+-----------+--------------------------------|
+| Name    | L* | a*  | b*  | Hex     |   R |   G |   B |  Code | Name      |                                |
+|---------+----+-----+-----+---------+-----+-----+-----+-------+-----------+--------------------------------|
+| Base03  | 15 | −12 | −12 | #002b36 |   0 |  43 |  54 |   234 | brblack   | background tones (dark theme)  |
+| Base02  | 20 | −12 | −12 | #073642 |   7 |  54 |  66 |   235 | black     | background tones (dark theme)  |
+| Base01  | 45 | −07 | −07 | #586e75 |  88 | 110 | 117 |   240 | brgreen   | content tones                  |
+| Base00  | 50 | −07 | −07 | #657b83 | 101 | 123 | 131 |   241 | bryellow  | content tones                  |
+| Base0   | 60 | −06 | −03 | #839496 | 131 | 148 | 150 |   244 | brblue    | content tones                  |
+| Base1   | 65 | −05 | −02 | #93a1a1 | 147 | 161 | 161 |   245 | brcyan    | content tones                  |
+| Base2   | 92 | −00 | 10  | #eee8d5 | 238 | 232 | 213 |   254 | white     | background tones (light theme) |
+| Base3   | 97 | 00  | 10  | #fdf6e3 | 253 | 246 | 227 |   230 | brwhite   | background tones (light theme) |
+| Yellow  | 60 | 10  | 65  | #b58900 | 181 | 137 |   0 |   136 | yellow    | accent tones                   |
+| Orange  | 50 | 50  | 55  | #cb4b16 | 203 |  75 |  22 |   166 | brred     | accent tones                   |
+| Red     | 50 | 65  | 45  | #dc322f | 220 |  50 |  47 |   160 | red       | accent tones                   |
+| Magenta | 50 | 65  | −05 | #d33682 | 211 |  54 | 130 |   125 | magenta   | accent tones                   |
+| Violet  | 50 | 15  | −45 | #6c71c4 | 108 | 113 | 196 |    61 | brmagenta | accent tones                   |
+| Blue    | 55 | −10 | −45 | #268bd2 |  38 | 139 | 210 |    33 | blue      | accent tones                   |
+| Cyan    | 60 | −35 | −05 | #2aa198 |  42 | 161 | 152 |    37 | cyan      | accent tones                   |
+| Green   | 60 | −20 | 65  | #859900 | 133 | 153 |   0 |    64 | green     | accent tones                   |
+
+#+begin_src emacs-lisp :results output silent
+  (dolist (col '((sol-base03  . "#002b36")
+                 (sol-base02  . "#073642")
+                 (sol-base01  . "#586e75")
+                 (sol-base00  . "#657b83")
+                 (sol-base0   . "#839496")
+                 (sol-base1   . "#93a1a1")
+                 (sol-base2   . "#eee8d5")
+                 (sol-base3   . "#fdf6e3")
+                 (sol-yellow  . "#b58900")
+                 (sol-orange  . "#cb4b16")
+                 (sol-red     . "#dc322f")
+                 (sol-magenta . "#d33682")
+                 (sol-violet  . "#6c71c4")
+                 (sol-blue    . "#268bd2")
+                 (sol-cyan    . "#2aa198")
+                 (sol-green   . "#859900")))
+    ;; TODO: set documentation string
+    (set (car col) (cdr col)))
+#+end_src
+
 #+begin_src emacs-lisp :results output silent
   (use-package solarized-theme
     :straight (:host github :repo "bbatsov/solarized-emacs")
@@ -2370,26 +2422,7 @@ TODO: some way to better, more dynamically name the tabs
     (solarized-height-plus-1 1.0)
     (solarized-height-plus-2 1.0)
     (solarized-height-plus-3 1.0)
-    (solarized-height-plus-4 1.0)
-    :init
-    (dolist (col '((sol-base03  . "#002b36")
-                   (sol-base02  . "#073642")
-                   (sol-base01  . "#586e75")
-                   (sol-base00  . "#657b83")
-                   (sol-base0   . "#839496")
-                   (sol-base1   . "#93a1a1")
-                   (sol-base2   . "#eee8d5")
-                   (sol-base3   . "#fdf6e3")
-                   (sol-yellow  . "#b58900")
-                   (sol-orange  . "#cb4b16")
-                   (sol-red     . "#dc322f")
-                   (sol-magenta . "#d33682")
-                   (sol-violet  . "#6c71c4")
-                   (sol-blue    . "#268bd2")
-                   (sol-cyan    . "#2aa198")
-                   (sol-green   . "#859900")))
-      ;; TODO: set documentation string
-      (set (car col) (cdr col))))
+    (solarized-height-plus-4 1.0))
   ;; (defun load-solarized-theme ()
   ;;   (interactive)
   ;;   (if (display-graphic-p)
@@ -2420,6 +2453,7 @@ TODO: some way to better, more dynamically name the tabs
     :disabled t
     :straight t)
 #+end_src
+
 ** Eva-02
 Personal theme that I'm maintaining (really stealing shamelessly from
 Solarized)
@@ -2456,11 +2490,40 @@ Solarized)
     :after solarized-theme
     :straight t)
 #+end_src
+
+** Nano
+#+begin_src emacs-lisp :results output silent
+  (use-package nano-theme
+    :straight (:host github :repo "rougier/nano-theme")
+    :commands (nano-light nano-dark nano-setup)
+    :custom
+    (nano-light-foreground sol-base1)
+    (nano-light-background sol-base3)
+    (nano-light-highlight sol-base2)
+    (nano-light-subtle sol-base1)
+    (nano-light-faded sol-base00)
+    (nano-light-salient sol-cyan)
+    (nano-light-strong sol-green)
+    (nano-light-popout sol-blue)
+    (nano-light-critical sol-red)
+
+    (nano-dark-foreground sol-base01)
+    (nano-dark-background sol-base03)
+    (nano-dark-highlight sol-base02)
+    (nano-dark-subtle sol-base01)
+    (nano-dark-faded sol-base0)
+    (nano-dark-salient nano-light-salient)
+    (nano-dark-strong nano-light-strong)
+    (nano-dark-popout nano-light-popout)
+    (nano-dark-critical nano-light-critical))
+#+end_src
 * Display
 #+begin_src emacs-lisp :results output silent
   (when (display-graphic-p)
     ;; (load-solarized-theme))
     (load-theme 'solarized-dark-high-contrast t))
+    ;; (progn (nano-dark)
+    ;;        (desktop-save-mode -1)))
   ;; (load-solarized-theme)
   ;; (load-eva02-theme)
 #+end_src
@@ -2736,7 +2799,7 @@ package is known as elisp-mode but it reads as emacs-lisp
   (use-package elisp-mode
     :straight nil
     :hook ((emacs-lisp-mode-hook . prism-mode)
-           ;; (emacs-lisp-mode-hook . rainbow-delimiters-mode)
+           (emacs-lisp-mode-hook . rainbow-delimiters-mode)
            (emacs-lisp-mode-hook . my-maybe-init-parinfer)
            (emacs-lisp-mode-hook . update-evil-shift-width)
            (emacs-lisp-mode-hook . evil-cleverparens-mode)))
@@ -3976,7 +4039,8 @@ the thing, because that's what vim does.
 
 * Python
 #+begin_src emacs-lisp :results output silent
-  (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               (add-to-list 'org-babel-load-languages '(python . t)))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
@@ -4834,7 +4898,6 @@ file will not itself be encrypted.
 
 #+begin_src emacs-lisp :results output silent
   (use-package plantuml-mode
-    :disabled t ;; org-babel builds this in natively now iirc
     :straight (:host github :repo "skuro/plantuml-mode")
     :commands (plantuml-mode)
     :custom
@@ -4847,6 +4910,11 @@ file will not itself be encrypted.
       (cl-pushnew '("plantuml" . plantuml) org-src-lang-modes)))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (customize-set-value 'org-plantuml-exec-mode 'plantuml)
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               (add-to-list 'org-babel-load-languages '(plantuml . t)))
+#+end_src
 * Hex conversion
 #+begin_src emacs-lisp :results output silent
   (use-package 0xc
@@ -5401,6 +5469,7 @@ Not persistent scratch, just a custom scratch buffer
 #+begin_src emacs-lisp :results output silent
   (use-package explain-pause-mode
     :straight (:host github :repo "lastquestion/explain-pause-mode")
+    :disabled t
     :config
     (explain-pause-mode))
   #+end_src

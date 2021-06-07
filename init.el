@@ -548,6 +548,7 @@ we're adding a custom function for it here."
      "C-c C-'" 'org-src-edit-exit)
     :custom-face
     (org-headline-done ((t (:strike-through t))))
+    (org-checkbox ((t (:bold t :box nil))))
     :custom
     (org-list-description-max-indent
      5 "Ideally we should familiarize ourselves with adding a newline
@@ -607,8 +608,6 @@ we're adding a custom function for it here."
     ;; (org-extend-today-until
     ;;  5 "I think 5 am is a safe bet for the end of the day")
     (org-note-done 'note)
-    :custom-face
-    (org-checkbox ((t (:bold t :box nil))))
     :hook ((org-insert-heading-hook . evil-insert-state))
     :init
     (with-eval-after-load 'ol
