@@ -5456,3 +5456,14 @@ Not persistent scratch, just a custom scratch buffer
   (custom-set-faces `(vertical-border ((((background light)) (:foreground ,sol-base3))
                                        (((background dark)) (:foreground ,sol-base03)))))
 #+end_src
+
+** Modelines
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces '(mode-line ((t (:inherit mode-line :underline nil :overline nil)))))
+  (custom-set-faces '(mode-line-inactive ((t (:inherit mode-line-inactive :underline nil)))))
+#+end_src
+
+** Header line
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces '(header-line ((t (:inherit header-line :underline nil)))))
+#+end_src
