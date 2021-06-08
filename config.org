@@ -114,8 +114,8 @@ C-M-i                           backward-button
 
 ** Highlight line
 #+begin_src emacs-lisp :results output silent
-  (when (display-graphic-p)
-   (global-hl-line-mode))
+  ;; (when (display-graphic-p)
+  ;;  (global-hl-line-mode))
 #+end_src
 
 ** Default input method
@@ -466,7 +466,13 @@ with Chinese/Japanese.
 
 #+begin_src emacs-lisp :results output silent
   (when (find-font (font-spec :name "Iosevka"))
-    (custom-set-faces '(variable-pitch ((t (:family "Iosevka"))))))
+    (custom-set-faces '(fixed-pitch ((t (:family "Iosevka")))))
+    (custom-set-faces '(variable-pitch ((t (:family "Iosevka")))))
+    (custom-set-faces '(fixed-pitch-serif ((t (:family "Iosevka"))))))
+  (when (find-font (font-spec :name "Iosevka Etoile"))
+    (custom-set-faces '(variable-pitch ((t (:family "Iosevka Etoile"))))))
+  (when (find-font (font-spec :name "Iosevka Aile"))
+    (custom-set-faces '(fixed-pitch-serif ((t (:family "Iosevka Aile"))))))
 #+end_src
 
 TODO:
@@ -1403,6 +1409,8 @@ For some reason we can't do this in the scratch buffer
                                 (tags . " %i %-12:c")
                                 (search . " %i %-12:c")))
     (org-agenda-breadcrumbs-separator "/")
+    :custom-face
+    (org-agenda-done ((t (:inherit org-agenda-done :strike-through t))))
     :hook
     (org-agenda-after-show-hook . org-narrow-to-subtree)
     :config
@@ -2485,37 +2493,37 @@ Solarized)
 
 ** Nano
 #+begin_src emacs-lisp :results output silent
-  (use-package nano-theme
-    :straight (:host github :repo "rougier/nano-theme")
-    :commands (nano-light nano-dark nano-setup))
-    ;; :custom
-    ;; (nano-light-foreground sol-base1)
-    ;; (nano-light-background sol-base3)
-    ;; (nano-light-highlight sol-base2)
-    ;; (nano-light-subtle sol-base1)
-    ;; (nano-light-faded sol-base0)
-    ;; (nano-light-salient sol-green)
-    ;; (nano-light-strong sol-blue)
-    ;; (nano-light-popout sol-yellow)
-    ;; (nano-light-critical sol-red)
+    (use-package nano-theme
+      :straight (:host github :repo "rougier/nano-theme")
+      :commands (nano-light nano-dark nano-setup)
+      :custom
+      (nano-light-foreground sol-base1)
+      (nano-light-background sol-base3)
+      (nano-light-highlight sol-base2)
+      (nano-light-subtle sol-base1)
+      (nano-light-faded sol-base00)
+      (nano-light-salient sol-cyan)
+      (nano-light-strong sol-green)
+      (nano-light-popout sol-blue)
+      (nano-light-critical sol-red)
 
-    ;; (nano-dark-foreground sol-base1)
-    ;; (nano-dark-background sol-base03)
-    ;; (nano-dark-highlight sol-base02)
-    ;; (nano-dark-subtle sol-base01)
-    ;; (nano-dark-faded sol-base00)
-    ;; (nano-dark-salient nano-light-salient)
-    ;; (nano-dark-strong nano-light-strong)
-    ;; (nano-dark-popout nano-light-popout)
-    ;; (nano-dark-critical nano-light-critical))
+      (nano-dark-foreground sol-base01)
+      (nano-dark-background sol-base03)
+      (nano-dark-highlight sol-base02)
+      (nano-dark-subtle sol-base01)
+      (nano-dark-faded sol-base0)
+      (nano-dark-salient nano-light-salient)
+      (nano-dark-strong nano-light-strong)
+      (nano-dark-popout nano-light-popout)
+      (nano-dark-critical nano-light-critical))
 #+end_src
 * Display
 #+begin_src emacs-lisp :results output silent
   (when (display-graphic-p)
     ;; (load-solarized-theme))
-    ;; (load-theme 'solarized-dark-high-contrast t))
-    (progn (nano-dark)
-           (desktop-save-mode-off)))
+    (load-theme 'solarized-dark-high-contrast t))
+    ;; (progn (nano-dark)
+    ;;        (desktop-save-mode -1)))
   ;; (load-solarized-theme)
   ;; (load-eva02-theme)
 #+end_src
@@ -2791,7 +2799,7 @@ package is known as elisp-mode but it reads as emacs-lisp
   (use-package elisp-mode
     :straight nil
     :hook ((emacs-lisp-mode-hook . prism-mode)
-           ;; (emacs-lisp-mode-hook . rainbow-delimiters-mode)
+           (emacs-lisp-mode-hook . rainbow-delimiters-mode)
            (emacs-lisp-mode-hook . my-maybe-init-parinfer)
            (emacs-lisp-mode-hook . update-evil-shift-width)
            (emacs-lisp-mode-hook . evil-cleverparens-mode)))
