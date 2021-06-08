@@ -869,10 +869,14 @@ to work on a visual selection too
 #+end_src
 
 ** Fringe marks
-Disabled because it kept raising a warning during init about markerp
+Disabled because it kept raising a warning during init about markerp.
+Now disabled because it conflicts with git-gutter+-fringe. We should
+want to learn marks properly anyway.
+
 #+begin_src emacs-lisp :results output silent
   (use-package evil-fringe-mark
     :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
+    :disabled t
     :custom
     (evil-fringe-mark-show-special nil)
     :config
@@ -2172,7 +2176,7 @@ up, on windows at least).
     (use-package git-gutter-fringe+
       ;; :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus")
       :straight t
-      :if (not (display-graphic-p))
+      ;; :if (not (display-graphic-p))
       :after git-gutter+
       :config
       (fringe-helper-define 'git-gutter-fr+-added nil
