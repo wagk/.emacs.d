@@ -300,6 +300,11 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
     (add-hook 'prog-mode-hook 'display-line-numbers-mode))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces `(line-number ((((background light)) (:background ,sol-base3 :foreground ,sol-base2))
+                                   (((background dark)) (:background ,sol-base03 :foreground ,sol-base02)))))
+#+end_src
+
 ** Show matching parens
 #+begin_src emacs-lisp :results output silent
   (customize-set-variable 'show-paren-when-point-inside-paren t)
@@ -2169,11 +2174,12 @@ up, on windows at least).
      "g h s"  'git-gutter+-stage-hunks
      "g h u"  'git-gutter+-revert-hunks
      "g h h"  'git-gutter+-show-hunk-inline-at-point)
-    :hook (prog-mode-hook . git-gutter+-mode)
-    :config
-    (global-git-gutter+-mode)
-    :init
-    (use-package git-gutter-fringe+
+    :custom
+    (git-gutter+-hide-gutter nil))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (use-package git-gutter-fringe+
       ;; :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus")
       :straight t
       ;; :if (not (display-graphic-p))
@@ -2197,8 +2203,6 @@ up, on windows at least).
                             "..XXXX.."
                             "..XXXX.."
                             "........"))
-    :custom
-    (git-gutter+-hide-gutter nil))
 #+end_src
 
 ** TODO Git hunk textobjects
@@ -5463,11 +5467,21 @@ Not persistent scratch, just a custom scratch buffer
 
 ** Modelines
 #+begin_src emacs-lisp :results output silent
-  (custom-set-faces '(mode-line ((t (:inherit mode-line :underline nil :overline nil)))))
-  (custom-set-faces '(mode-line-inactive ((t (:inherit mode-line-inactive :underline nil)))))
+  (custom-set-faces `(mode-line ((t (:underline nil :overline nil :foreground ,sol-yellow))
+                                 (((background light)) (:background ,sol-base2))
+                                 (((background dark)) (:background ,sol-base02)))))
+  (custom-set-faces `(mode-line-inactive ((t (:underline nil :overline nil))
+                                          (((background light)) (:inherit mode-line :background ,sol-base2))
+                                          (((background dark)) (:inherit mode-line :background ,sol-base02)))))
 #+end_src
 
 ** Header line
 #+begin_src emacs-lisp :results output silent
-  (custom-set-faces '(header-line ((t (:inherit header-line :underline nil)))))
+  ;; (custom-set-faces '(header-line ((t (:inherit header-line :underline nil)))))
+  (set-face-underline 'header-line nil)
+#+end_src
+
+** Help Key binding
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces '(help-key-binding ((t (:box nil :foreground ,sol-yellow)))))
 #+end_src

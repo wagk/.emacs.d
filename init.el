@@ -598,11 +598,11 @@ we're adding a custom function for it here."
      `(org-block ((((background dark)) (:background ,sol-base02))
                   (((background light)) (:background ,sol-base2)))))
     (custom-set-faces
-     `(org-block-begin-line ((((background dark)) (:inherit org-block-begin-line :foreground ,sol-base01 :underline nil))
-                             (((background light)) (:inherit org-block-begin-line :foreground ,sol-base1 :underline nil)))))
+     `(org-block-begin-line ((((background dark)) (:inherit org-meta-line :underline nil))
+                             (((background light)) (:inherit org-meta-line :underline nil)))))
     (custom-set-faces
-     `(org-block-end-line ((((background dark)) (:inherit org-block-begin-line :foreground ,sol-base01 :overline nil))
-                           (((background light)) (:inherit org-block-begin-line :foreground ,sol-base1 :overline nil)))))
+     `(org-block-end-line ((((background dark)) (:inherit org-meta-line :overline nil))
+                           (((background light)) (:inherit org-meta-line :overline nil)))))
     :custom
     (org-list-description-max-indent
      5 "Ideally we should familiarize ourselves with adding a newline
