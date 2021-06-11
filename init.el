@@ -39,6 +39,10 @@
 (if (eq system-type "windows-nt")
     (set-w32-system-coding-system  'utf-8))
 
+(customize-set-variable 'frame-background-mode 'light)
+(with-eval-after-load 'solarized-theme
+ (load-theme 'solarized-light t))
+
 (defconst user-init-file
   (locate-user-emacs-file "init.el")
   "Points to init.el.")
@@ -203,7 +207,7 @@ recovery. Maybe eventually load dependencies and all that."
   (straight-prune-build))
 
 (defun my-init-solarized-color-variables ()
-  " Solarized 1.0.0beta2[a] Color Palette[8]
+  "Solarized 1.0.0beta2[a] Color Palette[8]
 | Color   |    |     |     | sRGB    |     |     |     | xterm | Terminal  | Usage                          |
 |---------+----+-----+-----+---------+-----+-----+-----+-------+-----------+--------------------------------|
 | Name    | L* | a*  | b*  | Hex     |   R |   G |   B |  Code | Name      |                                |
@@ -593,16 +597,12 @@ we're adding a custom function for it here."
     :custom-face
     (org-headline-done ((t (:strike-through t))))
     (org-checkbox ((t (:bold t :box nil))))
-    :config
-    (custom-set-faces
-     `(org-block ((((background dark)) (:background ,sol-base02))
-                  (((background light)) (:background ,sol-base2)))))
-    (custom-set-faces
-     `(org-block-begin-line ((((background dark)) (:inherit org-meta-line :underline nil))
-                             (((background light)) (:inherit org-meta-line :underline nil)))))
-    (custom-set-faces
-     `(org-block-end-line ((((background dark)) (:inherit org-meta-line :overline nil))
-                           (((background light)) (:inherit org-meta-line :overline nil)))))
+    (org-block ((((background dark)) (:background ,sol-base02))
+                (((background light)) (:background ,sol-base2))))
+    (org-block-begin-line ((((background dark)) (:inherit org-meta-line :underline nil))
+                           (((background light)) (:inherit org-meta-line :underline nil))))
+    (org-block-end-line ((((background dark)) (:inherit org-meta-line :overline nil))
+                         (((background light)) (:inherit org-meta-line :overline nil))))
     :custom
     (org-list-description-max-indent
      5 "Ideally we should familiarize ourselves with adding a newline
@@ -675,7 +675,7 @@ we're adding a custom function for it here."
       (general-define-key
        :keymaps 'org-mode-map
        :states '(normal insert motion)
-       ;; "C-^" 'org-insert-heading-after-current
+        ;; "C-^" 'org-insert-heading-after-current
        "C-^" 'org-meta-return
        "\236" 'org-insert-todo-heading-respect-content)))
   ;; (with-eval-after-load 'org
@@ -820,7 +820,7 @@ we're adding a custom function for it here."
       (unless (f-exists-p custom)
         (f-touch custom))
       (setq custom-file custom)
-      (load custom-file)))
+      (load "" :noerror)))
 
   ;; Load local configuration variables, we do it here so that
   ;; local.el gets access to the "core" init loads
