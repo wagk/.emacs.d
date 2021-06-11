@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: cpp-ifdef
+# key: ifdef
+# --
+#ifdef $1
+$0
+#endif

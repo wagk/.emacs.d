@@ -101,6 +101,143 @@ C-M-i                           backward-button
       (dired config-local-syncthing-folder)))
 #+end_src
 
+* Themes
+** Base16
+#+begin_src emacs-lisp :results output silent
+  (use-package base16-theme
+    ;; :straight (:host github :repo "belak/base16-emacs"
+    ;;            :files (:defaults ("build" "build/*")))
+    :straight t)
+#+end_src
+** Solarized
+[[https://ethanschoonover.com/solarized/][Website with more descriptions]]
+
+- Refer to docstring for =my-init-solarized-color-variables=.
+
+#+begin_src emacs-lisp :results output silent
+  (use-package solarized-theme
+    :straight (:host github :repo "bbatsov/solarized-emacs")
+    :if (display-graphic-p)
+    :custom
+    (solarized-use-variable-pitch nil)
+    (solarized-distinct-fringe-background nil)
+    (solarized-high-contrast-mode-line nil)
+    (solarized-use-less-bold t)
+    (solarized-use-more-italic nil)
+    (solarized-scale-org-headlines nil)
+    (solarized-height-minus-1 1.0)
+    (solarized-height-plus-1 1.0)
+    (solarized-height-plus-2 1.0)
+    (solarized-height-plus-3 1.0)
+    (solarized-height-plus-4 1.0))
+  ;; (defun load-solarized-theme ()
+  ;;   (interactive)
+  ;;   (if (display-graphic-p)
+  ;;       (load-theme 'solarized-dark t)
+  ;;     (load-theme 'solarized-gruvbox-dark t))
+  ;;   (with-eval-after-load 'prism
+  ;;     (prism-set-colors
+  ;;      :num 24
+  ;;      :colors
+  ;;      ;; (list sol-green sol-cyan sol-blue sol-yellow)
+  ;;      (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
+  ;;      :desaturations
+  ;;      (list 10 20 30)
+  ;;      :lightens
+  ;;      (list 0 -2.5 -5)))
+  ;;   (with-eval-after-load 'hl-todo
+  ;;     (customize-set-variable 'hl-todo-keyword-faces
+  ;;                             '(("TODO"    . "#b58900")
+  ;;                               ("DEBUG"   . "#d33682")
+  ;;                               ("NOTE"    . "#586e75")
+  ;;                               ("FIXME"   . "#cb4b16")))))
+
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (use-package color-theme-sanityinc-solarized
+    :after solarized-theme
+    :disabled t
+    :straight t)
+#+end_src
+
+** Eva-02
+Personal theme that I'm maintaining (really stealing shamelessly from
+Solarized)
+
+#+begin_src emacs-lisp :results output silent
+  ;; (defun load-eva02-theme ()
+  ;;   (interactive)
+  ;;   (load-theme 'eva02 t)
+  ;;   (with-eval-after-load 'prism
+  ;;     (prism-set-colors
+  ;;      :num 24
+  ;;      :colors
+  ;;      ;; (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
+  ;;      (list 'font-lock-keyword-face
+  ;;            'font-lock-builtin-face
+  ;;            'font-lock-variable-name-face)
+  ;;      :desaturations
+  ;;      (list 10 20 30)
+  ;;      :lightens
+  ;;      ;; (list 0 -2.5 -5)))
+  ;;      (list 0 5 10)))
+  ;;   (with-eval-after-load 'hl-todo
+  ;;     (customize-set-variable 'hl-todo-keyword-faces
+  ;;                             '(("TODO"    . "#ff0000")
+  ;;                               ("DEBUG"   . "#ff0000")
+  ;;                               ;; ("NOTE"    . "#ff0000")
+  ;;                               ("FIXME"   . "#ff0000")))))
+#+end_src
+
+
+#+begin_src emacs-lisp :results output silent
+  (use-package color-theme-sanityinc-solarized
+    :disabled t ;; native comp is failing on this package
+    :after solarized-theme
+    :straight t)
+#+end_src
+
+** Nano
+#+begin_src emacs-lisp :results output silent
+    (use-package nano-theme
+      :straight (:host github :repo "rougier/nano-theme")
+      :commands (nano-light nano-dark nano-setup)
+      :custom
+      (nano-light-foreground sol-base1)
+      (nano-light-background sol-base3)
+      (nano-light-highlight sol-base2)
+      (nano-light-subtle sol-base1)
+      (nano-light-faded sol-base00)
+      (nano-light-salient sol-cyan)
+      (nano-light-strong sol-green)
+      (nano-light-popout sol-blue)
+      (nano-light-critical sol-red)
+
+      (nano-dark-foreground sol-base01)
+      (nano-dark-background sol-base03)
+      (nano-dark-highlight sol-base02)
+      (nano-dark-subtle sol-base01)
+      (nano-dark-faded sol-base0)
+      (nano-dark-salient nano-light-salient)
+      (nano-dark-strong nano-light-strong)
+      (nano-dark-popout nano-light-popout)
+      (nano-dark-critical nano-light-critical))
+#+end_src
+** COMMENT Display
+#+begin_src emacs-lisp :results output silent
+  ;; (when (display-graphic-p)
+    ;; (load-solarized-theme))
+    ;; (load-theme 'solarized-dark t))
+    ;; (progn
+    ;;  (load-theme 'solarized-light t)
+    ;;  (customize-set-variable 'frame-background-mode 'light)))
+  ;; (progn (nano-dark)
+    ;;        (desktop-save-mode -1)))
+  ;; (load-solarized-theme)
+  ;; (load-eva02-theme)
+#+end_src
+
 * Quality of Life
 ** Frame Transparency
 #+begin_src emacs-lisp :results output silent
@@ -300,6 +437,14 @@ http://pragmaticemacs.com/emacs/adaptive-cursor-width/
     (add-hook 'prog-mode-hook 'display-line-numbers-mode))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces `(line-number ((((background light)) (:background ,sol-base3 :foreground ,sol-base2))
+                                   (((background dark)) (:background ,sol-base03 :foreground ,sol-base02)))))
+  (custom-set-faces `(line-number-current-line ((((background light)) (:foreground ,sol-base1))
+                                                (((background dark)) (:foreground ,sol-base01))
+                                                (t (:inherit line-number)))))
+#+end_src
+
 ** Show matching parens
 #+begin_src emacs-lisp :results output silent
   (customize-set-variable 'show-paren-when-point-inside-paren t)
@@ -442,7 +587,7 @@ Stolen from https://github.com/bbatsov/crux
 #+begin_src emacs-lisp :results output silent
   (customize-set-value 'inhibit-compacting-font-caches t)
 #+end_src
-** Prefer dark backgrounds
+** COMMENT Prefer dark backgrounds
 #+begin_src emacs-lisp :results output silent
   (customize-set-variable 'frame-background-mode 'dark)
   (set-terminal-parameter nil 'background-mode 'dark)
@@ -576,11 +721,12 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     :straight nil
     :if (>= emacs-major-version 27)
     :custom-face
-    (tab-bar ((t (:inherit 'minibuffer-prompt :underline t))))
-    (tab-bar-tab ((t (:inherit 'font-lock-function-name-face
-                      :bold t
-                      :box (:line-width -1)))))
-    (tab-bar-tab-inactive ((t (:inherit 'font-lock-keyword-face :italic nil))))
+    (tab-bar ((t (:inherit minibuffer-prompt :underline nil))))
+    (tab-bar-tab-inactive ((t (:inherit default :italic nil))))
+    (tab-bar-tab ((((background light)) (:inherit default
+                                         :bold t))
+                  (((background dark)) (:inherit default
+                                        :bold t))))
     :custom
     (tab-bar-close-last-tab-choice 'delete-frame)
     (tab-bar-new-tab-choice t)
@@ -869,10 +1015,14 @@ to work on a visual selection too
 #+end_src
 
 ** Fringe marks
-Disabled because it kept raising a warning during init about markerp
+Disabled because it kept raising a warning during init about markerp.
+Now disabled because it conflicts with git-gutter+-fringe. We should
+want to learn marks properly anyway.
+
 #+begin_src emacs-lisp :results output silent
   (use-package evil-fringe-mark
     :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
+    :disabled t
     :custom
     (evil-fringe-mark-show-special nil)
     :config
@@ -2165,14 +2315,15 @@ up, on windows at least).
      "g h s"  'git-gutter+-stage-hunks
      "g h u"  'git-gutter+-revert-hunks
      "g h h"  'git-gutter+-show-hunk-inline-at-point)
-    :hook (prog-mode-hook . git-gutter+-mode)
-    :config
-    (global-git-gutter+-mode)
-    :init
-    (use-package git-gutter-fringe+
+    :custom
+    (git-gutter+-hide-gutter nil))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (use-package git-gutter-fringe+
       ;; :straight (:host github :repo "nonsequitur/git-gutter-fringe-plus")
       :straight t
-      :if (not (display-graphic-p))
+      ;; :if (not (display-graphic-p))
       :after git-gutter+
       :config
       (fringe-helper-define 'git-gutter-fr+-added nil
@@ -2193,8 +2344,6 @@ up, on windows at least).
                             "..XXXX.."
                             "..XXXX.."
                             "........"))
-    :custom
-    (git-gutter+-hide-gutter nil))
 #+end_src
 
 ** TODO Git hunk textobjects
@@ -2351,181 +2500,6 @@ TODO: some way to better, more dynamically name the tabs
            mode-line-buffer-identification " " mode-line-position
            evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
            mode-line-modes mode-line-end-spaces)))
-#+end_src
-
-* Themes
-** Base16
-#+begin_src emacs-lisp :results output silent
-  (use-package base16-theme
-    ;; :straight (:host github :repo "belak/base16-emacs"
-    ;;            :files (:defaults ("build" "build/*")))
-    :straight t)
-#+end_src
-** Solarized
-[[https://ethanschoonover.com/solarized/][Website with more descriptions]]
-
-Solarized 1.0.0beta2[a] Color Palette[8]
-| Color   |    |     |     | sRGB    |     |     |     | xterm | Terminal  | Usage                          |
-|---------+----+-----+-----+---------+-----+-----+-----+-------+-----------+--------------------------------|
-| Name    | L* | a*  | b*  | Hex     |   R |   G |   B |  Code | Name      |                                |
-|---------+----+-----+-----+---------+-----+-----+-----+-------+-----------+--------------------------------|
-| Base03  | 15 | −12 | −12 | #002b36 |   0 |  43 |  54 |   234 | brblack   | background tones (dark theme)  |
-| Base02  | 20 | −12 | −12 | #073642 |   7 |  54 |  66 |   235 | black     | background tones (dark theme)  |
-| Base01  | 45 | −07 | −07 | #586e75 |  88 | 110 | 117 |   240 | brgreen   | content tones                  |
-| Base00  | 50 | −07 | −07 | #657b83 | 101 | 123 | 131 |   241 | bryellow  | content tones                  |
-| Base0   | 60 | −06 | −03 | #839496 | 131 | 148 | 150 |   244 | brblue    | content tones                  |
-| Base1   | 65 | −05 | −02 | #93a1a1 | 147 | 161 | 161 |   245 | brcyan    | content tones                  |
-| Base2   | 92 | −00 | 10  | #eee8d5 | 238 | 232 | 213 |   254 | white     | background tones (light theme) |
-| Base3   | 97 | 00  | 10  | #fdf6e3 | 253 | 246 | 227 |   230 | brwhite   | background tones (light theme) |
-| Yellow  | 60 | 10  | 65  | #b58900 | 181 | 137 |   0 |   136 | yellow    | accent tones                   |
-| Orange  | 50 | 50  | 55  | #cb4b16 | 203 |  75 |  22 |   166 | brred     | accent tones                   |
-| Red     | 50 | 65  | 45  | #dc322f | 220 |  50 |  47 |   160 | red       | accent tones                   |
-| Magenta | 50 | 65  | −05 | #d33682 | 211 |  54 | 130 |   125 | magenta   | accent tones                   |
-| Violet  | 50 | 15  | −45 | #6c71c4 | 108 | 113 | 196 |    61 | brmagenta | accent tones                   |
-| Blue    | 55 | −10 | −45 | #268bd2 |  38 | 139 | 210 |    33 | blue      | accent tones                   |
-| Cyan    | 60 | −35 | −05 | #2aa198 |  42 | 161 | 152 |    37 | cyan      | accent tones                   |
-| Green   | 60 | −20 | 65  | #859900 | 133 | 153 |   0 |    64 | green     | accent tones                   |
-
-#+begin_src emacs-lisp :results output silent
-  (dolist (col '((sol-base03  . "#002b36")
-                 (sol-base02  . "#073642")
-                 (sol-base01  . "#586e75")
-                 (sol-base00  . "#657b83")
-                 (sol-base0   . "#839496")
-                 (sol-base1   . "#93a1a1")
-                 (sol-base2   . "#eee8d5")
-                 (sol-base3   . "#fdf6e3")
-                 (sol-yellow  . "#b58900")
-                 (sol-orange  . "#cb4b16")
-                 (sol-red     . "#dc322f")
-                 (sol-magenta . "#d33682")
-                 (sol-violet  . "#6c71c4")
-                 (sol-blue    . "#268bd2")
-                 (sol-cyan    . "#2aa198")
-                 (sol-green   . "#859900")))
-    ;; TODO: set documentation string
-    (set (car col) (cdr col)))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (use-package solarized-theme
-    :straight (:host github :repo "bbatsov/solarized-emacs")
-    :if (display-graphic-p)
-    :custom
-    (solarized-use-variable-pitch nil)
-    (solarized-distinct-fringe-background nil)
-    (solarized-high-contrast-mode-line nil)
-    (solarized-use-less-bold t)
-    (solarized-use-more-italic nil)
-    (solarized-scale-org-headlines nil)
-    (solarized-height-minus-1 1.0)
-    (solarized-height-plus-1 1.0)
-    (solarized-height-plus-2 1.0)
-    (solarized-height-plus-3 1.0)
-    (solarized-height-plus-4 1.0))
-  ;; (defun load-solarized-theme ()
-  ;;   (interactive)
-  ;;   (if (display-graphic-p)
-  ;;       (load-theme 'solarized-dark t)
-  ;;     (load-theme 'solarized-gruvbox-dark t))
-  ;;   (with-eval-after-load 'prism
-  ;;     (prism-set-colors
-  ;;      :num 24
-  ;;      :colors
-  ;;      ;; (list sol-green sol-cyan sol-blue sol-yellow)
-  ;;      (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face)
-  ;;      :desaturations
-  ;;      (list 10 20 30)
-  ;;      :lightens
-  ;;      (list 0 -2.5 -5)))
-  ;;   (with-eval-after-load 'hl-todo
-  ;;     (customize-set-variable 'hl-todo-keyword-faces
-  ;;                             '(("TODO"    . "#b58900")
-  ;;                               ("DEBUG"   . "#d33682")
-  ;;                               ("NOTE"    . "#586e75")
-  ;;                               ("FIXME"   . "#cb4b16")))))
-
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (use-package color-theme-sanityinc-solarized
-    :after solarized-theme
-    :disabled t
-    :straight t)
-#+end_src
-
-** Eva-02
-Personal theme that I'm maintaining (really stealing shamelessly from
-Solarized)
-
-#+begin_src emacs-lisp :results output silent
-  ;; (defun load-eva02-theme ()
-  ;;   (interactive)
-  ;;   (load-theme 'eva02 t)
-  ;;   (with-eval-after-load 'prism
-  ;;     (prism-set-colors
-  ;;      :num 24
-  ;;      :colors
-  ;;      ;; (list 'font-lock-keyword-face 'font-lock-type-face 'font-lock-variable-name-face 'font-lock-function-name-face)
-  ;;      (list 'font-lock-keyword-face
-  ;;            'font-lock-builtin-face
-  ;;            'font-lock-variable-name-face)
-  ;;      :desaturations
-  ;;      (list 10 20 30)
-  ;;      :lightens
-  ;;      ;; (list 0 -2.5 -5)))
-  ;;      (list 0 5 10)))
-  ;;   (with-eval-after-load 'hl-todo
-  ;;     (customize-set-variable 'hl-todo-keyword-faces
-  ;;                             '(("TODO"    . "#ff0000")
-  ;;                               ("DEBUG"   . "#ff0000")
-  ;;                               ;; ("NOTE"    . "#ff0000")
-  ;;                               ("FIXME"   . "#ff0000")))))
-#+end_src
-
-
-#+begin_src emacs-lisp :results output silent
-  (use-package color-theme-sanityinc-solarized
-    :disabled t ;; native comp is failing on this package
-    :after solarized-theme
-    :straight t)
-#+end_src
-
-** Nano
-#+begin_src emacs-lisp :results output silent
-  (use-package nano-theme
-    :straight (:host github :repo "rougier/nano-theme")
-    :commands (nano-light nano-dark nano-setup)
-    :custom
-    (nano-light-foreground sol-base1)
-    (nano-light-background sol-base3)
-    (nano-light-highlight sol-base2)
-    (nano-light-subtle sol-base1)
-    (nano-light-faded sol-base00)
-    (nano-light-salient sol-cyan)
-    (nano-light-strong sol-green)
-    (nano-light-popout sol-blue)
-    (nano-light-critical sol-red)
-
-    (nano-dark-foreground sol-base01)
-    (nano-dark-background sol-base03)
-    (nano-dark-highlight sol-base02)
-    (nano-dark-subtle sol-base01)
-    (nano-dark-faded sol-base0)
-    (nano-dark-salient nano-light-salient)
-    (nano-dark-strong nano-light-strong)
-    (nano-dark-popout nano-light-popout)
-    (nano-dark-critical nano-light-critical))
-#+end_src
-* Display
-#+begin_src emacs-lisp :results output silent
-  (when (display-graphic-p)
-    ;; (load-solarized-theme))
-    (load-theme 'solarized-dark-high-contrast t))
-    ;; (progn (nano-dark)
-    ;;        (desktop-save-mode -1)))
-  ;; (load-solarized-theme)
-  ;; (load-eva02-theme)
 #+end_src
 
 * Text
@@ -3342,6 +3316,19 @@ Requires rust-mode and markdown-mode
     :ensure nil
     :after dired
     :straight (:host github :repo "Fuco1/dired-hacks")
+    :custom-face
+    (dired-subtree-depth-1-face ((((background light)) (:background ,sol-base2))
+                                 (((background dark)) (:background, sol-base02))))
+    (dired-subtree-depth-2-face ((((background light)) (:background ,sol-base2))
+                                 (((background dark)) (:background, sol-base02))))
+    (dired-subtree-depth-3-face ((((background light)) (:background ,sol-base2))
+                                 (((background dark)) (:background, sol-base02))))
+    (dired-subtree-depth-4-face ((((background light)) (:background ,sol-base2))
+                                 (((background dark)) (:background, sol-base02))))
+    (dired-subtree-depth-5-face ((((background light)) (:background ,sol-base2))
+                                 (((background dark)) (:background, sol-base02))))
+    (dired-subtree-depth-6-face ((((background light)) (:background ,sol-base2))
+                                 (((background dark)) (:background, sol-base02))))
     :general
     (dired-mode-map
      :states 'normal
@@ -4748,7 +4735,18 @@ Doesn't seem to be working?
   (use-package flycheck
     :straight (:host github :repo "flycheck/flycheck")
     :custom
-    (flycheck-indication-mode 'right-fringe)
+    (flycheck-indication-mode 'left-margin)
+    :custom-face
+    (flycheck-error ((t (:underline (:color ,sol-red :style line)))))
+    (flycheck-delimited-error ((t (:inherit flycheck-error))))
+    (flycheck-info ((t (:underline (:color ,sol-blue :style line)))))
+    (flycheck-warning ((t (:underline (:color ,sol-yellow :style line)))))
+    (flycheck-fringe-error ((((background light)) (:background ,sol-base3 :foreground ,sol-red))
+                            (((background dark)) (:background ,sol-base03 :foreground ,sol-red))))
+    (flycheck-fringe-info ((((background light)) (:background ,sol-base3 :foreground ,sol-blue))
+                           (((background dark)) (:background ,sol-base03 :foreground ,sol-blue))))
+    (flycheck-fringe-warning ((((background light)) (:background ,sol-base3 :foreground ,sol-yellow))
+                              (((background dark)) (:background ,sol-base03 :foreground ,sol-yellow))))
     :hook
     (prog-mode-hook . global-flycheck-mode))
 #+end_src
@@ -4757,12 +4755,8 @@ Doesn't seem to be working?
 #+begin_src emacs-lisp :results output silent
   (use-package flycheck-inline
     :straight t
-    :after flycheck
-    :commands flycheck-inline-mode
     :hook
-    (flyheck-mode-hook . flycheck-inline-mode)
-    :config
-    (global-flycheck-inline-mode))
+    (flycheck-mode-hook . flycheck-inline-mode))
 #+end_src
 
 * Language Server Protocol (LSP)
@@ -5490,4 +5484,49 @@ Not persistent scratch, just a custom scratch buffer
      devdocs-browser-remove-offline-data)
     :init
     (evil-ex-define-cmd "dd" 'devdocs-browser-open))
+#+end_src
+
+* General Faces
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces `(vertical-border ((((background light)) (:foreground ,sol-base3))
+                                       (((background dark)) (:foreground ,sol-base03)))))
+#+end_src
+
+** Modelines
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces `(mode-line ((((background light))
+                                  (:underline nil
+                                   :overline nil
+                                   :box nil
+                                   :background ,sol-base3))
+                                 (((background dark))
+                                  (:underline nil
+                                   :overline nil
+                                   :box nil
+                                   :background ,sol-base03)))))
+  (custom-set-faces `(mode-line-inactive ((((background light))
+                                           (:underline nil
+                                            :overline nil
+                                            :inherit mode-line
+                                            :foreground ,sol-base2))
+                                          (((background dark))
+                                           (:underline nil
+                                            :overline nil
+                                            :inherit mode-line
+                                            :foreground ,sol-base02)))))
+  (custom-set-faces `(mode-line-highlight ((((background light))
+                                            (:box nil :background ,sol-base2))
+                                           (((background dark))
+                                            (:box nil :background ,sol-base02)))))
+#+end_src
+
+** Header line
+#+begin_src emacs-lisp :results output silent
+  ;; (custom-set-faces '(header-line ((t (:inherit header-line :underline nil)))))
+  (set-face-underline 'header-line nil)
+#+end_src
+
+** Help Key binding
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces `(help-key-binding ((t (:box nil :background unspecified :foreground ,sol-yellow)))))
 #+end_src
