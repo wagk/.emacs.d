@@ -5533,3 +5533,8 @@ Not persistent scratch, just a custom scratch buffer
 #+begin_src emacs-lisp :results output silent
   (custom-set-faces `(help-key-binding ((t (:box nil :background unspecified :foreground ,sol-yellow)))))
 #+end_src
+
+** Link
+#+begin_src emacs-lisp :results output silent
+  (set-face-underline 'link nil)
+#+end_src
