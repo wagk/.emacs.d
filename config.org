@@ -1897,7 +1897,10 @@ Requires =sqlite=. Install using =choco install sqlite=
      "n t" 'org-roam-tag-add
      "n a" 'org-roam-alias-add
      "n f" 'org-roam-find-file
-     "n b" 'org-roam-buffer-toggle-display)
+     "n b" 'org-roam-buffer-toggle-display
+     "j j" 'org-roam-dailies-today
+     "j t" 'org-roam-dailies-today
+     "j p" 'org-roam-dailies-yesterday)
     :custom
     (org-roam-buffer-width 0.3)
     (org-roam-db-update-method (if (eq system-type 'windows-nt)
