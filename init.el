@@ -44,7 +44,6 @@
  (with-eval-after-load 'solarized-theme
     (load-theme 'solarized-dark t)))
 
-
 (defconst user-init-file
   (locate-user-emacs-file "init.el")
   "Points to init.el.")
@@ -304,27 +303,27 @@ recovery. Maybe eventually load dependencies and all that."
     :straight (:host github :repo "emacscollective/no-littering"))
 
   (customize-set-value 'evil-want-keybinding nil
-                       "`evil-collections' wants this to be
-     disabled before even loading evil, see
-     https://github.com/emacs-evil/evil-collection/issues/60")
+                      "`evil-collections' wants this to be
+      disabled before even loading evil, see
+      https://github.com/emacs-evil/evil-collection/issues/60")
 
-  ;; https://github.com/magnars/dash.el
+    ;; https://github.com/magnars/dash.el
   (use-package dash
     :straight t)
 
-  ;; https://github.com/plexus/a.el/
+    ;; https://github.com/plexus/a.el/
   (use-package a
     :straight t)
 
-  ;; https://github.com/rejeep/f.el/
+    ;; https://github.com/rejeep/f.el/
   (use-package f
     :straight t)
 
-  ;; https://github.com/magnars/s.el/
+    ;; https://github.com/magnars/s.el/
   (use-package s
     :straight t)
 
-  ;; https://github.com/Wilfred/ht.el/
+    ;; https://github.com/Wilfred/ht.el/
   (use-package ht
     :straight t)
 
