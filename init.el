@@ -39,9 +39,11 @@
 (if (eq system-type "windows-nt")
     (set-w32-system-coding-system  'utf-8))
 
-(customize-set-variable 'frame-background-mode 'light)
-(with-eval-after-load 'solarized-theme
- (load-theme 'solarized-light t))
+(progn ;; theme stuff
+ (customize-set-variable 'frame-background-mode 'nil)
+ (with-eval-after-load 'solarized-theme
+    (load-theme 'solarized-dark t)))
+
 
 (defconst user-init-file
   (locate-user-emacs-file "init.el")
@@ -206,7 +208,7 @@ recovery. Maybe eventually load dependencies and all that."
   (straight-check-all)
   (straight-prune-build))
 
-(defun my-init-solarized-color-variables ()
+(defun my-init-solarized-color-variables-and-other-font-things ()
   "Solarized 1.0.0beta2[a] Color Palette[8]
 | Color   |    |     |     | sRGB    |     |     |     | xterm | Terminal  | Usage                          |
 |---------+----+-----+-----+---------+-----+-----+-----+-------+-----------+--------------------------------|
@@ -245,9 +247,14 @@ recovery. Maybe eventually load dependencies and all that."
                  (sol-cyan    . "#2aa198")
                  (sol-green   . "#859900")))
    ;; TODO: set documentation string
-   (set (car col) (cdr col))))
-
-
+   (set (car col) (cdr col)))
+  (custom-set-faces `(sol-critical nil)
+                    `(sol-popout nil)
+                    `(sol-strong nil)
+                    `(sol-salient nil)
+                    `(sol-faded nil)
+                    `(sol-subtle nil)
+                    `(sol-default nil)))
 
 ;; (defun my-bootstrap-el-get ()
 ;;   (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -266,7 +273,7 @@ recovery. Maybe eventually load dependencies and all that."
   ;; (bootstrap-quelpa)
   ;; (my-bootstrap-el-get)
   (bootstrap-use-package)
-  (my-init-solarized-color-variables)
+  (my-init-solarized-color-variables-and-other-font-things)
 
   ;; Load core configuration that I can't work without. Everything
   ;; else gets shoved into config.org except these.
@@ -301,15 +308,23 @@ recovery. Maybe eventually load dependencies and all that."
      disabled before even loading evil, see
      https://github.com/emacs-evil/evil-collection/issues/60")
 
+  ;; https://github.com/magnars/dash.el
   (use-package dash
     :straight t)
 
+  ;; https://github.com/plexus/a.el/
+  (use-package a
+    :straight t)
+
+  ;; https://github.com/rejeep/f.el/
   (use-package f
     :straight t)
 
+  ;; https://github.com/magnars/s.el/
   (use-package s
     :straight t)
 
+  ;; https://github.com/Wilfred/ht.el/
   (use-package ht
     :straight t)
 
