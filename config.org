@@ -2035,7 +2035,7 @@ org roam mode hook only activates once, not per roam file as we wanted.
     :general
     (:states 'normal
       :prefix my-default-evil-leader-key
-      "n r" #'my-enable-nroam-mode-maybe)
+      "n r" #'my-toggle-nroam-mode-maybe)
     :commands nroam-mode
     ;; this interferes with org-roam-capture of all kinds
     ;; :hook (org-mode-hook . my-enable-nroam-mode-maybe)
@@ -2044,11 +2044,13 @@ org roam mode hook only activates once, not per roam file as we wanted.
       (interactive)
       (let ((path (buffer-file-name (current-buffer))))
         (and path (f-ancestor-of? org-roam-directory path))))
-    (defun my-enable-nroam-mode-maybe ()
+    (defun my-toggle-nroam-mode-maybe ()
       "Enables nroam only if it is found to be inside an org-roam directory"
       (interactive)
-      (when (my-in-org-roam-dir-p)
-          (nroam-mode))))
+      (if nroam-mode
+          (nroam-mode -1)
+        (when (my-in-org-roam-dir-p)
+            (nroam-mode)))))
 #+end_src
 
 ** Org Latex Fragment Toggle
