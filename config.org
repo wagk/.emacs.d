@@ -1980,6 +1980,7 @@ Requires =sqlite=. Install using =choco install sqlite=
     (evil-ex-define-cmd "today"     #'org-roam-dailies-today)
     (evil-ex-define-cmd "nn"        #'org-roam-find-file)
     (evil-ex-define-cmd "today"     #'org-roam-dailies-today)
+    (evil-ex-define-cmd "jj"        #'org-roam-dailies-today)
     (evil-ex-define-cmd "tomorrow"  #'org-roam-dailies-tomorrow)
     (evil-ex-define-cmd "tmr"       #'org-roam-dailies-tomorrow)
     :config
@@ -2047,6 +2048,7 @@ org roam mode hook only activates once, not per roam file as we wanted.
     (defun my-toggle-nroam-mode-maybe ()
       "Enables nroam only if it is found to be inside an org-roam directory"
       (interactive)
+      (require 'nroam)
       (if nroam-mode
           (nroam-mode -1)
         (when (my-in-org-roam-dir-p)
