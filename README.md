@@ -1,4 +1,12 @@
 # README
+## Security Tokens
+If you find yourself somehow magically using a security token, you can
+disable it by running
+
+```
+git config commit.gpgsign false
+```
+
 ## Build Commands
 Ensure the following dependencies are installed:
 
