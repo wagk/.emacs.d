@@ -156,9 +156,8 @@ Then performs configuration of `use-package' variables."
   ;; (require 'quelpa-use-package)
   (require 'straight)
   (customize-set-variable 'load-prefer-newer t)
-  (straight-use-package '(use-package
-                           :host github
-                           :repo "jwiegley/use-package"))
+  (straight-use-package '(use-package :host github
+                                      :repo "jwiegley/use-package"))
   (require 'use-package)
   ;; download packages if needed
   (customize-set-variable 'use-package-always-defer nil
@@ -252,8 +251,9 @@ recovery. Maybe eventually load dependencies and all that."
                     `(sol-strong nil)
                     `(sol-salient nil)
                     `(sol-faded nil)
-                    `(sol-subtle nil)
-                    `(sol-default nil)))
+                    `(sol-subtle ((((background light)) (:background ,sol-base2))
+                                  (((background dark)) (:background ,sol-base02))))
+                    `(sol-default ((t (:inherit default))))))
 
 ;; (defun my-bootstrap-el-get ()
 ;;   (add-to-list 'load-path "~/.emacs.d/el-get/el-get")

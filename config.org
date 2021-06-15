@@ -757,6 +757,11 @@ Further helper functions to add bookmarks:
   ;; (evil-ex-define-cmd "Tmm")
 #+end_src
 
+*** Bookmark Face
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces '(bookmark-face ((t (:inherit sol-subtle)))))
+#+end_src
+
 ** Doctor mode
 #+begin_src emacs-lisp :results output silent
   (evil-ex-define-cmd "doc[tor]" 'doctor)
@@ -1937,23 +1942,25 @@ Requires =sqlite=. Install using =choco install sqlite=
     ;; :straight (:host github :repo "org-roam/org-roam")
     ;; :if (boundp 'my-notes-folder)
     :straight t
-    :commands (org-roam-jump-to-index
-               org-roam-mode
-               org-roam-dailies-yesterday
-               org-roam-dailies-today
-               org-roam-find-file)
-    ;; :defer 10
+    :commands
+    (org-roam-jump-to-index
+     org-roam-dailies-yesterday
+     org-roam-dailies-today
+     org-roam-find-file
+     org-roam-dailies-today
+     org-roam-dailies-tomorrow)
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
-     "n i" 'org-roam-insert
-     "n t" 'org-roam-tag-add
-     "n a" 'org-roam-alias-add
-     "n f" 'org-roam-find-file
-     "n b" 'org-roam-buffer-toggle-display
-     "j j" 'org-roam-dailies-today
-     "j t" 'org-roam-dailies-today
-     "j p" 'org-roam-dailies-yesterday)
+     "n c"   #'org-roam-capture
+     "n i"   #'org-roam-insert
+     "n t"   #'org-roam-tag-add
+     "n a"   #'org-roam-alias-add
+     "n b"   #'org-roam-buffer-toggle-display
+     "n j d" #'org-roam-dailies-capture-date
+     "n j j" #'org-roam-dailies-capture-today
+     "n j n" #'org-roam-dailies-capture-tomorrow
+     "n j p" #'org-roam-dailies-yesterday)
     :custom
     (org-roam-buffer-width 0.3)
     (org-roam-db-update-method (if (eq system-type 'windows-nt)
@@ -1966,13 +1973,15 @@ Requires =sqlite=. Install using =choco install sqlite=
     ;; :hook
     ;; (after-init-hook . org-roam-mode)
     :init
-    (evil-ex-define-cmd "wiki" 'org-roam-jump-to-index)
-    (evil-ex-define-cmd "index" 'org-roam-jump-to-index)
-    (evil-ex-define-cmd "yesterday" 'org-roam-dailies-yesterday)
-    (evil-ex-define-cmd "ytd" 'org-roam-dailies-yesterday)
-    (evil-ex-define-cmd "today" 'org-roam-dailies-today)
-    (evil-ex-define-cmd "nn" 'org-roam-find-file)
-    (evil-ex-define-cmd "today" 'org-roam-dailies-today)
+    (evil-ex-define-cmd "wiki"      #'org-roam-jump-to-index)
+    (evil-ex-define-cmd "index"     #'org-roam-jump-to-index)
+    (evil-ex-define-cmd "yesterday" #'org-roam-dailies-yesterday)
+    (evil-ex-define-cmd "ytd"       #'org-roam-dailies-yesterday)
+    (evil-ex-define-cmd "today"     #'org-roam-dailies-today)
+    (evil-ex-define-cmd "nn"        #'org-roam-find-file)
+    (evil-ex-define-cmd "today"     #'org-roam-dailies-today)
+    (evil-ex-define-cmd "tomorrow"  #'org-roam-dailies-tomorrow)
+    (evil-ex-define-cmd "tmr"       #'org-roam-dailies-tomorrow)
     :config
     (when (boundp 'config-local-syncthing-folder)
       (customize-set-variable 'org-roam-directory my-notes-folder))
@@ -2028,12 +2037,13 @@ org roam mode hook only activates once, not per roam file as we wanted.
       :prefix my-default-evil-leader-key
       "n r" #'my-enable-nroam-mode-maybe)
     :commands nroam-mode
-    :hook (org-mode-hook . my-enable-nroam-mode-maybe)
+    ;; this interferes with org-roam-capture of all kinds
+    ;; :hook (org-mode-hook . my-enable-nroam-mode-maybe)
     :init
     (defun my-in-org-roam-dir-p ()
       (interactive)
       (let ((path (buffer-file-name (current-buffer))))
-        (and path (f-descendant-of? org-roam-directory path))))
+        (and path (f-ancestor-of? org-roam-directory path))))
     (defun my-enable-nroam-mode-maybe ()
       "Enables nroam only if it is found to be inside an org-roam directory"
       (interactive)
