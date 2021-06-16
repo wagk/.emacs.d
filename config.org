@@ -101,6 +101,56 @@ C-M-i                           backward-button
       (dired config-local-syncthing-folder)))
 #+end_src
 
+* General Faces
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces `(vertical-border ((((background light)) (:foreground ,sol-base3))
+                                       (((background dark)) (:foreground ,sol-base03)))))
+#+end_src
+
+** Modelines
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces `(mode-line ((((background light))
+                                  (:underline nil
+                                   :overline nil
+                                   :box nil
+                                   :background ,sol-base3))
+                                 (((background dark))
+                                  (:underline nil
+                                   :overline nil
+                                   :box nil
+                                   :background ,sol-base03)))))
+  (custom-set-faces `(mode-line-inactive ((((background light))
+                                           (:underline nil
+                                            :overline nil
+                                            :inherit mode-line
+                                            :foreground ,sol-base2))
+                                          (((background dark))
+                                           (:underline nil
+                                            :overline nil
+                                            :inherit mode-line
+                                            :foreground ,sol-base02)))))
+  (custom-set-faces `(mode-line-highlight ((((background light))
+                                            (:box nil :background ,sol-base2))
+                                           (((background dark))
+                                            (:box nil :background ,sol-base02)))))
+#+end_src
+
+** Header line
+#+begin_src emacs-lisp :results output silent
+  ;; (custom-set-faces '(header-line ((t (:inherit header-line :underline nil)))))
+  ;; (set-face-underline 'header-line nil)
+  (custom-set-faces '(header-line ((t (:inherit default :underline nil)))))
+#+end_src
+
+** Help Key binding
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces `(help-key-binding ((t (:box nil :background unspecified :foreground ,sol-yellow)))))
+#+end_src
+
+** Link
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces `(link ((t (:foreground ,sol-yellow :underline nil :bold t)))))
+#+end_src
 * Themes
 ** Base16
 #+begin_src emacs-lisp :results output silent
@@ -224,7 +274,7 @@ Solarized)
       (nano-dark-popout nano-light-popout)
       (nano-dark-critical nano-light-critical))
 #+end_src
-** COMMENT Display
+** Display
 #+begin_src emacs-lisp :results output silent
   ;; (when (display-graphic-p)
     ;; (load-solarized-theme))
@@ -707,6 +757,11 @@ Further helper functions to add bookmarks:
   ;; (evil-ex-define-cmd "Tmm")
 #+end_src
 
+*** Bookmark Face
+#+begin_src emacs-lisp :results output silent
+  (custom-set-faces '(bookmark-face ((t (:inherit sol-subtle)))))
+#+end_src
+
 ** Doctor mode
 #+begin_src emacs-lisp :results output silent
   (evil-ex-define-cmd "doc[tor]" 'doctor)
@@ -722,11 +777,11 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     :if (>= emacs-major-version 27)
     :custom-face
     (tab-bar ((t (:inherit minibuffer-prompt :underline nil))))
-    (tab-bar-tab-inactive ((t (:inherit default :italic nil))))
-    (tab-bar-tab ((((background light)) (:inherit default
-                                         :bold t))
-                  (((background dark)) (:inherit default
-                                        :bold t))))
+    (tab-bar-tab-inactive ((((background light))
+                            (:foreground ,sol-base1 :italic nil))
+                           (((background dark))
+                            (:foreground ,sol-base01 :italic nil))))
+    (tab-bar-tab ((t (:inherit default))))
     :custom
     (tab-bar-close-last-tab-choice 'delete-frame)
     (tab-bar-new-tab-choice t)
@@ -1262,11 +1317,16 @@ This is an expensive package to load, and I wonder why.
 ** Unimpaired port
 #+begin_src emacs-lisp :results output silent
   (use-package evil-unimpaired
-    :disabled t ;; some conflict with hl-todo
+    :disabled t
     :straight (:host github :repo "zmaas/evil-unimpaired")
     :after evil
     :config
     (evil-unimpaired-mode))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (with-eval-after-load 'evil-collection
+    (global-evil-collection-unimpaired-mode))
 #+end_src
 
 ** TODO Asyncrun
@@ -1306,6 +1366,17 @@ Use counsel instead
 #+end_src
 
 * Org Mode
+** Org Id
+#+begin_src emacs-lisp :results output silent
+  (use-package org-id
+    :ensure nil
+    :straight nil
+    :defer t
+    :custom
+    (org-id-ts-format "%N")
+    (org-id-method 'ts))
+#+end_src
+
 ** Evil Org Bindings
 Full keybindings:
 - https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org
@@ -1884,23 +1955,26 @@ Requires =sqlite=. Install using =choco install sqlite=
     ;; :straight (:host github :repo "org-roam/org-roam")
     ;; :if (boundp 'my-notes-folder)
     :straight t
-    :commands (org-roam-jump-to-index
-               org-roam-mode
-               org-roam-dailies-yesterday
-               org-roam-dailies-today
-               org-roam-find-file)
-    ;; :defer 10
+    :commands
+    (org-roam-jump-to-index
+     org-roam-dailies-yesterday
+     org-roam-dailies-today
+     org-roam-find-file
+     org-roam-dailies-today
+     org-roam-dailies-tomorrow)
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
-     "n i" 'org-roam-insert
-     "n t" 'org-roam-tag-add
-     "n a" 'org-roam-alias-add
-     "n f" 'org-roam-find-file
-     "n b" 'org-roam-buffer-toggle-display
-     "j j" 'org-roam-dailies-today
-     "j t" 'org-roam-dailies-today
-     "j p" 'org-roam-dailies-yesterday)
+     "n n"   #'org-roam-find-file
+     "n c"   #'org-roam-capture
+     "n i"   #'org-roam-insert
+     "n t"   #'org-roam-tag-add
+     "n a"   #'org-roam-alias-add
+     "n b"   #'org-roam-buffer-toggle-display
+     "n j d" #'org-roam-dailies-capture-date
+     "n j j" #'org-roam-dailies-capture-today
+     "n j n" #'org-roam-dailies-capture-tomorrow
+     "n j p" #'org-roam-dailies-yesterday)
     :custom
     (org-roam-buffer-width 0.3)
     (org-roam-db-update-method (if (eq system-type 'windows-nt)
@@ -1913,13 +1987,17 @@ Requires =sqlite=. Install using =choco install sqlite=
     ;; :hook
     ;; (after-init-hook . org-roam-mode)
     :init
-    (evil-ex-define-cmd "wiki" 'org-roam-jump-to-index)
-    (evil-ex-define-cmd "index" 'org-roam-jump-to-index)
-    (evil-ex-define-cmd "yesterday" 'org-roam-dailies-yesterday)
-    (evil-ex-define-cmd "ytd" 'org-roam-dailies-yesterday)
-    (evil-ex-define-cmd "today" 'org-roam-dailies-today)
-    (evil-ex-define-cmd "nn" 'org-roam-find-file)
-    (evil-ex-define-cmd "today" 'org-roam-dailies-today)
+    (evil-ex-define-cmd "wiki"      #'org-roam-jump-to-index)
+    (evil-ex-define-cmd "index"     #'org-roam-jump-to-index)
+    (evil-ex-define-cmd "nn"        #'org-roam-find-file)
+    (evil-ex-define-cmd "yesterday" #'org-roam-dailies-yesterday)
+    (evil-ex-define-cmd "ytd"       #'org-roam-dailies-yesterday)
+    (evil-ex-define-cmd "jp"        #'org-roam-dailies-yesterday)
+    (evil-ex-define-cmd "to[day]"   #'org-roam-dailies-today)
+    (evil-ex-define-cmd "jj"        #'org-roam-dailies-today)
+    (evil-ex-define-cmd "tomorrow"  #'org-roam-dailies-tomorrow)
+    (evil-ex-define-cmd "tmr"       #'org-roam-dailies-tomorrow)
+    (evil-ex-define-cmd "jn"        #'org-roam-dailies-tomorrow)
     :config
     (when (boundp 'config-local-syncthing-folder)
       (customize-set-variable 'org-roam-directory my-notes-folder))
@@ -1973,19 +2051,23 @@ org roam mode hook only activates once, not per roam file as we wanted.
     :general
     (:states 'normal
       :prefix my-default-evil-leader-key
-      "n r" #'my-enable-nroam-mode-maybe)
+      "n r" #'my-toggle-nroam-mode-maybe)
     :commands nroam-mode
-    :hook (org-mode-hook . my-enable-nroam-mode-maybe)
+    ;; this interferes with org-roam-capture of all kinds
+    ;; :hook (org-mode-hook . my-enable-nroam-mode-maybe)
     :init
     (defun my-in-org-roam-dir-p ()
       (interactive)
       (let ((path (buffer-file-name (current-buffer))))
-        (and path (f-descendant-of? org-roam-directory path))))
-    (defun my-enable-nroam-mode-maybe ()
+        (and path (f-ancestor-of? org-roam-directory path))))
+    (defun my-toggle-nroam-mode-maybe ()
       "Enables nroam only if it is found to be inside an org-roam directory"
       (interactive)
-      (when (my-in-org-roam-dir-p)
-          (nroam-mode))))
+      (require 'nroam)
+      (if nroam-mode
+          (nroam-mode -1)
+        (when (my-in-org-roam-dir-p)
+            (nroam-mode)))))
 #+end_src
 
 ** Org Latex Fragment Toggle
@@ -2113,8 +2195,8 @@ is)
     ;;  :prefix my-default-evil-leader-key
     ;;  "t t" 'my-helm-swoop-hl-todo)
     (:keymaps 'evil-normal-state-map
-     "[ t"  'hl-todo-previous
-     "] t"  'hl-todo-next))
+     "[ h"  'hl-todo-previous
+     "] h"  'hl-todo-next))
   ;; :init
   ;;TODO: Make this search for regexes
   ;; (defun my-helm-swoop-hl-todo () (interactive)
@@ -3205,11 +3287,14 @@ then later on =package sesman not found in recipe repositories=
 
 Sesman is not found normally by cider, so we had to manually clone it
 
-This is actally fairly expensive to load
+This is actually fairly expensive to load
 #+begin_src emacs-lisp :results output silent
   (use-package sesman
     :straight (:host github :repo "vspinu/sesman")
     :defer t)
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
   (use-package cider
     :commands (cider-jack-in
                cider-connect)
@@ -5489,52 +5574,10 @@ Not persistent scratch, just a custom scratch buffer
     (evil-ex-define-cmd "dd" 'devdocs-browser-open))
 #+end_src
 
-* General Faces
+* Evaluation Result Overlay for Emacs Lisp
 #+begin_src emacs-lisp :results output silent
-  (custom-set-faces `(vertical-border ((((background light)) (:foreground ,sol-base3))
-                                       (((background dark)) (:foreground ,sol-base03)))))
-#+end_src
-
-** Modelines
-#+begin_src emacs-lisp :results output silent
-  (custom-set-faces `(mode-line ((((background light))
-                                  (:underline nil
-                                   :overline nil
-                                   :box nil
-                                   :background ,sol-base3))
-                                 (((background dark))
-                                  (:underline nil
-                                   :overline nil
-                                   :box nil
-                                   :background ,sol-base03)))))
-  (custom-set-faces `(mode-line-inactive ((((background light))
-                                           (:underline nil
-                                            :overline nil
-                                            :inherit mode-line
-                                            :foreground ,sol-base2))
-                                          (((background dark))
-                                           (:underline nil
-                                            :overline nil
-                                            :inherit mode-line
-                                            :foreground ,sol-base02)))))
-  (custom-set-faces `(mode-line-highlight ((((background light))
-                                            (:box nil :background ,sol-base2))
-                                           (((background dark))
-                                            (:box nil :background ,sol-base02)))))
-#+end_src
-
-** Header line
-#+begin_src emacs-lisp :results output silent
-  ;; (custom-set-faces '(header-line ((t (:inherit header-line :underline nil)))))
-  (set-face-underline 'header-line nil)
-#+end_src
-
-** Help Key binding
-#+begin_src emacs-lisp :results output silent
-  (custom-set-faces `(help-key-binding ((t (:box nil :background unspecified :foreground ,sol-yellow)))))
-#+end_src
-
-** Link
-#+begin_src emacs-lisp :results output silent
-  (set-face-underline 'link nil)
+  (use-package eros
+    :straight t
+    :config
+    (eros-mode))
 #+end_src

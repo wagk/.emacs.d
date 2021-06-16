@@ -39,9 +39,10 @@
 (if (eq system-type "windows-nt")
     (set-w32-system-coding-system  'utf-8))
 
-(customize-set-variable 'frame-background-mode 'light)
-(with-eval-after-load 'solarized-theme
- (load-theme 'solarized-light t))
+(progn ;; theme stuff
+ (customize-set-variable 'frame-background-mode 'nil)
+ (with-eval-after-load 'solarized-theme
+    (load-theme 'solarized-dark t)))
 
 (defconst user-init-file
   (locate-user-emacs-file "init.el")
@@ -155,9 +156,8 @@ Then performs configuration of `use-package' variables."
   ;; (require 'quelpa-use-package)
   (require 'straight)
   (customize-set-variable 'load-prefer-newer t)
-  (straight-use-package '(use-package
-                           :host github
-                           :repo "jwiegley/use-package"))
+  (straight-use-package '(use-package :host github
+                                      :repo "jwiegley/use-package"))
   (require 'use-package)
   ;; download packages if needed
   (customize-set-variable 'use-package-always-defer nil
@@ -206,7 +206,7 @@ recovery. Maybe eventually load dependencies and all that."
   (straight-check-all)
   (straight-prune-build))
 
-(defun my-init-solarized-color-variables ()
+(defun my-init-solarized-color-variables-and-other-font-things ()
   "Solarized 1.0.0beta2[a] Color Palette[8]
 | Color   |    |     |     | sRGB    |     |     |     | xterm | Terminal  | Usage                          |
 |---------+----+-----+-----+---------+-----+-----+-----+-------+-----------+--------------------------------|
@@ -245,9 +245,15 @@ recovery. Maybe eventually load dependencies and all that."
                  (sol-cyan    . "#2aa198")
                  (sol-green   . "#859900")))
    ;; TODO: set documentation string
-   (set (car col) (cdr col))))
-
-
+   (set (car col) (cdr col)))
+  (custom-set-faces `(sol-critical ((t (:inherit default))))
+                    `(sol-popout ((t (:inherit default))))
+                    `(sol-strong ((t (:inherit default))))
+                    `(sol-salient ((t (:inherit default))))
+                    `(sol-faded ((t (:inherit default))))
+                    `(sol-subtle ((((background light)) (:background ,sol-base2))
+                                  (((background dark)) (:background ,sol-base02))))
+                    `(sol-default ((t (:inherit default))))))
 
 ;; (defun my-bootstrap-el-get ()
 ;;   (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -266,7 +272,7 @@ recovery. Maybe eventually load dependencies and all that."
   ;; (bootstrap-quelpa)
   ;; (my-bootstrap-el-get)
   (bootstrap-use-package)
-  (my-init-solarized-color-variables)
+  (my-init-solarized-color-variables-and-other-font-things)
 
   ;; Load core configuration that I can't work without. Everything
   ;; else gets shoved into config.org except these.
@@ -297,19 +303,27 @@ recovery. Maybe eventually load dependencies and all that."
     :straight (:host github :repo "emacscollective/no-littering"))
 
   (customize-set-value 'evil-want-keybinding nil
-                       "`evil-collections' wants this to be
-     disabled before even loading evil, see
-     https://github.com/emacs-evil/evil-collection/issues/60")
+                      "`evil-collections' wants this to be
+      disabled before even loading evil, see
+      https://github.com/emacs-evil/evil-collection/issues/60")
 
+    ;; https://github.com/magnars/dash.el
   (use-package dash
     :straight t)
 
+    ;; https://github.com/plexus/a.el/
+  (use-package a
+    :straight t)
+
+    ;; https://github.com/rejeep/f.el/
   (use-package f
     :straight t)
 
+    ;; https://github.com/magnars/s.el/
   (use-package s
     :straight t)
 
+    ;; https://github.com/Wilfred/ht.el/
   (use-package ht
     :straight t)
 
@@ -529,43 +543,8 @@ we're adding a custom function for it here."
     :config
     (evil-collection-init))
 
-  ;; ;; https://github.com/raxod502/straight.el/blob/develop/README.md#installing-org-with-straightel
-  ;; (progn
-  ;;   (require 'subr-x)
-  ;;   (straight-use-package 'git)
-  ;;   (defun org-git-version ()
-  ;;     "The Git version of org-mode.
-  ;;     Inserted by installing org-mode or when a release is made."
-  ;;     (require 'git)
-  ;;     (let ((git-repo (expand-file-name
-  ;;                      "straight/repos/org/" user-emacs-directory)))
-  ;;       (string-trim
-  ;;        (git-run "describe"
-  ;;                 "--match=release\*"
-  ;;                 "--abbrev=6"
-  ;;                 "HEAD"))))
-  ;;   (defun org-release ()
-  ;;     "The release version of org-mode.
-  ;;     Inserted by installing org-mode or when a release is made."
-  ;;     (require 'git)
-  ;;     (let ((git-repo (expand-file-name
-  ;;                      "straight/repos/org/" user-emacs-directory)))
-  ;;       (string-trim
-  ;;        (string-remove-prefix
-  ;;         "release_"
-  ;;         (git-run "describe"
-  ;;                  "--match=release\*"
-  ;;                  "--abbrev=0"
-  ;;                  "HEAD")))))
-  ;;   (provide 'org-version))
-
-  ;; ;; We do this here because we want a directory to actually exist when the
-  ;; ;; next form gets evaluated
-  ;; (straight-use-package 'org-plus-contrib)
-
 ;;; org-mode
 
-  ;; (use-package org-plus-contrib
   (use-package org
     ;; :straight (:includes org)
     ;; :straight (:local-repo nil)
@@ -603,6 +582,9 @@ we're adding a custom function for it here."
                            (((background light)) (:inherit org-meta-line :underline nil))))
     (org-block-end-line ((((background dark)) (:inherit org-meta-line :overline nil))
                          (((background light)) (:inherit org-meta-line :overline nil))))
+    (org-drawer ((((background dark)) (:foreground ,sol-base01))
+                 (((background light)) (:foreground ,sol-base1))))
+    (org-special-keyword ((t (:inherit default :bold t))))
     :custom
     (org-list-description-max-indent
      5 "Ideally we should familiarize ourselves with adding a newline
@@ -787,7 +769,6 @@ we're adding a custom function for it here."
       :commands org-confluence-export-as-confluence))
 
   ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
-
 
   (use-package counsel
     :demand t
