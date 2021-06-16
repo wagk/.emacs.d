@@ -781,10 +781,7 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
                             (:foreground ,sol-base1 :italic nil))
                            (((background dark))
                             (:foreground ,sol-base01 :italic nil))))
-    (tab-bar-tab ((((background light))
-                   (:foreground ,sol-base1 :bold t))
-                  (((background dark))
-                   (:foreground ,sol-base01 :bold t))))
+    (tab-bar-tab ((t (:inherit default))))
     :custom
     (tab-bar-close-last-tab-choice 'delete-frame)
     (tab-bar-new-tab-choice t)
@@ -1320,11 +1317,16 @@ This is an expensive package to load, and I wonder why.
 ** Unimpaired port
 #+begin_src emacs-lisp :results output silent
   (use-package evil-unimpaired
-    :disabled t ;; some conflict with hl-todo
+    :disabled t
     :straight (:host github :repo "zmaas/evil-unimpaired")
     :after evil
     :config
     (evil-unimpaired-mode))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (with-eval-after-load 'evil-collection
+    (global-evil-collection-unimpaired-mode))
 #+end_src
 
 ** TODO Asyncrun
@@ -1952,6 +1954,7 @@ Requires =sqlite=. Install using =choco install sqlite=
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
+     "n n"   #'org-roam-find-file
      "n c"   #'org-roam-capture
      "n i"   #'org-roam-insert
      "n t"   #'org-roam-tag-add
@@ -1975,14 +1978,15 @@ Requires =sqlite=. Install using =choco install sqlite=
     :init
     (evil-ex-define-cmd "wiki"      #'org-roam-jump-to-index)
     (evil-ex-define-cmd "index"     #'org-roam-jump-to-index)
+    (evil-ex-define-cmd "nn"        #'org-roam-find-file)
     (evil-ex-define-cmd "yesterday" #'org-roam-dailies-yesterday)
     (evil-ex-define-cmd "ytd"       #'org-roam-dailies-yesterday)
-    (evil-ex-define-cmd "today"     #'org-roam-dailies-today)
-    (evil-ex-define-cmd "nn"        #'org-roam-find-file)
-    (evil-ex-define-cmd "today"     #'org-roam-dailies-today)
+    (evil-ex-define-cmd "jp"        #'org-roam-dailies-yesterday)
+    (evil-ex-define-cmd "to[day]"   #'org-roam-dailies-today)
     (evil-ex-define-cmd "jj"        #'org-roam-dailies-today)
     (evil-ex-define-cmd "tomorrow"  #'org-roam-dailies-tomorrow)
     (evil-ex-define-cmd "tmr"       #'org-roam-dailies-tomorrow)
+    (evil-ex-define-cmd "jn"        #'org-roam-dailies-tomorrow)
     :config
     (when (boundp 'config-local-syncthing-folder)
       (customize-set-variable 'org-roam-directory my-notes-folder))
@@ -2180,8 +2184,8 @@ is)
     ;;  :prefix my-default-evil-leader-key
     ;;  "t t" 'my-helm-swoop-hl-todo)
     (:keymaps 'evil-normal-state-map
-     "[ t"  'hl-todo-previous
-     "] t"  'hl-todo-next))
+     "[ h"  'hl-todo-previous
+     "] h"  'hl-todo-next))
   ;; :init
   ;;TODO: Make this search for regexes
   ;; (defun my-helm-swoop-hl-todo () (interactive)
