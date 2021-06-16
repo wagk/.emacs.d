@@ -1373,7 +1373,7 @@ Use counsel instead
     :straight nil
     :defer t
     :custom
-    (org-id-ts-format "%N")
+    (org-id-ts-format "%s")
     (org-id-method 'ts))
 #+end_src
 
@@ -1954,6 +1954,7 @@ Requires =sqlite=. Install using =choco install sqlite=
     ;; :hook (org-mode-hook . org-roam-mode)
     ;; :straight (:host github :repo "org-roam/org-roam")
     ;; :if (boundp 'my-notes-folder)
+    :disabled t
     :straight t
     :commands
     (org-roam-jump-to-index
@@ -1974,7 +1975,7 @@ Requires =sqlite=. Install using =choco install sqlite=
      "n j d" #'org-roam-dailies-capture-date
      "n j j" #'org-roam-dailies-capture-today
      "n j n" #'org-roam-dailies-capture-tomorrow
-     "n j p" #'org-roam-dailies-yesterday)
+     "n j p" #'org-roam-dailies-capture-yesterday)
     :custom
     (org-roam-buffer-width 0.3)
     (org-roam-db-update-method (if (eq system-type 'windows-nt)
@@ -2041,11 +2042,70 @@ Requires =sqlite=. Install using =choco install sqlite=
     (org-roam-mode))
 #+end_src
 
+*** Org Roam v2
+TODO: a function to go to the index file.
+
+#+begin_src emacs-lisp :results output silent
+  (use-package org-roam
+    :straight (:host github :repo "org-roam/org-roam" :branch "v2")
+    :custom
+    (org-roam-dailies-directory "day/")
+    (org-roam-directory (f-join config-local-syncthing-folder "wiki3"))
+    :demand t ;; needs org-roam-setup, which complicates things.
+    :general
+    (:states 'normal
+     :prefix my-default-evil-leader-key
+     "n n"   #'org-roam-node-find
+     "n c"   #'org-roam-capture
+     "n i"   #'org-roam-node-insert
+     "n g"   #'org-id-get-create
+     "n t"   #'org-roam-tag-add
+     "n T"   #'org-roam-tag-remove
+     "n b"   #'org-roam-buffer-toggle
+     "n j d" #'org-roam-dailies-capture-date
+     "n j j" #'org-roam-dailies-capture-today
+     "n j n" #'org-roam-dailies-capture-tomorrow
+     "n j p" #'org-roam-dailies-capture-yesterday)
+    :init
+    (evil-ex-define-cmd "nn"        #'org-roam-node-find)
+    (evil-ex-define-cmd "yesterday" #'org-roam-dailies-find-yesterday)
+    (evil-ex-define-cmd "ytd"       #'org-roam-dailies-find-yesterday)
+    (evil-ex-define-cmd "jp"        #'org-roam-dailies-find-yesterday)
+    (evil-ex-define-cmd "to[day]"   #'org-roam-dailies-find-today)
+    (evil-ex-define-cmd "jj"        #'org-roam-dailies-find-today)
+    (evil-ex-define-cmd "tomorrow"  #'org-roam-dailies-find-tomorrow)
+    (evil-ex-define-cmd "tmr"       #'org-roam-dailies-find-tomorrow)
+    (evil-ex-define-cmd "jn"        #'org-roam-dailies-find-tomorrow)
+    :config
+    ;; olp means outline path
+    ;; Got to accept that we probably shouldn't assume that all new
+    ;; headers are nodes. Probably better to just give a keybind for
+    ;; that
+    (let* ((template (list '("d" "default" entry "* %?"
+                             :if-new
+                             (file+head "%<%s>-${slug}.org"
+                                        "#+title: ${title}\n")
+                             :unnarrowed t)))
+           (template-dailies (list `("d" "default" entry "* %?"
+                                     :if-new
+                                     (file+head ,(f-join org-roam-dailies-directory
+                                                         "%<%Y-%m-%d>.org")
+                                                "#+title: %<%Y-%m-%d>\n")
+                                     :unnarrowed t))))
+      (customize-set-value 'org-roam-capture-templates template)
+      (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
+    (advice-add 'org-roam-node-slug :filter-return
+                (lambda (str) (replace-regexp-in-string "_" "-" str)))
+    (org-roam-teardown)
+    (org-roam-setup))
+#+end_src
+
 *** Nroam
 org roam mode hook only activates once, not per roam file as we wanted.
 
 #+begin_src emacs-lisp :results output silent
   (use-package nroam
+    :disabled t
     :straight (:host github :repo "nicolaspetton/nroam")
     :after org-roam
     :general
@@ -2272,7 +2332,7 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     :commands (magit-status
                magit-pull
                magit-commit)
-    :defer 5
+    :defer 15
     :custom
     (magit-blame-echo-style 'margin)
     :general
