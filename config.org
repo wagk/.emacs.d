@@ -1373,7 +1373,7 @@ Use counsel instead
     :straight nil
     :defer t
     :custom
-    (org-id-ts-format "%s")
+    (org-id-ts-format "%N")
     (org-id-method 'ts))
 #+end_src
 
