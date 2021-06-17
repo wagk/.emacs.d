@@ -111,12 +111,12 @@ C-M-i                           backward-button
 #+begin_src emacs-lisp :results output silent
   (custom-set-faces `(mode-line ((((background light))
                                   (:underline nil
-                                   :overline nil
+                                   :overline ,sol-base2
                                    :box nil
                                    :background ,sol-base3))
                                  (((background dark))
                                   (:underline nil
-                                   :overline nil
+                                   :overline ,sol-base02
                                    :box nil
                                    :background ,sol-base03)))))
   (custom-set-faces `(mode-line-inactive ((((background light))
