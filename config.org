@@ -88,8 +88,9 @@ C-M-i                           backward-button
 * Define useful constants
 #+begin_src emacs-lisp :results output silent
   (when (boundp 'config-local-syncthing-folder)
-    (defconst my-notes-folder (-> config-local-syncthing-folder
-                                  (f-join "wiki")))
+    (unless (bound-and-true-p my-notes-folder)
+      (defconst my-notes-folder (-> config-local-syncthing-folder
+                                    (f-join "wiki"))))
     (defconst my-text-raw-folder (-> config-local-syncthing-folder
                                     (f-join "raw")))
     (defconst my-todo-org-file (-> config-local-syncthing-folder
@@ -1605,6 +1606,7 @@ For some reason we can't do this in the scratch buffer
     :ensure nil
     :straight nil
     :commands (org-todo-list
+               org-agenda-list
                org-agenda-file-to-front
                org-agenda)
     :general
