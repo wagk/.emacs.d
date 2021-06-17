@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# key: iostream
+# key: ios
 # name: cpp-ios
 # --
 #include <iostream>
