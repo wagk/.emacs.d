@@ -244,16 +244,23 @@ recovery. Maybe eventually load dependencies and all that."
                  (sol-blue    . "#268bd2")
                  (sol-cyan    . "#2aa198")
                  (sol-green   . "#859900")))
-   ;; TODO: set documentation string
-   (set (car col) (cdr col)))
-  (custom-set-faces `(sol-critical ((t (:inherit default))))
-                    `(sol-popout ((t (:inherit default))))
-                    `(sol-strong ((t (:inherit default))))
-                    `(sol-salient ((t (:inherit default))))
-                    `(sol-faded ((t (:inherit default))))
-                    `(sol-subtle ((((background light)) (:background ,sol-base2))
-                                  (((background dark)) (:background ,sol-base02))))
-                    `(sol-default ((t (:inherit default))))))
+    ;; TODO: set documentation string
+    (set (car col) (cdr col)))
+  (defface sol-critical '((t (:inherit default)))
+    "Follows `nano-critical'")
+  (defface sol-popout '((t (:inherit default)))
+    "Follows `nano-popout'")
+  (defface sol-strong '((t (:inherit default)))
+    "Follows `nano-strong'")
+  (defface sol-salient '((t (:inherit default)))
+    "Follows `nano-salient'")
+  (defface sol-faded '((t (:inherit default)))
+    "Follows `nano-faded'")
+  (defface sol-subtle `((((background light)) (:background ,sol-base2))
+                        (((background dark)) (:background ,sol-base02)))
+    "Follows `nano-subtle'")
+  (defface sol-default '((t (:inherit default)))
+    "Follows `nano-default'"))
 
 ;; (defun my-bootstrap-el-get ()
 ;;   (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -791,6 +798,8 @@ we're adding a custom function for it here."
      t
      "Make `ivy-switch-buffer' look more like `helm-mini'")
     (ivy-height 23)
+    :custom-face
+    (ivy-current-match ((t (:inherit default :bold nil :underline nil))))
     :init
     (evil-ex-define-cmd "bb" 'counsel-ibuffer)
     :config

@@ -1943,7 +1943,7 @@ https://www.nongnu.org/org-edna-el/
     :straight (:host github :repo "ndwarshuis/om.el"))
 #+end_src
 
-** Org Roam
+** COMMENT Org Roam
 Requires =sqlite=. Install using =choco install sqlite=
 
 - [ ] Add the files inside the roam directory as org agenda files?
@@ -2042,7 +2042,7 @@ Requires =sqlite=. Install using =choco install sqlite=
     (org-roam-mode))
 #+end_src
 
-*** Org Roam v2
+** Org Roam v2
 TODO: a function to go to the index file.
 
 #+begin_src emacs-lisp :results output silent
@@ -2050,7 +2050,6 @@ TODO: a function to go to the index file.
     :straight (:host github :repo "org-roam/org-roam" :branch "v2")
     :custom
     (org-roam-dailies-directory "day/")
-    (org-roam-directory (f-join config-local-syncthing-folder "wiki3"))
     :demand t ;; needs org-roam-setup, which complicates things.
     :general
     (:states 'normal
@@ -2067,6 +2066,10 @@ TODO: a function to go to the index file.
      "n j n" #'org-roam-dailies-capture-tomorrow
      "n j p" #'org-roam-dailies-capture-yesterday)
     :init
+    (defun my-org-roam-find-index-file ()
+      (interactive)
+      (find-file (f-join org-roam-directory "index.org")))
+    (evil-ex-define-cmd "index"     #'my-org-roam-find-index-file)
     (evil-ex-define-cmd "nn"        #'org-roam-node-find)
     (evil-ex-define-cmd "yesterday" #'org-roam-dailies-find-yesterday)
     (evil-ex-define-cmd "ytd"       #'org-roam-dailies-find-yesterday)
@@ -2090,8 +2093,7 @@ TODO: a function to go to the index file.
                                      :if-new
                                      (file+head ,(f-join org-roam-dailies-directory
                                                          "%<%Y-%m-%d>.org")
-                                                "#+title: %<%Y-%m-%d>\n")
-                                     :unnarrowed t))))
+                                                "#+title: %<%Y-%m-%d>\n")))))
       (customize-set-value 'org-roam-capture-templates template)
       (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
     (advice-add 'org-roam-node-slug :filter-return
