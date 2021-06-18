@@ -591,7 +591,7 @@ we're adding a custom function for it here."
                          (((background light)) (:inherit org-meta-line :overline nil))))
     (org-drawer ((((background dark)) (:foreground ,sol-base01))
                  (((background light)) (:foreground ,sol-base1))))
-    (org-special-keyword ((t (:inherit default :bold t))))
+    (org-special-keyword ((t (:inherit default :bold nil :foreground ,sol-blue))))
     :custom
     (org-list-description-max-indent
      5 "Ideally we should familiarize ourselves with adding a newline

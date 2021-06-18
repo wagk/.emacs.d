@@ -88,8 +88,9 @@ C-M-i                           backward-button
 * Define useful constants
 #+begin_src emacs-lisp :results output silent
   (when (boundp 'config-local-syncthing-folder)
-    (defconst my-notes-folder (-> config-local-syncthing-folder
-                                  (f-join "wiki")))
+    (unless (bound-and-true-p my-notes-folder)
+      (defconst my-notes-folder (-> config-local-syncthing-folder
+                                    (f-join "wiki"))))
     (defconst my-text-raw-folder (-> config-local-syncthing-folder
                                     (f-join "raw")))
     (defconst my-todo-org-file (-> config-local-syncthing-folder
@@ -111,12 +112,12 @@ C-M-i                           backward-button
 #+begin_src emacs-lisp :results output silent
   (custom-set-faces `(mode-line ((((background light))
                                   (:underline nil
-                                   :overline nil
+                                   :overline ,sol-base2
                                    :box nil
                                    :background ,sol-base3))
                                  (((background dark))
                                   (:underline nil
-                                   :overline nil
+                                   :overline ,sol-base02
                                    :box nil
                                    :background ,sol-base03)))))
   (custom-set-faces `(mode-line-inactive ((((background light))
@@ -1605,6 +1606,7 @@ For some reason we can't do this in the scratch buffer
     :ensure nil
     :straight nil
     :commands (org-todo-list
+               org-agenda-list
                org-agenda-file-to-front
                org-agenda)
     :general
@@ -2042,7 +2044,7 @@ Requires =sqlite=. Install using =choco install sqlite=
     (org-roam-mode))
 #+end_src
 
-*** Org Roam v2
+** Org Roam v2
 TODO: a function to go to the index file.
 
 #+begin_src emacs-lisp :results output silent
@@ -2091,7 +2093,9 @@ TODO: a function to go to the index file.
                              :unnarrowed t)))
            (template-dailies (list `("d" "default" entry "* %?"
                                      :if-new
-                                     (file+head ,(f-join org-roam-dailies-directory))))))
+                                     (file+head ,(f-join org-roam-dailies-directory
+                                                         "%<%Y-%m-%d>.org")
+                                                "#+title: %<%Y-%m-%d>\n")))))
       (customize-set-value 'org-roam-capture-templates template)
       (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
     (advice-add 'org-roam-node-slug :filter-return
