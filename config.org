@@ -2091,7 +2091,7 @@ TODO: a function to go to the index file.
                              (file+head "%<%s>-${slug}.org"
                                         "#+title: ${title}\n")
                              :unnarrowed t)))
-           (template-dailies (list `("d" "default" entry "* %?"
+           (template-dailies (list `("j" "default" entry "%?"
                                      :if-new
                                      (file+head ,(f-join org-roam-dailies-directory
                                                          "%<%Y-%m-%d>.org")
