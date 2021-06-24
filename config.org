@@ -1078,7 +1078,6 @@ want to learn marks properly anyway.
 #+begin_src emacs-lisp :results output silent
   (use-package evil-fringe-mark
     :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
-    :disabled t
     :custom
     (evil-fringe-mark-show-special nil)
     :config
@@ -2068,11 +2067,16 @@ TODO: a function to go to the index file.
      "n j n" #'org-roam-dailies-capture-tomorrow
      "n j p" #'org-roam-dailies-capture-yesterday)
     :init
+    (defun my-buffer-in-org-roam-dir-p ()
+      (interactive)
+      (let ((path (buffer-file-name (current-buffer))))
+        (and path (f-ancestor-of? org-roam-directory path))))
     (defun my-org-roam-find-index-file ()
       (interactive)
       (find-file (f-join org-roam-directory "index.org")))
     (evil-ex-define-cmd "index"     #'my-org-roam-find-index-file)
     (evil-ex-define-cmd "nn"        #'org-roam-node-find)
+    (evil-ex-define-cmd "nc"        #'org-roam-capture)
     (evil-ex-define-cmd "yesterday" #'org-roam-dailies-find-yesterday)
     (evil-ex-define-cmd "ytd"       #'org-roam-dailies-find-yesterday)
     (evil-ex-define-cmd "jp"        #'org-roam-dailies-find-yesterday)
@@ -2091,15 +2095,21 @@ TODO: a function to go to the index file.
                              (file+head "%<%s>-${slug}.org"
                                         "#+title: ${title}\n")
                              :unnarrowed t)))
-           (template-dailies (list `("j" "default" entry "%?"
+           (template-dailies (list `("d" "default" entry "* %?"
                                      :if-new
-                                     (file+head ,(f-join org-roam-dailies-directory
+                                     (file+head ,(f-join org-roam-directory
+                                                         org-roam-dailies-directory
                                                          "%<%Y-%m-%d>.org")
-                                                "#+title: %<%Y-%m-%d>\n")))))
+                                                "#+title: %<%Y-%m-%d>\n")
+                                     :unnarrowed t))))
       (customize-set-value 'org-roam-capture-templates template)
       (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
     (advice-add 'org-roam-node-slug :filter-return
                 (lambda (str) (replace-regexp-in-string "_" "-" str)))
+    (advice-add 'org-id-get-create
+                :after (lambda () (interactive)
+                         (when (my-buffer-in-org-roam-dir-p)
+                           (org-roam-db-sync))))
     (org-roam-teardown)
     (org-roam-setup))
 #+end_src
@@ -2120,10 +2130,6 @@ org roam mode hook only activates once, not per roam file as we wanted.
     ;; this interferes with org-roam-capture of all kinds
     ;; :hook (org-mode-hook . my-enable-nroam-mode-maybe)
     :init
-    (defun my-in-org-roam-dir-p ()
-      (interactive)
-      (let ((path (buffer-file-name (current-buffer))))
-        (and path (f-ancestor-of? org-roam-directory path))))
     (defun my-toggle-nroam-mode-maybe ()
       "Enables nroam only if it is found to be inside an org-roam directory"
       (interactive)
