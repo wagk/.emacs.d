@@ -1368,13 +1368,13 @@ Use counsel instead
 * Org Mode
 ** Org Id
 #+begin_src emacs-lisp :results output silent
-    (use-package org-id
-      :ensure nil
-      :straight nil
-      :defer t
-      :custom
-      (org-id-ts-format "%s")
-      (org-id-method 'ts))
+  (use-package org-id
+    :ensure nil
+    :straight nil
+    :defer t
+    :custom
+    (org-id-ts-format "%s")
+    (org-id-method 'ts))
 #+end_src
 
 ** Evil Org Bindings
