@@ -2136,7 +2136,7 @@ org roam mode hook only activates once, not per roam file as we wanted.
       (require 'nroam)
       (if nroam-mode
           (nroam-mode -1)
-        (when (my-in-org-roam-dir-p)
+        (when (my-buffer-in-org-roam-dir-p)
             (nroam-mode)))))
 #+end_src
 
