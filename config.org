@@ -2090,18 +2090,22 @@ TODO: a function to go to the index file.
     ;; Got to accept that we probably shouldn't assume that all new
     ;; headers are nodes. Probably better to just give a keybind for
     ;; that
-    (let* ((template (list '("d" "default" plain "%?"
-                             :if-new
-                             (file+head "%<%s>-${slug}.org"
-                                        "#+title: ${title}\n")
-                             :unnarrowed t)))
-           (template-dailies (list `("d" "default" entry "* %?"
-                                     :if-new
-                                     (file+head ,(f-join org-roam-directory
-                                                         org-roam-dailies-directory
-                                                         "%<%Y-%m-%d>.org")
-                                                "#+title: %<%Y-%m-%d>\n")
-                                     :unnarrowed t))))
+    (let ((template
+           (list `("d" "default" plain "%?"
+                   :if-new
+                   (file+head ,(f-join org-roam-directory
+                                       "notes"
+                                       "${slug}.org")
+                              "#+title: ${title}\n")
+                   :unnarrowed t)))
+          (template-dailies
+           (list `("d" "default" entry "* %?"
+                   :if-new
+                   (file+head ,(f-join org-roam-directory
+                                       org-roam-dailies-directory
+                                       "%<%Y-%m-%d>.org")
+                              "#+title: %<%Y-%m-%d>\n")
+                   :unnarrowed t))))
       (customize-set-value 'org-roam-capture-templates template)
       (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
     (advice-add 'org-roam-node-slug :filter-return
@@ -5466,8 +5470,8 @@ Note that =customize-set-variable= is like =setq-default=.
   (use-package smudge
     :straight (:host github :repo "danielfm/smudge")
     ;; :straight t
-    :if (and (boundp 'my-spotify-oauth2-client-secret)
-             (boundp 'my-spotify-oauth2-client-id))
+    :if (and (bound-and-true-p my-spotify-oauth2-client-secret)
+             (bound-and-true-p my-spotify-oauth2-client-id))
     :custom
     (smudge-oauth2-client-secret my-spotify-oauth2-client-secret)
     (smudge-oauth2-client-id my-spotify-oauth2-client-id)
