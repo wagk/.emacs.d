@@ -112,12 +112,12 @@ C-M-i                           backward-button
 #+begin_src emacs-lisp :results output silent
   (custom-set-faces `(mode-line ((((background light))
                                   (:underline nil
-                                   :overline ,sol-base2
+                                   :overline nil
                                    :box nil
                                    :background ,sol-base3))
                                  (((background dark))
                                   (:underline nil
-                                   :overline ,sol-base02
+                                   :overline nil
                                    :box nil
                                    :background ,sol-base03)))))
   (custom-set-faces `(mode-line-inactive ((((background light))
@@ -2055,17 +2055,18 @@ TODO: a function to go to the index file.
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
-     "n n"   #'org-roam-node-find
-     "n c"   #'org-roam-capture
-     "n i"   #'org-roam-node-insert
-     "n g"   #'org-id-get-create
-     "n t"   #'org-roam-tag-add
      "n T"   #'org-roam-tag-remove
      "n b"   #'org-roam-buffer-toggle
+     "n c"   #'org-roam-capture
+     "n i"   #'org-roam-node-insert
      "n j d" #'org-roam-dailies-capture-date
      "n j j" #'org-roam-dailies-capture-today
      "n j n" #'org-roam-dailies-capture-tomorrow
-     "n j p" #'org-roam-dailies-capture-yesterday)
+     "n j p" #'org-roam-dailies-capture-yesterday
+     "n n"   #'org-roam-node-find
+     "n o"   #'org-id-get-create
+     "n s"   #'org-roam-db-sync
+     "n t"   #'org-roam-tag-add)
     :init
     (defun my-buffer-in-org-roam-dir-p ()
       (interactive)
@@ -2093,18 +2094,20 @@ TODO: a function to go to the index file.
     (let ((template
            (list `("d" "default" plain "%?"
                    :if-new
-                   (file+head ,(f-join org-roam-directory
-                                       "notes"
-                                       "${slug}.org")
+                   (file+head ,(f-join
+                                ;; "notes" ;; can't get the db to recognize the folder
+                                "${slug}.org")
                               "#+title: ${title}\n")
                    :unnarrowed t)))
           (template-dailies
            (list `("d" "default" entry "* %?"
                    :if-new
-                   (file+head ,(f-join org-roam-directory
-                                       org-roam-dailies-directory
-                                       "%<%Y-%m-%d>.org")
-                              "#+title: %<%Y-%m-%d>\n")
+                   (file+head "%<%Y-%m-%d>.org"
+                              ,(mapconcat 'identity
+                                          '("#+title: %<%Y-%m-%d>"
+                                            "#+filetags: diary"
+                                            "\n")
+                                          "\n"))
                    :unnarrowed t))))
       (customize-set-value 'org-roam-capture-templates template)
       (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
@@ -4484,7 +4487,10 @@ Or evil-spongebob if you want to think of it that way.
   (use-package go-mode
     ;; :straight (:host github :repo "dominikh/go-mode.el")
     :straight t
-    :mode ("\\.go\\'" . go-mode))
+    :mode ("\\.go\\'" . go-mode)
+    :config
+    (with-eval-after-load 'lsp
+      (add-hook 'go-mode-hook 'lsp)))
 #+end_src
 
 * Elfeed
@@ -5681,4 +5687,10 @@ Not persistent scratch, just a custom scratch buffer
     :straight t
     :config
     (eros-mode))
+#+end_src
+
+* Moonscript
+#+begin_src emacs-lisp :results output silent
+  (use-package moonscript
+    :straight t)
 #+end_src

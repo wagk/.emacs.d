@@ -346,6 +346,11 @@ recovery. Maybe eventually load dependencies and all that."
       (evil-ex-define-cmd "restarttest"
                           'restart-emacs-start-new-emacs)))
 
+  (use-package gcmh
+    :straight t
+    :config
+    (gcmh-mode))
+
   ;; (use-package undo-fu
   ;;   :straight t
   ;;   :when (< 28 emacs-major-version))
