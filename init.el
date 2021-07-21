@@ -42,7 +42,7 @@
 (progn ;; theme stuff
  (customize-set-variable 'frame-background-mode 'nil)
  (with-eval-after-load 'solarized-theme
-    (load-theme 'solarized-dark t)))
+    (load-theme 'solarized-light t)))
 
 (defconst user-init-file
   (locate-user-emacs-file "init.el")
@@ -388,6 +388,7 @@ recovery. Maybe eventually load dependencies and all that."
      "C-l" 'evil-complete-next-line
      "C-u" 'evil-delete-whole-line)
     (:keymaps 'normal
+     "g C-u" 'universal-argument
      ;; try eyebrowse instead
      ;; "gt"     '(lambda () (interactive) (other-frame 1))
      ;; "gT"     '(lambda () (interactive) (other-frame -1))

@@ -2045,6 +2045,9 @@ Requires =sqlite=. Install using =choco install sqlite=
 
 ** Org Roam v2
 TODO: a function to go to the index file.
+#+begin_src emacs-lisp :results output silent
+  (setq org-roam-v2-ack t)
+#+end_src
 
 #+begin_src emacs-lisp :results output silent
   (use-package org-roam
@@ -4488,9 +4491,12 @@ Or evil-spongebob if you want to think of it that way.
     ;; :straight (:host github :repo "dominikh/go-mode.el")
     :straight t
     :mode ("\\.go\\'" . go-mode)
-    :config
-    (with-eval-after-load 'lsp
-      (add-hook 'go-mode-hook 'lsp)))
+    :hook
+    (go-mode-hook . gofmt-before-save)
+    :general
+    (:keymaps 'go-mode-map
+     :state 'normal
+     "C-c C-f C-f" 'gofmt))
 #+end_src
 
 * Elfeed
