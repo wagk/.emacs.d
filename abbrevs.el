@@ -231,6 +231,7 @@
     ("funcitons" "functions" nil :count 2)
     ("functinos" "functions" nil :count 2)
     ("futre" "future" nil :count 1)
+    ("genreated" "generated" nil :count 1)
     ("globasl" "global" nil :count 1)
     ("guatds" "guards" nil :count 1)
     ("hadnle" "handle" nil :count 1)

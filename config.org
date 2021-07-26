@@ -3404,9 +3404,7 @@ We should look at customizing cider someday.
      "RET" 'comment-indent-new-line)
     :init
     (with-eval-after-load 'org-src
-      (cl-pushnew '("rust" . rust) org-src-lang-modes))
-    (with-eval-after-load 'lsp-mode
-      (add-hook 'rust-mode-hook 'lsp)))
+      (cl-pushnew '("rust" . rust) org-src-lang-modes)))
 #+end_src
 
 ** Cargo
