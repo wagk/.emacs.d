@@ -1944,106 +1944,7 @@ https://www.nongnu.org/org-edna-el/
     :straight (:host github :repo "ndwarshuis/om.el"))
 #+end_src
 
-** COMMENT Org Roam
-Requires =sqlite=. Install using =choco install sqlite=
-
-- [ ] Add the files inside the roam directory as org agenda files?
-  It's going to be heavyweight.
-
-#+begin_src emacs-lisp :results output silent
-  (use-package org-roam
-    ;; :hook (org-mode-hook . org-roam-mode)
-    ;; :straight (:host github :repo "org-roam/org-roam")
-    ;; :if (boundp 'my-notes-folder)
-    :disabled t
-    :straight t
-    :commands
-    (org-roam-jump-to-index
-     org-roam-dailies-yesterday
-     org-roam-dailies-today
-     org-roam-find-file
-     org-roam-dailies-today
-     org-roam-dailies-tomorrow)
-    :general
-    (:states 'normal
-     :prefix my-default-evil-leader-key
-     "n n"   #'org-roam-find-file
-     "n c"   #'org-roam-capture
-     "n i"   #'org-roam-insert
-     "n t"   #'org-roam-tag-add
-     "n a"   #'org-roam-alias-add
-     "n b"   #'org-roam-buffer-toggle-display
-     "n j d" #'org-roam-dailies-capture-date
-     "n j j" #'org-roam-dailies-capture-today
-     "n j n" #'org-roam-dailies-capture-tomorrow
-     "n j p" #'org-roam-dailies-capture-yesterday)
-    :custom
-    (org-roam-buffer-width 0.3)
-    (org-roam-db-update-method (if (eq system-type 'windows-nt)
-                                   'immediate
-                                 'idle-timer))
-    ;; (org-roam-directory my-notes-folder)
-    ;; (org-roam-directory my-notes-folder)
-    ;; (org-roam-index-file (f-join org-roam-directory "index.org"))
-    (org-roam-dailies-directory "day/")
-    ;; :hook
-    ;; (after-init-hook . org-roam-mode)
-    :init
-    (evil-ex-define-cmd "wiki"      #'org-roam-jump-to-index)
-    (evil-ex-define-cmd "index"     #'org-roam-jump-to-index)
-    (evil-ex-define-cmd "nn"        #'org-roam-find-file)
-    (evil-ex-define-cmd "yesterday" #'org-roam-dailies-yesterday)
-    (evil-ex-define-cmd "ytd"       #'org-roam-dailies-yesterday)
-    (evil-ex-define-cmd "jp"        #'org-roam-dailies-yesterday)
-    (evil-ex-define-cmd "to[day]"   #'org-roam-dailies-today)
-    (evil-ex-define-cmd "jj"        #'org-roam-dailies-today)
-    (evil-ex-define-cmd "tomorrow"  #'org-roam-dailies-tomorrow)
-    (evil-ex-define-cmd "tmr"       #'org-roam-dailies-tomorrow)
-    (evil-ex-define-cmd "jn"        #'org-roam-dailies-tomorrow)
-    :config
-    (when (boundp 'config-local-syncthing-folder)
-      (customize-set-variable 'org-roam-directory my-notes-folder))
-    (with-eval-after-load 'aggressive-fill-paragraph
-      (add-hook 'org-roam-capture-after-find-file-hook 'aggressive-fill-paragraph-mode))
-    ;; (defun org-roam--extract-tags-regex (filepath)
-    ;;   (with-temp-buffer
-    ;;     (insert-file-contents filepath)
-    ;;     (save-match-data
-    ;;       (let* ((string (buffer-string))
-    ;;              (pos 0)
-    ;;              matches)
-    ;;         (while (string-match "#[[:alnum:]\:-]+" string pos)
-    ;;           (push (string-remove-prefix "#" (match-string 0 string)) matches)
-    ;;           (setq pos (match-end 0)))
-    ;;         matches))))
-    ;; (customize-set-variable 'org-roam-tag-sources
-    ;;                         (add-to-list 'org-roam-tag-sources 'regex))
-    ;; Note that org-roam captures are incompatible with org-captures
-    ;; Note documentation on `org-roam-capture-templates'
-    (let* ((template (list '("rr" "default" plain
-                             #'org-roam-capture--get-point "%?"
-                             :file-name "%<%s>-${slug}"
-                             :head "#+TITLE: ${title}\n"
-                             :unnarrowed t)))
-           (template-immediate (list '("rn" "immediate" plain
-                                       #'org-roam-capture--get-point "%?"
-                                       :file-name "%<%s>-${slug}"
-                                       :head "#+TITLE: ${title}\n"
-                                       :unnarrowed t
-                                       :immediate-finish t)))
-           (template-dailies (list `("d" "default diary" entry (function org-roam-capture--get-point)
-                                     "* %?"
-                                     :file-name ,(f-join org-roam-dailies-directory "%<%Y-%m-%d>")
-                                     :head "#+title: %<%Y-%m-%d>\n"))))
-      (customize-set-value 'org-roam-capture-templates template)
-      (customize-set-value 'org-roam-capture-immediate-template template-immediate)
-      (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
-    (advice-add 'org-roam--title-to-slug :filter-return
-                (lambda (str) (replace-regexp-in-string "_" "-" str)))
-    (org-roam-mode))
-#+end_src
-
-** Org Roam v2
+** Org Roam
 TODO: a function to go to the index file.
 #+begin_src emacs-lisp :results output silent
   (setq org-roam-v2-ack t)
@@ -2051,10 +1952,9 @@ TODO: a function to go to the index file.
 
 #+begin_src emacs-lisp :results output silent
   (use-package org-roam
-    :straight (:host github :repo "org-roam/org-roam" :branch "v2")
+    :straight (:host github :repo "org-roam/org-roam")
     :custom
     (org-roam-dailies-directory "day/")
-    :demand t ;; needs org-roam-setup, which complicates things.
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -2119,9 +2019,7 @@ TODO: a function to go to the index file.
     (advice-add 'org-id-get-create
                 :after (lambda () (interactive)
                          (when (my-buffer-in-org-roam-dir-p)
-                           (org-roam-db-sync))))
-    (org-roam-teardown)
-    (org-roam-setup))
+                           (org-roam-db-sync)))))
 #+end_src
 
 *** Nroam
