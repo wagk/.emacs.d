@@ -5698,3 +5698,22 @@ Not persistent scratch, just a custom scratch buffer
   (use-package moonscript
     :straight t)
 #+end_src
+
+* Decide-mode
+#+begin_src emacs-lisp :results output silent
+  (use-package decide
+    :straight t
+    :config
+    (decide-mode))
+#+end_src
+
+* Fancy-dabbrev
+Not sure if this is an actually useful package. I'm not sure if I or
+the packages I run use dabbrev at all.
+
+#+begin_src emacs-lisp :results output silent
+  (use-package fancy-dabbrev
+    :straight t
+    :config
+    (fancy-dabbrev-mode))
+#+end_src
