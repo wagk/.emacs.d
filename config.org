@@ -810,6 +810,7 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     (evil-ex-define-cmd "tabe[dit]" 'tab-bar-new-tab)
     ;;TODO: currently has issue where :q on a tab kills emacs
     (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
+    (evil-ex-define-cmd "tabr[ename]" 'tab-bar-rename-tab)
     ;;TODO: check if ivy has something for this someday
     (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
     (evil-ex-define-cmd "tt" 'tab-bar-select-tab-by-name)
@@ -2155,6 +2156,13 @@ is)
     :hook (org-mode-hook . org-appear-mode))
 #+end_src
 
+** Org Sticky Header
+#+begin_src emacs-lisp :results output silent
+  (use-package org-sticky-header
+    :straight (:host github :repo "alphapapa/org-sticky-header")
+    :hook (org-mode-hook . org-sticky-header-mode))
+#+end_src
+
 * hl-todo
 #+begin_src emacs-lisp :results output silent
   (use-package hl-todo
@@ -2328,7 +2336,7 @@ up, on windows at least).
     (magit-todos-list ivy-magit-todos)
     :init
     (with-eval-after-load 'ivy
-      (evil-ex-define-cmd "gtodo" 'magit-todos-list)
+      (evil-ex-define-cmd "todo" 'magit-todos-list)
       ;; (general-with-eval-after-load 'counsel
       (general-define-key
         :keymaps 'project-prefix-map
@@ -4825,6 +4833,7 @@ Doesn't seem to be working?
 #+begin_src emacs-lisp :results output silent
   (use-package flycheck-inline
     :straight t
+    :disabled t ;; it's annoying on small screens
     :hook
     (flycheck-mode-hook . flycheck-inline-mode))
 #+end_src
@@ -5415,7 +5424,7 @@ Note that =customize-set-variable= is like =setq-default=.
 * Tree Sitter
 #+begin_src emacs-lisp :results output silent
   (use-package tree-sitter
-    :disabled t ;; font lock is very buggy
+    ;; :disabled t ;; font lock is very buggy
     :hook ((c++-mode-hook . tree-sitter-mode)
            (tree-sitter-after-on-hook . tree-sitter-hl-mode))
     :custom-face
@@ -5614,4 +5623,21 @@ the packages I run use dabbrev at all.
     :straight t
     :config
     (fancy-dabbrev-mode))
+#+end_src
+
+* Dogears
+#+begin_src emacs-lisp :results output silent
+  (use-package dogears
+    :straight (:host github :repo "alphapapa/dogears.el")
+    :config
+    (evil-ex-define-cmd "dgg[o]" 'dogears-go)
+    (evil-ex-define-cmd "dgl[ist]" 'dogears-list)
+    (dogears-mode))
+#+end_src
+
+* Topsy
+#+begin_src emacs-lisp :results output silent
+  (use-package topsy
+    :straight (:host github :repo "alphapapa/topsy.el")
+    :hook (prog-mode-hook . topsy-mode))
 #+end_src
