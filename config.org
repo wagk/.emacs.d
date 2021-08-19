@@ -2420,6 +2420,7 @@ up, on windows at least).
     (magit-todos-nice
      (not (eq system-type 'windows-nt))
      "`nice' does not exist on windows")
+    (magit-todos-branch-list-toggle t)
     :general
     (:keymaps
      '(magit-todos-section-map magit-todos-item-section-map)
