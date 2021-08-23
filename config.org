@@ -5638,6 +5638,5 @@ the packages I run use dabbrev at all.
 * Topsy
 #+begin_src emacs-lisp :results output silent
   (use-package topsy
-    :straight (:host github :repo "alphapapa/topsy.el")
-    :hook (prog-mode-hook . topsy-mode))
+    :straight (:host github :repo "alphapapa/topsy.el"))
 #+end_src
