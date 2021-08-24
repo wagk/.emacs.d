@@ -2288,7 +2288,14 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
            (git-commit-setup-hook . markdown-mode)
            (git-commit-setup-hook . evil-markdown-mode)
-           (git-commit-setup-hook . (lambda () (display-fill-column-indicator-mode 1)))))
+           (git-commit-setup-hook . (lambda () (display-fill-column-indicator-mode 1))))
+    :config
+    (with-eval-after-load 'magit-diff
+      (general-define-key
+       :keymaps 'magit-diff-mode-map
+       :states 'normal
+        "[[" 'help-go-back
+        "]]" 'help-go-forward)))
   ;; TODO: figure out a way to have git submodule update all modules
   ;; without using a universal prefix
   ;; :config
@@ -5426,8 +5433,7 @@ Note that =customize-set-variable= is like =setq-default=.
 #+begin_src emacs-lisp :results output silent
   (use-package tree-sitter
     ;; :disabled t ;; font lock is very buggy
-    :hook ((c++-mode-hook . tree-sitter-mode)
-           (tree-sitter-after-on-hook . tree-sitter-hl-mode))
+    :hook ((tree-sitter-after-on-hook . tree-sitter-hl-mode))
     :custom-face
     (tree-sitter-hl-face:type.builtin ((t (:inherit 'tree-sitter-hl-face:keyword))))
     :config
@@ -5640,4 +5646,10 @@ the packages I run use dabbrev at all.
 #+begin_src emacs-lisp :results output silent
   (use-package topsy
     :straight (:host github :repo "alphapapa/topsy.el"))
+#+end_src
+
+* HCL-mode
+#+begin_src emacs-lisp :results output silent
+  (use-package hcl-mode
+    :straight t)
 #+end_src
