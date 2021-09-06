@@ -2262,6 +2262,9 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
     :defer 15
     :custom
     (magit-blame-echo-style 'margin)
+    :custom-face
+    (magit-section-heading ((((background light)) (:foreground ,sol-yellow :underline t))
+                            (((background dark)) (:foreground, sol-yellow :underline t))))
     :general
     (general-define-key
       :keymaps 'project-prefix-map
