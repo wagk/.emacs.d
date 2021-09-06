@@ -2804,6 +2804,13 @@ try using the built-in =project= functions instead
       (parinfer-mode)))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (add-hook 'emacs-lisp-mode-hook #'my-maybe-init-parinfer)
+  (add-hook 'racket-mode-hook #'my-maybe-init-parinfer)
+  (add-hook 'clojure-mode-hook #'my-maybe-init-parinfer)
+  (add-hook 'hy-mode-hook #'my-maybe-init-parinfer)
+#+end_src
+
 ** Rainbow Delimiter Mode
 Consider deprecating this now we're trying out prism
 
@@ -2847,6 +2854,12 @@ Much like rainbow blocks mode, but better.
     :straight (:host github :repo "alphapapa/prism.el")
     :commands (prism-mode
                prism-whitespace-mode)
+    :hook
+    ((racket-mode-hook . prism-mode)
+     (clojure-mode-hook . prism-mode)
+     (json-mode-hook . prism-mode)
+     (emacs-lisp-mode-hook . prism-mode)
+     (hy-mode-hook . prism-mode))
     :preface
     (use-package anaphora
       :straight (:host github :repo "rolandwalker/anaphora")))
@@ -2858,10 +2871,7 @@ package is known as elisp-mode but it reads as emacs-lisp
 #+begin_src emacs-lisp :results output silent
   (use-package elisp-mode
     :straight nil
-    :hook ((emacs-lisp-mode-hook . prism-mode)
-           (emacs-lisp-mode-hook . rainbow-delimiters-mode)
-           (emacs-lisp-mode-hook . my-maybe-init-parinfer)
-           (emacs-lisp-mode-hook . update-evil-shift-width)))
+    :hook ((emacs-lisp-mode-hook . update-evil-shift-width)))
            ;; (emacs-lisp-mode-hook . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
            ;; (emacs-lisp-mode-hook . (lambda ()
            ;;                      (mapc (lambda (pair) (push pair
@@ -2976,9 +2986,6 @@ https://github.com/Fuco1/.emacs.d/blob/af82072196564fa57726bdbabf97f1d35c43b7f7/
     :straight (:host github :repo "greghendershott/racket-mode")
     :commands (racket-mode)
     :mode "\\.rkt\\'"
-    :hook ((racket-mode-hook . my-maybe-init-parinfer)
-           ;; (racket-mode-hook . rainbow-delimiters-mode)
-           (racket-mode-hook . prism-mode))
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("rkt" . racket) org-src-lang-modes)))
@@ -2997,7 +3004,6 @@ containing a lot of files, and if the files are themselves large.
     :straight (:host github :repo "jrblevin/deft")
     :disabled t ;; try org-roam a bit
     :if (boundp 'config-local-syncthing-folder)
-
     :commands (deft
                deft-filter
                deft-setup) ;; call this if no .deft folder is found
@@ -3268,10 +3274,7 @@ clojurescript-mode derives from clojure-mode
     :straight (:host github :repo "clojure-emacs/clojure-mode")
     :commands (clojure-mode
                clojurescript-mode)
-    :hook ((clojure-mode-hook . my-maybe-init-parinfer)
-           ;; (clojure-mode-hook . rainbow-delimiters-mode)
-           (clojure-mode-hook . prism-mode)
-           (clojure-mode-hook . update-evil-shift-width)
+    :hook ((clojure-mode-hook . update-evil-shift-width)
            (clojure-mode-hook . show-paren-mode))
     :init
     (with-eval-after-load 'org-src
@@ -3551,8 +3554,6 @@ package manager
     :straight (:host github :repo "joshwnj/json-mode")
     :mode "\\.json\\'"
     :commands (json-mode)
-    :hook
-    (json-mode-hook . prism-mode)
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("json" . json) org-src-lang-modes)))
@@ -4048,10 +4049,7 @@ the thing, because that's what vim does.
     (hy-mode-map
      :states 'insert
      "RET" 'comment-indent-new-line)
-    :hook ((hy-mode-hook . my-maybe-init-parinfer)
-           ;; (hy-mode-hook . rainbow-delimiters-mode)
-           (hy-mode-hook . prism-mode)
-           (hy-mode-hook . update-evil-shift-width)
+    :hook ((hy-mode-hook . update-evil-shift-width)
            (hy-mode-hook . show-paren-mode))
     :init
     (with-eval-after-load 'org-src
