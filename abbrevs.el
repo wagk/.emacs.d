@@ -591,6 +591,7 @@
     ("ussue" "issue" nil :count 1)
     ("uwnrap" "unwrap" nil :count 2)
     ("vaidation" "validation" nil :count 1)
+    ("vairables" "variables" nil :count 1)
     ("valeu" "value" nil :count 2)
     ("validat" "validate" nil :count 1)
     ("valye" "value" nil :count 1)
