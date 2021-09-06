@@ -5443,6 +5443,20 @@ Note that =customize-set-variable= is like =setq-default=.
     (use-package tree-sitter-langs))
 #+end_src
 
+** Text objects
+#+begin_src emacs-lisp :results output silent
+  (use-package evil-textobj-treesitter
+    :straight (:host github
+               :repo "meain/evil-textobj-tree-sitter"
+               :files (:defaults "queries"))
+    :after tree-sitter
+    :general
+    (evil-outer-text-objects-map
+     "f" (evil-textobj-treesitter-get-textobj "function.outer"))
+    (evil-inner-text-objects-map
+     "f" (evil-textobj-treesitter-get-textobj "function.inner")))
+#+end_src
+
 * Scratch
 Not persistent scratch, just a custom scratch buffer
 #+begin_src emacs-lisp :results output silent
