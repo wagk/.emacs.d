@@ -5465,11 +5465,12 @@ Not persistent scratch, just a custom scratch buffer
     :commands scratch
     :init
     (evil-define-command my-scratch (&optional bang)
+      "Opens markdown by default, asks for mode when ! is supplied"
       (interactive "<!>")
       (if bang
-          (let ((current-prefix-arg 4))
-            (call-interactively 'scratch))
-        (call-interactively 'scratch)))
+        (let ((current-prefix-arg 4))
+          (call-interactively 'scratch))
+        (scratch 'markdown-mode)))
     (evil-ex-define-cmd "sc[ratch]" 'my-scratch))
 #+end_src
 
