@@ -131,8 +131,10 @@
                               (add-to-list 'straight-profiles
                                            (cons profile-name
                                                  lockfile)))
-      (customize-set-variable 'straight-current-profile
-                              profile-name))))
+      (straight-thaw-versions))
+    (customize-set-variable 'straight-current-profile
+                            profile-name)))
+
 
 ;; (defun bootstrap-quelpa ()
 ;;   ;; Requires (package-initialize) to be called beforehand
