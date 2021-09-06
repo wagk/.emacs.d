@@ -5677,3 +5677,13 @@ the packages I run use dabbrev at all.
   (use-package terraform-mode
     :straight t)
 #+end_src
+
+* Bufler
+#+begin_src emacs-lisp :results output silent
+  (use-package bufler
+    :straight t
+    :general
+    :config
+    (evil-ex-define-cmd "buffers" 'bufler)
+    (evil-ex-define-cmd "bb" 'bufler-switch-buffer))
+#+end_src
