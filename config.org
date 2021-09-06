@@ -1992,6 +1992,7 @@ TODO: a function to go to the index file.
     (evil-ex-define-cmd "tmr"       #'org-roam-dailies-find-tomorrow)
     (evil-ex-define-cmd "jn"        #'org-roam-dailies-find-tomorrow)
     :config
+    (org-roam-db-autosync-mode)
     ;; olp means outline path
     ;; Got to accept that we probably shouldn't assume that all new
     ;; headers are nodes. Probably better to just give a keybind for
