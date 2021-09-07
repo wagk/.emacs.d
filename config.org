@@ -5658,6 +5658,7 @@ the packages I run use dabbrev at all.
 #+begin_src emacs-lisp :results output silent
   (use-package dogears
     :straight (:host github :repo "alphapapa/dogears.el")
+    :disabled t ;; it loads helm for some reason
     :config
     (evil-ex-define-cmd "dgg[o]" 'dogears-go)
     (evil-ex-define-cmd "dgl[ist]" 'dogears-list)
@@ -5686,6 +5687,7 @@ the packages I run use dabbrev at all.
 #+begin_src emacs-lisp :results output silent
   (use-package bufler
     :straight t
+    :disabled t ;; windows complains that `max-width' is void
     :general
     :config
     (evil-ex-define-cmd "buffers" 'bufler)
