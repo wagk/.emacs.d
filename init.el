@@ -248,6 +248,7 @@ recovery. Maybe eventually load dependencies and all that."
                  (sol-green   . "#859900")))
     ;; TODO: set documentation string
     (set (car col) (cdr col)))
+  ;; TODO: work on this
   (defface sol-critical '((t (:inherit default)))
     "Follows `nano-critical'")
   (defface sol-popout '((t (:inherit default)))
