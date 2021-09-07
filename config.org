@@ -1979,7 +1979,12 @@ TODO: a function to go to the index file.
         (and path (f-ancestor-of? org-roam-directory path))))
     (defun my-org-roam-find-index-file ()
       (interactive)
-      (find-file (f-join org-roam-directory "index.org")))
+      (let ((repos (or --org-roam-repository-list '())))
+        (ivy-read "repo: " repos
+                  :require-match t
+                  :initial-input org-roam-directory
+                  :action (lambda (dir)
+                            (find-file (f-join dir "index.org"))))))
     (evil-ex-define-cmd "index"     #'my-org-roam-find-index-file)
     (evil-ex-define-cmd "nn"        #'org-roam-node-find)
     (evil-ex-define-cmd "nc"        #'org-roam-capture)
