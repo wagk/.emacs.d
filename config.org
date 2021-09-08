@@ -2168,6 +2168,7 @@ is)
 ** Org Sticky Header
 #+begin_src emacs-lisp :results output silent
   (use-package org-sticky-header
+    :disabled t
     :straight (:host github :repo "alphapapa/org-sticky-header")
     :hook (org-mode-hook . org-sticky-header-mode))
 #+end_src
