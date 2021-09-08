@@ -1977,7 +1977,7 @@ TODO: a function to go to the index file.
       (interactive)
       (let ((path (buffer-file-name (current-buffer))))
         (and path (f-ancestor-of? org-roam-directory path))))
-    (defun my-org-roam-find-index-file ()
+    (defun --org-roam-find-index-file ()
       (interactive)
       (require 'org-roam)
       (let ((repos (or --org-roam-repository-list '())))
@@ -1985,9 +1985,9 @@ TODO: a function to go to the index file.
                   :require-match t
                   :initial-input org-roam-directory
                   :action (lambda (dir)
-    (evil-ex-define-cmd "index"     #'my-org-roam-find-index-file)
                             (find-file (f-join dir "index.org"))
                             (org-roam-db-sync)))))
+    (evil-ex-define-cmd "index"     #'--org-roam-find-index-file)
     (evil-ex-define-cmd "nn"        #'org-roam-node-find)
     (evil-ex-define-cmd "nc"        #'org-roam-capture)
     (evil-ex-define-cmd "yesterday" #'org-roam-dailies-find-yesterday)
