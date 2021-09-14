@@ -1987,8 +1987,9 @@ TODO: a function to go to the index file.
       (require 'org-roam)
       (let ((repos (or --org-roam-repository-list `(,org-roam-directory))))
         (ivy-read "repo: " repos
-                  ;; :require-match t
                   ;; :initial-input org-roam-directory
+                  :require-match t
+                  :preselect t
                   :action (lambda (dir)
                             (let ((org-roam-directory dir))
                               (funcall org-roam-func))))))
