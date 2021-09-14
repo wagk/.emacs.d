@@ -862,6 +862,10 @@ for the specific hook.
             (my-find-major-mode-parents (get-mode-local-parent mode)))))
 #+end_src
 
+** Add :repl for ielm
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "repl" 'ielm)
+#+end_src
 
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
