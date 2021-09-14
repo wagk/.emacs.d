@@ -2013,17 +2013,27 @@ TODO: a function to go to the index file.
                                               (org-roam-db-sync)
                                               (org-roam-capture))))
 
+    (defun --with-selected-org-roam-directory-dailies (dailies-func)
+      "Same as `--with-selected-org-roam-directory' except that this
+  function also ensures that `org-roam-dailies-directory' is created."
+      (--with-selected-org-roam-directory #'(lambda ()
+                                              (let ((dailies-dir (f-join org-roam-directory
+                                                                         org-roam-dailies-directory)))
+                                                (unless (f-exists-p dailies-dir)
+                                                  (make-directory dailies-dir t)))
+                                              (funcall dailies-func))))
+
     (defun --org-roam-dailies-yesterday ()
       (interactive)
-      (--with-selected-org-roam-directory #'(lambda () (org-roam-dailies-goto-yesterday 1))))
+      (--with-selected-org-roam-directory-dailies #'(lambda () (org-roam-dailies-goto-yesterday 1))))
 
     (defun --org-roam-dailies-today ()
       (interactive)
-      (--with-selected-org-roam-directory #'org-roam-dailies-goto-today))
+      (--with-selected-org-roam-directory-dailies #'org-roam-dailies-goto-today))
 
     (defun --org-roam-dailies-tomorrow ()
       (interactive)
-      (--with-selected-org-roam-directory #'(lambda () (org-roam-dailies-goto-tomorrow 1))))
+      (--with-selected-org-roam-directory-dailies #'(lambda () (org-roam-dailies-goto-tomorrow 1))))
 
     (evil-ex-define-cmd "index"     #'--org-roam-find-index-file)
     (evil-ex-define-cmd "nn"        #'--org-roam-node-find)
