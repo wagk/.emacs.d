@@ -1991,8 +1991,14 @@ TODO: a function to go to the index file.
                   :require-match t
                   :preselect t
                   :action (lambda (dir)
-                            (let ((org-roam-directory dir))
-                              (funcall org-roam-func))))))
+                            ;; it's insufficient to temporarily update
+                            ;; org-roam-directory, as we don't want
+                            ;; every `org-roam' function to ask for the
+                            ;; directory. Updating the default state
+                            ;; should prevent surprises in this case.
+                            (customize-set-variable 'org-roam-directory dir)
+                            (org-roam-db-sync)
+                            (funcall org-roam-func)))))
 
     (defun --org-roam-find-index-file ()
       (interactive)
@@ -2003,15 +2009,11 @@ TODO: a function to go to the index file.
 
     (defun --org-roam-node-find ()
       (interactive)
-      (--with-selected-org-roam-directory #'(lambda ()
-                                              (org-roam-db-sync)
-                                              (org-roam-capture))))
+      (--with-selected-org-roam-directory #'org-roam-node-find))
 
     (defun --org-roam-capture ()
       (interactive)
-      (--with-selected-org-roam-directory #'(lambda ()
-                                              (org-roam-db-sync)
-                                              (org-roam-capture))))
+      (--with-selected-org-roam-directory #'org-roam-capture))
 
     (defun --with-selected-org-roam-directory-dailies (dailies-func)
       "Same as `--with-selected-org-roam-directory' except that this
