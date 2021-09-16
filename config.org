@@ -1996,7 +1996,11 @@ TODO: a function to go to the index file.
                             ;; every `org-roam' function to ask for the
                             ;; directory. Updating the default state
                             ;; should prevent surprises in this case.
+                            ;;
+                            ;; This might obiviate the need for the
+                            ;; `.dir-locals.el'
                             (setq org-roam-directory dir)
+                            (setq org-roam-db-location (f-join dir "org-roam.db"))
                             (org-roam-db-sync)
                             (funcall org-roam-func)))))
 
