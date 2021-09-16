@@ -2023,6 +2023,7 @@ TODO: a function to go to the index file.
       "Same as `--with-selected-org-roam-directory' except that this
   function also ensures that `org-roam-dailies-directory' is created."
       (--with-selected-org-roam-directory #'(lambda ()
+                                              (require 'org-roam-dailes)
                                               (let ((dailies-dir (f-join org-roam-directory
                                                                          org-roam-dailies-directory)))
                                                 (unless (f-exists-p dailies-dir)
