@@ -5454,12 +5454,11 @@ Note that =customize-set-variable= is like =setq-default=.
 #+begin_src emacs-lisp :results output silent
   (use-package smudge
     :straight (:host github :repo "danielfm/smudge")
-    ;; :straight t
-    :if (and (bound-and-true-p my-spotify-oauth2-client-secret)
-             (bound-and-true-p my-spotify-oauth2-client-id))
+    :if (and (bound-and-true-p --spotify-oauth2-client-id)
+             (bound-and-true-p --spotify-oauth2-client-secret))
     :custom
-    (smudge-oauth2-client-secret my-spotify-oauth2-client-secret)
-    (smudge-oauth2-client-id my-spotify-oauth2-client-id)
+    (smudge-oauth2-client-id --spotify-oauth2-client-id)
+    (smudge-oauth2-client-secret --spotify-oauth2-client-secret)
     :init
     (defhydra hydra-spotify (:hint nil)
       "
@@ -5469,8 +5468,7 @@ Note that =customize-set-variable= is like =setq-default=.
   _m_: My Playlists        _n_  : Next Track        _-_: Volume down
   _f_: Featured Playlists  _p_  : Previous Track    _x_: Mute
   _u_: User Playlists      _r_  : Repeat            _d_: Device
-  ^^                       _s_  : Shuffle           _q_: Quit
-  "
+  ^^                       _s_  : Shuffle           _q_: Quit"
       ("t" smudge-track-search :exit t)
       ("m" smudge-my-playlists :exit t)
       ("f" smudge-featured-playlists :exit t)
@@ -5485,7 +5483,6 @@ Note that =customize-set-variable= is like =setq-default=.
       ("x" smudge-controller-volume-mute-unmute :exit nil)
       ("d" smudge-select-device :exit nil)
       ("q" quit-window "quit" :color blue))
-    (evil-ex-define-cmd "spot[ify]" #'hydra-spotify/body)
     (evil-ex-define-cmd "mu[sic]" #'hydra-spotify/body))
 #+end_src
 
