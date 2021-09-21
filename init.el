@@ -837,9 +837,11 @@ we're adding a custom function for it here."
                 (message "Init in %.06f seconds."
                          (float-time (time-since my-init-start-time)))) 50))
 
-(message "Configuration complete.")
+(if-let ((repositories (bound-and-true-p --org-roam-repository-list))
+         (default-repo (car repositories)))
+    (find-file (f-join default-repo "index.org")))
 
-(org-agenda-list)
+(message "Configuration complete.")
 
 ;; Emacs considers the following "dangerous" (i.e they'll ask you to
 ;; confirm)
