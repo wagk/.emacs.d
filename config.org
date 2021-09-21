@@ -1977,6 +1977,10 @@ TODO: a function to go to the index file.
      "n s"   #'org-roam-db-sync
      "n t"   #'org-roam-tag-add)
     :init
+    (when (bound-and-true-p --org-roam-repository-list)
+      (customize-set-variable 'org-roam-directory
+                              (car --org-roam-repository-list)))
+
     (defun my-buffer-in-org-roam-dir-p ()
       (interactive)
       (let ((path (buffer-file-name (current-buffer))))
