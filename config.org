@@ -5758,3 +5758,10 @@ the packages I run use dabbrev at all.
   (use-package dockerfile-mode
     :straight t)
 #+end_src
+
+* Speed type
+#+begin_src emacs-lisp :results output silent
+  (use-package speed-type
+    :straight t
+    :commands speed-type-text)
+#+end_src
