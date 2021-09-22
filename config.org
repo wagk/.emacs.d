@@ -2060,6 +2060,7 @@ TODO: a function to go to the index file.
     (evil-ex-define-cmd "tmr"       #'--org-roam-dailies-tomorrow)
     (evil-ex-define-cmd "jn"        #'--org-roam-dailies-tomorrow)
     :config
+    (add-to-list 'display-buffer-alist '("\\*org-roam\\*" . (display-buffer-below-selected . nil)))
     (org-roam-db-autosync-mode)
     ;; olp means outline path
     ;; Got to accept that we probably shouldn't assume that all new
