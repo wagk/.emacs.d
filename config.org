@@ -3278,6 +3278,7 @@ containing a lot of files, and if the files are themselves large.
     :defer nil
     :straight (:host github :repo "Sauermann/emacs-aes")
     :commands (aes-toggle-encryption ;; this makes it auto encrypt/decrypt
+               aes-insert-password
                aes-remove-encryption-hook
                aes-is-encrypted
                aes-enable-auto-decryption
