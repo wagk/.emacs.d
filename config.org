@@ -1974,6 +1974,7 @@ TODO: a function to go to the index file.
      "n j p" #'org-roam-dailies-capture-yesterday
      "n n"   #'org-roam-node-find
      "n o"   #'org-id-get-create
+     "n r"   #'org-roam-refile
      "n s"   #'org-roam-db-sync
      "n t"   #'org-roam-tag-add)
     :init
