@@ -1966,6 +1966,8 @@ TODO: a function to go to the index file.
      :prefix my-default-evil-leader-key
      "n a"   #'org-roam-alias-add
      "n A"   #'org-roam-alias-remove
+     "n f"   #'org-roam-ref-add
+     "n F"   #'org-roam-ref-remove
      "n T"   #'org-roam-tag-remove
      "n b"   #'org-roam-buffer-toggle
      "n c c" #'org-roam-capture
