@@ -2085,7 +2085,9 @@ TODO: a function to go to the index file.
                                             "#+filetags: diary"
                                             "\n")
                                           "\n"))
-                   :unnarrowed t))))
+                   :unnarrowed t
+                   :prepend t
+                   :empty-lines 1))))
       (customize-set-value 'org-roam-capture-templates template)
       (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
     (advice-add 'org-roam-node-slug :filter-return
