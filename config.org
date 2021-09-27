@@ -1964,14 +1964,16 @@ TODO: a function to go to the index file.
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
+     "n a"   #'org-roam-alias-add
+     "n A"   #'org-roam-alias-remove
      "n T"   #'org-roam-tag-remove
      "n b"   #'org-roam-buffer-toggle
-     "n c"   #'org-roam-capture
+     "n c c" #'org-roam-capture
      "n i"   #'org-roam-node-insert
-     "n j d" #'org-roam-dailies-capture-date
-     "n j j" #'org-roam-dailies-capture-today
-     "n j n" #'org-roam-dailies-capture-tomorrow
-     "n j p" #'org-roam-dailies-capture-yesterday
+     "n c d" #'org-roam-dailies-capture-date
+     "n c j" #'org-roam-dailies-capture-today
+     "n c n" #'org-roam-dailies-capture-tomorrow
+     "n c p" #'org-roam-dailies-capture-yesterday
      "n n"   #'org-roam-node-find
      "n o"   #'org-id-get-create
      "n r"   #'org-roam-refile
