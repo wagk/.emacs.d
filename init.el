@@ -562,10 +562,7 @@ we're adding a custom function for it here."
 ;;; org-mode
 
   (use-package org
-    ;; :straight (:includes org)
-    ;; :straight (:local-repo nil)
     :straight t
-    ;; :ensure org-plus-contrib
     :commands (orgtbl-mode
                org-babel-load-file)
     :mode
@@ -698,6 +695,8 @@ we're adding a custom function for it here."
   ;;     :straight nil
   ;;     :commands org-confluence-export-as-confluence))
 
+  (use-package org-contrib
+    :straight t)
 
   ;; we do this because juggling between org, org-plus-contrib,
   ;; straight, and emacs' built-in org is horrendous and causing the
