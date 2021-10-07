@@ -2,6 +2,6 @@
 # name: js-function
 # key: f
 # --
-function($1) {
+function$1($2) {
   $0
 }
