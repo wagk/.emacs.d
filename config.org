@@ -3454,6 +3454,8 @@ Requires rust-mode and markdown-mode
      "-" 'dired-jump
      "d" 'dired-create-directory
      "e" 'dired-toggle-read-only ; similar interface to wgrep
+     "Y" #'(lambda () (interactive)
+             (dired-copy-filename-as-kill 0)) ;; absolute paths
      "/" 'counsel-find-file
      "?" 'counsel-find-file
      "+" 'project-find-file) ; don't block org-projectile
