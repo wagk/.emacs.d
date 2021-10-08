@@ -842,7 +842,9 @@ we're adding a custom function for it here."
 
 (if-let ((repositories (bound-and-true-p --org-roam-repository-list))
          (default-repo (car repositories)))
-    (find-file (f-join default-repo "index.org")))
+    (find-file (f-join default-repo "index.org"))
+  (scratch 'org-mode))
+
 
 (message "Configuration complete.")
 
