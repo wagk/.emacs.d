@@ -690,8 +690,9 @@ we're adding a custom function for it here."
   ;;     :straight nil
   ;;     :commands org-confluence-export-as-confluence))
 
-  (use-package org-contrib
-    :straight t)
+  (unless (eq system-type 'windows-nt)
+    (use-package org-contrib
+      :straight t))
 
   ;; we do this because juggling between org, org-plus-contrib,
   ;; straight, and emacs' built-in org is horrendous and causing the
