@@ -39,11 +39,6 @@
 (if (eq system-type "windows-nt")
     (set-w32-system-coding-system  'utf-8))
 
-(progn ;; theme stuff
- (customize-set-variable 'frame-background-mode 'nil)
- (with-eval-after-load 'solarized-theme
-    (load-theme 'solarized-light t)))
-
 (defconst user-init-file
   (locate-user-emacs-file "init.el")
   "Points to init.el.")
@@ -823,6 +818,14 @@ we're adding a custom function for it here."
   ;; Load local configuration variables, we do it here so that
   ;; local.el gets access to the "core" init loads
   (load-local-el)
+
+  (defun --use-bound-value-or-default (bound default)
+    (if (bound-and-true-p bound) bound default))
+
+  (customize-set-variable 'frame-background-mode 'nil)
+  (with-eval-after-load 'solarized-theme
+    (load-theme (--use-bound-value-or-default
+                 --default-emacs-theme 'solarized-light) t))
 
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
   ;;and the init load will fail
