@@ -1998,32 +1998,34 @@ TODO: a function to go to the index file.
       (let ((path (buffer-file-name (current-buffer))))
         (and path (f-ancestor-of? org-roam-directory path))))
 
+    (defun --on-selecting-org-roam-directory (dir)
+      ;; it's insufficient to temporarily update org-roam-directory, as
+      ;; we don't want every `org-roam' function to ask for the
+      ;; directory. Updating the default state should prevent surprises
+      ;; in this case.
+      ;;
+      ;; This might obiviate the need for the `.dir-locals.el'
+      (setq org-roam-directory dir)
+      (setq org-roam-db-location (f-join dir "org-roam.db"))
+      ;; create dailies directory if it doesn't exist
+      (let ((dailies-dir (f-join org-roam-directory
+                                 org-roam-dailies-directory)))
+        (unless (f-exists-p dailies-dir)
+          (make-directory dailies-dir t)))
+      ;; (org-roam-db-sync) ;; might be too eager
+      (funcall org-roam-func))
+
     (defun --with-selected-org-roam-directory (org-roam-func)
       (interactive)
       (require 'org-roam)
       (let ((repos (or --org-roam-repository-list `(,org-roam-directory))))
-        (ivy-read "repo: " repos
-                  ;; :initial-input org-roam-directory
-                  :require-match t
-                  :preselect t
-                  :action (lambda (dir)
-                            ;; it's insufficient to temporarily update
-                            ;; org-roam-directory, as we don't want
-                            ;; every `org-roam' function to ask for the
-                            ;; directory. Updating the default state
-                            ;; should prevent surprises in this case.
-                            ;;
-                            ;; This might obiviate the need for the
-                            ;; `.dir-locals.el'
-                            (setq org-roam-directory dir)
-                            (setq org-roam-db-location (f-join dir "org-roam.db"))
-                            ;; create dailies directory if it doesn't exist
-                            (let ((dailies-dir (f-join org-roam-directory
-                                                       org-roam-dailies-directory)))
-                              (unless (f-exists-p dailies-dir)
-                                (make-directory dailies-dir t)))
-                            ;; (org-roam-db-sync) ;; might be too eager
-                            (funcall org-roam-func)))))
+        (if (eq 1 (safe-length repos))
+            (--on-selecting-org-roam-directory (car repos))
+          (ivy-read "repo: " repos
+                    ;; :initial-input org-roam-directory
+                    :require-match t
+                    :preselect t
+                    :action #'--on-selecting-org-roam-directory))))
 
     (defun --org-roam-find-index-file ()
       (interactive)
