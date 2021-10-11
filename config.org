@@ -5855,3 +5855,17 @@ the packages I run use dabbrev at all.
     :straight (:host github :repo "bkaestner/secret-mode.el")
     :commands secret-mode)
 #+end_src
+
+* Nano Modeline
+#+begin_src emacs-lisp :results output silent
+  (use-package nano-modeline
+    :straight (:host github :repo "rougier/nano-modeline")
+    :custom
+    ;; (nano-modeline-position 'bottom "otherwise conflicts with LSP")
+    (nano-modeline-position 'top)
+    ;; :custom-face
+    ;; (nano-modeline-active-status-RO ((t (:background ,sol-yellow))))
+    ;; (nano-modeline-active-status-** ((t (:background ,sol-yellow))))
+    :config
+    (nano-modeline-mode))
+#+end_src
