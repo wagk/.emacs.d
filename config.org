@@ -5018,6 +5018,8 @@ Doesn't seem to be working?
   (use-package lsp-mode
     :straight t
     :commands (lsp lsp-deferred)
+    :custom
+    (lsp-headerline-breadcrumb-enable nil)
     :config
     ;; this is necessary since `lsp-command-map' is not autoloadable
     (general-define-key
