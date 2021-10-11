@@ -5848,3 +5848,10 @@ the packages I run use dabbrev at all.
     :straight t
     :commands speed-type-text)
 #+end_src
+
+* Secret mode
+#+begin_src emacs-lisp :results output silent
+  (use-package secret-mode
+    :straight (:host github :repo "bkaestner/secret-mode.el")
+    :commands secret-mode)
+#+end_src
