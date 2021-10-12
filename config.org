@@ -5861,8 +5861,8 @@ the packages I run use dabbrev at all.
   (use-package nano-modeline
     :straight (:host github :repo "rougier/nano-modeline")
     :custom
-    ;; (nano-modeline-position 'bottom "otherwise conflicts with LSP")
-    (nano-modeline-position 'top)
+    (nano-modeline-position 'bottom "otherwise conflicts with LSP")
+    ;; (nano-modeline-position 'top)
     ;; :custom-face
     ;; (nano-modeline-active-status-RO ((t (:background ,sol-yellow))))
     ;; (nano-modeline-active-status-** ((t (:background ,sol-yellow))))
