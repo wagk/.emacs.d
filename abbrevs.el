@@ -76,6 +76,7 @@
     ("binaties" "binaries" nil :count 1)
     ("blansidhments" "blandishments" nil :count 1)
     ("blodk" "block" nil :count 1)
+    ("bototm" "bottom" nil :count 1)
     ("boyd" "body" nil :count 1)
     ("brnach" "branch" nil :count 6)
     ("brreaking" "breaking" nil :count 1)
