@@ -2097,11 +2097,11 @@ TODO: a function to go to the index file.
       (customize-set-value 'org-roam-capture-templates template)
       (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
     (advice-add 'org-roam-node-slug :filter-return
-                (lambda (str) (replace-regexp-in-string "_" "-" str)))
-    (advice-add 'org-id-get-create
-                :after (lambda () (interactive)
-                         (when (my-buffer-in-org-roam-dir-p)
-                           (org-roam-db-sync)))))
+                (lambda (str) (replace-regexp-in-string "_" "-" str))))
+    ;; (advice-add 'org-id-get-create
+    ;;             :after (lambda () (interactive)
+    ;;                      (when (my-buffer-in-org-roam-dir-p)
+    ;;                        (org-roam-db-sync)))))
 #+end_src
 
 Hacks to use =emacsql-sqlite3= on windows, because =emacsql-sqlite= needs
