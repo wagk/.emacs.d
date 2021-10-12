@@ -1986,7 +1986,9 @@ TODO: a function to go to the index file.
      "n n"   #'org-roam-node-find
      "n o"   #'org-id-get-create
      "n r"   #'org-roam-refile
-     "n s"   #'org-roam-db-sync
+     "n s"   #'(lambda () (interactive)
+                 (org-roam-update-org-id-locations)
+                 (org-roam-db-sync))
      "n t"   #'org-roam-tag-add)
     :init
     (when (bound-and-true-p --org-roam-repository-list)
