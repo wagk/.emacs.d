@@ -5871,3 +5871,9 @@ the packages I run use dabbrev at all.
     :config
     (nano-modeline-mode))
 #+end_src
+
+* svelte-mode
+#+begin_src emacs-lisp :results output silent
+  (use-package svelte-mode
+      :straight t)
+#+end_src
