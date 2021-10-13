@@ -5021,7 +5021,7 @@ Doesn't seem to be working?
     :straight t
     :commands (lsp lsp-deferred)
     :custom
-    (lsp-headerline-breadcrumb-enable nil)
+    (lsp-headerline-breadcrumb-enable t)
     :config
     ;; this is necessary since `lsp-command-map' is not autoloadable
     (general-define-key
