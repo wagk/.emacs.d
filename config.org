@@ -5709,8 +5709,25 @@ Not persistent scratch, just a custom scratch buffer
       (general-define-key
        :keymaps 'project-prefix-map
        "c" 'counsel-compile)
+
       (with-eval-after-load 'savehist
-        (add-to-list 'savehist-additional-variables 'counsel-compile-history)))
+        (add-to-list 'savehist-additional-variables 'counsel-compile-history))
+
+      (defun --project-find-doc ()
+        "Finds and lists all the README (eventually documentation) files "
+        (interactive)
+        (let* ((case-fold-search t) ; ignore cases
+               (readme-list (-keep (lambda (elem)
+                                     (when (string-match "readme" elem nil t)
+                                       elem))
+                                   (project-files (project-current)))))
+          (ivy-read "README: " readme-list
+                    :require-match t
+                    :preselect t
+                    :action #'find-file)))
+
+      (evil-ex-define-cmd "readme" #'--project-find-doc))
+
     (with-eval-after-load 'rg
       (general-define-key
        :keymaps 'project-prefix-map
