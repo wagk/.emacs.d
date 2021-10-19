@@ -886,6 +886,8 @@ for the specific hook.
   (use-package which-key
     :straight (:host github :repo "justbur/emacs-which-key")
     :demand t
+    :custom
+    (which-key-use-C-h-commands nil)
     :general
     (:states 'normal
      "C-h M-k" 'which-key-show-keymap
