@@ -5879,3 +5879,16 @@ the packages I run use dabbrev at all.
   (use-package svelte-mode
       :straight t)
 #+end_src
+
+* mmm-mode
+#+begin_src emacs-lisp :results output silent
+  (use-package mmm-mode
+    :straight t
+    :custom-face
+    (mmm-default-submode-face ((t (:background nil)))))
+#+end_src
+* Vue-mode
+#+begin_src emacs-lisp :results output silent
+  (use-package vue-mode
+    :straight t)
+#+end_src
