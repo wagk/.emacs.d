@@ -312,26 +312,32 @@ recovery. Maybe eventually load dependencies and all that."
       disabled before even loading evil, see
       https://github.com/emacs-evil/evil-collection/issues/60")
 
-    ;; https://github.com/magnars/dash.el
+  ;; https://github.com/magnars/dash.el
   (use-package dash
     :straight t)
 
-    ;; https://github.com/plexus/a.el/
+  ;; https://github.com/plexus/a.el/
+  ;; alist functions
   (use-package a
     :straight t)
 
-    ;; https://github.com/rejeep/f.el/
+  ;; https://github.com/rejeep/f.el/
+  ;; file functions
   (use-package f
     :straight t)
 
-    ;; https://github.com/magnars/s.el/
+  ;; https://github.com/magnars/s.el/
+  ;; string functions
   (use-package s
     :straight t)
 
-    ;; https://github.com/Wilfred/ht.el/
+  ;; https://github.com/Wilfred/ht.el/
+  ;; hash-table functions
   (use-package ht
     :straight t)
 
+  ;; https://github.com/alphapapa/ts.el
+  ;; date and time functions
   (use-package ts
     :straight t)
 
