@@ -392,6 +392,7 @@ recovery. Maybe eventually load dependencies and all that."
      "C-l" 'evil-complete-next-line
      "C-u" 'evil-delete-whole-line)
     (:keymaps 'normal
+     "U"     'undo-tree-visualize
      "g C-u" 'universal-argument
      ;; try eyebrowse instead
      ;; "gt"     '(lambda () (interactive) (other-frame 1))
