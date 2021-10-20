@@ -342,20 +342,20 @@ We're sticking to Japanese for now
 Emulate the best feature of notepad
 
 #+begin_src emacs-lisp :results output silent
-  (defun iso-8601-timestamp (with-hours)
-    (insert (format-time-string (if with-hours "%F-%H%M" "%F"))))
+  (defun --make-iso-8601-timestamp (with-hours)
+    (insert (format-time-string (if with-hours "%FT%H%M" "%F"))))
   (general-define-key
    :states '(normal motion insert)
    "<f5>" #'(lambda () (interactive)
-             (iso-8601-timestamp nil))
+             (--make-iso-8601-timestamp nil))
    "S-<f5>" #'(lambda () (interactive)
-               (iso-8601-timestamp t)))
+               (--make-iso-8601-timestamp t)))
   (general-define-key
    :states '(normal)
    "gb" #'(lambda () (interactive)
-           (iso-8601-timestamp nil))
+           (--make-iso-8601-timestamp nil))
    "gB" #'(lambda () (interactive)
-           (iso-8601-timestamp t)))
+           (--make-iso-8601-timestamp t)))
 #+end_src
 
 ** Do not truncate lines
