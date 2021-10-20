@@ -2401,6 +2401,9 @@ because of [[https://github.com/magit/magit/issues/1497][this issue]], the easie
 - [ ] Make it so I don't have to do !git all the time.
 
 
+Note that in transient, =C-u= is still =universal-argument=, so press that
+when the documentation says to use prefix commands
+
 #+begin_src emacs-lisp :results output silent
   (use-package magit
     :straight t
