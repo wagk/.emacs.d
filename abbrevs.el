@@ -641,5 +641,9 @@
     ("yb" "by" nil :count 2)
     ("yeaterday" "yesterday" nil :count 1)
     ("yse" "yes" nil :count 1)
-   ))
-
+    ("acces" "access" nil :count 1)
+    ("descriptino" "description" nil :count 1)
+    ("paramter" "parameter" nil :count 1)
+    ("paremater" "parameter" nil :count 1)
+    ("udpating" "updating" nil :count 1)
+    ("updateing" "updating" nil :count 1)))
