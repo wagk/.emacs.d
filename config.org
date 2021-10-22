@@ -4120,7 +4120,21 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     ("C-h k"   'helpful-key
      "C-h f"   'helpful-callable
      "C-h v"   'helpful-variable
-     "C-h RET" 'helpful-at-point)
+     "C-h RET" 'helpful-at-point
+     "C-h M-k" '--helpful-keymap)
+    :init
+    (defun --helpful-keymap ()
+      (interactive)
+      (require 'helpful)
+      (ivy-read "Keymap: " obarray
+                :require-match t
+                :predicate #'(lambda (sym)
+                               (and (boundp sym)
+                                (keymapp (symbol-value sym))))
+                :action #'(lambda (sym)
+                            (-> sym
+                                (intern) ;; to get the symbol value of the string(?)
+                                (helpful-symbol)))))
     :config
     (require 'link-hint)
     (general-define-key
