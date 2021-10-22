@@ -352,6 +352,8 @@ recovery. Maybe eventually load dependencies and all that."
 
   (use-package gcmh
     :straight t
+    :custom
+    (gcmh-verbose t)
     :config
     (gcmh-mode))
 
