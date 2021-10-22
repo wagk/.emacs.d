@@ -4032,6 +4032,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     :custom
     (abbrev-file-name (locate-user-emacs-file "abbrevs.el"))
     (save-abbrevs 'silently)
+    (only-global-abbrevs t)
     :general
     (edit-abbrevs-mode-map
      [remap evil-save] 'abbrev-edit-save-buffer)
