@@ -2625,6 +2625,20 @@ Note that there are evil-collection bindings for this
     :straight t)
 #+end_src
 
+** Blamer
+#+begin_src emacs-lisp :results output silent
+  (use-package blamer
+    :straight (:host github :repo "Artawower/blamer.el")
+    :custom
+    (blamer-commit-formatter "> %s")
+    (blamer-min-offset 5)
+    (blamer-idle-time 1)
+    :custom-face
+    (blamer-face ((t (:inherit font-lock-comment-face))))
+    :hook
+    (prog-mode-hook . blamer-mode))
+#+end_src
+
 * vdiff
 #+begin_src emacs-lisp :results output silent
   (use-package vdiff
