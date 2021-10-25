@@ -4747,32 +4747,26 @@ This is really really slow
 
 * Eww
 #+begin_src emacs-lisp :results output silent
-  ;; (use-package eww
-  ;;   :commands (eww)
-  ;;   :if (display-browser-p)
-  ;;   :general
-  ;;   (:keymaps 'eww-mode-map
-  ;;    :states '(normal)
-  ;;    "f" 'ace-link-eww
-  ;;    "F" 'ace-link-eww))
-
-  (unless (display-graphic-p)
-    (customize-set-variable 'browse-url-browser-function 'eww-browse-url))
-
-  (with-eval-after-load 'eww
-    (general-define-key
-     :keymaps 'eww-mode-map
-     :states 'normal
-      "g t" nil))
-
-  (evil-define-command my-eww-ex-command (url)
-    (interactive "<a>")
-    (require 'eww)
-    (if url
-      (eww url)
-      (eww)))
-
-  (evil-ex-define-cmd "eww" 'my-eww-ex-command)
+  ;; TODO: fix `eww-form-submit' face
+  (use-package eww
+    :commands (eww)
+    :general
+    (:keymaps 'eww-mode-map
+     :states '(normal)
+     "f" 'ace-link-eww
+     "F" 'ace-link-eww
+     "g t" nil)
+    :init
+    (evil-define-command --eww-ex-command (beg end _type)
+      (interactive "<v>")
+      (require 'eww)
+      (if-let ((url (buffer-substring beg end)))
+          (eww url)
+        (eww)))
+    (evil-ex-define-cmd "eww" '--eww-ex-command)
+    :config
+    (unless (display-graphic-p)
+      (customize-set-variable 'browse-url-browser-function 'eww-browse-url)))
 #+end_src
 * Hl Block Mode
 Wait a bit for the code to mature.
