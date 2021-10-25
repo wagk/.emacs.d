@@ -2630,7 +2630,7 @@ Note that there are evil-collection bindings for this
   (use-package blamer
     :straight (:host github :repo "Artawower/blamer.el")
     :custom
-    (blamer-commit-formatter "> %s")
+    (blamer-commit-formatter ": %s")
     (blamer-min-offset 5)
     (blamer-idle-time 1)
     :custom-face
