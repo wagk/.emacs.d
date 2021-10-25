@@ -2819,7 +2819,20 @@ TODO: some way to better, more dynamically name the tabs
     (evil-ex-define-cmd "sn[ippets]" 'ex-snippet)
     :config
     (defun yas-with-comment (str)
-      (format "%s%s%s" comment-start str comment-end))
+      ;; TODO: note that this is a hack; the proper way should be
+      ;; something as written in the comment box. That said, the
+      ;; "proper" way is also not working.
+
+      ;; (with-temp-buffer
+      ;;   (format "%s" str)
+      ;; this might explain why this function seems to bug out sometimes.
+      ;;   (comment-normalize-vars)
+      ;;   (comment-region (point-min) (point-max))
+      ;;   (buffer-string)))
+      (let ((comment-start (if (eq major-mode 'emacs-lisp-mode)
+                               ";; "
+                             comment-start)))
+        (format "%s%s%s" comment-start str comment-end)))
     (yas-global-mode))
 #+end_src
 
