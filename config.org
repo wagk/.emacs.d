@@ -2499,8 +2499,8 @@ up, on windows at least).
      "`nice' does not exist on windows")
     (magit-todos-branch-list t)
     (magit-todos-group-by '(magit-todos-item-first-path-component
-                            magit-todos-item-filename
-                            magit-todos-item-keyword))
+                            magit-todos-item-filename))
+                            ;; magit-todos-item-keyword))
     :general
     (:keymaps
      '(magit-todos-section-map magit-todos-item-section-map)
