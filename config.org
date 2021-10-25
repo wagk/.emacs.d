@@ -2102,7 +2102,6 @@ TODO: a function to go to the index file.
                                             "\n")
                                           "\n"))
                    :unnarrowed t
-                   :prepend t
                    :empty-lines 1))))
       (customize-set-value 'org-roam-capture-templates template)
       (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
