@@ -2489,6 +2489,10 @@ up, on windows at least).
 #+begin_src emacs-lisp :results output silent
   ;; TODO: jigger `magit-todos-keyword-suffix' to handle rust todo!()
   ;; macros
+  ;; TODO: Somehow jigger `magit-todos-branch-list' to *only* show
+  ;; branch todos instead of it being an appended section
+  ;; TODO: Figure out how to also filter `ivy-magit-todos' with
+  ;; branch-only sections
   (use-package magit-todos
     :straight (:host github :repo "alphapapa/magit-todos")
     :custom
