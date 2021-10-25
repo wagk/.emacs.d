@@ -2488,13 +2488,19 @@ config. This configuration is stored in =straight/versions/default.el=
 Currently disabled because we can't get it to work (it's not showing
 up, on windows at least).
 #+begin_src emacs-lisp :results output silent
+  ;; TODO: jigger `magit-todos-keyword-suffix' to handle rust todo!()
+  ;; macros
   (use-package magit-todos
     :straight (:host github :repo "alphapapa/magit-todos")
     :custom
+    (magit-todos-ignore-case t)
     (magit-todos-nice
      (not (eq system-type 'windows-nt))
      "`nice' does not exist on windows")
-    (magit-todos-branch-list-toggle t)
+    (magit-todos-branch-list t)
+    (magit-todos-group-by '(magit-todos-item-first-path-component
+                            magit-todos-item-filename
+                            magit-todos-item-keyword))
     :general
     (:keymaps
      '(magit-todos-section-map magit-todos-item-section-map)
