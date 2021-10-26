@@ -4639,6 +4639,7 @@ Or evil-spongebob if you want to think of it that way.
 
 #+begin_src emacs-lisp :results output silent
   (use-package elfeed
+    :disabled t ;; for now
     :straight (:host github :repo "skeeto/elfeed")
     :if (f-exists? user-rss-feed-file)
     :commands (elfeed)
@@ -4698,6 +4699,7 @@ Or evil-spongebob if you want to think of it that way.
 This is really really slow
 #+begin_src emacs-lisp :results output silent
   (use-package elfeed-org
+    :disabled t ;; for now
     :straight (:host github :repo "remyhonig/elfeed-org")
     :if (f-exists? user-rss-feed-file)
     :after elfeed
