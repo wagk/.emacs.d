@@ -3596,6 +3596,8 @@ Requires rust-mode and markdown-mode
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
+  ;; TODO: update `dired-collapse--create-ov' to not hardcode the shadow
+  ;; face. This should be a PR
   (use-package dired-hacks
     :ensure nil
     :after dired
