@@ -3620,7 +3620,8 @@ Requires rust-mode and markdown-mode
       "z a" 'dired-subtree-toggle
       "z o" 'dired-subtree-insert
       "z c" 'dired-subtree-remove)
-    :hook (dired-mode-hook . dired-filter-mode))
+    :hook ((dired-mode-hook . dired-collapse-mode)
+           (dired-mode-hook . dired-filter-mode)))
 #+end_src
 
 note: use :Ex instead like Vim does
