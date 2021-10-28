@@ -2417,7 +2417,7 @@ when the documentation says to use prefix commands
                magit-commit)
     :defer 15
     :custom
-    (magit-blame-echo-style 'margin)
+    (magit-blame-echo-style 'lines)
     :custom-face
     (magit-section-heading ((((background light)) (:foreground ,sol-yellow :underline t))
                             (((background dark)) (:foreground, sol-yellow :underline t))))
@@ -2438,13 +2438,12 @@ when the documentation says to use prefix commands
     (evil-ex-define-cmd "git" 'ex-magit-cli)
     (evil-ex-define-cmd "gg" 'ex-magit-cli)
     (evil-ex-define-cmd "gb" 'magit-branch)
-    (evil-ex-define-cmd "gB" 'magit-blame)
+    (evil-ex-define-cmd "gbl[ame]" 'magit-blame-echo)
     (evil-ex-define-cmd "gc" 'magit-commit)
     (evil-ex-define-cmd "gf" 'magit-fetch)
     (evil-ex-define-cmd "gp" 'magit-push)
     (evil-ex-define-cmd "gF" 'magit-pull)
     (evil-ex-define-cmd "gl" 'magit-log-buffer-file)
-    (evil-ex-define-cmd "gL" 'magit-log)
     :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
            (git-commit-setup-hook . markdown-mode)
            (git-commit-setup-hook . evil-markdown-mode)
