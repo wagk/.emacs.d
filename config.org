@@ -936,13 +936,29 @@ re-evaluating the need for this
                                   is in days)"))
 #+end_src
 
-* Ace Link
+* Avy
 #+begin_src emacs-lisp :results output silent
   (use-package avy
     :disabled t
     :straight (:host github :repo "abo-abo/avy"))
 #+end_src
 
+
+** Ace Window
+#+begin_src emacs-lisp :results output silent
+  (use-package ace-window
+    :straight t
+    :general
+    (:states 'normal
+     "C-w SPC" 'ace-window)
+    :custom
+    (aw-keys '(?a ?s ?d ?f ?g))
+    :custom-face
+    (aw-background-face ((((background light)) (:background ,sol-base3 :foreground ,sol-base2))
+                         (((background dark)) (:background ,sol-base03 :foreground ,sol-base02)))))
+#+end_src
+
+** Ace Link
 #+begin_src emacs-lisp :results output silent
   (use-package ace-link
     :straight (:host github :repo "abo-abo/ace-link")
