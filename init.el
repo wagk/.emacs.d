@@ -391,6 +391,8 @@ recovery. Maybe eventually load dependencies and all that."
     ;;  "C-l"    'evil-complete-next-line)
     ;; (:keymaps 'motion
     ;; "C-u"    'evil-scroll-up)
+    (:keymaps 'visual
+     "J" 'evil-join)
     (:keymaps 'insert
      "C-l" 'evil-complete-next-line
      "C-u" 'evil-delete-whole-line)
