@@ -1107,6 +1107,7 @@ want to learn marks properly anyway.
 
 #+begin_src emacs-lisp :results output silent
   (use-package evil-fringe-mark
+    :disabled t
     :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
     :custom
     (evil-fringe-mark-show-special nil)
