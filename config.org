@@ -4169,6 +4169,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
       (require 'helpful)
       (ivy-read "Keymap: " obarray
                 :require-match t
+                ;; :initial-input (symbol-name (current-local-map))
                 :predicate #'(lambda (sym)
                                (and (boundp sym)
                                 (keymapp (symbol-value sym))))
