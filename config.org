@@ -2445,6 +2445,7 @@ when the documentation says to use prefix commands
     (evil-ex-define-cmd "gp" 'magit-push)
     (evil-ex-define-cmd "gF" 'magit-pull)
     (evil-ex-define-cmd "gl" 'magit-log-buffer-file)
+    (evil-ex-define-cmd "gL" 'magit-log-head)
     :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
            (git-commit-setup-hook . markdown-mode)
            (git-commit-setup-hook . evil-markdown-mode)
