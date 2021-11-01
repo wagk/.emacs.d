@@ -5990,3 +5990,8 @@ the packages I run use dabbrev at all.
   (use-package vue-mode
     :straight t)
 #+end_src
+
+* Proced
+#+begin_src emacs-lisp :results output silent
+  (evil-ex-define-cmd "ps" 'proced)
+#+end_src
