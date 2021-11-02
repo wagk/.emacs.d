@@ -364,13 +364,18 @@ recovery. Maybe eventually load dependencies and all that."
   ;; NOTE: reddit notes that there might still be some history
   ;; corruption?
   (use-package undo-tree
+    :disabled t
     :straight t
     :custom
     (undo-tree-visualizer-diff t)
     (undo-tree-visualizer-timestamps t)
     (undo-tree-auto-save-history nil) ;; the perf of this seems intensely bad
     :config
-    (global-undo-tree-mode))
+    (global-undo-tree-mode)
+    (with-eval-after-load 'evil
+      (general-define-key
+       :states 'normal
+       "U"     'undo-tree-visualize)))
 
   ;; Needed for g; and g,
   (use-package goto-chg
@@ -397,7 +402,6 @@ recovery. Maybe eventually load dependencies and all that."
      "C-l" 'evil-complete-next-line
      "C-u" 'evil-delete-whole-line)
     (:keymaps 'normal
-     "U"     'undo-tree-visualize
      "g C-u" 'universal-argument
      ;; try eyebrowse instead
      ;; "gt"     '(lambda () (interactive) (other-frame 1))
@@ -411,7 +415,7 @@ recovery. Maybe eventually load dependencies and all that."
     (:keymaps 'outer
      "e"      'my-evil-a-buffer)
     :custom
-    (evil-undo-system 'undo-tree)
+    (evil-undo-system (if (featurep 'undo-tree) 'undo-tree 'undo-redo))
     ;; (evil-undo-system (if (>= 28 emacs-major-version)
     ;;                       'undo-redo
     ;;                     (require 'undo-fu)
