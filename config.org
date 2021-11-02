@@ -1994,6 +1994,7 @@ TODO: a function to go to the index file.
                :files (:defaults "extensions/*"))
     :custom
     (org-roam-dailies-directory "day/")
+    (org-roam-complete-everywhere t)
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
