@@ -5993,7 +5993,7 @@ the packages I run use dabbrev at all.
     (nano-modeline-position 'bottom "otherwise conflicts with LSP")
     ;; (nano-modeline-position 'top)
     :custom-face
-    (nano-modeline-active-status-RO ((t (:foreground ,sol-red)))) ;; not working for some reason?
+    (nano-modeline-active-status-RO ((t (:foreground ,sol-yellow)))) ;; not working for some reason?
     (nano-modeline-inactive-name ((((background light))
                                    (:foreground ,sol-base1))
                                   (((background dark))
