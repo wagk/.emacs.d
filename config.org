@@ -4180,6 +4180,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     ("C-h k"   'helpful-key
      "C-h f"   'helpful-callable
      "C-h v"   'helpful-variable
+     "C-h o"   'helpful-symbol
      "C-h RET" 'helpful-at-point
      "C-h M-k" '--helpful-keymap)
     :init
