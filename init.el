@@ -342,6 +342,7 @@ recovery. Maybe eventually load dependencies and all that."
     :straight t)
 
   (use-package restart-emacs
+    :if (not (eq system-type 'darwin))
     :straight (:host github :repo "iqbalansari/restart-emacs")
     :commands (restart-emacs restart-emacs-start-new-emacs)
     :init
