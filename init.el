@@ -243,20 +243,46 @@ recovery. Maybe eventually load dependencies and all that."
                  (sol-green   . "#859900")))
     ;; TODO: set documentation string
     (set (car col) (cdr col)))
+
   ;; TODO: work on this
   (defface sol-critical '((t (:inherit default)))
-    "Follows `nano-critical'")
+    "Follows `nano-critical', for information that requires immediate action.
+It should be of high constrast when compared to other faces. This can
+be realized (for example) by setting an intense background color,
+typically a shade of red. It must be used scarcely.")
+
   (defface sol-popout '((t (:inherit default)))
-    "Follows `nano-popout'")
+    "Follows `nano-popout', for information that needs attention.
+To achieve such effect, the hue of the face has to be sufficiently
+different from other faces such that it attracts attention through the
+popout effect.")
+
   (defface sol-strong '((t (:inherit default)))
-    "Follows `nano-strong'")
+    "Follows `nano-strong', for information of a structural nature.
+It has to be the same color as the default color and only the weight
+differs by one level (e.g., light/regular or regular/bold). It is
+generally used for titles, keywords, directory, etc.")
+
   (defface sol-salient '((t (:inherit default)))
-    "Follows `nano-salient'")
+    "Follows `nano-salient', information that are important.
+To suggest the information is of the same nature but important, the
+face uses a different hue with approximately the same intensity as the
+default face. This is typically used for links.")
+
   (defface sol-faded '((t (:inherit default)))
-    "Follows `nano-faded'")
-  (defface sol-subtle `((((background light)) (:background ,sol-base2))
-                        (((background dark)) (:background ,sol-base02)))
-    "Follows `nano-subtle'")
+    "Follows `nano-faded', Faded face is for information that are less important.
+It is made by using the same hue as the default but with a lesser
+intensity than the default. It can be used for comments, secondary
+information and also replace italic (which is generally abused
+anyway).")
+
+  (defface sol-subtle `((((background light)) (:background ,sol-base1))
+                        (((background dark)) (:background ,sol-base01)))
+    "Follows `nano-subtle', to suggest a physical area on the screen.
+It is important to not disturb too strongly the reading of information
+and this can be made by setting a very light background color that is
+barely perceptible.")
+
   (defface sol-default '((t (:inherit default)))
     "Follows `nano-default'"))
 
