@@ -5825,7 +5825,7 @@ Not persistent scratch, just a custom scratch buffer
         (interactive)
         (let* ((case-fold-search t) ; ignore cases
                (readme-list (-keep (lambda (elem)
-                                     (when (string-match "readme" elem nil t)
+                                     (when (string-match-p "readme" elem nil)
                                        elem))
                                    (project-files (project-current)))))
           (ivy-read "README: " readme-list
