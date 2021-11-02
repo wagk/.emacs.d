@@ -2653,7 +2653,7 @@ Note that there are evil-collection bindings for this
     (blamer-min-offset 5)
     (blamer-idle-time 1)
     :custom-face
-    (blamer-face ((t (:inherit font-lock-comment-face))))
+    (blamer-face ((t (:inherit 'font-lock-comment-face))))
     :hook
     (prog-mode-hook . blamer-mode))
 #+end_src
