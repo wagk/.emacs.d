@@ -3,9 +3,10 @@
 ;;; Code:
 (setq package-enable-at-startup nil)
 
-(if (and (fboundp 'native-comp-available-p)
-         (native-comp-available-p))
-    (setq comp-deferred-compilation t))
+(when (and (fboundp 'native-comp-available-p)
+           (native-comp-available-p))
+  (setq comp-deferred-compilation t)
+  (setq native-comp-async-report-warnings-errors 'silent))
 
 (defvaralias
   'comp-deferred-compilation-deny-list
