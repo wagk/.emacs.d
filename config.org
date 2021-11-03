@@ -1437,6 +1437,8 @@ Interesting Text Objects:
 #+begin_src emacs-lisp :results output silent
   (use-package evil-org
     :straight (:host github :repo "Somelauw/evil-org-mode")
+    :preface
+    (fset 'evil-redirect-digit-argument 'ignore)
     :hook ((org-mode-hook . evil-org-mode))
     :custom
     (evil-org-retain-visual-state-on-shift
@@ -1452,6 +1454,10 @@ Interesting Text Objects:
      :states 'normal
      "g f" 'evil-org-open-links)
     :config
+    (add-to-list 'evil-digit-bound-motions 'evil-org-beginning-of-line)
+    (evil-define-key 'motion 'evil-org-mode
+        (kbd "0") 'evil-org-beginning-of-line)
+
     (evil-org-set-key-theme '(textobjects
                               ;; insert ;; replaces c-t and c-d
                               navigation
