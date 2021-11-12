@@ -276,8 +276,8 @@ intensity than the default. It can be used for comments, secondary
 information and also replace italic (which is generally abused
 anyway).")
 
-  (defface sol-subtle `((((background light)) (:background ,sol-base1))
-                        (((background dark)) (:background ,sol-base01)))
+  (defface sol-subtle `((((background light)) (:foreground ,sol-base1))
+                        (((background dark)) (:foreground ,sol-base01)))
     "Follows `nano-subtle', to suggest a physical area on the screen.
 It is important to not disturb too strongly the reading of information
 and this can be made by setting a very light background color that is
