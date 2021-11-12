@@ -5819,6 +5819,12 @@ Not persistent scratch, just a custom scratch buffer
     (advice-add 'evil-make :before
                 #'(lambda (&rest _) (require 'project)))
     :config
+    ;; NOTE: no idea why this here is necessary; it gets overwritten otherwise
+    (general-define-key
+     :keymaps 'project-prefix-map
+     "d" 'project-find-dir
+     "D" 'project-dired)
+
     (with-eval-after-load 'ivy
       (general-define-key
        :keymaps 'project-prefix-map
