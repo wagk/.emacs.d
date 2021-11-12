@@ -181,8 +181,8 @@ exist, using the template specified in
                                              "local-template.el"))
                       (buffer-string)) nil local-file))
     (load local-file)
-    (when (fboundp 'my-after-init-code)
-      (add-hook 'after-init-hook #'my-after-init-code))))
+    (when (fboundp '--after-init-code)
+      (add-hook 'after-init-hook #'--after-init-code))))
 
 (defun load-config-org-files (files)
   "Given a list of org FILES, load them sequentially in the order.
