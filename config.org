@@ -2646,7 +2646,7 @@ Note that there are evil-collection bindings for this
 
 ** Git modes
 #+begin_src emacs-lisp :results output silent
-  (use-package gitconfig-mode
+  (use-package git-modes
     :straight t)
 #+end_src
 
