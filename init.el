@@ -438,10 +438,10 @@ barely perceptible.")
      "g o" 'ff-find-other-file
      "g O" 'ff-find-other-file-other-window)
     ;; "g a"    'describe-char)
-    (:keymaps 'inner
-     "e"      'my-evil-a-buffer)
-    (:keymaps 'outer
-     "e"      'my-evil-a-buffer)
+    ;; (:keymaps 'inner
+    ;;  "e"      'my-evil-a-buffer)
+    ;; (:keymaps 'outer
+    ;;  "e"      'my-evil-a-buffer)
     :custom
     (evil-undo-system (if (featurep 'undo-tree) 'undo-tree 'undo-redo))
     ;; (evil-undo-system (if (>= 28 emacs-major-version)
@@ -580,9 +580,10 @@ we're adding a custom function for it here."
     ;; (/evil-define-and-bind-text-object "\\" "\\" "\\")
     ;; (/evil-define-and-bind-text-object "|" "|" "|")
 
-    (evil-define-text-object my-evil-a-buffer (count &optional beg end type)
-      "Select entire buffer"
-      (evil-range (point-min) (point-max)))
+    ;; (evil-define-text-object my-evil-a-buffer (count &optional beg end type)
+    ;;   "Select entire buffer"
+    ;;   (evil-range (point-min) (point-max)))
+
     (evil-mode))
 
 ;;; evil-collection
