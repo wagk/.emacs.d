@@ -5839,14 +5839,19 @@ Not persistent scratch, just a custom scratch buffer
         "Finds and lists all the README (eventually documentation) files "
         (interactive)
         (let* ((case-fold-search t) ; ignore cases
-               (readme-list (-keep (lambda (elem)
-                                     (when (string-match-p "readme" elem nil)
-                                       elem))
-                                   (project-files (project-current)))))
+               (project-dir (cdr (project-current)))
+               (readme-list (->> (project-files (project-current))
+                              (-keep (lambda (elem)
+                                       (when (string-match-p "readme" elem nil)
+                                         elem)))
+                              (mapcar #'(lambda (file)
+                                          (f-relative file
+                                                      project-dir))))))
           (ivy-read "README: " readme-list
                     :require-match t
                     :preselect t
-                    :action #'find-file)))
+                    :action #'(lambda (file)
+                                (find-file (f-join project-dir file))))))
 
       (evil-ex-define-cmd "readme" #'--project-find-doc))
 
