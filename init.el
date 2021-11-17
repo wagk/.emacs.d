@@ -378,7 +378,7 @@ barely perceptible.")
                           'restart-emacs-start-new-emacs)))
 
   (use-package gcmh
-    :disabled t
+    :if (eq system-type 'gnu/linux)
     :straight t
     :custom
     (gcmh-verbose t)
