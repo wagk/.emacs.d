@@ -485,6 +485,7 @@
     ("requiremetns" "requirements" nil :count 1)
     ("requrie" "require" nil :count 1)
     ("requried" "required" nil :count 2)
+    ("requriements" "requirements" nil :count 1)
     ("rerason" "reason" nil :count 1)
     ("resove" "resolve" nil :count 1)
     ("responsiblity" "responsibility" nil :count 1)
