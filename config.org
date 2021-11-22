@@ -5387,6 +5387,7 @@ Not using this because we're going to try ediff
                       "Search: "
                       nil nil (thing-at-point 'word)))))
         (engine/search-duckduckgo query)))
+    (evil-ex-define-cmd "ddg" '--ddg-search)
     :general
     (:states '(normal motion visual)
      "K" '--ddg-search))
