@@ -5028,6 +5028,7 @@ Not tracking master because it's currently broken for some reason.
     :commands (company-mode-on
                company-mode)
     :custom
+    (company-idle-delay 0)
     (company-tooltip-align-annotations t)
     :general
     (company-active-map
