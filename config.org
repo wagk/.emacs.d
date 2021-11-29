@@ -813,7 +813,6 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     (evil-ex-define-cmd "tabr[ename]" 'tab-bar-rename-tab)
     ;;TODO: check if ivy has something for this someday
     (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
-    (evil-ex-define-cmd "tt" 'tab-bar-select-tab-by-name)
     (defun my-tab-bar-delete-tab-or-emacs (oldfun &rest _old_args)
       (interactive)
       (let* ((tabs (find-if (lambda (elem) (eq 'tabs (car elem)))
@@ -2539,6 +2538,7 @@ up, on windows at least).
     :init
     (with-eval-after-load 'ivy
       (evil-ex-define-cmd "todo" 'magit-todos-list)
+      (evil-ex-define-cmd "tt" 'magit-todos-list)
       ;; (general-with-eval-after-load 'counsel
       (general-define-key
         :keymaps 'project-prefix-map
