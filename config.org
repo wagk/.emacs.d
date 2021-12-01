@@ -613,6 +613,12 @@ Stolen from https://github.com/bbatsov/crux
     (cond
      ((string= cmd "wrap") (visual-line-mode 1))
      ((string= cmd "nowrap") (visual-line-mode -1))
+     ((string= cmd "fill") (progn (visual-line-mode 1)
+                                  (require 'visual-fill-column)
+                                  (visual-fill-column-mode 1)))
+     ((string= cmd "nofill") (progn (visual-line-mode 0)
+                                    (require 'visual-fill-column)
+                                    (visual-fill-column-mode -1)))
      ;; This isn't actually how colorcolumn worked in vi
      ;; (read :h colorcolumn)
      ((or (string= cmd "colorcolumn")
