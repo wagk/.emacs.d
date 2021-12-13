@@ -1459,7 +1459,8 @@ Interesting Text Objects:
      :states 'normal
      "g f" 'evil-org-open-links)
     :config
-    (add-to-list 'evil-digit-bound-motions 'evil-org-beginning-of-line)
+    (when (boundp 'evil-digit-bound-motions)
+      (add-to-list 'evil-digit-bound-motions 'evil-org-beginning-of-line))
     (evil-define-key 'motion 'evil-org-mode
         (kbd "0") 'evil-org-beginning-of-line)
 

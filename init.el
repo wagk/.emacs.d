@@ -443,7 +443,11 @@ barely perceptible.")
     ;; (:keymaps 'outer
     ;;  "e"      'my-evil-a-buffer)
     :custom
-    (evil-undo-system (if (featurep 'undo-tree) 'undo-tree 'undo-redo))
+    ;; (evil-undo-system (if (featurep 'undo-tree) 'undo-tree 'undo-redo))
+    (evil-undo-system (cond
+                       ((featurep 'undo-tree) 'undo-tree)
+                       ((>= 28 emacs-major-version) 'undo-redo)
+                       (t nil)))
     ;; (evil-undo-system (if (>= 28 emacs-major-version)
     ;;                       'undo-redo
     ;;                     (require 'undo-fu)
