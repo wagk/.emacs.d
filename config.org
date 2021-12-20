@@ -3447,6 +3447,12 @@ containing a lot of files, and if the files are themselves large.
     ;;                                     (auto-save-mode -1)
     ;;                                     (aes-toggle-encryption))))
     :init
+    ;; TODO:
+    (defun --encrypt-org-subtree ()
+      "Encrypt the contents of closest parent headline; or buffer
+      if we're at the root of the org document. The headline would be
+      the password, or the filename if it's the root")
+
     (evil-define-command ex-encrypt-buffer ()
       (interactive)
       (if (aes-is-encrypted)
