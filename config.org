@@ -6060,3 +6060,9 @@ the packages I run use dabbrev at all.
   (use-package code-review
     :straight (:host github :repo "wandersoncferreira/code-review"))
 #+end_src
+
+* ObjC
+#+begin_src emacs-lisp :results output silent
+  (with-eval-after-load 'cc-mode
+    (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode)))
+#+end_src
