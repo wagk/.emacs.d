@@ -3451,7 +3451,11 @@ containing a lot of files, and if the files are themselves large.
     (defun --encrypt-org-subtree ()
       "Encrypt the contents of closest parent headline; or buffer
       if we're at the root of the org document. The headline would be
-      the password, or the filename if it's the root")
+      the password, or the filename if it's the root"
+      (-let (((beg end _) (evil-org-inner-subtree))
+             (key (f-filename (f-this-file))))
+          (narrow-to-region beg end)))
+          ;; TODO: take this and process the buffer
 
     (evil-define-command ex-encrypt-buffer ()
       (interactive)
