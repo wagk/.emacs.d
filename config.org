@@ -3453,8 +3453,13 @@ containing a lot of files, and if the files are themselves large.
       if we're at the root of the org document. The headline would be
       the password, or the filename if it's the root"
       (-let (((beg end _) (evil-org-inner-subtree))
-             (key (f-filename (f-this-file))))
-          (narrow-to-region beg end)))
+             (key (f-filename (f-this-file)))
+             (heading (->> (org-get-heading nil nil nil nil)
+                           (substring-no-properties)
+                           (downcase)
+                           (replace-regexp-in-string " " "-"))))
+          (message "converted heading: %s" heading)))
+          ;; (narrow-to-region beg end)))
           ;; TODO: take this and process the buffer
 
     (evil-define-command ex-encrypt-buffer ()
