@@ -6085,3 +6085,9 @@ the packages I run use dabbrev at all.
   (with-eval-after-load 'cc-mode
     (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode)))
 #+end_src
+
+* Typescript
+#+begin_src emacs-lisp :results output silent
+  (use-package typescript-mode
+    :straight t)
+#+end_src
