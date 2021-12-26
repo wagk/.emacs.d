@@ -5656,6 +5656,7 @@ Note that =customize-set-variable= is like =setq-default=.
   (use-package web-mode
     :straight t
     :if (< emacs-major-version 27)
+    :mode ("\\.svelte\\'" . web-mode)
     :commands web-mode)
 #+end_src
 
@@ -6046,9 +6047,12 @@ the packages I run use dabbrev at all.
     (nano-modeline-mode))
 #+end_src
 
-* svelte-mode
+* TODO svelte-mode
+- [ ] Switch to using web-mode
+
 #+begin_src emacs-lisp :results output silent
   (use-package svelte-mode
+      :disabled t
       :straight t)
 #+end_src
 
