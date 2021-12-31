@@ -3447,20 +3447,23 @@ containing a lot of files, and if the files are themselves large.
     ;;                                     (auto-save-mode -1)
     ;;                                     (aes-toggle-encryption))))
     :init
-    ;; TODO:
-    (defun --encrypt-org-subtree ()
-      "Encrypt the contents of closest parent headline; or buffer
-      if we're at the root of the org document. The headline would be
-      the password, or the filename if it's the root"
-      (-let (((beg end _) (evil-org-inner-subtree))
-             (key (f-filename (f-this-file)))
-             (heading (->> (org-get-heading nil nil nil nil)
-                           (substring-no-properties)
-                           (downcase)
-                           (replace-regexp-in-string " " "-"))))
-          (message "converted heading: %s" heading)))
-          ;; (narrow-to-region beg end)))
-          ;; TODO: take this and process the buffer
+    (defun --toggle-encrypt-org-roam-subtree ()
+      "Encrypt the content of the org subtree with the org ID of the
+  document. Aborts if one is not found. There is probably a better way
+  to do encrypt the text, perhaps automatically on hook, but this should
+  serve for now."
+      (-let* (((beg end _) (evil-org-inner-subtree))
+              (password (org-id-get (point-min)))
+              (text (buffer-substring beg end))
+              (is-encrypted (with-temp-buffer
+                              (insert text)
+                              (aes-is-encrypted))))
+        (unless password
+          (user-error "Can't get file's ID."))
+        (let ((result (if is-encrypted
+                          (aes-decrypt-buffer-or-string text password)
+                        (aes-encrypt-buffer-or-string text password))))
+          (replace-region-contents beg end (lambda () result)))))
 
     (evil-define-command ex-encrypt-buffer ()
       (interactive)
