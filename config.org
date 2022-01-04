@@ -5655,7 +5655,11 @@ Note that =customize-set-variable= is like =setq-default=.
   (use-package web-mode
     :straight t
     :if (< emacs-major-version 27)
-    :mode ("\\.svelte\\'" . web-mode)
+    :mode (("\\.svelte\\'" . web-mode)
+           ("\\.vue\\'" . web-mode))
+    :custom
+    ((web-mode-code-indent-offset 2)
+     (web-mode-css-indent-offset 2))
     :commands web-mode)
 #+end_src
 
@@ -6065,6 +6069,7 @@ the packages I run use dabbrev at all.
 * Vue-mode
 #+begin_src emacs-lisp :results output silent
   (use-package vue-mode
+    :disabled t
     :straight t)
 #+end_src
 
