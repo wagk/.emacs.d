@@ -1079,7 +1079,6 @@ Adds the following ex commands:
 
 #+begin_src emacs-lisp :results output silent
   (use-package evil-expat
-    :disabled t
     :straight (:host github :repo "edkolev/evil-expat"))
 #+end_src
 
