@@ -5396,15 +5396,14 @@ Not using this because we're going to try ediff
     :straight t
     :commands defengine
     :init
-    (evil-define-command --ddg-search (args)
-      (interactive "<a>")
+    (evil-define-command --ddg-search (beg end _type)
+      (interactive "<v>")
       (require 'engine-mode)
       (unless (boundp 'engine/search-duckduckgo)
         (defengine duckduckgo
           "https://duckduckgo.com/?q=%s"))
       (let ((query (cond
-                    (args)
-                    ((use-region-p) (buffer-substring (region-beginning) (region-end)))
+                    ((use-region-p) (buffer-substring beg end))
                     (t (read-string "Search: "
                         nil nil (thing-at-point 'word))))))
        (engine/search-duckduckgo query)))
