@@ -5405,6 +5405,7 @@ Not using this because we're going to try ediff
           "https://duckduckgo.com/?q=%s"))
       (let ((query (cond
                     ((use-region-p) (buffer-substring beg end))
+                    ((evil-ex-p) evil-ex-argument)
                     (t (read-string "Search: "
                         nil nil (thing-at-point 'word))))))
        (engine/search-duckduckgo query)))
