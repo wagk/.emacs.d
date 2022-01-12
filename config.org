@@ -5663,7 +5663,6 @@ Note that =customize-set-variable= is like =setq-default=.
 #+begin_src emacs-lisp :results output silent
   (use-package web-mode
     :straight t
-    :if (< emacs-major-version 27)
     :mode (("\\.svelte\\'" . web-mode)
            ("\\.vue\\'" . web-mode))
     :custom
