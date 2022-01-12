@@ -872,6 +872,11 @@ for the specific hook.
   (evil-ex-define-cmd "repl" 'ielm)
 #+end_src
 
+** Set fill column
+#+begin_src emacs-lisp :results output silent
+  (customize-set-value 'fill-column 80)
+#+end_src
+
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
   (use-package apropos
