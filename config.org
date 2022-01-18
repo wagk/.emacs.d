@@ -2352,6 +2352,13 @@ is)
     (org-crypt-key nil))
 #+end_src
 
+** Valign
+#+begin_src emacs-lisp :results output silent
+  (use-package valign
+    :straight t
+    :hook (org-mode-hook . valign-mode))
+#+end_src
+
 * hl-todo
 #+begin_src emacs-lisp :results output silent
   (use-package hl-todo
