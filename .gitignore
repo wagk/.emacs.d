@@ -52,3 +52,5 @@ straight/
 /.cache/
 /devdocs-browser/
 /elfeed.stats
+/.DS_Store
+/etc/
