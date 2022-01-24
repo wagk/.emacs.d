@@ -1556,94 +1556,60 @@ Interesting Text Objects:
                           :prepend t
                           :template "* %?"
                           :clock-resume t))))
-    ;; (add-to-list 'org-capture-templates
-    ;;               `("cc" "Current Clock" item
-    ;;                 (clock)
-    ;;                 "Note taken on %U \\\\\n%?"
-    ;;                 :prepend t
-    ;;                 :clock-resume t))
     (when (boundp 'my-todo-org-file)
-      ;; (doct `(("Personal"
-      ;;          :file ,my-todo-org-file
-      ;;          :prepend t
-      ;;          :keys "t"
-      ;;          :children ("TODO"
-      ;;                     :keys "t"
-      ;;                     :todo-state "TODO"))))
-      ;; (add-to-list 'org-capture-templates
-      ;;              `("tt" "Personal Todo" entry
-      ;;                (file ,my-todo-org-file)
-      ;;                ,(concat "* TODO %^{DESCRIPTION} %^g \n"
-      ;;                         ":PROPERTIES:\n"
-      ;;                         ":CREATED:  %U\n" ;; captured as property TIMESTAMP
-      ;;                         ":END:\n"
-      ;;                         "%?")))
-      ;; (add-to-list 'org-capture-templates
-      ;;   (doct `(("Personal Note Test"
-      ;;            :keys "nt"
-      ;;            :file ,my-todo-org-file
-      ;;            :type entry
-      ;;            :template ("* %^{DESCRIPTION} %^g"
-      ;;                       ":PROPERTIES:"
-      ;;                       ":CREATED: %U" ;; captured as property TIMESTAMP
-      ;;                       ":END:"
-      ;;                       "%?")))))
-      (add-to-list 'org-capture-templates
-                   `("ii" "Immediate Clock" entry
-                     (file ,my-todo-org-file)
-                     ,(concat "* %^{DESCRIPTION} %^g \n"
-                              ":PROPERTIES:\n"
-                              ":CREATED:  %U\n" ;; captured as property TIMESTAMP
-                              ":END:\n"
-                              ":LOGBOOK:\n"
-                              ":END:\n"
-                              "%?")
-                     :prepend t
-                     :clock-in t))
-      (add-to-list 'org-capture-templates
-                   `("ss" "Study Note" entry
-                     (file ,my-todo-org-file)
-                     ,(concat "* %^{DESCRIPTION} :study:%^g\n"
-                              ":PROPERTIES:\n"
-                              ":CREATED:  %U\n" ;; captured as property TIMESTAMP
-                              ":END:\n"
-                              ":LOGBOOK:\n"
-                              ":END:\n"
-                              "%?")))
-      (add-to-list 'org-capture-templates
-                   `("nn" "Note, unscheduled TODO entry." entry
-                     (file ,my-todo-org-file)
-                     ,(concat "* TODO %^{DESCRIPTION} %^g \n"
-                              "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))\n"
-                              ":PROPERTIES:\n"
-                              ":CREATED:  %U\n" ;; captured as property TIMESTAMP
-                              ":END:\n"
-                              ":LOGBOOK:\n"
-                              ":END:\n"
-                              "%?")))
-      (add-to-list 'org-capture-templates
-                   `("tt" "Task, General scheduled TODO entry." entry
-                     (file ,my-todo-org-file)
-                     ,(concat "* TODO [%] %^{DESCRIPTION} %^g \n"
-                              "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))\n"
-                              ":PROPERTIES:\n"
-                              ":CREATED:  %U\n" ;; captured as property TIMESTAMP
-                              ":END:\n"
-                              ":LOGBOOK:\n"
-                              ":END:\n"
-                              ;; "%(with-temp-buffer (insert-file-contents (f-join user-emacs-directory \"templates\" \"todo-guide.org\")) (buffer-string))\n"
-                              "%?")))))
-  ;; when inserting a heading immediately go into insert mode
-  ;; (when (boundp 'my-journal-org-file)
-  ;;   (add-to-list 'org-capture-templates
-  ;;                `("j" "Journal Entry" entry
-  ;;                  (file ,my-journal-org-file)
-  ;;                  "* %U\n%?")
-  ;; (when (boundp 'my-daydream-org-file)
-  ;;   (add-to-list 'org-capture-templates
-  ;;                `("d" "Daydream Entry" entry
-  ;;                  (file ,my-daydream-org-file)
-  ;;                  "* %? \n %U"))
+      (setq org-capture-templates
+            (doct-add-to org-capture-templates
+                         '(("Immediate Clock"
+                            :type entry
+                            :keys "ii"
+                            :file my-todo-org-file
+                            :clock-in t
+                            :prepend t
+                            :template
+                            ("* %^{DESCRIPTION} %^g"
+                             ":PROPERTIES:"
+                             ":CREATED:  %U" ;; timestamp
+                             ":END:"
+                             "%?"))
+                           ("Study Note"
+                            :type entry
+                            :keys "ss"
+                            :file my-todo-org-file
+                            :prepend t
+                            :clock-in t
+                            :template
+                            ("* %^{DESCRIPTION} %^g"
+                             ":PROPERTIES:"
+                             ":CREATED:  %U" ;; captured as property TIMESTAMP
+                             ":END:"
+                             "%?"))
+                           ("Note, unscheduled TODO entry"
+                            :type entry
+                            :keys "nn"
+                            :file my-todo-org-file
+                            :template
+                            ("* TODO %^{DESCRIPTION} %^g"
+                             "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))"
+                             ":PROPERTIES:"
+                             ":CREATED:  %U" ;; captured as property TIMESTAMP
+                             ":END:"
+                             ":LOGBOOK:"
+                             ":END:"
+                             "%?"))
+                           ("Task, General scheduled TODO entry."
+                            :type entry
+                            :keys "tt"
+                            :file my-todo-org-file
+                            :template
+                            ("* TODO [%] %^{DESCRIPTION} %^g"
+                             "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))"
+                             ":PROPERTIES:"
+                             ":CREATED:  %U" ;; captured as property TIMESTAMP
+                             ":END:"
+                             ":LOGBOOK:"
+                             ":END:"
+                             ;; "%(with-temp-buffer (insert-file-contents (f-join user-emacs-directory \"templates\" \"todo-guide.org\")) (buffer-string))"
+                             "%?")))))))
 #+end_src
 
 *** Doct Org Capture Templates
