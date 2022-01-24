@@ -1708,9 +1708,10 @@ For some reason we can't do this in the scratch buffer
 #+end_src
 
 *** Super agenda
+https://github.com/alphapapa/org-super-agenda
+
 #+begin_src emacs-lisp :results output silent
   (use-package org-super-agenda
-    :disabled t
     :straight t
     :commands org-super-agenda-mode
     :hook (org-agenda-mode-hook . org-super-agenda-mode)
@@ -1720,19 +1721,16 @@ For some reason we can't do this in the scratch buffer
      "g T" nil)
     :custom
     (org-super-agenda-groups
-     '((:name "Ongoing Work. Try to keep this set small."
-        :todo "ONGOING")
-       (:name "Blocked Work. Try not to stall too long."
-        :todo "BLOCKED")
-       (:name "Office Work"
-        :tag "work")
-       (:name "School Work"
-        :tag "school")
-       (:name "Personal Work"
-        :tag "personal"
-        :and (:not (:habit t)))
-       (:name "Habits"
-        :habit t)))
+     '((:auto-todo t)))
+     ;; '((:name "Blockers"
+     ;;    :todo "WAIT")
+     ;;   (:name "To Do"
+     ;;    :todo "TODO")))
+       ;; (:name "Personal Work"
+       ;;  :tag "personal"
+       ;;  :and (:not (:habit t)))
+       ;; (:name "Habits"
+       ;;  :habit t)))
     ;; (:name "Unscheduled Work"
     ;;  :not (:scheduled t))))
     :config
