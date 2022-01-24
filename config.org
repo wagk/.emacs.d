@@ -1682,15 +1682,15 @@ For some reason we can't do this in the scratch buffer
                           (org-get-cursor-date (equal with-time 1)))
                       (call-interactively 'my-counsel-org-capture))))
     (advice-add 'org-agenda-clock-in :after 'org-agenda-goto)
-    (when (and (boundp 'config-local-syncthing-folder)
-               (f-exists-p my-notes-folder))
-      (require 'dash) ;; -concat
-      (customize-set-variable
-       'org-agenda-files
-       (-concat org-agenda-files
-                `(,my-text-raw-folder
-                  ,my-todo-org-file
-                  ,(f-join config-local-syncthing-folder "mobile.org")))))
+    ;; (when (and (boundp 'config-local-syncthing-folder)
+    ;;            (f-exists-p my-notes-folder))
+    ;;   (require 'dash) ;; -concat
+    ;;   (customize-set-variable
+    ;;    'org-agenda-files
+    ;;    (-concat org-agenda-files
+    ;;             `(,my-text-raw-folder
+    ;;               ,my-todo-org-file
+    ;;               ,(f-join config-local-syncthing-folder "mobile.org")))))
     ;; (-concat org-agenda-files
     ;;          (directory-files-recursively
     ;;           (f-join my-notes-folder "raw")
@@ -2083,6 +2083,7 @@ TODO: a function to go to the index file.
     (evil-ex-define-cmd "tomorrow"  #'--org-roam-dailies-tomorrow)
     (evil-ex-define-cmd "tmr"       #'--org-roam-dailies-tomorrow)
     (evil-ex-define-cmd "jn"        #'--org-roam-dailies-tomorrow)
+
     :config
     (require 'org-roam-dailies)
     (add-to-list 'display-buffer-alist '("\\*org-roam\\*" . (display-buffer-same-window . nil)))
