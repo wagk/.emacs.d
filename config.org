@@ -1738,6 +1738,7 @@ For some reason we can't do this in the scratch buffer
 *** Super agenda
 #+begin_src emacs-lisp :results output silent
   (use-package org-super-agenda
+    :disabled t
     :straight t
     :commands org-super-agenda-mode
     :hook (org-agenda-mode-hook . org-super-agenda-mode)
