@@ -1647,6 +1647,8 @@ Interesting Text Objects:
 #+end_src
 
 *** Doct Org Capture Templates
+https://github.com/progfolio/doct
+
 #+begin_src emacs-lisp :results output silent
   (use-package doct
     :straight (:host github :repo "progfolio/doct")
