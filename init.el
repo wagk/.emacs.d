@@ -891,10 +891,12 @@ we're adding a custom function for it here."
                 (message "Init in %.06f seconds."
                          (float-time (time-since my-init-start-time)))) 50))
 
-(if-let ((repositories (bound-and-true-p --org-roam-repository-list))
-         (default-repo (car repositories)))
-    (find-file (f-join default-repo "index.org"))
-  (scratch 'org-mode))
+(org-agenda-list)
+
+;; (if-let ((repositories (bound-and-true-p --org-roam-repository-list))
+;;          (default-repo (car repositories)))
+;;     (find-file (f-join default-repo "index.org"))
+;;   (scratch 'org-mode))
 
 
 (message "Configuration complete.")
