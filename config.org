@@ -1519,6 +1519,7 @@ Interesting Text Objects:
       (if (featurep 'counsel-projectile)
           (counsel-projectile-org-capture)
         (counsel-org-capture)))
+    (evil-ex-define-cmd "cc" 'counsel-org-capture)
     :config
     (with-eval-after-load 'counsel
       ;; Remove ^ prefix in ivy org capture
