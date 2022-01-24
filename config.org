@@ -1672,7 +1672,11 @@ For some reason we can't do this in the scratch buffer
      "g T" nil
      ;; Seems to be an unhandled case by evil-org
      "RET" 'org-agenda-switch-to
-     [remap evil-write] 'org-save-all-org-buffers)
+     [remap evil-write] 'org-save-all-org-buffers
+     [remap evil-save-modified-and-close] #'(lambda ()
+                                              (interactive)
+                                              (org-save-all-org-buffers)
+                                              (org-agenda-quit)))
     :init
     (evil-ex-define-cmd "ag[enda]" 'org-agenda)
     (evil-ex-define-cmd "things" 'org-agenda)
