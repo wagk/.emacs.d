@@ -1,6 +1,6 @@
 *.el#
-**.elc
-**.log
+*.elc
+*.log
 *~
 .#*
 local.el
