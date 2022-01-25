@@ -1538,87 +1538,51 @@ https://github.com/progfolio/doct
                                        ivy-initial-inputs-alist)))
     (setq org-capture-templates
           (doct-add-to org-capture-templates
-                       '(("Clock Item"
-                          :keys "cc"
-                          :type item
+                       '(("Clock"
+                          :keys "c"
                           :clock t
-                          :prepend t
-                          ;; leaving template to nil adds a backlink to the
-                          ;; parent item (probaby because it's the currently
-                          ;; clocked task). Interesting
-                          :template "%?"
-                          :clock-resume t)
-                         ("Current Clock"
-                          :keys "ct"
-                          :type entry
-                          :clock t
-                          :prepend t
-                          ;; leaving template to nil adds a backlink to the
-                          ;; parent item (probaby because it's the currently
-                          ;; clocked task). Interesting
-                          :template "* TODO %?"
-                          :clock-resume t)
-                         ("Note Clock"
-                          :keys "cn"
-                          :type entry
-                          :clock t
-                          :prepend t
-                          :template "* %?"
-                          :clock-resume t))))
+                          :clock-resume t
+                          :children
+                          (("Item"
+                            :keys "item"
+                            :type item
+                            :template "%?")
+                           (:group "Entries"
+                            :type entry
+                            :template "* %{todo-state} %? %^g"
+                            :children
+                            (("To Do"
+                              :keys "todo"
+                              :todo-state "TODO")
+                             ("Note"
+                              :keys "note"
+                              :todo-state ""))))))))
     (when (boundp 'my-todo-org-file)
       (setq org-capture-templates
             (doct-add-to org-capture-templates
-                         '(("Immediate Clock"
+                         '((:group "Things"
                             :type entry
-                            :keys "ii"
-                            :file my-todo-org-file
-                            :clock-in t
-                            :prepend t
-                            :template
-                            ("* %^{DESCRIPTION} %^g"
-                             ":PROPERTIES:"
-                             ":CREATED:  %U" ;; timestamp
-                             ":END:"
-                             "%?"))
-                           ("Study Note"
-                            :type entry
-                            :keys "ss"
-                            :file my-todo-org-file
-                            :prepend t
-                            :clock-in t
-                            :template
-                            ("* %^{DESCRIPTION} %^g"
-                             ":PROPERTIES:"
-                             ":CREATED:  %U" ;; captured as property TIMESTAMP
-                             ":END:"
-                             "%?"))
-                           ("Note, unscheduled TODO entry"
-                            :type entry
-                            :keys "nn"
                             :file my-todo-org-file
                             :template
-                            ("* TODO %^{DESCRIPTION} %^g"
-                             "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))"
+                            ("* %{todo-state} %^{DESCRIPTION} %^g"
+                             ;; "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))"
                              ":PROPERTIES:"
-                             ":CREATED:  %U" ;; captured as property TIMESTAMP
+                             ":CREATED:  %u" ;; captured as property TIMESTAMP
                              ":END:"
                              ":LOGBOOK:"
                              ":END:"
-                             "%?"))
-                           ("Task, General scheduled TODO entry."
-                            :type entry
-                            :keys "tt"
-                            :file my-todo-org-file
-                            :template
-                            ("* TODO [%] %^{DESCRIPTION} %^g"
-                             "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))"
-                             ":PROPERTIES:"
-                             ":CREATED:  %U" ;; captured as property TIMESTAMP
-                             ":END:"
-                             ":LOGBOOK:"
-                             ":END:"
+                             "%?")
                              ;; "%(with-temp-buffer (insert-file-contents (f-join user-emacs-directory \"templates\" \"todo-guide.org\")) (buffer-string))"
-                             "%?")))))))
+                            :children
+                            (("To Do"
+                              :keys "todo"
+                              :todo-state "TODO")
+                             ("Done"
+                              :keys "done"
+                              :todo-state "DONE")
+                             ("In Waiting"
+                              :keys "waiting"
+                              :todo-state "WAIT"))))))))
 #+end_src
 
 ** Org Agenda
