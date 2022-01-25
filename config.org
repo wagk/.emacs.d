@@ -2529,7 +2529,6 @@ up, on windows at least).
     (magit-todos-list ivy-magit-todos)
     :init
     (with-eval-after-load 'ivy
-      (evil-ex-define-cmd "todo" 'magit-todos-list)
       (evil-ex-define-cmd "tt" 'magit-todos-list)
       ;; (general-with-eval-after-load 'counsel
       (general-define-key
