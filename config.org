@@ -1631,7 +1631,7 @@ For some reason we can't do this in the scratch buffer
     (evil-org-agenda-set-keys)
     (with-eval-after-load 'tab-bar
       (general-define-key
-       :keymap org-agenda-mode-map
+       :keymaps 'org-agenda-mode-map
        :states '(motion)
        "g t" 'tab-bar-switch-to-next-tab
        "g T" 'tab-bar-switch-to-prev-tab))
