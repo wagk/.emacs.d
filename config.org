@@ -1668,7 +1668,14 @@ For some reason we can't do this in the scratch buffer
                                 (tab-bar-new-tab)
                               (require 'eyebrowse)
                               (my-new-evil-tab nil))
-                            (funcall-interactively #'org-agenda-list))))
+                            (funcall-interactively #'org-agenda-list)))
+    ;; override `org-agenda-diary-entry' to use `org-roam'
+    (general-define-key
+       :keymaps 'org-agenda-mode-map
+       :states '(motion)
+       "i" #'(lambda () (interactive)
+               (require 'org-roam)
+               (--org-roam-dailies-today))))
 #+end_src
 
 *** Super agenda
