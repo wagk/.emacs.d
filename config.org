@@ -1942,7 +1942,6 @@ https://www.nongnu.org/org-edna-el/
 #+end_src
 
 ** Org Roam
-TODO: a function to go to the index file.
 #+begin_src emacs-lisp :results output silent
   (setq org-roam-v2-ack t)
 #+end_src
