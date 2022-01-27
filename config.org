@@ -1622,7 +1622,7 @@ For some reason we can't do this in the scratch buffer
     (org-agenda-skip-unavailable-files t)
     (org-agenda-time-leading-zero t)
     (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t%s %?b")
-                                (todo . " %i %-12:c")
+                                (todo . " %i %-12:c%?-12b")
                                 (tags . " %i %-12:c")
                                 (search . " %i %-12:c")))
     (org-agenda-breadcrumbs-separator "/")
