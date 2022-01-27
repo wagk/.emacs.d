@@ -1616,6 +1616,7 @@ For some reason we can't do this in the scratch buffer
     (evil-ex-define-cmd "ag[enda]" 'org-agenda)
     (evil-ex-define-cmd "things" 'org-agenda)
     :custom
+    (org-agenda-start-day "-1d")
     (org-agenda-span 'month)
     (org-agenda-window-setup 'current-window)
     (org-agenda-skip-unavailable-files t)
