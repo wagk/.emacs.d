@@ -1600,7 +1600,7 @@ For some reason we can't do this in the scratch buffer
                org-agenda)
     :general
     (:states 'motion
-     "|" 'org-agenda-list)
+     "|" 'org-agenda)
     (:keymaps 'org-agenda-keymap
      :states '(normal motion)
      "g t" nil
@@ -1663,8 +1663,8 @@ For some reason we can't do this in the scratch buffer
     ;;          (directory-files-recursively
     ;;           (f-join my-notes-folder "raw")
     ;;           "\.org$"))))
-    (my-evil-define-split-vsplit-cmd "agenda" #'org-agenda)
-    (my-evil-define-split-vsplit-cmd "aa" #'org-agenda)
+    (my-evil-define-split-vsplit-cmd "todo" #'org-todo-list)
+    (my-evil-define-split-vsplit-cmd "agenda" #'org-agenda-list)
     (evil-ex-define-cmd "Tag[enda]"
                         #'(lambda () (interactive)
                             ;; TODO: unify this implementation with my-new-cmd-tab
