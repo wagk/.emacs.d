@@ -4051,7 +4051,30 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     (beancount-mode-hook . outline-minor-mode)
     :config
     (with-eval-after-load 'org-src
-      (cl-pushnew '("beancount" . beancount) org-src-lang-modes)))
+      (cl-pushnew '("beancount" . beancount) org-src-lang-modes))
+    ;; TODO: Add more from
+    ;; `https://beancount.github.io/docs/beancount_language_syntax.html`
+    (with-eval-after-load 'org-capture
+      (setq org-capture-templates
+            (doct-add-to
+             org-capture-templates
+             '((:group "Beancount"
+                :contexts (:in-mode "beancount-mode")
+                :type plain
+                :file --beancount-ledger
+                :today (lambda () (format-time-string "%Y-%m-%d"))
+                :empty-lines 1
+                :children
+                (("Open new account"
+                  :keys "open"
+                  :template
+                  ("%{today} open %? %^{CURRENCY}"))
+                 ("New transaction (Today)"
+                  :keys "txn"
+                  :template
+                  ("%{today} * \"%^{VENDOR}\" \"%^{PURCHASE}\""
+                   "  %?")))))))))
+
     ;; :general
     ;; (beancount-mode-map
     ;;  :states '(normal motion insert)
