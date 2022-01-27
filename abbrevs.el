@@ -316,6 +316,7 @@
     ("initalized" "initialized" nil :count 1)
     ("innovatino" "innovation" nil :count 1)
     ("inot" "into" nil :count 2)
+    ("insecrue" "insecure" nil :count 1)
     ("insidek" "inside" nil :count 1)
     ("installatino" "installation" nil :count 1)
     ("instruciton" "instruction" nil :count 3)
