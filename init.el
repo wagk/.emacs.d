@@ -670,7 +670,7 @@ we're adding a custom function for it here."
     (org-return-follows-link t)
     ;; (org-todo-keywords '((sequence "TODO(t)" "ONGOING(o)" "BLOCKED(b@)"
     ;;                                "|" "DONE(d@)" "SKIPPED(s@)")))
-    (org-todo-keywords '((sequence "TODO(t)" "WAIT(w@)" "|" "DONE(d)")))
+    (org-todo-keywords '((sequence "TODO(t)" "WAIT(w@)" "|" "DONE(d!/@)")))
     (org-enforce-todo-checkbox-dependencies
      nil "Sometimes we are able to skip dependencies as things happen")
     (org-enforce-todo-dependencies
