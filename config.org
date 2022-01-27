@@ -1541,6 +1541,7 @@ https://github.com/progfolio/doct
           (doct-add-to org-capture-templates
                        '(("Clock"
                           :keys "c"
+                          :empty-lines 1
                           :clock t
                           :clock-resume t
                           :children
@@ -1557,18 +1558,19 @@ https://github.com/progfolio/doct
                               :todo-state "TODO")
                              ("Note"
                               :keys "note"
-                              :todo-state ""))))))))
+                              :todo-state nil))))))))
     (when (boundp 'my-todo-org-file)
       (setq org-capture-templates
             (doct-add-to org-capture-templates
                          '((:group "Things"
                             :type entry
                             :file my-todo-org-file
+                            :empty-lines 1
                             :template
                             ("* %{todo-state} %^{DESCRIPTION} %^g"
                              ;; "SCHEDULED: %(org-insert-time-stamp (org-read-date nil t))"
                              ":PROPERTIES:"
-                             ":CREATED:  %u" ;; captured as property TIMESTAMP
+                             ":CREATED:  %t" ;; captured as property TIMESTAMP
                              ":END:"
                              ":LOGBOOK:"
                              ":END:"
