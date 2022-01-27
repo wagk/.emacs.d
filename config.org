@@ -4047,6 +4047,8 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     :general
     (beancount-mode-map
      "M-RET" #'my-beancount-insert-date)
+    :hook
+    (beancount-mode-hook . outline-minor-mode)
     :config
     (with-eval-after-load 'org-src
       (cl-pushnew '("beancount" . beancount) org-src-lang-modes)))
