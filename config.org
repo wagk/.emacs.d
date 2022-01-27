@@ -1605,6 +1605,7 @@ For some reason we can't do this in the scratch buffer
      :states '(normal motion)
      "g t" nil
      "g T" nil
+     "g l" 'org-agenda-log-mode
      ;; Seems to be an unhandled case by evil-org
      "RET" 'org-agenda-switch-to
      [remap evil-write] 'org-save-all-org-buffers
@@ -1616,6 +1617,8 @@ For some reason we can't do this in the scratch buffer
     (evil-ex-define-cmd "ag[enda]" 'org-agenda)
     (evil-ex-define-cmd "things" 'org-agenda)
     :custom
+    (org-agenda-start-with-log-mode nil "Use `g l' instead")
+    (org-agenda-log-mode-items '(closed clock state))
     (org-agenda-start-day "-1d")
     (org-agenda-span 'month)
     (org-agenda-window-setup 'current-window)
