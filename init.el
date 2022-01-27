@@ -681,7 +681,9 @@ we're adding a custom function for it here."
     (org-hide-emphasis-markers t "Try org-appear")
     ;; (org-log-done 'time)
     (org-log-done nil)
-    (org-log-note-clock-out t)
+    (org-log-note-clock-out
+     ;; t
+     nil "I don't think I clock out at good times usually")
     (org-log-redeadline 'time)
     (org-log-reschedule 'time)
     (org-blank-before-new-entry '((heading . t)
