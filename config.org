@@ -1520,7 +1520,8 @@ https://github.com/progfolio/doct
     ;;   (interactive)
     ;;   (org-capture nil "d")
     ;; (evil-ex-define-cmd "todo" 'my-capture-daydream)
-    :hook (org-capture-mode-hook . evil-insert-state)
+    :hook ((org-capture-mode-hook . evil-insert-state)
+           (org-capture-after-finalize-hook . org-align-all-tags))
     :init
     (defun my-counsel-org-capture ()
       (require 'org-capture)
