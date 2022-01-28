@@ -4046,14 +4046,6 @@ It's a minor mode, much like how magit's commit mode is a minor mode
       (interactive)
       (unless (bolp) (newline)) ;; `beancount-insert-date' does this
       (insert (org-read-date) " "))
-    :general
-    (beancount-mode-map
-     "M-RET" #'my-beancount-insert-date)
-    :hook
-    (beancount-mode-hook . outline-minor-mode)
-    :config
-    (with-eval-after-load 'org-src
-      (cl-pushnew '("beancount" . beancount) org-src-lang-modes))
     ;; TODO: Add more from
     ;; `https://beancount.github.io/docs/beancount_language_syntax.html`
     (with-eval-after-load 'org-capture
@@ -4075,8 +4067,19 @@ It's a minor mode, much like how magit's commit mode is a minor mode
                   :keys "txn"
                   :template
                   ("%{today} * \"%^{VENDOR}\" \"%^{PURCHASE}\""
-                   "  %?")))))))))
-
+                   "  %?"))))))))
+    (my-evil-define-split-vsplit-cmd
+     "ledger"
+     #'(lambda () (interactive)
+         (find-file --default-ledger-file)))
+    :general
+    (beancount-mode-map
+     "M-RET" #'my-beancount-insert-date)
+    :hook
+    (beancount-mode-hook . outline-minor-mode)
+    :config
+    (with-eval-after-load 'org-src
+      (cl-pushnew '("beancount" . beancount) org-src-lang-modes)))
     ;; :general
     ;; (beancount-mode-map
     ;;  :states '(normal motion insert)
