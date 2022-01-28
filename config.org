@@ -4015,6 +4015,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 * Ledger                                                              :major:
 #+begin_src emacs-lisp :results output silent
   (use-package ledger-mode
+    :disabled t
     :mode "\\.ledger\\'"
     :straight (:host github :repo "ledger/ledger-mode"
                :files (:defaults "ledger-test.el"))
@@ -4026,6 +4027,7 @@ You can consider =artist-mode= a featurewise superset of =picture-mode=.
 ** Evil-ledger
 #+begin_src emacs-lisp :results output silent
   (use-package evil-ledger
+    :disabled t
     :straight (:host github :repo "atheriel/evil-ledger")
     :after (ledger-mode))
 #+end_src
@@ -4035,7 +4037,8 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 #+begin_src emacs-lisp :results output silent
   (use-package beancount
     :straight (:host github :repo "beancount/beancount-mode")
-    :mode ("\\.beancount\\'" . beancount-mode)
+    :mode (("\\.beancount\\'" . beancount-mode)
+           ("\\.ledger\\'" . beancount-mode))
     :init
     (defun my-beancount-insert-date ()
       "Does the same thing as `beancount-insert-date', but uses
@@ -4086,8 +4089,9 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 * Hledger                                                             :major:
 #+begin_src emacs-lisp :results output silent
   (use-package hledger-mode
+    :disabled t
     :straight (:host github :repo "narendraj9/hledger-mode")
-    :mode "\\.journal\\'")
+    :mode "\\.ledger\\'")
 #+end_src
 
 * Abbreviations
