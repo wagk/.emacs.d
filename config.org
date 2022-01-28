@@ -4053,11 +4053,10 @@ It's a minor mode, much like how magit's commit mode is a minor mode
             (doct-add-to
              org-capture-templates
              '((:group "Beancount"
-                :contexts (:in-mode "beancount-mode")
+                ;; :contexts (:in-mode "beancount-mode")
                 :type plain
-                :file --beancount-ledger
+                :file --default-ledger-file
                 :today (lambda () (format-time-string "%Y-%m-%d"))
-                :empty-lines 1
                 :children
                 (("Open new account"
                   :keys "open"
