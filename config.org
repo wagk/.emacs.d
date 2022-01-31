@@ -4057,7 +4057,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
                 :type plain
                 :file --default-ledger-file
                 :unnarrowed t ;; critical for completion to function
-                :empty-lines-after 1
+                :empty-lines-before 1
                 :today (lambda () (format-time-string "%Y-%m-%d"))
                 :children
                 (("Open new account"
