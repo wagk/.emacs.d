@@ -2319,6 +2319,12 @@ is)
      org-ql-sparse-tree))
 #+end_src
 
+Use the following query to find all todo items that are overdue
+
+#+begin_src emacs-lisp :results output silent
+(org-ql-search (org-agenda-files) '(and (todo) (scheduled :to -1)))
+#+end_src
+
 * hl-todo
 #+begin_src emacs-lisp :results output silent
   (use-package hl-todo
