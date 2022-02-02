@@ -1971,8 +1971,12 @@ https://www.nongnu.org/org-edna-el/
      "n o"   #'org-id-get-create
      "n r"   #'org-roam-refile
      "n s"   #'(lambda () (interactive)
-                 (org-roam-update-org-id-locations)
-                 (org-roam-db-sync))
+                 (condition-case nil
+                     (org-roam-db-sync)
+                   (error
+                    (condition-case nil
+                      (org-roam-db-sync))))
+                 (org-roam-update-org-id-locations))
      "n t"   #'org-roam-tag-add)
     :init
     (when (bound-and-true-p --org-roam-repository-list)
