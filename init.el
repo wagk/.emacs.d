@@ -703,8 +703,8 @@ we're adding a custom function for it here."
     (org-adapt-indentation nil "Maintaining indentation for org-files
     looks annoying when editing it as a plain text file")
     ;; (org-list-indent-offset 1)
-    ;; (org-extend-today-until
-    ;;  5 "I think 5 am is a safe bet for the end of the day")
+    (org-extend-today-until
+     5 "I think 5 am is a safe bet for the end of the day")
     (org-note-done 'note)
     :hook ((org-insert-heading-hook . evil-insert-state))
     :init
