@@ -4081,27 +4081,28 @@ It's a minor mode, much like how magit's commit mode is a minor mode
       (insert (org-read-date) " "))
     ;; TODO: Add more from
     ;; `https://beancount.github.io/docs/beancount_language_syntax.html`
-    (with-eval-after-load 'org-capture
-      (setq org-capture-templates
-            (doct-add-to
-             org-capture-templates
-             '((:group "Beancount"
-                ;; :contexts (:in-mode "beancount-mode")
-                :type plain
-                :file --default-ledger-file
-                :unnarrowed t ;; critical for completion to function
-                :empty-lines-before 1
-                :today (lambda () (format-time-string "%Y-%m-%d"))
-                :children
-                (("Open new account"
-                  :keys "open"
-                  :template
-                  ("%{today} open %? %^{CURRENCY}"))
-                 ("New transaction (Today)"
-                  :keys "txn"
-                  :template
-                  ("%{today} * \"%^{VENDOR}\" \"%^{PURCHASE}\""
-                   "  %?"))))))))
+    (when (bound-and-true-p --default-ledger-file)
+      (with-eval-after-load 'org-capture
+        (setq org-capture-templates
+              (doct-add-to
+               org-capture-templates
+               '((:group "Beancount"
+                  ;; :contexts (:in-mode "beancount-mode")
+                  :type plain
+                  :file --default-ledger-file
+                  :unnarrowed t ;; critical for completion to function
+                  :empty-lines-before 1
+                  :today (lambda () (format-time-string "%Y-%m-%d"))
+                  :children
+                  (("Open new account"
+                    :keys "open"
+                    :template
+                    ("%{today} open %? %^{CURRENCY}"))
+                   ("New transaction (Today)"
+                    :keys "txn"
+                    :template
+                    ("%{today} * \"%^{VENDOR}\" \"%^{PURCHASE}\""
+                     "  %?")))))))))
     (my-evil-define-split-vsplit-cmd
      "ledger"
      #'(lambda () (interactive)
