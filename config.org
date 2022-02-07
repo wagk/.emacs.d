@@ -877,6 +877,15 @@ for the specific hook.
   (customize-set-value 'fill-column 80)
 #+end_src
 
+** Move Auto-Save files into directory
+#+begin_src emacs-lisp :results output silent
+  (let ((dir (f-join no-littering-etc-directory "auto-save/")))
+    (unless (f-exists-p dir)
+      (f-mkdir dir))
+    (add-to-list 'auto-save-file-name-transforms
+                `(".*" ,dir t)))
+#+end_src
+
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
   (use-package apropos
