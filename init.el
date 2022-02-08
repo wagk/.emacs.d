@@ -750,6 +750,9 @@ we're adding a custom function for it here."
   ;; straight, and emacs' built-in org is horrendous and causing the
   ;; :config code to just not run
   (with-eval-after-load 'org
+    (with-eval-after-load 'org-persist
+      (customize-set-value 'org-persist-directory
+                           (f-join no-littering-var-directory "org-persist/")))
     (defun my-org-convert-list-to-checkbox ()
       (when (and (org-at-item-p)
                  (not (org-at-item-checkbox-p)))
