@@ -4095,23 +4095,39 @@ It's a minor mode, much like how magit's commit mode is a minor mode
         (setq org-capture-templates
               (doct-add-to
                org-capture-templates
-               '((:group "Beancount"
+               '(("Beancount"
+                  :keys "bean"
                   ;; :contexts (:in-mode "beancount-mode")
                   :type plain
                   :file --default-ledger-file
                   :unnarrowed t ;; critical for completion to function
                   :empty-lines-before 1
-                  :today (lambda () (format-time-string "%Y-%m-%d"))
                   :children
-                  (("Open new account"
-                    :keys "open"
-                    :template
-                    ("%{today} open %? %^{CURRENCY}"))
-                   ("New transaction (Today)"
-                    :keys "txn"
-                    :template
-                    ("%{today} * \"%^{VENDOR}\" \"%^{PURCHASE}\""
-                     "  %?")))))))))
+                  (("Today"
+                    :keys "today"
+                    :children
+                    (("Open new account"
+                      :keys "open"
+                      :template
+                      ("%<%Y-%m-%d> open %? %^{CURRENCY}"))
+                     ("Transaction"
+                      :keys "tx"
+                      :template
+                      ("%<%Y-%m-%d> * \"%^{VENDOR}\" \"%^{PURCHASE}\""
+                       "  %?"))))
+                   ("On Date"
+                    :keys "date"
+                    :date (lambda () (org-read-date))
+                    :children
+                    (("Open new account"
+                      :keys "open"
+                      :template
+                      ("%{date} open %? %^{CURRENCY}"))
+                     ("Transaction"
+                      :keys "tx"
+                      :template
+                      ("%{date} * \"%^{VENDOR}\" \"%^{PURCHASE}\""
+                       "  %?")))))))))))
     (my-evil-define-split-vsplit-cmd
      "ledger"
      #'(lambda () (interactive)
