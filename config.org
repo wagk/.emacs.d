@@ -2340,7 +2340,7 @@ is)
 Use the following query to find all todo items that are overdue
 
 #+begin_src emacs-lisp :results output silent
-(org-ql-search (org-agenda-files) '(and (todo) (scheduled :to -1)))
+;; (org-ql-search (org-agenda-files) '(and (todo) (scheduled :to -1)))
 #+end_src
 
 * hl-todo
