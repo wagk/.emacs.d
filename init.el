@@ -390,7 +390,6 @@ barely perceptible.")
   ;; NOTE: reddit notes that there might still be some history
   ;; corruption?
   (use-package undo-tree
-    :disabled t
     :straight t
     :custom
     (undo-tree-visualizer-diff t)
@@ -442,10 +441,11 @@ barely perceptible.")
     ;;  "e"      'my-evil-a-buffer)
     :custom
     ;; (evil-undo-system (if (featurep 'undo-tree) 'undo-tree 'undo-redo))
-    (evil-undo-system (cond
-                       ((featurep 'undo-tree) 'undo-tree)
-                       ((>= emacs-major-version 28) 'undo-redo)
-                       (t nil)))
+    ;; (evil-undo-system (cond
+    ;;                    ((featurep 'undo-tree) 'undo-tree)
+    ;;                    ((>= emacs-major-version 28) 'undo-redo)
+    ;;                    (t nil)))
+    (evil-undo-system 'undo-tree)
     ;; (evil-undo-system (if (>= 28 emacs-major-version)
     ;;                       'undo-redo
     ;;                     (require 'undo-fu)
