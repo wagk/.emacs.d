@@ -764,6 +764,7 @@ we're adding a custom function for it here."
                     (run-hook-with-args-until-success
                      'org-ctrl-c-ctrl-c-final-hook)))
     (with-eval-after-load 'evil
+      (advice-add 'org-add-note :after #'evil-insert-state)
       ;; NOTE: define our own hacked evil-fill and evil-fill-and-move
       ;; so it will work on list items
       (evil-define-operator my-org-evil-fill (beg end)
