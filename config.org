@@ -6129,6 +6129,7 @@ the packages I run use dabbrev at all.
 * code-review
 #+begin_src emacs-lisp :results output silent
   (use-package code-review
+    :disabled t
     :straight (:host github :repo "wandersoncferreira/code-review"))
 #+end_src
 
