@@ -1557,6 +1557,21 @@ https://github.com/progfolio/doct
       (customize-set-variable 'ivy-initial-inputs-alist
                               (-remove (lambda (e) (eq (car e) 'counsel-org-capture))
                                        ivy-initial-inputs-alist)))
+    (defun --select-org-agenda-file ()
+      (require 'org-agenda)
+      (let ((targets
+              (->> org-agenda-files
+                  (-map-when
+                    #'f-directory-p
+                    #'(lambda (dir)
+                        (f-files dir
+                                (lambda (file)
+                                  (string-equal (f-ext file) "org")))))
+                  (-flatten))))
+        (ivy-read "Capture target: "
+                  targets
+                  :require-match t
+                  :preselect "todo")))
     (setq org-capture-templates
           (doct-add-to
            org-capture-templates
@@ -1588,21 +1603,7 @@ https://github.com/progfolio/doct
                   :todo-state "DONE")))))
              (:group "Default"
               :type entry
-              :file (lambda ()
-                      (require 'org-agenda)
-                      (let ((targets
-                             (->> org-agenda-files
-                                  (-map-when
-                                   #'f-directory-p
-                                   #'(lambda (dir)
-                                       (f-files dir
-                                                (lambda (file)
-                                                  (string-equal (f-ext file) "org")))))
-                                  (-flatten))))
-                        (ivy-read "Capture target: "
-                                  targets
-                                  :require-match t
-                                  :preselect "todo")))
+              :file --select-org-agenda-file
               :empty-lines 1
               :template
               ("* %{todo-state} %^{DESCRIPTION} %^g"
