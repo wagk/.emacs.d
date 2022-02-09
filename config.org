@@ -1558,63 +1558,70 @@ https://github.com/progfolio/doct
                               (-remove (lambda (e) (eq (car e) 'counsel-org-capture))
                                        ivy-initial-inputs-alist)))
     (setq org-capture-templates
-          (doct-add-to org-capture-templates
-                       '(("Clock"
-                          :keys "c"
-                          :empty-lines 1
-                          :clock t
-                          :clock-resume t
-                          :children
-                          (("Item"
-                            :keys "item"
-                            :type item
-                            :template "%?")
-                           (:group "Entries"
-                            :type entry
-                            :template "* %{todo-state} %? %^g"
-                            :children
-                            (("To Do"
-                              :keys "todo"
-                              :todo-state "TODO")
-                             ("Note"
-                              :keys "note"
-                              :todo-state nil)))))
-                         (:group "Default"
-                          :type entry
-                          :file (lambda ()
-                                  (require 'org-agenda)
-                                  (let ((targets
-                                         (->> org-agenda-files
-                                              (-map-when
-                                               #'f-directory-p
-                                               #'(lambda (dir)
-                                                   (f-files dir
-                                                            (lambda (file)
-                                                              (string-equal (f-ext file) "org")))))
-                                              (-flatten))))
-                                    (ivy-read "Capture target: "
-                                              targets
-                                              :require-match t
-                                              :preselect "todo")))
-                          :empty-lines 1
-                          :template
-                          ("* %{todo-state} %^{DESCRIPTION} %^g"
-                           ":PROPERTIES:"
-                           ":CREATED:  %t" ;; captured as property TIMESTAMP
-                           ":END:"
-                           ":LOGBOOK:"
-                           ":END:"
-                           "%?")
-                          :children
-                          (("To Do"
-                            :keys "todo"
-                            :todo-state "TODO")
-                           ("Done"
-                            :keys "done"
-                            :todo-state "DONE")
-                           ("In Waiting"
-                            :keys "waiting"
-                            :todo-state "WAIT")))))))
+          (doct-add-to
+           org-capture-templates
+           '(("Clock"
+              :keys "clock"
+              :empty-lines 1
+              :clock t
+              :clock-resume t
+              :children
+              (("Item"
+                :keys "item"
+                :type item
+                :template "%?")
+               (:group "Entries"
+                :type entry
+                :template "* %{todo-state} %? %^g"
+                :children
+                (("To Do"
+                  :keys "todo"
+                  :todo-state "TODO")
+                 ("Note"
+                  :keys "note"
+                  :todo-state nil)
+                 ("Wait"
+                  :keys "wait"
+                  :todo-state "WAIT")
+                 ("Done"
+                  :keys "done"
+                  :todo-state "DONE")))))
+             (:group "Default"
+              :type entry
+              :file (lambda ()
+                      (require 'org-agenda)
+                      (let ((targets
+                             (->> org-agenda-files
+                                  (-map-when
+                                   #'f-directory-p
+                                   #'(lambda (dir)
+                                       (f-files dir
+                                                (lambda (file)
+                                                  (string-equal (f-ext file) "org")))))
+                                  (-flatten))))
+                        (ivy-read "Capture target: "
+                                  targets
+                                  :require-match t
+                                  :preselect "todo")))
+              :empty-lines 1
+              :template
+              ("* %{todo-state} %^{DESCRIPTION} %^g"
+               "%t" ;; captured as :TIMESTAMP: internally.
+               ":PROPERTIES:"
+               ":END:"
+               ":LOGBOOK:"
+               ":END:"
+               "%?")
+              :children
+              (("To Do"
+                :keys "todo"
+                :todo-state "TODO")
+               ("Done"
+                :keys "done"
+                :todo-state "DONE")
+               ("In Waiting"
+                :keys "waiting"
+                :todo-state "WAIT")))))))
 #+end_src
 
 ** Org Agenda
