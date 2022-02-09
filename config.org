@@ -2019,7 +2019,7 @@ https://www.nongnu.org/org-edna-el/
                      (org-roam-db-sync)
                    (error
                     (condition-case nil
-                      (org-roam-db-sync))))
+                        (org-roam-db-sync))))
                  (org-roam-update-org-id-locations))
      "n t"   #'org-roam-tag-add)
     :init
@@ -2133,10 +2133,10 @@ https://www.nongnu.org/org-edna-el/
       (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
     (advice-add 'org-roam-node-slug :filter-return
                 (lambda (str) (replace-regexp-in-string "_" "-" str))))
-    ;; (advice-add 'org-id-get-create
-    ;;             :after (lambda () (interactive)
-    ;;                      (when (my-buffer-in-org-roam-dir-p)
-    ;;                        (org-roam-db-sync)))))
+      ;; (advice-add 'org-id-get-create
+      ;;             :after (lambda () (interactive)
+      ;;                      (when (my-buffer-in-org-roam-dir-p)
+      ;;                        (org-roam-db-sync)))))
 #+end_src
 
 Hacks to use =emacsql-sqlite3= on windows, because =emacsql-sqlite= needs
