@@ -2023,7 +2023,7 @@ https://www.nongnu.org/org-edna-el/
       (let ((path (buffer-file-name (current-buffer))))
         (and path (f-ancestor-of? org-roam-directory path))))
 
-    (defun --on-selecting-org-roam-directory (dir)
+    (defun --on-selecting-org-roam-directory (org-roam-func dir)
       ;; it's insufficient to temporarily update org-roam-directory, as
       ;; we don't want every `org-roam' function to ask for the
       ;; directory. Updating the default state should prevent surprises
@@ -2045,12 +2045,13 @@ https://www.nongnu.org/org-edna-el/
       (require 'org-roam)
       (let ((repos (or --org-roam-repository-list `(,org-roam-directory))))
         (if (eq 1 (safe-length repos))
-            (--on-selecting-org-roam-directory (car repos))
+            (--on-selecting-org-roam-directory org-roam-func (car repos))
           (ivy-read "repo: " repos
                     ;; :initial-input org-roam-directory
                     :require-match t
                     :preselect t
-                    :action #'--on-selecting-org-roam-directory))))
+                    :action (-partial #'--on-selecting-org-roam-directory
+                                      org-roam-func)))))
 
     (defun --org-roam-find-index-file ()
       (interactive)
