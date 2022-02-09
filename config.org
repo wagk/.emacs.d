@@ -739,6 +739,15 @@ Further helper functions to add bookmarks:
       ;; don't get a new tab
                                (interactive)
                                (require 'counsel)
+                               ;; Adjusting this function to run
+                               ;; `counsel-bookmark' before opening a
+                               ;; new tab can be tricky.
+                               ;; `tab-bar-new-tab-choice' assumes that
+                               ;; a buffer will be returned, however,
+                               ;; `bookmark' does not necessarily store
+                               ;; buffers, so a translation between
+                               ;; filenames/paths to buffers must be
+                               ;; done.
                                (if (>= emacs-major-version 27)
                                    (tab-bar-new-tab)
                                 (require 'eyebrowse)
