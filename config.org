@@ -5214,6 +5214,7 @@ Doesn't seem to be working?
     :commands (lsp lsp-deferred)
     :custom
     (lsp-headerline-breadcrumb-enable t)
+    (lsp-file-watch-threshold 1500)
     :config
     ;; this is necessary since `lsp-command-map' is not autoloadable
     (general-define-key
