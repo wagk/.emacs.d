@@ -6156,8 +6156,11 @@ the packages I run use dabbrev at all.
 * code-review
 #+begin_src emacs-lisp :results output silent
   (use-package code-review
-    :disabled t
-    :straight (:host github :repo "wandersoncferreira/code-review"))
+    :straight (:host github :repo "wandersoncferreira/code-review")
+    :commands (code-review-start
+               code-review-forge-pr-at-point)
+    :config
+    (add-to-list 'evil-motion-state-modes 'code-review-mode))
 #+end_src
 
 * ObjC
