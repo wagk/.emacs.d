@@ -5827,7 +5827,7 @@ Not persistent scratch, just a custom scratch buffer
     :commands scratch
     :init
     (evil-define-command --scratch (&optional bang)
-      "Opens markdown by default, asks for mode when ! is supplied"
+      "Opens org-mode by default, asks for mode when ! is supplied"
       (interactive "<!>")
       (if bang
         (let ((current-prefix-arg 4))
