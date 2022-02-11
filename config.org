@@ -6012,7 +6012,7 @@ Not persistent scratch, just a custom scratch buffer
      devdocs-browser-download-offline-data
      devdocs-browser-remove-offline-data)
     :init
-    (evil-ex-define-cmd "dd" 'devdocs-browser-open))
+    (evil-ex-define-cmd "devdocs" 'devdocs-browser-open))
 #+end_src
 
 * Evaluation Result Overlay for Emacs Lisp
