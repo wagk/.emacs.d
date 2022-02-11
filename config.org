@@ -5958,7 +5958,7 @@ Not persistent scratch, just a custom scratch buffer
                     :action #'(lambda (file)
                                 (find-file (f-join project-dir file))))))
 
-      (evil-ex-define-cmd "readme" #'--project-find-doc))
+      (my-evil-define-split-vsplit-cmd "readme" #'--project-find-doc))
 
     (with-eval-after-load 'rg
       (general-define-key
