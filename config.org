@@ -2504,6 +2504,7 @@ when the documentation says to use prefix commands
            (git-commit-setup-hook . evil-markdown-mode)
            (git-commit-setup-hook . (lambda () (display-fill-column-indicator-mode 1))))
     :config
+    (add-to-list 'evil-motion-state-modes 'magit-mode)
     (with-eval-after-load 'magit-diff
       (general-define-key
        :keymaps 'magit-diff-mode-map
