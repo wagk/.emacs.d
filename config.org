@@ -6177,3 +6177,12 @@ the packages I run use dabbrev at all.
   (use-package typescript-mode
     :straight t)
 #+end_src
+
+* Ob-Mermaid
+#+begin_src emacs-lisp :results output silent
+  (use-package ob-mermaid
+    :after org
+    :if (and (bound-and-true-p ob-mermaid-cli-path)
+             (f-exists-p ob-mermaid-cli-path))
+    :straight t)
+#+end_src
