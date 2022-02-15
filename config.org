@@ -1078,6 +1078,7 @@ Disabled because I'm slowly turning into an Emacs citizen.
 ** Goggles
 #+begin_src emacs-lisp :results output silent
   (use-package evil-goggles
+    :disabled t
     :straight (:host github :repo "edkolev/evil-goggles")
     :commands (evil-goggles-mode)
     :init
