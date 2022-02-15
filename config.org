@@ -2473,6 +2473,7 @@ when the documentation says to use prefix commands
     :custom
     (magit-blame-echo-style 'lines)
     (magit-log-auto-more t)
+    (magit-wip-mode t)
     :custom-face
     (magit-section-heading ((((background light)) (:foreground ,sol-yellow :underline t))
                             (((background dark)) (:foreground, sol-yellow :underline t))))
