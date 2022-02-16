@@ -6185,10 +6185,10 @@ the packages I run use dabbrev at all.
 #+begin_src emacs-lisp :results output silent
   (use-package mermaid-mode
     :straight t
-    :if (and (bound-and-true-p mermaid-cli-bin)
-             (f-exists-p mermaid-cli-bin))
+    :if (and (bound-and-true-p --mermaid-cli-bin)
+             (f-exists-p --mermaid-cli-bin))
     :custom
-    (mermaid-mmdc-location mermaid-cli-bin))
+    (mermaid-mmdc-location --mermaid-cli-bin))
 #+end_src
 
 ** Ob-Mermaid
@@ -6196,8 +6196,8 @@ the packages I run use dabbrev at all.
   (use-package ob-mermaid
     :after org
     :straight t
-    :if (and (bound-and-true-p mermaid-cli-bin)
-             (f-exists-p mermaid-cli-bin))
+    :if (and (bound-and-true-p --mermaid-cli-bin)
+             (f-exists-p --mermaid-cli-bin))
     :custom
-    (ob-mermaid-cli-path mermaid-cli-bin))
+    (ob-mermaid-cli-path --mermaid-cli-bin))
 #+end_src
