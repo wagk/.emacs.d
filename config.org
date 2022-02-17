@@ -1966,6 +1966,13 @@ Needs a working =zip= exe.
    "o p" 'my-org-paste-clipboard-screenshot)
 #+end_src
 
+** Ob-async
+#+begin_src emacs-lisp :results output silent
+  (use-package ob-async
+    :straight t
+    :after org)
+#+end_src
+
 ** Org Edna
 https://www.nongnu.org/org-edna-el/
 #+begin_src emacs-lisp :results output silent
