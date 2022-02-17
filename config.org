@@ -4379,6 +4379,11 @@ the thing, because that's what vim does.
                           (dirtrack-mode 1)))))
 #+end_src
 
+** Org-babel Shell
+#+begin_src emacs-lisp :results output silent
+  (org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
+#+end_src
+
 * Groovy mode                                                         :major:
 #+begin_src emacs-lisp :results output silent
   (use-package groovy-mode
