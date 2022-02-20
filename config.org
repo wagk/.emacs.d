@@ -319,7 +319,8 @@ We're sticking to Japanese for now
     :custom
     (recentf-max-saved-items nil)
     :config
-    (evil-ex-define-cmd "recent" 'counsel-recentf))
+    (with-eval-after-load 'ivy
+      (evil-ex-define-cmd "recent" 'counsel-recentf)))
 #+end_src
 
 ** Display Fill Column Indicator
@@ -730,47 +731,49 @@ Further helper functions to add bookmarks:
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "mm" #'(lambda ()
-                              (interactive)
-                              (require 'counsel)
-                              (counsel-bookmark)))
-  (evil-ex-define-cmd "Tmm" #'(lambda ()
-      ;; TODO: have counsel-bookmark run earlier so if we cancel we
-      ;; don't get a new tab
-                               (interactive)
-                               (require 'counsel)
-                               ;; Adjusting this function to run
-                               ;; `counsel-bookmark' before opening a
-                               ;; new tab can be tricky.
-                               ;; `tab-bar-new-tab-choice' assumes that
-                               ;; a buffer will be returned, however,
-                               ;; `bookmark' does not necessarily store
-                               ;; buffers, so a translation between
-                               ;; filenames/paths to buffers must be
-                               ;; done.
-                               (if (>= emacs-major-version 27)
-                                   (tab-bar-new-tab)
-                                (require 'eyebrowse)
-                                (my-new-evil-tab nil))
-                               (funcall-interactively 'counsel-bookmark)))
-  ;; (defun my-open-bookmark-in-tab ()
-  ;;   (interactive)
-  ;;   (require 'counsel)
-  ;;   (ivy-read "Create or jump to bookmark: "
-  ;;             (bookmark-all-names)
-  ;;             :history 'bookmark-history
-  ;;             :action (lambda (x)
-  ;;                       (cond ((and counsel-bookmark-avoid-dired
-  ;;                                   (member x (bookmark-all-names))
-  ;;                                   (file-directory-p (bookmark-location x)))
-  ;;                              (with-ivy-window
-  ;;                                (let ((default-directory (bookmark-location x)))
-  ;;                                  (counsel-find-file))))
-  ;;                             ((member x (bookmark-all-names))
-  ;;                              (with-ivy-window
-  ;;                                (bookmark-jump x)))
-  ;;                             (t (bookmark-set x))))))
-  ;; (evil-ex-define-cmd "Tmm")
+  (with-eval-after-load 'ivy
+    (evil-ex-define-cmd "mm" #'(lambda ()
+                                (interactive)
+                                (require 'counsel)
+                                (counsel-bookmark)))
+    (evil-ex-define-cmd "Tmm" #'(lambda ()
+                                  ;; TODO: have counsel-bookmark run
+                                  ;; earlier so if we cancel we don't
+                                  ;; get a new tab
+                                  (interactive)
+                                  (require 'counsel)
+                                  ;; Adjusting this function to run
+                                  ;; `counsel-bookmark' before opening a
+                                  ;; new tab can be tricky.
+                                  ;; `tab-bar-new-tab-choice' assumes
+                                  ;; that a buffer will be returned,
+                                  ;; however, `bookmark' does not
+                                  ;; necessarily store buffers, so a
+                                  ;; translation between filenames/paths
+                                  ;; to buffers must be done.
+                                  (if (>= emacs-major-version 27)
+                                      (tab-bar-new-tab)
+                                    (require 'eyebrowse)
+                                    (my-new-evil-tab nil))
+                                  (funcall-interactively 'counsel-bookmark))))
+    ;; (defun my-open-bookmark-in-tab ()
+    ;;   (interactive)
+    ;;   (require 'counsel)
+    ;;   (ivy-read "Create or jump to bookmark: "
+    ;;             (bookmark-all-names)
+    ;;             :history 'bookmark-history
+    ;;             :action (lambda (x)
+    ;;                       (cond ((and counsel-bookmark-avoid-dired
+    ;;                                   (member x (bookmark-all-names))
+    ;;                                   (file-directory-p (bookmark-location x)))
+    ;;                              (with-ivy-window
+    ;;                                (let ((default-directory (bookmark-location x)))
+    ;;                                  (counsel-find-file))))
+    ;;                             ((member x (bookmark-all-names))
+    ;;                              (with-ivy-window
+    ;;                                (bookmark-jump x)))
+    ;;                             (t (bookmark-set x))))))
+    ;; (evil-ex-define-cmd "Tmm")
 #+end_src
 
 *** Bookmark Face
@@ -1416,7 +1419,8 @@ Use counsel instead
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (general-define-key "C-h b" 'counsel-descbinds)
+  (with-eval-after-load 'ivy
+    (general-define-key "C-h b" 'counsel-descbinds))
 #+end_src
 
 * Emacsql
@@ -1527,9 +1531,9 @@ https://github.com/progfolio/doct
     :commands (org-capture
                org-capture-templates)
     :general
-    (:states 'motion
-     ;; In evil it's jump to column number, which isn't that useful tbh
-     "C-|" 'my-counsel-org-capture)
+    ;; (:states 'motion
+    ;;  ;; In evil it's jump to column number, which isn't that useful tbh
+    ;;  "C-|" 'my-counsel-org-capture)
     ;; "c j" '((lambda () (interactive) (org-capture nil "j"))
     ;;         :which-key "Capture journal entry")
     ;; "c d" '((lambda () (interactive) (org-capture nil "d"))
@@ -1553,15 +1557,19 @@ https://github.com/progfolio/doct
     :custom
     (org-capture-bookmark nil)
     :init
-    (defun my-counsel-org-capture ()
-      (require 'org-capture)
-      (interactive)
-      (if (featurep 'counsel-projectile)
-          (counsel-projectile-org-capture)
-        (counsel-org-capture)))
-    (evil-ex-define-cmd "cc" 'counsel-org-capture)
+    (with-eval-after-load 'ivy
+      (general-define-key :states 'motion
+        ;; In evil it's jump to column number, which isn't that useful tbh
+        "C-|" 'my-counsel-org-capture)
+      (defun my-counsel-org-capture ()
+        (require 'org-capture)
+        (interactive)
+        (if (featurep 'counsel-projectile)
+            (counsel-projectile-org-capture)
+          (counsel-org-capture)))
+      (evil-ex-define-cmd "cc" 'counsel-org-capture))
     :config
-    (with-eval-after-load 'counsel
+    (with-eval-after-load 'ivy
       ;; Remove ^ prefix in ivy org capture
       (require 'dash)
       (customize-set-variable 'ivy-initial-inputs-alist
@@ -1578,10 +1586,9 @@ https://github.com/progfolio/doct
                                 (lambda (file)
                                   (string-equal (f-ext file) "org")))))
                   (-flatten))))
-        (ivy-read "Capture target: "
-                  targets
-                  :require-match t
-                  :preselect "todo")))
+        (completing-read "Capture target: "
+                         targets
+                         nil t "todo")))
     (setq org-capture-templates
           (doct-add-to
            org-capture-templates
@@ -1692,13 +1699,14 @@ For some reason we can't do this in the scratch buffer
     ;; except that we call `my-counsel-org-capture' instead
     ;; The timestamp feature is currently unused, though that might
     ;; change in the future
-    (advice-add 'org-agenda-capture :override
-                #'(lambda (&optional with-time)
-                    (interactive "P")
-                    (let ((org-overriding-default-time)
-                          (org-get-cursor-date (equal with-time 1)))
-                      (call-interactively 'my-counsel-org-capture))))
-
+    ;; TODO: use `define-advice' instead
+    (with-eval-after-load 'ivy
+      (advice-add 'org-agenda-capture :override
+                  #'(lambda (&optional with-time)
+                      (interactive "P")
+                      (let ((org-overriding-default-time)
+                            (org-get-cursor-date (equal with-time 1)))
+                        (call-interactively 'my-counsel-org-capture)))))
     ;; Disabled because current workflow should not need to go to the
     ;; clocked in task immediately
     ;; (advice-add 'org-agenda-clock-in :after 'org-agenda-goto)
@@ -1820,104 +1828,6 @@ language's mappings.
                   :action 'my--worf-insert-internal-link-action))))
 #+end_src
 
-** Org wiki
-Currently disabled while we look at other, more maintained projects
-#+begin_src emacs-lisp :results output silent
-  (use-package org-wiki
-    :straight (:host github :repo "caiorss/org-wiki")
-    :disabled t
-    :commands (org-wiki-index
-               org-wiki-help))
-#+end_src
-
-** Org brain
-#+Begin_src emacs-lisp :results output silent
-  (use-package org-brain
-    :straight (:host github :repo "Kungsgeten/org-brain")
-    :disabled t
-    :if (boundp 'config-local-syncthing-folder)
-    :commands (org-brain-visualize
-               counsel-brain
-               org-brain-switch-brain)
-    :custom
-    (org-brain-path (f-join config-local-syncthing-folder "wiki"))
-    ;; (org-brain-show-resources
-    ;;  nil
-    ;;  "https://github.com/Kungsgeten/org-brain/pull/203 I don't really
-    ;;  use attachments either way so this does not affect me")
-    ;; because we don't enter visualize-mode in normal state
-    :hook ((org-brain-visualize-text-hook . evil-ex-nohighlight))
-    :general
-    (org-brain-visualize-mode-map
-     "SPC"        nil
-     "S-SPC"      nil
-     "\C-w"      'evil-window-map
-     ":"         'evil-ex
-     "/"         'evil-ex-search-forward
-     "?"         'evil-ex-search-backward
-     "h"         'org-brain-add-child-headline ;; it's recommended to use this instead
-     "\C-c \C-w" 'org-brain-refile
-     "C-d"       'evil-scroll-down
-     "C-u"       'evil-scroll-up)
-    :init
-    (with-eval-after-load 'evil
-      (evil-set-initial-state 'org-brain-visualize-mode 'emacs)
-      (evil-define-command my-org-brain-config (args)
-        (interactive "<a>")
-        (cond
-         ;;TODO: implement additional ex command line things
-         (t (call-interactively 'org-brain-visualize))))
-      (evil-ex-define-cmd "wiki" 'my-org-brain-config))
-    :config
-    ;; NOTE: We do this because when running on different machine we
-    ;; will need to update the IDs of entries.
-    (org-brain-update-id-locations))
-  ;; (hercules-def :toggle-funs #'org-brain-visualize
-  ;;               :hide-funs #'org-brain-visualize-quit
-  ;;               :keymap 'org-brain-visualize-mode-map
-  ;;               :transient t))
-#+end_src
-
-*** Usage
-| Key        | Command                              | Description                                                                       |
-|------------+--------------------------------------+-----------------------------------------------------------------------------------|
-| m          | =org-brain-visualize-mind-map=       | Toggle between normal and mind-map visualization.                                 |
-| j or TAB   | =forward-button=                     | Goto next link                                                                    |
-| k or S-TAB | =backward-button=                    | Goto previous link                                                                |
-| b          | =org-brain-visualize-back=           | Like the back button in a web browser.                                            |
-| h or *     | =org-brain-add-child-headline=       | Add a new child /headline/ to entry                                               |
-| c          | =org-brain-add-child=                | Add an existing entry, or a new /file/, as a child                                |
-| C          | =org-brain-remove-child=             | Remove one the entry's child relations                                            |
-| e          | =org-brain-annotate-edge=            | Annotate the connection between the visualized entry and the entry link at point. |
-| p          | =org-brain-add-parent=               | Add an existing entry, or a new /file/, as a parent                               |
-| P          | =org-brain-remove-parent=            | Remove one of the entry's parent relations                                        |
-| f          | =org-brain-add-friendship=           | Add an existing entry, or a new /file/, as a friend                               |
-| F          | =org-brain-remove-friendship=        | Remove one of the entry's friend relations                                        |
-| n          | =org-brain-pin=                      | Toggle if the entry is pinned or not                                              |
-| s          | =org-brain-select-dwim=              | Select an entry for batch processing.                                             |
-| S          | =org-brain-select-map=               | Prefix key to do batch processing with selected entries.                          |
-| t          | =org-brain-set-title=                | Change the title of the entry.                                                    |
-| T          | =org-brain-set-tags=                 | Change the tags of the entry.                                                     |
-| d          | =org-brain-delete-entry=             | Choose an entry to delete.                                                        |
-| l          | =org-brain-visualize-add-resource=   | Add a new resource link in entry                                                  |
-| r          | =org-brain-open-resource=            | Choose and open a resource from the entry.                                        |
-| C-y        | =org-brain-visualize-paste-resource= | Add a new resource link from clipboard                                            |
-| a          | =org-brain-visualize-attach=         | Run =org-attach= on entry (headline entries only)                                 |
-| A          | =org-brain-archive=                  | Archive the entry (headline entries only)                                         |
-| o          | =org-brain-goto-current=             | Open current entry for editing                                                    |
-| O          | =org-brain-goto=                     | Choose and edit one of your =org-brain= entries                                   |
-| v          | =org-brain-visualize=                | Choose and visualize a different entry                                            |
-| w          | =org-brain-visualize-random=         | Visualize one of your entries at random.                                          |
-| W          | =org-brain-visualize-wander=         | Visualize at random, in a set interval. =W= again to cancel.                      |
-
-** Org bullets
-#+begin_src emacs-lisp :results output silent
-  (use-package org-bullets
-    :straight (:host github :repo "emacsorphanage/org-bullets")
-    :disabled t ;; feels slower, might be expensive
-    :hook (org-mode-hook . org-bullets-mode))
-#+end_src
-
 ** Export as epub
 Needs a working =zip= exe.
 
@@ -2004,6 +1914,7 @@ https://www.nongnu.org/org-edna-el/
     :custom
     (org-roam-dailies-directory "day/")
     (org-roam-complete-everywhere t)
+    :if (featurep 'ivy)
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -2063,6 +1974,7 @@ https://www.nongnu.org/org-edna-el/
       (let ((repos (or --org-roam-repository-list `(,org-roam-directory))))
         (if (eq 1 (safe-length repos))
             (--on-selecting-org-roam-directory org-roam-func (car repos))
+          ;; TODO: the :action will be problematic
           (ivy-read "repo: " repos
                     ;; :initial-input org-roam-directory
                     :require-match t
@@ -2581,7 +2493,6 @@ up, on windows at least).
     :init
     (with-eval-after-load 'ivy
       (evil-ex-define-cmd "tt" 'magit-todos-list)
-      ;; (general-with-eval-after-load 'counsel
       (general-define-key
         :keymaps 'project-prefix-map
         "t" 'ivy-magit-todos))
@@ -2965,27 +2876,6 @@ try using the built-in =project= functions instead
         (visit-tags-table tags-file)
         (message "Regenerated %s" tags-file)))
     (projectile-mode))
-#+end_src
-
-** Ivy/Counsel Projectile
-#+begin_src emacs-lisp :results output silent
-  (use-package counsel-projectile
-    :disabled t
-    :straight (:host github :repo "ericdanan/counsel-projectile")
-    :disabled t ;; try project-file-search
-    :commands (council-projectile-ag)
-    :general
-    (:states '(normal motion)
-     "+" 'counsel-projectile
-     "M-+" 'counsel-projectile-rg)
-    :init
-    (evil-ex-define-cmd "pp" 'counsel-projectile))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (general-define-key
-   :states '(normal motion)
-   "+" 'project-find-file)
 #+end_src
 
 ** Org-Projectile
@@ -4973,48 +4863,6 @@ now becomes too noisy.
     :commands sound-wav-play)
 #+end_src
 
-* Counsel-etags
-#+begin_src emacs-lisp :results output silent
-  (use-package counsel-etags
-    :disabled t ;; using dumb-jump
-    :straight (:host github :repo "redguardtoo/counsel-etags")
-    :commands (counsel-etags-find-tag-at-point)
-    :general
-    (:keymaps 'prog-mode-map
-     :states 'normal
-     "<f12>" 'counsel-etags-find-tag-at-point)
-    :custom
-    (tags-revert-without-query t)
-    (large-file-warning-threshold nil)
-    (counsel-etags-tags-program
-     "ctags -e -L"
-     "Assuming we use *exuberant ctags*")
-    (counsel-etags-tags-program
-     (lambda (scan)
-       (require 'f)
-       ;; (let ((scan (if (boundp 'projectile-project-root)
-       ;;                 (projectile-project-root)
-       ;;                 scan-dir)))
-       (message "updating %s" scan)
-       (let ((tags-file (counsel-etags-get-tags-file-path scan))
-             (command (string-join
-                       (list counsel-etags-tags-program
-                             ;; "-o" (concat (directory-file-name scan-dir) "/TAGS")
-                             (string-join (mapcar (lambda (file)
-                                                    (concat "\"" file "\""))
-                                                  (f-entries scan))
-                                          " "))
-                       " ")))
-         (message "with command: %s" command)
-         (counsel-etags-async-shell-command command tags-file)))
-     "Assuming we use exuberant ctags. For some reason `projectile-project-root' binds to emacs.d.")
-    :hook
-    (prog-mode-hook . (lambda ()
-                        (add-hook 'after-save-hook
-                                  'counsel-etags-virtual-update-tags
-                                  'append 'local))))
-#+end_src
-
 * ctags
 #+begin_src emacs-lisp :results output silent
   (use-package ctags-update
@@ -5980,8 +5828,6 @@ Not persistent scratch, just a custom scratch buffer
       (general-define-key
        :keymaps 'project-prefix-map
        "g" 'rg-project)))
-      ;; (cl-letf (((symbol-function 'compile) #'counsel-compile))
-      ;;   (project-compile)))
 #+end_src
 
 * Calendar Mode
