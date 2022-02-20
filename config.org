@@ -6213,3 +6213,57 @@ the packages I run use dabbrev at all.
     :custom
     (ob-mermaid-cli-path --mermaid-cli-bin))
 #+end_src
+
+* Selectrum/Consult/Embark
+
+** Selectrum
+Note that =ivy-mode= needs to be disabled and =selectrum-mode= needs to be
+enabled before you can see changes.
+
+#+begin_src emacs-lisp :results output silent
+  (use-package selectrum
+    :straight t
+    :general
+    (selectrum-minibuffer-map
+     "M-j" 'selectrum-next-candidate
+     "M-k" 'selectrum-previous-candidate)
+    :custom
+    (selectrum-max-window-height 23))
+#+end_src
+
+*** Prescient
+#+begin_src emacs-lisp :results output silent
+  (use-package selectrum-prescient
+    :straight t
+    :after selectrum
+    :config
+    (selectrum-prescient-mode))
+#+end_src
+
+** Consult
+- =consult-buffer= and =consult-bookmark= has this interesting property of
+  showing what is going on live (sort of like telescope in nvim?)
+
+#+begin_src emacs-lisp :results output silent
+  (use-package consult
+    :straight t)
+#+end_src
+
+*** Marginalia
+Known issue with annotators making some consults look horrifying ([[https://github.com/minad/marginalia/issues/95][link]]).
+
+#+begin_src emacs-lisp :results output silent
+  (use-package marginalia
+    :straight t
+    :after consult
+    :config (marginalia-mode))
+#+end_src
+
+** Embark
+#+begin_src emacs-lisp :results output silent
+  (use-package embark
+    :straight t
+    ;; bind these to something
+    :commands (embark-act
+               embark-dwim))
+#+end_src
