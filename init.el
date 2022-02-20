@@ -332,7 +332,7 @@ barely perceptible.")
     :straight (:host github :repo "emacscollective/no-littering"))
 
   (customize-set-value 'evil-want-keybinding nil
-                      "`evil-collections' wants this to be
+                       "`evil-collections' wants this to be
       disabled before even loading evil, see
       https://github.com/emacs-evil/evil-collection/issues/60")
 
@@ -717,7 +717,7 @@ we're adding a custom function for it here."
       (general-define-key
        :keymaps 'org-mode-map
        :states '(normal insert motion)
-        ;; "C-^" 'org-insert-heading-after-current
+       ;; "C-^" 'org-insert-heading-after-current
        "C-^" 'org-meta-return
        "\236" 'org-insert-todo-heading-respect-content)))
   ;; (with-eval-after-load 'org

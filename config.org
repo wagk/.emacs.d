@@ -1578,11 +1578,11 @@ https://github.com/progfolio/doct
     (defun --select-org-agenda-file ()
       (require 'org-agenda)
       (let ((targets
-              (->> org-agenda-files
+             (->> org-agenda-files
                   (-map-when
-                    #'f-directory-p
-                    #'(lambda (dir)
-                        (f-files dir
+                   #'f-directory-p
+                   #'(lambda (dir)
+                       (f-files dir
                                 (lambda (file)
                                   (string-equal (f-ext file) "org")))))
                   (-flatten))))
@@ -1723,11 +1723,11 @@ For some reason we can't do this in the scratch buffer
                             (funcall-interactively #'org-agenda-list)))
     ;; override `org-agenda-diary-entry' to use `org-roam'
     (general-define-key
-       :keymaps 'org-agenda-mode-map
-       :states '(motion)
-       "i" #'(lambda () (interactive)
-               (require 'org-roam)
-               (--org-roam-dailies-today))))
+     :keymaps 'org-agenda-mode-map
+     :states '(motion)
+     "i" #'(lambda () (interactive)
+             (require 'org-roam)
+             (--org-roam-dailies-today))))
 #+end_src
 
 *** Super agenda
