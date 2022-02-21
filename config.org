@@ -759,24 +759,31 @@ Further helper functions to add bookmarks:
                                     (require 'eyebrowse)
                                     (my-new-evil-tab nil))
                                   (funcall-interactively 'counsel-bookmark))))
-    ;; (defun my-open-bookmark-in-tab ()
-    ;;   (interactive)
-    ;;   (require 'counsel)
-    ;;   (ivy-read "Create or jump to bookmark: "
-    ;;             (bookmark-all-names)
-    ;;             :history 'bookmark-history
-    ;;             :action (lambda (x)
-    ;;                       (cond ((and counsel-bookmark-avoid-dired
-    ;;                                   (member x (bookmark-all-names))
-    ;;                                   (file-directory-p (bookmark-location x)))
-    ;;                              (with-ivy-window
-    ;;                                (let ((default-directory (bookmark-location x)))
-    ;;                                  (counsel-find-file))))
-    ;;                             ((member x (bookmark-all-names))
-    ;;                              (with-ivy-window
-    ;;                                (bookmark-jump x)))
-    ;;                             (t (bookmark-set x))))))
-    ;; (evil-ex-define-cmd "Tmm")
+
+  (with-eval-after-load 'consult
+    (evil-ex-define-cmd "mm" #'(lambda ()
+                                 (interactive)
+                                 (require 'consult)
+                                 (call-interactively 'consult-bookmark)))
+    (evil-ex-define-cmd "Tmm" #'(lambda ()
+                                  ;; TODO: have counsel-bookmark run
+                                  ;; earlier so if we cancel we don't
+                                  ;; get a new tab
+                                  (interactive)
+                                  ;; Adjusting this function to run
+                                  ;; `counsel-bookmark' before opening a
+                                  ;; new tab can be tricky.
+                                  ;; `tab-bar-new-tab-choice' assumes
+                                  ;; that a buffer will be returned,
+                                  ;; however, `bookmark' does not
+                                  ;; necessarily store buffers, so a
+                                  ;; translation between filenames/paths
+                                  ;; to buffers must be done.
+                                  (if (>= emacs-major-version 27)
+                                      (tab-bar-new-tab)
+                                    (require 'eyebrowse)
+                                    (my-new-evil-tab nil))
+                                  (funcall-interactively 'consult-bookmark))))
 #+end_src
 
 *** Bookmark Face
