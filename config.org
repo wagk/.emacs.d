@@ -1831,40 +1831,6 @@ language's mappings.
            (org-mode-hook . org-download-enable)))
 #+end_src
 
-** Worf
-[[http://pragmaticemacs.com/emacs/insert-internal-org-mode-links-the-ivy-way/][Source]].
-#+begin_src emacs-lisp :results output silent
-  (use-package worf
-    :straight (:host github :repo "abo-abo/worf")
-    :disabled t
-    :commands worf--goto-candidates
-    :general
-    (:keymaps 'org-mode-map
-     :states '(normal visual)
-     :prefix my-default-evil-leader-key
-     "o l" 'my-worf-insert-internal-link
-     "l l" 'org-toggle-link-display)
-    :init
-    (defun my--worf-insert-internal-link-action (x)
-      (let ((link (save-excursion
-                    (goto-char (cdr x))
-                    (call-interactively 'org-store-link))))
-        (funcall-interactively 'org-insert-link nil (car link))))
-    ;; (call-interactively 'org-insert-link))
-    ;; (org-insert-last-stored-link 1)
-    ;; ;; otherwise deletes the whole visual selection. Including the
-    ;; ;; inserted link.
-    ;; (when (use-region-p)
-    ;;   (deactivate-mark))
-    ;; (delete-backward-char 1))
-    (defun my-worf-insert-internal-link ()
-      (interactive)
-      ;; TODO: Why isn't this working?
-      (let ((cands (worf--goto-candidates)))
-        (ivy-read "Heading: " cands
-                  :action 'my--worf-insert-internal-link-action))))
-#+end_src
-
 ** Export as epub
 Needs a working =zip= exe.
 
