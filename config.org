@@ -5519,27 +5519,46 @@ Not persistent scratch, just a custom scratch buffer
        "c" 'counsel-compile)
 
       (with-eval-after-load 'savehist
-        (add-to-list 'savehist-additional-variables 'counsel-compile-history))
+        (add-to-list 'savehist-additional-variables 'counsel-compile-history)))
 
-      (defun --project-find-doc ()
-        "Finds and lists all the README (eventually documentation) files "
+    (with-eval-after-load 'consult
+      (with-eval-after-load 'savehist
+        (add-to-list 'savehist-additional-variables 'compile-history))
+
+      (defun --compile-command-completing-read ()
         (interactive)
-        (let* ((case-fold-search t) ; ignore cases
-               (project-dir (cdr (project-current)))
-               (readme-list (->> (project-files (project-current))
-                              (-keep (lambda (elem)
-                                       (when (string-match-p "readme" elem nil)
-                                         elem)))
-                              (mapcar #'(lambda (file)
-                                          (f-relative file
-                                                      project-dir))))))
-          (ivy-read "README: " readme-list
-                    :require-match t
-                    :preselect t
-                    :action #'(lambda (file)
-                                (find-file (f-join project-dir file))))))
+        (let ((command (completing-read "Compile command: "
+                                        compile-history
+                                        nil
+                                        nil
+                                        nil
+                                        nil
+                                        compile-command))
+              (default-directory (or (cdr (project-current))
+                                     default-directory)))
+          (compile command)))
 
-      (my-evil-define-split-vsplit-cmd "readme" #'--project-find-doc))
+      (general-define-key
+       :keymaps 'project-prefix-map
+       "c" '--compile-command-completing-read))
+
+    (defun --project-find-doc ()
+      "Finds and lists all the README (eventually documentation) files "
+      (interactive)
+      (let* ((case-fold-search t) ; ignore cases
+             (project-dir (cdr (project-current)))
+             (readme-list (->> (project-files (project-current))
+                           (-keep (lambda (elem)
+                                     (when (string-match-p "readme" elem nil)
+                                       elem)))
+                           (mapcar #'(lambda (file)
+                                       (f-relative file
+                                                   project-dir)))))
+             (readme (completing-read "README: " readme-list
+                                     nil t nil nil "README")))
+        (find-file (f-join project-dir readme))))
+
+    (my-evil-define-split-vsplit-cmd "readme" #'--project-find-doc)
 
     (with-eval-after-load 'rg
       (general-define-key
