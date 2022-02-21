@@ -1602,7 +1602,8 @@ https://github.com/progfolio/doct
                       (-> org-capture-templates
                           (org-capture-upgrade-templates)
                           (org-contextualize-keys org-capture-templates-contexts)))
-          (funcall #'org-capture nil (car (split-string (completing-read "Capture template: " it nil t)))))))
+          (funcall #'org-capture nil (car (split-string (--completing-read "Capture template: " it
+                                                                           :require-match t)))))))
 
     (evil-ex-define-cmd "cc" '--org-capture-completing-read)
     :config
@@ -1624,9 +1625,10 @@ https://github.com/progfolio/doct
                                 (lambda (file)
                                   (string-equal (f-ext file) "org")))))
                   (-flatten))))
-        (completing-read "Capture target: "
+        (--completing-read "Capture target: "
                          targets
-                         nil t nil nil "todo")))
+                         :require-match t
+                         :default-value "todo")))
     (setq org-capture-templates
           (doct-add-to
            org-capture-templates
@@ -1978,7 +1980,8 @@ https://www.nongnu.org/org-edna-el/
       (let ((repos (or --org-roam-repository-list `(,org-roam-directory))))
         (if (eq 1 (safe-length repos))
             (--on-selecting-org-roam-directory org-roam-func (car repos))
-          (let ((repo (completing-read "repo: " repos nil t)))
+          (let ((repo (--completing-read "repo: " repos
+                                         :require-match t)))
             (--on-selecting-org-roam-directory org-roam-func repo)))))
 
     (defun --org-roam-find-index-file ()
@@ -3914,11 +3917,11 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     (defun --helpful-keymap ()
       (interactive)
       (require 'helpful)
-      (let ((sym (completing-read "Keymap: " obarray
-                                  #'(lambda (sym)
-                                      (and (boundp sym)
-                                           (keymapp (symbol-value sym))))
-                                  t)))
+      (let ((sym (--completing-read "Keymap: " obarray
+                                    :predicate #'(lambda (sym)
+                                                   (and (boundp sym)
+                                                        (keymapp (symbol-value sym))))
+                                    :require-match t)))
         (-> sym (intern) (helpful-symbol))))
     :config
     (require 'link-hint)
@@ -5528,13 +5531,8 @@ Not persistent scratch, just a custom scratch buffer
 
       (defun --compile-command-completing-read ()
         (interactive)
-        (let ((command (completing-read "Compile command: "
-                                        compile-history
-                                        nil
-                                        nil
-                                        nil
-                                        nil
-                                        compile-command))
+        (let ((command (--completing-read "Compile command: " compile-history
+                                          :default-value compile-command))
               (default-directory (or (cdr (project-current))
                                      default-directory)))
           (compile command)))
@@ -5555,8 +5553,9 @@ Not persistent scratch, just a custom scratch buffer
                            (mapcar #'(lambda (file)
                                        (f-relative file
                                                    project-dir)))))
-             (readme (completing-read "README: " readme-list
-                                     nil t nil nil "README")))
+             (readme (--completing-read "README: " readme-list
+                                        :require-match t
+                                        :default-value "README")))
         (find-file (f-join project-dir readme))))
 
     (my-evil-define-split-vsplit-cmd "readme" #'--project-find-doc)

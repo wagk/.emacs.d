@@ -295,6 +295,19 @@ barely perceptible.")
 ;;   (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 ;;   (el-get 'sync))
 
+(cl-defun --completing-read (prompt collection
+                                    &key predicate require-match
+                                    initial-input history default-value
+                                    inherit-input-method)
+  "Wrapper around `completing-read' that allow the use of keywords."
+  (completing-read prompt collection
+                   predicate
+                   require-match
+                   initial-input
+                   history
+                   default-value
+                   inherit-input-method))
+
 (let ((gc-cons-threshold most-positive-fixnum))
   (bootstrap-package)
   (bootstrap-straight)
