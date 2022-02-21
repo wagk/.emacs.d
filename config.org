@@ -1567,17 +1567,44 @@ https://github.com/progfolio/doct
     :custom
     (org-capture-bookmark nil)
     :init
-    (with-eval-after-load 'ivy
-      (general-define-key :states 'motion
-        ;; In evil it's jump to column number, which isn't that useful tbh
-        "C-|" 'my-counsel-org-capture)
-      (defun my-counsel-org-capture ()
-        (require 'org-capture)
-        (interactive)
-        (if (featurep 'counsel-projectile)
-            (counsel-projectile-org-capture)
-          (counsel-org-capture)))
-      (evil-ex-define-cmd "cc" 'counsel-org-capture))
+    ;; (with-eval-after-load 'ivy
+    ;;   (general-define-key :states 'motion
+    ;;     ;; In evil it's jump to column number, which isn't that useful tbh
+    ;;     "C-|" 'my-counsel-org-capture)
+    ;;   (defun my-counsel-org-capture ()
+    ;;     (require 'org-capture)
+    ;;     (interactive)
+    ;;     (if (featurep 'counsel-projectile)
+    ;;         (counsel-projectile-org-capture)
+    ;;       (counsel-org-capture)))
+    ;;   (evil-ex-define-cmd "cc" 'counsel-org-capture))
+
+    (defun --org-capture-completing-read ()
+      "Select capture template, stolen from
+  https://github.com/raxod502/selectrum/wiki/Useful-Commands#user-content-org-capture-template"
+      (interactive)
+      (require 'org-capture)
+      (let (prefixes)
+        (alet (mapcan (lambda (x)
+                        (let ((x-keys (car x)))
+                          ;; Remove prefixed keys until we get one that matches the current item.
+                          (while (and prefixes
+                                      (let ((p1-keys (caar prefixes)))
+                                        (or
+                                         (<= (length x-keys) (length p1-keys))
+                                         (not (string-prefix-p p1-keys x-keys)))))
+                            (pop prefixes))
+                          (if (> (length x) 2)
+                              (let ((desc (mapconcat #'cadr (reverse (cons x prefixes)) " | ")))
+                                (list (format "%-5s %s" x-keys desc)))
+                            (push x prefixes)
+                            nil)))
+                      (-> org-capture-templates
+                          (org-capture-upgrade-templates)
+                          (org-contextualize-keys org-capture-templates-contexts)))
+          (funcall #'org-capture nil (car (split-string (completing-read "Capture template: " it nil t)))))))
+
+    (evil-ex-define-cmd "cc" '--org-capture-completing-read)
     :config
     (with-eval-after-load 'ivy
       ;; Remove ^ prefix in ivy org capture
