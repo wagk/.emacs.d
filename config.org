@@ -1625,7 +1625,7 @@ https://github.com/progfolio/doct
                   (-flatten))))
         (completing-read "Capture target: "
                          targets
-                         nil t "todo")))
+                         nil t nil nil "todo")))
     (setq org-capture-templates
           (doct-add-to
            org-capture-templates
