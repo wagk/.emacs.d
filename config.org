@@ -1612,6 +1612,7 @@ https://github.com/progfolio/doct
       (customize-set-variable 'ivy-initial-inputs-alist
                               (-remove (lambda (e) (eq (car e) 'counsel-org-capture))
                                        ivy-initial-inputs-alist)))
+
     (defun --select-org-agenda-file ()
       (require 'org-agenda)
       (let ((targets
