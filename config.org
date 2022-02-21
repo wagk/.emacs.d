@@ -5851,3 +5851,10 @@ Known issue with annotators making some consults look horrifying ([[https://gith
     :commands (embark-act
                embark-dwim))
 #+end_src
+
+*** Embark-consult
+#+begin_src emacs-lisp :results output silent
+  (use-package embark-consult
+    :straight t
+    :after (:all embark consult))
+#+end_src
