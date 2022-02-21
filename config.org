@@ -1625,10 +1625,8 @@ https://github.com/progfolio/doct
                                 (lambda (file)
                                   (string-equal (f-ext file) "org")))))
                   (-flatten))))
-        (--completing-read "Capture target: "
-                         targets
-                         :require-match t
-                         :default-value "todo")))
+        (--completing-read "Capture target: " targets
+                         :require-match t)))
     (setq org-capture-templates
           (doct-add-to
            org-capture-templates
