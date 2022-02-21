@@ -5529,10 +5529,12 @@ Not persistent scratch, just a custom scratch buffer
 
       (defun --compile-command-completing-read ()
         (interactive)
-        (let ((command (--completing-read "Compile command: " compile-history
+        (let ((command (--completing-read "Compile command: "
+                                          compile-history
                                           :default-value compile-command))
               (default-directory (or (cdr (project-current))
                                      default-directory)))
+          (add-to-list 'compile-history command)
           (compile command)))
 
       (general-define-key
