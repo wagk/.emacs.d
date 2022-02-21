@@ -853,6 +853,7 @@ we're adding a custom function for it here."
   ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
 
   (use-package selectrum
+    :demand t
     :straight t
     :general
     (selectrum-minibuffer-map
