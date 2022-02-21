@@ -2405,6 +2405,8 @@ when the documentation says to use prefix commands
      :states '(normal)
      "g x" 'magit-browse-thing)
     :init
+    (with-eval-after-load 'selectrum
+      (customize-set-value 'magit-completing-read-function #'selectrum-completing-read))
     (evil-define-command ex-magit-cli (cmd)
       "Calls specific magit functions"
       (interactive "<a>")
