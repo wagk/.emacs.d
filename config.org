@@ -5611,16 +5611,7 @@ Known issue with annotators making some consults look horrifying ([[https://gith
     :config (marginalia-mode))
 #+end_src
 
-** Embark
-#+begin_src emacs-lisp :results output silent
-  (use-package embark
-    :straight t
-    ;; bind these to something
-    :commands (embark-act
-               embark-dwim))
-#+end_src
-
-*** Embark-consult
+** Embark-consult
 #+begin_src emacs-lisp :results output silent
   (use-package embark-consult
     :straight t

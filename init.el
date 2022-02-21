@@ -869,6 +869,22 @@ we're adding a custom function for it here."
     :config
     (evil-ex-define-cmd "bb" 'consult-buffer))
 
+  (use-package embark
+    :straight t
+    :after selectrum
+    :commands (embark-act
+               embark-dwim
+               embark-bindings
+               embark-prefix-help-command)
+    :custom
+    (prefix-help-command #'embark-prefix-help-command)
+    :general
+    (selectrum-minibuffer-map
+     "C-<SPC>" 'embark-act)
+    (:states 'motion
+     "C-<SPC>" 'embark-act
+     "S-<SPC>" 'embark-dwim))
+
   (progn
     (let ((custom (locate-user-emacs-file "custom.el")))
       (unless (f-exists-p custom)
