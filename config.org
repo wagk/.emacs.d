@@ -319,8 +319,11 @@ We're sticking to Japanese for now
     :custom
     (recentf-max-saved-items nil)
     :config
+    (recentf-mode)
     (with-eval-after-load 'ivy
-      (evil-ex-define-cmd "recent" 'counsel-recentf)))
+      (evil-ex-define-cmd "recent" 'counsel-recentf))
+    (with-eval-after-load 'consult
+      (evil-ex-define-cmd "recent" 'consult-recent-file)))
 #+end_src
 
 ** Display Fill Column Indicator
