@@ -849,10 +849,10 @@ we're adding a custom function for it here."
      "M-j" 'ivy-next-line
      "M-k" 'ivy-previous-line
      "<C-return>" 'ivy-immediate-done)
-    ("C-h C-h" 'counsel-apropos)
     ;; (:states 'normal
     ;;  :prefix my-default-evil-leader-key
     ;;  "<SPC>" 'counsel-M-x)
+    ;; ("C-h C-h" 'counsel-apropos)
     :custom
     (ivy-use-selectable-prompt
      t
