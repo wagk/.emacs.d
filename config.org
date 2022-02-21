@@ -1632,6 +1632,7 @@ For some reason we can't do this in the scratch buffer
       (interactive)
       (call-interactively '--org-capture-completing-read))
 
+    (my-evil-define-split-vsplit-cmd "aa" #'org-agenda)
     (my-evil-define-split-vsplit-cmd "todo" #'org-todo-list)
     (my-evil-define-split-vsplit-cmd "agenda" #'org-agenda-list)
     (evil-ex-define-cmd "Tag[enda]"
