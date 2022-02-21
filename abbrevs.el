@@ -585,6 +585,7 @@
     ("storeage" "storage" nil :count 1)
     ("storytelilng" "storytelling" nil :count 1)
     ("strady" "steady" nil :count 1)
+    ("striaght" "straight" nil :count 1)
     ("strign" "string" nil :count 2)
     ("strust" "struct" nil :count 1)
     ("submisison" "submission" nil :count 1)
