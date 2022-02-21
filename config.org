@@ -1977,13 +1977,8 @@ https://www.nongnu.org/org-edna-el/
       (let ((repos (or --org-roam-repository-list `(,org-roam-directory))))
         (if (eq 1 (safe-length repos))
             (--on-selecting-org-roam-directory org-roam-func (car repos))
-          ;; TODO: the :action will be problematic
-          (ivy-read "repo: " repos
-                    ;; :initial-input org-roam-directory
-                    :require-match t
-                    :preselect t
-                    :action (-partial #'--on-selecting-org-roam-directory
-                                      org-roam-func)))))
+          (let ((repo (completing-read "repo: " repos nil t)))
+            (--on-selecting-org-roam-directory org-roam-func repo)))))
 
     (defun --org-roam-find-index-file ()
       (interactive)
