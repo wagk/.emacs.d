@@ -5828,7 +5828,9 @@ enabled before you can see changes.
 
 #+begin_src emacs-lisp :results output silent
   (use-package consult
-    :straight t)
+    :straight t
+    :config
+    (evil-ex-define-cmd "bb" 'consult-buffer))
 #+end_src
 
 *** Marginalia
