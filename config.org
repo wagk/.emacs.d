@@ -5554,8 +5554,7 @@ Not persistent scratch, just a custom scratch buffer
                                        (f-relative file
                                                    project-dir)))))
              (readme (--completing-read "README: " readme-list
-                                        :require-match t
-                                        :default-value "README")))
+                                        :require-match t)))
         (find-file (f-join project-dir readme))))
 
     (my-evil-define-split-vsplit-cmd "readme" #'--project-find-doc)
