@@ -637,7 +637,6 @@ we're adding a custom function for it here."
      "o t" 'org-time-stamp
      "o T" #'(lambda () (interactive)
                (org-time-stamp '(16))))
-    ;; "f f" 'counsel-org-goto)
     (org-mode-map
      "C-c C-'" 'org-edit-special
      "<C-M-return>" 'org-insert-subheading
@@ -853,33 +852,21 @@ we're adding a custom function for it here."
 
   ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
 
-  (use-package counsel
-    :demand t
-    ;; :straight (:host github :repo "abo-abo/swiper")
+  (use-package selectrum
     :straight t
     :general
-    (ivy-minibuffer-map
-     "M-j" 'ivy-next-line
-     "M-k" 'ivy-previous-line
-     "<C-return>" 'ivy-immediate-done)
-    ;; (:states 'normal
-    ;;  :prefix my-default-evil-leader-key
-    ;;  "<SPC>" 'counsel-M-x)
-    ;; ("C-h C-h" 'counsel-apropos)
+    (selectrum-minibuffer-map
+     "M-j" 'selectrum-next-candidate
+     "M-k" 'selectrum-previous-candidate)
     :custom
-    (ivy-use-selectable-prompt
-     t
-     "Make the prompt line selectable.")
-    (ivy-use-virtual-buffers
-     t
-     "Make `ivy-switch-buffer' look more like `helm-mini'")
-    (ivy-height 23)
-    :custom-face
-    (ivy-current-match ((t (:inherit default :bold nil :underline nil))))
-    :init
-    (evil-ex-define-cmd "bb" 'counsel-ibuffer)
+    (selectrum-max-window-height 23)
     :config
-    (ivy-mode))
+    (selectrum-mode))
+
+  (use-package consult
+    :straight t
+    :config
+    (evil-ex-define-cmd "bb" 'consult-buffer))
 
   (progn
     (let ((custom (locate-user-emacs-file "custom.el")))
@@ -913,12 +900,6 @@ we're adding a custom function for it here."
                          (float-time (time-since my-init-start-time)))) 50))
 
 (org-agenda-list)
-
-;; (if-let ((repositories (bound-and-true-p --org-roam-repository-list))
-;;          (default-repo (car repositories)))
-;;     (find-file (f-join default-repo "index.org"))
-;;   (scratch 'org-mode))
-
 
 (message "Configuration complete.")
 

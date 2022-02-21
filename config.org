@@ -320,8 +320,6 @@ We're sticking to Japanese for now
     (recentf-max-saved-items nil)
     :config
     (recentf-mode)
-    (with-eval-after-load 'ivy
-      (evil-ex-define-cmd "recent" 'counsel-recentf))
     (with-eval-after-load 'consult
       (evil-ex-define-cmd "recent" 'consult-recent-file)))
 #+end_src
@@ -722,56 +720,15 @@ Further helper functions to add bookmarks:
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (my-evil-define-split-vsplit-cmd "bm" 'list-bookmarks)
-  (evil-ex-define-cmd "Tbm" #'(lambda ()
-      ;; TODO: unify this implementation with my-new-cmd-tab
-                               (interactive)
-                               (if (>= emacs-major-version 27)
-                                   (tab-bar-new-tab)
-                                (require 'eyebrowse)
-                                (my-new-evil-tab nil))
-                               (funcall-interactively 'list-bookmarks)))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (with-eval-after-load 'ivy
-    (evil-ex-define-cmd "mm" #'(lambda ()
-                                (interactive)
-                                (require 'counsel)
-                                (counsel-bookmark)))
-    (evil-ex-define-cmd "Tmm" #'(lambda ()
-                                  ;; TODO: have counsel-bookmark run
-                                  ;; earlier so if we cancel we don't
-                                  ;; get a new tab
-                                  (interactive)
-                                  (require 'counsel)
-                                  ;; Adjusting this function to run
-                                  ;; `counsel-bookmark' before opening a
-                                  ;; new tab can be tricky.
-                                  ;; `tab-bar-new-tab-choice' assumes
-                                  ;; that a buffer will be returned,
-                                  ;; however, `bookmark' does not
-                                  ;; necessarily store buffers, so a
-                                  ;; translation between filenames/paths
-                                  ;; to buffers must be done.
-                                  (if (>= emacs-major-version 27)
-                                      (tab-bar-new-tab)
-                                    (require 'eyebrowse)
-                                    (my-new-evil-tab nil))
-                                  (funcall-interactively 'counsel-bookmark))))
-
   (with-eval-after-load 'consult
     (evil-ex-define-cmd "mm" #'(lambda ()
                                  (interactive)
                                  (require 'consult)
                                  (call-interactively 'consult-bookmark)))
     (evil-ex-define-cmd "Tmm" #'(lambda ()
-                                  ;; TODO: have counsel-bookmark run
-                                  ;; earlier so if we cancel we don't
-                                  ;; get a new tab
                                   (interactive)
                                   ;; Adjusting this function to run
-                                  ;; `counsel-bookmark' before opening a
+                                  ;; `consult-bookmark' before opening a
                                   ;; new tab can be tricky.
                                   ;; `tab-bar-new-tab-choice' assumes
                                   ;; that a buffer will be returned,
@@ -839,7 +796,6 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     ;;TODO: currently has issue where :q on a tab kills emacs
     (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
     (evil-ex-define-cmd "tabr[ename]" 'tab-bar-rename-tab)
-    ;;TODO: check if ivy has something for this someday
     (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
     (defun my-tab-bar-delete-tab-or-emacs (oldfun &rest _old_args)
       (interactive)
@@ -1406,33 +1362,6 @@ This is an expensive package to load, and I wonder why.
 Just append =&= to the end of your command, emacs apparently just does
 the right thing.
 
-* Helm
-** Describe Modes
-#+begin_src emacs-lisp :results output silent
-  (use-package helm-describe-modes
-    :disabled t
-    :straight (:host github
-               :repo "emacs-helm/helm-describe-modes")
-    :general
-    ("C-h m" 'helm-describe-modes))
-#+end_src
-
-** Describe Bindings
-Use counsel instead
-#+begin_src emacs-lisp :results output silent
-  (use-package helm-descbinds
-    :disabled t
-    :straight (:host github
-               :repo "emacs-helm/helm-descbinds")
-    :general
-    ("C-h b" 'helm-descbinds))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (with-eval-after-load 'ivy
-    (general-define-key "C-h b" 'counsel-descbinds))
-#+end_src
-
 * Emacsql
 #+begin_src emacs-lisp :results output silent
   (use-package emacsql
@@ -1541,44 +1470,15 @@ https://github.com/progfolio/doct
     :commands (org-capture
                org-capture-templates)
     :general
-    ;; (:states 'motion
-    ;;  ;; In evil it's jump to column number, which isn't that useful tbh
-    ;;  "C-|" 'my-counsel-org-capture)
-    ;; "c j" '((lambda () (interactive) (org-capture nil "j"))
-    ;;         :which-key "Capture journal entry")
-    ;; "c d" '((lambda () (interactive) (org-capture nil "d"))
-    ;;         :which-key "Capture daydream entry"))
-    ;; (:prefix my-default-evil-leader-key
-    ;;  :keymaps 'org-capture-mode-map
-    ;;  :states 'normal
-    ;;  "r r" 'org-capture-refile)
     (org-capture-mode-map
      [remap evil-save-and-close]          'org-capture-finalize
      [remap evil-save-modified-and-close] 'org-capture-finalize
      [remap evil-quit]                    'org-capture-kill)
-    ;; :init
-    ;; (defun my-capture-daydream ()
-    ;;   ""
-    ;;   (interactive)
-    ;;   (org-capture nil "d")
-    ;; (evil-ex-define-cmd "todo" 'my-capture-daydream)
     :hook ((org-capture-mode-hook . evil-insert-state)
            (org-capture-after-finalize-hook . org-align-all-tags))
     :custom
     (org-capture-bookmark nil)
     :init
-    ;; (with-eval-after-load 'ivy
-    ;;   (general-define-key :states 'motion
-    ;;     ;; In evil it's jump to column number, which isn't that useful tbh
-    ;;     "C-|" 'my-counsel-org-capture)
-    ;;   (defun my-counsel-org-capture ()
-    ;;     (require 'org-capture)
-    ;;     (interactive)
-    ;;     (if (featurep 'counsel-projectile)
-    ;;         (counsel-projectile-org-capture)
-    ;;       (counsel-org-capture)))
-    ;;   (evil-ex-define-cmd "cc" 'counsel-org-capture))
-
     (defun --org-capture-completing-read ()
       "Select capture template, stolen from
   https://github.com/raxod502/selectrum/wiki/Useful-Commands#user-content-org-capture-template"
@@ -1607,13 +1507,6 @@ https://github.com/progfolio/doct
 
     (evil-ex-define-cmd "cc" '--org-capture-completing-read)
     :config
-    (with-eval-after-load 'ivy
-      ;; Remove ^ prefix in ivy org capture
-      (require 'dash)
-      (customize-set-variable 'ivy-initial-inputs-alist
-                              (-remove (lambda (e) (eq (car e) 'counsel-org-capture))
-                                       ivy-initial-inputs-alist)))
-
     (defun --select-org-agenda-file ()
       (require 'org-agenda)
       (let ((targets
@@ -1733,21 +1626,11 @@ For some reason we can't do this in the scratch buffer
        :states '(motion)
        "g t" 'tab-bar-switch-to-next-tab
        "g T" 'tab-bar-switch-to-prev-tab))
-    ;; This is exactly like the original `org-agenda-add'
-    ;; except that we call `my-counsel-org-capture' instead
-    ;; The timestamp feature is currently unused, though that might
-    ;; change in the future
-    ;; TODO: use `define-advice' instead
-    (with-eval-after-load 'ivy
-      (advice-add 'org-agenda-capture :override
-                  #'(lambda (&optional with-time)
-                      (interactive "P")
-                      (let ((org-overriding-default-time)
-                            (org-get-cursor-date (equal with-time 1)))
-                        (call-interactively 'my-counsel-org-capture)))))
-    ;; Disabled because current workflow should not need to go to the
-    ;; clocked in task immediately
-    ;; (advice-add 'org-agenda-clock-in :after 'org-agenda-goto)
+
+    (define-advice org-agenda-capture (:override () --consult-org-agenda-capture)
+      "Overrides `org-agenda-add' with a more consult-like interface"
+      (interactive)
+      (call-interactively '--org-capture-completing-read))
 
     (my-evil-define-split-vsplit-cmd "todo" #'org-todo-list)
     (my-evil-define-split-vsplit-cmd "agenda" #'org-agenda-list)
@@ -1918,7 +1801,6 @@ https://www.nongnu.org/org-edna-el/
     :custom
     (org-roam-dailies-directory "day/")
     (org-roam-complete-everywhere t)
-    :if (featurep 'ivy)
     :general
     (:states 'normal
      :prefix my-default-evil-leader-key
@@ -2471,8 +2353,6 @@ up, on windows at least).
   ;; macros
   ;; TODO: Somehow jigger `magit-todos-branch-list' to *only* show
   ;; branch todos instead of it being an appended section
-  ;; TODO: Figure out how to also filter `ivy-magit-todos' with
-  ;; branch-only sections
   (use-package magit-todos
     :straight (:host github :repo "alphapapa/magit-todos")
     :custom
@@ -2491,13 +2371,9 @@ up, on windows at least).
      "jl" nil
      "j" nil)
     :commands
-    (magit-todos-list ivy-magit-todos)
+    (magit-todos-list)
     :init
-    (with-eval-after-load 'ivy
-      (evil-ex-define-cmd "tt" 'magit-todos-list)
-      (general-define-key
-        :keymaps 'project-prefix-map
-        "t" 'ivy-magit-todos))
+    (evil-ex-define-cmd "gtodo" 'magit-todos-list)
     :hook
     (magit-status-mode-hook . magit-todos-mode))
 #+end_src
@@ -2661,11 +2537,6 @@ Note that there are evil-collection bindings for this
 #+end_src
 
 * Eyebrowse
-- [ ] Use =counsel-bookmarked-directory--candidates= and implement
-  =tabm= or something with bookmark completion.
-- [ ] =:tabf= implementation
-
-
 TODO: some way to better, more dynamically name the tabs
 
 #+begin_src emacs-lisp :results output silent
@@ -3414,22 +3285,8 @@ package manager
     :straight (:host github :repo "jacktasia/dumb-jump")
     :commands
     (dumb-jump-xref-activate)
-    :custom
-    (dumb-jump-selector 'ivy)
-    ;; :general
-    ;; (:states '(normal)
-    ;;  "g D" 'dumb-jump-go
-    ;;  "C-]" 'my-evil-dumb-jump)
-    ;; ;; "g C-]" 'my-evil-dumb-jump)
     :hook
     (xref-backend-functions . dumb-jump-xref-activate))
-    ;; :init
-    ;; (evil-define-motion my-evil-dumb-jump (arg)
-    ;;   :jump t
-    ;;   (interactive "P")
-    ;;   (if arg
-    ;;       (dumb-jump-go-prompt)
-    ;;     (dumb-jump-go))))
 #+end_src
 
 * Anki
@@ -3476,16 +3333,12 @@ https://github.com/zkry/yaml.el/tree/9ebddb55238d746dc5a5d46db04c9f360c140b99
 Being able to mass-edit using search results seem interesting
 http://blog.binchen.org/posts/use-wgrep-and-evil-to-replace-text-efficiently.html
 
-Note that for some reason using plain old =ag= works while
-=counsel-ag= does not.
-
 In the =ag= buffer call =C-c C-p= to launch wgrep.
 
 #+begin_src emacs-lisp :results output silent
   (use-package wgrep
     :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
-    :commands (wgrep-change-to-wgrep-mode
-               ivy-wgrep-change-to-wgrep-mode)
+    :commands (wgrep-change-to-wgrep-mode)
     :custom (wgrep-auto-save-buffer t))
 #+end_src
 
@@ -4660,47 +4513,6 @@ This is a very finnicky package
     (prescient-persist-mode))
 #+end_src
 
-* Ivy
-
-** Ivy Prescient
-#+begin_src emacs-lisp :results output silent
-  (use-package ivy-prescient
-    :straight t
-    :after (ivy prescient)
-    :config
-    (ivy-prescient-mode))
-#+end_src
-
-** Orderless
-https://github.com/oantolin/orderless
-
-It seems that prescient does what this does, but perhaps in a more
-complete way.
-
-** Rich Display
-#+begin_src emacs-lisp :results output silent
-  (use-package ivy-rich
-    :straight (:host github :repo "Yevgnen/ivy-rich")
-    :after (ivy counsel)
-    :config
-    (ivy-rich-mode))
-#+end_src
-
-** Posframe
-Not tracking master because it's currently broken for some reason.
-#+begin_src emacs-lisp :results output silent
-  (use-package ivy-posframe
-    ;; :straight (:host github :repo "tumashu/ivy-posframe"
-    ;;            :files ("ivy-posframe.el"))
-    :disabled t
-    :straight t
-    :after ivy
-    :custom
-    (ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
-    :config
-    (ivy-posframe-mode))
-#+end_src
-
 * Company
 #+begin_src emacs-lisp :results output silent
   (use-package company-mode
@@ -4865,14 +4677,6 @@ Doesn't seem to be working?
                           (call-interactively #'dap-hydra))))
 #+end_src
 
-*** lsp-ivy
-#+begin_src emacs-lisp :results output silent
-  (use-package lsp-ivy
-    :straight t
-    :commands (lsp-ivy-workspace-symbol
-               lsp-ivy-global-workspace-symbol)
-    :after lsp-mode)
-#+end_src
 * Code Folding (Origami)
 #+begin_src emacs-lisp :results output silent
   (use-package origami
@@ -5515,31 +5319,22 @@ Not persistent scratch, just a custom scratch buffer
      "d" 'project-find-dir
      "D" 'project-dired)
 
-    (with-eval-after-load 'ivy
-      (general-define-key
-       :keymaps 'project-prefix-map
-       "c" 'counsel-compile)
+    (with-eval-after-load 'savehist
+      (add-to-list 'savehist-additional-variables 'compile-history))
 
-      (with-eval-after-load 'savehist
-        (add-to-list 'savehist-additional-variables 'counsel-compile-history)))
+    (defun --compile-command-completing-read ()
+      (interactive)
+      (let ((command (--completing-read "Compile command: "
+                                        compile-history
+                                        :default-value compile-command))
+            (default-directory (or (cdr (project-current)
+                                    default-directory))))
+        (add-to-list 'compile-history command)
+        (compile command)))
 
-    (with-eval-after-load 'consult
-      (with-eval-after-load 'savehist
-        (add-to-list 'savehist-additional-variables 'compile-history))
-
-      (defun --compile-command-completing-read ()
-        (interactive)
-        (let ((command (--completing-read "Compile command: "
-                                          compile-history
-                                          :default-value compile-command))
-              (default-directory (or (cdr (project-current))
-                                     default-directory)))
-          (add-to-list 'compile-history command)
-          (compile command)))
-
-      (general-define-key
-       :keymaps 'project-prefix-map
-       "c" '--compile-command-completing-read))
+    (general-define-key
+      :keymaps 'project-prefix-map
+      "c" '--compile-command-completing-read)
 
     (defun --project-find-doc ()
       "Finds and lists all the README (eventually documentation) files "
@@ -5797,22 +5592,7 @@ the packages I run use dabbrev at all.
 
 * Selectrum/Consult/Embark
 
-** Selectrum
-Note that =ivy-mode= needs to be disabled and =selectrum-mode= needs to be
-enabled before you can see changes.
-
-#+begin_src emacs-lisp :results output silent
-  (use-package selectrum
-    :straight t
-    :general
-    (selectrum-minibuffer-map
-     "M-j" 'selectrum-next-candidate
-     "M-k" 'selectrum-previous-candidate)
-    :custom
-    (selectrum-max-window-height 23))
-#+end_src
-
-*** Prescient
+** Selectrum-Prescient
 #+begin_src emacs-lisp :results output silent
   (use-package selectrum-prescient
     :straight t
@@ -5821,18 +5601,7 @@ enabled before you can see changes.
     (selectrum-prescient-mode))
 #+end_src
 
-** Consult
-- =consult-buffer= and =consult-bookmark= has this interesting property of
-  showing what is going on live (sort of like telescope in nvim?)
-
-#+begin_src emacs-lisp :results output silent
-  (use-package consult
-    :straight t
-    :config
-    (evil-ex-define-cmd "bb" 'consult-buffer))
-#+end_src
-
-*** Marginalia
+** Marginalia
 Known issue with annotators making some consults look horrifying ([[https://github.com/minad/marginalia/issues/95][link]]).
 
 #+begin_src emacs-lisp :results output silent
