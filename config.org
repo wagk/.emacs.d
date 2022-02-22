@@ -1178,8 +1178,14 @@ package isn't being maintained or something
     (global-evil-surround-mode))
 #+end_src
 
-**** TODO evil-embrace
-https://github.com/cute-jumper/evil-embrace.el/
+**** evil-embrace
+#+begin_src emacs-lisp :results output silent
+  (use-package evil-embrace
+    :straight t
+    :after evil-surround
+    :config
+    (evil-embrace-enable-evil-surround-integration))
+#+end_src
 
 *** [#A] Argument text objects
 #+begin_src emacs-lisp :results output silent
