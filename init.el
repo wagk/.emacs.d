@@ -308,11 +308,6 @@ barely perceptible.")
                    default-value
                    inherit-input-method))
 
-(cl-defun --file-exists-as-var-p (varname)
-  (require 'f)
-  (and (bound-and-true-p varname)
-       (f-exists-p varname)))
-
 (let ((gc-cons-threshold most-positive-fixnum))
   (bootstrap-package)
   (bootstrap-straight)
