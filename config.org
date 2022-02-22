@@ -1179,10 +1179,22 @@ package isn't being maintained or something
 #+end_src
 
 **** evil-embrace
+This currently implicitly imports =embrace=
+
+By default =embrace= adds backticks (=`=) and function wrapping support.
+
+Edit =embrace-semantics-units-alist= and =embrace-add-pair=.
+
+Probably keep this just for the backticks.
+
 #+begin_src emacs-lisp :results output silent
   (use-package evil-embrace
     :straight t
     :after evil-surround
+    :custom
+    (evil-embrace-show-help-p
+     nil
+     "Otherwise it shows a which-key like interface (that I'm not so hot on)")
     :config
     (evil-embrace-enable-evil-surround-integration))
 #+end_src
