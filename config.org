@@ -5310,8 +5310,8 @@ Not persistent scratch, just a custom scratch buffer
       (let ((command (--completing-read "Compile command: "
                                         compile-history
                                         :default-value compile-command))
-            (default-directory (or (cdr (project-current)
-                                    default-directory))))
+            (default-directory (or (cdr (project-current))
+                                   default-directory)))
         (add-to-list 'compile-history command)
         (compile command)))
 
