@@ -724,15 +724,18 @@ Further helper functions to add bookmarks:
     (evil-ex-define-cmd "mm" #'(lambda ()
                                  (interactive)
                                  (require 'consult)
-                                 (call-interactively 'consult-bookmark)))
-    (evil-ex-define-cmd "Tmm" #'(lambda ()
-                                  (interactive)
-                                  (let* ((bookmark (--completing-read "Bookmark: " bookmark-alist :require-match t))
-                                         (filepath (a-get-in bookmark-alist `(,bookmark filename))))
-                                    (if (>= emacs-major-version 27)
-                                        (let ((tab-bar-new-tab-choice filepath))
-                                          (tab-bar-new-tab))
-                                      (my-evil-new-tab filepath))))))
+                                 (call-interactively 'consult-bookmark))))
+  (evil-ex-define-cmd
+   "Tmm"
+   #'(lambda ()
+       (interactive)
+       (let* ((bookmark (--completing-read "Bookmark: " bookmark-alist
+                                           :require-match t)
+               (filepath (a-get-in bookmark-alist `(,bookmark filename)))))
+         (if (>= emacs-major-version 27)
+             (let ((tab-bar-new-tab-choice filepath))
+               (tab-bar-new-tab))
+           (my-evil-new-tab filepath)))))
 #+end_src
 
 *** Bookmark Face
@@ -772,13 +775,6 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     (tab-bar-mode)
     (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
     (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
-    ;; (with-eval-after-load 'org-agenda
-    ;;   (general-define-key
-    ;;    :keymaps 'org-agenda-mode-map
-    ;;    :states '(motion)
-    ;;    :prefix my-default-evil-leader-key
-    ;;    "g t" 'tab-bar-switch-to-next-tab
-    ;;    "g T" 'tab-bar-switch-to-prev-tab))
     (evil-define-command my-tab-bar-tab-edit (file)
       (interactive "<f>")
       (let ((tab-bar-new-tab-choice (if file file "*scratch*")))
@@ -3500,18 +3496,6 @@ r-value references.
     (java-mode-map
      :states '(normal)
       "C-c C-f" 'my-evil-clang-format)
-    ;; :init
-    ;; IF there is a .clang-format, then use that to format before
-    ;; saving
-    ;; (defun my-clang-format-before-save ()
-    ;;   (require 'projectile)
-    ;;   (require 'clang-format)
-    ;;   (require 'f)
-    ;;   (when (f-exists?
-    ;;          (expand-file-name ".clang-format"
-    ;;                            (projectile-project-root)))
-    ;;     (add-hook 'before-save-hook 'clang-format-buffer t t)))
-    ;; :hook (c++-mode-hook . my-clang-format-before-save)
     :init
     (evil-define-operator my-evil-clang-format (beg end)
       (require 'clang-format)
