@@ -5589,9 +5589,7 @@ the packages I run use dabbrev at all.
     (ob-mermaid-cli-path --mermaid-cli-bin))
 #+end_src
 
-* Selectrum/Consult/Embark
-
-** Selectrum-Prescient
+* Selectrum-Prescient
 #+begin_src emacs-lisp :results output silent
   (use-package selectrum-prescient
     :straight t
@@ -5600,7 +5598,7 @@ the packages I run use dabbrev at all.
     (selectrum-prescient-mode))
 #+end_src
 
-** Marginalia
+* Marginalia
 Known issue with annotators making some consults look horrifying ([[https://github.com/minad/marginalia/issues/95][link]]).
 
 #+begin_src emacs-lisp :results output silent
@@ -5610,7 +5608,7 @@ Known issue with annotators making some consults look horrifying ([[https://gith
     :config (marginalia-mode))
 #+end_src
 
-** Embark-consult
+* Embark-consult
 #+begin_src emacs-lisp :results output silent
   (use-package embark-consult
     :straight t
