@@ -852,6 +852,8 @@ we're adding a custom function for it here."
 
   ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
 
+  ;; TODO: Figure out how to delete an entry from the completion
+  ;; history
   (use-package selectrum
     :demand t
     :straight t
