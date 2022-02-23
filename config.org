@@ -5324,7 +5324,7 @@ Not persistent scratch, just a custom scratch buffer
                                         :default-value compile-command))
             (default-directory (or (cdr (project-current))
                                    default-directory)))
-        (add-to-list 'compile-history command)
+        (add-to-history 'compile-history command)
         (compile command)))
 
     (general-define-key
