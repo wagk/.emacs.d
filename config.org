@@ -378,7 +378,7 @@ Emulate the best feature of notepad
 
 ** Configure scratch buffer mode
 #+begin_src emacs-lisp :results output silent
-  (customize-set-variable 'initial-major-mode 'markdown-mode)
+  ;; (customize-set-variable 'initial-major-mode 'markdown-mode)
 #+end_src
 
 ** Disable startup screen
