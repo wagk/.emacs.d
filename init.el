@@ -866,10 +866,21 @@ we're adding a custom function for it here."
     :config
     (selectrum-mode))
 
+  (use-package selectrum-prescient
+    :straight t
+    :after selectrum
+    :config
+    (selectrum-prescient-mode))
+
   (use-package consult
     :straight t
     :config
     (evil-ex-define-cmd "bb" 'consult-buffer))
+
+  (use-package marginalia
+    :straight t
+    :after consult
+    :config (marginalia-mode))
 
   (use-package embark
     :straight t
@@ -886,6 +897,10 @@ we're adding a custom function for it here."
     (:states 'motion
      "C-<SPC>" 'embark-act
      "S-<SPC>" 'embark-dwim))
+
+  (use-package embark-consult
+    :straight t
+    :after (:all embark consult))
 
   (progn
     (let ((custom (locate-user-emacs-file "custom.el")))

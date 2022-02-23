@@ -5584,29 +5584,3 @@ the packages I run use dabbrev at all.
     :custom
     (ob-mermaid-cli-path --mermaid-cli-bin))
 #+end_src
-
-* Selectrum-Prescient
-#+begin_src emacs-lisp :results output silent
-  (use-package selectrum-prescient
-    :straight t
-    :after selectrum
-    :config
-    (selectrum-prescient-mode))
-#+end_src
-
-* Marginalia
-Known issue with annotators making some consults look horrifying ([[https://github.com/minad/marginalia/issues/95][link]]).
-
-#+begin_src emacs-lisp :results output silent
-  (use-package marginalia
-    :straight t
-    :after consult
-    :config (marginalia-mode))
-#+end_src
-
-* Embark-consult
-#+begin_src emacs-lisp :results output silent
-  (use-package embark-consult
-    :straight t
-    :after (:all embark consult))
-#+end_src
