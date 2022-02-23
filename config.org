@@ -730,8 +730,8 @@ Further helper functions to add bookmarks:
    #'(lambda ()
        (interactive)
        (let* ((bookmark (--completing-read "Bookmark: " bookmark-alist
-                                           :require-match t)
-               (filepath (a-get-in bookmark-alist `(,bookmark filename)))))
+                                           :require-match t))
+              (filepath (a-get-in bookmark-alist `(,bookmark filename))))
          (if (>= emacs-major-version 27)
              (let ((tab-bar-new-tab-choice filepath))
                (tab-bar-new-tab))
