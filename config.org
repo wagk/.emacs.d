@@ -1621,7 +1621,23 @@ For some reason we can't do this in the scratch buffer
     :hook
     (org-agenda-after-show-hook . org-narrow-to-subtree)
     (org-agenda-mode-hook . (lambda ()
-                              (add-hook 'auto-save-hook 'org-save-all-org-buffers nil t)))
+                              (--run-with-local-idle-timer
+                               60 t 'org-save-all-org-buffers)))
+    :init
+    (cl-defun --run-with-local-idle-timer (secs repeat function &rest args)
+      "Like `run-with-idle-timer', but always runs in the `current-buffer'.
+    Cancels itself, if this buffer was killed.
+    Stolen from https://emacs.stackexchange.com/a/13275"
+      (let* (;; Chicken and egg problem.
+             (fns (make-symbol "local-idle-timer"))
+             (timer (apply 'run-with-idle-timer secs repeat fns args))
+             (fn `(lambda (&rest args)
+                    (if (not (buffer-live-p ,(current-buffer)))
+                        (cancel-timer ,timer)
+                      (with-current-buffer ,(current-buffer)
+                        (apply (function ,function) args))))))
+        (fset fns fn)
+        fn))
     :config
     (require 'evil-org-agenda)
     (customize-set-value 'org-agenda-start-day "-1d"
