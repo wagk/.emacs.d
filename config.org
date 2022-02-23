@@ -1620,6 +1620,8 @@ For some reason we can't do this in the scratch buffer
     (org-agenda-done ((t (:inherit org-agenda-done :strike-through t))))
     :hook
     (org-agenda-after-show-hook . org-narrow-to-subtree)
+    (org-agenda-mode-hook . (lambda ()
+                              (add-hook 'auto-save-hook 'org-save-all-org-buffers nil t)))
     :config
     (require 'evil-org-agenda)
     (customize-set-value 'org-agenda-start-day "-1d"
