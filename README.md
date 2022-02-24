@@ -4,6 +4,12 @@
 
 https://alpha.gnu.org/gnu/emacs/pretest/windows/
 
+## Building Windows with Native Compilation
+I actually haven't actually tried this so I don't really know whether
+this works.
+
+https://gist.github.com/nauhygon/f3b44f51b34e89bc54f8
+
 ## Security Tokens
 If you find yourself somehow magically using a security token, you can
 disable it by running
