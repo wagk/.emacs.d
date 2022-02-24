@@ -880,6 +880,7 @@ we're adding a custom function for it here."
   (use-package marginalia
     :straight t
     :after consult
+    :custom (marginalia-align 'right)
     :config (marginalia-mode))
 
   (use-package embark
