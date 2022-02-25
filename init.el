@@ -760,13 +760,17 @@ we're adding a custom function for it here."
   ;;   (use-package org-contrib
   ;;     :straight t))
 
+  (use-package org-persist
+    :straight nil
+    :ensure nil
+    :after org
+    :custom
+    (org-persist-directory (f-join no-littering-var-directory "org-persist/")))
+
   ;; we do this because juggling between org, org-plus-contrib,
   ;; straight, and emacs' built-in org is horrendous and causing the
   ;; :config code to just not run
   (with-eval-after-load 'org
-    (with-eval-after-load 'org-persist
-      (customize-set-value 'org-persist-directory
-                           (f-join no-littering-var-directory "org-persist/")))
     (defun my-org-convert-list-to-checkbox ()
       (when (and (org-at-item-p)
                  (not (org-at-item-checkbox-p)))
@@ -844,6 +848,7 @@ we're adding a custom function for it here."
           (erase-buffer)
           (insert document)
           (goto-char (point-min)))))
+
     (use-package ox-confluence
       :ensure nil
       :straight nil
