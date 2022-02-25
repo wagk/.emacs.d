@@ -1944,7 +1944,7 @@ https://www.nongnu.org/org-edna-el/
                    (file+head ,(f-join
                                 ;; "notes" ;; can't get the db to recognize the folder
                                 "${slug}.org")
-                              "#+title: ${title}\n")
+                              "#+title: ${title}\n%?")
                    :unnarrowed t)))
           (template-dailies
            (list `("d" "default" entry "* %?"
@@ -1953,7 +1953,8 @@ https://www.nongnu.org/org-edna-el/
                               ,(mapconcat 'identity
                                           '("#+title: %<%Y-%m-%d>"
                                             "#+filetags: diary"
-                                            "\n")
+                                            "\n"
+                                            "%?")
                                           "\n"))
                    :unnarrowed t
                    :empty-lines 1))))
