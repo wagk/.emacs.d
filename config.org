@@ -3598,10 +3598,8 @@ filters*.
 ** Default to K&R style
 #+begin_src emacs-lisp :results output silent
   (with-eval-after-load 'cc-mode
-    (customize-set-value 'c-default-style
-                        (add-to-list 'c-default-style '(c++-mode . "k&r")))
-    (customize-set-value 'c-default-style
-                        (add-to-list 'c-default-style '(c-mode . "k&r"))))
+    (cl-dolist (mode '(c-mode c++-mode))
+      (add-to-list 'c-default-style `(,mode . "k&r"))))
 #+end_src
 
 ** Newline in comments should insert an indented comment
