@@ -2206,7 +2206,15 @@ Use the following query to find all todo items that are overdue
 #+begin_src emacs-lisp :results output silent
   (use-package org-transclusion
     :straight (:host github :repo "nobiot/org-transclusion")
-    :hook (org-mode-hook . org-transclusion-mode))
+    :hook (org-mode-hook . org-transclusion-mode)
+    :config
+    (with-eval-after-load 'org-roam
+      ;; Propagate backlinks if header is transcluded.
+      ;; https://github.com/nobiot/org-transclusion/issues/136
+      (customize-set-value 'org-roam-db-extra-links-exclude-keys
+                           (cl-remove-if (lambda (kv)
+                                           (string-equal (cadr kv) "transclude"))
+                                         org-roam-db-extra-links-exclude-keys))))
 #+end_src
 
 * hl-todo
