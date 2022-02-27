@@ -88,6 +88,7 @@
                  ("melpa-stable" . "https://stable.melpa.org/packages/")
                  ("elpy"         . "https://jorgenschaefer.github.io/packages/")
                  ("gnu"          . "https://elpa.gnu.org/packages/")
+                 ("gnu-devel"    . "https://elpa.gnu.org/devel/")
                  ("nongnu"       . "https://elpa.nongnu.org/nongnu/")
                  ("marmalade"    . "https://marmalade-repo.org/packages/")))
       (add-to-list 'package-archives x)))
