@@ -1927,8 +1927,18 @@ https://www.nongnu.org/org-edna-el/
       (--with-selected-org-roam-directory #'(lambda () (org-roam-dailies-goto-tomorrow 1))))
 
     (my-evil-define-split-vsplit-cmd "ii" #'--org-roam-find-index-file)
-    (my-evil-define-split-vsplit-cmd "nn" #'--org-roam-node-find)
     (my-evil-define-split-vsplit-cmd "jj" #'--org-roam-dailies-today)
+    (my-evil-define-split-vsplit-cmd "nn" #'--org-roam-node-find)
+
+    (defun --org-roam-node-find-new-tab ()
+      (interactive)
+      (let* ((filepath (-> (org-roam-node-read)
+                           (org-roam-node-file))))
+        (if (>= emacs-major-version 27)
+            (let ((tab-bar-new-tab-choice filepath))
+              (tab-bar-new-tab))
+          (my-evil-new-tab filepath))))
+    (evil-ex-define-cmd "Tnn" #'--org-roam-node-find-new-tab)
 
     (evil-ex-define-cmd "index"     #'--org-roam-find-index-file)
     (evil-ex-define-cmd "nc"        #'--org-roam-capture)
