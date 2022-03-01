@@ -1952,39 +1952,77 @@ https://www.nongnu.org/org-edna-el/
 
     :config
     (require 'org-roam-dailies)
-    (add-to-list 'display-buffer-alist '("\\*org-roam\\*" . (display-buffer-same-window . nil)))
+    (add-to-list 'display-buffer-alist
+                 '("\\*org-roam\\*" . (display-buffer-same-window . nil)))
     (org-roam-db-autosync-mode)
-    ;; olp means outline path
-    ;; Got to accept that we probably shouldn't assume that all new
-    ;; headers are nodes. Probably better to just give a keybind for
-    ;; that
-    (let ((template
-           (list `("d" "default" plain "%?"
-                   :if-new
-                   (file+head ,(f-join
-                                ;; "notes" ;; can't get the db to recognize the folder
-                                "${slug}.org")
-                              "#+title: ${title}%?")
-                   :unnarrowed t)))
-          (template-dailies
-           (list `("d" "default" entry "* %?"
-                   :if-new
-                   (file+head "%<%Y-%m-%d>.org"
-                              ,(mapconcat 'identity
-                                          '("#+title: %<%Y-%m-%d>"
-                                            "#+filetags: diary"
-                                            "\n")
-                                          "\n"))
-                   :unnarrowed t
-                   :empty-lines 1))))
-      (customize-set-value 'org-roam-capture-templates template)
-      (customize-set-value 'org-roam-dailies-capture-templates template-dailies))
-    (advice-add 'org-roam-node-slug :filter-return
-                (lambda (str) (replace-regexp-in-string "_" "-" str))))
-      ;; (advice-add 'org-id-get-create
-      ;;             :after (lambda () (interactive)
-      ;;                      (when (my-buffer-in-org-roam-dir-p)
-      ;;                        (org-roam-db-sync)))))
+
+    ;; Can't do this because the top of the file contains some cookies
+    ;; and I don't know hot to strip them yet
+    ;;
+    ;; (let ((org-roam-doct-file (expand-file-name
+    ;;                            "local-packages/doct-org-roam.el"
+    ;;                            user-emacs-directory)))
+    ;;   (unless (f-exists-p org-roam-doct-file)
+    ;;     (with-current-buffer
+    ;;       (url-retrieve-synchronously
+    ;;        "https://gist.github.com/vherrmann/f9b21eeea7d7c9123dc400a30599d50d/raw/1ccb6d44484858225e9f7dfdfb54dc7a40441637/doct-org-roam.el"
+    ;;        'silent 'inhibit-cookies)
+    ;;       (append-to-file (point-min)
+    ;;                       (point-max)
+    ;;                       org-roam-doct-file))))
+
+    ;; (use-package doct-org-roam
+    ;;   :straight nil
+    ;;   :ensure nil
+    ;;   :load-path "local-packages/"
+    ;;   :commands doct-org-roam)
+
+    (define-advice org-roam-node-slug (:filter-return (str))
+      (replace-regexp-in-string "_" "-" str))
+
+    (let ((default-slug "${slug}.org")
+          (default-head "#+title: ${title}\n#+filetags: %^G\n\n")
+          (default-diary-slug "%<%Y-%m-%d>.org")
+          (default-diary-head "#+filetags: :diary:%^G\n\n"))
+      (customize-set-value
+       'org-roam-capture-templates
+       (list `("d" "default" plain "%?"
+               :target (file+head ,default-slug ,default-head)
+               :empty-lines 1
+               :unnarrowed t)
+             `("a" "append" entry "* %?"
+               :target (file+head ,default-slug ,default-head)
+               :empty-lines 1
+               :unnarrowed t)
+             `("r" "raw" entry "* %?"
+               :target (file+head+olp
+                        ,default-slug
+                        ,default-head
+                        ("raw"))
+               :empty-lines 1
+               :unnarrowed t)))
+      (customize-set-value
+       'org-roam-dailies-capture-templates
+       (list `("d" "default" plain "%?"
+               :target (file+head
+                        ,default-diary-slug
+                        ,default-diary-head)
+               :empty-lines 1
+               :unnarrowed t)
+             `("a" "append" entry "* %?"
+               :target (file+head
+                        ,default-diary-slug
+                        ,default-diary-head)
+               :empty-lines 1
+               :unnarrowed t)
+             `("r" "raw" entry "* %?"
+               :target (file+head+olp
+                        ,default-diary-slug
+                        ,default-diary-head
+                        ("raw"))
+               :empty-lines 1
+               :unnarrowed t)))))
+
 #+end_src
 
 Hacks to use =emacsql-sqlite3= on windows, because =emacsql-sqlite= needs
