@@ -857,6 +857,11 @@ for the specific hook.
   (save-place-mode 1)
 #+end_src
 
+** Disable dialog boxes
+#+begin_src emacs-lisp :results output silent
+  (customize-set-value 'use-dialog-box nil)
+#+end_src
+
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
   (use-package apropos
