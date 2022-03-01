@@ -2022,7 +2022,6 @@ https://www.nongnu.org/org-edna-el/
                         ("raw"))
                :empty-lines 1
                :unnarrowed t)))))
-
 #+end_src
 
 Hacks to use =emacsql-sqlite3= on windows, because =emacsql-sqlite= needs
