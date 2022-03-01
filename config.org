@@ -852,6 +852,11 @@ for the specific hook.
                 `(".*" ,dir t)))
 #+end_src
 
+** Enable saving bufferplaces
+#+begin_src emacs-lisp :results output silent
+  (save-place-mode 1)
+#+end_src
+
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
   (use-package apropos
