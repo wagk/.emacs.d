@@ -1825,9 +1825,9 @@ https://www.nongnu.org/org-edna-el/
 #+end_src
 
 ** Org Roam
-#+begin_src emacs-lisp :results output silent
-  (setq org-roam-v2-ack t)
-#+end_src
+- [ ] Figure out how to jigger =org-roam-=capture-= to use
+  =completing-read= and family, since the current way of selecting a
+  candidate is fairly (very) primitive.
 
 #+begin_src emacs-lisp :results output silent
   (use-package org-roam
@@ -1998,8 +1998,7 @@ https://www.nongnu.org/org-edna-el/
                :unnarrowed t)
              `("r" "raw" entry "* %?"
                :target (file+head+olp
-                        ,default-slug
-                        ,default-head
+                        ,default-slug ,default-head
                         ("raw"))
                :empty-lines 1
                :unnarrowed t)))
@@ -2007,20 +2006,17 @@ https://www.nongnu.org/org-edna-el/
        'org-roam-dailies-capture-templates
        (list `("d" "default" plain "%?"
                :target (file+head
-                        ,default-diary-slug
-                        ,default-diary-head)
+                        ,default-diary-slug ,default-diary-head)
                :empty-lines 1
                :unnarrowed t)
              `("a" "append" entry "* %?"
                :target (file+head
-                        ,default-diary-slug
-                        ,default-diary-head)
+                        ,default-diary-slug ,default-diary-head)
                :empty-lines 1
                :unnarrowed t)
              `("r" "raw" entry "* %?"
                :target (file+head+olp
-                        ,default-diary-slug
-                        ,default-diary-head
+                        ,default-diary-slug ,default-diary-head
                         ("raw"))
                :empty-lines 1
                :unnarrowed t)))))
