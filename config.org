@@ -3112,6 +3112,8 @@ https://old.reddit.com/r/emacs/comments/d7x7x8/finally_fixing_indentation_of_quo
     ;;                                     (auto-save-mode -1)
     ;;                                     (aes-toggle-encryption))))
     :init
+    ;; TODO: figure out how to do this for the whole buffer using
+    ;; `org-element-*' functions
     (defun --toggle-encrypt-org-roam-subtree ()
       "Encrypt the content of the org subtree with the org ID of the
   document. Aborts if one is not found. There is probably a better way
