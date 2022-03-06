@@ -3117,7 +3117,12 @@ https://old.reddit.com/r/emacs/comments/d7x7x8/finally_fixing_indentation_of_quo
   document. Aborts if one is not found. There is probably a better way
   to do encrypt the text, perhaps automatically on hook, but this should
   serve for now."
-      (-let* (((beg end _) (evil-org-inner-subtree))
+      (interactive)
+      (-let* (((beg subtree-end _) (evil-org-inner-subtree))
+              ;; TODO: is there an existing function for this?
+              (end (save-excursion
+                     (goto-char subtree-end)
+                     (+ subtree-end (skip-chars-backward " \t\n"))))
               (password (org-id-get (point-min)))
               (text (buffer-substring beg end))
               (is-encrypted (with-temp-buffer
