@@ -743,6 +743,13 @@ Further helper functions to add bookmarks:
   (custom-set-faces '(bookmark-face ((t (:inherit sol-subtle)))))
 #+end_src
 
+*** Save Config, Init, and Local as bookmarks
+#+begin_src emacs-lisp :results output silent
+  (config-define-bookmark "init" user-init-file)
+  (config-define-bookmark "config" user-config-file)
+  (config-define-bookmark "local" user-local-file)
+#+end_src
+
 ** Doctor mode
 #+begin_src emacs-lisp :results output silent
   (evil-ex-define-cmd "doc[tor]" 'doctor)
