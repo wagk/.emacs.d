@@ -761,12 +761,8 @@ we're adding a custom function for it here."
   ;;   (use-package org-contrib
   ;;     :straight t))
 
-  (use-package org-persist
-    :straight nil
-    :ensure nil
-    :after org
-    :custom
-    (org-persist-directory (f-join no-littering-var-directory "org-persist/")))
+  (with-eval-after-load 'org-persist
+    (customize-set-value 'org-persist-directory (f-join no-littering-var-directory "org-persist/")))
 
   ;; we do this because juggling between org, org-plus-contrib,
   ;; straight, and emacs' built-in org is horrendous and causing the
