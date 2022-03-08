@@ -3133,7 +3133,11 @@ https://old.reddit.com/r/emacs/comments/d7x7x8/finally_fixing_indentation_of_quo
                      (goto-char subtree-end)
                      (+ subtree-end (skip-chars-backward " \t\n"))))
               (password (org-id-get (point-min)))
-              (text (buffer-substring beg end))
+              (text (progn
+                      (save-excursion
+                        (goto-char beg)
+                        (outline-show-subtree))
+                      (buffer-substring beg end)))
               (is-encrypted (with-temp-buffer
                               (insert text)
                               (aes-is-encrypted))))
