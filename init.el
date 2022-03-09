@@ -610,10 +610,9 @@ we're adding a custom function for it here."
 
   (use-package org
     :straight t
+    :demand t
     :commands (orgtbl-mode
                org-babel-load-file)
-    :mode
-    ("\\.todo\\'" . org-mode)
     :general
     (:states  '(normal motion)
      :keymaps 'org-mode-map
@@ -670,8 +669,6 @@ we're adding a custom function for it here."
     (org-default-notes-file "~/.todo")
     (org-M-RET-may-split-line nil)
     (org-return-follows-link t)
-    ;; (org-todo-keywords '((sequence "TODO(t)" "ONGOING(o)" "BLOCKED(b@)"
-    ;;                                "|" "DONE(d@)" "SKIPPED(s@)")))
     (org-todo-keywords '((sequence "TODO(t)" "WAIT(w@)" "|" "DONE(d!/@)" "SKIP(s@/@)")))
     (org-enforce-todo-checkbox-dependencies
      nil "Sometimes we are able to skip dependencies as things happen")
