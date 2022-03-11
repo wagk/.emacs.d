@@ -484,7 +484,8 @@ barely perceptible.")
      t
      "Automatically indent when inserting a newline")
     (evil-want-fine-undo t)
-    :hook (evil-normal-state-entry-hook . evil-ex-nohighlight)
+    :hook ((window-configuration-change-hook . balance-windows)
+           (evil-normal-state-entry-hook . evil-ex-nohighlight))
     :config
     (defun update-evil-shift-width ()
       "We do this otherwise packages like parinfer would mess up with
