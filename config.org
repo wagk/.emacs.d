@@ -4969,15 +4969,6 @@ trailing dots only happen /after/ the fci column.)
     :commands todotxt)
 #+end_src
 
-* Persistent scratch
-#+begin_src emacs-lisp :results output silent
-  (use-package persistent-scratch
-    :straight (:host github :repo "Fanael/persistent-scratch")
-    :disabled t ;;  6 seconds to load lmao
-    :config
-    (persistent-scratch-setup-default))
-#+end_src
-
 * COMMENT Smerge vimdiff bindings
 Not using this because we're going to try ediff
 #+begin_src emacs-lisp :results output silent
