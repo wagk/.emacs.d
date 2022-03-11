@@ -1936,9 +1936,17 @@ https://www.nongnu.org/org-edna-el/
       (--with-selected-org-roam-directory #'(lambda () (org-roam-dailies-goto-tomorrow 1))))
 
     (my-evil-define-split-vsplit-cmd "ii" #'--org-roam-find-index-file)
-    (my-evil-define-split-vsplit-cmd "jj" #'--org-roam-dailies-today)
-    (my-evil-define-split-vsplit-cmd "nn" #'--org-roam-node-find)
 
+    (my-evil-define-split-vsplit-cmd "jj" #'--org-roam-dailies-today)
+    (defun --org-roam-node-dailies-today-new-tab ()
+      (interactive)
+      (if (>= emacs-major-version 27)
+          (tab-bar-new-tab)
+        (my-evil-new-tab filepath))
+      (call-interactively 'org-roam-dailies-goto-today))
+    (evil-ex-define-cmd "Tjj" #'--org-roam-node-dailies-today-new-tab)
+
+    (my-evil-define-split-vsplit-cmd "nn" #'--org-roam-node-find)
     (defun --org-roam-node-find-new-tab ()
       (interactive)
       (let* ((filepath (-> (org-roam-node-read)
