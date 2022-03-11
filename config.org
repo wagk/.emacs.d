@@ -4949,19 +4949,6 @@ trailing dots only happen /after/ the fci column.)
     ;; (advice-add 'load-theme :after 'my-restart-fci-mode))
 #+end_src
 
-* Devdocs
-#+begin_src emacs-lisp :results output silent
-  (use-package devdocs
-    :disabled t ;; because we don't really use it
-    :straight (:host github :repo "skeeto/devdocs-lookup")
-    :commands (devdocs-lookup)
-    :custom
-    (evil-lookup-func #'(lambda ()
-                         (call-interactively 'devdocs-lookup)))
-    :config
-    (devdocs-setup))
-#+end_src
-
 * todotxt
 #+begin_src emacs-lisp :results output silent
   (use-package todotxt
