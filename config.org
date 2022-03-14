@@ -1207,7 +1207,6 @@ Probably keep this just for the backticks.
 #+begin_src emacs-lisp :results output silent
   (use-package evil-embrace
     :straight t
-    :after evil-surround
     :custom
     (evil-embrace-show-help-p
      nil
