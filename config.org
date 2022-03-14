@@ -5327,11 +5327,11 @@ Not persistent scratch, just a custom scratch buffer
 #+begin_src emacs-lisp :results output silent
   (use-package scratch
     :straight t
-    :commands scratch
     :init
     (evil-define-command --scratch (&optional bang)
       "Opens org-mode by default, asks for mode when ! is supplied"
       (interactive "<!>")
+      (require 'scratch)
       (let ((current-prefix-arg (when bang 4)))
         (call-interactively 'scratch)))
     (evil-ex-define-cmd "sc[ratch]" '--scratch))
