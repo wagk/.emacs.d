@@ -2012,6 +2012,13 @@ https://www.nongnu.org/org-edna-el/
                :target (file+head ,default-slug ,default-head)
                :empty-lines 1
                :unnarrowed t)
+             ;; Datetree creation seems powerful but also not really
+             ;; what we want.
+             ;; `("t" "timestamp" entry "* %<%H:%M> %?"
+             ;;   :target (file+datetree ,default-slug day)
+             ;;   :empty-lines 1
+             ;;   :time-prompt t
+             ;;   :unnarrowed t)
              `("r" "raw" entry "* %?"
                :target (file+head+olp
                         ,default-slug ,default-head
