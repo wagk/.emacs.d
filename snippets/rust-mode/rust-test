@@ -2,7 +2,9 @@
 # name: rust-test
 # key: test
 # --
-#[test]
-fn $1() {
+#[${1:tokio::test}]
+#[ignore = "not yet implemented"]
+${2:async} fn $3() {
   $0
+  todo!()
 }
