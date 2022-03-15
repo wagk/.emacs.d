@@ -5716,6 +5716,12 @@ the packages I run use dabbrev at all.
 
 * Svg Tag Mode
 #+begin_src emacs-lisp :results output silent
+  (use-package svg-lib
+    :straight (:host github :repo "rougier/svg-lib"))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
   (use-package svg-tag-mode
-    :straight t)
+    :straight t
+    :require svg-lib)
 #+end_src
