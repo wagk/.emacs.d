@@ -5442,6 +5442,7 @@ Not persistent scratch, just a custom scratch buffer
     (with-eval-after-load 'savehist
       (add-to-list 'savehist-additional-variables 'compile-history))
 
+    ;; TODO: Also make `compile-history' project-local
     (defun --compile-command-completing-read ()
       (interactive)
       (let ((command (--completing-read "Compile command: "
