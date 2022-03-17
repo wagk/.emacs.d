@@ -5756,7 +5756,8 @@ the packages I run use dabbrev at all.
 
 #+begin_src emacs-lisp :results output silent
   (use-package svg-tag-mode
-    :straight t) ;; depends on `svg-lib'
+    :straight t ;; depends on `svg-lib'
+    :after svg-lib)
 #+end_src
 
 * Vterm
