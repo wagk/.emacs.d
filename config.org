@@ -5457,7 +5457,7 @@ Not persistent scratch, just a custom scratch buffer
       :keymaps 'project-prefix-map
       "c" '--compile-command-completing-read)
 
-    (defun --project-find-doc ()
+    (defun --project-find-readme ()
       "Finds and lists all the README (eventually documentation) files "
       (interactive)
       (let* ((case-fold-search t) ; ignore cases
@@ -5473,7 +5473,7 @@ Not persistent scratch, just a custom scratch buffer
                                         :require-match t)))
         (find-file (f-join project-dir readme))))
 
-    (my-evil-define-split-vsplit-cmd "readme" #'--project-find-doc)
+    (my-evil-define-split-vsplit-cmd "readme" #'--project-find-readme)
 
     (with-eval-after-load 'rg
       (general-define-key
