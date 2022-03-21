@@ -721,10 +721,13 @@ Further helper functions to add bookmarks:
 
 #+begin_src emacs-lisp :results output silent
   (with-eval-after-load 'consult
-    (evil-ex-define-cmd "mm" #'(lambda ()
-                                 (interactive)
-                                 (require 'consult)
-                                 (call-interactively 'consult-bookmark))))
+    (my-evil-define-split-vsplit-cmd
+     "mm"
+     #'(lambda ()
+         (interactive)
+         (require 'consult)
+         (call-interactively 'consult-bookmark))))
+
   (evil-ex-define-cmd
    "Tmm"
    #'(lambda ()
