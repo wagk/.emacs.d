@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: rust-async-test
+# key: atest
+# --
+#[tokio::test]
+#[ignore = "not yet implemented"]
+async fn $3() {
+  $0
+  todo!()
+}
