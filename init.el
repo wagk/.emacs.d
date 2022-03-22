@@ -484,7 +484,8 @@ barely perceptible.")
      t
      "Automatically indent when inserting a newline")
     (evil-want-fine-undo t)
-    :hook ((window-configuration-change-hook . balance-windows)
+    ;; this messes up subtle bits of some emacs modes, like ediff
+    :hook (;; (window-configuration-change-hook . balance-windows)
            (evil-normal-state-entry-hook . evil-ex-nohighlight))
     :config
     (defun update-evil-shift-width ()
