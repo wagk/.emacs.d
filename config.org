@@ -1814,6 +1814,16 @@ Needs a working =zip= exe.
     :after org)
 #+end_src
 
+** Ob-http
+#+begin_src emacs-lisp :results output silent
+  (use-package ob-http
+    :straight t
+    :config
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     (add-to-list 'org-babel-load-languages '(http . t))))
+#+end_src
+
 ** Org Edna
 https://www.nongnu.org/org-edna-el/
 #+begin_src emacs-lisp :results output silent
