@@ -5624,7 +5624,8 @@ the packages I run use dabbrev at all.
 * Terraform mode
 #+begin_src emacs-lisp :results output silent
   (use-package terraform-mode
-    :straight t)
+    :straight t
+    :hook (terraform-mode-hook . terraform-format-on-save-mode))
 #+end_src
 
 * Bufler
