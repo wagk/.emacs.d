@@ -929,3 +929,4 @@ we're adding a custom function for it here."
 ;; Emacs considers the following "dangerous" (i.e they'll ask you to
 ;; confirm)
 (put 'list-timers 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
