@@ -5758,3 +5758,15 @@ the packages I run use dabbrev at all.
   (use-package svg-tag-mode
     :straight t) ;; depends on `svg-lib'
 #+end_src
+
+* Vterm
+https://github.com/akermu/emacs-libvterm
+
+#+begin_src emacs-lisp :results output silent
+  (use-package vterm
+    :straight t
+    :if (-any (lambda (s) (eq system-type s))
+              '(darwin gnu/linux))
+    :config
+    (evil-ex-define-cmd "term" #'vterm))
+#+end_src
