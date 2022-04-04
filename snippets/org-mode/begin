@@ -2,6 +2,6 @@
 # key: begin
 # name: org-mode-begin
 # --
-#+BEGIN_$1
+#+begin_$1
 $0
-#+END_$1
+#+end_$1

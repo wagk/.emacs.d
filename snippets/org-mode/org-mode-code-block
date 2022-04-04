@@ -2,5 +2,5 @@
 # name: org-mode-code-block
 # key: src
 # --
-#+BEGIN_SRC $1
-#+END_SRC
+#+begin_src $1
+#+end_src

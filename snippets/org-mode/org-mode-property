@@ -2,4 +2,4 @@
 # name: org-mode-property
 # key: prop
 # --
-#+PROPERTY: $0
+#+property: $0

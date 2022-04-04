@@ -2,7 +2,7 @@
 # name: org header block
 # key: header
 # --
-#+TITLE: $1
-#+AUTHOR: Pang Tun Jiang
-#+EMAIL: pang.t@nus.edu.sg
-#+DESCRIPTION: $0
+#+title: $1
+#+author: Pang Tun Jiang
+#+email: mail@pangt.dev
+#+description: $0

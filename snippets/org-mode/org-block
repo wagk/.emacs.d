@@ -2,6 +2,6 @@
 # name: org-mode-literal-block
 # key: #
 # --
-#+BEGIN_${1:SRC} $2
+#+begin_${1:src} $2
 $0
-#+END_$1
+#+end_$1
