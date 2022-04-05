@@ -2489,7 +2489,6 @@ Requires installation of [[https://github.com/dandavison/delta][Delta]].
 
 #+begin_src emacs-lisp :results output silent
   (use-package magit-delta
-    :disabled t ;; until we figure out how to configure the colorscheme
     :if (executable-find "delta")
     :hook (magit-mode-hook . magit-delta-mode))
 #+end_src
