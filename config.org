@@ -5490,11 +5490,19 @@ Not persistent scratch, just a custom scratch buffer
     ;; TODO: Also make `compile-history' project-local
     (defun --compile-command-completing-read ()
       (interactive)
+      (require 'dash)
       (let ((command (--completing-read "Compile command: "
                                         compile-history
                                         :default-value compile-command))
-            (default-directory (or (cdr (project-current))
-                                   default-directory)))
+            ;; We do this because newer versions of `project-current'
+            ;; returns the form (vc Git "path"), when older versions
+            ;; return instead (vc "path"). This pattern match handles
+            ;; the difference
+            (default-directory (-let (((_ a b) (project-current)))
+                                 (cond
+                                  ((stringp a) a)
+                                  ((stringp b) b)
+                                  (t default-directory)))))
         (add-to-history 'compile-history command)
         (compile command)))
 
@@ -5505,8 +5513,13 @@ Not persistent scratch, just a custom scratch buffer
     (defun --project-find-readme ()
       "Finds and lists all the README (eventually documentation) files "
       (interactive)
+      (require 'dash)
       (let* ((case-fold-search t) ; ignore cases
-             (project-dir (cdr (project-current)))
+             ;; same reasoning as `--compile-command-completing-read'
+             (project-dir (-let (((_ a b) (project-current)))
+                            (cond
+                             ((stringp a) a)
+                             ((stringp b) b))))
              (readme-list (->> (project-files (project-current))
                            (-keep (lambda (elem)
                                      (when (string-match-p "readme" elem nil)
