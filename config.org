@@ -2378,9 +2378,9 @@ when the documentation says to use prefix commands
     (magit-section-heading ((((background light)) (:foreground ,sol-yellow :underline t))
                             (((background dark)) (:foreground, sol-yellow :underline t))))
     :general
-    (general-define-key
-      :keymaps 'project-prefix-map
-      "v" 'magit-status)
+    ;; (general-define-key
+    ;;   :keymaps 'project-prefix-map
+    ;;   "v" 'magit-status)
     (magit-mode-map
      :states '(normal)
      "g x" 'magit-browse-thing)
