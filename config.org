@@ -2498,9 +2498,18 @@ Requires installation of [[https://github.com/dandavison/delta][Delta]].
                git-link-commit
                git-link-homepage)
     :custom
-    (git-link-open-in-browser t)
+    (git-link-open-in-browser nil)
     :init
-    (evil-ex-define-cmd "repo" 'git-link-homepage))
+    (evil-ex-define-cmd "repo" #'(lambda () (interactive)
+                                   (require 'git-link)
+                                   (call-interactively #'git-link-homepage)
+                                   (browse-url (pop kill-ring))))
+    (evil-ex-define-cmd "pulls" #'(lambda () (interactive)
+                                    (require 'git-link)
+                                    (let ((url (progn
+                                                 (call-interactively #'git-link-homepage)
+                                                 (pop kill-ring))))
+                                     (browse-url (concat url "/pulls"))))))
 #+end_src
 
 ** Browse-at-remote
