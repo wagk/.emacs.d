@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: tf-variable
+# key: v
+# --
+variable "$1" {
+  $0
+}
