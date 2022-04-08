@@ -322,9 +322,7 @@ barely perceptible.")
 
   (use-package async
     ;; :straight (:host github :repo "jwiegley/emacs-async")
-    :straight t
-    :config
-    (async-bytecomp-package-mode 1))
+    :straight t)
 
   (use-package general
     :straight (:host github :repo "noctuid/general.el")
