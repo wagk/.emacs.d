@@ -5811,6 +5811,8 @@ https://github.com/akermu/emacs-libvterm
     :straight t
     :if (-any (lambda (s) (eq system-type s))
               '(darwin gnu/linux))
+    :custom
+    (vterm-max-scrollback 100000 "maximum allowed without recompilation")
     :config
     (evil-ex-define-cmd "term" #'vterm))
 #+end_src
