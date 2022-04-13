@@ -5816,3 +5816,10 @@ https://github.com/akermu/emacs-libvterm
     :config
     (evil-ex-define-cmd "term" #'vterm))
 #+end_src
+
+** Multi-Vterm
+#+begin_src emacs-lisp :results output silent
+  (use-package multi-vterm
+    :straight t
+    :after vterm)
+#+end_src
