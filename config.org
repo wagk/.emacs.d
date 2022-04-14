@@ -5050,12 +5050,16 @@ Not using this because we're going to try ediff
       (unless (boundp 'engine/search-duckduckgo)
         (defengine duckduckgo
           "https://duckduckgo.com/?q=%s"))
-      (let ((query (cond
-                    ((use-region-p) (buffer-substring beg end))
-                    ((evil-ex-p) evil-ex-argument)
-                    (t (read-string "Search: "
-                        nil nil (thing-at-point 'word))))))
-       (engine/search-duckduckgo query)))
+      (let* ((query-region (when (use-region-p)
+                             (buffer-substring beg end)))
+             (query-params (when (evil-ex-p)
+                             evil-ex-argument))
+             (query-args (list query-params query-region))
+             (query (if (-none-p 'identity query-args)
+                        (read-string "Search: " nil nil
+                                     (thing-at-point 'word))
+                      (s-join " " query-args))))
+        (engine/search-duckduckgo query)))
     (evil-ex-define-cmd "ddg" '--ddg-search)
     :general
     (:states '(normal motion visual)
