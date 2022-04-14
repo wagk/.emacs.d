@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: tf-multiline-string
+# key: d
+# expand-env: ((yas-indent-line 'fixed))
+# --
+<<-DESC
+$0
+DESC
