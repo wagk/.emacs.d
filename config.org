@@ -871,7 +871,7 @@ for the specific hook.
 
 ** Pixel scroll precision (for mouse scrolling)
 #+begin_src emacs-lisp :results output silent
-  (when (<= emacs-major-version 29)
+  (when (boundp 'pixel-scroll-precision-mode)
     (pixel-scroll-precision-mode))
 #+end_src
 
