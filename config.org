@@ -5798,7 +5798,7 @@ the packages I run use dabbrev at all.
 #+begin_src emacs-lisp :results output silent
   (use-package svg-lib
     :straight
-    (:host github :repo "rougier/svg-lib" :branch "main"))
+    (:host github :repo "rougier/svg-lib"))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
