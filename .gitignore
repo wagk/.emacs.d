@@ -54,3 +54,4 @@ straight/
 /elfeed.stats
 /.DS_Store
 /etc/
+/org-persist/
