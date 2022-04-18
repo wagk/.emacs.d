@@ -5825,5 +5825,12 @@ https://github.com/akermu/emacs-libvterm
 #+begin_src emacs-lisp :results output silent
   (use-package multi-vterm
     :straight t
-    :after vterm)
+    :after vterm
+    :commands (multi-vterm)
+    :general
+    (general-define-key
+     :keymaps 'project-prefix-map
+     "t" 'multi-vterm-project)
+    :init
+    (evil-ex-define-cmd "term" #'multi-vterm))
 #+end_src
