@@ -768,8 +768,8 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     :if (>= emacs-major-version 27)
     :custom-face
     (tab-bar ((t (:inherit minibuffer-prompt :underline nil))))
-    (tab-bar-tab ((t (:inherit default))))
-    (tab-bar-tab-inactive ((t (:inherit shadow))))
+    (tab-bar-tab ((t (:inherit success :foreground nil :background nil))))
+    (tab-bar-tab-inactive ((t (:inherit default :foreground nil :background nil))))
     :custom
     (tab-bar-close-last-tab-choice 'delete-frame)
     (tab-bar-new-tab-choice t)
