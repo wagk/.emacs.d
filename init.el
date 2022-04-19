@@ -893,8 +893,7 @@ we're adding a custom function for it here."
     (let ((custom (locate-user-emacs-file "custom.el")))
       (unless (f-exists-p custom)
         (f-touch custom))
-      (setq custom-file custom)
-      (load "" :noerror)))
+      (setq custom-file custom)))
 
   ;; Load local configuration variables, we do it here so that
   ;; local.el gets access to the "core" init loads
