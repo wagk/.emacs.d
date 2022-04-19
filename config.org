@@ -792,15 +792,15 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
     (evil-ex-define-cmd "tabr[ename]" 'tab-bar-rename-tab)
     (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
-    (defun my-tab-bar-delete-tab-or-emacs (oldfun &rest _old_args)
+    (define-advice delete-frame (:around (oldfun &rest _old_args)
+                                         --tab-bar-delete-tab-or-emacs)
       (interactive)
       (let* ((tabs (find-if (lambda (elem) (eq 'tabs (car elem)))
                             (frame-parameters)))
              (num-tabs (length (cdr tabs))))
         (if (eq num-tabs 1)
             (call-interactively oldfun)
-          (tab-bar-close-tab))))
-    (advice-add 'delete-frame :around 'my-tab-bar-delete-tab-or-emacs))
+          (tab-bar-close-tab)))))
 #+end_src
 
 ** TODO Tab line mode
