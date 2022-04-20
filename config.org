@@ -2106,7 +2106,7 @@ org roam mode hook only activates once, not per roam file as we wanted.
 Who knows how useful this will be.
 #+begin_src emacs-lisp :results output silent
   (use-package consult-org-roam
-    :straight t)
+    :straight (:host github :repo "jgru/consult-org-roam"))
 #+end_src
 
 ** Org Latex Fragment Toggle
