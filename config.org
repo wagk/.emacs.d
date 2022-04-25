@@ -891,6 +891,11 @@ for the specific hook.
   (evil-ex-define-cmd "gl" 'vc-annotate)
 #+end_src
 
+** Detailed Completions
+#+begin_src emacs-lisp :results output silent
+  (customize-set-value 'completions-detailed t)
+#+end_src
+
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
   (use-package apropos
