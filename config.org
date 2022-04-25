@@ -792,6 +792,17 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
     (evil-ex-define-cmd "tabr[ename]" 'tab-bar-rename-tab)
     (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
+    (defun --tab-bar-tab-name-fn ()
+      (require 'project)
+      (let ((buffer-name (-> (minibuffer-selected-window)
+                             (window-buffer)
+                             (buffer-name)))
+            (project-name (project-root (project-current))))
+        (if project-name
+            (format "%s(%s)" buffer-name project-name)
+          (format "%s" buffer-name))))
+    (customize-set-value 'tab-bar-tab-name-function #'--tab-bar-tab-name-fn)
+
     (define-advice delete-frame (:around (oldfun &rest _old_args)
                                          --tab-bar-delete-tab-or-emacs)
       (interactive)
