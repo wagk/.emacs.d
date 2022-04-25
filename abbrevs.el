@@ -344,6 +344,7 @@
     ("improt" "import" nil :count 3)
     ("improvemyself" "improve myself" nil :count 1)
     ("inconsistnet" "inconsistent" nil :count 1)
+    ("indentaiton" "indentation" nil :count 1)
     ("informaitno" "information" nil :count 1)
     ("informaiton" "information" nil :count 12)
     ("informaoiton" "information" nil :count 1)
