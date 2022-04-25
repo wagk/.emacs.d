@@ -5552,8 +5552,8 @@ Not persistent scratch, just a custom scratch buffer
         (compile command)))
 
     (general-define-key
-      :keymaps 'project-prefix-map
-      "c" '--compile-command-completing-read)
+     :keymaps 'project-prefix-map
+     "c" '--compile-command-completing-read)
 
     (defun --project-find-readme ()
       "Finds and lists all the README (eventually documentation) files "
