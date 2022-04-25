@@ -5539,15 +5539,7 @@ Not persistent scratch, just a custom scratch buffer
       (let ((command (--completing-read "Compile command: "
                                         compile-history
                                         :default-value compile-command))
-            ;; We do this because newer versions of `project-current'
-            ;; returns the form (vc Git "path"), when older versions
-            ;; return instead (vc "path"). This pattern match handles
-            ;; the difference
-            (default-directory (-let (((_ a b) (project-current)))
-                                 (cond
-                                  ((stringp a) a)
-                                  ((stringp b) b)
-                                  (t default-directory)))))
+            (default-directory (or (project-root (project-current)) default-directory)))
         (add-to-history 'compile-history command)
         (compile command)))
 
@@ -5561,17 +5553,14 @@ Not persistent scratch, just a custom scratch buffer
       (require 'dash)
       (let* ((case-fold-search t) ; ignore cases
              ;; same reasoning as `--compile-command-completing-read'
-             (project-dir (-let (((_ a b) (project-current)))
-                            (cond
-                             ((stringp a) a)
-                             ((stringp b) b))))
+             (project-dir (project-root (project-current)))
              (readme-list (->> (project-files (project-current))
-                           (-keep (lambda (elem)
-                                     (when (string-match-p "readme" elem nil)
-                                       elem)))
-                           (mapcar #'(lambda (file)
-                                       (f-relative file
-                                                   project-dir)))))
+                               (-keep (lambda (elem)
+                                        (when (string-match-p "readme" elem nil)
+                                          elem)))
+                               (mapcar #'(lambda (file)
+                                           (f-relative file
+                                            project-dir)))))
              (readme (--completing-read "README: " readme-list
                                         :require-match t)))
         (find-file (f-join project-dir readme))))
