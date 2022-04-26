@@ -792,6 +792,7 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
     (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
     (evil-ex-define-cmd "tabr[ename]" 'tab-bar-rename-tab)
     (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
+    (evil-ex-define-cmd "tt" 'tab-bar-select-tab-by-name)
     (defun --tab-bar-tab-name-fn ()
       (require 'project)
       (let ((buffer-name (-> (minibuffer-selected-window)
@@ -4203,17 +4204,17 @@ the thing, because that's what vim does.
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-  (when (boundp 'my-todo-org-file)
-    (my-evil-define-split-vsplit-cmd "todo" #'(lambda () (find-file my-todo-org-file)))
-    ;; (evil-ex-define-cmd "todo" 'my-todo)
-    ;; (evil-ex-define-cmd "Stodo" #'(lambda () (interactive)
-    ;;                                (call-interactively 'evil-window-split)
-    ;;                                (find-file my-todo-org-file)))
-    ;; (evil-ex-define-cmd "Vtodo" #'(lambda () (interactive)
-    ;;                                (call-interactively 'evil-window-vsplit)
-    ;;                                (find-file my-todo-org-file)))
-    (evil-ex-define-cmd "Ttodo" #'(lambda () (interactive)
-                                   (my-new-cmd-tab my-todo-org-file))))
+  ;; (when (boundp 'my-todo-org-file)
+  ;;   (my-evil-define-split-vsplit-cmd "todo" #'(lambda () (find-file my-todo-org-file)))
+  ;;   ;; (evil-ex-define-cmd "todo" 'my-todo)
+  ;;   ;; (evil-ex-define-cmd "Stodo" #'(lambda () (interactive)
+  ;;   ;;                                (call-interactively 'evil-window-split)
+  ;;   ;;                                (find-file my-todo-org-file)))
+  ;;   ;; (evil-ex-define-cmd "Vtodo" #'(lambda () (interactive)
+  ;;   ;;                                (call-interactively 'evil-window-vsplit)
+  ;;   ;;                                (find-file my-todo-org-file)))
+  ;;   (evil-ex-define-cmd "Ttodo" #'(lambda () (interactive)
+  ;;                                  (my-new-cmd-tab my-todo-org-file))))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
