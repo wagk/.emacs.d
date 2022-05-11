@@ -5700,6 +5700,16 @@ the packages I run use dabbrev at all.
     (evil-ex-define-cmd "bb" 'bufler-switch-buffer))
 #+end_src
 
+* Docker
+https://github.com/Silex/docker.el
+#+begin_src emacs-lisp :results output silent
+  (use-package docker
+    :straight t
+    :commands docker
+    :init
+    (evil-ex-define-cmd "docker" #'docker))
+#+end_src
+
 * Dockerfile mode
 #+begin_src emacs-lisp :results output silent
   (use-package dockerfile-mode
