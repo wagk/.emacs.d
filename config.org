@@ -797,10 +797,9 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
       (require 'project)
       (let ((buffer-name (-> (minibuffer-selected-window)
                              (window-buffer)
-                             (buffer-name)))
-            (project-name (project-root (project-current))))
-        (if project-name
-            (format "%s(%s)" buffer-name project-name)
+                             (buffer-name))))
+        (if-let ((project-info (project-current)))
+            (format "%s(%s)" buffer-name (project-root project-info))
           (format "%s" buffer-name))))
     (customize-set-value 'tab-bar-tab-name-function #'--tab-bar-tab-name-fn)
 
