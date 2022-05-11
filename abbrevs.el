@@ -716,6 +716,7 @@
     ("uninstallaiton" "uninstallation" nil :count 1)
     ("unknwon" "unknown" nil :count 1)
     ("unpriviledged" "unprivileged" nil :count 1)
+    ("unsinged" "unsigned" nil :count 1)
     ("unwrpa" "unwrap" nil :count 7)
     ("upadte" "update" nil :count 1)
     ("upate" "update" nil :count 1)
