@@ -1578,8 +1578,10 @@ https://github.com/progfolio/doct
                                 (lambda (file)
                                   (string-equal (f-ext file) "org")))))
                   (-flatten))))
-        (--completing-read "Capture target: " targets
-                         :require-match t)))
+        (if (eq 1 (safe-length targets))
+            (car targets)
+          (--completing-read "Capture target: " targets
+                             :require-match t))))
     (setq org-capture-templates
           (doct-add-to
            org-capture-templates
