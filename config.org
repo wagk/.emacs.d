@@ -5584,9 +5584,17 @@ Not persistent scratch, just a custom scratch buffer
         (add-to-history 'compile-history command)
         (compile command)))
 
+    (defun --find-project-todo-file ()
+      (interactive)
+      (require 'project)
+      (if-let ((todo (f-join (project-root (project-current)) "todo.org")))
+          (find-file-other-window todo)
+        (error "No todo.org found in %s" default-directory)))
+
     (general-define-key
      :keymaps 'project-prefix-map
-     "c" '--compile-command-completing-read)
+     "c" #'--compile-command-completing-read
+     "t" #'--find-project-todo-file)
 
     (defun --project-find-readme ()
       "Finds and lists all the README (eventually documentation) files "
