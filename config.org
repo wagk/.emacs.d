@@ -1581,57 +1581,94 @@ https://github.com/progfolio/doct
             (car targets)
           (--completing-read "Capture target: " targets
                              :require-match t))))
+
+    (defun --select-project-todo-file ()
+      (require 'org-agenda)
+      (require 'project)
+      (if-let* ((project (project-current))
+                (root (project-root project))
+                (todo-file (f-join root "todo.org")))
+          (progn
+            (unless (f-file-p todo-file)
+              (f-touch todo-file))
+            todo-file)
+        (error "Not in a project directory (%s)" default-directory)))
+
     (setq org-capture-templates
-          (doct-add-to
-           org-capture-templates
-           '(("Clock"
-              :keys "clock"
-              :empty-lines 1
-              :clock t
-              :clock-resume t
-              :children
-              (("Item"
-                :keys "item"
-                :type item
-                :template "%?")
-               (:group "Entries"
+            (doct-add-to
+             org-capture-templates
+             '(("Clock"
+                :keys "clock"
+                :empty-lines 1
+                :clock t
+                :clock-resume t
+                :children
+                (("Item"
+                  :keys "item"
+                  :type item
+                  :template "%?")
+                 (:group "Entries"
+                  :type entry
+                  :template "* %{todo-state} %? %^g"
+                  :children
+                  (("To Do"
+                    :keys "todo"
+                    :todo-state "TODO")
+                   ("Note"
+                    :keys "note"
+                    :todo-state nil)
+                   ("Wait"
+                    :keys "wait"
+                    :todo-state "WAIT")
+                   ("Done"
+                    :keys "done"
+                    :todo-state "DONE")))))
+               ("Project"
+                :keys "project"
                 :type entry
-                :template "* %{todo-state} %? %^g"
+                :file --select-project-todo-file
+                :empty-lines 1
+                :template
+                ("* %{todo-state} %^{DESCRIPTION}"
+                 "%t" ;; captured as :TIMESTAMP: internally.
+                 "[[%F][%(f-relative (or (org-capture-get :original-file t) (org-capture-get :original-file)) (project-root (project-current)))]]"
+                 "%?")
+                :children
+                (("To Do"
+                  :keys "todo"
+                  :todo-state "TODO"
+                  :immediate-finish t)
+                 ("To Do (Detailed)"
+                  :keys "detail"
+                  :todo-state "TODO")
+                 ("Done"
+                  :keys "done"
+                  :todo-state "DONE")
+                 ("In Waiting"
+                  :keys "waiting"
+                  :todo-state "WAIT")))
+               (:group "Default"
+                :type entry
+                :file --select-org-agenda-file
+                :empty-lines 1
+                :template
+                ("* %{todo-state} %^{DESCRIPTION} %^g"
+                 "%t" ;; captured as :TIMESTAMP: internally.
+                 ":PROPERTIES:"
+                 ":END:"
+                 ":LOGBOOK:"
+                 ":END:"
+                 "%?")
                 :children
                 (("To Do"
                   :keys "todo"
                   :todo-state "TODO")
-                 ("Note"
-                  :keys "note"
-                  :todo-state nil)
-                 ("Wait"
-                  :keys "wait"
-                  :todo-state "WAIT")
                  ("Done"
                   :keys "done"
-                  :todo-state "DONE")))))
-             (:group "Default"
-              :type entry
-              :file --select-org-agenda-file
-              :empty-lines 1
-              :template
-              ("* %{todo-state} %^{DESCRIPTION} %^g"
-               "%t" ;; captured as :TIMESTAMP: internally.
-               ":PROPERTIES:"
-               ":END:"
-               ":LOGBOOK:"
-               ":END:"
-               "%?")
-              :children
-              (("To Do"
-                :keys "todo"
-                :todo-state "TODO")
-               ("Done"
-                :keys "done"
-                :todo-state "DONE")
-               ("In Waiting"
-                :keys "waiting"
-                :todo-state "WAIT")))))))
+                  :todo-state "DONE")
+                 ("In Waiting"
+                  :keys "waiting"
+                  :todo-state "WAIT")))))))
 #+end_src
 
 ** Org Agenda
