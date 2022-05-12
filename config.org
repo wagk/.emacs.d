@@ -1630,8 +1630,10 @@ https://github.com/progfolio/doct
                 :empty-lines 1
                 :template
                 ("* %{todo-state} %^{DESCRIPTION}"
-                 "%t" ;; captured as :TIMESTAMP: internally.
-                 "[[%F][%(f-relative (or (org-capture-get :original-file t) (org-capture-get :original-file)) (project-root (project-current)))]]"
+                 "%t"
+                 "=git:%(magit-get-current-branch)="
+                 ;; "[[%F][%(f-relative (or (org-capture-get :original-file t) (org-capture-get :original-file)) (project-root (project-current)))]]"
+                 "%a"
                  "%?")
                 :children
                 (("To Do"
@@ -1641,6 +1643,14 @@ https://github.com/progfolio/doct
                  ("To Do (Detailed)"
                   :keys "detail"
                   :todo-state "TODO")
+                 ("To Do (Generic)"
+                  :keys "generic"
+                  :todo-state "TODO"
+                  :template
+                  ("* %{todo-state} %^{DESCRIPTION}"
+                   "%t"
+                   "=%(magit-get-current-branch)="
+                   "%?"))
                  ("Done"
                   :keys "done"
                   :todo-state "DONE")
