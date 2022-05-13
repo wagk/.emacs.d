@@ -1437,9 +1437,9 @@ These two modules share the same repository
   (use-package emacsql-sqlite-builtin
     :if (<= emacs-major-version 29)
     :straight (:host github :repo "emacscollective/emacsql-sqlite-builtin"))
-  (use-package emacsql-sqlite-module
-    :if (and (<= emacs-major-version 29) (not (eq system-type 'windows-nt)))
-    :straight (:host github :repo "emacscollective/emacsql-sqlite-builtin"))
+  ;; (use-package emacsql-sqlite-module
+  ;;   :if (and (<= emacs-major-version 29) (not (eq system-type 'windows-nt)))
+  ;;   :straight (:host github :repo "emacscollective/emacsql-sqlite-builtin"))
 #+end_src
 
 * Org Mode
