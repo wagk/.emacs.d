@@ -5587,6 +5587,7 @@ Not persistent scratch, just a custom scratch buffer
     (defun --compile-command-completing-read ()
       (interactive)
       (require 'dash)
+      (require 'project)
       (let ((command (--completing-read "Compile command: "
                                         compile-history
                                         :default-value compile-command))
