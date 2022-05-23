@@ -681,6 +681,7 @@ we're adding a custom function for it here."
     (org-tags-sort-function 'org-string-collate-lessp)
     ;; (org-log-done 'time)
     (org-log-done 'time)
+    (org-log-into-drawer t)
     (org-log-note-clock-out
      ;; t
      nil "I don't think I clock out at good times usually")
