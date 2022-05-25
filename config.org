@@ -1707,6 +1707,9 @@ For some reason we can't do this in the scratch buffer
                                               (org-save-all-org-buffers)
                                               (org-agenda-quit)))
     :custom
+    (org-agenda-custom-commands '(("a" "TODOs and Agenda items"
+                                   ((alltodo "")
+                                    (agenda "")))))
     (org-agenda-start-with-log-mode nil "Use `g l' instead")
     (org-agenda-log-mode-items '(closed clock state))
     (org-agenda-span 'month)
@@ -1760,7 +1763,7 @@ For some reason we can't do this in the scratch buffer
 
     (my-evil-define-split-vsplit-cmd "aa" #'org-agenda)
     (my-evil-define-split-vsplit-cmd "todo" #'org-todo-list)
-    (my-evil-define-split-vsplit-cmd "agenda" #'org-agenda-list)
+    (my-evil-define-split-vsplit-cmd "agenda" #'(lambda () (interactive) (org-agenda nil "a")))
     (evil-ex-define-cmd "Tag[enda]"
                         #'(lambda () (interactive)
                             ;; TODO: unify this implementation with my-new-cmd-tab
@@ -1768,7 +1771,7 @@ For some reason we can't do this in the scratch buffer
                                 (tab-bar-new-tab)
                               (require 'eyebrowse)
                               (my-new-evil-tab nil))
-                            (funcall-interactively #'org-agenda-list)))
+                            (funcall-interactively #'(lambda () (interactive (org-agenda nil "a"))))))
     ;; override `org-agenda-diary-entry' to use `org-roam'
     (general-define-key
      :keymaps 'org-agenda-mode-map

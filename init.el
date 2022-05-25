@@ -920,7 +920,7 @@ we're adding a custom function for it here."
                 (message "Init in %.06f seconds."
                          (float-time (time-since my-init-start-time)))) 50))
 
-(org-agenda-list)
+(org-agenda nil "a")
 
 (message "Configuration complete.")
 
