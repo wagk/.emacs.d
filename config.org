@@ -5904,6 +5904,7 @@ https://github.com/akermu/emacs-libvterm
               '(darwin gnu/linux))
     :custom
     (vterm-max-scrollback 100000 "maximum allowed without recompilation")
+    (vterm-always-compile-module t)
     :config
     (evil-ex-define-cmd "term" #'vterm))
 #+end_src
