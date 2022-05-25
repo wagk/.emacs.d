@@ -1740,7 +1740,7 @@ For some reason we can't do this in the scratch buffer
                     (if (not (buffer-live-p ,(current-buffer)))
                         (cancel-timer ,timer)
                       (with-current-buffer ,(current-buffer)
-                        (apply (function ,function) args))))))
+                       (apply (function ,function) args))))))
         (fset fns fn)
         fn))
     :config
