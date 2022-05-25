@@ -1699,6 +1699,7 @@ For some reason we can't do this in the scratch buffer
      "g t" nil
      "g T" nil
      "g l" 'org-agenda-log-mode
+     "g x" 'org-open-at-point-global
      ;; Seems to be an unhandled case by evil-org
      "RET" 'org-agenda-switch-to
      [remap evil-write] 'org-save-all-org-buffers
