@@ -1630,7 +1630,9 @@ https://github.com/progfolio/doct
               :empty-lines 1
               :template
               ("* %{todo-state} %^{DESCRIPTION} %^g"
-               "%t"
+               ":PROPERTIES:"
+               ":CREATED: %t" ;; org has no special property for creation timestamps
+               ":END:"
                "=%(magit-get-current-branch)="
                ;; "[[%F][%(f-relative (or (org-capture-get :original-file t) (org-capture-get :original-file)) (project-root (project-current)))]]"
                "%a"
@@ -1663,8 +1665,8 @@ https://github.com/progfolio/doct
               :empty-lines 1
               :template
               ("* %{todo-state} %^{DESCRIPTION} %^g"
-               "%t" ;; captured as :TIMESTAMP: internally.
                ":PROPERTIES:"
+               ":CREATED: %t" ;; org has no special property for creation timestamps
                ":END:"
                ":LOGBOOK:"
                ":END:"
