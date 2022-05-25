@@ -3463,7 +3463,7 @@ Requires rust-mode and markdown-mode
      "Y" #'(lambda () (interactive)
              (dired-copy-filename-as-kill 0)) ;; absolute paths
      "+" 'project-find-file) ; don't block org-projectile
-    :config
+    :init
     ;; (evil-define-command open-dired-window ()
     ;;   (interactive)
     ;;   (if buffer-file-name
