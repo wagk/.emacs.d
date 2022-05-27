@@ -1698,6 +1698,7 @@ For some reason we can't do this in the scratch buffer
      "|" 'org-agenda)
     (:keymaps 'org-agenda-keymap
      :states '(normal motion)
+     "g r" 'org-agenda-redo
      "g t" nil
      "g T" nil
      "g l" 'org-agenda-log-mode
