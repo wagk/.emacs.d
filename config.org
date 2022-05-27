@@ -1728,6 +1728,7 @@ For some reason we can't do this in the scratch buffer
     (org-agenda-breadcrumbs-separator "/")
     :custom-face
     (org-agenda-done ((t (:inherit org-agenda-done :strike-through t))))
+    (org-agenda-date-today ((t (:inherit org-agenda-date :overline t :bold t :inverse t))))
     :hook
     (org-agenda-after-show-hook . org-narrow-to-subtree)
     (org-agenda-mode-hook . (lambda ()
