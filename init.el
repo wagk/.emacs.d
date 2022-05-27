@@ -98,7 +98,7 @@
 
 (defun bootstrap-straight ()
   "Load straight.el, downloading it if necessary.
-`package-initialize' must be called prior to this."
+ `package-initialize' must be called prior to this."
   ;; Requires (package-initialize) to be called
   ;; https://github.com/raxod502/straight.el
   (customize-set-variable 'straight-repository-branch "develop")
@@ -142,7 +142,7 @@
 ;;; Use package
 (defun bootstrap-use-package ()
   "Check if use-package is installed and install it if it isn't.
-Then performs configuration of `use-package' variables."
+ Then performs configuration of `use-package' variables."
   ;; (unless (featurep 'quelpa)
   ;;   (bootstrap-quelpa))
   ;; (quelpa
@@ -169,8 +169,8 @@ Then performs configuration of `use-package' variables."
 
 (defun load-local-el ()
   "Check if there exists a local.el file. Create one if it doesn't.
-exist, using the template specified in
-'auto-insert/elisp-local-template'. Then loads the file"
+ exist, using the template specified in
+ 'auto-insert/elisp-local-template'. Then loads the file"
   (let ((local-file (locate-user-emacs-file "local.el")))
     (unless (file-exists-p local-file)
       ;; output a templated local.el file into local.el
@@ -185,9 +185,9 @@ exist, using the template specified in
 
 (defun load-config-org-files (files)
   "Given a list of org FILES, load them sequentially in the order.
-specified The list of files is assumed to be relative to
-`user-init-dir' TODO: Error checking; relative pathing, error
-recovery. Maybe eventually load dependencies and all that."
+ specified The list of files is assumed to be relative to
+ `user-init-dir' TODO: Error checking; relative pathing, error
+ recovery. Maybe eventually load dependencies and all that."
   (dolist (file files)
     (message "Loading %s" file)
     (condition-case nil
@@ -204,26 +204,26 @@ recovery. Maybe eventually load dependencies and all that."
 
 (defun my-init-solarized-color-variables-and-other-font-things ()
   "Solarized 1.0.0beta2[a] Color Palette[8]
-| Color   |    |     |     | sRGB    |     |     |     | xterm | Terminal  | Usage                          |
-|---------+----+-----+-----+---------+-----+-----+-----+-------+-----------+--------------------------------|
-| Name    | L* | a*  | b*  | Hex     |   R |   G |   B |  Code | Name      |                                |
-|---------+----+-----+-----+---------+-----+-----+-----+-------+-----------+--------------------------------|
-| Base03  | 15 | −12 | −12 | #002b36 |   0 |  43 |  54 |   234 | brblack   | background tones (dark theme)  |
-| Base02  | 20 | −12 | −12 | #073642 |   7 |  54 |  66 |   235 | black     | background tones (dark theme)  |
-| Base01  | 45 | −07 | −07 | #586e75 |  88 | 110 | 117 |   240 | brgreen   | content tones                  |
-| Base00  | 50 | −07 | −07 | #657b83 | 101 | 123 | 131 |   241 | bryellow  | content tones                  |
-| Base0   | 60 | −06 | −03 | #839496 | 131 | 148 | 150 |   244 | brblue    | content tones                  |
-| Base1   | 65 | −05 | −02 | #93a1a1 | 147 | 161 | 161 |   245 | brcyan    | content tones                  |
-| Base2   | 92 | −00 | 10  | #eee8d5 | 238 | 232 | 213 |   254 | white     | background tones (light theme) |
-| Base3   | 97 | 00  | 10  | #fdf6e3 | 253 | 246 | 227 |   230 | brwhite   | background tones (light theme) |
-| Yellow  | 60 | 10  | 65  | #b58900 | 181 | 137 |   0 |   136 | yellow    | accent tones                   |
-| Orange  | 50 | 50  | 55  | #cb4b16 | 203 |  75 |  22 |   166 | brred     | accent tones                   |
-| Red     | 50 | 65  | 45  | #dc322f | 220 |  50 |  47 |   160 | red       | accent tones                   |
-| Magenta | 50 | 65  | −05 | #d33682 | 211 |  54 | 130 |   125 | magenta   | accent tones                   |
-| Violet  | 50 | 15  | −45 | #6c71c4 | 108 | 113 | 196 |    61 | brmagenta | accent tones                   |
-| Blue    | 55 | −10 | −45 | #268bd2 |  38 | 139 | 210 |    33 | blue      | accent tones                   |
-| Cyan    | 60 | −35 | −05 | #2aa198 |  42 | 161 | 152 |    37 | cyan      | accent tones                   |
-| Green   | 60 | −20 | 65  | #859900 | 133 | 153 |   0 |    64 | green     | accent tones                   |"
+ | Color   |    |     |     | sRGB    |     |     |     | xterm | Terminal  | Usage                          |
+ |---------+----+-----+-----+---------+-----+-----+-----+-------+-----------+--------------------------------|
+ | Name    | L* | a*  | b*  | Hex     |   R |   G |   B |  Code | Name      |                                |
+ |---------+----+-----+-----+---------+-----+-----+-----+-------+-----------+--------------------------------|
+ | Base03  | 15 | −12 | −12 | #002b36 |   0 |  43 |  54 |   234 | brblack   | background tones (dark theme)  |
+ | Base02  | 20 | −12 | −12 | #073642 |   7 |  54 |  66 |   235 | black     | background tones (dark theme)  |
+ | Base01  | 45 | −07 | −07 | #586e75 |  88 | 110 | 117 |   240 | brgreen   | content tones                  |
+ | Base00  | 50 | −07 | −07 | #657b83 | 101 | 123 | 131 |   241 | bryellow  | content tones                  |
+ | Base0   | 60 | −06 | −03 | #839496 | 131 | 148 | 150 |   244 | brblue    | content tones                  |
+ | Base1   | 65 | −05 | −02 | #93a1a1 | 147 | 161 | 161 |   245 | brcyan    | content tones                  |
+ | Base2   | 92 | −00 | 10  | #eee8d5 | 238 | 232 | 213 |   254 | white     | background tones (light theme) |
+ | Base3   | 97 | 00  | 10  | #fdf6e3 | 253 | 246 | 227 |   230 | brwhite   | background tones (light theme) |
+ | Yellow  | 60 | 10  | 65  | #b58900 | 181 | 137 |   0 |   136 | yellow    | accent tones                   |
+ | Orange  | 50 | 50  | 55  | #cb4b16 | 203 |  75 |  22 |   166 | brred     | accent tones                   |
+ | Red     | 50 | 65  | 45  | #dc322f | 220 |  50 |  47 |   160 | red       | accent tones                   |
+ | Magenta | 50 | 65  | −05 | #d33682 | 211 |  54 | 130 |   125 | magenta   | accent tones                   |
+ | Violet  | 50 | 15  | −45 | #6c71c4 | 108 | 113 | 196 |    61 | brmagenta | accent tones                   |
+ | Blue    | 55 | −10 | −45 | #268bd2 |  38 | 139 | 210 |    33 | blue      | accent tones                   |
+ | Cyan    | 60 | −35 | −05 | #2aa198 |  42 | 161 | 152 |    37 | cyan      | accent tones                   |
+ | Green   | 60 | −20 | 65  | #859900 | 133 | 153 |   0 |    64 | green     | accent tones                   |"
   (dolist (col '((sol-base03  . "#002b36")
                  (sol-base02  . "#073642")
                  (sol-base01  . "#586e75")
@@ -246,41 +246,41 @@ recovery. Maybe eventually load dependencies and all that."
   ;; TODO: work on this
   (defface sol-critical '((t (:inherit default)))
     "Follows `nano-critical', for information that requires immediate action.
-It should be of high constrast when compared to other faces. This can
-be realized (for example) by setting an intense background color,
-typically a shade of red. It must be used scarcely.")
+   It should be of high constrast when compared to other faces. This can
+   be realized (for example) by setting an intense background color,
+   typically a shade of red. It must be used scarcely.")
 
   (defface sol-popout '((t (:inherit default)))
     "Follows `nano-popout', for information that needs attention.
-To achieve such effect, the hue of the face has to be sufficiently
-different from other faces such that it attracts attention through the
-popout effect.")
+   To achieve such effect, the hue of the face has to be sufficiently
+   different from other faces such that it attracts attention through the
+   popout effect.")
 
   (defface sol-strong '((t (:inherit default)))
     "Follows `nano-strong', for information of a structural nature.
-It has to be the same color as the default color and only the weight
-differs by one level (e.g., light/regular or regular/bold). It is
-generally used for titles, keywords, directory, etc.")
+   It has to be the same color as the default color and only the weight
+   differs by one level (e.g., light/regular or regular/bold). It is
+   generally used for titles, keywords, directory, etc.")
 
   (defface sol-salient '((t (:inherit default)))
     "Follows `nano-salient', information that are important.
-To suggest the information is of the same nature but important, the
-face uses a different hue with approximately the same intensity as the
-default face. This is typically used for links.")
+   To suggest the information is of the same nature but important, the
+   face uses a different hue with approximately the same intensity as the
+   default face. This is typically used for links.")
 
   (defface sol-faded '((t (:inherit default)))
     "Follows `nano-faded', Faded face is for information that are less important.
-It is made by using the same hue as the default but with a lesser
-intensity than the default. It can be used for comments, secondary
-information and also replace italic (which is generally abused
-anyway).")
+   It is made by using the same hue as the default but with a lesser
+   intensity than the default. It can be used for comments, secondary
+   information and also replace italic (which is generally abused
+                                        anyway).")
 
   (defface sol-subtle `((((background light)) (:foreground ,sol-base1))
                         (((background dark)) (:foreground ,sol-base01)))
     "Follows `nano-subtle', to suggest a physical area on the screen.
-It is important to not disturb too strongly the reading of information
-and this can be made by setting a very light background color that is
-barely perceptible.")
+   It is important to not disturb too strongly the reading of information
+   and this can be made by setting a very light background color that is
+   barely perceptible.")
 
   (defface sol-default '((t (:inherit default)))
     "Follows `nano-default'"))
@@ -511,7 +511,7 @@ barely perceptible.")
 
     (defmacro my-evil-define-split-vsplit-cmd (command body)
       "Does split and vsplit, but not tab (for now) since that
-requires a different logic."
+     requires a different logic."
       (require 'evil)
       (let ((split-command-name (concat "S" command))
             (vsplit-command-name (concat "V" command)))
@@ -531,7 +531,7 @@ requires a different logic."
     (evil-ex-define-cmd "bc[lose]" 'kill-this-buffer)
     (evil-define-command my-evil-vsplit-buffer (&optional buffer)
       "Strictly speaking this isn't implemented in vim, which is why
-we're adding a custom function for it here."
+     we're adding a custom function for it here."
       :repeat nil
       (interactive "<b>")
       (evil-window-vsplit)
@@ -701,7 +701,7 @@ we're adding a custom function for it here."
     (org-link-descriptive t
                           "Open file links in current window instead of other window")
     (org-adapt-indentation nil "Maintaining indentation for org-files
-    looks annoying when editing it as a plain text file")
+     looks annoying when editing it as a plain text file")
     ;; (org-list-indent-offset 1)
     (org-extend-today-until
      5 "I think 5 am is a safe bet for the end of the day")
@@ -913,18 +913,17 @@ we're adding a custom function for it here."
   (org-babel-load-file (locate-user-emacs-file "config.org"))
 
   (message "Loaded config.org in %.06f seconds."
-           (float-time (time-since my-init-start-time)))
+           (float-time (time-since my-init-start-time))))
 
-  (add-hook 'after-init-hook
-            #'(lambda ()
-                (message "Init in %.06f seconds."
-                         (float-time (time-since my-init-start-time)))) 50))
-
-
-(message "Configuration complete.")
 (org-agenda nil "A")
 
 ;; Emacs considers the following "dangerous" (i.e they'll ask you to
 ;; confirm)
 (put 'list-timers 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
+
+(add-hook 'after-init-hook
+          #'(lambda ()
+              (message "Init in %.06f seconds."
+                       (float-time (time-since my-init-start-time)))
+              (message "Configuration complete.")))
