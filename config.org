@@ -5507,7 +5507,8 @@ Not persistent scratch, just a custom scratch buffer
 ** RMSBolt
 #+begin_src emacs-lisp :results output silent
   (use-package rmsbolt
-    :straight t)
+    :straight t
+    :commands (rmsbolt))
 #+end_src
 
 * Emacs-sourcetrail
@@ -5662,7 +5663,8 @@ Not persistent scratch, just a custom scratch buffer
 * Calibre
 #+begin_src emacs-lisp :results output silent
   (use-package calibredb
-    :straight t)
+    :straight t
+    :commands (calibredb))
 #+end_src
 
 * explain-pause-mode
@@ -5865,7 +5867,8 @@ https://github.com/Silex/docker.el
 * Typescript
 #+begin_src emacs-lisp :results output silent
   (use-package typescript-mode
-    :straight t)
+    :straight t
+    :mode "\\.ts\\'")
 #+end_src
 
 * Mermaid
