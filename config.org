@@ -5610,7 +5610,8 @@ Not persistent scratch, just a custom scratch buffer
     (defun --find-project-todo-file ()
       (interactive)
       (require 'project)
-      (if-let ((todo (f-join (project-root (project-current)) "todo.org")))
+      (if-let ((proj-current (project-current))
+               (todo (f-join (project-root proj-current) ".todo.org")))
           (find-file-other-window todo)
         (error "No todo.org found in %s" default-directory)))
 
