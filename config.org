@@ -5963,3 +5963,10 @@ https://github.com/akermu/emacs-libvterm
     :straight t
     :mode ("\\.kt\\'" . kotlin-mode))
 #+end_src
+
+* Swift Mode
+#+begin_src emacs-lisp :results output silent
+  (use-package swift-mode
+    :straight t
+    :mode ("\\.swift\\'" . swift-mode))
+#+end_src
