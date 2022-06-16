@@ -2356,8 +2356,8 @@ Use the following query to find all todo items that are overdue
 #+begin_src emacs-lisp :results output silent
   (use-package org-modern
     :straight (:host github :repo "minad/org-modern")
-    :hook ((org-mode-hook . org-modern-mode)
-           (org-agenda-finalize-hook . org-modern-agenda))
+    :hook ((org-mode-hook . org-modern-mode))
+           ;; (org-agenda-finalize-hook . org-modern-agenda))
     :custom
     (org-modern-tag nil) ;; tags are not aligning correctly in agenda, maybe it'll get fixed
     :custom-face
