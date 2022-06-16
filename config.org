@@ -5956,3 +5956,10 @@ https://github.com/akermu/emacs-libvterm
       :keymaps 'project-prefix-map
       "s" #'multi-term)))
 #+end_src
+
+* Kotlin Mode
+#+begin_src emacs-lisp :results output silent
+  (use-package kotlin-mode
+    :straight t
+    :mode ("\\.kt\\'" . kotlin-mode))
+#+end_src
