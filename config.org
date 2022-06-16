@@ -1617,7 +1617,7 @@ https://github.com/progfolio/doct
                  ("Note"
                   :keys "note"
                   :todo-state nil)
-                 ("Wait"
+                 ("Deferred"
                   :keys "wait"
                   :todo-state "WAIT")
                  ("Done"
@@ -1656,8 +1656,8 @@ https://github.com/progfolio/doct
                ("Done"
                 :keys "done"
                 :todo-state "DONE")
-               ("In Waiting"
-                :keys "waiting"
+               ("Deferred"
+                :keys "wait"
                 :todo-state "WAIT")))
              (:group "Default"
               :type entry
@@ -1678,8 +1678,8 @@ https://github.com/progfolio/doct
                ("Done"
                 :keys "done"
                 :todo-state "DONE")
-               ("In Waiting"
-                :keys "waiting"
+               ("Deferred"
+                :keys "wait"
                 :todo-state "WAIT")))))))
 #+end_src
 
