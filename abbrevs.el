@@ -12,6 +12,7 @@
     ("acocunt" "account" nil :count 3)
     ("actally" "actually" nil :count 1)
     ("activatoin" "activation" nil :count 3)
+    ("acutal" "actual" nil :count 1)
     ("acutally" "actually" nil :count 1)
     ("additioanl" "additional" nil :count 1)
     ("additon" "addition" nil :count 1)
