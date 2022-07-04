@@ -1731,9 +1731,6 @@ For some reason we can't do this in the scratch buffer
     (org-agenda-date-today ((t (:inherit org-agenda-date :overline t :bold t :inverse t))))
     :hook
     (org-agenda-after-show-hook . org-narrow-to-subtree)
-    (org-agenda-mode-hook . (lambda ()
-                              (--run-with-local-idle-timer
-                               60 t 'org-save-all-org-buffers)))
     :init
     (cl-defun --run-with-local-idle-timer (secs repeat function &rest args)
       "Like `run-with-idle-timer', but always runs in the `current-buffer'.
@@ -1761,6 +1758,11 @@ For some reason we can't do this in the scratch buffer
        :states '(motion)
        "g t" 'tab-bar-switch-to-next-tab
        "g T" 'tab-bar-switch-to-prev-tab))
+
+    (with-eval-after-load 'salv
+      (add-hook 'org-mode-hook #'(lambda ()
+                                   (when (org-agenda-file-p (buffer-file-name))
+                                    (salv-mode)))))
 
     (define-advice org-agenda-capture (:override () --consult-org-agenda-capture)
       "Overrides `org-agenda-add' with a more consult-like interface"
@@ -5969,4 +5971,9 @@ https://github.com/akermu/emacs-libvterm
   (use-package swift-mode
     :straight t
     :mode ("\\.swift\\'" . swift-mode))
+#+end_src
+* Per-buffer idle saving
+#+begin_src emacs-lisp :results output silent
+  (use-package salv
+    :straight (:host github :repo "alphapapa/salv.el"))
 #+end_src
