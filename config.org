@@ -6021,3 +6021,9 @@ https://github.com/akermu/emacs-libvterm
   (use-package salv
     :straight (:host github :repo "alphapapa/salv.el"))
 #+end_src
+
+* Shortdoc
+#+begin_src emacs-lisp :results output silent
+  (when (>= 28 emacs-major-version)
+    (evil-ex-define-cmd "cheat[sheet]" 'shortdoc))
+#+end_src
