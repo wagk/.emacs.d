@@ -4933,6 +4933,50 @@ Doesn't seem to be working?
         ;;   "l a a" 'lsp-execute-code-action))
 #+end_src
 
+Adding emojis into lsp-checked buffers causes it to explode, because
+of [[https://github.com/emacs-lsp/lsp-mode/issues/2080]]. The following
+snippet is a patch provided in the thread.
+
+#+begin_src emacs-lisp :results output silent
+  (with-eval-after-load 'lsp-mode
+    (defun lsp--column (&optional lbp)
+      "Calculate current COLUMN as defined by the LSP spec. LBP defaults to `line-beginning-position'."
+      (/ (- (length (encode-coding-region (or lbp (line-beginning-position))
+                                          (point) 'utf-16 t))
+            2)
+         2))
+   (defun lsp--move-to-character (character)
+     "Move to CHARACTER abiding by the LSP spec."
+     (save-restriction
+       (cl-loop
+        with lbp = (line-beginning-position)
+        initially
+        (narrow-to-region lbp (line-end-position))
+        (move-to-column character)
+        for diff = (- character
+                      (lsp--column lbp))
+        until (zerop diff)
+        do (condition-case eob-err
+               (forward-char (/ (if (> diff 0) (1+ diff) (1- diff)) 2))
+             (end-of-buffer (cl-return eob-err))))
+       (point)))
+
+   (define-advice lsp--line-character-to-point (:override (line character) utf8-hack)
+       "Return the point for character CHARACTER on line LINE."
+       (or (lsp-virtual-buffer-call :line/character->point line character)
+           (let ((inhibit-field-text-motion t))
+             (lsp-save-restriction-and-excursion
+              (goto-char (point-min))
+              (forward-line line)
+              (lsp--move-to-character character)))))
+   (define-advice lsp--cur-position (:override () utf8-hack)
+      "Make a Position object for the current point."
+      (or (lsp-virtual-buffer-call :cur-position)
+          (lsp-save-restriction-and-excursion
+           (list :line (lsp--cur-line)
+                 :character (lsp--column))))))
+#+end_src
+
 *** lsp-ui
 #+begin_src emacs-lisp :results output silent
   (use-package lsp-ui
