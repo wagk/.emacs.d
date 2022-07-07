@@ -6024,6 +6024,6 @@ https://github.com/akermu/emacs-libvterm
 
 * Shortdoc
 #+begin_src emacs-lisp :results output silent
-  (when (>= 28 emacs-major-version)
+  (when (fboundp 'shortdoc)
     (evil-ex-define-cmd "cheat[sheet]" 'shortdoc))
 #+end_src
