@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: rust-async-fn
+# key: afn
+# --
+async fn $1($2) $3 {
+  $0
+  todo!()
+}
