@@ -5692,10 +5692,22 @@ Not persistent scratch, just a custom scratch buffer
 
     (my-evil-define-split-vsplit-cmd "readme" #'--project-find-readme)
 
+    (with-eval-after-load 'consult
+      (defun --consult-ripgrep-with-initial ()
+        (interactive)
+        (consult-ripgrep nil
+                         (when (use-region-p)
+                           (buffer-substring-no-properties
+                            (region-beginning)
+                            (region-end)))))
+      (general-define-key
+       :keymaps 'project-prefix-map
+       "g" '--consult-ripgrep-with-initial))
+
     (with-eval-after-load 'rg
       (general-define-key
        :keymaps 'project-prefix-map
-       "g" 'rg-project)))
+       "G" 'rg-project)))
 #+end_src
 
 * Calendar Mode
