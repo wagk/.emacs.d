@@ -3466,7 +3466,7 @@ Requires rust-mode and markdown-mode
      :states 'normal
      "<SPC>" nil                     ; was shadowing leader key bindings
      "SPC" nil                       ; was shadowing leader key bindings
-     "-" 'dired-jump
+     "-" 'dired-up-directory
      "d" 'dired-create-directory
      "e" 'dired-toggle-read-only ; similar interface to wgrep
      "i" nil ; unbind the original binding
