@@ -6042,3 +6042,16 @@ https://github.com/akermu/emacs-libvterm
   (when (fboundp 'shortdoc)
     (evil-ex-define-cmd "cheat[sheet]" 'shortdoc))
 #+end_src
+
+* Dirvish
+#+begin_src emacs-lisp :results output silent
+  (use-package dirvish
+    :straight t
+    :disabled t ;; There's some issues with evil-mode integration here
+    :custom-face
+    (dirvish-hl-line ((((background dark)) (:background ,sol-base02))
+                      (((background light)) (:background ,sol-base2))))
+    :config
+    (dirvish-override-dired-mode)
+    (add-to-list 'evil-motion-state-modes 'dirvish-mode))
+#+end_src
