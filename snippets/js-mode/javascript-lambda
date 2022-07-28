@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: js-lambda
-# key: l
-# --
-$1 => $2

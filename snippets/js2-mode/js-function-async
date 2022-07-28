@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: js-function-async
-# key: defa
+# key: af
 # --
 async function$1($2){
       $0
