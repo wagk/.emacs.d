@@ -6055,3 +6055,9 @@ https://github.com/akermu/emacs-libvterm
     (dirvish-override-dired-mode)
     (add-to-list 'evil-motion-state-modes 'dirvish-mode))
 #+end_src
+
+* dwim shell command
+#+begin_src emacs-lisp :results output silent
+  (use-package dwim-shell-command
+    :straight (:host github :repo "xenodium/dwim-shell-command"))
+#+end_src
