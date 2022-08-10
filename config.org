@@ -1597,7 +1597,15 @@ https://github.com/progfolio/doct
     (setq org-capture-templates
           (doct-add-to
            org-capture-templates
-           '(("Clock"
+           '(("Diary"
+              :keys "diary"
+              :empty-lines 1
+              :file --local-diary-file
+              :children
+              (("today"
+                :keys "today"
+                :datetree t)))
+             ("Clock"
               :keys "clock"
               :empty-lines 1
               :clock t
