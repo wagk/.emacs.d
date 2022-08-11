@@ -5933,8 +5933,7 @@ https://github.com/Silex/docker.el
 
 * ObjC
 #+begin_src emacs-lisp :results output silent
-  (with-eval-after-load 'cc-mode
-    (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode)))
+  (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
 #+end_src
 
 * Typescript
