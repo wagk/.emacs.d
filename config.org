@@ -5537,10 +5537,20 @@ Note that =customize-set-variable= is like =setq-default=.
 #+end_src
 
 * Scratch
+Just do the scratch buffer simple and stupidly
+#+begin_src emacs-lisp :results output silent
+  (my-evil-define-split-vsplit-cmd "scratch" 'scratch-buffer)
+  (evil-ex-define-cmd "TScratch" #'(lambda (interactive)
+                                     (when (featurep 'tab-bar)
+                                      (let ((tab-bar-new-tab-choice 'get-scratch-buffer-create))
+                                       (tab-bar-new-tab)))))
+#+end_src
+
 Not persistent scratch, just a custom scratch buffer
 #+begin_src emacs-lisp :results output silent
   (use-package scratch
     :straight t
+    :disabled t
     :init
     (evil-define-command --scratch (&optional bang)
       "Opens org-mode by default, asks for mode when ! is supplied"
