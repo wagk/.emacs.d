@@ -6072,5 +6072,5 @@ https://github.com/akermu/emacs-libvterm
 * Visual-Fill-Column-Mode
 #+begin_src emacs-lisp :results output silent
   (use-package visual-fill-column
-    :straight t)
+    :straight (:branch "main"))
 #+end_src
