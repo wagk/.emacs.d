@@ -5996,10 +5996,6 @@ https://github.com/akermu/emacs-libvterm
 #+begin_src emacs-lisp :results output silent
   (use-package vterm
     :straight t
-    :if (and
-         (not (bound-and-true-p --is-apple-m1-machine)) ; https://github.com/akermu/emacs-libvterm/issues/593
-         (-any (lambda (s) (eq system-type s))
-               '(darwin gnu/linux)))
     :custom
     (vterm-max-scrollback 100000 "maximum allowed without recompilation")
     (vterm-always-compile-module t)
