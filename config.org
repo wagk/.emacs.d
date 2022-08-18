@@ -4833,7 +4833,21 @@ This is a very finnicky package
     ;; :custom
     ;; (company-idle-delay 2)
     :hook
-    (prog-mode-hook . company-mode))
+    (prog-mode-hook . company-mode)
+    :init
+    ;; stolen from https://stackoverflow.com/questions/2087225/about-the-fix-for-the-interference-between-company-mode-and-yasnippet
+    (with-eval-after-load 'yasnippet
+      (defun --company-yasnippet-or-completion ()
+        (interactive)
+        (let ((yas-fallback-behavior nil))
+          (unless (yas-expand)
+            (call-interactively #'company-complete-common))))
+      (add-hook 'company-mode-hook
+                #'(lambda ()
+                    (substitute-key-definition
+                     'company-complete-common
+                     '--company-yasnippet-or-completion
+                     company-active-map)))))
 #+end_src
 
 ** Company Prescient
