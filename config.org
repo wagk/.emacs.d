@@ -5541,7 +5541,8 @@ Note that =customize-set-variable= is like =setq-default=.
 Just do the scratch buffer simple and stupidly
 #+begin_src emacs-lisp :results output silent
   (my-evil-define-split-vsplit-cmd "scratch" 'scratch-buffer)
-  (evil-ex-define-cmd "TScratch" #'(lambda (interactive)
+  (evil-ex-define-cmd "TScratch" #'(lambda ()
+                                     (interactive)
                                      (when (featurep 'tab-bar)
                                       (let ((tab-bar-new-tab-choice 'get-scratch-buffer-create))
                                        (tab-bar-new-tab)))))
