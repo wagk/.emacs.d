@@ -1958,7 +1958,7 @@ https://www.nongnu.org/org-edna-el/
      "n F"   #'org-roam-ref-remove
      "n T"   #'org-roam-tag-remove
      "n b"   #'org-roam-buffer-toggle
-     "n c c" #'org-roam-capture
+     "n c c" #'--org-roam-capture-completing-read
      "n i"   #'org-roam-node-insert
      "n c d" #'org-roam-dailies-capture-date
      "n c j" #'org-roam-dailies-capture-today
@@ -2064,7 +2064,7 @@ https://www.nongnu.org/org-edna-el/
     (evil-ex-define-cmd "Tnn" #'--org-roam-node-find-new-tab)
 
     (evil-ex-define-cmd "index"     #'--org-roam-find-index-file)
-    (evil-ex-define-cmd "nc"        #'--org-roam-capture)
+    (evil-ex-define-cmd "nc"        #'--org-roam-capture-completing-read)
     (evil-ex-define-cmd "yesterday" #'--org-roam-dailies-yesterday)
     (evil-ex-define-cmd "ytd"       #'--org-roam-dailies-yesterday)
     (evil-ex-define-cmd "jp"        #'--org-roam-dailies-yesterday)
@@ -2073,6 +2073,30 @@ https://www.nongnu.org/org-edna-el/
     (evil-ex-define-cmd "tmr"       #'--org-roam-dailies-tomorrow)
     (evil-ex-define-cmd "jn"        #'--org-roam-dailies-tomorrow)
 
+    (defun --org-roam-capture-completing-read ()
+      "Same as `--org-capture-completing-read' but adjusted for `org-roam-capture' instead."
+      (interactive)
+      (require 'org-roam)
+      (let (prefixes)
+        (alet (mapcan (lambda (x)
+                        (let ((x-keys (car x)))
+                          ;; Remove prefixed keys until we get one that matches the current item.
+                          (while (and prefixes
+                                      (let ((p1-keys (caar prefixes)))
+                                        (or
+                                          (<= (length x-keys) (length p1-keys))
+                                          (not (string-prefix-p p1-keys x-keys)))))
+                            (pop prefixes))
+                          (if (> (length x) 2)
+                              (let ((desc (mapconcat #'cadr (reverse (cons x prefixes)) " | ")))
+                                (list (format "%-5s %s" x-keys desc)))
+                            (push x prefixes)
+                            nil)))
+                      (-> org-roam-capture-templates
+                          (org-capture-upgrade-templates)
+                          (org-contextualize-keys org-capture-templates-contexts)))
+          (funcall #'org-roam-capture nil (car (split-string (--completing-read "Capture template: " it
+                                                                                :require-match t)))))))
     :config
     (require 'org-roam-dailies)
     (add-to-list 'display-buffer-alist
@@ -2130,6 +2154,7 @@ https://www.nongnu.org/org-edna-el/
                         ("raw"))
                :empty-lines 1
                :unnarrowed t)))
+
       (customize-set-value
        'org-roam-dailies-capture-templates
        (list `("d" "default" plain "%?"
