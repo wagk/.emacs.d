@@ -371,16 +371,6 @@ Emulate the best feature of notepad
   ;;                         (locate-user-emacs-file "config.org"))
 #+end_src
 
-** Configure scratch buffer message
-#+begin_src emacs-lisp :results output silent
-  (setq initial-scratch-message nil)
-#+end_src
-
-** Configure scratch buffer mode
-#+begin_src emacs-lisp :results output silent
-  ;; (customize-set-variable 'initial-major-mode 'markdown-mode)
-#+end_src
-
 ** Disable startup screen
 #+begin_src emacs-lisp :results output silent
   (setq inhibit-startup-screen t)
@@ -5554,12 +5544,15 @@ Note that =customize-set-variable= is like =setq-default=.
 * Scratch
 Just do the scratch buffer simple and stupidly
 #+begin_src emacs-lisp :results output silent
-  (my-evil-define-split-vsplit-cmd "scratch" 'scratch-buffer)
+  (setq initial-scratch-message nil
+        initial-major-mode 'markdown-mode)
+  (my-evil-define-split-vsplit-cmd "sc[ratch]" 'scratch-buffer)
   (evil-ex-define-cmd "TScratch" #'(lambda ()
                                      (interactive)
-                                     (when (featurep 'tab-bar)
+                                     (if (featurep 'tab-bar)
                                       (let ((tab-bar-new-tab-choice 'get-scratch-buffer-create))
-                                       (tab-bar-new-tab)))))
+                                       (tab-bar-new-tab))
+                                      (warn "tab-bar not available"))))
 #+end_src
 
 Not persistent scratch, just a custom scratch buffer
