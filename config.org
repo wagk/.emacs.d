@@ -5706,6 +5706,7 @@ Not persistent scratch, just a custom scratch buffer
         (compile command)))
 
     (defun --delete-command-from-compile-history-completing-read ()
+      "Finds a compile command and removes it from `compile-history'"
       (interactive)
       (require 'dash)
       (require 'project)
