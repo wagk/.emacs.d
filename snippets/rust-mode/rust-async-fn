@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: rust-async-fn
-# key: afn
+# key: af
 # --
 async fn $1($2) $3 {
   $0

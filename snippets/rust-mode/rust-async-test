@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: rust-async-test
-# key: atest
+# key: at
 # --
 #[tokio::test]
 #[ignore = "not yet implemented"]

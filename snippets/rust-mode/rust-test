@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: rust-test
-# key: test
+# key: t
 # Note that this is not the async variant
 # --
 #[test]
