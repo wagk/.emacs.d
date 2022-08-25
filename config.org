@@ -5705,6 +5705,15 @@ Not persistent scratch, just a custom scratch buffer
         (add-to-history 'compile-history command)
         (compile command)))
 
+    (defun --delete-command-from-compile-history-completing-read ()
+      (interactive)
+      (require 'dash)
+      (require 'project)
+      (let ((command (--completing-read "Compile command: "
+                                        compile-history
+                                        :default-value compile-command)))
+        (setq compile-history (remove command compile-history))))
+
     (defun --find-project-todo-file ()
       (interactive)
       (require 'project)
