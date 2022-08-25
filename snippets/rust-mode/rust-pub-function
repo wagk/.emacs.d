@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: rust-public-function
-# key: defp
+# name: rust-pub-fn
+# key: pf
 # --
 pub fn $1($2) $3{
-    $0
+    ${0:todo!()}
 }

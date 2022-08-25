@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: rust-pub-async-fn
+# key: paf
+# --
+pub async fn $1($2) $3 {
+  ${0:todo!()}
+}
