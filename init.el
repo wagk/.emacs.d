@@ -903,7 +903,7 @@
   (customize-set-variable 'frame-background-mode 'nil)
   (with-eval-after-load 'solarized-theme
     (load-theme (or (bound-and-true-p --default-emacs-theme)
-                    'solarized-light)
+                    'solarized-dark)
                 t))
 
   ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
