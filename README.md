@@ -71,3 +71,7 @@ make -j2 NATIVE_FULL_AOT=1
 make -j2
 make install
 ```
+
+```
+./configure --with-json --with-imagemagick --with-native-compilation --with-mailutils
+```
