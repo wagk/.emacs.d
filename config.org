@@ -5769,11 +5769,13 @@ Not persistent scratch, just a custom scratch buffer
     (with-eval-after-load 'consult
       (defun --consult-ripgrep-with-initial ()
         (interactive)
+        (require 'thingatpt)
         (consult-ripgrep nil
-                         (when (use-region-p)
-                           (buffer-substring-no-properties
-                            (region-beginning)
-                            (region-end)))))
+                         (cond
+                          ((use-region-p) (buffer-substring-no-properties (region-beginning)
+                                                                          (region-end)))
+                          ((thing-at-point 'symbol)))))
+
       (general-define-key
        :keymaps 'project-prefix-map
        "g" '--consult-ripgrep-with-initial))
