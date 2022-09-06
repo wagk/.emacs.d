@@ -1940,12 +1940,24 @@ https://www.nongnu.org/org-edna-el/
   =completing-read= and family, since the current way of selecting a
   candidate is fairly (very) primitive.
 
+
+#+begin_src emacs-lisp :results output silent
+  (use-package md-roam
+    :straight (:host github :repo "nobiot/md-roam")
+    :custom
+    (org-roam-file-extensions '("org" "md"))
+    (md-roam-file-extension "md")
+    :config
+    (md-roam-mode 1))
+#+end_src
+
 #+begin_src emacs-lisp :results output silent
   (use-package org-roam
     :straight (:host github :repo "org-roam/org-roam"
                :files (:defaults "extensions/*"))
     :preface
     (customize-set-value 'org-roam-database-connector 'sqlite3)
+    :after (md-roam) ;; md-roam needs to be loaded before `org-roam-db-autosync-mode' is activated
     :custom
     (org-roam-dailies-directory "day/")
     (org-roam-complete-everywhere t)
