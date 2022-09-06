@@ -3,9 +3,9 @@
 # key: t
 # Note that this is not the async variant
 # --
+/// $1
 #[test]
-#[ignore = "not yet implemented"]
-fn $3() {
+#[ignore = "Not Yet Implemented"]
+fn $2($3)$4 {
   $0
-  todo!()
 }

@@ -3,8 +3,6 @@
 # key: at
 # --
 #[tokio::test]
-#[ignore = "not yet implemented"]
-async fn $3() {
+async fn $2($3)$4 {
   $0
-  todo!()
 }
