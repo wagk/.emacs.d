@@ -75,3 +75,16 @@ make install
 ```
 ./configure --with-json --with-imagemagick --with-native-compilation --with-mailutils
 ```
+
+## Emacs-Plus
+on macos
+```
+brew uninstall emacs-plus
+brew install emacs-plus@29 --with-mailutils --with-imagemagick --with-native-comp --with-xwidgets
+```
+
+# Daemon
+```sh
+arch -arm64 emacs --daemon
+emacsclient -a "" -c "SOME FILENAME"
+```
