@@ -168,7 +168,7 @@ C-M-i                           backward-button
 #+begin_src emacs-lisp :results output silent
   (use-package solarized-theme
     :straight (:host github :repo "bbatsov/solarized-emacs")
-    :if (display-graphic-p)
+    ;; :if (display-graphic-p)
     :custom
     (solarized-use-variable-pitch nil)
     (solarized-distinct-fringe-background nil)
@@ -202,7 +202,6 @@ C-M-i                           backward-button
   ;;                               ("DEBUG"   . "#d33682")
   ;;                               ("NOTE"    . "#586e75")
   ;;                               ("FIXME"   . "#cb4b16")))))
-
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
