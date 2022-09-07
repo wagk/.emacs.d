@@ -886,6 +886,11 @@ for the specific hook.
   (customize-set-value 'completions-detailed t)
 #+end_src
 
+** Resize frames pixelwise
+#+begin_src emacs-lisp :results output silent
+  (setq frame-resize-pixelwise t)
+#+end_src
+
 * Apropos Configuration
 #+begin_src emacs-lisp :results output silent
   (use-package apropos
