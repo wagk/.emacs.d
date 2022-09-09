@@ -649,23 +649,25 @@ with Chinese/Japanese.
 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ {} <> "'`  ~-_/|\?
 
 #+begin_src emacs-lisp :results output silent
-  (cond
-   ((find-font (font-spec :name "Iosevka"))
+  (defun --set-fonts ()
     (cond
-      ((eq system-type 'darwin) (set-frame-font "Iosevka-13" nil t))
-      (t (set-frame-font "Iosevka-12" nil t))))
-   ((find-font (font-spec :name "Courier")) (set-frame-font "Courier-10" nil t)))
-#+end_src
+      ((find-font (font-spec :name "Iosevka")
+        (cond
+          ((eq system-type 'darwin) (set-frame-font "Iosevka-13" nil t))
+          (t (set-frame-font "Iosevka-12" nil t)))))
+      ((find-font (font-spec :name "Courier")) (set-frame-font "Courier-10" nil t)))
+    (when (find-font (font-spec :name "Iosevka"))
+      (custom-set-faces '(fixed-pitch ((t (:family "Iosevka")))))
+      (custom-set-faces '(variable-pitch ((t (:family "Iosevka")))))
+      (custom-set-faces '(fixed-pitch-serif ((t (:family "Iosevka"))))))
+    (when (find-font (font-spec :name "Iosevka Etoile"))
+      (custom-set-faces '(variable-pitch ((t (:family "Iosevka Etoile"))))))
+    (when (find-font (font-spec :name "Iosevka Aile"))
+      (custom-set-faces '(fixed-pitch-serif ((t (:family "Iosevka Aile")))))))
 
-#+begin_src emacs-lisp :results output silent
-  (when (find-font (font-spec :name "Iosevka"))
-    (custom-set-faces '(fixed-pitch ((t (:family "Iosevka")))))
-    (custom-set-faces '(variable-pitch ((t (:family "Iosevka")))))
-    (custom-set-faces '(fixed-pitch-serif ((t (:family "Iosevka"))))))
-  (when (find-font (font-spec :name "Iosevka Etoile"))
-    (custom-set-faces '(variable-pitch ((t (:family "Iosevka Etoile"))))))
-  (when (find-font (font-spec :name "Iosevka Aile"))
-    (custom-set-faces '(fixed-pitch-serif ((t (:family "Iosevka Aile"))))))
+  (if (daemonp)
+      (add-hook 'server-after-make-frame-hook #'--set-fonts)
+    (--set-fonts))
 #+end_src
 
 TODO:
