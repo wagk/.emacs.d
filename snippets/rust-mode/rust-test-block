@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# key: testmod
+# key: tm
 # name: rust-test-mod
 # --
 #[cfg(test)]
@@ -7,7 +7,6 @@ mod tests {
     use super::*;
 
     #[test]
-    #[ignore = "Not Yet Implemented!"]
     fn $1() {
         $0
         todo!()

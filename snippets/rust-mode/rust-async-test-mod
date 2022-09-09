@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: rust-async-test-mod
-# key: atestmod
+# key: atm
 # --
 
 #[cfg(test)]
@@ -8,7 +8,6 @@ mod tests {
     use super::*;
 
     #[tokio::test]
-    #[ignore = "Not Yet Implemented!"]
     async fn $1() {
         $0
         todo!()
