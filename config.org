@@ -204,13 +204,6 @@ C-M-i                           backward-button
   ;;                               ("FIXME"   . "#cb4b16")))))
 #+end_src
 
-#+begin_src emacs-lisp :results output silent
-  (use-package color-theme-sanityinc-solarized
-    :after solarized-theme
-    :disabled t
-    :straight t)
-#+end_src
-
 ** Eva-02
 Personal theme that I'm maintaining (really stealing shamelessly from
 Solarized)
@@ -238,14 +231,6 @@ Solarized)
   ;;                               ("DEBUG"   . "#ff0000")
   ;;                               ;; ("NOTE"    . "#ff0000")
   ;;                               ("FIXME"   . "#ff0000")))))
-#+end_src
-
-
-#+begin_src emacs-lisp :results output silent
-  (use-package color-theme-sanityinc-solarized
-    :disabled t ;; native comp is failing on this package
-    :after solarized-theme
-    :straight t)
 #+end_src
 
 ** Nano
@@ -556,16 +541,6 @@ Stolen from https://github.com/bbatsov/crux
 ** Tags table defaults
 #+begin_src emacs-lisp :results output silent
   (setq-default tags-add-tables nil)
-#+end_src
-
-** Match Braces
-#+begin_src emacs-lisp :results output silent
-  (use-package elec-pair
-    :disabled t
-    :ensure nil
-    :straight nil
-    :config
-    (electric-pair-mode))
 #+end_src
 
 ** COMMENT If inside {}, [], or (), newline and indent
@@ -927,48 +902,7 @@ for the specific hook.
     (which-key-mode))
 #+end_src
 
-* Hercules
-:PROPERTIES:
-:DEPENDENCIES: which-key
-:END:
-
-Using functions to enter and exit is a fair bit clunky, so I'm
-re-evaluating the need for this
-
-#+begin_src emacs-lisp :results output silent
-  (use-package hercules
-    :disabled t
-    :straight (:host gitlab :repo "jjzmajic/hercules.el")
-    :commands (hercules-def))
-#+end_src
-
-* Packaging
-#+begin_src emacs-lisp :results output silent
-  (use-package auto-package-update
-    :disabled t
-    :straight (:host github :repo "rranelli/auto-package-update.el")
-    :commands (auto-package-update-now
-               auto-package-update-at-time
-               auto-package-update-maybe)
-    :custom
-    (auto-package-update-delete-old-versions t
-                                             "We already version them on
-                                             git")
-    (auto-package-update-prompt-before-update t
-                                              "NO SURPRISES")
-    (auto-package-update-interval 14
-                                  "update once every 2 weeks (the count
-                                  is in days)"))
-#+end_src
-
 * Avy
-#+begin_src emacs-lisp :results output silent
-  (use-package avy
-    :disabled t
-    :straight (:host github :repo "abo-abo/avy"))
-#+end_src
-
-
 ** Ace Window
 #+begin_src emacs-lisp :results output silent
   (use-package ace-window
@@ -1060,30 +994,6 @@ pressing RET autoformats it, instead of doing nothing as it does right now
      "gL"     'evil-lion-right))
 #+end_src
 
-** Increment and Decrement
-Disabled because I'm slowly turning into an Emacs citizen.
-#+begin_src emacs-lisp :results output silent
-  (use-package evil-numbers
-    :disabled t
-    :straight (:host github :repo "cofi/evil-numbers")
-    :general
-    (:keymaps 'normal
-     "C-a"  'evil-numbers/inc-at-pt
-     "C-x"  'evil-numbers/dec-at-pt))
-#+end_src
-
-** Goggles
-#+begin_src emacs-lisp :results output silent
-  (use-package evil-goggles
-    :disabled t
-    :straight (:host github :repo "edkolev/evil-goggles")
-    :commands (evil-goggles-mode)
-    :init
-    (evil-ex-define-cmd "gog[gles]" 'evil-goggles-mode)
-    :config
-    (evil-goggles-use-diff-faces))
-#+end_src
-
 ** Evil Expat
 Adds the following ex commands:
 
@@ -1125,29 +1035,6 @@ to work on a visual selection too
      "#" 'evil-visualstar/begin-search-backward))
 #+end_src
 
-** Fringe marks
-Disabled because it kept raising a warning during init about markerp.
-Now disabled because it conflicts with git-gutter+-fringe. We should
-want to learn marks properly anyway.
-
-#+begin_src emacs-lisp :results output silent
-  (use-package evil-fringe-mark
-    :disabled t
-    :straight (:host github :repo "Andrew-William-Smith/evil-fringe-mark")
-    :custom
-    (evil-fringe-mark-show-special nil)
-    :config
-    (global-evil-fringe-mark-mode))
-#+end_src
-
-** Visual marks
-#+begin_src emacs-lisp :results output silent
-  (use-package evil-visual-mark-mode
-    :disabled t
-    :straight (:host github :repo "roman/evil-visual-mark-mode")
-    :commands evil-visual-mark-mode)
-#+end_src
-
 ** Input method Convenience toggle
 https://www.emacswiki.org/emacs/Evil#toc24
 
@@ -1171,16 +1058,6 @@ https://www.emacswiki.org/emacs/Evil#toc24
 ** TODO Interactive Codes
 Look at =evil-interactive-alist=, which seems to contain all the
 interactive codes provided.
-
-** Replace with Register
-#+begin_src emacs-lisp :results output silent
-  (use-package evil-replace-with-register
-    :straight (:host github :repo "Dewdrops/evil-ReplaceWithRegister")
-    :disabled t ;; don't use it
-    :after evil
-    :config
-    (evil-replace-with-register-install))
-#+end_src
 
 ** Text Objects
 *** Latex Textobjects
@@ -1282,16 +1159,6 @@ Probably keep this just for the backticks.
       (evilmi-load-plugin-rules '(mhtml-mode) '(template simple html))))
 #+end_src
 
-*** Syntax Text Objects
-Bound to "h"
-
-#+begin_src emacs-lisp :results output silent
-  (use-package evil-textobj-syntax
-    :disabled t
-    :straight (:host github :repo "laishulu/evil-textobj-syntax")
-    :after evil)
-#+end_src
-
 *** [#B] Indent text objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-indent-plus
@@ -1312,65 +1179,6 @@ Bound to "h"
     :after evil)
 #+end_src
 
-*** Targets
-This is an expensive package to load, and I wonder why.
-
-#+begin_src emacs-lisp :results output silent
-  (use-package targets
-    :disabled t ;; See what we're missing if we don't use this for now
-    :straight (:host github :repo "noctuid/targets.el")
-    :general
-    (evil-inner-text-objects-map
-     "b" 'targets-inner-paren
-     "B" 'targets-inner-curly)
-    (evil-outer-text-objects-map
-     "b" 'targets-a-paren
-     "B" 'targets-a-curly)
-    :config
-    (targets-setup t
-                   :last-key nil
-                   :next-key nil
-                   :inside-key nil
-                   :around-key nil
-                   :remote-key nil))
-#+end_src
-
-*** Evil-cleverparens
-#+begin_src emacs-lisp :results output silent
-  (use-package evil-cleverparens
-    :disabled t
-    :straight (:host github :repo "luxbock/evil-cleverparens")
-    :general
-    ;; (evil-inner-text-objects-map
-    ;;  "f" 'evil-cp-inner-form)
-    ;; (evil-outer-text-objects-map
-    ;;  "f" 'evil-cp-a-form)
-    (evil-cleverparens-mode-map
-     :states '(visual normal)
-     ">" nil
-     "<" nil
-     "{" nil
-     "}" nil))
-#+end_src
-
-*** Sentences
-#+begin_src emacs-lisp :results output silent
-  (use-package sentence-navigation
-    :straight (:host github :repo "noctuid/emacs-sentence-navigation")
-    ;; not actively updated, last commit 3 years ago, breaks with emacs 27
-    :disabled t
-    :general
-    (:states 'motion
-     ")" 'sentence-nav-evil-forward
-     "(" 'sentence-nav-evil-backward
-     "g)" 'sentence-nav-evil-forward-end
-     "g(" 'sentence-nav-evil-backward-end)
-    (evil-outer-text-objects-map
-     "s" 'sentence-nav-evil-a-sentence)
-    (evil-inner-text-objects-map
-     "s" 'sentence-nav-evil-inner-sentence))
-#+end_src
-
 *** [K]olumns
 #+begin_src emacs-lisp :results output silent
   (use-package evil-textobj-column
@@ -1386,21 +1194,6 @@ This is an expensive package to load, and I wonder why.
   (use-package exato
     :straight t
     :after evil)
-#+end_src
-
-** Unimpaired port
-#+begin_src emacs-lisp :results output silent
-  (use-package evil-unimpaired
-    :disabled t
-    :straight (:host github :repo "zmaas/evil-unimpaired")
-    :after evil
-    :config
-    (evil-unimpaired-mode))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (with-eval-after-load 'evil-collection
-    (global-evil-collection-unimpaired-mode))
 #+end_src
 
 ** TODO Asyncrun
@@ -1848,15 +1641,6 @@ language's mappings.
      [remap evil-quit] 'org-edit-src-abort))
 #+end_src
 
-** Org Download
-#+begin_src emacs-lisp :results output silent
-  (use-package org-download
-    :disabled t
-    :straight (:host github :repo "abo-abo/org-download")
-    :hook ((dired-mode-hook . org-download-enable)
-           (org-mode-hook . org-download-enable)))
-#+end_src
-
 ** Export as epub
 Needs a working =zip= exe.
 
@@ -1920,25 +1704,6 @@ Needs a working =zip= exe.
     (org-babel-do-load-languages
      'org-babel-load-languages
      (add-to-list 'org-babel-load-languages '(http . t))))
-#+end_src
-
-** Org Edna
-https://www.nongnu.org/org-edna-el/
-#+begin_src emacs-lisp :results output silent
-  (use-package org-edna
-    :straight (org-edna)
-    :disabled t ;; re-enable once I'm better at org
-    :after org
-    :config
-    (org-edna-load))
-#+end_src
-
-
-** Org Om
-#+begin_src emacs-lisp :results output silent
-  (use-package om
-    :disabled t
-    :straight (:host github :repo "ndwarshuis/om.el"))
 #+end_src
 
 ** Org Roam
@@ -5032,31 +4797,6 @@ snippet is a patch provided in the thread.
                  :character (lsp--column))))))
 #+end_src
 
-*** lsp-ui
-#+begin_src emacs-lisp :results output silent
-  (use-package lsp-ui
-    :disabled t
-    :after lsp-mode
-    :straight t
-    :general
-    (lsp-ui-mode-map
-     [remap xref-find-definitions] #'lsp-ui-peek-find-definitions
-     ;; [remap xref-find-references] #'lsp-ui-peek-find-references
-     "C-," #'lsp-ui-peek-find-references)
-    (lsp-ui-peek-mode-map
-     "j" 'lsp-ui-peek--select-next
-     "k" 'lsp-ui-peek--select-prev)
-    :custom-face
-    ;; (lsp-ui-peek-footer ((t (:foreground "b58900" :background "b58900")))))
-    (lsp-ui-peek-footer ((t (:inherit 'evil-ex-substitute-matches))))
-    (lsp-ui-peek-header ((t (:inherit 'lsp-ui-peek-footer))))
-    (lsp-ui-peek-highlight ((t (:inherit 'lsp-ui-peek-footer))))
-    (lsp-ui-peek-selection ((t (:inherit 'evil-ex-substitute-matches))))
-    :custom
-    (lsp-ui-sideline-enable nil)
-    (lsp-ui-peek-peek-height 23))
-#+end_src
-
 *** Debug Adapter Mode (dap-mode)
 #+begin_src emacs-lisp :results output silent
   (use-package dap-mode
@@ -5093,21 +4833,6 @@ snippet is a patch provided in the thread.
     (prog-mode-hook . origami-mode)
     :config
     (global-origami-mode))
-#+end_src
-
-** Vimish Fold
-We might want to write an operator from this (look up :h zf), since it
-does not seem to be actually performing syntax-based folding
-
-Another thing to consider is how this overlay method will
-integrate/interfere with origami-mode.
-#+begin_src emacs-lisp :results output silent
-  (use-package vimish-fold
-    :straight (:host github :repo "mrkkrp/vimish-fold")
-    :disabled t
-    :after evil
-    :config
-    (vimish-fold-global-mode))
 #+end_src
 
 * Rot13
@@ -5148,14 +4873,6 @@ file will not itself be encrypted.
                0xc-convert-point))
 #+end_src
 
-* Zeal documentation at point
-#+begin_src emacs-lisp :results output silent
-  (use-package zeal-at-point
-    :disabled t ;; using defengine
-    :straight (:host github :repo "jinzhu/zeal-at-point")
-    :commands zeal-at-point)
-#+end_src
-
 * Edn format
 This is closer to the json serialization/deserialization module.
 
@@ -5176,33 +4893,6 @@ This is closer to the json serialization/deserialization module.
 Converts between camelCase and snake_case visually, without changing
 the underlying format
 * Hexl-mode
-
-* Fill Column Indicator (fci)
-Note that this makes origami-mode look pretty ugly (origami-mode's
-trailing dots only happen /after/ the fci column.)
-#+begin_src emacs-lisp :results output silent
-  (use-package fill-column-indicator
-    :disabled t ;; use display-fill-column-indicator
-    :straight (:host github :repo "alpaker/fill-column-indicator")
-    :commands (fci-mode)
-    :custom
-    (fci-rule-use-dashes (not (display-graphic-p)))
-    (fci-always-use-textual-rule (not (display-graphic-p)))
-    :hook
-    (prog-mode-hook . fci-mode)
-    :config
-    (defun my-restart-fci-mode (&rest _args)
-      (interactive)
-      (global)
-      "Turns fci-mode on and off for every buffer that has it on."
-      (dolist (buffer (buffer-list))
-        (with-current-buffer buffer
-          (when fci-mode
-            (fci-mode -1)
-            (fci-mode 1))))))
-    ;; Something's wrong with this
-    ;; (advice-add 'load-theme :after 'my-restart-fci-mode))
-#+end_src
 
 * todotxt
 #+begin_src emacs-lisp :results output silent
@@ -5442,33 +5132,6 @@ Note that =customize-set-variable= is like =setq-default=.
                link-hint-copy-link))
 #+end_src
 
-* Dashboard
-#+begin_src emacs-lisp :results output silent
-  (use-package dashboard
-    :disabled t
-    :straight t
-    :custom
-    (dashboard-items '((agenda)
-                       (projects . 20)
-                       (bookmarks . 10)
-                       (recents . 5)))
-    (show-week-agenda-p t)
-    ;; (dashboard-startup-banner (locate-user-emacs-file "arbeit-macht-frei.png"))
-    (dashboard-startup-banner nil)
-    (dashboard-footer "Work sets you free.")
-    :config
-    (dashboard-setup-startup-hook)
-    (my-evil-define-split-vsplit-cmd "dash[board]"
-                                     #'(lambda () (interactive)
-                                         (switch-to-buffer "*dashboard*")))
-    (with-eval-after-load 'eyebrowse
-      (evil-ex-define-cmd "Tdash[board]"
-                          #'(lambda () (interactive)
-                              (require 'eyebrowse)
-                              (let ((eyebrowse-new-workspace "*dashboard*"))
-                                (eyebrowse-create-window-config))))))
-#+end_src
-
 * Highlight Indent Guides
 #+begin_src emacs-lisp :results output silent
   (use-package highlight-indent-guides
@@ -5560,7 +5223,6 @@ Note that =customize-set-variable= is like =setq-default=.
 * Tree Sitter
 #+begin_src emacs-lisp :results output silent
   (use-package tree-sitter
-    ;; :disabled t ;; font lock is very buggy
     :straight (:branch "release")
     :hook ((tree-sitter-after-on-hook . tree-sitter-hl-mode))
     :custom-face
@@ -5596,21 +5258,6 @@ Just do the scratch buffer simple and stupidly
                                       (let ((tab-bar-new-tab-choice 'get-scratch-buffer-create))
                                        (tab-bar-new-tab))
                                       (warn "tab-bar not available"))))
-#+end_src
-
-Not persistent scratch, just a custom scratch buffer
-#+begin_src emacs-lisp :results output silent
-  (use-package scratch
-    :straight t
-    :disabled t
-    :init
-    (evil-define-command --scratch (&optional bang)
-      "Opens org-mode by default, asks for mode when ! is supplied"
-      (interactive "<!>")
-      (require 'scratch)
-      (let ((current-prefix-arg (when bang 4)))
-        (call-interactively 'scratch)))
-    (evil-ex-define-cmd "sc[ratch]" '--scratch))
 #+end_src
 
 * Compiler Explorer
@@ -5814,15 +5461,6 @@ Not persistent scratch, just a custom scratch buffer
     :commands (calibredb))
 #+end_src
 
-* explain-pause-mode
-#+begin_src emacs-lisp :results output silent
-  (use-package explain-pause-mode
-    :straight (:host github :repo "lastquestion/explain-pause-mode")
-    :disabled t
-    :config
-    (explain-pause-mode))
-  #+end_src
-
 * devdocs
 #+begin_src emacs-lisp :results output silent
   (use-package devdocs
@@ -5878,17 +5516,6 @@ the packages I run use dabbrev at all.
     (fancy-dabbrev-mode))
 #+end_src
 
-* Dogears
-#+begin_src emacs-lisp :results output silent
-  (use-package dogears
-    :straight (:host github :repo "alphapapa/dogears.el")
-    :disabled t ;; it loads helm for some reason
-    :config
-    (evil-ex-define-cmd "dgg[o]" 'dogears-go)
-    (evil-ex-define-cmd "dgl[ist]" 'dogears-list)
-    (dogears-mode))
-#+end_src
-
 * Topsy
 #+begin_src emacs-lisp :results output silent
   (use-package topsy
@@ -5906,17 +5533,6 @@ the packages I run use dabbrev at all.
   (use-package terraform-mode
     :straight t
     :hook (terraform-mode-hook . terraform-format-on-save-mode))
-#+end_src
-
-* Bufler
-#+begin_src emacs-lisp :results output silent
-  (use-package bufler
-    :straight t
-    :disabled t ;; windows complains that `max-width' is void
-    :general
-    :config
-    (evil-ex-define-cmd "buffers" 'bufler)
-    (evil-ex-define-cmd "bb" 'bufler-switch-buffer))
 #+end_src
 
 * Docker
@@ -5967,27 +5583,12 @@ https://github.com/Silex/docker.el
     (nano-modeline-mode))
 #+end_src
 
-* TODO svelte-mode
-- [ ] Switch to using web-mode
-
-#+begin_src emacs-lisp :results output silent
-  (use-package svelte-mode
-      :disabled t
-      :straight t)
-#+end_src
-
 * mmm-mode
 #+begin_src emacs-lisp :results output silent
   (use-package mmm-mode
     :straight t
     :custom-face
     (mmm-default-submode-face ((t (:background nil)))))
-#+end_src
-* Vue-mode
-#+begin_src emacs-lisp :results output silent
-  (use-package vue-mode
-    :disabled t
-    :straight t)
 #+end_src
 
 * Proced
@@ -6118,19 +5719,6 @@ https://github.com/akermu/emacs-libvterm
 #+begin_src emacs-lisp :results output silent
   (when (fboundp 'shortdoc)
     (evil-ex-define-cmd "cheat[sheet]" 'shortdoc))
-#+end_src
-
-* Dirvish
-#+begin_src emacs-lisp :results output silent
-  (use-package dirvish
-    :straight t
-    :disabled t ;; There's some issues with evil-mode integration here
-    :custom-face
-    (dirvish-hl-line ((((background dark)) (:background ,sol-base02))
-                      (((background light)) (:background ,sol-base2))))
-    :config
-    (dirvish-override-dired-mode)
-    (add-to-list 'evil-motion-state-modes 'dirvish-mode))
 #+end_src
 
 * dwim shell command
