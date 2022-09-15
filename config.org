@@ -5771,3 +5771,12 @@ https://github.com/akermu/emacs-libvterm
   (use-package visual-fill-column
     :straight (:branch "main"))
 #+end_src
+
+* Env from Shell
+#+begin_src emacs-lisp :results output silent
+  (use-package exec-path-from-shell
+    :straight t
+    :config
+    (when (daemonp)
+      (exec-path-from-shell-initialize)))
+#+end_src
