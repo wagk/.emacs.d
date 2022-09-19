@@ -1727,7 +1727,8 @@ Needs a working =zip= exe.
     :straight (:host github :repo "org-roam/org-roam"
                :files (:defaults "extensions/*"))
     :preface
-    (customize-set-value 'org-roam-database-connector 'sqlite3)
+    (customize-set-value 'org-roam-database-connector
+                         (if (>= emacs-major-version 29) 'sqlite-builtin 'sqlite3))
     :after (md-roam) ;; md-roam needs to be loaded before `org-roam-db-autosync-mode' is activated
     :custom
     (org-roam-dailies-directory "day/")
