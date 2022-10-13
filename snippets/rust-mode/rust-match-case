@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# key: m
+# key: M
 # name: rust-match-case
 # --
 => $1

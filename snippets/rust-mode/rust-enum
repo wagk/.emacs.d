@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: rust-enum
-# key: enum
+# key: e
 # --
 enum $1 {
     $0

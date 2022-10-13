@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rust-arrow
+# key: m
+# --
+-> $1

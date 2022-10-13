@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: rust-enum-pub
+# key: pe
+# --
+pub enum $1 {
+    $0
+}

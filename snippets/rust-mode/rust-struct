@@ -1,7 +1,5 @@
 # -*- mode: snippet -*-
 # name: rust-struct
-# key: struct
+# key: s
 # --
-struct $1 {
-       $0
-}
+struct $0
