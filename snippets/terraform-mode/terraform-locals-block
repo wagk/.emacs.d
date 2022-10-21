@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: terraform-locals-block
+# key: l
+# --
+locals {
+  $0
+}

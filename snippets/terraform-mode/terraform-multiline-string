@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# key: D
+# name: terraform-multiline-string
+# expand-env: ((yas-indent-line 'fixed'))
+# --
+<<-${1:DESC}
+$0
+$1
