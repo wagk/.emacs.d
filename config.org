@@ -5428,9 +5428,9 @@ Just do the scratch buffer simple and stupidly
       (interactive)
       (require 'project)
       (if-let ((proj-current (project-current))
-               (todo (f-join (project-root proj-current) ".todo.org")))
+               (todo (f-join (project-root proj-current) ".todo.md")))
           (find-file-other-window todo)
-        (error "No todo.org found in %s" default-directory)))
+        (error "No todo.md found in %s" default-directory)))
 
     (general-define-key
      :keymaps 'project-prefix-map
