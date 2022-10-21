@@ -4154,6 +4154,7 @@ the thing, because that's what vim does.
            "\\.yaml\\'")
     :hook
     (yaml-mode-hook . prism-whitespace-mode)
+    (yaml-mode-hook . display-line-numbers-mode)
     :general
     (yaml-mode-map
      "RET" 'newline-and-indent)
