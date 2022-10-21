@@ -2653,8 +2653,9 @@ TODO: some way to better, more dynamically name the tabs
       (eyebrowse-rename-window-config
        (frame-parameter nil 'eyebrowse-current-slot)
        name))
-    (evil-ex-define-cmd "Trename"   'my-rename-eyebrowse-tab)
-    (evil-ex-define-cmd "Tabrename" 'my-rename-eyebrowse-tab)
+    (evil-ex-define-cmd "trename" 'my-rename-eyebrowse-tab)
+    (evil-ex-define-cmd "tr" 'my-rename-eyebrowse-tab)
+    (evil-ex-define-cmd "tabrename" 'my-rename-eyebrowse-tab)
     (defun my-eyebrowse-delete-window-config-or-frame (oldfun &rest _old_args)
       "Checks if there are other \"tabs\" when closing a frame.
   If there is, close the tab, otherwise, delete the frame"
