@@ -3,7 +3,8 @@
 ;;; Code:
 (setq package-enable-at-startup nil)
 
-(add-to-list 'default-frame-alist '(undecorated . t))
+(unless (eq system-type 'windows-nt)
+  (add-to-list 'default-frame-alist '(undecorated . t)))
 
 (when (and (fboundp 'native-comp-available-p)
            (native-comp-available-p))
