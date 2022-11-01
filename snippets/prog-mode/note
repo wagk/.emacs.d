@@ -2,4 +2,4 @@
 # name: note
 # key: nn
 # --
-`(yas-with-comment "NOTE: ")`
+`(yas-with-comment "NOTE (pangt): ")`

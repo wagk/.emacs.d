@@ -2,4 +2,4 @@
 # name: todo
 # key: tt
 # --
-`(yas-with-comment "TODO: ")`
+`(yas-with-comment "TODO (pangt): ")`
