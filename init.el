@@ -395,6 +395,7 @@
     (undo-tree-visualizer-diff t)
     (undo-tree-visualizer-timestamps t)
     (undo-tree-auto-save-history nil) ;; the perf of this seems intensely bad
+    (undo-tree-enable-undo-in-region t)
     :config
     (global-undo-tree-mode)
     (with-eval-after-load 'evil
