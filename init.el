@@ -842,23 +842,24 @@
 
   ;; TODO: Figure out how to delete an entry from the completion
   ;; history
-  (use-package selectrum
+  (use-package vertico
     :demand t
     :straight t
-    :general
-    (selectrum-minibuffer-map
-     "M-j" 'selectrum-next-candidate
-     "M-k" 'selectrum-previous-candidate)
     :custom
-    (selectrum-max-window-height 23)
+    (vertico-count 23)
+    :general
+    (vertico-map
+     "M-j" 'vertico-next
+     "M-k" 'vertico-previous)
     :config
-    (selectrum-mode))
+    (vertico-mode))
 
-  (use-package selectrum-prescient
+  (use-package orderless
     :straight t
-    :after selectrum
-    :config
-    (selectrum-prescient-mode))
+    :after vertico
+    :custom
+    (completion-styles '(orderless basic))
+    (completion-category-overrides '((file (styles basic partial-completion)))))
 
   (use-package consult
     :straight t
@@ -872,7 +873,7 @@
 
   (use-package embark
     :straight t
-    :after selectrum
+    :after vertico
     :commands (embark-act
                embark-dwim
                embark-bindings
@@ -880,7 +881,7 @@
     :custom
     (prefix-help-command #'embark-prefix-help-command)
     :general
-    (selectrum-minibuffer-map
+    (vertico-map
      "C-<SPC>" 'embark-act)
     (:states 'motion
      "C-<SPC>" 'embark-act
