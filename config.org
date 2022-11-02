@@ -5787,3 +5787,40 @@ https://github.com/akermu/emacs-libvterm
     (when (daemonp)
       (exec-path-from-shell-initialize)))
 #+end_src
+
+* To Do and Done files
+This is still fairly experimental
+
+#+begin_src emacs-lisp :results output silent
+  ;; NOTE (pangt): The ordering of these vars are such that they will
+  ;; end up `nil' in a normal init sequence.
+
+  (defcustom --todo-file nil
+    "The path to the file with things to do on this machine."
+    :type 'file)
+
+  (defcustom --done-file nil
+    "The path to the file with done things on this machine."
+    :type 'file)
+
+  (with-eval-after-load 'org-capture
+      (setq org-capture-templates
+            (doct-add-to
+             org-capture-templates
+             '(("Done"
+                :keys "entry"
+                :empty-lines 0
+                :file --done-file
+                :type plain
+                :children
+                (("thing"
+                  :keys "today"
+                  :template "* %<%F> %?"
+                  :function (lambda ()
+                              (end-of-buffer)
+                              (insert ?\n)
+                              (end-of-buffer)))))))))
+
+  (evil-ex-define-cmd "done[file]" #'(lambda () (find-file --done-file)))
+  (evil-ex-define-cmd "todo[file]" #'(lambda () (find-file --todo-file)))
+#+end_src
