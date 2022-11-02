@@ -5105,6 +5105,7 @@ called, and it should work anywhere.
 
 #+begin_src emacs-lisp :results output silent
   (use-package org-pomodoro
+    :disabled t ;; Not using this
     :straight (:host github :repo "lolownia/org-pomodoro"
                :files (:defaults ("resources/" "resources/*")))
     :commands (org-pomodoro)
