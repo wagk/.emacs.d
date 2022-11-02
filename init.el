@@ -915,7 +915,7 @@
   (message "Loaded config.org in %.06f seconds."
            (float-time (time-since my-init-start-time))))
 
-(org-agenda nil "A")
+;; (org-agenda nil "A")
 
 ;; Emacs considers the following "dangerous" (i.e they'll ask you to
 ;; confirm)
