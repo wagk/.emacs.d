@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rust-allow-dead-code
+# key: dead
+# --
+#[allow(dead_code)]
