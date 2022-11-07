@@ -1381,103 +1381,103 @@ https://github.com/progfolio/doct
             (unless (f-file-p todo-file)
               (f-touch todo-file))
             todo-file)
-        (error "Not in a project directory (%s)" default-directory)))
+        (error "Not in a project directory (%s)" default-directory))))
 
-    (setq org-capture-templates
-          (doct-add-to
-           org-capture-templates
-           '(("Diary"
-              :keys "diary"
-              :empty-lines 1
-              :file --local-diary-file
-              :children
-              (("today"
-                :keys "today"
-                :datetree t)))
-             ("Clock"
-              :keys "clock"
-              :empty-lines 1
-              :clock t
-              :clock-resume t
-              :children
-              (("Item"
-                :keys "item"
-                :type item
-                :template "%?")
-               (:group "Entries"
-                :type entry
-                :template "* %{todo-state} %? %^g"
-                :children
-                (("To Do"
-                  :keys "todo"
-                  :todo-state "TODO")
-                 ("Note"
-                  :keys "note"
-                  :todo-state nil)
-                 ("Deferred"
-                  :keys "wait"
-                  :todo-state "WAIT")
-                 ("Done"
-                  :keys "done"
-                  :todo-state "DONE")))))
-             ("Project"
-              :keys "project"
-              :type entry
-              :file --select-project-todo-file
-              :empty-lines 1
-              :template
-              ("* %{todo-state} %^{DESCRIPTION} %^g"
-               ":PROPERTIES:"
-               ":CREATED: %t" ;; org has no special property for creation timestamps
-               ":END:"
-               "=%(magit-get-current-branch)="
-               ;; "[[%F][%(f-relative (or (org-capture-get :original-file t) (org-capture-get :original-file)) (project-root (project-current)))]]"
-               "%a"
-               "%?")
-              :children
-              (("To Do"
-                :keys "todo"
-                :todo-state "TODO"
-                :immediate-finish t)
-               ("To Do (Detailed)"
-                :keys "detail"
-                :todo-state "TODO")
-               ("To Do (Generic)"
-                :keys "generic"
-                :todo-state "TODO"
-                :template
-                ("* %{todo-state} %^{DESCRIPTION}"
-                 "%t"
-                 "=%(magit-get-current-branch)="
-                 "%?"))
-               ("Done"
-                :keys "done"
-                :todo-state "DONE")
-               ("Deferred"
-                :keys "wait"
-                :todo-state "WAIT")))
-             (:group "Default"
-              :type entry
-              :file --select-org-agenda-file
-              :empty-lines 1
-              :template
-              ("* %{todo-state} %^{DESCRIPTION} %^g"
-               ":PROPERTIES:"
-               ":CREATED: %t" ;; org has no special property for creation timestamps
-               ":END:"
-               ":LOGBOOK:"
-               ":END:"
-               "%?")
-              :children
-              (("To Do"
-                :keys "todo"
-                :todo-state "TODO")
-               ("Done"
-                :keys "done"
-                :todo-state "DONE")
-               ("Deferred"
-                :keys "wait"
-                :todo-state "WAIT")))))))
+    ;; (setq org-capture-templates
+    ;;       (doct-add-to
+    ;;        org-capture-templates
+    ;;        '(("Diary"
+    ;;           :keys "diary"
+    ;;           :empty-lines 1
+    ;;           :file --local-diary-file
+    ;;           :children
+    ;;           (("today"
+    ;;             :keys "today"
+    ;;             :datetree t)))
+    ;;          ("Clock"
+    ;;           :keys "clock"
+    ;;           :empty-lines 1
+    ;;           :clock t
+    ;;           :clock-resume t
+    ;;           :children
+    ;;           (("Item"
+    ;;             :keys "item"
+    ;;             :type item
+    ;;             :template "%?")
+    ;;            (:group "Entries"
+    ;;             :type entry
+    ;;             :template "* %{todo-state} %? %^g"
+    ;;             :children
+    ;;             (("To Do"
+    ;;               :keys "todo"
+    ;;               :todo-state "TODO")
+    ;;              ("Note"
+    ;;               :keys "note"
+    ;;               :todo-state nil)
+    ;;              ("Deferred"
+    ;;               :keys "wait"
+    ;;               :todo-state "WAIT")
+    ;;              ("Done"
+    ;;               :keys "done"
+    ;;               :todo-state "DONE")))))
+    ;;          ("Project"
+    ;;           :keys "project"
+    ;;           :type entry
+    ;;           :file --select-project-todo-file
+    ;;           :empty-lines 1
+    ;;           :template
+    ;;           ("* %{todo-state} %^{DESCRIPTION} %^g"
+    ;;            ":PROPERTIES:"
+    ;;            ":CREATED: %t" ;; org has no special property for creation timestamps
+    ;;            ":END:"
+    ;;            "=%(magit-get-current-branch)="
+    ;;            ;; "[[%F][%(f-relative (or (org-capture-get :original-file t) (org-capture-get :original-file)) (project-root (project-current)))]]"
+    ;;            "%a"
+    ;;            "%?")
+    ;;           :children
+    ;;           (("To Do"
+    ;;             :keys "todo"
+    ;;             :todo-state "TODO"
+    ;;             :immediate-finish t)
+    ;;            ("To Do (Detailed)"
+    ;;             :keys "detail"
+    ;;             :todo-state "TODO")
+    ;;            ("To Do (Generic)"
+    ;;             :keys "generic"
+    ;;             :todo-state "TODO"
+    ;;             :template
+    ;;             ("* %{todo-state} %^{DESCRIPTION}"
+    ;;              "%t"
+    ;;              "=%(magit-get-current-branch)="
+    ;;              "%?"))
+    ;;            ("Done"
+    ;;             :keys "done"
+    ;;             :todo-state "DONE")
+    ;;            ("Deferred"
+    ;;             :keys "wait"
+    ;;             :todo-state "WAIT")))
+    ;;          (:group "Default"
+    ;;           :type entry
+    ;;           :file --select-org-agenda-file
+    ;;           :empty-lines 1
+    ;;           :template
+    ;;           ("* %{todo-state} %^{DESCRIPTION} %^g"
+    ;;            ":PROPERTIES:"
+    ;;            ":CREATED: %t" ;; org has no special property for creation timestamps
+    ;;            ":END:"
+    ;;            ":LOGBOOK:"
+    ;;            ":END:"
+    ;;            "%?")
+    ;;           :children
+    ;;           (("To Do"
+    ;;             :keys "todo"
+    ;;             :todo-state "TODO")
+    ;;            ("Done"
+    ;;             :keys "done"
+    ;;             :todo-state "DONE")
+    ;;            ("Deferred"
+    ;;             :keys "wait"
+    ;;             :todo-state "WAIT")))))))
 #+end_src
 
 ** Org Agenda
@@ -5808,22 +5808,30 @@ This is still fairly experimental
     :type 'file)
 
   (with-eval-after-load 'org-capture
+    (when (f-exists-p --done-file)
       (setq org-capture-templates
             (doct-add-to
              org-capture-templates
-             '(("Done"
-                :keys "entry"
+             '(("Add to done.txt"
+                :keys "thing"
                 :empty-lines 0
                 :file --done-file
                 :type plain
-                :children
-                (("thing"
-                  :keys "today"
-                  :template "* %<%F> %?"
-                  :function (lambda ()
-                              (end-of-buffer)
-                              (insert ?\n)
-                              (end-of-buffer)))))))))
+                :template "* %<%F> %?"
+                :function (lambda ()
+                            (end-of-buffer)
+                            (insert ?\n)
+                            (end-of-buffer)))
+               ("Add to todo.txt"
+                 :keys "thing"
+                 :empty-lines 0
+                 :file --todo-file
+                 :type plain
+                 :template "* %<%F> %?"
+                 :function (lambda ()
+                             (end-of-buffer)
+                             (insert ?\n)
+                             (end-of-buffer))))))))
 
   (evil-ex-define-cmd "done[file]" #'(lambda () (find-file --done-file)))
   (evil-ex-define-cmd "todo[file]" #'(lambda () (find-file --todo-file)))
