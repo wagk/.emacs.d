@@ -3261,6 +3261,9 @@ We should look at customizing cider someday.
     ("\\.rs\\'" . rust-mode)
     :custom
     (rust-format-on-save t)
+    (rust-format-show-buffer nil
+                             "Stop polluting my workspace with orphaned
+                             windows thanks")
     :general
     (:states 'insert
      :keymaps 'rust-mode-map
