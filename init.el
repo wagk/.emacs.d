@@ -49,9 +49,9 @@
   (locate-user-emacs-file "local.el")
   "Points to local.el.")
 
-(defconst user-frontpage-file
-  (locate-user-emacs-file "frontpage.org")
-  "Points to the file containing the startup message.")
+(defconst user-variables-file
+  (locate-user-emacs-file "variables.el")
+  "Points to variables.el.")
 
 (defun find-user-init-file ()
   "Edit `user-init-file' without opening a new window."
@@ -68,10 +68,10 @@
   (interactive)
   (find-file user-local-file))
 
-(defun find-user-frontpage-file ()
-  "Edit `user-frontpage-file' without opening a new window."
+(defun find-user-variables-file ()
+  "Edit `variables.el' without opening a new window."
   (interactive)
-  (find-file user-frontpage-file))
+  (find-file user-variables-file))
 
 (defmacro measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."
@@ -182,6 +182,10 @@
     (load local-file)
     (when (fboundp '--after-init-code)
       (add-hook 'after-init-hook #'--after-init-code))))
+
+(defun --load-variables-el ()
+  (let ((variable-file (locate-user-emacs-file "variables.el")))
+    (load variable-file)))
 
 (defun load-config-org-files (files)
   "Given a list of org FILES, load them sequentially in the order.
@@ -548,7 +552,6 @@
         (require 'eyebrowse)
         (funcall-interactively 'my-new-evil-tab dest)))
 
-    (evil-ex-define-cmd "frontpage" 'find-user-frontpage-file)
     (my-evil-define-split-vsplit-cmd "init" 'find-user-init-file)
     (evil-ex-define-cmd "Tinit" #'(lambda ()
                                     (interactive)
@@ -560,6 +563,9 @@
     (my-evil-define-split-vsplit-cmd "config" 'find-user-config-file)
     (evil-ex-define-cmd "Tconfig" #'(lambda () (interactive)
                                       (my-new-cmd-tab user-config-file)))
+    (my-evil-define-split-vsplit-cmd "var[iables]" 'find-user-variables-file)
+    (evil-ex-define-cmd "Tvar[iables]" #'(lambda () (interactive)
+                                           (my-new-cmd-tab user-variables-file)))
     (my-evil-define-split-vsplit-cmd "buffers" 'ibuffer)
     (my-evil-define-split-vsplit-cmd "me[ssage]"
                                      #'(lambda ()
@@ -898,6 +904,7 @@
         (f-touch custom))
       (setq custom-file custom)))
 
+  (--load-variable-el)
   ;; Load local configuration variables, we do it here so that
   ;; local.el gets access to the "core" init loads
   (load-local-el)
