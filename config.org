@@ -5298,11 +5298,11 @@ Just do the scratch buffer simple and stupidly
 #+begin_src emacs-lisp :results output silent
   (setq initial-scratch-message nil
         initial-major-mode 'markdown-mode)
-  (my-evil-define-split-vsplit-cmd "sc[ratch]" 'scratch-buffer)
+  (my-evil-define-split-vsplit-cmd "sc[ratch]" #'(lambda () (switch-to-buffer "*scratch*")))
   (evil-ex-define-cmd "TScratch" #'(lambda ()
                                      (interactive)
                                      (if (featurep 'tab-bar)
-                                      (let ((tab-bar-new-tab-choice 'get-scratch-buffer-create))
+                                      (let ((tab-bar-new-tab-choice "*scratch*"))
                                        (tab-bar-new-tab))
                                       (warn "tab-bar not available"))))
 #+end_src
