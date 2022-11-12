@@ -858,6 +858,13 @@
     (vertico-map
      "M-j" 'vertico-next
      "M-k" 'vertico-previous)
+    ;; this sounds weird but "scroll down" here means "go back", which
+    ;; visually looks like scrolling _up_. Swap up and down to be more
+    ;; intuitive
+    (vertico-map
+     :states '(insert normal)
+     "C-u" 'vertico-scroll-down
+     "C-d" 'vertico-scroll-up)
     :config
     (vertico-mode))
 
