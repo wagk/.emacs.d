@@ -904,7 +904,7 @@
         (f-touch custom))
       (setq custom-file custom)))
 
-  (--load-variable-el)
+  (--load-variables-el)
   ;; Load local configuration variables, we do it here so that
   ;; local.el gets access to the "core" init loads
   (load-local-el)
