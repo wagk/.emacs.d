@@ -4,5 +4,5 @@
 # --
 #[tokio::test]
 async fn $2($3)$4 {
-  $0
+  ${5:todo!()}
 }

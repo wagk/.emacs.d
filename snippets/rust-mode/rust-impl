@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 # name: rust-impl
-# key: impl
+# key: i
 # --
 impl $1 {
-    $0
+  $0
 }

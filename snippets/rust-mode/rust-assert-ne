@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rust-assert-ne
+# key: ane
+# --
+assert_ne!($1, $0);

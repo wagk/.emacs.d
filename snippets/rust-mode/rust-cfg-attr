@@ -1,0 +1,4 @@
+# key: cfg
+# name: rust-cfg-attr
+# --
+#[cfg($0)]

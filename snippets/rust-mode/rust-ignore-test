@@ -1,0 +1,4 @@
+# key: ignore
+# name: rust-ignore-test
+# --
+#[ignore = "$0"]
