@@ -498,6 +498,11 @@
       (require 'evil)
       (customize-set-variable 'evil-shift-width lisp-body-indent))
 
+    (define-advice evil-ex-define-cmd (:before-while (_name cmd) --does-cmd-have-interactive-clause)
+      (unless (commandp cmd)
+        (warn "evil-ex-define-cmd only accepts commands. Are you missing an `interactive' form?"))
+      (commandp cmd))
+
     ;; Back to our regularly scheduled programming
     (evil-select-search-module 'evil-search-module 'evil-search)
 
