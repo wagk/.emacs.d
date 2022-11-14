@@ -5833,6 +5833,6 @@ This is still fairly experimental
                              (insert ?\n)
                              (end-of-buffer))))))))
 
-  (evil-ex-define-cmd "done[file]" #'(lambda () (find-file --done-file)))
-  (evil-ex-define-cmd "todo[file]" #'(lambda () (find-file --todo-file)))
+  (evil-ex-define-cmd "done[file]" #'(lambda () (interactive) (find-file --done-file)))
+  (evil-ex-define-cmd "todo[file]" #'(lambda () (interactive) (find-file --todo-file)))
 #+end_src
