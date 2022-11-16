@@ -1208,22 +1208,26 @@ the right thing.
 
 #+begin_src emacs-lisp :results output silent
   (use-package emacsql-sqlite
+    :disabled t
     :straight t)
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
   (use-package emacsql-psql
+    :disabled t
     :straight t)
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
   (use-package emacsql-sqlite3
+    :disabled t
     :straight t)
 #+end_src
 
 These two modules share the same repository
 #+begin_src emacs-lisp :results output silent
   (use-package emacsql-sqlite-builtin
+    :disabled t
     :if (<= emacs-major-version 29)
     :straight (:host github :repo "emacscollective/emacsql-sqlite-builtin"))
   ;; (use-package emacsql-sqlite-module
@@ -1725,6 +1729,7 @@ Needs a working =zip= exe.
 
 #+begin_src emacs-lisp :results output silent
   (use-package org-roam
+    :disabled t
     :straight (:host github :repo "org-roam/org-roam"
                :files (:defaults "extensions/*"))
     :disabled t
