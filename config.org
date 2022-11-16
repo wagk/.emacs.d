@@ -5813,7 +5813,7 @@ This is still fairly experimental
             (doct-add-to
              org-capture-templates
              '(("Add to done.txt"
-                :keys "thing"
+                :keys "done"
                 :empty-lines 0
                 :file --done-file
                 :type plain
@@ -5821,18 +5821,22 @@ This is still fairly experimental
                 :function (lambda ()
                             (end-of-buffer)
                             (insert ?\n)
-                            (end-of-buffer)))
-               ("Add to todo.txt"
-                 :keys "thing"
-                 :empty-lines 0
-                 :file --todo-file
-                 :type plain
-                 :template "* %<%F> %?"
-                 :function (lambda ()
-                             (end-of-buffer)
-                             (insert ?\n)
-                             (end-of-buffer))))))))
+                            (end-of-buffer)))))))
+    (when (f-exists-p --todo-file)
+      (setq org-capture-templates
+            (doct-add-to
+             org-capture-templates
+             '(("Add to todo.txt"
+                :keys "todo"
+                :empty-lines 0
+                :file --todo-file
+                :type plain
+                :template "* %<%F> %?"
+                :function (lambda ()
+                            (end-of-buffer)
+                            (insert ?\n)
+                            (end-of-buffer))))))))
 
-  (evil-ex-define-cmd "done[file]" #'(lambda () (interactive) (find-file --done-file)))
-  (evil-ex-define-cmd "todo[file]" #'(lambda () (interactive) (find-file --todo-file)))
+  (my-evil-define-split-vsplit-cmd "done[file]" #'(lambda () (interactive) (find-file --done-file)))
+  (my-evil-define-split-vsplit-cmd "todo[file]" #'(lambda () (interactive) (find-file --todo-file)))
 #+end_src
