@@ -1,0 +1,4 @@
+# key: test_case
+# name: rust-test-case
+# --
+#[test_case($0)]
