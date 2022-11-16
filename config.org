@@ -5855,7 +5855,7 @@ Lets try that again
 
 #+begin_src emacs-lisp :results output silent
   (use-package deft
-    :straight (:host github :repo "jrblevin/deft")
+    :straight (:branch "master" :repo "jrblevin/deft")
     :commands (deft
                deft-filter
                deft-setup) ;; call this if no .deft folder is found
@@ -5886,11 +5886,11 @@ Lets try that again
       [remap evil-quit] 'quit-window)
     (:keymaps 'deft-mode-map
      :states  '(insert normal motion)
-     "C-j"    'widget-forward
-     "C-k"    'widget-backward
+     "C-j"    'forward-button
+     "C-k"    'backward-button
      ;; make it more like helm, which defaults to this
-     "M-j"    'widget-forward
-     "M-k"    'widget-backward)
+     "M-j"    'forward-button
+     "M-k"    'backward-button)
     (:keymaps 'deft-mode-map
      :states  'normal
      "o"      'deft-complete
