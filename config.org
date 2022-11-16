@@ -1715,6 +1715,7 @@ Needs a working =zip= exe.
 #+begin_src emacs-lisp :results output silent
   (use-package md-roam
     :straight (:host github :repo "nobiot/md-roam")
+    :disabled t
     :custom
     (org-roam-file-extensions '("org" "md"))
     (md-roam-file-extension "md")
@@ -1726,6 +1727,7 @@ Needs a working =zip= exe.
   (use-package org-roam
     :straight (:host github :repo "org-roam/org-roam"
                :files (:defaults "extensions/*"))
+    :disabled t
     :preface
     (customize-set-value 'org-roam-database-connector
                          (if (>= emacs-major-version 29) 'sqlite-builtin 'sqlite3))
@@ -1989,6 +1991,8 @@ org roam mode hook only activates once, not per roam file as we wanted.
 Who knows how useful this will be.
 #+begin_src emacs-lisp :results output silent
   (use-package consult-org-roam
+    :after org-roam
+    :disabled t
     :straight (:host github :repo "jgru/consult-org-roam"))
 #+end_src
 
@@ -5839,4 +5843,96 @@ This is still fairly experimental
 
   (my-evil-define-split-vsplit-cmd "done[file]" #'(lambda () (interactive) (find-file --done-file)))
   (my-evil-define-split-vsplit-cmd "todo[file]" #'(lambda () (interactive) (find-file --todo-file)))
+#+end_src
+
+* Deft (electric boogaloo)
+Lets try that again
+
+#+begin_src emacs-lisp :results output silent
+  (use-package deft
+    :straight (:host github :repo "jrblevin/deft")
+    :commands (deft
+               deft-filter
+               deft-setup) ;; call this if no .deft folder is found
+    :custom
+    ;; (deft-auto-save-interval 0.0
+    ;;   "Disable autosave because of permissions issues causing massive
+    ;;   lag")
+    ;; enc is just what we call encrypted files. we do this so that
+    ;; org-agenda-files won't try to open journal.org
+    (deft-extensions '("org" "md") "Set the extensions for deft notes")
+    (deft-recursive t "Recursively search so we can organise by folders")
+    (deft-time-format "%Y-%m-%d")
+    ;; (deft-ignore-file-regexp "\\(?:^$\\)")
+    (deft-ignore-file-regexp "\\(?:\\.#\\)+\\|#")
+    (deft-use-filter-string-for-filename t)
+    (deft-use-filename-as-title t)
+    (deft-current-sort-method 'title)
+    (deft-filter-only-filenames t)
+    (deft-file-limit 300)
+    (deft-file-naming-rules '(;;(noslash . "-") ;; we want to create directory structure on the fly
+                              (nospace . "-")
+                              (case-fn . downcase)))
+    ;;TODO: don't assume `my-notes-folder' will always be defined
+    ;;NOTE: 2020-06-22 This will be different for work machines
+    ;; (deft-directory my-notes-folder)
+    :general
+    (deft-mode-map
+      [remap evil-quit] 'quit-window)
+    (:keymaps 'deft-mode-map
+     :states  '(insert normal motion)
+     "C-j"    'widget-forward
+     "C-k"    'widget-backward
+     ;; make it more like helm, which defaults to this
+     "M-j"    'widget-forward
+     "M-k"    'widget-backward)
+    (:keymaps 'deft-mode-map
+     :states  'normal
+     "o"      'deft-complete
+     "O"     #'(lambda () (interactive)
+                 (deft-open-file-other-window t))
+     "r"      'deft-rename-file
+     ;; first emacsy binding in a vim state [2018-03-21 Wed]
+     "q"      'quit-window
+     "p"      'deft-filter-yank
+     "d d"    'deft-delete-file
+     "-"      'open-dired-window)
+    (:keymaps 'deft-mode-map
+     :states  'insert
+     "C-w"    'deft-filter-decrement-word
+     "C-u"    'deft-filter-clear)
+    :hook ((deft-mode-hook . deft-filter-clear)
+           (deft-mode-hook . evil-insert-state))
+    :init
+    ;; (evil-define-command ex-deft-forwarding-arg (&optional filter)
+    (evil-define-command ex-deft-forwarding-arg ()
+      "If given an argument, pre-populates the deft filter with
+      that argument"
+      ;; (interactive "<a>")
+      (interactive)
+      ;; (deft-filter filter t)
+      (call-interactively 'deft)
+      (deft-filter-clear)
+      (evil-insert-state)))
+    ;; (my-evil-define-split-vsplit-cmd "n[otes]" 'deft)
+    ;; (evil-ex-define-cmd "tn" #'(lambda () (interactive)
+    ;;                             (funcall-interactively 'my-new-evil-tab nil)
+    ;;                             (deft)))
+    ;; (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
+    ;; (my-evil-define-split-vsplit-cmd "nn" 'ex-deft-forwarding-arg)
+    ;; (evil-ex-define-cmd "Tnn"
+    ;;  #'(lambda () (interactive)
+    ;;     ;; TODO: unify this implementation with my-new-cmd-tab
+    ;;     (if (>= emacs-major-version 27)
+    ;;         (tab-bar-new-tab)
+    ;;       (require 'eyebrowse)
+    ;;       (my-new-evil-tab nil))
+    ;;     (funcall-interactively 'ex-deft-forwarding-arg)))
+    ;; :config
+    ;; (require 'org-id)
+    ;; (org-id-update-id-locations (directory-files-recursively
+    ;;                              deft-directory "\.org$") t)
+    ;; (with-eval-after-load 'org-agenda
+    ;;   (add-to-list 'org-agenda-files
+    ;;                (directory-files deft-directory t "\.org$"))))
 #+end_src
