@@ -5865,18 +5865,18 @@ Lets try that again
     ;;   lag")
     ;; enc is just what we call encrypted files. we do this so that
     ;; org-agenda-files won't try to open journal.org
-    (deft-extensions '("org" "md") "Set the extensions for deft notes")
+    (deft-extensions '("md") "Set the extensions for deft notes")
     (deft-recursive t "Recursively search so we can organise by folders")
     (deft-time-format "%Y-%m-%d")
     ;; (deft-ignore-file-regexp "\\(?:^$\\)")
     (deft-ignore-file-regexp "\\(?:\\.#\\)+\\|#")
     (deft-use-filter-string-for-filename t)
     (deft-use-filename-as-title t)
-    (deft-current-sort-method 'title)
-    (deft-filter-only-filenames t)
+    (deft-default-extension "md" "prefer markdown files for now")
+    (deft-current-sort-method 'mtime)
+    (deft-filter-only-filenames nil)
     (deft-file-limit 300)
-    (deft-file-naming-rules '(;;(noslash . "-") ;; we want to create directory structure on the fly
-                              (nospace . "-")
+    (deft-file-naming-rules '((nospace . "-")
                               (case-fn . downcase)))
     ;;TODO: don't assume `my-notes-folder' will always be defined
     ;;NOTE: 2020-06-22 This will be different for work machines
@@ -5901,6 +5901,7 @@ Lets try that again
      "q"      'quit-window
      "p"      'deft-filter-yank
      "d d"    'deft-delete-file
+     "g r"    'deft-refresh
      "-"      'open-dired-window)
     (:keymaps 'deft-mode-map
      :states  'insert
