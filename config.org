@@ -5808,14 +5808,6 @@ This is still fairly experimental
   ;; NOTE (pangt): The ordering of these vars are such that they will
   ;; end up `nil' in a normal init sequence.
 
-  (defcustom --todo-file nil
-    "The path to the file with things to do on this machine."
-    :type 'file)
-
-  (defcustom --done-file nil
-    "The path to the file with done things on this machine."
-    :type 'file)
-
   (with-eval-after-load 'org-capture
     (when (f-exists-p --done-file)
       (setq org-capture-templates
@@ -5856,9 +5848,9 @@ Lets try that again
 #+begin_src emacs-lisp :results output silent
   (use-package deft
     :straight (:branch "master" :repo "jrblevin/deft")
-    :commands (deft
-               deft-filter
-               deft-setup) ;; call this if no .deft folder is found
+    ;; :commands (deft
+    ;;            deft-filter
+    ;;            deft-setup) ;; call this if no .deft folder is found
     :custom
     ;; (deft-auto-save-interval 0.0
     ;;   "Disable autosave because of permissions issues causing massive
@@ -5878,9 +5870,7 @@ Lets try that again
     (deft-file-limit 300)
     (deft-file-naming-rules '((nospace . "-")
                               (case-fn . downcase)))
-    ;;TODO: don't assume `my-notes-folder' will always be defined
-    ;;NOTE: 2020-06-22 This will be different for work machines
-    ;; (deft-directory my-notes-folder)
+    (deft-directory `,(or --notes-folder deft-directory))
     :general
     (deft-mode-map
       [remap evil-quit] 'quit-window)
@@ -5910,7 +5900,7 @@ Lets try that again
     :hook ((deft-mode-hook . deft-filter-clear)
            (deft-mode-hook . evil-insert-state))
     :init
-    ;; (evil-define-command ex-deft-forwarding-arg (&optional filter)
+    (evil-ex-define-cmd "nn" 'deft)
     (evil-define-command ex-deft-forwarding-arg ()
       "If given an argument, pre-populates the deft filter with
       that argument"
@@ -5918,6 +5908,10 @@ Lets try that again
       (interactive)
       ;; (deft-filter filter t)
       (call-interactively 'deft)
+      (deft-filter-clear)
+      (evil-insert-state))
+    :config
+    (define-advice deft (:after (&rest _) enter-insert-state)
       (deft-filter-clear)
       (evil-insert-state)))
     ;; (my-evil-define-split-vsplit-cmd "n[otes]" 'deft)
