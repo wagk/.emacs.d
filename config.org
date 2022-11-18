@@ -724,7 +724,7 @@ Further helper functions to add bookmarks:
   (evil-ex-define-cmd "doc[tor]" 'doctor)
 #+end_src
 
-** Tab bar mode                                                          :27:
+** Tab bar mode                                                           :27:
 This only works if emacs version is 27 or above (there's already some
 evil integration), refer to Eyebrowse for Emacs version <27 tab handling
 #+begin_src emacs-lisp :results output silent
