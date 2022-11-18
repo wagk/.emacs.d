@@ -5900,39 +5900,15 @@ Lets try that again
     :hook ((deft-mode-hook . deft-filter-clear)
            (deft-mode-hook . evil-insert-state))
     :init
-    (evil-ex-define-cmd "nn" 'deft)
-    (evil-define-command ex-deft-forwarding-arg ()
-      "If given an argument, pre-populates the deft filter with
-      that argument"
-      ;; (interactive "<a>")
-      (interactive)
-      ;; (deft-filter filter t)
-      (call-interactively 'deft)
-      (deft-filter-clear)
-      (evil-insert-state))
+    (my-evil-define-split-vsplit-cmd "nn" 'deft)
+    (evil-ex-define-cmd "Tnn" #'(lambda ()
+                                  (interactive)
+                                  (if (not (featurep 'tab-bar))
+                                      (warn "tab-bar not available")
+                                    (tab-bar-new-tab)
+                                    (call-interactively #'deft))))
     :config
     (define-advice deft (:after (&rest _) enter-insert-state)
       (deft-filter-clear)
       (evil-insert-state)))
-    ;; (my-evil-define-split-vsplit-cmd "n[otes]" 'deft)
-    ;; (evil-ex-define-cmd "tn" #'(lambda () (interactive)
-    ;;                             (funcall-interactively 'my-new-evil-tab nil)
-    ;;                             (deft)))
-    ;; (evil-ex-define-cmd "nn" 'ex-deft-forwarding-arg)
-    ;; (my-evil-define-split-vsplit-cmd "nn" 'ex-deft-forwarding-arg)
-    ;; (evil-ex-define-cmd "Tnn"
-    ;;  #'(lambda () (interactive)
-    ;;     ;; TODO: unify this implementation with my-new-cmd-tab
-    ;;     (if (>= emacs-major-version 27)
-    ;;         (tab-bar-new-tab)
-    ;;       (require 'eyebrowse)
-    ;;       (my-new-evil-tab nil))
-    ;;     (funcall-interactively 'ex-deft-forwarding-arg)))
-    ;; :config
-    ;; (require 'org-id)
-    ;; (org-id-update-id-locations (directory-files-recursively
-    ;;                              deft-directory "\.org$") t)
-    ;; (with-eval-after-load 'org-agenda
-    ;;   (add-to-list 'org-agenda-files
-    ;;                (directory-files deft-directory t "\.org$"))))
 #+end_src
