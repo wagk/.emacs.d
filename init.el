@@ -873,12 +873,13 @@
     :config
     (vertico-mode))
 
-  (use-package orderless
-    :straight t
+  (use-package prescient
+    :straight (:host github
+                     :repo "radian-software/prescient.el"
+                     :files (:defaults "vertico-prescient.el"))
     :after vertico
-    :custom
-    (completion-styles '(orderless basic))
-    (completion-category-overrides '((file (styles basic partial-completion)))))
+    :config
+    (vertico-prescient-mode))
 
   (use-package consult
     :straight t
