@@ -5805,9 +5805,6 @@ https://github.com/akermu/emacs-libvterm
 This is still fairly experimental
 
 #+begin_src emacs-lisp :results output silent
-  ;; NOTE (pangt): The ordering of these vars are such that they will
-  ;; end up `nil' in a normal init sequence.
-
   (with-eval-after-load 'org-capture
     (when (f-exists-p --done-file)
       (setq org-capture-templates
@@ -5818,7 +5815,7 @@ This is still fairly experimental
                 :empty-lines 0
                 :file --done-file
                 :type plain
-                :template "* %<%F> %?"
+                :template "| %<%F> | %^{tags} | %?"
                 :function (lambda ()
                             (end-of-buffer)
                             (insert ?\n)
@@ -5832,7 +5829,7 @@ This is still fairly experimental
                 :empty-lines 0
                 :file --todo-file
                 :type plain
-                :template "* %<%F> %?"
+                :template "| %<%F> | %^{tags} | %?"
                 :function (lambda ()
                             (end-of-buffer)
                             (insert ?\n)
