@@ -5815,7 +5815,8 @@ This is still fairly experimental
                 :empty-lines 0
                 :file --done-file
                 :type plain
-                :template "| %<%F> | %^{tags} | %?"
+                :immediate-finish t
+                :template "| %<%F> | %^{tags} | %^{thing} |"
                 :function (lambda ()
                             (end-of-buffer)
                             (insert ?\n)
@@ -5829,7 +5830,8 @@ This is still fairly experimental
                 :empty-lines 0
                 :file --todo-file
                 :type plain
-                :template "| %<%F> | %^{tags} | %?"
+                :immediate-finish t
+                :template "| %<%F> | %^{tags} | %^{thing} |"
                 :function (lambda ()
                             (end-of-buffer)
                             (insert ?\n)
