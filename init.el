@@ -324,6 +324,8 @@
     (auto-compile-on-load-mode)
     (auto-compile-on-save-mode))
 
+  (load-file "lisp/helpers.el")
+
   (use-package async
     ;; :straight (:host github :repo "jwiegley/emacs-async")
     :straight t)
@@ -340,35 +342,6 @@
                        "`evil-collections' wants this to be
       disabled before even loading evil, see
       https://github.com/emacs-evil/evil-collection/issues/60")
-
-  ;; https://github.com/magnars/dash.el
-  (use-package dash
-    :straight t)
-
-  ;; https://github.com/plexus/a.el/
-  ;; alist functions
-  (use-package a
-    :straight t)
-
-  ;; https://github.com/rejeep/f.el/
-  ;; file functions
-  (use-package f
-    :straight t)
-
-  ;; https://github.com/magnars/s.el/
-  ;; string functions
-  (use-package s
-    :straight t)
-
-  ;; https://github.com/Wilfred/ht.el/
-  ;; hash-table functions
-  (use-package ht
-    :straight t)
-
-  ;; https://github.com/alphapapa/ts.el
-  ;; date and time functions
-  (use-package ts
-    :straight t)
 
   (use-package restart-emacs
     :if (not (eq system-type 'darwin))
