@@ -884,7 +884,9 @@
   (use-package consult
     :straight t
     :config
-    (evil-ex-define-cmd "bb" 'consult-buffer))
+    (evil-ex-define-cmd "bb" 'consult-buffer)
+    (advice-add 'repeat-complex-command :override #'consult-complex-command)
+    (setq completion-in-region-function #'consult-completion-in-region))
 
   (use-package marginalia
     :straight t

@@ -5411,6 +5411,11 @@ Just do the scratch buffer simple and stupidly
      "d" 'project-find-dir
      "D" 'project-dired)
 
+    (with-eval-after-load 'consult
+      (general-define-key
+       :keymaps 'project-prefix-map
+       "b" 'consult-project-buffer))
+
     (with-eval-after-load 'savehist
       (add-to-list 'savehist-additional-variables 'compile-history))
 
