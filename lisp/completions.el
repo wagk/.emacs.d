@@ -2,6 +2,13 @@
 
 (setq tab-always-indent 'complete)
 
+(use-package corfu
+  :straight t
+  :config
+  (with-eval-after-load 'prescient
+    ;; ensure that "corfu-prescient.el" is loaded
+    (corfu-prescient-mode)))
+
 ;; TODO: Figure out how to delete an entry from the completion
 ;; history
 (use-package vertico
@@ -26,7 +33,8 @@
 (use-package prescient
   :straight (:host github
                     :repo "radian-software/prescient.el"
-                    :files (:defaults "vertico-prescient.el"))
+                    :files (:defaults "vertico-prescient.el"
+                                      "corfu-prescient.el"))
   :after vertico
   :config
   (vertico-prescient-mode))
@@ -42,6 +50,5 @@
   :straight t
   :after consult
   :config (marginalia-mode))
-
 
 (provide 'config::completions)

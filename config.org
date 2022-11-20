@@ -4673,6 +4673,7 @@ This is a very finnicky package
   (use-package company-mode
     ;; :straight (:host github :repo "company-mode/company-mode")
     :straight t
+    :disabled t
     :commands (company-mode-on
                company-mode)
     :custom
@@ -4709,6 +4710,7 @@ This is a very finnicky package
 #+begin_src emacs-lisp :results output silent
   (use-package company-prescient
     :straight t
+    :disabled t
     :after company
     :config
     (company-prescient-mode))
@@ -4717,6 +4719,7 @@ This is a very finnicky package
 #+begin_src emacs-lisp :results output silent
   (use-package company-quickhelp
     :straight t
+    :disabled t
     :after company-mode
     :config
     (company-quickhelp-mode))
@@ -4726,6 +4729,7 @@ This is a very finnicky package
 #+begin_src emacs-lisp :results output silent
   (use-package company-statistics
     :straight t
+    :disabled t
     :after company-mode
     :config
     (company-statistics-mode))
@@ -4736,6 +4740,7 @@ Doesn't seem to be working?
 #+begin_src emacs-lisp :results output silent
   (use-package company-math
     :straight t
+    :disabled t
     :after company-mode
     :config
     (add-to-list 'company-backends 'company-math-symbols-latex)
