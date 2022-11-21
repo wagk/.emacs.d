@@ -324,7 +324,7 @@
     (auto-compile-on-load-mode)
     (auto-compile-on-save-mode))
 
-  (load-file "lisp/helpers.el")
+  (load-file (locate-user-emacs-file "lisp/helpers.el"))
 
   (use-package async
     ;; :straight (:host github :repo "jwiegley/emacs-async")
@@ -825,7 +825,7 @@
 
   ;; https://github.com/zzamboni/dot-emacs/blob/master/init.org#cheatsheet-and-experiments
 
-  (load-file "lisp/completions.el")
+  (load-file (locate-user-emacs-file "lisp/completions.el"))
 
   (use-package embark
     :straight t

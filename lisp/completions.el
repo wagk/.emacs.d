@@ -32,9 +32,8 @@
 
 (use-package prescient
   :straight (:host github
-                    :repo "radian-software/prescient.el"
-                    :files (:defaults "vertico-prescient.el"
-                                      "corfu-prescient.el"))
+                   :repo "radian-software/prescient.el"
+                   :files (:defaults "*-prescient.el"))
   :after vertico
   :config
   (vertico-prescient-mode))
