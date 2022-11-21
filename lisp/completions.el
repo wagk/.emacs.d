@@ -26,10 +26,14 @@
 (use-package prescient
   :straight (:host github
                    :repo "radian-software/prescient.el"
-                   :files (:defaults "*-prescient.el"))
-  :after vertico
+                   :files (:defaults
+                           "vertico-prescient.el"
+                           "corfu-prescient.el"))
   :config
-  (vertico-prescient-mode))
+  (with-eval-after-load 'vertico
+    (vertico-prescient-mode))
+  (with-eval-after-load 'corfu
+    (corfu-prescient-mode)))
 
 (use-package consult
   :straight t
@@ -51,11 +55,7 @@
   (corfu-border ((t (:inherit default))))
   (corfu-bar ((t (:inherit region))))
   :config
-  (global-corfu-mode)
-  (with-eval-after-load 'prescient
-    ;; ensure that "corfu-prescient.el" is loaded
-    (corfu-prescient-mode)))
+  (global-corfu-mode))
 
 ;; TODO (pangt): consider using cape https://github.com/minad/cape
-
 (provide 'config::completions)
