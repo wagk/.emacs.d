@@ -2,13 +2,6 @@
 
 (setq tab-always-indent 'complete)
 
-(use-package corfu
-  :straight t
-  :config
-  (with-eval-after-load 'prescient
-    ;; ensure that "corfu-prescient.el" is loaded
-    (corfu-prescient-mode)))
-
 ;; TODO: Figure out how to delete an entry from the completion
 ;; history
 (use-package vertico
@@ -49,5 +42,20 @@
   :straight t
   :after consult
   :config (marginalia-mode))
+
+(use-package corfu
+  :straight t
+  :custom-face
+  (corfu-current ((t (:inherit completions-highlight :bold t))))
+  (corfu-default ((t (:inherit secondary-selection))))
+  (corfu-border ((t (:inherit default))))
+  (corfu-bar ((t (:inherit region))))
+  :config
+  (global-corfu-mode)
+  (with-eval-after-load 'prescient
+    ;; ensure that "corfu-prescient.el" is loaded
+    (corfu-prescient-mode)))
+
+;; TODO (pangt): consider using cape https://github.com/minad/cape
 
 (provide 'config::completions)
