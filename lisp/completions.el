@@ -36,9 +36,14 @@
     (corfu-prescient-mode)))
 
 (use-package consult
+  :demand t
   :straight t
+  :general
+  (:states 'normal
+   "g /" #'consult-line)
   :config
-  (evil-ex-define-cmd "bb" 'consult-buffer)
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "bb" 'consult-buffer))
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'consult-completion-in-region))
 
