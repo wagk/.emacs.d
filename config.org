@@ -5727,6 +5727,7 @@ This is still fairly experimental
                 :file --done-file
                 :type plain
                 :immediate-finish t
+                :after-finalize markdown-table-align
                 :template "| %<%F> | %^{tags} | %^{thing} |"
                 :function (lambda ()
                             (end-of-buffer)
@@ -5742,6 +5743,7 @@ This is still fairly experimental
                 :file --todo-file
                 :type plain
                 :immediate-finish t
+                :after-finalize markdown-table-align
                 :template "| %<%F> | %^{tags} | %^{thing} |"
                 :function (lambda ()
                             (end-of-buffer)
