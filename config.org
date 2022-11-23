@@ -908,8 +908,9 @@ for the specific hook.
   (use-package ace-window
     :straight t
     :general
-    (:states 'normal
-     "C-w SPC" 'ace-window)
+    (evil-window-map
+     "g p" 'ace-window
+     "g x" 'ace-swap-window)
     :custom
     (aw-keys '(?a ?s ?d ?f ?g))
     :custom-face
