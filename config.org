@@ -4697,6 +4697,7 @@ Doesn't seem to be working?
     :custom
     (lsp-headerline-breadcrumb-enable t)
     (lsp-file-watch-threshold 1500)
+    (lsp-enable-file-watchers nil)
     :config
     ;; this is necessary since `lsp-command-map' is not autoloadable
     (general-define-key
