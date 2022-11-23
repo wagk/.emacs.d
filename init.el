@@ -633,6 +633,10 @@
   ;;and the init load will fail
   (org-babel-load-file (locate-user-emacs-file "config.org"))
 
+  (setq initial-scratch-message "\
+# Programmers are not to be measured by their ingenuity and their
+# logic but by the completeness of their case analysis.")
+
   (message "Loaded config.org in %.06f seconds."
            (float-time (time-since my-init-start-time))))
 
