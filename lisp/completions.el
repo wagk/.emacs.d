@@ -49,13 +49,17 @@
 
 (use-package corfu
   :straight t
+  :custom
+  (corfu-auto t)
+  (corfu-cycle t)
+  (corfu-quit-at-boundary nil)
+  :config
+  (global-corfu-mode)
   :custom-face
   (corfu-current ((t (:inherit completions-highlight :bold t))))
   (corfu-default ((t (:inherit secondary-selection))))
   (corfu-border ((t (:inherit default))))
-  (corfu-bar ((t (:inherit region))))
-  :config
-  (global-corfu-mode))
+  (corfu-bar ((t (:inherit region)))))
 
 ;; TODO (pangt): consider using cape https://github.com/minad/cape
 (provide 'config::completions)
