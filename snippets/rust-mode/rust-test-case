@@ -1,4 +1,4 @@
-# key: test_case
+# key: tc
 # name: rust-test-case
 # --
 #[test_case($0)]
