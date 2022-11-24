@@ -60,6 +60,9 @@
   (corfu-quit-at-boundary nil)
   :config
   (global-corfu-mode)
+  :general
+  (corfu-map
+   "<return>" #'corfu-insert)
   :custom-face
   (corfu-current ((t (:inherit completions-highlight :bold t))))
   (corfu-default ((t (:inherit secondary-selection))))
