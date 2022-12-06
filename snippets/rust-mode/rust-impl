@@ -2,6 +2,4 @@
 # name: rust-impl
 # key: i
 # --
-impl $1 {
-  $0
-}
+impl $0
