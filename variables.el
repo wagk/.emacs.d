@@ -9,3 +9,5 @@
 (defcustom --notes-folder nil
   "The path to folder where notes are stored on this machine"
   :type 'file)
+
+(provide 'config::variables)
