@@ -356,6 +356,7 @@
   (load-file (locate-user-emacs-file "lisp/helpers.el"))
   (load-file (locate-user-emacs-file "lisp/evil.el"))
   (load-file (locate-user-emacs-file "lisp/org.el"))
+  (load-file (locate-user-emacs-file "lisp/org-capture-templates.el"))
   (load-file (locate-user-emacs-file "lisp/completions.el"))
 
   (use-package embark

@@ -5713,48 +5713,6 @@ https://github.com/akermu/emacs-libvterm
       (exec-path-from-shell-initialize)))
 #+end_src
 
-* To Do and Done files
-This is still fairly experimental
-
-#+begin_src emacs-lisp :results output silent
-  (with-eval-after-load 'org-capture
-    (when (f-exists-p --done-file)
-      (setq org-capture-templates
-            (doct-add-to
-             org-capture-templates
-             '(("Add to done.txt"
-                :keys "done"
-                :empty-lines 0
-                :file --done-file
-                :type plain
-                :immediate-finish t
-                :before-finalize markdown-table-align
-                :template "| %<%F> | %^{tags} | %^{thing} |"
-                :function (lambda ()
-                            (end-of-buffer)
-                            (insert ?\n)
-                            (end-of-buffer)))))))
-    (when (f-exists-p --todo-file)
-      (setq org-capture-templates
-            (doct-add-to
-             org-capture-templates
-             '(("Add to todo.txt"
-                :keys "todo"
-                :empty-lines 0
-                :file --todo-file
-                :type plain
-                :immediate-finish t
-                :before-finalize markdown-table-align
-                :template "| %<%F> | %^{tags} | %^{thing} |"
-                :function (lambda ()
-                            (end-of-buffer)
-                            (insert ?\n)
-                            (end-of-buffer))))))))
-
-  (my-evil-define-split-vsplit-cmd "done[file]" #'(lambda () (interactive) (find-file --done-file)))
-  (my-evil-define-split-vsplit-cmd "todo[file]" #'(lambda () (interactive) (find-file --todo-file)))
-#+end_src
-
 * Deft (electric boogaloo)
 Lets try that again
 
