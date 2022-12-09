@@ -348,6 +348,7 @@
 
   (use-package gcmh
     :straight t
+    :disabled t
     :custom
     (gcmh-verbose t)
     :config
