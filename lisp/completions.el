@@ -47,6 +47,13 @@
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'consult-completion-in-region))
 
+(use-package consult-git-log-grep
+  :straight (:host github :repo "ghosty141/consult-git-log-grep")
+  :commands (consult-git-log-grep)
+  :config
+  (with-eval-after-load 'magit
+    (set-default 'consult-git-log-grep-open-function #'magit-show-commit)))
+
 (use-package marginalia
   :straight t
   :after consult
