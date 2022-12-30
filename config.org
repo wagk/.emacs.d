@@ -3214,40 +3214,6 @@ Requires rust-mode and markdown-mode
 [[https://gist.github.com/t-mart/610795fcf7998559ea80][Netrw map]]
 
 #+begin_src emacs-lisp :results output silent
-  (use-package dired
-    :demand t
-    :ensure nil
-    :straight nil
-    :general
-    (dired-mode-map
-     :states 'normal
-     "<SPC>" nil                     ; was shadowing leader key bindings
-     "SPC" nil                       ; was shadowing leader key bindings
-     "-" 'dired-up-directory
-     "d" 'dired-create-directory
-     "e" 'dired-toggle-read-only ; similar interface to wgrep
-     "i" nil ; unbind the original binding
-     "Y" #'(lambda () (interactive)
-             (dired-copy-filename-as-kill 0)) ;; absolute paths
-     "+" 'project-find-file) ; don't block org-projectile
-    :init
-    ;; (evil-define-command open-dired-window ()
-    ;;   (interactive)
-    ;;   (if buffer-file-name
-    ;;       (dired (file-name-directory (buffer-file-name)))
-    ;;     (dired default-directory)))
-    (evil-ex-define-cmd "Ex[plore]" 'dired-jump)
-    (evil-ex-define-cmd "Sex[plore]" #'(lambda () (interactive)
-                                         (call-interactively 'evil-window-split)
-                                         (dired-jump)))
-    (evil-ex-define-cmd "Vex[plore]" #'(lambda () (interactive)
-                                         (call-interactively 'evil-window-vsplit)
-                                         (dired-jump)))
-    (evil-ex-define-cmd "Tex[plore]" #'(lambda () (interactive)
-                                         (if (>= emacs-major-version 27)
-                                             (tab-bar-new-tab)
-                                           (my-evil-new-tab nil))
-                                         (dired-jump))))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent

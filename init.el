@@ -129,7 +129,6 @@
     (customize-set-variable 'straight-current-profile
                             profile-name)))
 
-
 ;; (defun bootstrap-quelpa ()
 ;;   ;; Requires (package-initialize) to be called beforehand
 ;;   (if (require 'quelpa nil t)
@@ -197,14 +196,6 @@
     (condition-case nil
         (org-babel-load-file (locate-user-emacs-file file))
       (error (message "There was an error when loading %s" file)))))
-
-(defun my-straight-update-packages ()
-  "When called, update all straight packages."
-  (interactive)
-  (require 'straight)
-  (straight-pull-all)
-  (straight-check-all)
-  (straight-prune-build))
 
 (defun my-init-solarized-color-variables-and-other-font-things ()
   "Solarized 1.0.0beta2[a] Color Palette[8]
@@ -302,111 +293,162 @@
                    default-value
                    inherit-input-method))
 
-(let ((gc-cons-threshold most-positive-fixnum))
-  (bootstrap-package)
-  (bootstrap-straight)
-  ;; (bootstrap-quelpa)
-  ;; (my-bootstrap-el-get)
-  (bootstrap-use-package)
-  (my-init-solarized-color-variables-and-other-font-things)
+(defvar bootstrap-version)
+(let ((bootstrap-file (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+(bootstrap-version 6))
+  (unless (file-exists-p bootstrap-file)
+  (with-current-buffer
+    (url-retrieve-synchronously
+    "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+    'silent 'inhibit-cookies)
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+(customize-set-variable 'straight-use-package-by-default t)
 
-  ;; Load core configuration that I can't work without. Everything
-  ;; else gets shoved into config.org except these.
+(bootstrap-package)
+(bootstrap-use-package)
 
-  ;; https://github.com/emacscollective/auto-compile
-  (use-package auto-compile
-    :disabled t
-    :straight (:host github :repo "emacscollective/auto-compile")
-    :custom
-    (load-prefer-newer t)
-    (auto-compile-verbose t)
-    :config
-    (auto-compile-on-load-mode)
-    (auto-compile-on-save-mode))
+;; (bootstrap-package)
+;; (bootstrap-straight)
+;; (bootstrap-quelpa)
+;; (my-bootstrap-el-get)
 
-  (use-package async
-    ;; :straight (:host github :repo "jwiegley/emacs-async")
-    :straight t)
+(my-init-solarized-color-variables-and-other-font-things)
 
-  (use-package general
-    :straight (:host github :repo "noctuid/general.el")
-    :init
-    (defconst my-default-evil-leader-key "SPC"))
+;; Load core configuration that I can't work without. Everything
+;; else gets shoved into config.org except these.
 
-  (use-package no-littering
-    :straight (:host github :repo "emacscollective/no-littering"))
+;; https://github.com/emacscollective/auto-compile
+(use-package auto-compile
+  :disabled t
+  :straight (:host github :repo "emacscollective/auto-compile")
+  :custom
+  (load-prefer-newer t)
+  (auto-compile-verbose t)
+  :config
+  (auto-compile-on-load-mode)
+  (auto-compile-on-save-mode))
 
-  (use-package restart-emacs
-    :if (not (eq system-type 'darwin))
-    :straight (:host github :repo "iqbalansari/restart-emacs")
-    :commands (restart-emacs restart-emacs-start-new-emacs)
-    :init
-    (with-eval-after-load 'evil
-      (evil-ex-define-cmd "restart" 'restart-emacs)
-      (evil-ex-define-cmd "restarttest"
-                          'restart-emacs-start-new-emacs)))
+(use-package async
+  ;; :straight (:host github :repo "jwiegley/emacs-async")
+  :straight t)
 
-  (use-package gcmh
-    :straight t
-    :disabled t
-    :custom
-    (gcmh-verbose t)
-    :config
-    (gcmh-mode))
+(use-package general
+  :straight (:host github :repo "noctuid/general.el")
+  :init
+  (defconst my-default-evil-leader-key "SPC"))
 
-  (load-file (locate-user-emacs-file "lisp/helpers.el"))
-  (load-file (locate-user-emacs-file "lisp/evil.el"))
-  (load-file (locate-user-emacs-file "lisp/org.el"))
-  (load-file (locate-user-emacs-file "lisp/org-capture-templates.el"))
-  (load-file (locate-user-emacs-file "lisp/completions.el"))
+(use-package no-littering
+  :straight (:host github :repo "emacscollective/no-littering"))
 
-  (use-package embark
-    :straight t
-    :after vertico
-    :commands (embark-act
-               embark-dwim
-               embark-bindings
-               embark-prefix-help-command)
-    :custom
-    (prefix-help-command #'embark-prefix-help-command)
-    :general
-    (vertico-map
-     "C-<SPC>" 'embark-act)
-    (:states 'motion
-     "C-<SPC>" 'embark-act
-     "S-<SPC>" 'embark-dwim))
+(use-package restart-emacs
+  :if (not (eq system-type 'darwin))
+  :straight (:host github :repo "iqbalansari/restart-emacs")
+  :commands (restart-emacs restart-emacs-start-new-emacs)
+  :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "restart" 'restart-emacs)
+    (evil-ex-define-cmd "restarttest"
+                        'restart-emacs-start-new-emacs)))
 
-  (use-package embark-consult
-    :straight t
-    :after (:all embark consult))
+(use-package gcmh
+  :straight t
+  :disabled t
+  :custom
+  (gcmh-verbose t)
+  :config
+  (gcmh-mode))
 
-  (progn
-    (let ((custom (locate-user-emacs-file "custom.el")))
-      (unless (f-exists-p custom)
-        (f-touch custom))
-      (setq custom-file custom)))
+(use-package dired
+  :demand t
+  :ensure nil
+  :straight nil
+  :general
+  (dired-mode-map
+   :states 'normal
+   "<SPC>" nil                     ; was shadowing leader key bindings
+   "SPC" nil                       ; was shadowing leader key bindings
+   "-" 'dired-up-directory
+   "d" 'dired-create-directory
+   "e" 'dired-toggle-read-only ; similar interface to wgrep
+   "i" nil ; unbind the original binding
+   "Y" #'(lambda () (interactive)
+	   (dired-copy-filename-as-kill 0)) ;; absolute paths
+   "+" 'project-find-file) ; don't block org-projectile
+  :config
+  ;; (evil-define-command open-dired-window ()
+  ;;   (interactive)
+  ;;   (if buffer-file-name
+  ;;       (dired (file-name-directory (buffer-file-name)))
+  ;;     (dired default-directory)))
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "Ex[plore]" 'dired-jump)
+    (evil-ex-define-cmd "Sex[plore]" #'(lambda () (interactive)
+                (call-interactively 'evil-window-split)
+                (dired-jump)))
+    (evil-ex-define-cmd "Vex[plore]" #'(lambda () (interactive)
+                (call-interactively 'evil-window-vsplit)
+                (dired-jump)))
+    (evil-ex-define-cmd "Tex[plore]" #'(lambda () (interactive)
+                (if (>= emacs-major-version 27)
+              (tab-bar-new-tab)
+            (my-evil-new-tab nil))
+                (dired-jump)))))
 
-  (--load-variables-el)
-  ;; Load local configuration variables, we do it here so that
-  ;; local.el gets access to the "core" init loads
-  (load-local-el)
+(load-file (locate-user-emacs-file "lisp/helpers.el"))
+(load-file (locate-user-emacs-file "lisp/evil.el"))
+(load-file (locate-user-emacs-file "lisp/org.el"))
+(load-file (locate-user-emacs-file "lisp/org-capture-templates.el"))
+(load-file (locate-user-emacs-file "lisp/completions.el"))
 
-  (customize-set-variable 'frame-background-mode 'nil)
-  (with-eval-after-load 'solarized-theme
-    (load-theme (or (bound-and-true-p --default-emacs-theme)
-                    'solarized-dark)
-                t))
+(use-package embark
+  :straight t
+  :after vertico
+  :commands (embark-act
+              embark-dwim
+              embark-bindings
+              embark-prefix-help-command)
+  :custom
+  (prefix-help-command #'embark-prefix-help-command)
+  :general
+  (vertico-map
+    "C-<SPC>" 'embark-act)
+  (:states 'motion
+    "C-<SPC>" 'embark-act
+    "S-<SPC>" 'embark-dwim))
 
-  ;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
-  ;;and the init load will fail
-  (org-babel-load-file (locate-user-emacs-file "config.org"))
+(use-package embark-consult
+  :straight t
+  :after (:all embark consult))
 
-  (setq initial-scratch-message "\
+(progn
+  (let ((custom (locate-user-emacs-file "custom.el")))
+    (unless (f-exists-p custom)
+      (f-touch custom))
+    (setq custom-file custom)))
+
+(--load-variables-el)
+;; Load local configuration variables, we do it here so that
+;; local.el gets access to the "core" init loads
+(load-local-el)
+
+(customize-set-variable 'frame-background-mode 'nil)
+(with-eval-after-load 'solarized-theme
+  (load-theme (or (bound-and-true-p --default-emacs-theme)
+                  'solarized-dark)
+              t))
+
+;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
+;;and the init load will fail
+(org-babel-load-file (locate-user-emacs-file "config.org"))
+
+(setq initial-scratch-message "\
 # Programmers are not to be measured by their ingenuity and their
 # logic but by the completeness of their case analysis.")
 
-  (message "Loaded config.org in %.06f seconds."
-           (float-time (time-since my-init-start-time))))
+(message "Loaded config.org in %.06f seconds."
+          (float-time (time-since my-init-start-time)))
 
 ;; (org-agenda nil "A")
 
