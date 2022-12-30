@@ -11,24 +11,22 @@
   (vertico-count 23)
   :general
   (vertico-map
-    "M-j" 'vertico-next
-    "M-k" 'vertico-previous)
+   "M-j" 'vertico-next
+   "M-k" 'vertico-previous)
   ;; this sounds weird but "scroll down" here means "go back", which
   ;; visually looks like scrolling _up_. Swap up and down to be more
   ;; intuitive
   (vertico-map
-    :states '(insert normal)
-    "C-u" 'vertico-scroll-down
-    "C-d" 'vertico-scroll-up)
+   :states '(insert normal)
+   "C-u" 'vertico-scroll-down
+   "C-d" 'vertico-scroll-up)
   :config
   (vertico-mode))
 
 (use-package prescient
   :straight (:host github
-             :repo "radian-software/prescient.el"
-             :files (:defaults
-                     "vertico-prescient.el"
-                     "corfu-prescient.el"))
+		     :repo "radian-software/prescient.el"
+		     :files (:defaults "/*.el"))
   :config
   (with-eval-after-load 'vertico
     (vertico-prescient-mode))
@@ -46,6 +44,13 @@
     (evil-ex-define-cmd "bb" 'consult-buffer))
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'consult-completion-in-region))
+
+(use-package consult-xref
+  :ensure nil
+  :straight nil
+  :after (:all consult xref)
+  :config
+  (setq xref-show-xrefs-function 'consult-xref))
 
 (use-package consult-git-log-grep
   :straight (:host github :repo "ghosty141/consult-git-log-grep")
