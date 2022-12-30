@@ -4553,16 +4553,6 @@ This is a very finnicky package
      "/c" 'annot-to-comment))
 #+end_src
 
-** Prescient
-#+begin_src emacs-lisp :results output silent
-  (use-package prescient
-    :straight (:host github :branch "main" :repo "radian-software/prescient.el")
-    :custom
-    (prescient-sort-full-matches-first t)
-    :config
-    (prescient-persist-mode))
-#+end_src
-
 * Company
 #+begin_src emacs-lisp :results output silent
   (use-package company-mode
