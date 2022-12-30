@@ -6,7 +6,8 @@
 (require 'evil)
 (require 'org-capture)
 
-(when (f-exists-p --done-file)
+(when (and (bound-and-true-p --done-file) (f-exists-p --done-file))
+  (my-evil-define-split-vsplit-cmd "done[file]" #'(lambda () (interactive) (find-file --done-file)))
   (setq org-capture-templates
         (doct-add-to
          org-capture-templates
@@ -23,7 +24,8 @@
                         (insert ?\n)
                         (end-of-buffer)))))))
 
-(when (f-exists-p --todo-file)
+(when (and (bound-and-true-p --todo-file) (f-exists-p --todo-file))
+  (my-evil-define-split-vsplit-cmd "todo[file]" #'(lambda () (interactive) (find-file --todo-file)))
   (setq org-capture-templates
         (doct-add-to
          org-capture-templates
@@ -39,9 +41,6 @@
                         (end-of-buffer)
                         (insert ?\n)
                         (end-of-buffer)))))))
-
-(my-evil-define-split-vsplit-cmd "done[file]" #'(lambda () (interactive) (find-file --done-file)))
-(my-evil-define-split-vsplit-cmd "todo[file]" #'(lambda () (interactive) (find-file --todo-file)))
 
 (with-eval-after-load 'deft
   (setq org-capture-templates
