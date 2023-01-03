@@ -2910,7 +2910,7 @@ We should look at customizing cider someday.
     :mode
     ("\\.rs\\'" . rust-mode)
     :custom
-    (rust-format-on-save t)
+    (rust-format-on-save nil "something is causing formatted windows to close on mac")
     (rust-format-show-buffer nil
                              "Stop polluting my workspace with orphaned
                              windows thanks")
