@@ -401,6 +401,7 @@
 (load-file (locate-user-emacs-file "lisp/org.el"))
 (load-file (locate-user-emacs-file "lisp/org-capture-templates.el"))
 (load-file (locate-user-emacs-file "lisp/completions.el"))
+(load-file (locate-user-emacs-file "lisp/git.el"))
 
 (use-package embark
   :straight t
