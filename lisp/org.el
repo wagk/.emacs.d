@@ -232,4 +232,8 @@
     :straight nil
     :commands org-confluence-export-as-confluence))
 
+;; https://github.com/progfolio/doct
+(use-package doct
+  :straight (:host github :repo "progfolio/doct"))
+
 (provide 'config::org)

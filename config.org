@@ -1304,15 +1304,6 @@ Interesting Text Objects:
                               calendar)))
 #+end_src
 
-** Doct Org Capture Templates
-https://github.com/progfolio/doct
-
-#+begin_src emacs-lisp :results output silent
-  (use-package doct
-    :straight (:host github :repo "progfolio/doct")
-    :commands (doct doct-add-to))
-#+end_src
-
 ** Org Capture Bindings
 #+begin_src emacs-lisp :results output silent
   (use-package org-capture
