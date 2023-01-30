@@ -374,7 +374,7 @@
    "e" 'dired-toggle-read-only ; similar interface to wgrep
    "i" nil ; unbind the original binding
    "Y" #'(lambda () (interactive)
-	   (dired-copy-filename-as-kill 0)) ;; absolute paths
+	       (dired-copy-filename-as-kill 0)) ;; absolute paths
    "+" 'project-find-file) ; don't block org-projectile
   :config
   ;; (evil-define-command open-dired-window ()
@@ -385,16 +385,16 @@
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "Ex[plore]" 'dired-jump)
     (evil-ex-define-cmd "Sex[plore]" #'(lambda () (interactive)
-                (call-interactively 'evil-window-split)
-                (dired-jump)))
+                                         (call-interactively 'evil-window-split)
+                                         (dired-jump)))
     (evil-ex-define-cmd "Vex[plore]" #'(lambda () (interactive)
-                (call-interactively 'evil-window-vsplit)
-                (dired-jump)))
+                                         (call-interactively 'evil-window-vsplit)
+                                         (dired-jump)))
     (evil-ex-define-cmd "Tex[plore]" #'(lambda () (interactive)
-                (if (>= emacs-major-version 27)
-              (tab-bar-new-tab)
-            (my-evil-new-tab nil))
-                (dired-jump)))))
+                                         (if (>= emacs-major-version 27)
+                                             (tab-bar-new-tab)
+                                           (my-evil-new-tab nil))
+                                         (dired-jump)))))
 
 (load-file (locate-user-emacs-file "lisp/helpers.el"))
 (load-file (locate-user-emacs-file "lisp/evil.el"))
