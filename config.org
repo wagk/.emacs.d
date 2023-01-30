@@ -3077,20 +3077,6 @@ package manager
     (xref-backend-functions . dumb-jump-xref-activate))
 #+end_src
 
-* Anki
-
-** Orgmode flavored anki editing
-#+begin_src emacs-lisp :results output silent
-  (use-package anki-editor
-    :straight (:host github :repo "louietan/anki-editor")
-    :commands (anki-editor-push-notes
-               anki-editor-retry-failure-notes
-               anki-editor-insert-note
-               anki-editor-cloze-region
-               anki-editor-export-subtree-to-html
-               anki-editor-convert-region-to-html))
-#+end_src
-
 * JSON                                                                :major:
 #+begin_src emacs-lisp :results output silent
   (use-package json-mode

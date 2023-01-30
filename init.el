@@ -400,6 +400,7 @@
 (load-file (locate-user-emacs-file "lisp/evil.el"))
 (load-file (locate-user-emacs-file "lisp/org.el"))
 (load-file (locate-user-emacs-file "lisp/org-capture-templates.el"))
+(load-file (locate-user-emacs-file "lisp/anki.el"))
 (load-file (locate-user-emacs-file "lisp/completions.el"))
 (load-file (locate-user-emacs-file "lisp/git.el"))
 
