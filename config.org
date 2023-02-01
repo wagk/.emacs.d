@@ -114,26 +114,42 @@ C-M-i                           backward-button
                                   (:underline nil
                                    :overline nil
                                    :box nil
+                                   :foreground ,sol-base2
                                    :background ,sol-base3))
                                  (((background dark))
                                   (:underline nil
                                    :overline nil
                                    :box nil
+                                   :foreground ,sol-base02
                                    :background ,sol-base03)))))
+  (custom-set-faces `(mode-line-active ((((background light))
+                                         (:inherit mode-line
+                                          :foreground ,sol-base1))
+                                        (((background dark))
+                                         (:inherit mode-line
+                                          :foreground ,sol-base01)))))
   (custom-set-faces `(mode-line-inactive ((((background light))
                                            (:underline nil
                                             :overline nil
-                                            :inherit mode-line
-                                            :foreground ,sol-base2))
+                                            :foreground ,sol-base2
+                                            :background ,sol-base3
+                                            :inherit mode-line))
                                           (((background dark))
                                            (:underline nil
                                             :overline nil
-                                            :inherit mode-line
-                                            :foreground ,sol-base02)))))
+                                            :foreground ,sol-base02
+                                            :background ,sol-base03
+                                            :inherit mode-line)))))
   (custom-set-faces `(mode-line-highlight ((((background light))
                                             (:box nil :background ,sol-base2))
                                            (((background dark))
                                             (:box nil :background ,sol-base02)))))
+  (custom-set-faces `(mode-line-buffer-id ((((background light))
+                                            (:bold nil
+                                             :foreground ,sol-base1))
+                                           (((background dark))
+                                            (:bold nil
+                                             :foreground ,sol-base01)))))
 #+end_src
 
 ** Header line
@@ -5217,6 +5233,7 @@ https://github.com/Silex/docker.el
 * Nano Modeline
 #+begin_src emacs-lisp :results output silent
   (use-package nano-modeline
+    :disabled t
     :straight (:host github :repo "rougier/nano-modeline")
     :custom
     (nano-modeline-position 'bottom "otherwise conflicts with LSP")
