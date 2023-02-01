@@ -43,7 +43,8 @@ var/
 tags.*
 **/#*#
 elpa/
-straight/
+straight/*
+!straight/repos/
 /org-roam.db
 /.git-credentials
 /eln-cache/
