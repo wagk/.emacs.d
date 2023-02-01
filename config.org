@@ -512,23 +512,22 @@ Stolen from https://github.com/bbatsov/crux
 
 #+begin_src emacs-lisp :results output silent
   ;; ;;;###autoload
-  (defun eval-and-replace ()
+  (defun --eval-and-replace ()
     "Replace the preceding sexp with its value."
     (interactive)
     (let ((value (eval (elisp--preceding-sexp))))
       (backward-kill-sexp)
       (insert (format "%S" value))))
-  (evil-ex-define-cmd "eval" 'eval-and-replace)
+  (evil-ex-define-cmd "eval" #'--eval-and-replace)
 
-  ;;TODO: it's not working somehow
-  ;;;###autoload
-  (evil-define-command my-eval-and-replace (beg end _type)
-    "Replace the preceding sexp with its value."
-    (interactive "<v>")
-    (let ((value (eval-region beg end (get-buffer (buffer-name)))))
-      (insert (format "%S" value))))
-
-  (evil-ex-define-cmd "eval" 'eval-and-replace)
+  ;; ;;TODO: it's not working somehow
+  ;; ;;;###autoload
+  ;; (evil-define-command my-eval-and-replace (beg end _type)
+  ;;   "Replace the preceding sexp with its value."
+  ;;   (interactive "<v>")
+  ;;   (let ((value (eval-region beg end (get-buffer (buffer-name)))))
+  ;;     (insert (format "%S" value))))
+  ;; (evil-ex-define-cmd "eval" 'eval-and-replace)
 #+end_src
 
 ** Completion
