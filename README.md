@@ -80,8 +80,12 @@ make install
 on macos (here the M1 specifically) [issue](https://github.com/d12frosted/homebrew-emacs-plus/issues/485#issuecomment-1230545946)
 ```
 brew uninstall emacs-plus
-LIBRARY_PATH="$(brew --prefix)/lib" arch -arm64 brew install emacs-plus@29 --with-mailutils --with-imagemagick --with-native-comp --with-xwidgets
+LIBRARY_PATH="$(brew --prefix)/lib" brew install --debug -v emacs-plus@30 --with-mailutils --with-imagemagick --with-native-comp --with-xwidgets --with-poll
 ```
+
+There might be a problem with the install. Verify if running [`make
+bootstrap`](https://lists.gnu.org/r/bug-gnu-emacs/2021-01/msg00051.html)
+makes sense here.
 
 # Daemon
 ```sh
