@@ -4977,6 +4977,7 @@ Just do the scratch buffer simple and stupidly
     :ensure nil
     :custom
     (compilation-auto-jump-to-first-error nil)
+    (compilation-ask-about-save nil)
     :general
     (compilation-mode-map
      :states 'normal
