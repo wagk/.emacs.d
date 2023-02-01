@@ -783,7 +783,8 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
         (if-let ((project-info (project-current)))
             (format "%s(%s)" buffer-name (project-root project-info))
           (format "%s" buffer-name))))
-    (customize-set-value 'tab-bar-tab-name-function #'--tab-bar-tab-name-fn)
+    ;; (customize-set-value 'tab-bar-tab-name-function #'--tab-bar-tab-name-fn)
+    (customize-set-value 'tab-bar-tab-name-function #'tab-bar-tab-name-truncated)
 
     (define-advice delete-frame (:around (oldfun &rest _old_args)
                                          --tab-bar-delete-tab-or-emacs)
