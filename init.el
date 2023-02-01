@@ -151,8 +151,9 @@
   ;; (require 'quelpa-use-package)
   (require 'straight)
   (customize-set-variable 'load-prefer-newer t)
-  (straight-use-package '(use-package :host github
-                                      :repo "jwiegley/use-package"))
+  (straight-use-package '(use-package
+                           :host github
+                           :repo "jwiegley/use-package"))
   (require 'use-package)
   ;; download packages if needed
   (customize-set-variable 'use-package-always-defer nil
