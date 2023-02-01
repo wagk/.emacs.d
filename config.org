@@ -114,13 +114,13 @@ C-M-i                           backward-button
                                   (:underline nil
                                    :overline nil
                                    :box nil
-                                   :foreground ,sol-base2
+                                   :foreground ,sol-base1
                                    :background ,sol-base3))
                                  (((background dark))
                                   (:underline nil
                                    :overline nil
                                    :box nil
-                                   :foreground ,sol-base02
+                                   :foreground ,sol-base01
                                    :background ,sol-base03)))))
   (custom-set-faces `(mode-line-active ((((background light))
                                          (:inherit mode-line
