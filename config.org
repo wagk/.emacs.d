@@ -2279,6 +2279,7 @@ Use the following query to find all todo items that are overdue
 *** Magit github
 #+begin_src emacs-lisp :results output silent
   (use-package forge
+    :disabled t
     :straight t
     ;; this needs sqlite, which for some reason windows is anal about
     :if (not (eq 'windows-nt system-type))
