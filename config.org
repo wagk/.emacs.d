@@ -1059,12 +1059,13 @@ https://www.emacswiki.org/emacs/Evil#toc24
 #+begin_src emacs-lisp :results output silent
   (defun my-evil-toggle-input-method ()
     (interactive)
-    (let ((is-insert-state (string= evil-state "insert")))
-      (cond
-       ((and (not current-input-method) (not is-insert-state)) (evil-insert-state))
-       ((and current-input-method is-insert-state) (evil-normal-state))
-       (t nil))
-      (toggle-input-method)))
+    (toggle-input-method))
+    ;; (let ((is-insert-state (string= evil-state "insert")))
+    ;;   (cond
+    ;;    ((and (not current-input-method) (not is-insert-state)) (evil-insert-state))
+    ;;    ((and current-input-method is-insert-state) (evil-normal-state))
+    ;;    (t nil))
+    ;;   (toggle-input-method)))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
