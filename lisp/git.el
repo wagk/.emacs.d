@@ -112,8 +112,8 @@
     (general-define-key
      :keymaps 'magit-diff-mode-map
      :states 'normal
-      "[[" 'help-go-back
-      "]]" 'help-go-forward)))
+     "[[" 'help-go-back
+     "]]" 'help-go-forward)))
 
 ;; TODO: jigger `magit-todos-keyword-suffix' to handle rust todo!()
 ;; macros
