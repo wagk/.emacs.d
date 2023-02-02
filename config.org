@@ -2628,7 +2628,6 @@ We should look at customizing cider someday.
     :mode
     ("\\.rs\\'" . rust-mode)
     :custom
-    (rust-format-on-save nil "something is causing formatted windows to close on mac")
     (rust-format-show-buffer nil
                              "Stop polluting my workspace with orphaned
                              windows thanks")
@@ -4940,7 +4939,6 @@ https://github.com/akermu/emacs-libvterm
 
 #+begin_src emacs-lisp :results output silent
   (use-package vterm
-    :disabled t ;; until I figure out what's going on
     :straight t
     :custom
     (vterm-max-scrollback 100000 "maximum allowed without recompilation")
@@ -4968,6 +4966,7 @@ https://github.com/akermu/emacs-libvterm
 #+begin_src emacs-lisp :results output silent
   (use-package multi-term
     :straight t
+    :if (not (featurep 'multi-vterm))
     :commands
     (multi-term)
     :init
