@@ -44,7 +44,7 @@ tags.*
 **/#*#
 elpa/
 straight/*
-!straight/repos/
+!straight/repos/*
 /org-roam.db
 /.git-credentials
 /eln-cache/
