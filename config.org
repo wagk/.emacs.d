@@ -4517,6 +4517,7 @@ Note that =customize-set-variable= is like =setq-default=.
 ** Text objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-textobj-tree-sitter
+    :if (not (featurep 'treesit)) ;; emacs builtin tree-sitter
     :straight (:host github
                :repo "meain/evil-textobj-tree-sitter"
                :files (:defaults "queries"))
