@@ -82,6 +82,32 @@
          (git-commit-setup-hook . (lambda () (display-fill-column-indicator-mode 1))))
   :config
   (add-to-list 'evil-motion-state-modes 'magit-mode)
+
+  ;; ;; Add section headings for submodule information
+  ;; ;;
+  ;; ;; Also remember that C-u (or g C-u last I checked) applies individual
+  ;; ;; submodule commands to all submodules
+  ;; ;; https://github.com/magit/magit/issues/2657#issuecomment-220851059
+  ;; ;; Disabled on windows because magit is _slow_ there. Hopefully mac is faster.
+  ;; ;; TODO: some way to conditionally toggle this.
+  ;;
+  ;; (when (not (eq system-type 'windows-nt))
+  ;;   (magit-add-section-hook 'magit-status-sections-hook
+  ;;                           'magit-insert-modules-unpulled-from-upstream
+  ;;                           'magit-insert-unpulled-from-upstream)
+  ;;   (magit-add-section-hook 'magit-status-sections-hook
+  ;;                           'magit-insert-modules-unpulled-from-pushremote
+  ;;                           'magit-insert-unpulled-from-upstream)
+  ;;   (magit-add-section-hook 'magit-status-sections-hook
+  ;;                           'magit-insert-modules-unpushed-to-upstream
+  ;;                           'magit-insert-unpulled-from-upstream)
+  ;;   (magit-add-section-hook 'magit-status-sections-hook
+  ;;                           'magit-insert-modules-unpushed-to-pushremote
+  ;;                           'magit-insert-unpulled-from-upstream)
+  ;;   (magit-add-section-hook 'magit-status-sections-hook
+  ;;                           'magit-insert-modules-overview
+  ;;   		                   'magit-insert-unpulled-from-upstream))
+
   (with-eval-after-load 'magit-diff
     (general-define-key
      :keymaps 'magit-diff-mode-map
@@ -152,27 +178,5 @@
    "M-j" 'git-timemachine-show-previous-revision)
   :init
   (evil-ex-define-cmd "gtime" #'git-timemachine))
-
-;; Also remember that C-u (or g C-u last I checked) applies individual
-;; submodule commands to all submodules
-;; https://github.com/magit/magit/issues/2657#issuecomment-220851059
-;; Disabled on windows because magit is _slow_ there. Hopefully mac is faster.
-;; TODO: some way to conditionally toggle this.
-(when (not (eq system-type 'windows-nt))
- (magit-add-section-hook 'magit-status-sections-hook
-                         'magit-insert-modules-unpulled-from-upstream
-                         'magit-insert-unpulled-from-upstream)
- (magit-add-section-hook 'magit-status-sections-hook
-                         'magit-insert-modules-unpulled-from-pushremote
-                         'magit-insert-unpulled-from-upstream)
- (magit-add-section-hook 'magit-status-sections-hook
-                         'magit-insert-modules-unpushed-to-upstream
-                         'magit-insert-unpulled-from-upstream)
- (magit-add-section-hook 'magit-status-sections-hook
-                         'magit-insert-modules-unpushed-to-pushremote
-                         'magit-insert-unpulled-from-upstream)
- (magit-add-section-hook 'magit-status-sections-hook
-                         'magit-insert-modules-overview
-                         'magit-insert-unpulled-from-upstream))
 
 (provide 'config::git)
