@@ -377,12 +377,7 @@
    "Y" #'(lambda () (interactive)
 	       (dired-copy-filename-as-kill 0)) ;; absolute paths
    "+" 'project-find-file) ; don't block org-projectile
-  :config
-  ;; (evil-define-command open-dired-window ()
-  ;;   (interactive)
-  ;;   (if buffer-file-name
-  ;;       (dired (file-name-directory (buffer-file-name)))
-  ;;     (dired default-directory)))
+  :init
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "Ex[plore]" 'dired-jump)
     (evil-ex-define-cmd "Sex[plore]" #'(lambda () (interactive)
