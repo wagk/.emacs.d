@@ -38,7 +38,7 @@
 ;;
 ;; [this issue]: https://github.com/magit/magit/issues/1497
 (use-package magit
-  :straight t
+  :straight (:host github :repo "magit/magit" :branch "main")
   :after transient
   :commands (magit-status
              magit-pull
