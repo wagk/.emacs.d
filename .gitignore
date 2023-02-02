@@ -57,3 +57,4 @@ straight/*
 /etc/
 /org-persist/
 /transient/history.el
+/tree-sitter/
