@@ -169,13 +169,6 @@ C-M-i                           backward-button
   (custom-set-faces `(link ((t (:foreground ,sol-yellow :underline nil :bold t)))))
 #+end_src
 * Themes
-** Base16
-#+begin_src emacs-lisp :results output silent
-  (use-package base16-theme
-    ;; :straight (:host github :repo "belak/base16-emacs"
-    ;;            :files (:defaults ("build" "build/*")))
-    :straight t)
-#+end_src
 ** Solarized
 [[https://ethanschoonover.com/solarized/][Website with more descriptions]]
 
@@ -249,32 +242,6 @@ Solarized)
   ;;                               ("FIXME"   . "#ff0000")))))
 #+end_src
 
-** Nano
-#+begin_src emacs-lisp :results output silent
-    (use-package nano-theme
-      :straight (:host github :repo "rougier/nano-theme")
-      :commands (nano-light nano-dark nano-setup)
-      :custom
-      (nano-light-foreground sol-base1)
-      (nano-light-background sol-base3)
-      (nano-light-highlight sol-base2)
-      (nano-light-subtle sol-base1)
-      (nano-light-faded sol-base00)
-      (nano-light-salient sol-cyan)
-      (nano-light-strong sol-green)
-      (nano-light-popout sol-blue)
-      (nano-light-critical sol-red)
-
-      (nano-dark-foreground sol-base01)
-      (nano-dark-background sol-base03)
-      (nano-dark-highlight sol-base02)
-      (nano-dark-subtle sol-base01)
-      (nano-dark-faded sol-base0)
-      (nano-dark-salient nano-light-salient)
-      (nano-dark-strong nano-light-strong)
-      (nano-dark-popout nano-light-popout)
-      (nano-dark-critical nano-light-critical))
-#+end_src
 ** Display
 #+begin_src emacs-lisp :results output silent
   ;; (when (display-graphic-p)
@@ -741,12 +708,11 @@ Further helper functions to add bookmarks:
 
 ** Tab bar mode                                                          :27:
 This only works if emacs version is 27 or above (there's already some
-evil integration), refer to Eyebrowse for Emacs version <27 tab handling
+evil integration)
 #+begin_src emacs-lisp :results output silent
   (use-package tab-bar
     :ensure nil
     :straight nil
-    :if (>= emacs-major-version 27)
     :custom-face
     (tab-bar ((t (:inherit minibuffer-prompt :underline nil))))
     (tab-bar-tab ((t (:inherit success :foreground nil :background nil))))
@@ -794,24 +760,6 @@ evil integration), refer to Eyebrowse for Emacs version <27 tab handling
         (if (eq num-tabs 1)
             (call-interactively oldfun)
           (tab-bar-close-tab)))))
-#+end_src
-
-** TODO Tab line mode
-Tab line is like tab bar but for windows
-
-** Desktop mode
-#+begin_src emacs-lisp :results output silent
-  ;;(desktop-save-mode)
-#+end_src
-
-** Open Email command
-#+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "inbox"
-                      #'(lambda ()
-                          (interactive)
-                          ;;TODO: Find out a way to always open the same
-                          ;;tab so I don't have to constantly relog in.
-                          (browse-url "https://beta.protonmail.com")))
 #+end_src
 
 ** EDiff qol
@@ -916,34 +864,6 @@ for the specific hook.
     ;;  "C-h M-m" 'which-key-show-full-major-mode)
     :config
     (which-key-mode))
-#+end_src
-
-* Avy
-** Ace Window
-#+begin_src emacs-lisp :results output silent
-  (use-package ace-window
-    :straight t
-    :general
-    (evil-window-map
-     "g p" 'ace-window
-     "g x" 'ace-swap-window)
-    :custom
-    (aw-keys '(?a ?s ?d ?f ?g))
-    :custom-face
-    (aw-background-face ((((background light)) (:background ,sol-base3 :foreground ,sol-base2))
-                         (((background dark)) (:background ,sol-base03 :foreground ,sol-base02)))))
-#+end_src
-
-** Ace Link
-#+begin_src emacs-lisp :results output silent
-  (use-package ace-link
-    :straight (:host github :repo "abo-abo/ace-link")
-    :general
-    (:states 'normal
-     :prefix my-default-evil-leader-key
-     "f" 'ace-link)
-    :commands (ace-link
-               ace-link-eww))
 #+end_src
 
 * Smartparens
@@ -1078,32 +998,6 @@ Look at =evil-interactive-alist=, which seems to contain all the
 interactive codes provided.
 
 ** Text Objects
-*** Latex Textobjects
-I appear to have stolen this from somewhere, probably because the original
-package isn't being maintained or something
-
-| Key | Description                          |
-|-----+--------------------------------------|
-| =$= | Inline math ($$)                     |
-| =\= | Display math (=\[ \]=)               |
-| =m= | TeX macros (\foo{})                  |
-| =E= | Tex environments (\begin{}...\end{}) |
-
-#+begin_src emacs-lisp :results output silent
-  (use-package evil-latex-textobjects
-    :straight nil
-    :load-path "local-packages/"
-    :commands (turn-on-evil-latex-textobjects-mode)
-    :general
-    (:keymaps 'evil-latex-textobjects-inner-map
-     "e" nil
-     "E" 'evil-latex-textobjects-inner-env)
-    (:keymaps 'evil-latex-textobjects-outer-map
-     "e" nil
-     "E" 'evil-latex-textobjects-an-env)
-    :hook (LaTeX-mode-hook . turn-on-evil-latex-textobjects-mode))
-#+end_src
-
 *** [#A] Surround text objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-surround
@@ -1158,25 +1052,6 @@ Probably keep this just for the backticks.
     (evil-commentary-mode))
 #+end_src
 
-*** Comment Text Objects
-#+begin_src emacs-lisp :results output silent
-  (use-package evil-nerd-commenter
-    :straight (:host github :repo "redguardtoo/evil-nerd-commenter")
-    :after (evil)
-    :general
-    (evil-inner-text-objects-map
-     "c" 'evilnc-inner-comment)
-    (evil-outer-text-objects-map
-     "c" 'evilnc-outer-commenter))
-#+end_src
-
-(Compatibility with evil-matchit)
-#+begin_src emacs-lisp :results output silent
-  (with-eval-after-load 'evil-matchit
-    (with-eval-after-load 'evil-nerd-commenter
-      (evilmi-load-plugin-rules '(mhtml-mode) '(template simple html))))
-#+end_src
-
 *** [#B] Indent text objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-indent-plus
@@ -1190,68 +1065,9 @@ Probably keep this just for the backticks.
      "I" 'evil-indent-plus-a-indent-up))
 #+end_src
 
-*** Line Text Objects
-#+begin_src emacs-lisp :results output silent
-  (use-package evil-textobj-line
-    :straight (:host github :repo "syohex/evil-textobj-line")
-    :after evil)
-#+end_src
-
-*** [K]olumns
-#+begin_src emacs-lisp :results output silent
-  (use-package evil-textobj-column
-    :straight (:host github :repo "noctuid/evil-textobj-column")
-    :general
-    (evil-outer-text-objects-map
-     "k" 'evil-textobj-column-word
-     "K" 'evil-textobj-column-WORD))
-#+end_src
-
-*** XML Attributes
-#+begin_src emacs-lisp :results output silent
-  (use-package exato
-    :straight t
-    :after evil)
-#+end_src
-
 ** TODO Asyncrun
 Just append =&= to the end of your command, emacs apparently just does
 the right thing.
-
-* Emacsql
-#+begin_src emacs-lisp :results output silent
-  (use-package emacsql
-    :straight t)
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (use-package emacsql-sqlite
-    :disabled t
-    :straight t)
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (use-package emacsql-psql
-    :disabled t
-    :straight t)
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (use-package emacsql-sqlite3
-    :disabled t
-    :straight t)
-#+end_src
-
-These two modules share the same repository
-#+begin_src emacs-lisp :results output silent
-  (use-package emacsql-sqlite-builtin
-    :disabled t
-    :if (<= emacs-major-version 29)
-    :straight (:host github :repo "emacscollective/emacsql-sqlite-builtin"))
-  ;; (use-package emacsql-sqlite-module
-  ;;   :if (and (<= emacs-major-version 29) (not (eq system-type 'windows-nt)))
-  ;;   :straight (:host github :repo "emacscollective/emacsql-sqlite-builtin"))
-#+end_src
 
 * Org Mode
 ** Org Id
@@ -1584,11 +1400,7 @@ For some reason we can't do this in the scratch buffer
     (my-evil-define-split-vsplit-cmd "agenda" #'(lambda () (interactive) (org-agenda nil "A")))
     (evil-ex-define-cmd "Tag[enda]"
                         #'(lambda () (interactive)
-                            ;; TODO: unify this implementation with my-new-cmd-tab
-                            (if (>= emacs-major-version 27)
-                                (tab-bar-new-tab)
-                              (require 'eyebrowse)
-                              (my-new-evil-tab nil))
+                            (tab-bar-new-tab)
                             (funcall-interactively #'(lambda () (interactive (org-agenda nil "A"))))))
     ;; override `org-agenda-diary-entry' to use `org-roam'
     (general-define-key
@@ -1654,15 +1466,6 @@ language's mappings.
      [remap evil-quit] 'org-edit-src-abort))
 #+end_src
 
-** Export as epub
-Needs a working =zip= exe.
-
-#+begin_src emacs-lisp :results output silent
-  (use-package ox-epub
-    :straight (:host github :repo "ofosos/ox-epub")
-    :commands org-epub-export-to-epub)
-#+end_src
-
 ** Screenshot from system clipboard
 [[http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-files-in-emacs-on-win10/][Source]], modified to allow the user to select a directory.
 
@@ -1724,21 +1527,6 @@ Needs a working =zip= exe.
   (use-package org-fragtog
     :straight (:host github :repo "io12/org-fragtog")
     :hook (org-mode-hook . org-fragtog-mode))
-#+end_src
-
-** Org Habit
-In emacs 28 there's an issue with it not updated to using 3 arguments
-for =define-obsolete-function-alias= (really dumb thing, but there it
-is)
-
-#+begin_src emacs-lisp :results output silent
-  (use-package org-habit
-    :disabled t
-    :straight nil
-    :ensure nil
-    :after org
-    :custom
-    (org-habit-graph-column 70))
 #+end_src
 
 ** Org Clock
@@ -1826,23 +1614,6 @@ is)
     :hook (org-mode-hook . org-appear-mode))
 #+end_src
 
-** Org Sticky Header
-#+begin_src emacs-lisp :results output silent
-  (use-package org-sticky-header
-    :disabled t
-    :straight (:host github :repo "alphapapa/org-sticky-header")
-    :hook (org-mode-hook . org-sticky-header-mode))
-#+end_src
-
-** Org Crypt
-#+begin_src emacs-lisp :results output silent
-  (use-package org-crypt
-    :straight nil
-    :ensure nil
-    :custom
-    (org-crypt-key nil))
-#+end_src
-
 ** Valign
 #+begin_src emacs-lisp :results output silent
   (use-package valign
@@ -1865,46 +1636,6 @@ is)
 #+end_src
 
 Use the following query to find all todo items that are overdue
-
-#+begin_src emacs-lisp :results output silent
-;; (org-ql-search (org-agenda-files) '(and (todo) (scheduled :to -1)))
-#+end_src
-
-** Org Transclude
-- [ ] Fix the =org-transclusion-*= faces.
-
-
-#+begin_src emacs-lisp :results output silent
-  (use-package org-transclusion
-    :straight (:host github :repo "nobiot/org-transclusion")
-    :hook (org-mode-hook . org-transclusion-mode)
-    :config
-    (with-eval-after-load 'org-roam
-      ;; Propagate backlinks if header is transcluded.
-      ;; https://github.com/nobiot/org-transclusion/issues/136
-      (customize-set-value 'org-roam-db-extra-links-exclude-keys
-                           (cl-remove-if (lambda (kv)
-                                           (string-equal (cadr kv) "transclude"))
-                                         org-roam-db-extra-links-exclude-keys))))
-#+end_src
-
-** Org Modern
-#+begin_src emacs-lisp :results output silent
-  (use-package org-modern
-    :straight (:host github :repo "minad/org-modern")
-    :hook ((org-mode-hook . org-modern-mode))
-           ;; (org-agenda-finalize-hook . org-modern-agenda))
-    :custom
-    (org-modern-tag nil) ;; tags are not aligning correctly in agenda, maybe it'll get fixed
-    :custom-face
-    (org-modern-done ((t (:inherit (sol-subtle default)))))
-    (org-modern-tag ((((background light)) (:foreground
-                                            ,sol-base00
-                                            :inherit (secondary-selection org-modern-label)))
-                     (((background dark)) (:foreground
-                                           ,sol-base0
-                                           :inherit (secondary-selection org-modern-label))))))
-#+end_src
 
 * hl-todo
 #+begin_src emacs-lisp :results output silent
@@ -1947,12 +1678,6 @@ Use the following query to find all todo items that are overdue
   ;;         :buffer "*helm hl-todo*"))
 #+end_src
 
-* Edit-Indirect
-#+begin_src emacs-lisp :results output silent
-  (use-package edit-indirect
-    :straight t)
-#+end_src
-
 * Markdown                                                            :major:
 #+begin_src emacs-lisp :results output silent
   (use-package markdown-mode
@@ -1985,37 +1710,6 @@ Use the following query to find all todo items that are overdue
 #+end_src
 
 * Git
-*** Magit github
-#+begin_src emacs-lisp :results output silent
-  (use-package forge
-    :disabled t
-    :straight t
-    ;; this needs sqlite, which for some reason windows is anal about
-    :if (not (eq 'windows-nt system-type))
-    :after magit)
-#+end_src
-
-*** Magit Delta
-Requires installation of [[https://github.com/dandavison/delta][Delta]].
-
-#+begin_src emacs-lisp :results output silent
-  (use-package magit-delta
-    :if (executable-find "delta")
-    :hook (magit-mode-hook . magit-delta-mode))
-#+end_src
-
-** Browse-at-remote
-#+begin_src emacs-lisp :results output silent
-  (use-package browse-at-remote
-    :straight t
-    :commands (browse-at-remote))
-#+end_src
-
-** Git modes
-#+begin_src emacs-lisp :results output silent
-  (use-package git-modes
-    :straight t)
-#+end_src
 
 ** Blamer
 #+begin_src emacs-lisp :results output silent
@@ -2029,132 +1723,6 @@ Requires installation of [[https://github.com/dandavison/delta][Delta]].
     (blamer-face ((t :inherit sol-subtle)))
     :hook
     (prog-mode-hook . blamer-mode))
-#+end_src
-
-* vdiff
-#+begin_src emacs-lisp :results output silent
-  (use-package vdiff
-    :straight (:host github :repo "justbur/emacs-vdiff")
-    :commands vdiff-hydra/body
-    :init
-    (evil-define-command ex-vdiff-cli (cmd)
-      (interactive "<a>")
-      (cond
-       (t (vdiff-current-file))))
-    (evil-ex-define-cmd "vdiff" 'ex-vdiff-cli))
-#+end_src
-
-** vdiff for magit
-#+begin_src emacs-lisp :results output silent
-  (use-package vdiff-magit
-    :straight (:host github :repo "justbur/emacs-vdiff-magit")
-    :after magit
-    :disabled t
-    :general
-    (magit-mode-map
-     "e" 'vdiff-magit-dwim
-     "E" 'vdiff-magit)
-    :init
-    (with-eval-after-load 'magit
-      (transient-suffix-put 'magit-dispatch "e" :description "vdiff (dwim)")
-      (transient-suffix-put 'magit-dispatch "e" :command 'vdiff-magit-dwim)
-      (transient-suffix-put 'magit-dispatch "E" :description "vdiff")
-      (transient-suffix-put 'magit-dispatch "E" :command 'vdiff-magit)))
-#+end_src
-
-* Diff-hl
-#+begin_src emacs-lisp :results output silent
-  (use-package diff-hl
-    :straight (:host github :repo "dgutov/diff-hl")
-    :disabled t
-    :defer 10
-    :config
-    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-    (global-diff-hl-mode))
-#+end_src
-
-* Eyebrowse
-TODO: some way to better, more dynamically name the tabs
-
-#+begin_src emacs-lisp :results output silent
-  (use-package eyebrowse
-    ;; emacs 27 provides a tab-bar-mode to basically do this
-    :if (not (>= emacs-major-version 27))
-    :straight (:host github :repo "wasamasa/eyebrowse")
-    :commands (eyebrowse-switch-to-window-config
-               eyebrowse-create-window-config
-               eyebrowse-close-window-config
-               eyebrowse-next-window-config
-               eyebrowse-prev-window-config)
-    :general
-    (:states 'motion
-     "gt" 'eyebrowse-next-window-config
-     "gT" 'eyebrowse-prev-window-config)
-    :custom
-    (eyebrowse-wrap-around t)
-    (eyebrowse-new-workspace t)
-    (eyebrowse-keymap-prefix "")
-    :init
-    (evil-ex-define-cmd "gT" 'eyebrowse-prev-window-config)
-    (evil-ex-define-cmd "gt" 'eyebrowse-next-window-config)
-    (evil-define-command my-new-evil-tab (arg)
-      "Note that :h :tabe in vim indicates that it's file only, not
-  buffer.
-  If the argument is a file, name the tab with the file. otherwise name
-  the tab as the argument. If nothing is passed name the tab to the
-  buffer."
-      (interactive "<a>")
-      (require 'eyebrowse)
-      (let ((eyebrowse-new-workspace (if (and arg
-                                              (file-exists-p arg))
-                                         (lambda () (find-file arg))
-                                       eyebrowse-new-workspace)))
-        (eyebrowse-create-window-config))
-      (my-rename-eyebrowse-tab (cond ((null arg) (buffer-name))
-                                     ((file-exists-p arg)
-                                      (file-name-nondirectory arg))
-                                     (t arg))))
-    (evil-ex-define-cmd "tabn[ew]"   'my-new-evil-tab)
-    (evil-ex-define-cmd "tabe[dit]"  'my-new-evil-tab)
-    (evil-ex-define-cmd "tabc[lose]" 'eyebrowse-close-window-config)
-    (evil-ex-define-cmd "tabs"       'eyebrowse-switch-to-window-config)
-    :config
-    (evil-define-command my-rename-eyebrowse-tab (name)
-      (interactive "<a>")
-      (require 'eyebrowse)
-      (eyebrowse-rename-window-config
-       (frame-parameter nil 'eyebrowse-current-slot)
-       name))
-    (evil-ex-define-cmd "trename" 'my-rename-eyebrowse-tab)
-    (evil-ex-define-cmd "tr" 'my-rename-eyebrowse-tab)
-    (evil-ex-define-cmd "tabrename" 'my-rename-eyebrowse-tab)
-    (defun my-eyebrowse-delete-window-config-or-frame (oldfun &rest _old_args)
-      "Checks if there are other \"tabs\" when closing a frame.
-  If there is, close the tab, otherwise, delete the frame"
-      (require 'eyebrowse)
-      (interactive)
-      (let* ((configs (frame-parameter nil 'eyebrowse-window-configs))
-             (slots (mapcar 'car configs))
-             (size (length slots)))
-        (if (eq 1 size)
-            (call-interactively oldfun)
-          (eyebrowse-close-window-config))))
-    (advice-add 'delete-frame :around 'my-eyebrowse-delete-window-config-or-frame)
-    (eyebrowse-mode)
-    ;; (eyebrowse-setup-evil-keys)
-    (my-rename-eyebrowse-tab (buffer-name)))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (with-eval-after-load 'eyebrowse
-    (customize-set-variable
-     'mode-line-format
-     (list "%e" mode-line-front-space mode-line-mule-info
-           mode-line-client mode-line-modified mode-line-auto-compile
-           mode-line-remote mode-line-frame-identification
-           mode-line-buffer-identification " " mode-line-position
-           evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
-           mode-line-modes mode-line-end-spaces)))
 #+end_src
 
 * Text
@@ -2252,31 +1820,6 @@ TODO: some way to better, more dynamically name the tabs
 #+end_src
 
 * Lisp
-** Parinfer
-#+begin_src emacs-lisp :results output silent
-  (use-package parinfer
-    ;; :straight (:host github :repo "DogLooksGood/parinfer-mode")
-    :straight t
-    :commands (parinfer-mode)
-    :general
-    (parinfer-mode-map
-     "\"" nil) ;; let smartparens do its thing
-    (:states 'motion
-     "g p" 'parinfer-toggle-mode)
-    :custom
-    (parinfer-auto-switch-indent-mode
-     t "We prefer indent mode")
-    (parinfer-auto-switch-indent-mode-when-closing
-     t)
-    :init
-    (progn (setq parinfer-extensions
-                 '(defaults       ; should be included.
-                    pretty-parens  ; different paren styles for different modes.
-                    evil           ; if you use evil.
-                    ;; smart-tab      ; c-b & c-f jump positions and smart shift with tab & s-tab.
-                    smart-yank))))   ; yank behavior depend on mode.
-#+end_src
-
 ** Parinfer Rust Mode
 For M1 machines, we have to clone
 https://github.com/eraserhd/parinfer-rust.git, build the =.dylib=, and
@@ -2290,7 +1833,6 @@ rename the extension to =.so=:
 #+begin_src emacs-lisp :results output silent
   (use-package parinfer-rust-mode
     :straight t
-    :if (not (eq 'windows-nt system-type))
     :commands (parinfer-rust-mode)
     :general
     (:states 'motion
@@ -2299,56 +1841,11 @@ rename the extension to =.so=:
     (parinfer-rust-auto-download t))
 #+end_src
 
-** my-maybe-init-parinfer
 #+begin_src emacs-lisp :results output silent
-  (defun my-maybe-init-parinfer ()
-    (if (and (not (eq 'windows-nt system-type))
-             (bound-and-true-p parinfer-rust-mode))
-        (parinfer-rust-mode)
-      (parinfer-mode)))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (add-hook 'emacs-lisp-mode-hook #'my-maybe-init-parinfer)
-  (add-hook 'racket-mode-hook #'my-maybe-init-parinfer)
-  (add-hook 'clojure-mode-hook #'my-maybe-init-parinfer)
-  (add-hook 'hy-mode-hook #'my-maybe-init-parinfer)
-#+end_src
-
-** Rainbow Delimiter Mode
-Consider deprecating this now we're trying out prism
-
-#+begin_src emacs-lisp :results output silent
-  (use-package rainbow-delimiters
-    :straight (:host github :repo "Fanael/rainbow-delimiters")
-    :commands (rainbow-delimiters-mode-enable)
-    :general
-    (:states 'normal
-     :prefix my-default-evil-leader-key
-     ")" 'rainbow-delimiters-mode
-     "(" 'rainbow-delimiters-mode)
-    :custom (rainbow-delimiters-max-face-count 3)
-    :hook (prog-mode-hook . rainbow-delimiters-mode-enable))
-#+end_src
-
-** Rainbow Identifiers Mode
-It looks fairly jarring to be very honest.
-
-#+begin_src emacs-lisp :results output silent
-  (use-package rainbow-identifiers
-    :straight (:host github :repo "Fanael/rainbow-identifiers")
-    :commands (rainbow-identifiers-mode))
-#+end_src
-
-** Rainbow Blocks
-Refer to prism
-
-#+begin_src emacs-lisp :results output silent
-  (use-package rainbow-blocks
-    :straight (:host github :repo "istib/rainbow-blocks")
-    :disabled t
-    :commands (rainbow-blocks-mode
-               rainbow-blocks-mode-enable))
+  (add-hook 'emacs-lisp-mode-hook #'parinfer-rust-mode)
+  (add-hook 'racket-mode-hook #'parinfer-rust-mode)
+  (add-hook 'clojure-mode-hook #'parinfer-rust-mode)
+  (add-hook 'hy-mode-hook #'parinfer-rust-mode)
 #+end_src
 
 ** Prism mode
@@ -2469,17 +1966,6 @@ https://old.reddit.com/r/emacs/comments/d7x7x8/finally_fixing_indentation_of_quo
                     (funcall method indent-point state)))))))))
 #+end_src
 
-** Elmacro
-#+begin_src emacs-lisp :results output silent
-  (use-package elmacro
-    :straight (:host github :repo "Silex/elmacro")
-    :commands (elmacro-show-last-macro
-               elmacro-show-last-commands
-               elmacro-clear-recorded-commands)
-    :config
-    (elmacro-mode))
-#+end_src
-
 * Racket
 #+begin_src emacs-lisp :results output silent
   (use-package racket-mode
@@ -2489,97 +1975,6 @@ https://old.reddit.com/r/emacs/comments/d7x7x8/finally_fixing_indentation_of_quo
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("rkt" . racket) org-src-lang-modes)))
-#+end_src
-
-* AES Encryption
-
-#+begin_src emacs-lisp :results output silent
-  (use-package aes
-    :defer nil
-    :straight (:host github :repo "Sauermann/emacs-aes")
-    :commands (aes-toggle-encryption ;; this makes it auto encrypt/decrypt
-               aes-insert-password
-               aes-remove-encryption-hook
-               aes-is-encrypted
-               aes-enable-auto-decryption
-               aes-encrypt-buffer-or-string
-               aes-decrypt-buffer-or-string)
-    ;; :hook (change-major-mode-hook . (lambda ()
-    ;;                                   (when (aes-is-encrypted)
-    ;;                                     (auto-save-mode -1)
-    ;;                                     (aes-toggle-encryption))))
-    :init
-    ;; TODO: figure out how to do this for the whole buffer using
-    ;; `org-element-*' functions
-    (defun --toggle-encrypt-org-roam-subtree ()
-      "Encrypt the content of the org subtree with the org ID of the
-  document. Aborts if one is not found. There is probably a better way
-  to do encrypt the text, perhaps automatically on hook, but this should
-  serve for now."
-      (interactive)
-      (-let* (((beg subtree-end _) (evil-org-inner-subtree))
-              ;; TODO: is there an existing function for this?
-              (end (save-excursion
-                     (goto-char subtree-end)
-                     (+ subtree-end (skip-chars-backward " \t\n"))))
-              (password (org-id-get (point-min)))
-              (text (progn
-                      (save-excursion
-                        (goto-char beg)
-                        (outline-show-subtree))
-                      (buffer-substring beg end)))
-              (is-encrypted (with-temp-buffer
-                              (insert text)
-                              (aes-is-encrypted))))
-        (unless password
-          (user-error "Can't get file's ID."))
-        (let ((result (if is-encrypted
-                          (aes-decrypt-buffer-or-string text password)
-                        (aes-encrypt-buffer-or-string text password))))
-          (replace-region-contents beg end (lambda () result)))))
-
-    (evil-define-command ex-encrypt-buffer ()
-      (interactive)
-      (if (aes-is-encrypted)
-          (aes-decrypt-current-buffer)
-        (aes-encrypt-current-buffer)))
-    (evil-ex-define-cmd "X" 'ex-encrypt-buffer)
-    (add-to-list 'auto-mode-alist '("\\.enc\\'"
-                                    #'(lambda ()
-                                        (when (aes-is-encrypted)
-                                          (aes-toggle-encryption))) t)))
-#+end_src
-
-** Encrypt operator
-#+begin_src emacs-lisp :results output silent
-  (evil-define-operator evil-encrypt-aes (beg end)
-    "Attempt to encrypt or decrypt a range using
-  `aes-encrypt-buffer-or-string' and `aes-decrypt-buffer-or-string'"
-    (require 'aes)
-    (let ((buf (current-buffer)))
-      (with-temp-buffer
-        ;; Copy region into a temporary buffer so we can encrypt/decrypt
-        (insert-buffer-substring buf beg end)
-        ;; Discard newline so the aes functions can check if it's
-        ;; encrypted. We might want to just skip the newlines instead of
-        ;; discarding them in the future, so that a-textobjects can also
-        ;; work instead of just i-textobjects
-        (flush-lines "^$" (point-min) (point-max))
-        (if (aes-is-encrypted)
-            (aes-decrypt-buffer-or-string (current-buffer))
-          (aes-encrypt-buffer-or-string (current-buffer)))
-        ;; Copy result back into original buffer
-        (let ((temp-buf (current-buffer)))
-          (with-current-buffer buf
-            ;; Delete original text before copying
-            (delete-region beg end)
-            (insert-buffer-substring temp-buf))))))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (general-define-key
-    :keymaps 'normal
-    "g X" 'evil-encrypt-aes)
 #+end_src
 
 * Clojure                                                             :major:
@@ -2600,35 +1995,6 @@ clojurescript-mode derives from clojure-mode
       (cl-pushnew '("clj" . clojure) org-src-lang-modes)
       (cl-pushnew '("cljs" . clojurescript) org-src-lang-modes)))
 #+end_src
-
-** CIDER
-When using straight, we first encounter =cider-test.el= not found, and
-then later on =package sesman not found in recipe repositories=
-
-Sesman is not found normally by cider, so we had to manually clone it
-
-This is actually fairly expensive to load
-#+begin_src emacs-lisp :results output silent
-  (use-package sesman
-    :straight (:host github :repo "vspinu/sesman")
-    :defer t)
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (use-package cider
-    :commands (cider-jack-in
-               cider-connect)
-    :straight (:host github :repo "clojure-emacs/cider"
-               :files (:defaults "cider-test.el")))
-#+end_src
-
-We were unable to launch a shadow-cljs nREPL directly, but we are able
-to successfully connect (using =cider-connect-cljs=) into a repl we
-ran using ~shadow-cljs watch app~. Do note that the socket REPL and
-nREPL server runs on different ports, and neither were the ones
-recommended by the cider completion engine.
-
-We should look at customizing cider someday.
 
 * Rust                                                                :major:
 #+begin_src emacs-lisp :results output silent
@@ -2685,9 +2051,6 @@ Requires rust-mode and markdown-mode
 [[https://gist.github.com/t-mart/610795fcf7998559ea80][Netrw map]]
 
 #+begin_src emacs-lisp :results output silent
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
   ;; TODO: update `dired-collapse--create-ov' to not hardcode the shadow
   ;; face. This should be a PR
   (use-package dired-hacks
@@ -2716,90 +2079,6 @@ Requires rust-mode and markdown-mode
     ;;   "z c" 'dired-subtree-remove)
     :hook ((dired-mode-hook . dired-collapse-mode)
            (dired-mode-hook . dired-filter-mode)))
-#+end_src
-
-note: use :Ex instead like Vim does
-# #+begin_src emacs-lisp :results output silent
-#   (general-define-key :keymaps 'normal
-#     "-" 'open-dired-window)
-# #+end_src
-
-** Dired+
-#+begin_src emacs-lisp :results output silent
-  ;; (unless (el-get-package-is-installed 'dired+)
-  ;;   (el-get-emacswiki-build-local-recipes)
-  ;;   (el-get-install 'dired+))
-  ;; (use-package dired+
-  ;;   :ensure nil
-  ;;   :straight nil
-  ;;   :after dired
-  ;;   :custom-face
-  ;;   (diredp-dir-heading ((t (:inherit font-lock-warning-face :bold t))))
-  ;;   (diredp-dir-name ((t (:inherit font-lock-string-face :bold t))))
-  ;;   (diredp-file-name ((t (:inherit font-lock-function-name-face))))
-  ;;   (diredp-file-suffix ((t (:inherit font-lock-type-face))))
-  ;;   (diredp-ignored-file-name ((t (:inherit 'font-lock-comment-face))))
-  ;;   (diredp-flag-mark ((t (:inherit font-lock-keyword-face)))))
-#+end_src
-
-** w32-browser
-#+begin_src emacs-lisp :results output silent
-  ;; (unless (el-get-package-is-installed 'w32-browser)
-  ;;   (el-get-emacswiki-build-local-recipes)
-  ;;   (el-get-install 'w32-browser))
-  ;; (use-package w32-browser
-  ;;   :ensure nil
-  ;;   :straight nil
-  ;;   :after dired)
-#+end_src
-
-* Help
-#+begin_src emacs-lisp :results output silent
-  ;; (general-define-key
-  ;;  :keymaps 'help-mode-map
-  ;;  :states 'normal
-  ;;  "f" 'ace-link-help
-  ;;  "F" 'ace-link-help)
-#+end_src
-
-* Help+
-- Emacswiki :: https://www.emacswiki.org/emacs/HelpPlus
-
-
-These packages are from emacswiki, and are currently not being maintained.
-
-They are being stored and loaded locally, since they are not on melpa or any
-package manager
-
-#+begin_src emacs-lisp :results output silent
-  (use-package help+
-    :disabled t
-    :defer 7
-    :straight nil
-    :load-path "local-packages/")
-  (use-package help-macro+
-    :defer 7
-    :disabled t
-    :straight nil
-    :load-path "local-packages/")
-  (use-package help-mode+
-    :defer 7
-    :disabled t
-    :straight nil
-    :load-path "local-packages/")
-  (use-package help-fns+
-    :defer 7
-    :disabled t
-    :straight nil
-    :commands (describe-keymap
-               describe-buffer
-               describe-command
-               describe-option
-               describe-key-briefly
-               describe-option-of-type
-               describe-copying
-               find-function-on-key)
-    :load-path "local-packages/")
 #+end_src
 
 * Dumb Jump
@@ -3019,39 +2298,6 @@ r-value references.
     :straight t)
 #+end_src
 
-* Disable autoformatting modes when drawing things
-You can consider =artist-mode= a featurewise superset of =picture-mode=.
-
-#+begin_src emacs-lisp :results output silent
-  (add-hook 'artist-mode-hook #'(lambda () (aggressive-fill-paragraph-mode -1)))
-#+end_src
-
-* Org source block handling for Artist-mode
-#+begin_src emacs-lisp :results output silent
-  (with-eval-after-load 'org-src
-    (cl-pushnew '("artist" . artist) org-src-lang-modes))
-#+end_src
-
-* Ledger                                                              :major:
-#+begin_src emacs-lisp :results output silent
-  (use-package ledger-mode
-    :disabled t
-    :mode "\\.ledger\\'"
-    :straight (:host github :repo "ledger/ledger-mode"
-               :files (:defaults "ledger-test.el"))
-    :init
-      (with-eval-after-load 'org-src
-        (cl-pushnew '("ledger" . ledger) org-src-lang-modes)))
-#+end_src
-
-** Evil-ledger
-#+begin_src emacs-lisp :results output silent
-  (use-package evil-ledger
-    :disabled t
-    :straight (:host github :repo "atheriel/evil-ledger")
-    :after (ledger-mode))
-#+end_src
-
 * Beancount
 It's a minor mode, much like how magit's commit mode is a minor mode
 #+begin_src emacs-lisp :results output silent
@@ -3127,14 +2373,6 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     ;; :hook ((org-mode-hook . beancount-mode)))
 #+end_src
 
-* Hledger                                                             :major:
-#+begin_src emacs-lisp :results output silent
-  (use-package hledger-mode
-    :disabled t
-    :straight (:host github :repo "narendraj9/hledger-mode")
-    :mode "\\.ledger\\'")
-#+end_src
-
 * Abbreviations
 #+begin_src emacs-lisp :results output silent
   (use-package abbrev
@@ -3194,8 +2432,6 @@ It's a minor mode, much like how magit's commit mode is a minor mode
              (exp (read-string (format "abbrev for \"%s\": " name))))
         (define-abbrev global-abbrev-table (downcase name) exp))))
 #+end_src
-
-
 
 * Writeroom
 #+begin_src emacs-lisp :results output silent
@@ -3260,7 +2496,6 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 #+end_src
 
 * Elisp demos
-
 #+begin_src emacs-lisp :results output silent
   (use-package elisp-demos
     :after (helpful)
@@ -3355,38 +2590,8 @@ the thing, because that's what vim does.
 
 * so-long-mode / vlf-mode
 #+begin_src emacs-lisp :results output silent
-  (if (>= emacs-major-version 27)
-      (global-so-long-mode)
-    (use-package vlf
-      :disabled t ;; merged into vlf, try built-in so-long instead
-      :straight (:host github :repo "m00natic/vlfi")
-      :custom (vlf-application 'dont-ask)
-      :config (require 'vlf-setup)))
-#+end_src
-
-* Yankpad
-#+begin_src emacs-lisp :results output silent
-  (use-package yankpad
-    :disabled t
-    :straight (:host github :repo "Kungsgeten/yankpad")
-    :commands (yankpad-expand
-               yankpad-edit
-               yankpad-reload)
-    :init
-    (add-to-list 'hippie-expand-try-functions-list #'yankpad-expand)
-    :custom
-    (yankpad-file (locate-user-emacs-file "snippets.org")))
-#+end_src
-
-* Smart tab
-#+begin_src emacs-lisp :results output silent
-  (use-package smart-tab
-    :disabled t
-    :straight (:host github :repo "genehack/smart-tab")
-    :custom
-    (smart-tab-using-hippie-expand t)
-    :config
-    (global-smart-tab-mode))
+  (when (fboundp 'global-so-long-mode)
+    (global-so-long-mode))
 #+end_src
 
 * Batch/CMD
@@ -3434,46 +2639,6 @@ the thing, because that's what vim does.
         (shell-command-to-string body))))
 #+end_src
 
-* Access todo.org from evil command
-#+begin_src emacs-lisp :results output silent
-  ;; (evil-define-command my-todo (&optional arg)
-  ;;   (interactive "<!>")
-  ;;   (when (boundp 'my-todo-org-file)
-  ;;     (if arg
-  ;;         (org-capture nil "todo")
-  ;;       (find-file my-todo-org-file))))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  ;; (when (boundp 'my-todo-org-file)
-  ;;   (my-evil-define-split-vsplit-cmd "todo" #'(lambda () (find-file my-todo-org-file)))
-  ;;   ;; (evil-ex-define-cmd "todo" 'my-todo)
-  ;;   ;; (evil-ex-define-cmd "Stodo" #'(lambda () (interactive)
-  ;;   ;;                                (call-interactively 'evil-window-split)
-  ;;   ;;                                (find-file my-todo-org-file)))
-  ;;   ;; (evil-ex-define-cmd "Vtodo" #'(lambda () (interactive)
-  ;;   ;;                                (call-interactively 'evil-window-vsplit)
-  ;;   ;;                                (find-file my-todo-org-file)))
-  ;;   (evil-ex-define-cmd "Ttodo" #'(lambda () (interactive)
-  ;;                                  (my-new-cmd-tab my-todo-org-file))))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  ;; (when (boundp 'my-notes-org-file)
-  ;;   (my-evil-define-split-vsplit-cmd "note[s]" #'(lambda () (find-file my-notes-org-file)))
-  ;;   ;; (evil-ex-define-cmd "notes" 'my-notes)
-  ;;   ;; (evil-ex-define-cmd "Snotes" #'(lambda () (interactive)
-  ;;   ;;                                (call-interactively 'evil-window-split)
-  ;;   ;;                                (find-file my-notes-org-file)))
-  ;;   ;; (evil-ex-define-cmd "Vnotes" #'(lambda () (interactive)
-  ;;   ;;                                (call-interactively 'evil-window-vsplit)
-  ;;   ;;                                (find-file my-notes-org-file)))
-  ;;   (evil-ex-define-cmd "Tnotes" #'(lambda () (interactive)
-  ;;                                   (funcall-interactively
-  ;;                                    'my-new-evil-tab my-notes-org-file))))
-#+end_src
-
-
 * Yaml-mode
 #+begin_src emacs-lisp :results output silent
   (use-package yaml-mode
@@ -3491,42 +2656,6 @@ the thing, because that's what vim does.
     :init
     (with-eval-after-load 'org-src
       (cl-pushnew '("yaml" . yaml) org-src-lang-modes)))
-#+end_src
-
-* Journal (Org Journal)
-#+begin_src emacs-lisp :results output silent
-  (use-package org-journal
-    :disabled t ;; we use org-roam now
-    :straight (:host github :repo "bastibe/org-journal")
-    ;; disabling until https://github.com/bastibe/org-journal/issues/317 is resolved
-    :disabled t
-    :if (boundp 'config-local-syncthing-folder)
-    :commands org-journal-new-entry
-    :custom
-    (org-journal-time-format "%R ")
-    (org-journal-date-format "%F, %A")
-    (org-journal-file-type 'daily)
-    (org-journal-file-format "%Y-%m-%d.org"
-                             "Lets follow the ISO standard")
-    :init
-    (evil-ex-define-cmd "journal" #'(lambda () (interactive)
-                                      (org-journal-new-entry t)))
-    (evil-ex-define-cmd "jj" 'org-journal-new-entry)
-    (customize-set-variable 'org-journal-dir
-                            (f-join config-local-syncthing-folder
-                                    "day"))
-    :hook
-    ((org-journal-after-entry-create-hook . evil-insert-state)
-     (org-journal-mode-hook . aggressive-fill-paragraph-mode))
-    :config
-    (with-eval-after-load 'org-capture
-      (defun my-org-journal-find-location ()
-        (org-journal-new-entry t)
-        (goto-char (point-min)))
-      (add-to-list 'org-capture-templates
-                   '("jj" "Personal Journal Entry" entry
-                     (function my-org-journal-find-location)
-                     "* %(format-time-string org-journal-time-format)%?"))))
 #+end_src
 
 * Cmake
@@ -3553,128 +2682,12 @@ the thing, because that's what vim does.
     (cl-pushnew '("toml" . conf-toml) org-src-lang-modes))
 #+end_src
 
-* Jira
-#+begin_src emacs-lisp :results output silent
-  (use-package org-jira
-    :defer t
-    ;; :straight (:host github :repo "baohaojun/org-jira"))
-    :straight t)
-#+end_src
-
-* Jupyter Notebook
-https://millejoh.github.io/emacs-ipython-notebook/
-
-#+begin_src emacs-lisp :results output silent
-  (use-package ein
-    :disabled t
-    :straight (:host github :repo "millejoh/emacs-ipython-notebook"))
-#+end_src
-
-* Focus mode
-#+begin_src emacs-lisp :results output silent
-  (use-package focus
-    ;; :straight (:host github :repo "larstvei/Focus")
-    :straight t
-    :commands focus-mode
-    :init
-    (evil-ex-define-cmd "fo[cus]" 'focus-mode))
-#+end_src
-
-* Pretty mode
-#+begin_src emacs-lisp :results output silent
-  (use-package pretty-mode
-    ;; :straight (:host github :repo "pretty-mode/pretty-mode")
-    :straight t
-    :defer t
-    :commands (pretty-mode))
-    ;; :config
-    ;; (global-pretty-mode)
-    ;; (global-prettify-symbols-mode))
-#+end_src
-
 * Prettify Symbols Mode
 Use this instead of pretty mode because it's built in and shouldn't
 spaz out as much
 
 #+begin_src emacs-lisp :results output silent
   (global-prettify-symbols-mode)
-#+end_src
-
-* Outshine
-Doesn't really work out of the box. Interesting idea though, so we're
-keeping it until we figure out how to use it properly
-
-#+begin_src emacs-lisp :results output silent
-  (use-package outshine
-    ;; :straight (:host github :repo "alphapapa/outshine")
-    :straight t
-    :commands (outshine-mode))
-#+end_src
-
-* Org Kanban
-This uses a custom org block, so we don't actually have to do anything
-more than spell out that block and evaluate it.
-
-#+begin_example
-#+BEGIN: kanban :mirrored nil
-#+END:
-#+end_example
-
-#+begin_src emacs-lisp :results output silent
-  (use-package org-kanban
-    ;; :straight (:host github :repo "gizmomogwai/org-kanban")
-    :straight t
-    :defer 10)
-#+end_src
-
-* Bookmark+
-This is now really expensive, and we need to trim this as much as we
-can.
-
-- [ ] Iterate through the list and lazy load the thing instead of
-  making it so expensive
-
-#+begin_src emacs-lisp :results output silent
-  (use-package bookmark+
-    :disabled t
-    :preface
-    (let ((bookmarkplus-dir (locate-user-emacs-file "local-packages/bookmark-plus/"))
-          (emacswiki-base "https://www.emacswiki.org/emacs/download/")
-          (bookmark-files '("bookmark+.el" "bookmark+-mac.el" "bookmark+-bmu.el"
-                            "bookmark+-key.el" "bookmark+-lit.el" "bookmark+-1.el")))
-      (require 'url)
-      (add-to-list 'load-path bookmarkplus-dir)
-      (make-directory bookmarkplus-dir t)
-      (mapcar (lambda (arg)
-                (let ((local-file (concat bookmarkplus-dir arg)))
-                  (unless (file-exists-p local-file)
-                    (url-copy-file (concat emacswiki-base arg) local-file t))))
-              bookmark-files)
-      (byte-recompile-directory bookmarkplus-dir 0))
-    :commands bmkp-bmenu-list)
-#+end_src
-
-* Copy as Format
-The only reason I'm keeping this and not discarding it is because it's currently
-- A monument to my hubris
-- Actually a pretty cool attempt at hacking elisp
-
-#+begin_src emacs-lisp :results output silent
-  (use-package copy-as-format
-    :disabled t
-    :straight (:host github :repo "sshaw/copy-as-format")
-    :commands (copy-as-format))
-   ;;  :init
-   ;;  (evil-define-operator as-format (beg end &optional format-specifier)
-   ;;    :repeat nil
-   ;;    :move-point nil
-   ;;    (interactive "<r>")
-   ;;    (let ((temp-buffer (generate-new-buffer "copy-as-format-temp")))
-   ;;      (copy-to-buffer temp-buffer beg end)
-   ;;      (with-current-buffer temp-buffer
-   ;;        (mark-whole-buffer)
-   ;;        (copy-as-format))))
-   ;; (evil-ex-define-cmd "copy-as-format" 'as-format))
 #+end_src
 
 * Studlify operator
@@ -3704,177 +2717,14 @@ Or evil-spongebob if you want to think of it that way.
      "C-c C-f C-f" 'gofmt))
 #+end_src
 
-* Elfeed
-#+begin_src emacs-lisp :results output silent
-  (defconst user-rss-feed-file
-    (locate-user-emacs-file "feeds.org")
-    "Points to config.org")
-
-  (defun find-user-rss-feed-file ()
-    "Edit `user-rss-feed-file' without opening a new window."
-    (interactive)
-    (find-file user-rss-feed-file))
-
-  (evil-ex-define-cmd "feed[s]" 'find-user-rss-feed-file)
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (use-package elfeed
-    :disabled t ;; for now
-    :straight (:host github :repo "skeeto/elfeed")
-    :if (f-exists? user-rss-feed-file)
-    :commands (elfeed)
-    :custom
-    (elfeed-search-title-max-width
-     80
-     "Update the max width of the title")
-    (elfeed-search-filter
-     "@1-day-ago +unread +interesting "
-     "The trailing space is so that adding additional tags to filter
-     won't be painful.")
-    (elfeed-search-date-format
-     (list "%F %R" 16 :left)
-     "Make the timestamps more useful")
-    :general
-    (elfeed-show-mode-map
-     :states '(normal motion)
-     "g O" (lambda ()
-             (interactive)
-             (let ((browse-url-browser-function 'eww-browse-url))
-               (elfeed-show-visit t)))
-     "f" 'link-hint-open-link
-     "y" 'link-hint-copy-link
-     "SPC"   nil
-     "<SPC>" nil)
-    (elfeed-search-mode-map
-     :states '(normal motion)
-     "g x"  'elfeed-search-browse-url ;; "g o" also does this in normal mode
-     "g r"  'elfeed-search-fetch-visible
-     "SPC"   nil
-     "<SPC>" nil)
-    ;; :hook (elfeed-show-mode-hook . (lambda () (setq-local truncate-lines nil)))
-    :init
-    (evil-define-command my-custom-elfeed (cmd)
-      (interactive "<a>")
-      (cond
-       ((string= cmd "feeds") (find-user-rss-feed-file))
-       ((string= cmd "feed") (find-user-rss-feed-file))
-       ((string= cmd "reload") (reload-rss-feed-file))
-       ;; ((string= cmd "log") (switch-to-buffer (elfeed-log-buffer)))
-       (t (elfeed))))
-    (evil-ex-define-cmd "el[feed]" 'my-custom-elfeed)
-    :config
-    ;; https://mac.into.sh/elfeed/
-    (if (not (boundp 'my-syncthing-default-folder))
-        (message "Unable to find `my-syncthing-default-folder',
-        defaulting to local elfeed db")
-      (customize-set-variable 'elfeed-db-directory
-                              (f-join my-syncthing-default-folder "elfeed"))
-      (elfeed-db-load)
-      ;; TODO: trace if this hook... actually exists
-      ;; (add-hook 'elfeed-show-mode-hook #'(lambda () (elfeed-search-update 1)))
-      (add-hook 'kill-emacs-hook #'elfeed-db-save-safe)))
-#+end_src
-
-** Elfeed org
-This is really really slow
-#+begin_src emacs-lisp :results output silent
-  (use-package elfeed-org
-    :disabled t ;; for now
-    :straight (:host github :repo "remyhonig/elfeed-org")
-    :if (f-exists? user-rss-feed-file)
-    :after elfeed
-    :commands (elfeed-org
-               rmh-elfeed-org-process)
-    :custom
-    (rmh-elfeed-org-files (list (locate-user-emacs-file "feeds.org")))
-    :init
-    ;; We do it like this because we need this lazy loaded, but called
-    ;; *before* `elfeed' is called
-    (with-eval-after-load 'elfeed
-      (elfeed-org))
-    :init
-    (defun reload-rss-feed-file ()
-      (interactive)
-      (rmh-elfeed-org-process rmh-elfeed-org-files rmh-elfeed-org-tree-id)))
-#+end_src
-
-** Elfeed goodies
-#+begin_src emacs-lisp :results output silent
-  ;; (use-package elfeed-goodies
-  ;;   :straight (:host github :repo "algernon/elfeed-goodies")
-  ;;   :after elfeed
-  ;;   :general
-  ;;   (elfeed-show-mode-map
-  ;;    :states 'normal
-  ;;    "f" 'elfeed-goodies/show-ace-link
-  ;;    "F" 'elfeed-goodies/show-ace-link)
-  ;;   :custom
-  ;;   (elfeed-goodies/entry-pane-position 'bottom))
-  ;; ;; :config
-  ;; ;; (elfeed-goodies/setup)
-  ;; ;; (remove-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title))
-#+end_src
-
-** Elfeed Score
-#+begin_src emacs-lisp :results output silent
-  (use-package elfeed-score
-    :straight t
-    :after elfeed
-    :config (elfeed-score-enable))
-#+end_src
-
-** Elfeed Dashboard
-#+begin_src emacs-lisp :results output silent
-  (use-package elfeed-dashboard
-    :after elfeed
-    :straight t)
-#+end_src
-
 * Info mode
 #+begin_src emacs-lisp :results output silent
-  ;; (general-define-key
-  ;;  :keymaps 'Info-mode-map
-  ;;   "f" 'ace-link-info
-  ;;   "F" 'ace-link-info)
   (general-define-key
    :keymaps 'Info-mode-map
    :states 'normal
    "f" 'link-hint-open-link
    "]]" 'Info-next
    "[[" 'Info-prev)
-#+end_src
-
-* Eww
-#+begin_src emacs-lisp :results output silent
-  ;; TODO: fix `eww-form-submit' face
-  (use-package eww
-    :commands (eww)
-    :general
-    (:keymaps 'eww-mode-map
-     :states '(normal)
-     "f" 'ace-link-eww
-     "F" 'ace-link-eww
-     "g t" nil)
-    :init
-    (evil-define-command --eww-ex-command (beg end _type)
-      (interactive "<v>")
-      (require 'eww)
-      (if-let ((url (buffer-substring beg end)))
-          (eww url)
-        (eww)))
-    (evil-ex-define-cmd "eww" '--eww-ex-command)
-    :config
-    (unless (display-graphic-p)
-      (customize-set-variable 'browse-url-browser-function 'eww-browse-url)))
-#+end_src
-* Hl Block Mode
-Wait a bit for the code to mature.
-
-#+begin_src emacs-lisp :results output silent
-  (use-package hl-block-mode
-    :disabled t
-    :straight (:host github :repo "ideasman42/emacs-hl-block-mode"))
 #+end_src
 
 * Alert
@@ -3908,74 +2758,6 @@ now becomes too noisy.
     :commands sound-wav-play)
 #+end_src
 
-* ctags
-#+begin_src emacs-lisp :results output silent
-  (use-package ctags-update
-    :straight (:host github :repo "jixiuf/ctags-update")
-    :disabled t
-    :hook
-    (prog-mode-hook . turn-on-ctags-auto-update-mode)
-    :commands (ctags-global-update-mode
-               ctags-update
-               turn-on-ctags-auto-update-mode))
-#+end_src
-
-* Seml-mode
-#+begin_src emacs-lisp :results output silent
-  (use-package seml-mode
-    :defer 20
-    ;; :straight (:host github :repo "conao3/seml-mode.el"))
-    :straight t)
-#+end_src
-
-* Annotations
-Might be better done as an ex mode command or something.
-
-This is a very finnicky package
-
-#+begin_src emacs-lisp :results output silent
-  (use-package annotate
-    :disabled t
-    ;; :straight (:host github :repo "bastibe/annotate.el")
-    :straight t
-    :commands (annotate-save-annotations)
-    :custom-face
-    (annotate-highlight ((t (:box (:line-width -1)))))
-    :custom
-    (annotate-summary-ask-query nil)
-    (annotate-annotation-position-policy :by-length)
-    (annotate-use-echo-area nil)
-    :hook
-    (after-save-hook . annotate-save-annotations)
-    :general
-    (:states '(normal visual)
-     :prefix my-default-evil-leader-key
-                                          ;; "r" for "remember"
-     "r r" 'annotate-annotate
-     "r m" 'annotate-mode
-     "r s" 'annotate-show-annotation-summary)
-    (:states '(normal)
-     "[ r" 'annotate-goto-previous-annotation
-     "] r" 'annotate-goto-next-annotation))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (use-package annot
-    :disabled t ;; trying out annotate.el instead
-    :straight (:host github :repo "ghoshi/annot"
-               :files (:defaults "src/annot.el"))
-    :general
-    (:keymaps '(normal visual)
-     :prefix my-default-evil-leader-key
-     "//" 'annot-edit/add
-     "/d" 'annot-remove)
-    (:keymaps 'normal
-     :prefix my-default-evil-leader-key
-     "/n" 'annot-goto-next
-     "/N" 'annot-goto-previous
-     "/c" 'annot-to-comment))
-#+end_src
-
 * Flycheck
 #+begin_src emacs-lisp :results output silent
   (use-package flycheck
@@ -3997,31 +2779,7 @@ This is a very finnicky package
     (prog-mode-hook . global-flycheck-mode))
 #+end_src
 
-** Flycheck Inline
-#+begin_src emacs-lisp :results output silent
-  (use-package flycheck-inline
-    :straight t
-    :disabled t ;; it's annoying on small screens
-    :hook
-    (flycheck-mode-hook . flycheck-inline-mode))
-#+end_src
-
 * Language Server Protocol (LSP)
-
-** eglot
-#+begin_src emacs-lisp :results output silent
-  (use-package eglot
-    :straight (:host github :repo "joaotavora/eglot")
-    :commands (eglot eglot-ensure)
-    :general
-    (eglot-mode-map
-     :states '(normal visual)
-     "K" nil
-     "M-K" 'eldoc-doc-buffer))
-    ;; :hook
-    ;; ((c-mode-hook . eglot-ensure)
-    ;;  (c++-mode-hook . eglot-ensure)))
-#+end_src
 
 ** lsp-mode
 #+begin_src emacs-lisp :results output silent
@@ -4088,17 +2846,6 @@ snippet is a patch provided in the thread.
                  :character (lsp--column))))))
 #+end_src
 
-*** Debug Adapter Mode (dap-mode)
-#+begin_src emacs-lisp :results output silent
-  (use-package dap-mode
-    :after lsp-mode
-    :straight t
-    :commands (dap-debug)
-    :hook
-    (dap-stopped-hook . (lambda (arg)
-                          (call-interactively #'dap-hydra))))
-#+end_src
-
 * Code Folding (Origami)
 #+begin_src emacs-lisp :results output silent
   (use-package origami
@@ -4156,13 +2903,6 @@ file will not itself be encrypted.
   (org-babel-do-load-languages 'org-babel-load-languages
                                (add-to-list 'org-babel-load-languages '(plantuml . t)))
 #+end_src
-* Hex conversion
-#+begin_src emacs-lisp :results output silent
-  (use-package 0xc
-    :straight (:host github :repo "AdamNiederer/0xc")
-    :commands (0xc-convert
-               0xc-convert-point))
-#+end_src
 
 * Edn format
 This is closer to the json serialization/deserialization module.
@@ -4172,38 +2912,6 @@ This is closer to the json serialization/deserialization module.
     :straight (:host github :repo "expez/edn.el")
     :commands (edn-read
                edn-print-string))
-#+end_src
-
-* Novel reading
-#+begin_src emacs-lisp :results output silent
-  (use-package nov
-    :straight (:host github :repo "wasamasa/nov.el")
-    :mode ("\\.epub\\'" . nov-mode))
-#+end_src
-* Glasses-mode
-Converts between camelCase and snake_case visually, without changing
-the underlying format
-* Hexl-mode
-
-* todotxt
-#+begin_src emacs-lisp :results output silent
-  (use-package todotxt
-    :straight t
-    :commands todotxt
-    :config
-    (add-to-list 'evil-motion-state-modes 'todotxt-mode))
-#+end_src
-
-* COMMENT Smerge vimdiff bindings
-Not using this because we're going to try ediff
-#+begin_src emacs-lisp :results output silent
-  (general-define-key
-   :states '(normal motion)
-   :keymaps 'smerge-mode-map
-    "dp" 'smerge-keep-lower
-    "do" 'smerge-keep-upper
-    "[c" 'smerge-next
-    "]c" 'smerge-prev)
 #+end_src
 
 * Search Engine Mode
@@ -4235,187 +2943,6 @@ Not using this because we're going to try ediff
      "K" '--ddg-search))
 #+end_src
 
-* Lorem Ipsum
-#+begin_src emacs-lisp :results output silent
-  (use-package lorem-ipsum
-    :straight t
-    :commands
-    (lorem-ipsum-insert-paragraphs
-     lorem-ipsum-insert-sentences
-     lorem-ipsum-insert-list)
-    :init
-    ;; stolen from
-    ;; https://github.com/alphapapa/unpackaged.el#obfuscate-buffer-text-with-lorem-ipsum-words
-    ;; and slightly modified to accomodate textobjects
-    ;;;###autoload
-    (evil-define-command loremify (beg end)
-      "Overlay all text in current buffer with \"lorem ipsum\" text.
-      When called again, remove overlays.  Useful for taking
-      screenshots without revealing buffer contents."
-      (interactive "<r>")
-      (require 'lorem-ipsum)
-      (let* ((min (if beg beg (point-min)))
-             (max (if end end (point-max)))
-             (ovs (overlays-in min max)))
-        (if (cl-loop for ov in ovs
-                     thereis (overlay-get ov :lorem-ipsum-overlay))
-            ;; Remove overlays.
-            (dolist (ov ovs)
-              (when (overlay-get ov :lorem-ipsum-overlay)
-                (delete-overlay ov)))
-          ;; Add overlays.
-          (let ((lorem-ipsum-words (--> lorem-ipsum-text
-                                        -flatten (apply #'concat it)
-                                        (split-string it (rx (or space punct)) 'omit-nulls)))
-                (case-fold-search nil))
-            (cl-labels ((overlay-match ()
-                                       (let* ((beg (match-beginning 0))
-                                              (end (match-end 0))
-                                              (replacement-word (lorem-word (match-string 0)))
-                                              (ov (make-overlay beg end)))
-                                         (when replacement-word
-                                           (overlay-put ov :lorem-ipsum-overlay t)
-                                           (overlay-put ov 'display replacement-word))))
-                        (lorem-word (word)
-                                    (let* ((length (length word)))
-                                      (cl-loop for liw in lorem-ipsum-words
-                                               when (= length (length liw))
-                                               collect liw into matches
-                                               finally return
-                                               (when matches
-                                                 (apply-case word (downcase (seq-random-elt matches)))))))
-                        (apply-case (source target)
-                                    (cl-loop for sc across-ref source
-                                             for tc across-ref target
-                                             when (not (string-match-p (rx lower) (char-to-string sc)))
-                                             do (setf tc (string-to-char (upcase (char-to-string tc)))))
-                                    target))
-              (save-excursion
-                (goto-char min)
-                (while (re-search-forward (rx (1+ alpha)) max t)
-                  (overlay-match)))))))))
-#+end_src
-
-* Pomodoro
-** Pomidor
-#+begin_src emacs-lisp :results output silent
-  (use-package pomidor
-    :straight (:host github :repo "TatriX/pomidor")
-    :commands pomidor
-    :general
-    (pomidor-mode-map
-     :states '(visual normal motion)
-      "RET" 'pomidor-stop
-      "SPC" 'pomidor-break)
-    :custom-face
-    (pomidor-break-face ((t (:inherit 'font-lock-function-name-face))))
-    :custom
-    (pomidor-sound-tick nil)
-    (pomidor-sound-tack nil)
-    (pomidor-sound-overwork
-     (expand-file-name (locate-user-emacs-file "notification1.wav")))
-    (pomidor-sound-break-over
-     (expand-file-name (locate-user-emacs-file "notification2.wav")))
-    :init
-    (evil-ex-define-cmd "pomo[doro]" 'pomidor))
-#+end_src
-
-** Org pomodoro
-:LOGBOOK:
-CLOCK: [2019-05-06 Mon 14:02]--[2019-05-06 Mon 14:27] =>  0:25
-:END:
-
-=mode-line-misc-info= is where the pomodoro is placed.
-
-It is behind =mode-line-modes= and if we want the pomodoro to be
-infront, we need to alter it there
-
-I think we should put =mode-line-format= just behind =evil-mode-line-tag=,
-or (vc-mode)
-
-We can use the following to insert =org-pomodoro-mode-line= at
-whereever we like on the modeline.
-
-The string seems to be inserted into the modeline once, and then set
-to an empty string when not in use (it so appears anyway).
-
-We can override the insertion checks everytime =org-pomodoro-start= is
-called, and it should work anywhere.
-
-# #+begin_src emacs-lisp :eval no-export
-#   (-insert-at
-#     (-find-index (lambda (sym)
-#                    (eq sym 'evil-mode-line-tag))
-#                  mode-line-format)
-#     'org-pomodoro-mode-line mode-line-format)
-# #+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (use-package org-pomodoro
-    :disabled t ;; Not using this
-    :straight (:host github :repo "lolownia/org-pomodoro"
-               :files (:defaults ("resources/" "resources/*")))
-    :commands (org-pomodoro)
-    :custom
-    (org-pomodoro-manual-break t)
-    ;; guild wars 2 has some excellent notification sounds
-    ;; For some reason they need an absolute path
-    (org-pomodoro-overtime-sound
-     (expand-file-name (locate-user-emacs-file "notification1.wav")))
-    (org-pomodoro-short-break-sound
-     (expand-file-name (locate-user-emacs-file "notification2.wav")))
-    (org-pomodoro-long-break-sound
-     (expand-file-name (locate-user-emacs-file "notification3.wav")))
-    (org-pomodoro-finished-sound nil)
-    :init
-    (evil-define-command my-pomodoro-start (&optional arg)
-      "Starts a pomodoro with the current headline, or the last pomodoro
-  if ! is provided."
-      (interactive "<!>")
-      (let ((prev_clock (when arg '(16))))
-        (org-pomodoro prev_clock)))
-    (evil-ex-define-cmd "do" 'my-pomodoro-start)
-    (evil-ex-define-cmd "done"
-                        #'(lambda () (interactive)
-                            (require 'org-pomodoro)
-                            (cond
-                             ((equal org-pomodoro-state :overtime)
-                              (org-pomodoro))
-                             ((org-pomodoro-active-p)
-                              (org-pomodoro-kill)))))
-    :config
-    (customize-set-variable
-     'mode-line-format
-     (list "%e" mode-line-front-space mode-line-mule-info
-           mode-line-client mode-line-modified mode-line-auto-compile
-           mode-line-remote mode-line-frame-identification
-           mode-line-buffer-identification " " mode-line-position
-           evil-mode-line-tag mode-line-misc-info '(vc-mode vc-mode) " "
-           mode-line-modes mode-line-end-spaces)))
-  ;; :config
-  ;;   (advice-add 'org-pomodoro-start
-  ;;               :after
-  ;;               #'(lambda (&rest _)
-  ;;                   "Attempt to make the modeline come first, instead of
-  ;; behind the minor modes"
-  ;;                   (when (and global-mode-string
-  ;;                              (memq 'org-pomodoro-mode-line
-  ;;                                    global-mode-string))
-  ;;                     (delq 'org-pomodoro-mode-line global-mode-string)
-  ;;                     (setq global-mode-string
-  ;;                           (append '(org-pomodoro-mode-line)
-  ;;                                   global-mode-string)))))
-#+end_src
-
-
-Note that =customize-set-variable= is like =setq-default=.
-* Smooth Scrolling
-#+begin_src emacs-lisp :results output silent
-  (use-package smooth-scrolling
-    :straight (:host github :repo "aspiers/smooth-scrolling")
-    :commands smooth-scrolling-mode)
-#+end_src
-
 * Link hinting
 #+begin_src emacs-lisp :results output silent
   (use-package link-hint
@@ -4436,13 +2963,6 @@ Note that =customize-set-variable= is like =setq-default=.
     (:states 'normal
      :prefix my-default-evil-leader-key
      "|" 'highlight-indent-guides-mode))
-#+end_src
-
-* EditorConfig
-#+begin_src emacs-lisp :results output silent
-  (use-package editorconfig
-    :hook
-    (prog-mode-hook . editorconfig-mode))
 #+end_src
 
 * Web mode
@@ -4476,46 +2996,9 @@ Note that =customize-set-variable= is like =setq-default=.
      "g *" 'fill-function-arguments-dwim))
 #+end_src
 
-* Spotify (now Smudge)
-#+begin_src emacs-lisp :results output silent
-  (use-package smudge
-    :straight (:host github :repo "danielfm/smudge")
-    :if (and (bound-and-true-p --spotify-oauth2-client-id)
-             (bound-and-true-p --spotify-oauth2-client-secret))
-    :custom
-    (smudge-oauth2-client-id --spotify-oauth2-client-id)
-    (smudge-oauth2-client-secret --spotify-oauth2-client-secret)
-    :init
-    (defhydra hydra-spotify (:hint nil)
-      "
-  ^Search^                  ^Control^               ^Manage^
-  ^^^^^^^^-----------------------------------------------------------------
-  _t_: Track               _SPC_: Play/Pause        _+_: Volume up
-  _m_: My Playlists        _n_  : Next Track        _-_: Volume down
-  _f_: Featured Playlists  _p_  : Previous Track    _x_: Mute
-  _u_: User Playlists      _r_  : Repeat            _d_: Device
-  ^^                       _s_  : Shuffle           _q_: Quit"
-      ("t" smudge-track-search :exit t)
-      ("m" smudge-my-playlists :exit t)
-      ("f" smudge-featured-playlists :exit t)
-      ("u" smudge-user-playlists :exit t)
-      ("SPC" smudge-controller-toggle-play :exit nil)
-      ("n" smudge-controller-next-track :exit nil)
-      ("p" smudge-controller-previous-track :exit nil)
-      ("r" smudge-controller-toggle-repeat :exit nil)
-      ("s" smudge-controller-toggle-shuffle :exit nil)
-      ("+" smudge-controller-volume-up :exit nil)
-      ("-" smudge-controller-volume-down :exit nil)
-      ("x" smudge-controller-volume-mute-unmute :exit nil)
-      ("d" smudge-select-device :exit nil)
-      ("q" quit-window "quit" :color blue))
-    (evil-ex-define-cmd "mu[sic]" #'hydra-spotify/body))
-#+end_src
-
 * Tree Sitter
 #+begin_src emacs-lisp :results output silent
   (use-package tree-sitter
-    :if (not (featurep 'treesit)) ;; emacs builtin tree-sitter
     :hook ((tree-sitter-after-on-hook . tree-sitter-hl-mode))
     :custom-face
     (tree-sitter-hl-face:type.builtin ((t (:inherit 'tree-sitter-hl-face:keyword))))
@@ -4526,7 +3009,6 @@ Note that =customize-set-variable= is like =setq-default=.
 ** Text objects
 #+begin_src emacs-lisp :results output silent
   (use-package evil-textobj-tree-sitter
-    :if (not (featurep 'treesit)) ;; emacs builtin tree-sitter
     :straight (:host github
                :repo "meain/evil-textobj-tree-sitter"
                :files (:defaults "queries"))
@@ -4552,40 +3034,6 @@ Just do the scratch buffer simple and stupidly
                                       (warn "tab-bar not available"))))
 #+end_src
 
-* Compiler Explorer
-#+begin_src emacs-lisp :results output silent
-  (use-package compiler-explorer
-    :straight (:host github :repo "mkcms/compiler-explorer.el")
-    :commands (compiler-explorer))
-#+end_src
-
-** RMSBolt
-#+begin_src emacs-lisp :results output silent
-  (use-package rmsbolt
-    :straight t
-    :commands (rmsbolt))
-#+end_src
-
-* Emacs-sourcetrail
-#+begin_src emacs-lisp :results output silent
-  (use-package emacs-sourcetrail
-    :straight (:host github :repo "CoatiSoftware/emacs-sourcetrail")
-    :init
-    (defun my-sourcetrail-adjust-point ()
-      "`sourcetrail-send-location' needs the point to be at the end of
-  the symbol being sent. Otherwise it'll somehow link to the file
-  instead."
-      (interactive)
-      (save-excursion
-        (end-of-thing 'word)
-        (sourcetrail-send-location)))
-    :general
-    (:states '(normal visual)
-     "C-?" 'my-sourcetrail-adjust-point)
-    :config
-    (sourcetrail-mode))
-#+end_src
-
 * Macrostep
 #+begin_src emacs-lisp :results output silent
   (use-package macrostep
@@ -4598,16 +3046,6 @@ Just do the scratch buffer simple and stupidly
   (use-package buttercup
     :straight t
     :defer t) ;; uncomment when we actually need this
-#+end_src
-
-* Typit
-#+begin_src emacs-lisp :results output silent
-  (use-package typit
-    :straight t
-    :commands
-    (typit-basic-test
-     typit-advanced-test
-     typit-test))
 #+end_src
 
 * Compilation Mode
@@ -4758,35 +3196,6 @@ Just do the scratch buffer simple and stupidly
     :straight t)
 #+end_src
 
-* Calibre
-#+begin_src emacs-lisp :results output silent
-  (use-package calibredb
-    :straight t
-    :commands (calibredb))
-#+end_src
-
-* devdocs
-#+begin_src emacs-lisp :results output silent
-  (use-package devdocs
-    :straight (:host github :repo "blahgeek/emacs-devdocs-browser")
-    :commands
-    (devdocs-browser-open
-     devdocs-browser-open-in
-     devdocs-browser-list-docs
-     devdocs-browser-update-docs
-     devdocs-browser-install-doc
-     devdocs-browser-uninstall-doc
-     devdocs-browser-upgrade-doc
-     devdocs-browser-download-offline-data
-     devdocs-browser-remove-offline-data)
-    :custom
-    (evil-lookup-func #'devdocs-browser-open)
-    :init
-    (evil-ex-define-cmd "devdocs" 'devdocs-browser-open)
-    (evil-ex-define-cmd "docs" 'devdocs-browser-open)
-    (evil-ex-define-cmd "kk" 'devdocs-browser-open))
-#+end_src
-
 * Evaluation Result Overlay for Emacs Lisp
 #+begin_src emacs-lisp :results output silent
   (use-package eros
@@ -4807,17 +3216,6 @@ Just do the scratch buffer simple and stupidly
     :straight t
     :config
     (decide-mode))
-#+end_src
-
-* Fancy-dabbrev
-Not sure if this is an actually useful package. I'm not sure if I or
-the packages I run use dabbrev at all.
-
-#+begin_src emacs-lisp :results output silent
-  (use-package fancy-dabbrev
-    :straight t
-    :config
-    (fancy-dabbrev-mode))
 #+end_src
 
 * Topsy
@@ -4858,20 +3256,6 @@ https://github.com/Silex/docker.el
     :straight t)
 #+end_src
 
-* Speed type
-#+begin_src emacs-lisp :results output silent
-  (use-package speed-type
-    :straight t
-    :commands speed-type-text)
-#+end_src
-
-* Secret mode
-#+begin_src emacs-lisp :results output silent
-  (use-package secret-mode
-    :straight (:host github :repo "bkaestner/secret-mode.el")
-    :commands secret-mode)
-#+end_src
-
 * mmm-mode
 #+begin_src emacs-lisp :results output silent
   (use-package mmm-mode
@@ -4883,16 +3267,6 @@ https://github.com/Silex/docker.el
 * Proced
 #+begin_src emacs-lisp :results output silent
   (evil-ex-define-cmd "ps" 'proced)
-#+end_src
-
-* code-review
-#+begin_src emacs-lisp :results output silent
-  (use-package code-review
-    :straight (:host github :repo "wandersoncferreira/code-review")
-    :commands (code-review-start
-               code-review-forge-pr-at-point)
-    :config
-    (add-to-list 'evil-motion-state-modes 'code-review-mode))
 #+end_src
 
 * ObjC
@@ -4949,6 +3323,7 @@ https://github.com/akermu/emacs-libvterm
 
 #+begin_src emacs-lisp :results output silent
   (use-package vterm
+    :if (not (eq system-type 'windows-nt))
     :straight t
     :custom
     (vterm-max-scrollback 100000 "maximum allowed without recompilation")
@@ -4999,11 +3374,6 @@ https://github.com/akermu/emacs-libvterm
     :straight t
     :mode ("\\.swift\\'" . swift-mode))
 #+end_src
-* Per-buffer idle saving
-#+begin_src emacs-lisp :results output silent
-  (use-package salv
-    :straight (:host github :repo "alphapapa/salv.el"))
-#+end_src
 
 * Shortdoc
 #+begin_src emacs-lisp :results output silent
@@ -5015,21 +3385,6 @@ https://github.com/akermu/emacs-libvterm
 #+begin_src emacs-lisp :results output silent
   (use-package dwim-shell-command
     :straight (:host github :repo "xenodium/dwim-shell-command"))
-#+end_src
-
-* Visual-Fill-Column-Mode
-#+begin_src emacs-lisp :results output silent
-  (use-package visual-fill-column
-    :straight (:branch "main"))
-#+end_src
-
-* Env from Shell
-#+begin_src emacs-lisp :results output silent
-  (use-package exec-path-from-shell
-    :straight t
-    :config
-    (when (daemonp)
-      (exec-path-from-shell-initialize)))
 #+end_src
 
 * Deft (electric boogaloo)

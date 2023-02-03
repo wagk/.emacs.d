@@ -54,9 +54,6 @@
     "C-u" 'evil-delete-whole-line)
   (:keymaps 'normal
     "g C-u" 'universal-argument
-    ;; try eyebrowse instead
-    ;; "gt"     '(lambda () (interactive) (other-frame 1))
-    ;; "gT"     '(lambda () (interactive) (other-frame -1))
     "g a" 'describe-char
     "g o" 'ff-find-other-file
     "g O" 'ff-find-other-file-other-window)
@@ -116,12 +113,6 @@
     (require 'evil)
     (customize-set-variable 'evil-shift-width lisp-body-indent))
 
-  (define-advice evil-ex-define-cmd
-      (:before-while (_name cmd) --does-cmd-have-interactive-clause)
-    (unless (commandp cmd)
-      (warn "evil-ex-define-cmd only accepts commands. Are you missing an `interactive' form?"))
-    (commandp cmd))
-
   ;; Back to our regularly scheduled programming
   (evil-select-search-module 'evil-search-module 'evil-search)
 
@@ -170,11 +161,8 @@
 
   (defun my-new-cmd-tab (dest)
     (interactive)
-    (if (>= emacs-major-version 27)
-        (let ((tab-bar-new-tab-choice dest))
-          (tab-bar-new-tab))
-      (require 'eyebrowse)
-      (funcall-interactively 'my-new-evil-tab dest)))
+    (let ((tab-bar-new-tab-choice dest))
+      (tab-bar-new-tab)))
 
   (my-evil-define-split-vsplit-cmd "init" 'find-user-init-file)
   (evil-ex-define-cmd "Tinit" #'(lambda ()
