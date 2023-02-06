@@ -375,8 +375,7 @@
    "e" 'dired-toggle-read-only ; similar interface to wgrep
    "i" nil ; unbind the original binding
    "Y" #'(lambda () (interactive)
-	       (dired-copy-filename-as-kill 0)) ;; absolute paths
-   "+" 'project-find-file) ; don't block org-projectile
+	       (dired-copy-filename-as-kill 0)))
   :init
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "Ex[plore]" 'dired-jump)
