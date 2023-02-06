@@ -79,7 +79,7 @@ make install
 ## Emacs-Plus
 on macos (here the M1 specifically) [issue](https://github.com/d12frosted/homebrew-emacs-plus/issues/485#issuecomment-1230545946)
 ```
-brew uninstall emacs-plus
+brew uninstall emacs-plus # optional, anecdotally
 LIBRARY_PATH="$(brew --prefix)/lib" brew install --debug -v emacs-plus@30 --with-mailutils --with-imagemagick --with-native-comp --with-xwidgets --with-poll
 ```
 
