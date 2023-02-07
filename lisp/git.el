@@ -45,7 +45,8 @@
              magit-commit)
   :defer 15
   :custom
-  (magit-blame-echo-style 'lines)
+  (magit-blame-echo-style 'headings)
+  (magit-blame-read-only t)
   (magit-log-auto-more t)
   (magit-wip-mode nil
                   "It does get pretty laggy since we're making 3+
@@ -67,13 +68,13 @@
     (cond
      ((eq cmd nil) (magit-status))
      (t (magit-shell-command (concat "git " cmd)))))
-  (evil-ex-define-cmd "git" 'ex-magit-cli)
-  (evil-ex-define-cmd "gg" 'ex-magit-cli)
+  (evil-ex-define-cmd "gF" 'magit-pull)
   (evil-ex-define-cmd "gb" 'magit-branch)
-  (evil-ex-define-cmd "gbl[ame]" 'magit-blame-echo)
   (evil-ex-define-cmd "gc" 'magit-commit)
   (evil-ex-define-cmd "gf" 'magit-fetch)
-  (evil-ex-define-cmd "gF" 'magit-pull)
+  (evil-ex-define-cmd "gg" 'ex-magit-cli)
+  (evil-ex-define-cmd "git" 'ex-magit-cli)
+  (evil-ex-define-cmd "gl" 'magit-blame)
   (evil-ex-define-cmd "gp" 'magit-push)
   (evil-ex-define-cmd "gz" 'magit-stash)
   :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)

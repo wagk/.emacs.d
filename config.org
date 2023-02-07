@@ -816,11 +816,6 @@ for the specific hook.
     (pixel-scroll-precision-mode))
 #+end_src
 
-** Hotkeys for =vc-annotate-mode=
-#+begin_src emacs-lisp :results output silent
-  (evil-ex-define-cmd "gl" 'vc-annotate)
-#+end_src
-
 ** Detailed Completions
 #+begin_src emacs-lisp :results output silent
   (customize-set-value 'completions-detailed t)
