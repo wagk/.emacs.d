@@ -7,6 +7,7 @@
 (require 'org-capture)
 
 (when (and (bound-and-true-p --done-file) (f-exists-p --done-file))
+  (message "Configuring donefile")
   (my-evil-define-split-vsplit-cmd "done[file]" #'(lambda () (interactive) (find-file --done-file)))
   (with-eval-after-load 'doct
     (setq org-capture-templates
@@ -26,6 +27,7 @@
                           (end-of-buffer))))))))
 
 (when (and (bound-and-true-p --todo-file) (f-exists-p --todo-file))
+  (message "Configuring todofile")
   (my-evil-define-split-vsplit-cmd "todo[file]" #'(lambda () (interactive) (find-file --todo-file)))
   (with-eval-after-load 'doct
     (setq org-capture-templates
