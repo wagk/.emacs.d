@@ -182,6 +182,10 @@
   (my-evil-define-split-vsplit-cmd "me[ssage]"
                                     #'(lambda ()
                                         (switch-to-buffer "*Messages*")))
+  (my-evil-define-split-vsplit-cmd "lisp" '--select-config-lisp-file)
+  (evil-ex-define-cmd "Tlisp" #'(lambda () (interactive)
+                                  (let ((tab-bar-new-tab-choice (--select-config-lisp-file-name)))
+                                    (tab-bar-new-tab))))
   ;; (my-evil-define-split-vsplit-cmd "sc[ratch]"
   ;;                                  #'(lambda ()
   ;;                                      (switch-to-buffer "*scratch*")))

@@ -391,6 +391,22 @@
                                            (my-evil-new-tab nil))
                                          (dired-jump)))))
 
+(defun --select-config-lisp-file-name ()
+  "Open a file from `.emacs.d/lisp'."
+  (interactive)
+  (require 'f)
+  (require 'dash)
+  (--completing-read "file: "
+                     (-> (locate-user-emacs-file "lisp")
+                         directory-files)
+                     :require-match t
+                     :predicate
+                     (lambda (file) (f-ext-p file "el"))))
+
+(defun --select-config-lisp-file ()
+  (interactive)
+  (find-file (locate-user-emacs-file (f-join "lisp" (--select-config-lisp-file-name)))))
+
 (load-file (locate-user-emacs-file "lisp/helpers.el"))
 (load-file (locate-user-emacs-file "lisp/evil.el"))
 (load-file (locate-user-emacs-file "lisp/org.el"))
