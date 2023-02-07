@@ -3313,6 +3313,21 @@ https://github.com/Silex/docker.el
     :after svg-lib)
 #+end_src
 
+* Term
+** Multi-Term
+#+begin_src emacs-lisp :results output silent
+  (use-package multi-term
+    :straight t
+    :if (not (featurep 'vterm) (featurep 'multi-vterm))
+    :commands
+    (multi-term)
+    :init
+    (with-eval-after-load 'project
+     (general-define-key
+      :keymaps 'project-prefix-map
+      "s" #'multi-term)))
+#+end_src
+
 * Vterm
 https://github.com/akermu/emacs-libvterm
 
@@ -3339,21 +3354,6 @@ https://github.com/akermu/emacs-libvterm
      "s" 'multi-vterm-project) ;; overrides `project-shell'
     :init
     (evil-ex-define-cmd "term" #'multi-vterm))
-#+end_src
-
-* Term
-** Multi-Term
-#+begin_src emacs-lisp :results output silent
-  (use-package multi-term
-    :straight t
-    :if (not (featurep 'multi-vterm))
-    :commands
-    (multi-term)
-    :init
-    (with-eval-after-load 'project
-     (general-define-key
-      :keymaps 'project-prefix-map
-      "s" #'multi-term)))
 #+end_src
 
 * Kotlin Mode
