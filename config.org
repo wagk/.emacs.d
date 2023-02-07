@@ -3318,7 +3318,7 @@ https://github.com/Silex/docker.el
 #+begin_src emacs-lisp :results output silent
   (use-package multi-term
     :straight t
-    :if (not (featurep 'vterm) (featurep 'multi-vterm))
+    :if (not (or (featurep 'vterm) (featurep 'multi-vterm)))
     :commands
     (multi-term)
     :init
