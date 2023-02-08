@@ -2722,37 +2722,6 @@ Or evil-spongebob if you want to think of it that way.
    "[[" 'Info-prev)
 #+end_src
 
-* Alert
-with =org-pomodoro= playing sounds now (pleasant ones), using the fringe
-now becomes too noisy.
-
-#+begin_src emacs-lisp :results output silent
-  (use-package alert
-    ;; :straight (:host github :repo "jwiegley/alert" :flavor melpa)
-    :straight t
-    :commands alert)
-  ;; :custom
-  ;; (alert-default-style 'fringe))
-#+end_src
-
-** Windows Alert Toast
-#+begin_src emacs-lisp :results output silent
-  (use-package alert-toast
-    :straight (:host github :repo "gkowzan/alert-toast")
-    :if (eq system-type 'windows-nt)
-    :after alert)
-#+end_src
-
-* Sound-wav
-=sound-wav= is used for =org-pomodoro=.
-
-#+begin_src emacs-lisp :results output silent
-  (use-package sound-wav
-    ;; :straight (:host github :repo "syohex/emacs-sound-wav")
-    :straight t
-    :commands sound-wav-play)
-#+end_src
-
 * Flycheck
 #+begin_src emacs-lisp :results output silent
   (use-package flycheck
@@ -3211,12 +3180,6 @@ Just do the scratch buffer simple and stupidly
     :straight t
     :config
     (decide-mode))
-#+end_src
-
-* Topsy
-#+begin_src emacs-lisp :results output silent
-  (use-package topsy
-    :straight (:host github :repo "alphapapa/topsy.el"))
 #+end_src
 
 * HCL-mode
