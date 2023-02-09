@@ -1833,14 +1833,11 @@ rename the extension to =.so=:
     (:states 'motion
      "g p" 'parinfer-rust-toggle-paren-mode)
     :custom
-    (parinfer-rust-auto-download t))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-  (add-hook 'emacs-lisp-mode-hook #'parinfer-rust-mode)
-  (add-hook 'racket-mode-hook #'parinfer-rust-mode)
-  (add-hook 'clojure-mode-hook #'parinfer-rust-mode)
-  (add-hook 'hy-mode-hook #'parinfer-rust-mode)
+    (parinfer-rust-auto-download t)
+    :hook ((emacs-lisp-mode-hook . parinfer-rust-mode)
+           (racket-mode-hook . parinfer-rust-mode)
+           (clojure-mode-hook . parinfer-rust-mode)
+           (hy-mode-hook . parinfer-rust-mode)))
 #+end_src
 
 ** Prism mode
