@@ -1,3 +1,4 @@
-(setq quail-japanese-use-double-n t)
+(setq quail-japanese-use-double-n t
+      default-input-method "japanese")
 
 (provide 'config::japanese)
