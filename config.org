@@ -267,18 +267,6 @@ Solarized)
     (set-frame-parameter (selected-frame) 'alpha value))
 #+end_src
 
-** Highlight line
-#+begin_src emacs-lisp :results output silent
-  ;; (when (display-graphic-p)
-  ;;  (global-hl-line-mode))
-#+end_src
-
-** Default input method
-We're sticking to Japanese for now
-#+begin_src emacs-lisp :results output silent
-  (setq default-input-method "japanese")
-#+end_src
-
 ** Recent files
 #+begin_src emacs-lisp :results output silent
   (use-package recentf
@@ -289,13 +277,6 @@ We're sticking to Japanese for now
     (recentf-mode)
     (with-eval-after-load 'consult
       (evil-ex-define-cmd "recent" 'consult-recent-file)))
-#+end_src
-
-** Display Fill Column Indicator
-#+begin_src emacs-lisp :results output silent
-  (add-hook 'prog-mode-hook
-            #'(lambda ()
-               (display-fill-column-indicator-mode 'toggle)))
 #+end_src
 
 ** Disable GUI Elements
