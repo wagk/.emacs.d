@@ -401,19 +401,29 @@
                          directory-files)
                      :require-match t
                      :predicate
-                     (lambda (file) (f-ext-p file "el"))))
+                     (lambda (file)
+                       (-any (lambda (e) (f-ext-p file e))
+                             '("el" "org")))))
 
 (defun --select-config-lisp-file ()
   (interactive)
   (find-file (locate-user-emacs-file (f-join "lisp" (--select-config-lisp-file-name)))))
 
-(load-file (locate-user-emacs-file "lisp/helpers.el"))
-(load-file (locate-user-emacs-file "lisp/evil.el"))
-(load-file (locate-user-emacs-file "lisp/org.el"))
-(load-file (locate-user-emacs-file "lisp/org-capture-templates.el"))
-(load-file (locate-user-emacs-file "lisp/anki.el"))
-(load-file (locate-user-emacs-file "lisp/completions.el"))
-(load-file (locate-user-emacs-file "lisp/git.el"))
+(defun --load-config-lisp-files (file-list)
+  (cl-dolist (file file-list)
+    (let ((file (locate-user-emacs-file file)))
+      (cond ((f-ext-p file "el")
+             (load-file file))
+            ((f-ext-p file "org")
+             (org-babel-load-file file))))))
+
+(--load-config-lisp-files '("lisp/helpers.el"
+                            "lisp/evil.el"
+                            "lisp/org.el"
+                            "lisp/org-capture-templates.el"
+                            "lisp/anki.el"
+                            "lisp/completions.el"
+                            "lisp/git.el"))
 
 (use-package embark
   :straight t
