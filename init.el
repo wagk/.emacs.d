@@ -412,9 +412,9 @@
 (defun --load-config-lisp-files (file-list)
   (cl-dolist (file file-list)
     (let ((file (locate-user-emacs-file file)))
-      (cond ((f-ext-p file "el")
+      (cond ((string= (file-name-extension file) "el")
              (load-file file))
-            ((f-ext-p file "org")
+            ((string= (file-name-extension file) "org")
              (org-babel-load-file file))))))
 
 (--load-config-lisp-files '("lisp/helpers.el"
