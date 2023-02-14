@@ -2,7 +2,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("FIle" "File" nil :count 10)
-    ("WIth" "With" nil :count 13)
+    ("WIth" "With" nil :count 14)
     ("aand" "and" nil :count 2)
     ("aboyut" "about" nil :count 1)
     ("absolutley" "absolutely" nil :count 1)
@@ -338,7 +338,7 @@
     ("honeslty" "honestly" nil :count 1)
     ("hpapy" "happy" nil :count 1)
     ("hsit" "shit" nil :count 1)
-    ("hsould" "should" nil :count 13)
+    ("hsould" "should" nil :count 14)
     ("htat" "that" nil :count 2)
     ("hte" "the" nil :count 31)
     ("hten" "then" nil :count 1)
