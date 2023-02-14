@@ -1996,12 +1996,6 @@ Requires rust-mode and markdown-mode
     :diminish cargo-minor-mode
     :commands cargo-minor-mode
     :hook (rust-mode-hook . cargo-minor-mode))
-    ;; :init
-    ;; (evil-define-command my-cargo-wrapper (arg)
-    ;;   (interactive "<a>")
-    ;;   (cond
-    ;;    ()))
-    ;; (evil-ex-define-cmd "cargo" 'my-cargo-wrapper))
 #+end_src
 
 ** Cargo-Mode
