@@ -54,8 +54,7 @@
            '(("Add to today's diary"
               :keys "diary"
               :empty-lines 0
-              :type plain
-              :file (lambda () (f-join deft-directory (format-time-string "%F.md")))
-              :template ("# %<%F>" "%?")))))))
+              :file (lambda () (f-join --notes-folder "diary.org"))
+              :datetree t))))))
 
 (provide 'config::org-capture-templates)
