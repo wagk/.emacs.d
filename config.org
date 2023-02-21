@@ -3332,7 +3332,6 @@ Lets try that again
     ;;   lag")
     ;; enc is just what we call encrypted files. we do this so that
     ;; org-agenda-files won't try to open journal.org
-    (deft-extensions '("md") "Set the extensions for deft notes")
     (deft-recursive t "Recursively search so we can organise by folders")
     (deft-time-format "%Y-%m-%d %H%M")
     ;; (deft-ignore-file-regexp "\\(?:^$\\)")
