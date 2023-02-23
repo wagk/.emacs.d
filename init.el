@@ -390,11 +390,10 @@
                                            (my-evil-new-tab nil))
                                          (dired-jump)))))
 
-(progn
-  (let ((custom (locate-user-emacs-file "custom.el")))
-    (unless (f-exists-p custom)
-      (f-touch custom))
-    (setq custom-file custom)))
+(let ((custom (locate-user-emacs-file "custom.el")))
+  (unless (f-exists-p custom)
+    (f-touch custom))
+  (setq custom-file custom))
 
 (--load-variables-el)
 ;; Load local configuration variables, we do it here so that
