@@ -518,7 +518,7 @@
     ("ocunt" "count" nil :count 1)
     ("ocurence" "occurrence" nil :count 1)
     ("oding" "doing" nil :count 1)
-    ("odne" "done" nil :count 1)
+    ("odne" "done" nil :count 2)
     ("ofrm" "form" nil :count 1)
     ("og" "of" nil :count 3)
     ("oging" "going" nil :count 4)
