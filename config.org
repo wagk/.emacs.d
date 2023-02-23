@@ -535,7 +535,7 @@ Stolen from https://github.com/bbatsov/crux
     (customize-set-variable 'comp-async-report-warnings-errors nil))
 #+end_src
 
-** Set commands
+** Evil =Set= commands
 #+begin_src emacs-lisp :results output silent
   (evil-define-command config-ex-set-arg (cmd)
     (interactive "<a>")
@@ -550,9 +550,15 @@ Stolen from https://github.com/bbatsov/crux
                                     (visual-fill-column-mode -1)))
      ;; This isn't actually how colorcolumn worked in vi
      ;; (read :h colorcolumn)
-     ((or (string= cmd "colorcolumn")
-          (string= cmd "cc")) (display-fill-column-indicator-mode
-                               'toggle))))
+     ((or (string= cmd "column")
+          (string= cmd "colorcolumn")
+          (string= cmd "cc"))
+      (display-fill-column-indicator-mode 1))
+     ((or (string= cmd "nocolumn")
+          (string= cmd "nocolorcolumn")
+          (string= cmd "nocc"))
+      (display-fill-column-indicator-mode -1))))
+
   (evil-ex-define-cmd "set" 'config-ex-set-arg)
 #+end_src
 
