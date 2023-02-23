@@ -331,6 +331,35 @@
   (auto-compile-on-load-mode)
   (auto-compile-on-save-mode))
 
+;; https://github.com/magnars/dash.el
+(use-package dash
+  :straight t)
+
+;; https://github.com/plexus/a.el/
+;; alist functions
+(use-package a
+  :straight t)
+
+;; https://github.com/rejeep/f.el/
+;; file functions
+(use-package f
+  :straight t)
+
+;; https://github.com/magnars/s.el/
+;; string functions
+(use-package s
+  :straight t)
+
+;; https://github.com/Wilfred/ht.el/
+;; hash-table functions
+(use-package ht
+  :straight t)
+
+;; https://github.com/alphapapa/ts.el
+;; date and time functions
+(use-package ts
+  :straight t)
+
 (use-package async
   ;; :straight (:host github :repo "jwiegley/emacs-async")
   :straight t)
@@ -391,40 +420,6 @@
                                            (my-evil-new-tab nil))
                                          (dired-jump)))))
 
-(defun --select-config-lisp-file-name ()
-  "Open a file from `.emacs.d/lisp'."
-  (interactive)
-  (require 'f)
-  (require 'dash)
-  (--completing-read "file: "
-                     (-> (locate-user-emacs-file "lisp")
-                         directory-files)
-                     :require-match t
-                     :predicate
-                     (lambda (file)
-                       (-any (lambda (e) (f-ext-p file e))
-                             '("el" "org")))))
-
-(defun --select-config-lisp-file ()
-  (interactive)
-  (find-file (locate-user-emacs-file (f-join "lisp" (--select-config-lisp-file-name)))))
-
-(defun --load-config-lisp-files (file-list)
-  (cl-dolist (file file-list)
-    (let ((file (locate-user-emacs-file file)))
-      (cond ((string= (file-name-extension file) "el")
-             (load-file file))
-            ((string= (file-name-extension file) "org")
-             (org-babel-load-file file))))))
-
-(--load-config-lisp-files '("lisp/helpers.el"
-                            "lisp/evil.el"
-                            "lisp/org.el"
-                            "lisp/org-capture-templates.el"
-                            "lisp/anki.el"
-                            "lisp/completions.el"
-                            "lisp/git.el"))
-
 (use-package embark
   :straight t
   :after vertico
@@ -462,9 +457,39 @@
                   'solarized-dark)
               t))
 
-;;NOTE: Do *NOT* compile this, certain macro definitions won't get compiled
-;;and the init load will fail
-(org-babel-load-file (locate-user-emacs-file "config.org"))
+(defun --select-config-lisp-file-name ()
+  "Open a file from `.emacs.d/lisp'."
+  (interactive)
+  (require 'f)
+  (require 'dash)
+  (--completing-read "file: "
+                     (-> (locate-user-emacs-file "lisp")
+                         directory-files)
+                     :require-match t
+                     :predicate
+                     (lambda (file)
+                       (-any (lambda (e) (f-ext-p file e))
+                             '("el" "org")))))
+
+(defun --select-config-lisp-file ()
+  (interactive)
+  (find-file (locate-user-emacs-file (f-join "lisp" (--select-config-lisp-file-name)))))
+
+(defun --load-config-lisp-files (file-list)
+  (cl-dolist (file file-list)
+    (let ((file (locate-user-emacs-file file)))
+      (cond ((string= (file-name-extension file) "el")
+             (load-file file))
+            ((string= (file-name-extension file) "org")
+             (org-babel-load-file file))))))
+
+(--load-config-lisp-files '("lisp/evil.el"
+                            "lisp/org.el"
+                            "lisp/org-capture-templates.el"
+                            "lisp/anki.el"
+                            "lisp/completions.el"
+                            "lisp/git.el"
+                            "config.org"))
 
 (setq initial-scratch-message "\
 # Programmers are not to be measured by their ingenuity and their
