@@ -310,55 +310,33 @@
 (bootstrap-package)
 (bootstrap-use-package)
 
-;; (bootstrap-package)
-;; (bootstrap-straight)
-;; (bootstrap-quelpa)
-;; (my-bootstrap-el-get)
-
 (my-init-solarized-color-variables-and-other-font-things)
 
 ;; Load core configuration that I can't work without. Everything
 ;; else gets shoved into config.org except these.
 
-;; https://github.com/emacscollective/auto-compile
-(use-package auto-compile
-  :disabled t
-  :straight (:host github :repo "emacscollective/auto-compile")
-  :custom
-  (load-prefer-newer t)
-  (auto-compile-verbose t)
-  :config
-  (auto-compile-on-load-mode)
-  (auto-compile-on-save-mode))
-
 ;; https://github.com/magnars/dash.el
-(use-package dash
-  :straight t)
+(use-package dash :straight t)
 
 ;; https://github.com/plexus/a.el/
 ;; alist functions
-(use-package a
-  :straight t)
+(use-package a :straight t)
 
 ;; https://github.com/rejeep/f.el/
 ;; file functions
-(use-package f
-  :straight t)
+(use-package f :straight t)
 
 ;; https://github.com/magnars/s.el/
 ;; string functions
-(use-package s
-  :straight t)
+(use-package s :straight t)
 
 ;; https://github.com/Wilfred/ht.el/
 ;; hash-table functions
-(use-package ht
-  :straight t)
+(use-package ht :straight t)
 
 ;; https://github.com/alphapapa/ts.el
 ;; date and time functions
-(use-package ts
-  :straight t)
+(use-package ts :straight t)
 
 (use-package async
   ;; :straight (:host github :repo "jwiegley/emacs-async")
@@ -381,14 +359,6 @@
     (evil-ex-define-cmd "restart" 'restart-emacs)
     (evil-ex-define-cmd "restarttest"
                         'restart-emacs-start-new-emacs)))
-
-(use-package gcmh
-  :straight t
-  :disabled t
-  :custom
-  (gcmh-verbose t)
-  :config
-  (gcmh-mode))
 
 (use-package dired
   :demand t
