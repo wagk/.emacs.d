@@ -81,5 +81,25 @@
   (corfu-border ((t (:inherit default))))
   (corfu-bar ((t (:inherit region)))))
 
+(use-package embark
+  :straight t
+  :after vertico
+  :commands (embark-act
+              embark-dwim
+              embark-bindings
+              embark-prefix-help-command)
+  :custom
+  (prefix-help-command #'embark-prefix-help-command)
+  :general
+  (vertico-map
+    "C-<SPC>" 'embark-act)
+  (:states 'motion
+    "C-<SPC>" 'embark-act
+    "S-<SPC>" 'embark-dwim))
+
+(use-package embark-consult
+  :straight t
+  :after (:all embark consult))
+
 ;; TODO (pangt): consider using cape https://github.com/minad/cape
 (provide 'config::completions)

@@ -420,26 +420,6 @@
                                            (my-evil-new-tab nil))
                                          (dired-jump)))))
 
-(use-package embark
-  :straight t
-  :after vertico
-  :commands (embark-act
-              embark-dwim
-              embark-bindings
-              embark-prefix-help-command)
-  :custom
-  (prefix-help-command #'embark-prefix-help-command)
-  :general
-  (vertico-map
-    "C-<SPC>" 'embark-act)
-  (:states 'motion
-    "C-<SPC>" 'embark-act
-    "S-<SPC>" 'embark-dwim))
-
-(use-package embark-consult
-  :straight t
-  :after (:all embark consult))
-
 (progn
   (let ((custom (locate-user-emacs-file "custom.el")))
     (unless (f-exists-p custom)
