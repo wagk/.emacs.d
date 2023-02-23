@@ -427,10 +427,9 @@
 (defun --load-config-lisp-files (file-list)
   (cl-dolist (file file-list)
     (let ((file (locate-user-emacs-file file)))
-      (cond ((string= (file-name-extension file) "el")
-             (load-file file))
-            ((string= (file-name-extension file) "org")
-             (org-babel-load-file file))))))
+      (pcase (file-name-extension file)
+        ("el" (load-file file))
+        ("org" (org-babel-load-file file))))))
 
 (--load-config-lisp-files '("lisp/evil.el"
                             "lisp/org.el"
