@@ -2900,11 +2900,18 @@ This is closer to the json serialization/deserialization module.
     :commands (highlight-indent-guides-mode)
     :custom
     (highlight-indent-guides-method 'character)
-    (highlight-indent-guides-character ?\|)
-    :general
-    (:states 'normal
-     :prefix my-default-evil-leader-key
-     "|" 'highlight-indent-guides-mode))
+    (highlight-indent-guides-character ?\|))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
+  (general-define-key
+   :states 'normal
+   :prefix my-default-evil-leader-key
+    "|" #'(lambda () (interactive)
+            (require 'display-fill-column-indicator)
+            (require 'highlight-indent-guides)
+            (display-fill-column-indicator-mode 'toggle)
+            (highlight-indent-guides-mode 'toggle)))
 #+end_src
 
 * Web mode
