@@ -732,6 +732,7 @@
     ("thwtwill" "that will" nil :count 1)
     ("ti" "it" nil :count 22)
     ("ti's" "it's" nil :count 1)
+    ("tiem" "time" nil :count 1)
     ("tihs" "this" nil :count 1)
     ("tiral" "trial" nil :count 1)
     ("tkne" "token" nil :count 1)
