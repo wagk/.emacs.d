@@ -19,7 +19,9 @@
               :file --done-file
               :type plain
               :immediate-finish t
-              :before-finalize markdown-table-align
+              :before-finalize #'(lambda ()
+                                   (require 'markdown-mode)
+                                   (markdown-table-align))
               :template "| %<%F> | %^{tags} | %^{thing} |"
               :function (lambda ()
                           (end-of-buffer)
@@ -39,7 +41,9 @@
               :file --todo-file
               :type plain
               :immediate-finish t
-              :before-finalize markdown-table-align
+              :before-finalize #'(lambda ()
+                                   (require 'markdown-mode)
+                                   (markdown-table-align))
               :template "| %<%F> | %^{tags} | %^{thing} |"
               :function (lambda ()
                           (end-of-buffer)
