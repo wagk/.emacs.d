@@ -19,9 +19,9 @@
               :file --done-file
               :type plain
               :immediate-finish t
-              :before-finalize #'(lambda ()
-                                   (require 'markdown-mode)
-                                   (markdown-table-align))
+              :before-finalize (lambda ()
+                                 (require 'markdown-mode)
+                                 (markdown-table-align))
               :template "| %<%F> | %^{tags} | %^{thing} |"
               :function (lambda ()
                           (end-of-buffer)
@@ -41,9 +41,9 @@
               :file --todo-file
               :type plain
               :immediate-finish t
-              :before-finalize #'(lambda ()
-                                   (require 'markdown-mode)
-                                   (markdown-table-align))
+              :before-finalize (lambda ()
+                                 (require 'markdown-mode)
+                                 (markdown-table-align))
               :template "| %<%F> | %^{tags} | %^{thing} |"
               :function (lambda ()
                           (end-of-buffer)
@@ -56,11 +56,11 @@
   (setq org-capture-templates
         (doct-add-to
           org-capture-templates
-          '(("Add to today's diary")
-            :keys "diary"
-            :empty-lines 0
-            :file --diary-file
-            :datetree t))))
+          '(("Add to today's diary"
+             :keys "diary"
+             :empty-lines 0
+             :file --diary-file
+             :datetree t)))))
 (defun --capture-diary-entry ()
   (interactive)
   (require 'org-capture)
