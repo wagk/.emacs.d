@@ -1,3 +1,7 @@
+(defgroup personal nil
+  "A list of configuration variables that is needed from the local
+  machine.")
+
 (defcustom --todo-file nil
   "The path to the file with things to do on this machine."
   :type 'file
