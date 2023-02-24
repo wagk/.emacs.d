@@ -50,23 +50,24 @@
                           (insert ?\n)
                           (end-of-buffer))))))))
 
-(with-eval-after-load 'deft
-  (with-eval-after-load 'doct
-    (when (not (bound-and-true-p --notes-folder))
-      (warn "variable --notes-folder not set!"))
-    (setq org-capture-templates
-          (doct-add-to
-           org-capture-templates
-           '(("Add to today's diary"
-              :keys "diary"
-              :empty-lines 0
-              :file --diary-file
-              :datetree t))))
-    (defun --capture-diary-entry ()
-      (interactive)
-      (require 'org-capture)
-      (org-capture nil "diary"))
-    (evil-ex-define-cmd "diary" #'(lambda () (interactive) (find-file --diary-file)))
-    (evil-ex-define-cmd "dd" #'--capture-diary-entry)))
+(with-eval-after-load 'doct
+  (when (not (bound-and-true-p --notes-folder))
+    (warn "variable --notes-folder not set!"))
+  (setq org-capture-templates
+        (doct-add-to
+          org-capture-templates
+          '(("Add to today's diary")
+            :keys "diary"
+            :empty-lines 0
+            :file --diary-file
+            :datetree t))))
+(defun --capture-diary-entry ()
+  (interactive)
+  (require 'org-capture)
+  (org-capture nil "diary"))
+(evil-ex-define-cmd "diary" #'(lambda ()
+                                (interactive)
+                                (find-file --diary-file)))
+(evil-ex-define-cmd "dd" #'--capture-diary-entry)
 
 (provide 'config::org-capture-templates)
