@@ -6,6 +6,15 @@
 (require 'evil)
 (require 'org-capture)
 
+(when (not (bound-and-true-p --done-file))
+  (warn "variable --done-file not set!"))
+
+(when (not (bound-and-true-p --todo-file))
+  (warn "variable --todo-file not set!"))
+
+(when (not (bound-and-true-p --diary-file))
+  (warn "variable --diary-file not set!"))
+
 (when (and (bound-and-true-p --done-file) (f-exists-p --done-file))
   (message "Configuring donefile")
   (my-evil-define-split-vsplit-cmd "done[file]" #'(lambda () (interactive) (find-file --done-file)))
@@ -51,8 +60,6 @@
                           (end-of-buffer))))))))
 
 (with-eval-after-load 'doct
-  (when (not (bound-and-true-p --notes-folder))
-    (warn "variable --notes-folder not set!"))
   (setq org-capture-templates
         (doct-add-to
           org-capture-templates
