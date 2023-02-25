@@ -17,7 +17,10 @@
 
 (when (and (bound-and-true-p --done-file) (f-exists-p --done-file))
   (message "Configuring donefile")
-  (my-evil-define-split-vsplit-cmd "done[file]" #'(lambda () (interactive) (find-file --done-file)))
+  (--evil-ex-define-cmds-splits-and-tabs
+   "done[file]"
+   #'(lambda () (interactive) (find-file --done-file))
+   #'(lambda () (switch-to-buffer --done-file)))
   (with-eval-after-load 'doct
     (setq org-capture-templates
           (doct-add-to
@@ -39,7 +42,10 @@
 
 (when (and (bound-and-true-p --todo-file) (f-exists-p --todo-file))
   (message "Configuring todofile")
-  (my-evil-define-split-vsplit-cmd "todo[file]" #'(lambda () (interactive) (find-file --todo-file)))
+  (--evil-ex-define-cmds-splits-and-tabs
+   "todo[file]"
+   #'(lambda () (interactive) (find-file --todo-file))
+   #'(lambda () (switch-to-buffer --todo-file)))
   (with-eval-after-load 'doct
     (setq org-capture-templates
           (doct-add-to
@@ -68,13 +74,17 @@
              :empty-lines 0
              :file --diary-file
              :datetree t)))))
+
 (defun --capture-diary-entry ()
   (interactive)
   (require 'org-capture)
   (org-capture nil "diary"))
-(evil-ex-define-cmd "diary" #'(lambda ()
-                                (interactive)
-                                (find-file --diary-file)))
+
+(--evil-ex-define-cmds-splits-and-tabs "diary"
+                       #'(lambda () (interactive)
+                           (find-file --diary-file))
+				       --diary-file)
+
 (evil-ex-define-cmd "dd" #'--capture-diary-entry)
 
 (provide 'config::org-capture-templates)

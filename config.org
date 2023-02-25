@@ -646,24 +646,19 @@ Further helper functions to add bookmarks:
 
 #+begin_src emacs-lisp :results output silent
   (with-eval-after-load 'consult
-    (my-evil-define-split-vsplit-cmd
+    (--evil-ex-define-cmds-splits-and-tabs
      "mm"
      #'(lambda ()
          (interactive)
          (require 'consult)
-         (call-interactively 'consult-bookmark))))
-
-  (evil-ex-define-cmd
-   "Tmm"
-   #'(lambda ()
-       (interactive)
-       (let* ((bookmark (--completing-read "Bookmark: " bookmark-alist
-                                           :require-match t))
-              (filepath (a-get-in bookmark-alist `(,bookmark filename))))
-         (if (>= emacs-major-version 27)
-             (let ((tab-bar-new-tab-choice filepath))
-               (tab-bar-new-tab))
-           (my-evil-new-tab filepath)))))
+         (call-interactively 'consult-bookmark))
+     #'(lambda ()
+         (interactive)
+         (let* ((bookmark (--completing-read "Bookmark: " bookmark-alist
+                                             :require-match t))
+                (filepath (a-get-in bookmark-alist `(,bookmark filename))))
+           (cond ((f-directory-p filepath) (dired filepath))
+                 (t (find-file filepath)))))))
 #+end_src
 
 *** Bookmark Face
@@ -1367,13 +1362,12 @@ For some reason we can't do this in the scratch buffer
       (interactive)
       (call-interactively '--org-capture-completing-read))
 
-    (my-evil-define-split-vsplit-cmd "aa" #'org-agenda)
-    (my-evil-define-split-vsplit-cmd "todo" #'org-todo-list)
-    (my-evil-define-split-vsplit-cmd "agenda" #'(lambda () (interactive) (org-agenda nil "A")))
-    (evil-ex-define-cmd "Tag[enda]"
-                        #'(lambda () (interactive)
-                            (tab-bar-new-tab)
-                            (funcall-interactively #'(lambda () (interactive (org-agenda nil "A"))))))
+    (--evil-ex-define-cmds-splits-and-tabs "aa" #'org-agenda)
+    (--evil-ex-define-cmds-splits-and-tabs "todo" #'org-todo-list)
+    (--evil-ex-define-cmds-splits-and-tabs
+     "agenda"
+     #'(lambda () (interactive) (org-agenda nil "A"))
+     #'(lambda () (org-agenda nil "A")))
     ;; override `org-agenda-diary-entry' to use `org-roam'
     (general-define-key
      :keymaps 'org-agenda-mode-map
@@ -2315,7 +2309,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
                       :template
                       ("%{date} * \"%^{VENDOR}\" \"%^{PURCHASE}\""
                        "  %?")))))))))))
-    (my-evil-define-split-vsplit-cmd
+    (--evil-ex-define-cmds-splits-and-tabs
      "ledger"
      #'(lambda () (interactive)
          (find-file --default-ledger-file)))
@@ -2964,13 +2958,9 @@ Just do the scratch buffer simple and stupidly
 #+begin_src emacs-lisp :results output silent
   (setq initial-scratch-message nil
         initial-major-mode 'markdown-mode)
-  (my-evil-define-split-vsplit-cmd "sc[ratch]" #'(lambda () (switch-to-buffer "*scratch*")))
-  (evil-ex-define-cmd "TScratch" #'(lambda ()
-                                     (interactive)
-                                     (if (featurep 'tab-bar)
-                                      (let ((tab-bar-new-tab-choice "*scratch*"))
-                                       (tab-bar-new-tab))
-                                      (warn "tab-bar not available"))))
+  (--evil-ex-define-cmds-splits-and-tabs "scratch"
+                                         #'(lambda () (switch-to-buffer "*scratch*"))
+                                         "*scratch*")
 #+end_src
 
 * Macrostep
@@ -3098,7 +3088,7 @@ Just do the scratch buffer simple and stupidly
                                         :require-match t)))
         (find-file (f-join project-dir readme))))
 
-    (my-evil-define-split-vsplit-cmd "readme" #'--project-find-readme)
+    (--evil-ex-define-cmds-splits-and-tabs "readme" #'--project-find-readme)
 
     (with-eval-after-load 'consult
       (defun --consult-ripgrep-with-initial ()
@@ -3375,7 +3365,7 @@ Lets try that again
     :hook ((deft-mode-hook . deft-filter-clear)
            (deft-mode-hook . evil-insert-state))
     :init
-    (my-evil-define-split-vsplit-cmd "nn" 'deft)
+    (--evil-ex-define-cmds-splits-and-tabs "nn" 'deft)
     (evil-ex-define-cmd "Tnn" #'(lambda ()
                                   (interactive)
                                   (if (not (featurep 'tab-bar))

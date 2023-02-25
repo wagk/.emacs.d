@@ -116,38 +116,6 @@
   ;; Back to our regularly scheduled programming
   (evil-select-search-module 'evil-search-module 'evil-search)
 
-  ;; ;; https://emacs.stackexchange.com/questions/28135/in-evil-mode-how-can-i-prevent-adding-to-the-kill-ring-when-i-yank-text-visual
-  ;; (let ((func (lambda (oldpaste &rest r)
-  ;;               (interactive)
-  ;;               (let ((evil-this-register ?0))
-  ;;                 (call-interactively oldpaste)))))
-  ;;   (advice-add 'evil-paste-before :around func)
-  ;;   (advice-add 'evil-paste-after  :around func))
-
-  ;; (evil-define-command ex-tab-edit(file)
-  ;;   (interactive "P<f>")
-  ;;   (raise-frame (call-interactively 'make-frame))
-  ;;   (evil-edit file))
-
-  (defmacro my-evil-define-split-vsplit-cmd (command body)
-    "Does split and vsplit, but not tab (for now) since that
-    requires a different logic."
-    (require 'evil)
-    (let ((split-command-name (concat "S" command))
-          (vsplit-command-name (concat "V" command)))
-      `(progn
-          (evil-ex-define-cmd ,command
-                              #'(lambda () (interactive)
-                                  (funcall-interactively ,body)))
-          (evil-ex-define-cmd ,split-command-name
-                              #'(lambda () (interactive)
-                                  (call-interactively 'evil-window-split)
-                                  (funcall-interactively ,body)))
-          (evil-ex-define-cmd ,vsplit-command-name
-                              #'(lambda () (interactive)
-                                  (call-interactively 'evil-window-vsplit)
-                                  (funcall-interactively ,body))))))
-
   (evil-ex-define-cmd "bc[lose]" 'kill-this-buffer)
   (evil-define-command my-evil-vsplit-buffer (&optional buffer)
     "Strictly speaking this isn't implemented in vim, which is why
@@ -158,61 +126,6 @@
     (evil-buffer buffer))
 
   (evil-ex-define-cmd "vb[uffer]" 'my-evil-vsplit-buffer)
-
-  (defun my-new-cmd-tab (dest)
-    (interactive)
-    (let ((tab-bar-new-tab-choice dest))
-      (tab-bar-new-tab)))
-
-  (my-evil-define-split-vsplit-cmd "init" 'find-user-init-file)
-  (evil-ex-define-cmd "Tinit" #'(lambda ()
-                                  (interactive)
-                                  (my-new-cmd-tab user-init-file)))
-  (my-evil-define-split-vsplit-cmd "local" 'find-user-local-file)
-  (evil-ex-define-cmd "Tlocal" #'(lambda ()
-                                    (interactive)
-                                    (my-new-cmd-tab user-local-file)))
-  (my-evil-define-split-vsplit-cmd "config" 'find-user-config-file)
-  (evil-ex-define-cmd "Tconfig" #'(lambda () (interactive)
-                                    (my-new-cmd-tab user-config-file)))
-  (my-evil-define-split-vsplit-cmd "var[iables]" 'find-user-variables-file)
-  (evil-ex-define-cmd "Tvar[iables]" #'(lambda () (interactive)
-                                          (my-new-cmd-tab user-variables-file)))
-  (my-evil-define-split-vsplit-cmd "buffers" 'ibuffer)
-  (my-evil-define-split-vsplit-cmd "me[ssage]"
-                                    #'(lambda ()
-                                        (switch-to-buffer "*Messages*")))
-  (my-evil-define-split-vsplit-cmd "lisp" '--select-config-lisp-file)
-  (evil-ex-define-cmd "Tlisp" #'(lambda () (interactive)
-                                  (let ((tab-bar-new-tab-choice (--select-config-lisp-file-name)))
-                                    (tab-bar-new-tab))))
-  ;; (my-evil-define-split-vsplit-cmd "sc[ratch]"
-  ;;                                  #'(lambda ()
-  ;;                                      (switch-to-buffer "*scratch*")))
-
-  ;; (evil-ex-define-cmd "framen" 'make-frame)
-  ;; (evil-ex-define-cmd "framec" 'delete-frame)
-
-  ;; https://stackoverflow.com/questions/18102004/emacs-evil-mode-how-to-create-a-new-text-object-to-select-words-with-any-non-sp/22418983#22418983
-  (defmacro /evil-define-and-bind-text-object (key start-regex end-regex)
-    (let ((inner-name (make-symbol "inner-name"))
-          (outer-name (make-symbol "outer-name")))
-      `(progn
-          (evil-define-text-object ,inner-name (count &optional beg end type)
-            (evil-select-paren ,start-regex ,end-regex beg end type count nil))
-          (evil-define-text-object ,outer-name (count &optional beg end type)
-            (evil-select-paren ,start-regex ,end-regex beg end type count t))
-          (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
-          (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
-
-  ;; ;; https://www.emacswiki.org/emacs/RegularExpression
-  ;; (/evil-define-and-bind-text-object "/" "/" "/")
-  ;; (/evil-define-and-bind-text-object "\\" "\\" "\\")
-  ;; (/evil-define-and-bind-text-object "|" "|" "|")
-
-  ;; (evil-define-text-object my-evil-a-buffer (count &optional beg end type)
-  ;;   "Select entire buffer"
-  ;;   (evil-range (point-min) (point-max)))
 
   (evil-mode))
 
@@ -228,5 +141,54 @@
   ;; (evil-collection-calendar-want-org-bindings t)
   :config
   (evil-collection-init))
+
+(cl-defun --evil-ex-define-cmds-splits-and-tabs
+    (command body-fn &optional tab)
+  "Does split and vsplit, and also tab."
+  (require 'evil)
+  (unless (stringp command)
+    (warn "given command is not a string! Got %s" command)
+    (return))
+  (evil-ex-define-cmd command
+                      `(lambda () (interactive)
+                        (funcall-interactively ',body-fn)))
+  (let ((split-command-name (concat "S" command)))
+    (evil-ex-define-cmd split-command-name
+                        `(lambda () (interactive)
+                           (call-interactively 'evil-window-split)
+                           (funcall-interactively ',body-fn))))
+  (let ((vsplit-command-name (concat "V" command)))
+    (evil-ex-define-cmd vsplit-command-name
+                        `(lambda () (interactive)
+                           (call-interactively 'evil-window-vsplit)
+                           (funcall-interactively ',body-fn)))
+   (when tab
+     (let ((new-tab-command-name (concat "T" command)))
+       (evil-ex-define-cmd new-tab-command-name
+                           `(lambda () (interactive)
+                              (require 'tab-bar)
+                              (let ((tab-bar-new-tab-choice ,tab))
+                                (tab-bar-new-tab))))))))
+
+(--evil-ex-define-cmds-splits-and-tabs "init"
+                                        'find-user-init-file
+                                        user-init-file)
+(--evil-ex-define-cmds-splits-and-tabs "local"
+                                        'find-user-local-file
+                                        #'(lambda () (find-file user-local-file)))
+(--evil-ex-define-cmds-splits-and-tabs "config"
+                                        'find-user-config-file
+                                        user-config-file)
+(--evil-ex-define-cmds-splits-and-tabs "var[iables]"
+                                        'find-user-variables-file
+                                        user-variables-file)
+(--evil-ex-define-cmds-splits-and-tabs "lisp"
+                                        #'--select-config-lisp-file
+                                        #'--select-config-lisp-file-name)
+(--evil-ex-define-cmds-splits-and-tabs "buffers" 'ibuffer)
+(--evil-ex-define-cmds-splits-and-tabs "me[ssage]"
+                                        #'(lambda ()
+                                            (switch-to-buffer "*Messages*"))
+                                        "*Messages*")
 
 (provide 'config::evil)
