@@ -405,31 +405,6 @@
                   'solarized-dark)
               t))
 
-(defun --select-config-lisp-file-name ()
-  "Open a file from `.emacs.d/lisp'."
-  (interactive)
-  (require 'f)
-  (require 'dash)
-  (--completing-read "file: "
-                     (-> (locate-user-emacs-file "lisp")
-                         directory-files)
-                     :require-match t
-                     :predicate
-                     (lambda (file)
-                       (-any (lambda (e) (f-ext-p file e))
-                             '("el" "org")))))
-
-(defun --select-config-lisp-file ()
-  (interactive)
-  (find-file (locate-user-emacs-file (f-join "lisp" (--select-config-lisp-file-name)))))
-
-(defun --load-config-lisp-files (file-list)
-  (cl-dolist (file file-list)
-    (let ((file (locate-user-emacs-file file)))
-      (pcase (file-name-extension file)
-        ("el" (load-file file))
-        ("org" (org-babel-load-file file))))))
-
 (add-to-list 'load-path (-> "lisp"
                             (locate-user-emacs-file)
                             (directory-file-name)))
