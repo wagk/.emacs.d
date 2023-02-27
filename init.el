@@ -434,14 +434,8 @@
                             (locate-user-emacs-file)
                             (directory-file-name)))
 
-(--load-config-lisp-files '("lisp/config-evil.el"
-                            "lisp/config-org.el"
-                            "lisp/config-org-capture-templates.el"
-                            "lisp/config-anki.el"
-                            "lisp/config-completions.el"
-                            "lisp/config-git.el"
-                            "lisp/config-japanese.el"
-                            "config.org"))
+(require 'config)
+(org-babel-load-file (locate-user-emacs-file "config.org"))
 
 (setq initial-scratch-message
       (s-join "\n"              '("# Programmers are not to be measured by their ingenuity and their"
