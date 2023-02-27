@@ -43,4 +43,7 @@
 
 (evil-ex-define-cmd "dd" #'--capture-diary-entry)
 
+(with-eval-after-load 'org-agenda
+  (setq org-agenda-files `(,--diary-file)))
+
 (provide 'config::org-capture-templates)
