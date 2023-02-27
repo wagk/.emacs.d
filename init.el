@@ -431,6 +431,10 @@
         ("el" (load-file file))
         ("org" (org-babel-load-file file))))))
 
+(add-to-list 'load-path (-> "lisp"
+                            (locate-user-emacs-file)
+                            (directory-file-name)))
+
 (--load-config-lisp-files '("lisp/evil.el"
                             "lisp/org.el"
                             "lisp/org-capture-templates.el"
