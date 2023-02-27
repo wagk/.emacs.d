@@ -30,6 +30,7 @@
   :straight t)
 
 ;;; Evil-mode
+
 (use-package evil
   :demand t
   :straight (:host github :repo "emacs-evil/evil")
@@ -125,17 +126,17 @@
     (return))
   (evil-ex-define-cmd command
                       `(lambda () (interactive)
-                        (funcall-interactively ',body-fn)))
+                        (funcall-interactively #',body-fn)))
   (let ((split-command-name (concat "S" command)))
     (evil-ex-define-cmd split-command-name
                         `(lambda () (interactive)
                            (call-interactively 'evil-window-split)
-                           (funcall-interactively ',body-fn))))
+                           (funcall-interactively #',body-fn))))
   (let ((vsplit-command-name (concat "V" command)))
     (evil-ex-define-cmd vsplit-command-name
                         `(lambda () (interactive)
                            (call-interactively 'evil-window-vsplit)
-                           (funcall-interactively ',body-fn)))
+                           (funcall-interactively #',body-fn)))
    (when tab
      (let ((new-tab-command-name (concat "T" command)))
        (evil-ex-define-cmd new-tab-command-name
@@ -159,6 +160,7 @@
 (--evil-ex-define-cmds-splits-and-tabs "lisp"
                                         #'--select-config-lisp-file
                                         #'--select-config-lisp-file-name)
+(evil-ex-define-cmd "ll" #'--select-config-lisp-file)
 (--evil-ex-define-cmds-splits-and-tabs "buffers" 'ibuffer)
 (--evil-ex-define-cmds-splits-and-tabs "me[ssage]"
                                         #'(lambda ()
