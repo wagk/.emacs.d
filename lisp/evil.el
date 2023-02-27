@@ -33,17 +33,10 @@
 (use-package evil
   :demand t
   :straight (:host github :repo "emacs-evil/evil")
-  ;; :straight t
   :commands (evil-set-initial-state
-              evil-insert-state
-              evil-ex-define-cmd)
+             evil-insert-state
+             evil-ex-define-cmd)
   :general
-  ;; (global-map "C-u" nil) ;; Disable universal argument
-  ;; (:keymaps 'insert
-  ;;  "C-u"    'kill-whole-line
-  ;;  "C-l"    'evil-complete-next-line)
-  ;; (:keymaps 'motion
-  ;; "C-u"    'evil-scroll-up)
   (:states 'normal
     :prefix my-default-evil-leader-key
     "<SPC>" 'execute-extended-command)
@@ -57,22 +50,8 @@
     "g a" 'describe-char
     "g o" 'ff-find-other-file
     "g O" 'ff-find-other-file-other-window)
-  ;; "g a"    'describe-char)
-  ;; (:keymaps 'inner
-  ;;  "e"      'my-evil-a-buffer)
-  ;; (:keymaps 'outer
-  ;;  "e"      'my-evil-a-buffer)
   :custom
-  ;; (evil-undo-system (if (featurep 'undo-tree) 'undo-tree 'undo-redo))
-  ;; (evil-undo-system (cond
-  ;;                    ((featurep 'undo-tree) 'undo-tree)
-  ;;                    ((>= emacs-major-version 28) 'undo-redo)
-  ;;                    (t nil)))
   (evil-undo-system 'undo-tree)
-  ;; (evil-undo-system (if (>= 28 emacs-major-version)
-  ;;                       'undo-redo
-  ;;                     (require 'undo-fu)
-  ;;                     'undo-fu))
   (evil-want-Y-yank-to-eol
     t
     "Y has the default behavior of functioning identically to yy.
@@ -89,11 +68,9 @@
     call. We prefer the scrolling.")
   (evil-split-window-below
     t
-    ;; nil
     "`set splitbelow` in vim")
   (evil-vsplit-window-right
     t
-    ;; nil
     "`set splitright` in vim")
   (evil-move-beyond-eol
     t
@@ -102,9 +79,7 @@
     t
     "Automatically indent when inserting a newline")
   (evil-want-fine-undo t)
-  ;; this messes up subtle bits of some emacs modes, like ediff
-  :hook (;; (window-configuration-change-hook . balance-windows)
-          (evil-normal-state-entry-hook . evil-ex-nohighlight))
+  :hook ((evil-normal-state-entry-hook . evil-ex-nohighlight))
   :config
   (defun update-evil-shift-width ()
     "We do this otherwise packages like parinfer would mess up with
@@ -132,8 +107,7 @@
 ;;; evil-collection
 
 (use-package evil-collection
-  ;;    :straight (:host github :repo "emacs-evil/evil-collection"
-  ;;               :files (:defaults ("modes" "modes/*")))
+  :straight t
   :custom
   (evil-collection-setup-minibuffer t)
   ;; the following causes a crash because:
