@@ -1296,7 +1296,6 @@ For some reason we can't do this in the scratch buffer
      "g T" nil
      "g l" 'org-agenda-log-mode
      "g x" 'org-open-at-point-global
-     "ESC" 'evil-motion-state
      ;; Seems to be an unhandled case by evil-org
      "RET" 'org-agenda-switch-to
      [remap evil-write] 'org-save-all-org-buffers
@@ -1344,7 +1343,7 @@ For some reason we can't do this in the scratch buffer
     (customize-set-value 'org-agenda-start-day "-1d"
                          "For some reason this isn't being recognized
                          and loaded in `:custom`")
-    ;;(evil-org-agenda-set-keys)
+    (evil-org-agenda-set-keys)
     (with-eval-after-load 'tab-bar
       (general-define-key
        :keymaps 'org-agenda-mode-map
@@ -2958,7 +2957,7 @@ Just do the scratch buffer simple and stupidly
 #+begin_src emacs-lisp :results output silent
   (setq initial-scratch-message nil
         initial-major-mode 'markdown-mode)
-  (--evil-ex-define-cmds-splits-and-tabs "scratch"
+  (--evil-ex-define-cmds-splits-and-tabs "sc[ratch]"
                                          #'(lambda () (switch-to-buffer "*scratch*"))
                                          "*scratch*")
 #+end_src

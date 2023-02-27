@@ -439,14 +439,14 @@
                             "lisp/git.el"
                             "config.org"))
 
-(setq initial-scratch-message "\
-# Programmers are not to be measured by their ingenuity and their
-# logic but by the completeness of their case analysis.")
+(setq initial-scratch-message
+      (s-join "\n"
+              '("# Programmers are not to be measured by their ingenuity and their"
+                "# logic but by the completeness of their case analysis.")))
+
 
 (message "Loaded config.org in %.06f seconds."
           (float-time (time-since my-init-start-time)))
-
-;; (org-agenda nil "A")
 
 ;; Emacs considers the following "dangerous" (i.e they'll ask you to
 ;; confirm)
