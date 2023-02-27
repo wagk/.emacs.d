@@ -102,4 +102,4 @@
   :after (:all embark consult))
 
 ;; TODO (pangt): consider using cape https://github.com/minad/cape
-(provide 'config::completions)
+(provide 'config-completions)

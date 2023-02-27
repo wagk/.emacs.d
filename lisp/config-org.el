@@ -236,4 +236,4 @@
 (use-package doct
   :straight (:host github :repo "progfolio/doct"))
 
-(provide 'config::org)
+(provide 'config-org)

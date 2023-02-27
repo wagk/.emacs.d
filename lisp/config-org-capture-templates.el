@@ -1,7 +1,5 @@
-(require 'config::org
-         (locate-user-emacs-file "lisp/org.el"))
-(require 'config::variables
-         (locate-user-emacs-file "variables.el")) ;; --todo-file, --done-file
+(require 'config-org)
+(require 'config-variables)
 
 (require 'evil)
 (require 'org-capture)
@@ -46,4 +44,4 @@
 (with-eval-after-load 'org-agenda
   (setq org-agenda-files `(,--diary-file)))
 
-(provide 'config::org-capture-templates)
+(provide 'config-org-capture-templates)

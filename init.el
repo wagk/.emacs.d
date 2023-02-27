@@ -50,7 +50,7 @@
   "Points to local.el.")
 
 (defconst user-variables-file
-  (locate-user-emacs-file "variables.el")
+  (locate-user-emacs-file "lisp/config-variables.el")
   "Points to variables.el.")
 
 (defun find-user-init-file ()
@@ -184,8 +184,7 @@
       (add-hook 'after-init-hook #'--after-init-code))))
 
 (defun --load-variables-el ()
-  (let ((variable-file (locate-user-emacs-file "variables.el")))
-    (load variable-file)))
+  (load user-variables-file))
 
 (defun load-config-org-files (files)
   "Given a list of org FILES, load them sequentially in the order.
@@ -435,19 +434,18 @@
                             (locate-user-emacs-file)
                             (directory-file-name)))
 
-(--load-config-lisp-files '("lisp/evil.el"
-                            "lisp/org.el"
-                            "lisp/org-capture-templates.el"
-                            "lisp/anki.el"
-                            "lisp/completions.el"
-                            "lisp/git.el"
+(--load-config-lisp-files '("lisp/config-evil.el"
+                            "lisp/config-org.el"
+                            "lisp/config-org-capture-templates.el"
+                            "lisp/config-anki.el"
+                            "lisp/config-completions.el"
+                            "lisp/config-git.el"
+                            "lisp/config-japanese.el"
                             "config.org"))
 
 (setq initial-scratch-message
-      (s-join "\n"
-              '("# Programmers are not to be measured by their ingenuity and their"
-                "# logic but by the completeness of their case analysis.")))
-
+      (s-join "\n"              '("# Programmers are not to be measured by their ingenuity and their"
+                                  "# logic but by the completeness of their case analysis.")))
 
 (message "Loaded config.org in %.06f seconds."
           (float-time (time-since my-init-start-time)))

@@ -22,4 +22,4 @@
   :type 'file
   :group 'personal)
 
-(provide 'config::variables)
+(provide 'config-variables)

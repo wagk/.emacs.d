@@ -181,4 +181,4 @@
   :init
   (evil-ex-define-cmd "gtime" #'git-timemachine))
 
-(provide 'config::git)
+(provide 'config-git)

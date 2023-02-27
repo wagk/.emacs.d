@@ -8,4 +8,4 @@
              org-anki-delete-entry
              org-anki-delete-all))
 
-(provide 'config::anki)
+(provide 'config-anki)

@@ -167,4 +167,4 @@
                                             (switch-to-buffer "*Messages*"))
                                         "*Messages*")
 
-(provide 'config::evil)
+(provide 'config-evil)
