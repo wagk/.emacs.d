@@ -2958,7 +2958,7 @@ Just do the scratch buffer simple and stupidly
 #+begin_src emacs-lisp :results output silent
   (setq initial-scratch-message nil
         initial-major-mode 'markdown-mode)
-  (--evil-ex-define-cmds-splits-and-tabs "scratch"
+  (--evil-ex-define-cmds-splits-and-tabs "sc[ratch]"
                                          #'(lambda () (switch-to-buffer "*scratch*"))
                                          "*scratch*")
 #+end_src
