@@ -129,15 +129,6 @@
     (customize-set-variable 'straight-current-profile
                             profile-name)))
 
-;; (defun bootstrap-quelpa ()
-;;   ;; Requires (package-initialize) to be called beforehand
-;;   (if (require 'quelpa nil t)
-;;     (quelpa-self-upgrade))
-;;   (with-temp-buffer
-;;     (url-insert-file-contents
-;;      "https://framagit.org/steckerhalter/quelpa/raw/master/bootstrap.el")
-;;     (eval-buffer)))
-
 ;;; Use package
 (defun bootstrap-use-package ()
   "Check if use-package is installed and install it if it isn't.

@@ -1,13 +1,10 @@
 (require 'use-package)
+(require 'general)
 
 (customize-set-value 'evil-want-keybinding nil
                      "`evil-collections' wants this to be disabled
                      before even loading evil, see
                      https://github.com/emacs-evil/evil-collection/issues/60")
-
-;; (use-package undo-fu
-;;   :straight t
-;;   :when (< 28 emacs-major-version))
 
 ;; NOTE: reddit notes that there might still be some history
 ;; corruption?
