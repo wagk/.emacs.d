@@ -163,10 +163,9 @@
 (cl-defun --evil-consult-buffer (split-type)
   "Looks weird because we attempt to collect the buffer name before
   splitting the windows, in order to not have dangling windows if the
-  split is cancelled.
-`consult-buffer' doesn't return the buffer itself so we have to find
-the buffer name by pretending to be `consult--buffer-display', which
-gets called internally."
+  split is cancelled. `consult-buffer' doesn't return the buffer
+  itself so we have to find the buffer name by pretending to be
+  `consult--buffer-display', which gets called internally."
   (interactive)
   (let (selected-buffer)
     (cl-flet ((collect-buffer-name (buffer &optional _norecord)
