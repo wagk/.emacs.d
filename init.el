@@ -158,25 +158,6 @@
   (customize-set-variable 'use-package-hook-name-suffix nil)
   (use-package use-package-ensure-system-package))
 
-(defun load-local-el ()
-  "Check if there exists a local.el file. Create one if it doesn't.
- exist, using the template specified in
- 'auto-insert/elisp-local-template'. Then loads the file"
-  (let ((local-file (locate-user-emacs-file "local.el")))
-    (unless (file-exists-p local-file)
-      ;; output a templated local.el file into local.el
-      (message "local.el is currently unconfigured! Creating new local.el...")
-      (write-region (with-temp-buffer
-                      (insert-file-contents (locate-user-emacs-file
-                                             "local-template.el"))
-                      (buffer-string)) nil local-file))
-    (load local-file)
-    (when (fboundp '--after-init-code)
-      (add-hook 'after-init-hook #'--after-init-code))))
-
-(defun --load-variables-el ()
-  (load user-variables-file))
-
 (defun load-config-org-files (files)
   "Given a list of org FILES, load them sequentially in the order.
  specified The list of files is assumed to be relative to
@@ -355,10 +336,16 @@
     (f-touch custom))
   (setq custom-file custom))
 
-(--load-variables-el)
+(add-to-list 'load-path (-> "lisp"
+                            (locate-user-emacs-file)
+                            (directory-file-name)))
+
+(require 'config-variables)
+
 ;; Load local configuration variables, we do it here so that
 ;; local.el gets access to the "core" init loads
-(load-local-el)
+(when (f-exists-p user-local-file)
+  (load-file user-local-file))
 
 (customize-set-variable 'frame-background-mode 'nil)
 (with-eval-after-load 'solarized-theme
@@ -366,9 +353,6 @@
                   'solarized-dark)
               t))
 
-(add-to-list 'load-path (-> "lisp"
-                            (locate-user-emacs-file)
-                            (directory-file-name)))
 
 (require 'config)
 (org-babel-load-file (locate-user-emacs-file "config.org"))
