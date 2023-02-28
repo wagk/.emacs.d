@@ -310,7 +310,6 @@
 (use-package ts :straight t)
 
 (use-package async
-  ;; :straight (:host github :repo "jwiegley/emacs-async")
   :straight t)
 
 (use-package general

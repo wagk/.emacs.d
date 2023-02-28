@@ -1,6 +1,0 @@
-#ifndef ${1:_`(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))`_h__}
-#define $1
-
-$0
-
-#endif /* `(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))`_h__ */
