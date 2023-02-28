@@ -214,4 +214,86 @@ gets called internally."
                                         #'--select-config-lisp-file-name)
 (evil-ex-define-cmd "ll" #'--select-config-lisp-file)
 
+(use-package evil-lion
+  :straight (:host github :repo "edkolev/evil-lion")
+  :after (evil)
+  :general
+  (:keymaps '(normal visual)
+   "gl"     'evil-lion-left
+   "gL"     'evil-lion-right))
+
+;; :reverse           reverse visually selected lines
+;; :remove            remove current file and its buffer
+;; :rename NEW-PATH   rename or move current file and its buffer
+;; :colorscheme THEME change emacs color theme
+;; :diff-orig         get a diff of unsaved changes, like vim's common :DiffOrig
+;; :gdiff             BRANCH git-diff current file, requires magit and vdiff-magit
+;; :gblame            git-blame current file, requires magit
+;; :gremove           git remove current file, requires magit
+;; :tyank             copy range into tmux paste buffer, requires running under tmux
+;; :tput              paste from tmux paste nuffer, requires running under tmux
+(use-package evil-expat
+  :straight (:host github :repo "edkolev/evil-expat"))
+
+(use-package evil-matchit
+  :straight (:host github :repo "redguardtoo/evil-matchit")
+  :after evil
+  :config
+  (global-evil-matchit-mode))
+
+(use-package evil-visualstar
+  :straight (:host github :repo "bling/evil-visualstar")
+  :general
+  (:keymaps 'visual
+   "*" 'evil-visualstar/begin-search-forward
+   "#" 'evil-visualstar/begin-search-backward))
+
+(general-define-key
+ :keymaps 'global
+ "C-\\" 'toggle-input-method)
+
+(use-package evil-surround
+  :straight (:host github :repo "emacs-evil/evil-surround")
+  :after (evil)
+  :config
+  (global-evil-surround-mode))
+
+(use-package evil-embrace
+  :straight t
+  :custom
+  (evil-embrace-show-help-p
+   nil
+   "Otherwise it shows a which-key like interface (that I'm not so hot on)")
+  :config
+  (evil-embrace-enable-evil-surround-integration))
+
+(use-package evil-args
+  :straight (:host github :repo "wcsmith/evil-args")
+  :after (evil)
+  :general
+  (evil-inner-text-objects-map
+   "a" 'evil-inner-arg)
+  (evil-outer-text-objects-map
+   "a" 'evil-outer-arg)
+  :config
+  ;; these variables don't exist until evil-arg loads
+  (push "<" evil-args-openers)
+  (push ">" evil-args-closers))
+
+(use-package evil-commentary
+  :straight (:host github :repo "linktohack/evil-commentary")
+  :after (evil)
+  :config
+  (evil-commentary-mode))
+
+(use-package evil-indent-plus
+  :straight (:host github :repo "TheBB/evil-indent-plus")
+  :general
+  (evil-inner-text-objects-map
+   "i" 'evil-indent-plus-i-indent
+   "I" 'evil-indent-plus-a-indent)
+  (evil-outer-text-objects-map
+   "i" 'evil-indent-plus-i-indent-up
+   "I" 'evil-indent-plus-a-indent-up))
+
 (provide 'config-evil)
