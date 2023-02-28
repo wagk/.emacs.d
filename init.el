@@ -349,10 +349,7 @@
 
 (customize-set-variable 'frame-background-mode 'nil)
 (with-eval-after-load 'solarized-theme
-  (load-theme (or (bound-and-true-p --default-emacs-theme)
-                  'solarized-dark)
-              t))
-
+  (load-theme --default-emacs-theme t))
 
 (require 'config)
 (org-babel-load-file (locate-user-emacs-file "config.org"))

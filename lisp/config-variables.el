@@ -22,4 +22,9 @@
   :type 'file
   :group 'personal)
 
+(defcustom --default-emacs-theme 'solarized-dark
+  "The name of the theme that we want to load by default"
+  :type 'symbol
+  :group 'personal)
+
 (provide 'config-variables)
