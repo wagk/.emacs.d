@@ -3194,7 +3194,8 @@ Lets try that again
      "C-k"    'backward-button
      ;; make it more like helm, which defaults to this
      "M-j"    'forward-button
-     "M-k"    'backward-button)
+     "M-k"    'backward-button
+     "M-RET"  'deft-new-file)
     (:keymaps 'deft-mode-map
      :states  'normal
      "o"      'deft-complete
