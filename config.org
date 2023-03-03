@@ -2993,3 +2993,9 @@ Lets try that again
   (use-package earthfile-mode
     :straight t)
 #+end_src
+
+* Asciidoc
+#+begin_src emacs-lisp :results output silent
+  (use-package adoc-mode
+    :straight t)
+#+end_src
