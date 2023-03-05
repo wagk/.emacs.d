@@ -1,5 +1,4 @@
 (require 'use-package)
-(require 'config-evil)
 
 (use-package dired
   :demand t
