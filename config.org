@@ -85,23 +85,6 @@ C-M-i                           backward-button
 <normal-state> g b              debugger-frame
 <normal-state> g l              debugger-list-functions
 
-* Define useful constants
-#+begin_src emacs-lisp :results output silent
-  (when (boundp 'config-local-syncthing-folder)
-    (unless (bound-and-true-p my-notes-folder)
-      (defconst my-notes-folder (-> config-local-syncthing-folder
-                                    (f-join "wiki"))))
-    (defconst my-text-raw-folder (-> config-local-syncthing-folder
-                                    (f-join "raw")))
-    (defconst my-todo-org-file (-> config-local-syncthing-folder
-                                    (f-join "todo.org")))
-    (defconst my-text-routines-file (-> my-text-raw-folder
-                                      (f-join "routines.org")))
-    (defun find-user-syncthing-folder ()
-      (interactive)
-      (dired config-local-syncthing-folder)))
-#+end_src
-
 * General Faces
 #+begin_src emacs-lisp :results output silent
   (custom-set-faces `(vertical-border ((((background light)) (:foreground ,sol-base3))
