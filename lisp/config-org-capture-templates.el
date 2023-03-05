@@ -1,33 +1,33 @@
-(require 'config-org)
+(require 'config-org-capture)
 (require 'config-variables)
 
 (require 'evil)
-(require 'org-capture)
 
 (when (not (bound-and-true-p --diary-file))
   (warn "variable `--diary-file' not set!"))
 
-(with-eval-after-load 'doct
-  (setq org-capture-templates
-        (doct-add-to
-          org-capture-templates
-          '(("Add to today's diary"
-             :keys "today"
-             :empty-lines 1
-             :file --diary-file
-             :template "* %{todo-state} %? %^g"
-             :datetree t
-             :children
-             (("done"
-               :keys "done"
-               :todo-state "DONE")
-              ("todo"
-               :keys "todo"
-               :todo-state "TODO")
-              ("diary"
-               :keys "diary"
-               :template "* %?"
-               :todo-state nil)))))))
+(with-eval-after-load 'org-capture
+  (with-eval-after-load 'doct
+    (setq org-capture-templates
+          (doct-add-to
+           org-capture-templates
+           '(("Add to today's diary"
+              :keys "today"
+              :empty-lines 1
+              :file --diary-file
+              :template "* %{todo-state} %? %^g"
+              :datetree t
+              :children
+              (("done"
+                :keys "done"
+                :todo-state "DONE")
+               ("todo"
+                :keys "todo"
+                :todo-state "TODO")
+               ("diary"
+                :keys "diary"
+                :template "* %?"
+                :todo-state nil))))))))
 
 (defun --capture-diary-entry ()
   (interactive)

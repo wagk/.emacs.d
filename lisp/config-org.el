@@ -1,4 +1,6 @@
 (require 'use-package)
+(require 'config-evil) ;; evil-org
+(require 'f)
 
 ;;; org-mode
 
@@ -104,64 +106,27 @@
   :init
   (with-eval-after-load 'ol
     (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file))
-  ;; (customize-set-variable
-  ;;  'org-link-frame-setup
-  ;;  (let ((alist (copy-alist org-link-frame-setup)))
-  ;;    (setf (cdr (assoc 'file alist)) 'find-file)
-  ;;    alist)))
   (unless (display-graphic-p)
     (general-define-key
      :keymaps 'org-mode-map
      :states '(normal insert motion)
      ;; "C-^" 'org-insert-heading-after-current
      "C-^" 'org-meta-return
-     "\236" 'org-insert-todo-heading-respect-content)))
-  ;; (with-eval-after-load 'org
-  ;;   (add-hook 'org-mode-hook #'(lambda ()
-  ;;                               (with-eval-after-load 'elec-pair
-  ;;                                 (let ((org-pairs '((?= . ?=)
-  ;;                                                    (?/ . ?/)
-  ;;                                                    (?$ . ?$))))
-  ;;                                   (setq-local electric-pair-pairs
-  ;;                                               (append electric-pair-pairs org-pairs))
-  ;;                                   (setq-local electric-pair-text-pairs
-  ;;                                               electric-pair-pairs)))))
-  ;;   (defun my-org-reformat-buffer ()
-  ;;     (interactive)
-  ;;     (when (y-or-n-p "Really format current buffer? ")
-  ;;       (let ((document (org-element-interpret-data (org-element-parse-buffer))))
-  ;;         (erase-buffer)
-  ;;         (insert document)
-  ;;         (goto-char (point-min)))))
-  ;;   (use-package ox-confluence
-  ;;     :ensure nil
-  ;;     :straight nil
-  ;;     :commands org-confluence-export-as-confluence))
-
-  ;; (unless (eq system-type 'windows-nt)
-  ;;   (use-package org-contrib
-  ;;     :straight t))
-
-(with-eval-after-load 'org-persist
-  (customize-set-value 'org-persist-directory (f-join no-littering-var-directory "org-persist/")))
-
-  ;; we do this because juggling between org, org-plus-contrib,
-  ;; straight, and emacs' built-in org is horrendous and causing the
-  ;; :config code to just not run
-(with-eval-after-load 'org
+     "\236" 'org-insert-todo-heading-respect-content))
+  :config
   (defun my-org-convert-list-to-checkbox ()
-    (when (and (org-at-item-p)
-               (not (org-at-item-checkbox-p)))
-      (org-toggle-checkbox '(4))))
-  ;; NOTE: for some reason, this hook is not being run
-  (add-hook 'org-ctrl-c-ctrl-c-final-hook
-            'my-org-convert-list-to-checkbox)
-  ;; NOTE: this is a hack, because I've learnt that this hook is not
-  ;; consistently being called.
-  (advice-add 'org-ctrl-c-ctrl-c :after
-              #'(lambda (&rest _)
-                  (run-hook-with-args-until-success
-                   'org-ctrl-c-ctrl-c-final-hook)))
+      (when (and (org-at-item-p)
+                (not (org-at-item-checkbox-p)))
+        (org-toggle-checkbox '(4)))
+    ;; NOTE: for some reason, this hook is not being run
+    (add-hook 'org-ctrl-c-ctrl-c-final-hook
+              'my-org-convert-list-to-checkbox)
+    ;; NOTE: this is a hack, because I've learnt that this hook is not
+    ;; consistently being called.
+    (advice-add 'org-ctrl-c-ctrl-c :after
+                #'(lambda (&rest _)
+                    (run-hook-with-args-until-success)
+                    'org-ctrl-c-ctrl-c-final-hook)))
   (with-eval-after-load 'evil
     (advice-add 'org-add-note :after #'evil-insert-state)
     ;; NOTE: define our own hacked evil-fill and evil-fill-and-move
@@ -176,26 +141,10 @@
                 (fill-paragraph nil t)
               (fill-region beg end))
           (error nil))))
-    ;; NOTE: this is not setting the point properly, as we would expect. so we won't modify this yet
-    ;; (evil-define-operator my-org-evil-fill-and-move (beg end)
-    ;;   "Fill text and move point to the end of the filled region."
-    ;;   :move-point nil
-    ;;   :type line
-    ;;   (let ((marker (make-marker)))
-    ;;     (move-marker marker (1- end))
-    ;;     (condition-case nil
-    ;;         (progn
-    ;;           (if (org-at-item-p)
-    ;;               (fill-paragraph nil t)
-    ;;             (fill-region beg end))
-    ;;           (goto-char marker)
-    ;;           (evil-first-non-blank))
-    ;;       (error nil))))
     (general-define-key
      :states 'normal
      :keymaps 'org-mode-map
      "gw" 'my-org-evil-fill))
-  ;; "gq" 'my-org-evil-fill-and-move))
   (with-eval-after-load 'smartparens
     (defun my-dont-close-in-latex-fragment (_open action _context)
       (when (eq action 'insert)
@@ -207,8 +156,7 @@
     (sp-local-pair 'org-mode "*" "*"
                    :unless '(:add my-dont-close-in-latex-fragment)))
   (customize-set-value 'org-format-latex-options
-                       (plist-put org-format-latex-options
-                                  :scale 1.5))
+                       (plist-put org-format-latex-options :scale 1.5))
   (with-eval-after-load 'elec-pair
     (add-hook 'org-mode-hook
               #'(lambda ()
@@ -225,15 +173,52 @@
       (let ((document (org-element-interpret-data (org-element-parse-buffer))))
         (erase-buffer)
         (insert document)
-        (goto-char (point-min)))))
+        (goto-char (point-min))))))
 
-  (use-package ox-confluence
-    :ensure nil
-    :straight nil
-    :commands org-confluence-export-as-confluence))
+(with-eval-after-load 'org-persist
+  (customize-set-value 'org-persist-directory
+                       (f-join no-littering-var-directory "org-persist/")))
 
-;; https://github.com/progfolio/doct
-(use-package doct
-  :straight (:host github :repo "progfolio/doct"))
+(use-package org-id
+  :ensure nil
+  :straight nil
+  :defer t
+  :custom
+  (org-id-ts-format "%s")
+  (org-id-method 'ts))
+
+(use-package evil-org
+  :straight (:host github :repo "Somelauw/evil-org-mode")
+  :preface
+  (fset 'evil-redirect-digit-argument 'ignore)
+  :hook ((org-mode-hook . evil-org-mode))
+  :custom
+  (evil-org-retain-visual-state-on-shift
+    t "Let us chain < and > calls")
+  (evil-org-use-additional-insert
+    t "Add things like M-j to insert")
+  (evil-org-special-o/O
+    '(table-row) "Do not let o/O affect list items, throws me off")
+  (org-special-ctrl-a/e
+    t "Pretend leading stars on headlines don't exist when using A/I")
+  :general
+  (evil-org-mode-map
+    :states 'normal
+    "g f" 'evil-org-open-links)
+  :config
+  (when (boundp 'evil-digit-bound-motions)
+    (add-to-list 'evil-digit-bound-motions 'evil-org-beginning-of-line))
+  (evil-define-key 'motion 'evil-org-mode
+      (kbd "0") 'evil-org-beginning-of-line)
+  (evil-org-set-key-theme '(textobjects
+                            ;; insert ;; replaces c-t and c-d
+                            navigation
+                            additional
+                            shift
+                            return
+                            operators
+                            ;; todo
+                            ;; heading
+                            calendar)))
 
 (provide 'config-org)
