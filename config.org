@@ -865,9 +865,6 @@ pressing RET autoformats it, instead of doing nothing as it does right now
      "Maintain chomp-like behavior of electric-pair")
     :config
     (smartparens-global-mode)
-    ;; (smartparens-global-strict-mode)
-    ;; (show-smartparens-global-mode)
-    ;; define some helper functions
     (defun my-add-newline-and-indent-braces (_opening_delimiter
                                              _actions
                                              _context)
@@ -877,10 +874,6 @@ pressing RET autoformats it, instead of doing nothing as it does right now
       (indent-according-to-mode)
       (forward-line -1)
       (indent-according-to-mode))
-    ;; update the global definitions with some indenting
-    ;; I think that the nil is the flag that controls property inheritance
-    ;;note: for some reason tab isn't recognised. might be yasnippet intefering.
-    ;;learn to use ret for now
     (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
     (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
     (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET"))))
@@ -1201,18 +1194,11 @@ For some reason we can't do this in the scratch buffer
        "g t" 'tab-bar-switch-to-next-tab
        "g T" 'tab-bar-switch-to-prev-tab))
 
-    (with-eval-after-load 'salv
-      (add-hook 'org-mode-hook #'(lambda ()
-                                   (when (org-agenda-file-p (buffer-file-name))
-                                    (salv-mode)))))
-
     (define-advice org-agenda-capture (:override () --consult-org-agenda-capture)
       "Overrides `org-agenda-add' with a more consult-like interface"
       (interactive)
       (call-interactively '--org-capture-completing-read))
 
-    (--evil-ex-define-cmds-splits-and-tabs "aa" #'org-agenda)
-    (--evil-ex-define-cmds-splits-and-tabs "todo" #'org-todo-list)
     (--evil-ex-define-cmds-splits-and-tabs
      "agenda"
      #'(lambda () (interactive) (org-agenda nil "A"))
