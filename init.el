@@ -53,6 +53,10 @@
   (locate-user-emacs-file "lisp/config-variables.el")
   "Points to variables.el.")
 
+(defconst user-lisp-dir
+  (locate-user-emacs-file "lisp")
+  "Points to lisp configuration file directory")
+
 (defun find-user-init-file ()
   "Edit `user-init-file' without opening a new window."
   (interactive)
@@ -72,6 +76,11 @@
   "Edit `variables.el' without opening a new window."
   (interactive)
   (find-file user-variables-file))
+
+(defun find-user-lisp-dir ()
+  "Edit lisp directory without opening a new window."
+  (interactive)
+  (dired user-lisp-dir))
 
 (defmacro measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."

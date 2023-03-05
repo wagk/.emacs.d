@@ -206,9 +206,9 @@
         ("org" (org-babel-load-file file))))))
 
 (--evil-ex-define-cmds-splits-and-tabs "lisp"
-                                        #'--select-config-lisp-file
-                                        #'--select-config-lisp-file-name)
-(evil-ex-define-cmd "ll" #'--select-config-lisp-file)
+                                        #'find-user-lisp-dir
+                                        #'user-lisp-dir)
+(--evil-ex-define-cmds-splits-and-tabs "ll" #'--select-config-lisp-file)
 
 (use-package evil-lion
   :straight (:host github :repo "edkolev/evil-lion")
