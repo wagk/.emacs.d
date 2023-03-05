@@ -1,4 +1,5 @@
 (require 'use-package)
+(require 'config-colors)
 
 (use-package transient
   :straight (:host github :repo "magit/transient"))
