@@ -3,34 +3,6 @@
 (use-package transient
   :straight (:host github :repo "magit/transient"))
 
-(defun --transient--post-command-hack ()
-  (transient--debug 'post-command)
-  (transient--with-emergency-exit
-    (cond
-     ((and (eq (this-command-keys-vector) [])
-           (= (minibuffer-depth)
-              (1+ transient--minibuffer-depth)))
-      (transient--suspend-override)
-      (transient--delay-post-command (eq transient--exitp 'replace)))
-     (transient--exitp
-      (transient--post-exit))
-     ;; somehow it's possible that `transient--prefix' is nil, which
-     ;; causes the following `oref' to fail
-     ((not transient--prefix)
-      (transient--post-exit))
-     ((eq this-command (oref transient--prefix command)))
-     (t
-      (let ((old transient--redisplay-map)
-            (new (transient--make-redisplay-map)))
-        (unless (equal old new)
-          (transient--pop-keymap 'transient--redisplay-map)
-          (setq transient--redisplay-map new)
-          (transient--push-keymap 'transient--redisplay-map)))
-      (transient--redisplay)))))
-
-(advice-add 'transient--post-command :override
-            #'--transient--post-command-hack)
-
 ;; If magit complains about not finding the config on windows, it's
 ;; because of [this issue], the easiest solution is to make a link.
 ;;
