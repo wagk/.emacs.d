@@ -173,12 +173,20 @@
       (let ((consult--buffer-display #'collect-buffer-name))
         (consult-buffer)
         (pcase split-type
-          (:split (evil-window-split))
-          (:vsplit (evil-window-vsplit)))
-        (evil-buffer selected-buffer)))))
+          (:split
+           (evil-window-split)
+           (evil-buffer selected-buffer))
+          (:vsplit
+           (evil-window-vsplit)
+           (evil-buffer selected-buffer))
+          (:tab
+           (require 'tab-bar)
+           (let ((tab-bar-new-tab-choice selected-buffer))
+             (tab-bar-new-tab))))))))
 
 (evil-ex-define-cmd "vbb" #'(lambda () (interactive) (--evil-consult-buffer :vsplit)))
 (evil-ex-define-cmd "sbb" #'(lambda () (interactive) (--evil-consult-buffer :split)))
+(evil-ex-define-cmd "tbb" #'(lambda () (interactive) (--evil-consult-buffer :tab)))
 
 (defun --select-config-lisp-file-name ()
   "Open a file from `.emacs.d/lisp'."
