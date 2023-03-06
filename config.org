@@ -852,7 +852,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
                                              _actions
                                              _context)
       "adds that cool vim indent thing we always wanted, Refer to WHEN
-    segment of `sp-pair' documentation on what each parameter does"
+        segment of `sp-pair' documentation on what each parameter does"
       (newline)
       (indent-according-to-mode)
       (forward-line -1)
