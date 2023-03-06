@@ -2562,6 +2562,17 @@ This is closer to the json serialization/deserialization module.
      "f" (evil-textobj-tree-sitter-get-textobj "function.inner")))
 #+end_src
 
+** Treesit (built-in mode)
+#+begin_src emacs-lisp :results output silent
+  (use-package treesit-auto
+    :if (and (fboundp 'treesit-available-p) (treesit-available-p))
+    :straight t
+    :custom
+    (tresit-auto-install 'prompt)
+    :config
+    (global-treesit-auto-mode))
+#+end_src
+
 * Scratch
 Just do the scratch buffer simple and stupidly
 #+begin_src emacs-lisp :results output silent
