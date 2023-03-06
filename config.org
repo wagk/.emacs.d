@@ -1587,6 +1587,27 @@ clojurescript-mode derives from clojure-mode
       (cl-pushnew '("rust" . rust) org-src-lang-modes)))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+  (with-eval-after-load 'rust-ts-mode
+    (general-define-key
+     :keymaps 'rust-ts-mode-map
+     :states 'insert
+     "RET" 'comment-indent-new-line)
+
+    (setq rust-ts-mode-hook rust-mode-hook)
+
+    (defun --rust-ts-mode-rustfmt ()
+      "Rustfmts buffer before saving."
+      (require 'rust-rustfmt)
+      (add-hook 'before-save-hook 'rust-format-buffer nil t))
+
+    (add-to-list 'rust-ts-mode-hook '--rust-ts-mode-rustfmt)
+
+    (with-eval-after-load 'smartparens
+      (require 'smartparens-rust)
+      (sp-local-pair 'rust-ts-mode "<" ">")))
+#+end_src
+
 ** Cargo
 Requires rust-mode and markdown-mode
 #+begin_src emacs-lisp :results output silent
