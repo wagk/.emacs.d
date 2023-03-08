@@ -82,6 +82,10 @@
 
 (use-package corfu
   :straight t
+  ;; normal tab-completion seems to beat this with how it does
+  ;; incremental completions
+  :disabled t
+  :demand t ;; not sure how the :general config will affect this
   :custom
   (corfu-auto t)
   (corfu-cycle t)
