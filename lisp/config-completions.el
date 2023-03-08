@@ -56,6 +56,9 @@
   :ensure nil
   :straight nil
   :after (consult)
+  :commands
+  (consult-org-heading
+   consult-org-agenda)
   :config
   ;; `with-delayed-message' is only defined from emacs-29 onwards.
   ;; Somehow its shim in `compat-29' isn't loading, and apparently it
