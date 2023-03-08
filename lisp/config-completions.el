@@ -25,8 +25,8 @@
 
 (use-package prescient
   :straight (:host github
-		     :repo "radian-software/prescient.el"
-		     :files (:defaults "/*.el"))
+             :repo "radian-software/prescient.el"
+             :files (:defaults "/*.el"))
   :config
   (with-eval-after-load 'vertico
     (vertico-prescient-mode))
@@ -87,16 +87,16 @@
   :straight t
   :after vertico
   :commands (embark-act
-              embark-dwim
-              embark-bindings
-              embark-prefix-help-command)
+             embark-dwim
+             embark-bindings
+             embark-prefix-help-command)
   :custom
   (prefix-help-command #'embark-prefix-help-command)
   :general
   (vertico-map
-    "C-<SPC>" 'embark-act)
+   "C-<SPC>" 'embark-act)
   (:states 'motion
-    "C-<SPC>" 'embark-act))
+   "C-<SPC>" 'embark-act))
 
 (use-package embark-consult
   :straight t
