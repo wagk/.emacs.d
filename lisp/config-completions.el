@@ -101,5 +101,12 @@
   :straight t
   :after (:all embark consult))
 
-;; TODO (pangt): consider using cape https://github.com/minad/cape
+(use-package cape
+  :straight t
+  :config
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-history)
+  (add-to-list 'completion-at-point-functions #'cape-keyword))
+
 (provide 'config-completions)
