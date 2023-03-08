@@ -49,6 +49,15 @@
     "g o" 'ff-find-other-file
     "g O" 'ff-find-other-file-other-window)
   :custom
+  ;; (evil-complete-next-func
+  ;;  #'(lambda (_arg) (completion-at-point))
+  ;;    "Note that this means the variable `evil-complete-all-buffers'
+  ;;    will be ignored when `C-n' is pressed, since this was where the
+  ;;    logic was originally defined.")
+  ;; (evil-complete-previous-func
+  ;;  #'(lambda (_arg) (completion-at-point))
+  ;;    "Refer to `evil-complete-next-func' for warnings on how this
+  ;;    impacts evil configuration variables.")
   (evil-undo-system 'undo-tree)
   (evil-want-Y-yank-to-eol
     t
