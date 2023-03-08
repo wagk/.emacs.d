@@ -93,8 +93,7 @@
   (vertico-map
     "C-<SPC>" 'embark-act)
   (:states 'motion
-    "C-<SPC>" 'embark-act
-    "S-<SPC>" 'embark-dwim))
+    "C-<SPC>" 'embark-act))
 
 (use-package embark-consult
   :straight t
