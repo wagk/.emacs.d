@@ -1355,16 +1355,6 @@ Use the following query to find all todo items that are overdue
                              (locate-user-emacs-file "snippets"))))
     (yas-indent-line 'auto)
     (yas-also-auto-indent-first-line t)
-    :init
-    (evil-define-command ex-snippet (cmd)
-      (interactive "<a>")
-      (require 'yasnippet)
-      (cond
-       ((string= cmd "reload") (yas-reload-all))
-       ((string= cmd "edit") (yas-visit-snippet-file))
-       ((string= cmd "new") (yas-new-snippet))
-       (t (yas-insert-snippet))))
-    (evil-ex-define-cmd "sn[ippets]" 'ex-snippet)
     :config
     (defun yas-with-comment (str)
       ;; TODO: note that this is a hack; the proper way should be
