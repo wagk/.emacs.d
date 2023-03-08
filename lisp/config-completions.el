@@ -52,25 +52,6 @@
   :config
   (setq xref-show-xrefs-function 'consult-xref))
 
-(use-package consult-org
-  :ensure nil
-  :straight nil
-  :after (consult)
-  :commands
-  (consult-org-heading
-   consult-org-agenda)
-  :config
-  ;; `with-delayed-message' is only defined from emacs-29 onwards.
-  ;; Somehow its shim in `compat-29' isn't loading, and apparently it
-  ;; relies on emacs internals so it's not possible to build a compat
-  ;; shim for it.
-  ;;
-  ;; Needed for `consult-org-*' commands
-  (when (< emacs-major-version 29)
-    (defmacro with-delayed-message (_args &rest body)
-      (declare (indent 1))
-      (macroexp-progn body))))
-
 (use-package consult-git-log-grep
   :straight (:host github :repo "ghosty141/consult-git-log-grep")
   :commands (consult-git-log-grep)
