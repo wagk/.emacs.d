@@ -2,4 +2,4 @@
 # key: M
 # name: rust-match-case
 # --
-=> $1
+=> $0
