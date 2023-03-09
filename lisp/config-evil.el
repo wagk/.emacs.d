@@ -10,11 +10,15 @@
 ;; corruption?
 (use-package undo-tree
   :straight t
+  :demand t
+  :commands (turn-on-undo-tree-mode)
   :custom
   (undo-tree-visualizer-diff t)
   (undo-tree-visualizer-timestamps t)
   (undo-tree-auto-save-history nil) ;; the perf of this seems intensely bad
   (undo-tree-enable-undo-in-region t)
+  :hook
+  (evil-local-mode-hook . turn-on-undo-tree-mode)
   :config
   (global-undo-tree-mode)
   (with-eval-after-load 'evil
