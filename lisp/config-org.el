@@ -221,4 +221,11 @@
                             ;; heading
                             calendar)))
 
+(use-package org-ql
+  :straight t
+  :commands (org-ql-find
+             org-ql-find-heading
+             org-ql-refile
+             org-ql-find-path))
+
 (provide 'config-org)
