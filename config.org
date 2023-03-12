@@ -339,11 +339,6 @@ Emulate the best feature of notepad
   (setq-default tab-width 4)
 #+end_src
 
-** Make <TAB> always indent
-#+begin_src emacs-lisp :results output silent
-  (setq tab-always-indent 'complete)
-#+end_src
-
 ** Never indent with a TAB character
 #+begin_src emacs-lisp :results output silent
   (setq-default indent-tabs-mode nil)

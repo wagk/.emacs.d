@@ -1,6 +1,6 @@
 (require 'use-package)
 
-(setq tab-always-indent 'complete)
+(setq-default tab-always-indent 'complete)
 
 ;; TODO: Figure out how to delete an entry from the completion
 ;; history
