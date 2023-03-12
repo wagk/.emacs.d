@@ -30,4 +30,13 @@
                                            (my-evil-new-tab nil))
                                          (dired-jump)))))
 
+(use-package recentf
+  :ensure nil
+  :custom
+  (recentf-max-saved-items nil)
+  :config
+  (recentf-mode)
+  (with-eval-after-load 'consult
+    (evil-ex-define-cmd "recent" 'consult-recent-file)))
+
 (provide 'config-emacs)

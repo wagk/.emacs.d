@@ -250,18 +250,6 @@ Solarized)
     (set-frame-parameter (selected-frame) 'alpha value))
 #+end_src
 
-** Recent files
-#+begin_src emacs-lisp :results output silent
-  (use-package recentf
-    :ensure nil
-    :custom
-    (recentf-max-saved-items nil)
-    :config
-    (recentf-mode)
-    (with-eval-after-load 'consult
-      (evil-ex-define-cmd "recent" 'consult-recent-file)))
-#+end_src
-
 ** Disable GUI Elements
 #+begin_src emacs-lisp :results output silent
   (tool-bar-mode -1)
