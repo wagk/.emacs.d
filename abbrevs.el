@@ -550,6 +550,7 @@
     ("partiaully" "partially" nil :count 1)
     ("pattenr" "pattern" nil :count 1)
     ("paylaod" "payload" nil :count 4)
+    ("performacne" "performance" nil :count 1)
     ("pickign" "picking" nil :count 1)
     ("pirnt" "print" nil :count 2)
     ("platofrm" "platform" nil :count 1)
