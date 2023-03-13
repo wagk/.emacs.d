@@ -154,4 +154,15 @@
   :init
   (evil-ex-define-cmd "gtime" #'git-timemachine))
 
+(use-package blamer
+  :straight (:host github :repo "Artawower/blamer.el")
+  :custom
+  (blamer-commit-formatter ": %s")
+  (blamer-min-offset 5)
+  (blamer-idle-time 1)
+  :custom-face
+  (blamer-face ((t :inherit sol-subtle)))
+  :hook
+  (prog-mode-hook . blamer-mode))
+
 (provide 'config-git)
