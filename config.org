@@ -1587,7 +1587,10 @@ clojurescript-mode derives from clojure-mode
 
     (with-eval-after-load 'smartparens
       (require 'smartparens-rust)
-      (sp-local-pair 'rust-ts-mode "<" ">")))
+      (sp-local-pair 'rust-ts-mode "<" ">"))
+
+    (with-eval-after-load 'scopeline
+      (add-hook 'rust-ts-mode-hook #'scopeline-mode)))
 #+end_src
 
 ** Cargo
