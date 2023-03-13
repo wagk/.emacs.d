@@ -229,7 +229,9 @@
 (--evil-ex-define-cmds-splits-and-tabs "lisp"
                                         #'find-user-lisp-dir
                                         #'user-lisp-dir)
-(--evil-ex-define-cmds-splits-and-tabs "ll" #'--select-config-lisp-file)
+(--evil-ex-define-cmds-splits-and-tabs "ll"
+                                       #'--select-config-lisp-file
+                                       #'(lambda () (--select-config-lisp-file-name)))
 
 (use-package evil-lion
   :straight (:host github :repo "edkolev/evil-lion")
