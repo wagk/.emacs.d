@@ -40,6 +40,7 @@
                (((background light)) (:foreground ,sol-base1))))
   (org-special-keyword ((t (:inherit default :bold nil :foreground ,sol-blue))))
   :custom
+  (org-edit-src-content-indentation 0 "Don't indent code blocks")
   (org-list-description-max-indent
    5 "Ideally we should familiarize ourselves with adding a newline
    after each list description entry, like so:
