@@ -146,14 +146,14 @@
     (evil-ex-define-cmd vsplit-command-name
                         `(lambda () (interactive)
                            (call-interactively 'evil-window-vsplit)
-                           (funcall-interactively #',body-fn)))
-   (when tab
-     (let ((new-tab-command-name (concat "T" command)))
-       (evil-ex-define-cmd new-tab-command-name
-                           `(lambda () (interactive)
-                              (require 'tab-bar)
-                              (let ((tab-bar-new-tab-choice ,tab))
-                                (tab-bar-new-tab))))))))
+                           (funcall-interactively #',body-fn))))
+  (when tab
+    (let ((new-tab-command-name (concat "T" command)))
+      (evil-ex-define-cmd new-tab-command-name
+                          `(lambda () (interactive)
+                             (require 'tab-bar)
+                             (let ((tab-bar-new-tab-choice ,tab))
+                               (tab-bar-new-tab)))))))
 
 (--evil-ex-define-cmds-splits-and-tabs "init"
                                         'find-user-init-file
