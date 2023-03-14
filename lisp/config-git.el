@@ -161,7 +161,8 @@
   (blamer-min-offset 5)
   (blamer-idle-time 1)
   :custom-face
-  (blamer-face ((t :inherit sol-subtle)))
+  (blamer-face ((((background light)) (:background ,sol-base3 :foreground ,sol-base2))
+                (((background dark)) (:background ,sol-base03 :foreground ,sol-base02))))
   :hook
   (prog-mode-hook . blamer-mode))
 
