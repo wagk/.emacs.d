@@ -925,6 +925,11 @@ For some reason we can't do this in the scratch buffer
   :hook
   (org-agenda-after-show-hook . org-narrow-to-subtree)
   :init
+  (--evil-ex-define-cmds-splits-and-tabs
+   "agenda"
+   #'(lambda () (interactive) (org-agenda nil "A"))
+   #'(lambda () (org-agenda nil "A")))
+
   (cl-defun --run-with-local-idle-timer (secs repeat function &rest args)
     "Like `run-with-idle-timer', but always runs in the `current-buffer'.
    Cancels itself, if this buffer was killed.
@@ -957,10 +962,6 @@ For some reason we can't do this in the scratch buffer
     (interactive)
     (call-interactively '--org-capture-completing-read))
 
-  (--evil-ex-define-cmds-splits-and-tabs
-   "agenda"
-   #'(lambda () (interactive) (org-agenda nil "A"))
-   #'(lambda () (org-agenda nil "A")))
   ;; override `org-agenda-diary-entry' to use `org-roam'
   (general-define-key
    :keymaps 'org-agenda-mode-map
