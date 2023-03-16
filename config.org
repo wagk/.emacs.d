@@ -880,94 +880,94 @@ Interesting Text Objects:
 ** Org Agenda
 For some reason we can't do this in the scratch buffer
 #+begin_src emacs-lisp :results output silent
-  (use-package org-agenda
-    :ensure nil
-    :straight nil
-    :commands (org-todo-list
-               org-agenda-list
-               org-agenda-file-to-front
-               org-agenda)
-    :general
-    (:states 'motion
-     "|" 'org-agenda)
-    (:keymaps 'org-agenda-keymap
-     :states '(normal motion)
-     "g r" 'org-agenda-redo
-     "g t" nil
-     "g T" nil
-     "g l" 'org-agenda-log-mode
-     "g x" 'org-open-at-point-global
-     ;; Seems to be an unhandled case by evil-org
-     "RET" 'org-agenda-switch-to
-     [remap evil-write] 'org-save-all-org-buffers
-     [remap evil-save-modified-and-close] #'(lambda ()
-                                              (interactive)
-                                              (org-save-all-org-buffers)
-                                              (org-agenda-quit)))
-    :custom
-    (org-agenda-custom-commands '(("A" "TODOs and Agenda items"
-                                   ((alltodo "")
-                                    (agenda "")))))
-    (org-agenda-start-with-log-mode nil "Use `g l' instead")
-    (org-agenda-log-mode-items '(closed clock state))
-    (org-agenda-span 'month)
-    (org-agenda-window-setup 'current-window)
-    (org-agenda-skip-unavailable-files t)
-    (org-agenda-time-leading-zero t)
-    (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t%s %?b")
-                                (todo . " %i %-12:c%?-12b")
-                                (tags . " %i %-12:c")
-                                (search . " %i %-12:c")))
-    (org-agenda-breadcrumbs-separator "/")
-    :custom-face
-    (org-agenda-done ((t (:inherit org-agenda-done :strike-through t))))
-    (org-agenda-date-today ((t (:inherit org-agenda-date :overline t :bold t :inverse t))))
-    :hook
-    (org-agenda-after-show-hook . org-narrow-to-subtree)
-    :init
-    (cl-defun --run-with-local-idle-timer (secs repeat function &rest args)
-      "Like `run-with-idle-timer', but always runs in the `current-buffer'.
-     Cancels itself, if this buffer was killed.
-     Stolen from https://emacs.stackexchange.com/a/13275"
-     (let* (;; Chicken and egg problem.
-            (fns (make-symbol "local-idle-timer"))
-            (timer (apply 'run-with-idle-timer secs repeat fns args))
-            (fn `(lambda (&rest args)
-                   (if (not (buffer-live-p ,(current-buffer)))
-                       (cancel-timer ,timer)
-                     (with-current-buffer ,(current-buffer)
-                      (apply (function ,function) args))))))
-       (fset fns fn)
-       fn))
-    :config
-    (require 'evil-org-agenda)
-    (customize-set-value 'org-agenda-start-day "-1d"
-                         "For some reason this isn't being recognized
-                         and loaded in `:custom`")
-    (evil-org-agenda-set-keys)
-    (with-eval-after-load 'tab-bar
-      (general-define-key
-       :keymaps 'org-agenda-mode-map
-       :states '(motion)
-       "g t" 'tab-bar-switch-to-next-tab
-       "g T" 'tab-bar-switch-to-prev-tab))
-
-    (define-advice org-agenda-capture (:override () --consult-org-agenda-capture)
-      "Overrides `org-agenda-add' with a more consult-like interface"
-      (interactive)
-      (call-interactively '--org-capture-completing-read))
-
-    (--evil-ex-define-cmds-splits-and-tabs
-     "agenda"
-     #'(lambda () (interactive) (org-agenda nil "A"))
-     #'(lambda () (org-agenda nil "A")))
-    ;; override `org-agenda-diary-entry' to use `org-roam'
+(use-package org-agenda
+  :ensure nil
+  :straight nil
+  :commands (org-todo-list
+             org-agenda-list
+             org-agenda-file-to-front
+             org-agenda)
+  :general
+  (:states 'motion
+   "|" 'org-agenda)
+  (:keymaps 'org-agenda-keymap
+   :states '(normal motion)
+   "g r" 'org-agenda-redo
+   "g t" nil
+   "g T" nil
+   "g l" 'org-agenda-log-mode
+   "g x" 'org-open-at-point-global
+   ;; Seems to be an unhandled case by evil-org
+   "RET" 'org-agenda-switch-to
+   [remap evil-write] 'org-save-all-org-buffers
+   [remap evil-save-modified-and-close] #'(lambda ()
+                                            (interactive)
+                                            (org-save-all-org-buffers)
+                                            (org-agenda-quit)))
+  :custom
+  (org-agenda-custom-commands '(("A" "TODOs and Agenda items"
+                                 ((alltodo "")
+                                  (agenda "")))))
+  (org-agenda-start-with-log-mode nil "Use `g l' instead")
+  (org-agenda-log-mode-items '(closed clock state))
+  (org-agenda-span 'month)
+  (org-agenda-window-setup 'current-window)
+  (org-agenda-skip-unavailable-files t)
+  (org-agenda-time-leading-zero t)
+  (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t%s %?b")
+                              (todo . " %i %-12:c%?-12b")
+                              (tags . " %i %-12:c")
+                              (search . " %i %-12:c")))
+  (org-agenda-breadcrumbs-separator "/")
+  :custom-face
+  (org-agenda-done ((t (:inherit org-agenda-done :strike-through t))))
+  (org-agenda-date-today ((t (:inherit org-agenda-date :overline t :bold t :inverse t))))
+  :hook
+  (org-agenda-after-show-hook . org-narrow-to-subtree)
+  :init
+  (cl-defun --run-with-local-idle-timer (secs repeat function &rest args)
+    "Like `run-with-idle-timer', but always runs in the `current-buffer'.
+   Cancels itself, if this buffer was killed.
+   Stolen from https://emacs.stackexchange.com/a/13275"
+   (let* (;; Chicken and egg problem.
+          (fns (make-symbol "local-idle-timer"))
+          (timer (apply 'run-with-idle-timer secs repeat fns args))
+          (fn `(lambda (&rest args)
+                 (if (not (buffer-live-p ,(current-buffer)))
+                     (cancel-timer ,timer)
+                   (with-current-buffer ,(current-buffer)
+                    (apply (function ,function) args))))))
+     (fset fns fn)
+     fn))
+  :config
+  (require 'evil-org-agenda)
+  (customize-set-value 'org-agenda-start-day "-1d"
+                       "For some reason this isn't being recognized
+                       and loaded in `:custom`")
+  (evil-org-agenda-set-keys)
+  (with-eval-after-load 'tab-bar
     (general-define-key
      :keymaps 'org-agenda-mode-map
      :states '(motion)
-     "i" #'(lambda () (interactive)
-             (require 'org-roam)
-             (--org-roam-dailies-today))))
+     "g t" 'tab-bar-switch-to-next-tab
+     "g T" 'tab-bar-switch-to-prev-tab))
+
+  (define-advice org-agenda-capture (:override () --consult-org-agenda-capture)
+    "Overrides `org-agenda-add' with a more consult-like interface"
+    (interactive)
+    (call-interactively '--org-capture-completing-read))
+
+  (--evil-ex-define-cmds-splits-and-tabs
+   "agenda"
+   #'(lambda () (interactive) (org-agenda nil "A"))
+   #'(lambda () (org-agenda nil "A")))
+  ;; override `org-agenda-diary-entry' to use `org-roam'
+  (general-define-key
+   :keymaps 'org-agenda-mode-map
+   :states '(motion)
+   "i" #'(lambda () (interactive)
+           (require 'org-roam)
+           (--org-roam-dailies-today))))
 #+end_src
 
 *** Super agenda
