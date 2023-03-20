@@ -1573,9 +1573,6 @@ clojurescript-mode derives from clojure-mode
     (with-eval-after-load 'smartparens
       (require 'smartparens-rust)
       (sp-local-pair 'rust-ts-mode "<" ">"))
-
-    (with-eval-after-load 'scopeline
-      (add-hook 'rust-ts-mode-hook #'scopeline-mode)))
 #+end_src
 
 ** Cargo
@@ -3007,7 +3004,8 @@ Lets try that again
 (use-package scopeline
   :straight (:host github :repo "meain/scopeline.el" :branch "master")
   :after (:or tree-sitter treesit)
-  :hook (tree-sitter-mode-hook . scopeline-mode)
+  :hook ((tree-sitter-mode-hook . scopeline-mode)
+         (rust-ts-mode-hook . scopeline-mode))
   :custom
   (scopeline-overlay-prefix " -- ")
   :custom-face
