@@ -2610,112 +2610,112 @@ Just do the scratch buffer simple and stupidly
 
 * Project mode
 #+begin_src emacs-lisp :results output silent
-  (use-package project
-    :ensure nil
-    :straight nil
-    :init
-    (advice-add 'evil-make :before
-                #'(lambda (&rest _) (require 'project)))
-    :config
-    ;; NOTE: no idea why this here is necessary; it gets overwritten otherwise
+(use-package project
+  :ensure nil
+  :straight nil
+  :init
+  (advice-add 'evil-make :before
+              #'(lambda (&rest _) (require 'project)))
+  :config
+  ;; NOTE: no idea why this here is necessary; it gets overwritten otherwise
+  (general-define-key
+   :keymaps 'project-prefix-map
+   "d" 'project-find-dir
+   "D" 'project-dired)
+
+  (with-eval-after-load 'magit
     (general-define-key
      :keymaps 'project-prefix-map
-     "d" 'project-find-dir
-     "D" 'project-dired)
+     "v" 'magit))
 
-    (with-eval-after-load 'magit
-      (general-define-key
-       :keymaps 'project-prefix-map
-       "v" 'magit))
+  (with-eval-after-load 'consult
+    (general-define-key
+     :keymaps 'project-prefix-map
+     "b" 'consult-project-buffer
+     "C" 'consult-compile-error))
 
-    (with-eval-after-load 'consult
-      (general-define-key
-       :keymaps 'project-prefix-map
-       "b" 'consult-project-buffer
-       "C" 'consult-compile-error))
+  (with-eval-after-load 'savehist
+    (add-to-list 'savehist-additional-variables 'compile-history))
 
-    (with-eval-after-load 'savehist
-      (add-to-list 'savehist-additional-variables 'compile-history))
+  ;; TODO: Also make `compile-history' project-local
+  (defun --compile-command-completing-read ()
+    (interactive)
+    (require 'dash)
+    (require 'project)
+    (let ((command (--completing-read "Compile command: "
+                                      compile-history
+                                      :default-value compile-command))
+          (default-directory (or (project-root (project-current)) default-directory)))
+      (add-to-history 'compile-history command)
+      (compile command)))
 
-    ;; TODO: Also make `compile-history' project-local
-    (defun --compile-command-completing-read ()
+  (defun --delete-command-from-compile-history-completing-read ()
+    "Finds a compile command and removes it from `compile-history'"
+    (interactive)
+    (require 'dash)
+    (require 'project)
+    (let ((command (--completing-read "Compile command: "
+                                      compile-history
+                                      :default-value compile-command)))
+      (setq compile-history (remove command compile-history))))
+
+  (defun --find-project-todo-file ()
+    (interactive)
+    (require 'project)
+    (if-let ((proj-current (project-current))
+             (todo (f-join (project-root proj-current) ".todo.md")))
+        (find-file-other-window todo)
+      (error "No todo.md found in %s" default-directory)))
+
+  (general-define-key
+   :keymaps 'project-prefix-map
+   "c" #'--compile-command-completing-read
+   "t" #'--find-project-todo-file)
+
+  (unless (or (eq system-type 'windows-nt)
+              (eq system-type 'ms-dos))
+    (general-define-key
+     :keymaps 'project-prefix-map
+     "s" #'term))
+
+  (defun --project-find-readme ()
+    "Finds and lists all the README (eventually documentation) files "
+    (interactive)
+    (require 'dash)
+    (let* ((case-fold-search t) ; ignore cases
+           ;; same reasoning as `--compile-command-completing-read'
+           (project-dir (project-root (project-current)))
+           (readme-list (->> (project-files (project-current))
+                             (-keep (lambda (elem)
+                                      (when (string-match-p "readme" elem nil)
+                                        elem)))
+                             (mapcar #'(lambda (file)
+                                         (f-relative file
+                                          project-dir)))))
+           (readme (--completing-read "README: " readme-list
+                                      :require-match t)))
+      (find-file (f-join project-dir readme))))
+
+  (--evil-ex-define-cmds-splits-and-tabs "readme" #'--project-find-readme)
+
+  (with-eval-after-load 'consult
+    (defun --consult-ripgrep-with-initial ()
       (interactive)
-      (require 'dash)
-      (require 'project)
-      (let ((command (--completing-read "Compile command: "
-                                        compile-history
-                                        :default-value compile-command))
-            (default-directory (or (project-root (project-current)) default-directory)))
-        (add-to-history 'compile-history command)
-        (compile command)))
-
-    (defun --delete-command-from-compile-history-completing-read ()
-      "Finds a compile command and removes it from `compile-history'"
-      (interactive)
-      (require 'dash)
-      (require 'project)
-      (let ((command (--completing-read "Compile command: "
-                                        compile-history
-                                        :default-value compile-command)))
-        (setq compile-history (remove command compile-history))))
-
-    (defun --find-project-todo-file ()
-      (interactive)
-      (require 'project)
-      (if-let ((proj-current (project-current))
-               (todo (f-join (project-root proj-current) ".todo.md")))
-          (find-file-other-window todo)
-        (error "No todo.md found in %s" default-directory)))
+      (require 'thingatpt)
+      (consult-ripgrep nil
+                       (cond
+                        ((use-region-p) (buffer-substring-no-properties (region-beginning)
+                                                                        (region-end)))
+                        ((thing-at-point 'symbol)))))
 
     (general-define-key
      :keymaps 'project-prefix-map
-     "c" #'--compile-command-completing-read
-     "t" #'--find-project-todo-file)
+     "g" '--consult-ripgrep-with-initial))
 
-    (unless (or (eq system-type 'windows-nt)
-                (eq system-type 'ms-dos))
-      (general-define-key
-       :keymaps 'project-prefix-map
-       "s" #'term))
-
-    (defun --project-find-readme ()
-      "Finds and lists all the README (eventually documentation) files "
-      (interactive)
-      (require 'dash)
-      (let* ((case-fold-search t) ; ignore cases
-             ;; same reasoning as `--compile-command-completing-read'
-             (project-dir (project-root (project-current)))
-             (readme-list (->> (project-files (project-current))
-                               (-keep (lambda (elem)
-                                        (when (string-match-p "readme" elem nil)
-                                          elem)))
-                               (mapcar #'(lambda (file)
-                                           (f-relative file
-                                            project-dir)))))
-             (readme (--completing-read "README: " readme-list
-                                        :require-match t)))
-        (find-file (f-join project-dir readme))))
-
-    (--evil-ex-define-cmds-splits-and-tabs "readme" #'--project-find-readme)
-
-    (with-eval-after-load 'consult
-      (defun --consult-ripgrep-with-initial ()
-        (interactive)
-        (require 'thingatpt)
-        (consult-ripgrep nil
-                         (cond
-                          ((use-region-p) (buffer-substring-no-properties (region-beginning)
-                                                                          (region-end)))
-                          ((thing-at-point 'symbol)))))
-
-      (general-define-key
-       :keymaps 'project-prefix-map
-       "g" '--consult-ripgrep-with-initial))
-
-    (with-eval-after-load 'rg
-      (general-define-key
-       :keymaps 'project-prefix-map
-       "G" 'rg-project)))
+  (with-eval-after-load 'rg
+    (general-define-key
+     :keymaps 'project-prefix-map
+     "G" 'rg-project)))
 #+end_src
 
 * Calendar Mode
