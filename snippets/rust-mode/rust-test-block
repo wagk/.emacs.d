@@ -6,9 +6,5 @@
 mod tests {
     use super::*;
 
-    #[test]
-    fn $1() {
-        $0
-        todo!()
-    }
+    $0
 }
