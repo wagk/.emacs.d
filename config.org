@@ -653,8 +653,8 @@ evil integration)
   :straight nil
   :custom-face
   (tab-bar ((t (:inherit minibuffer-prompt :underline nil))))
-  (tab-bar-tab ((t (:inherit success :foreground nil :background nil))))
-  (tab-bar-tab-inactive ((t (:inherit default :foreground nil :background nil))))
+  (tab-bar-tab ((t (:inherit default :italic t :foreground unspecified :background unspecified))))
+  (tab-bar-tab-inactive ((t (:inherit default :foreground unspecified :background unspecified))))
   :custom
   (tab-bar-close-last-tab-choice 'delete-frame)
   (tab-bar-new-tab-choice t)
