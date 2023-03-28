@@ -59,7 +59,7 @@
   ;;    will be ignored when `C-n' is pressed, since this was where the
   ;;    logic was originally defined.")
   ;; (evil-complete-previous-func
-  ;;  #'(lambda (_arg) (completion-at-point))
+  ;;  #'evil-complete-next-func
   ;;    "Refer to `evil-complete-next-func' for warnings on how this
   ;;    impacts evil configuration variables.")
   (evil-undo-system 'undo-tree)
