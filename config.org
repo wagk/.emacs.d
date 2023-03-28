@@ -1504,11 +1504,7 @@ clojurescript-mode derives from clojure-mode
     (require 'rust-rustfmt)
     (add-hook 'before-save-hook 'rust-format-buffer nil t))
 
-  (add-hook 'rust-ts-mode-hook '--rust-ts-mode-rustfmt)
-
-  (with-eval-after-load 'smartparens
-    (require 'smartparens-rust)
-    (sp-local-pair 'rust-ts-mode "<" ">")))
+  (add-hook 'rust-ts-mode-hook '--rust-ts-mode-rustfmt))
 #+end_src
 
 ** Cargo
