@@ -21,9 +21,6 @@
   (magit-blame-echo-style 'headings)
   (magit-blame-read-only t)
   (magit-log-auto-more t)
-  (magit-wip-mode nil
-                  "It does get pretty laggy since we're making 3+
-                  commits each change")
   :custom-face
   (magit-section-heading ((((background light)) (:foreground ,sol-yellow :underline t))
                           (((background dark)) (:foreground, sol-yellow :underline t))))
