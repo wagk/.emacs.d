@@ -233,7 +233,7 @@
                                         #'user-lisp-dir)
 (--evil-ex-define-cmds-splits-and-tabs "ll"
                                        #'--select-config-lisp-file
-                                       #'(lambda () (--select-config-lisp-file-name)))
+                                       #'(lambda () (find-file-noselect (--select-config-lisp-file-name))))
 
 (use-package evil-lion
   :straight (:host github :repo "edkolev/evil-lion")
