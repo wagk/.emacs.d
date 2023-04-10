@@ -58,3 +58,4 @@ straight/*
 /org-persist/
 /transient/history.el
 /tree-sitter/
+/elgrep-data.el
