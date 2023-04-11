@@ -2964,7 +2964,7 @@ Lets try that again
   :custom
   (consult-notes-file-dir-sources
    `(("Deft" ?d ,--notes-folder)))
-  :config
+  :init
   (--evil-ex-define-cmds-splits-and-tabs
    "nn"
    #'consult-notes
