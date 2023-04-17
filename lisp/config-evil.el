@@ -128,25 +128,25 @@
   (evil-collection-init))
 
 (cl-defun --evil-ex-define-cmds-splits-and-tabs
-    (command body-fn &optional tab)
-  "Does split and vsplit, and also tab."
+    (command buffer-fn &optional tab)
+  "Does split and vsplit, and also tab. BUFFER-FN should return a buffer"
   (require 'evil)
   (unless (stringp command)
     (warn "given command is not a string! Got %s" command)
     (return))
   (evil-ex-define-cmd command
                       `(lambda () (interactive)
-                        (funcall-interactively #',body-fn)))
+                        (funcall-interactively #',buffer-fn)))
   (let ((split-command-name (concat "S" command)))
     (evil-ex-define-cmd split-command-name
                         `(lambda () (interactive)
                            (call-interactively 'evil-window-split)
-                           (funcall-interactively #',body-fn))))
+                           (funcall-interactively #',buffer-fn))))
   (let ((vsplit-command-name (concat "V" command)))
     (evil-ex-define-cmd vsplit-command-name
                         `(lambda () (interactive)
                            (call-interactively 'evil-window-vsplit)
-                           (funcall-interactively #',body-fn))))
+                           (funcall-interactively #',buffer-fn))))
   (when tab
     (let ((new-tab-command-name (concat "T" command)))
       (evil-ex-define-cmd new-tab-command-name
