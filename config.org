@@ -2989,5 +2989,6 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
   :commands (chatgpt-shell)
   :custom
   (chatgpt-shell-insert-queries-inline nil)
-  (chatgpt-shell-history-path ,no-littering-var-directory))
+  (chatgpt-shell-history-path ,no-littering-var-directory)
+  (chatgpt-shell-display-function #'pop-to-buffer))
 #+end_src
