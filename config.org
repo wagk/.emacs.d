@@ -2989,5 +2989,9 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
   :custom
   (chatgpt-shell-insert-queries-inline nil)
   (chatgpt-shell-history-path ,no-littering-var-directory)
-  (chatgpt-shell-display-function #'pop-to-buffer))
+  (chatgpt-shell-display-function #'(lambda (buf)
+                                      (pop-to-buffer buf
+                                                     #'display-buffer-pop-up-window)))
+  :init
+  (evil-ex-define-cmd "gpt" #'chatgpt-shell-prompt))
 #+end_src
