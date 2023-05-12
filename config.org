@@ -2988,7 +2988,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
   :straight (:host github :repo "xenodium/chatgpt-shell")
   :custom
   (chatgpt-shell-insert-queries-inline nil)
-  (chatgpt-shell-history-path ,no-littering-var-directory)
+  (chatgpt-shell-history-path no-littering-var-directory)
   (chatgpt-shell-display-function #'(lambda (buf)
                                       (pop-to-buffer buf
                                                      #'display-buffer-pop-up-window)))
