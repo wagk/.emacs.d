@@ -2724,7 +2724,7 @@ https://github.com/Silex/docker.el
   (use-package mmm-mode
     :straight t
     :custom-face
-    (mmm-default-submode-face ((t (:background nil)))))
+    (mmm-default-submode-face ((t (:background unspecified)))))
 #+end_src
 
 * Proced
