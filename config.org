@@ -2993,5 +2993,10 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
                                       (pop-to-buffer buf
                                                      #'display-buffer-pop-up-window)))
   :init
-  (evil-ex-define-cmd "gpt" #'chatgpt-shell-prompt))
+  (evil-define-command --evil-gpt-cmd (prompt)
+    (interactive "<a>")
+    (if prompt
+        (chatgpt-shell-send-to-buffer prompt)
+      (chatgpt-shell)))
+  (evil-ex-define-cmd "gpt" #'--evil-gpt-cmd))
 #+end_src
