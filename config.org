@@ -1993,7 +1993,24 @@ It's a minor mode, much like how magit's commit mode is a minor mode
     (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1))
 #+end_src
 
-* Make shell open in same window
+* Comint Mode
+#+begin_src emacs-lisp :results output silent
+(use-package comint-mode
+  :ensure nil
+  :straight nil
+  :custom
+  ;; Make cursor always move to end when entering insert mode in
+  ;; comint modes
+  (comint-scroll-to-bottom-on-input t)
+  (comint-prompt-read-only t)
+  :general
+  (comint-mode-map
+   :states '(normal insert)
+   "C-l" #'comint-clear-buffer))
+#+end_src
+
+
+** Make shell open in same window
 - Related Spacemacs Issue ::
   https://github.com/syl20bnr/spacemacs/issues/6820
 - Make shell mode update working directory ::
@@ -2009,8 +2026,6 @@ the thing, because that's what vim does.
     :straight nil
     :commands shell
     :custom
-    ;; Make cursor always move to end when entering insert mode in
-    ;; comint modes
     (comint-scroll-to-bottom-on-input t)
     (comint-prompt-read-only t)
     :init
@@ -2034,7 +2049,7 @@ the thing, because that's what vim does.
                           (dirtrack-mode 1)))))
 #+end_src
 
-** Org-babel Shell
+*** Org-babel Shell
 #+begin_src emacs-lisp :results output silent
   (org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
 #+end_src
