@@ -3019,6 +3019,14 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
                                       (pop-to-buffer buf
                                                      #'display-buffer-pop-up-window)))
   :init
+  (customize-set-variable
+   'chatgpt-shell-system-prompt
+   (s-join
+    "\n"
+    '("Always show code snippets in markdown blocks with language labels."
+      "When implementing something in code, write tests for the implementation."
+      "When asked to explain something, use more technical language."
+      "Always provide the degree of confidence you have in an answer being correct.")))
   (evil-define-command --evil-gpt-cmd (prompt)
     (interactive "<a>")
     (if prompt
