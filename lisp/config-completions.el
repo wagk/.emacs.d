@@ -71,10 +71,11 @@
   ;; :demand t ;; not sure how the :general config will affect this
   :custom
   (corfu-auto t)
-  (corfu-auto-delay 0.1)
+  (corfu-auto-delay 0.01)
   (corfu-auto-prefix 1)
   (corfu-cycle t)
-  (corfu-quit-at-boundary t)
+  (corfu-quit-at-boundary separator)
+  (corfu-quit-no-match t)
   :config
   (global-corfu-mode)
   :general
