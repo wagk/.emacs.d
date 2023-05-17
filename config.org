@@ -2253,23 +2253,33 @@ Or evil-spongebob if you want to think of it that way.
 
 ** lsp-mode
 #+begin_src emacs-lisp :results output silent
-  (use-package lsp-mode
-    :straight t
-    :commands (lsp lsp-deferred)
-    :custom
-    (lsp-headerline-breadcrumb-enable t)
-    (lsp-file-watch-threshold 1500)
-    (lsp-enable-file-watchers nil)
-    :config
-    ;; this is necessary since `lsp-command-map' is not autoloadable
-    (general-define-key
-     :states 'normal
-     :prefix my-default-evil-leader-key
-     "l" lsp-command-map))
-        ;; (lsp-mode-map
-        ;;  :states 'normal
-        ;;  :prefix my-default-evil-leader-key
-        ;;   "l a a" 'lsp-execute-code-action))
+(use-package lsp-mode
+  :straight t
+  :commands (lsp lsp-deferred)
+  :custom
+  (lsp-headerline-breadcrumb-enable t)
+  (lsp-file-watch-threshold 1500)
+  (lsp-enable-file-watchers nil)
+  :init
+  ;; from https://github.com/minad/corfu/wiki#user-content-example-configuration-with-flex
+  (with-eval-after-load 'corfu
+    (customize-set-variable 'lsp-completion-provider :none)
+    (cl-defun --lsp-mode-completion ()
+      (setf (->> completion-category-defaults
+                 (alist-get 'lsp-capf)
+                 (alist-get 'styles))
+            '(flex)))
+    (add-hook 'lsp-completion-mode #'--lsp-mode-completion))
+  :config
+  ;; this is necessary since `lsp-command-map' is not autoloadable
+  (general-define-key
+   :states 'normal
+   :prefix my-default-evil-leader-key
+   "l" lsp-command-map))
+      ;; (lsp-mode-map
+      ;;  :states 'normal
+      ;;  :prefix my-default-evil-leader-key
+      ;;   "l a a" 'lsp-execute-code-action))
 #+end_src
 
 Adding emojis into lsp-checked buffers causes it to explode, because
