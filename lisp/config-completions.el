@@ -64,6 +64,27 @@
   :after consult
   :config (marginalia-mode))
 
+(use-package corfu
+  :straight t
+  ;; normal tab-completion seems to beat this with how it does
+  ;; incremental completions
+  :disabled t
+  :demand t ;; not sure how the :general config will affect this
+  :custom
+  (corfu-auto t)
+  (corfu-cycle t)
+  (corfu-quit-at-boundary nil)
+  :config
+  (global-corfu-mode)
+  :general
+  (corfu-map
+   "<return>" #'corfu-complete)
+  :custom-face
+  (corfu-current ((t (:inherit completions-highlight :bold t))))
+  (corfu-default ((t (:inherit secondary-selection))))
+  (corfu-border ((t (:inherit default))))
+  (corfu-bar ((t (:inherit region)))))
+
 (use-package embark
   :straight t
   :after vertico
