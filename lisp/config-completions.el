@@ -82,9 +82,14 @@
    "<return>" #'corfu-complete)
   :custom-face
   (corfu-bar ((t (:inherit region))))
-  (corfu-current ((t (:inherit sol-default :bold t))))
-  (corfu-default ((t (:inherit sol-subtle-background))))
-  (corfu-border ((t (:inherit corfu-default))))
+  (corfu-current ((t (:inherit sol-subtle-background
+                      :bold t
+                      :foreground unspecified
+                      :background unspecified))))
+  (corfu-default ((t (:inherit sol-subtle-background
+                      :background unspecified))))
+  (corfu-border ((t (:inherit corfu-default
+                     :background unspecified))))
   (corfu-deprecated ((t (:inherit shadow :strike-through nil)))))
 
 (use-package embark
