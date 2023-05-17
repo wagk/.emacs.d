@@ -2268,7 +2268,9 @@ Or evil-spongebob if you want to think of it that way.
       (setf (->> completion-category-defaults
                  (alist-get 'lsp-capf)
                  (alist-get 'styles))
-            '(flex)))
+            (if (featurep 'prescient)
+                '(prescient)
+              '(flex))))
     (add-hook 'lsp-completion-mode-hook #'--lsp-mode-completion))
   :config
   ;; this is necessary since `lsp-command-map' is not autoloadable
