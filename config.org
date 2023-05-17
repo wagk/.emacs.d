@@ -3024,6 +3024,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
    (s-join
     "\n"
     '("Always show code snippets in markdown blocks with language labels."
+      "Write summaries out first."
       "When implementing something in code, write tests for the implementation."
       "When asked to explain something, use more technical language."
       "Always provide the degree of confidence you have in an answer being correct.")))
