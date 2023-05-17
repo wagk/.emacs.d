@@ -3013,6 +3013,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
 (use-package chatgpt-shell
   :straight (:host github :repo "xenodium/chatgpt-shell")
   :custom
+  (chatgpt-shell-request-timeout 300)
   (chatgpt-shell-insert-queries-inline nil)
   (chatgpt-shell-history-path no-littering-var-directory)
   (chatgpt-shell-display-function #'(lambda (buf)
@@ -3024,10 +3025,9 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
    (s-join
     "\n"
     '("Always show code snippets in markdown blocks with language labels."
+      "Show your work."
       "Write summaries out first."
-      "When implementing something in code, write tests for the implementation."
-      "When asked to explain something, use more technical language."
-      "Always provide the degree of confidence you have in an answer being correct.")))
+      "Write test cases.")))
   (evil-define-command --evil-gpt-cmd (prompt)
     (interactive "<a>")
     (if prompt
