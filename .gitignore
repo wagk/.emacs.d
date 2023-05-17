@@ -59,3 +59,4 @@ straight/*
 /transient/history.el
 /tree-sitter/
 /elgrep-data.el
+/chatgpt/
