@@ -76,8 +76,9 @@
   (corfu-cycle t)
   (corfu-quit-at-boundary separator)
   (corfu-quit-no-match t)
-  :config
-  (global-corfu-mode)
+  :commands
+  (corfu-mode
+   global-corfu-mode)
   :general
   (corfu-map
    "<return>" #'corfu-complete)
