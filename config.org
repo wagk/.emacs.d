@@ -3018,19 +3018,21 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
   (chatgpt-shell-request-timeout 300)
   (chatgpt-shell-insert-queries-inline nil)
   (chatgpt-shell-history-path no-littering-var-directory)
-  (chatgpt-shell-display-function #'(lambda (buf)
-                                      (pop-to-buffer buf
-                                                     #'display-buffer-pop-up-window)))
+  (chatgpt-shell-display-function
+   #'(lambda (buf)
+       (pop-to-buffer buf #'display-buffer-pop-up-window)))
   (chatgpt-shell-system-prompt
    ,(s-join
      "\n"
      '("Always show code snippets in markdown blocks with language labels."
-       "Write first a summary of the response."
-       "Explain step-by-step and in detail."
-       "Write test cases.")))
+       "Always write the summary first."
+       "Always explain step-by-step and in detail."
+       "Never simplify the answer."
+       "Always write test cases.")))
   :init
   (evil-define-command --evil-gpt-cmd (prompt)
     (interactive "<a>")
+    (require 'chatgpt-shell)
     (if prompt
         (chatgpt-shell-send-to-buffer prompt)
       (chatgpt-shell)))
