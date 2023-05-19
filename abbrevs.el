@@ -418,7 +418,7 @@
     ("internasl" "internals" nil :count 1)
     ("interpretaiton" "interpretation" nil :count 1)
     ("interveiw" "interview" nil :count 1)
-    ("inti" "init" nil :count 5)
+    ("inti" "init" nil :count 6)
     ("intuitiion" "intuition" nil :count 1)
     ("investivation" "investigation" nil :count 1)
     ("irrelevatn" "irrelevant" nil :count 1)
