@@ -317,4 +317,18 @@
    "i" 'evil-indent-plus-i-indent-up
    "I" 'evil-indent-plus-a-indent-up))
 
+(evil-define-command config-ex-set-arg (cmd)
+  (interactive "<a>")
+  (cond
+    ((string= cmd "wrap") (visual-line-mode 1))
+    ((string= cmd "nowrap") (visual-line-mode -1))
+    ((string= cmd "fill") (progn (visual-line-mode 1)
+                                (require 'visual-fill-column)
+                                (visual-fill-column-mode 1)))
+    ((string= cmd "nofill") (progn (visual-line-mode 0)
+                                  (require 'visual-fill-column)
+                                  (visual-fill-column-mode -1)))))
+
+(evil-ex-define-cmd "set" 'config-ex-set-arg)
+
 (provide 'config-evil)

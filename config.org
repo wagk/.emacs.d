@@ -437,23 +437,6 @@ Stolen from https://github.com/bbatsov/crux
     (customize-set-variable 'comp-async-report-warnings-errors nil))
 #+end_src
 
-** Evil =Set= commands
-#+begin_src emacs-lisp :results output silent
-  (evil-define-command config-ex-set-arg (cmd)
-    (interactive "<a>")
-    (cond
-     ((string= cmd "wrap") (visual-line-mode 1))
-     ((string= cmd "nowrap") (visual-line-mode -1))
-     ((string= cmd "fill") (progn (visual-line-mode 1)
-                                  (require 'visual-fill-column)
-                                  (visual-fill-column-mode 1)))
-     ((string= cmd "nofill") (progn (visual-line-mode 0)
-                                    (require 'visual-fill-column)
-                                    (visual-fill-column-mode -1)))))
-
-  (evil-ex-define-cmd "set" 'config-ex-set-arg)
-#+end_src
-
 ** Electric Indent
 #+begin_src emacs-lisp :results output silent
   (electric-indent-mode)
