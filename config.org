@@ -2647,8 +2647,10 @@ Just do the scratch buffer simple and stupidly
       (require 'thingatpt)
       (consult-ripgrep nil
                        (cond
-                        ((use-region-p) (buffer-substring-no-properties (region-beginning)
-                                                                        (region-end)))
+                        ((use-region-p) (let ((region (buffer-substring-no-properties (region-beginning)
+                                                                                      (region-end))))
+                                          (evil-active-region -1)
+                                          region))
                         ((thing-at-point 'symbol)))))
 
     (general-define-key
