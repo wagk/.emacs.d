@@ -3018,7 +3018,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
        "Always write the summary first."
        "Always explain step-by-step and in detail."
        "Never simplify the answer."
-       "Always write test cases.")))
+       "Always write test cases after writing code.")))
   :init
   (evil-define-command --evil-gpt-cmd (prompt)
     (interactive "<a>")
