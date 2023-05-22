@@ -2988,6 +2988,11 @@ Lets try that again
 #+begin_src emacs-lisp :results output silent
 (use-package obsidian
   :straight t
+  :hook
+  (obsidian-mode-hook . (lambda ()
+                          (when (bound-and-true-p 'aggressive-fill-paragraph-mode)
+                            (aggressive-fill-paragraph-mode 0))
+                          (visual-line-mode 1)))
   :config
   ;; don't forget to `obsidian-specify-path'
   (global-obsidian-mode))
