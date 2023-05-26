@@ -2992,7 +2992,7 @@ Lets try that again
   :commands (obsidian-jump)
   :hook
   (obsidian-mode-hook . (lambda ()
-                          (when (bound-and-true-p 'aggressive-fill-paragraph-mode)
+                          (when (featurep 'aggressive-fill-paragraph)
                             (aggressive-fill-paragraph-mode 0))
                           (visual-line-mode 1)))
   :init
