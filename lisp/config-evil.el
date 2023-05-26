@@ -164,6 +164,12 @@
 (--evil-ex-define-cmds-splits-and-tabs "config"
                                         'find-user-config-file
                                         user-config-file)
+(--evil-ex-define-cmds-splits-and-tabs "cofnig" ;; also bind typos for convenience
+                                        'find-user-config-file
+                                        user-config-file)
+(--evil-ex-define-cmds-splits-and-tabs "cnfig" ;; also bind typos for convenience
+                                        'find-user-config-file
+                                        user-config-file)
 (--evil-ex-define-cmds-splits-and-tabs "var[iables]"
                                         'find-user-variables-file
                                         user-variables-file)
