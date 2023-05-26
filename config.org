@@ -3018,14 +3018,6 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
   (chatgpt-shell-display-function
    #'(lambda (buf)
        (pop-to-buffer buf #'display-buffer-pop-up-window)))
-  (chatgpt-shell-system-prompt
-   ,(s-join
-     "\n"
-     '("Always show code snippets in markdown blocks with language labels."
-       "Always write the summary first."
-       "Always explain step-by-step and in detail."
-       "Never simplify the answer."
-       "Always write test cases after writing code.")))
   :init
   (evil-define-command --evil-gpt-cmd (prompt)
     (interactive "<a>")
@@ -3033,5 +3025,15 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
     (if prompt
         (chatgpt-shell-send-to-buffer prompt)
       (chatgpt-shell)))
-  (evil-ex-define-cmd "gpt" #'--evil-gpt-cmd))
+  (evil-ex-define-cmd "gpt" #'--evil-gpt-cmd)
+  :config
+  (defconst --chatgpt-shell-system-prompt
+    (s-join "\n"
+     '("Always show code snippets in markdown blocks with language labels."
+       "Always write the summary first."
+       "Always explain step-by-step and in detail."
+       "Never simplify the answer."
+       "For code, always write test cases")))
+  (add-to-list 'chatgpt-shell-system-prompts --chatgpt-shell-system-prompt)
+  (customize-set-variable 'chatgpt-shell-system-prompt --chatgpt-shell-system-prompt))
 #+end_src
