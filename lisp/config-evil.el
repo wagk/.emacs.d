@@ -179,6 +179,8 @@
                                             (switch-to-buffer "*Messages*"))
                                         "*Messages*")
 
+(evil-ex-define-cmd "view" #'(lambda () (interactive) (read-only-mode 'toggle)))
+
 (cl-defun --evil-consult-buffer (split-type)
   "Looks weird because we attempt to collect the buffer name before
   splitting the windows, in order to not have dangling windows if the
