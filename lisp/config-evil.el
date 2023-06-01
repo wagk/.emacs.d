@@ -129,7 +129,8 @@
 
 (cl-defun --evil-ex-define-cmds-splits-and-tabs
     (command buffer-fn &optional tab)
-  "Does split and vsplit, and also tab. BUFFER-FN should return a buffer"
+  "Does split and vsplit, and also tab. BUFFER-FN should return a buffer
+Try moving to `--evil-ex-define-buffer-cmds' instead."
   (require 'evil)
   (unless (stringp command)
     (warn "given command is not a string! Got %s" command)
@@ -178,6 +179,51 @@
                                         #'(lambda ()
                                             (switch-to-buffer "*Messages*"))
                                         "*Messages*")
+(cl-defun --pop-to-buffer-string-or-fn (buf)
+  "Normalizes BUF into a buffer, returning the buffer value."
+  (pop-to-buffer-same-window
+   (cond
+    ((stringp buf) (find-file-noselect buf))
+    ((functionp buf) (funcall buf))
+    ((bufferp buf) buf)
+    (t (user-error "Buf is neither string, buffer nor fn! It is %s" buf)))))
+
+(cl-defun --evil-ex-define-buffer-cmds
+    (command buf &key no-split no-vsplit no-tab)
+  "Create :s*, :v*, and :t* variants of COMMAND, as configured.
+- BUF should be a function that accepts no arguments and returns a
+  buffer, or a filepath.
+- NO-SPLIT, NO-VSPLIT, and NO-TAB causes the corresponding cmds to not
+  be created.
+
+Note that some edge cases aren't handled yet: I haven't thought of
+what to do when BUF is `\(dired ...\)' or similar.
+
+There also appears to be issues when a quoted function is passed in
+\(like `\'ibuffer'\)."
+  (require 'evil)
+  (unless (stringp command)
+    (warn "given command is not a string! Got %s" command)
+    (return))
+  (evil-ex-define-cmd command
+                      `(lambda () (interactive)
+                        (--pop-to-buffer-string-or-fn ,buf)))
+  (unless no-split
+    (evil-ex-define-cmd (concat "S" command)
+                        `(lambda () (interactive)
+                          (call-interactively 'evil-window-split)
+                          (--pop-to-buffer-string-or-fn ,buf))))
+  (unless no-vsplit
+    (evil-ex-define-cmd (concat "V" command)
+                        `(lambda () (interactive)
+                          (call-interactively 'evil-window-vsplit)
+                          (--pop-to-buffer-string-or-fn ,buf))))
+  (unless no-tab
+    (evil-ex-define-cmd (concat "T" command)
+                        `(lambda () (interactive)
+                           (require 'tab-bar)
+                           (let ((tab-bar-new-tab-choice ,buf))
+                             (tab-bar-new-tab))))))
 
 (evil-ex-define-cmd "view" #'(lambda () (interactive) (read-only-mode 'toggle)))
 
