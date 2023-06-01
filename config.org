@@ -2267,6 +2267,12 @@ Or evil-spongebob if you want to think of it that way.
       ;;   "l a a" 'lsp-execute-code-action))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+(with-eval-after-load 'lsp-rust
+  (customize-set-value 'lsp-rust-clippy-preference "on")
+  (customize-set-value 'lsp-rust-cfg-test t))
+#+end_src
+
 Adding emojis into lsp-checked buffers causes it to explode, because
 of [[https://github.com/emacs-lsp/lsp-mode/issues/2080]]. The following
 snippet is a patch provided in the thread.
