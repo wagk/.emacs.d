@@ -110,8 +110,7 @@
    "C-<SPC>" 'embark-act))
 
 (use-package embark-consult
-  :straight t
-  :after (:all embark consult))
+  :straight t)
 
 (use-package cape
   :straight t
