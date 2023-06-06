@@ -3041,3 +3041,12 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
   (add-to-list 'chatgpt-shell-system-prompts --chatgpt-shell-system-prompt)
   (customize-set-variable 'chatgpt-shell-system-prompt --chatgpt-shell-system-prompt))
 #+end_src
+
+* Xref
+#+begin_src emacs-lisp :results output silent
+(use-package xref
+  :ensure nil
+  :straight nil
+  :config
+  (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
+#+end_src
