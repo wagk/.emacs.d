@@ -39,7 +39,7 @@
              evil-insert-state
              evil-ex-define-cmd)
   :general
-  (:states 'normal
+  (:states '(normal visual)
     :prefix my-default-evil-leader-key
     "<SPC>" 'execute-extended-command)
   (:keymaps 'visual
