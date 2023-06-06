@@ -1554,10 +1554,8 @@ Requires rust-mode and markdown-mode
 #+begin_src emacs-lisp :results output silent
 (use-package dumb-jump
   :straight (:host github :repo "jacktasia/dumb-jump")
-  :commands
-  (dumb-jump-xref-activate)
-  :init
-  (add-to-list 'xref-backend-functions #'dumb-jump-xref-activate t)) ;; append
+  :config
+  (add-to-list 'xref-backend-functions #'dumb-jump-xref-activate))
 #+end_src
 
 * JSON                                                                :major:
