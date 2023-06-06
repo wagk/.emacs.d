@@ -41,6 +41,7 @@
   (evil-ex-define-cmd "gF"     'magit-pull)
   (evil-ex-define-cmd "gB"     'magit-branch)
   (evil-ex-define-cmd "gb"     'magit-blame-addition)
+  (evil-ex-define-cmd "blame"  'magit-blame-addition)
   (evil-ex-define-cmd "gblame" 'magit-blame)
   (evil-ex-define-cmd "gc"     'magit-commit)
   (evil-ex-define-cmd "gf"     'magit-fetch)
