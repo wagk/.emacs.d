@@ -700,23 +700,23 @@ for the specific hook.
 
 * Which Key
 #+begin_src emacs-lisp :results output silent
-  (use-package which-key
-    :straight (:host github :repo "justbur/emacs-which-key")
-    :demand t
-    :custom
-    (which-key-use-C-h-commands nil)
-    (which-key-is-verbose t)
-    (which-key-popup-type 'side-window)
-    (which-key-side-window-max-width 0.33)
-    (which-key-max-display-columns nil)
-    (which-key-show-docstrings t)
-    (which-key-side-window-location 'bottom)
-    ;; :general
-    ;; (:states 'normal
-    ;;  "C-h M-k" 'which-key-show-keymap
-    ;;  "C-h M-m" 'which-key-show-full-major-mode)
-    :config
-    (which-key-mode))
+(use-package which-key
+  :straight (:host github :repo "justbur/emacs-which-key")
+  :demand t
+  :custom
+  (which-key-use-C-h-commands nil)
+  (which-key-is-verbose t)
+  (which-key-popup-type 'minibuffer)
+  (which-key-side-window-max-width 0.33)
+  (which-key-max-display-columns nil)
+  (which-key-show-docstrings t)
+  (which-key-side-window-location 'bottom)
+  ;; :general
+  ;; (:states 'normal
+  ;;  "C-h M-k" 'which-key-show-keymap
+  ;;  "C-h M-m" 'which-key-show-full-major-mode)
+  :config
+  (which-key-mode))
 #+end_src
 
 * Smartparens
