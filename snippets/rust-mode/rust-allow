@@ -1,0 +1,4 @@
+# key: allow
+# name: rust-allow
+# --
+#[allow($0)]
