@@ -1,4 +1,6 @@
 (require 'use-package)
+(require 'config-evil)
+
 ;; Catch-all config for emac variables
 (use-package emacs
   :demand t
