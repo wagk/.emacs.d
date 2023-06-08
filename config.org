@@ -268,11 +268,6 @@ Emulate the best feature of notepad
   (setq-default indent-tabs-mode nil)
 #+end_src
 
-** Strip Whitespace on save
-#+begin_src emacs-lisp :results output silent
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
-#+end_src
-
 ** Bind whitespace-mode
 #+begin_src emacs-lisp :results output silent
   (general-define-key
@@ -3050,4 +3045,12 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
   :straight nil
   :config
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
+#+end_src
+
+* ws-butler
+#+begin_src emacs-lisp :results output silent
+(use-package ws-butler
+  :straight t
+  :config
+  (ws-butler-global-mode))
 #+end_src
