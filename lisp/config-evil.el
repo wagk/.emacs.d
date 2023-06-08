@@ -381,8 +381,8 @@
                                 (require 'visual-fill-column)
                                 (visual-fill-column-mode 1)))
     ((string= cmd "nofill") (progn (visual-line-mode 0)
-                                  (require 'visual-fill-column)
-                                  (visual-fill-column-mode -1)))))
+                                   (require 'visual-fill-column)
+                                   (visual-fill-column-mode -1)))))
 
 (evil-ex-define-cmd "set" 'config-ex-set-arg)
 
