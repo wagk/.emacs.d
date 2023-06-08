@@ -22,6 +22,10 @@
    "i" nil ; unbind the original binding
    "Y" #'(lambda () (interactive)
            (dired-copy-filename-as-kill 0)))
+  (dired-mode-map
+   :states 'normal
+   :prefix my-default-evil-leader-key
+   "<SPC>" 'execute-extended-command)
   :init
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "Ex[plore]" 'dired-jump)
