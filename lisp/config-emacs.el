@@ -1,4 +1,11 @@
 (require 'use-package)
+;; Catch-all config for emac variables
+(use-package emacs
+  :demand t
+  :ensure nil
+  :straight nil
+  :custom
+  (fill-column 80))
 
 (use-package dired
   :demand t
