@@ -549,8 +549,8 @@ Further helper functions to add bookmarks:
          (let* ((bookmark (--completing-read "Bookmark: " bookmark-alist
                                              :require-match t))
                 (filepath (a-get-in bookmark-alist `(,bookmark filename))))
-           (cond ((f-directory-p filepath) (dired filepath))
-                 (t (find-file filepath)))))))
+           (cond ((f-directory-p filepath) filepath)
+                 (t (find-file-noselect filepath)))))))
 #+end_src
 
 *** Bookmark Face
