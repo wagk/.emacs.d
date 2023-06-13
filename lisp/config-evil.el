@@ -183,12 +183,13 @@
 
 (cl-defun --pop-to-buffer-string-or-fn (buf)
   "Normalizes BUF into a buffer, returning the buffer value."
-  (pop-to-buffer-same-window
-   (cond
-    ((stringp buf) (find-file-noselect buf))
-    ((functionp buf) (funcall buf))
-    ((bufferp buf) buf)
-    (t (user-error "Buf is neither string, buffer nor fn! It is %s" buf)))))
+  (let ((buffer (cond
+                 ((stringp buf) (find-file-noselect buf))
+                 ((functionp buf) (funcall buf))
+                 ((bufferp buf) buf)
+                 (t (user-error "Buf is neither string, buffer nor fn! It is %s" buf)))))
+    (cl-assert (bufferp buffer))
+    (pop-to-buffer-same-window buffer)))
 
 (cl-defun --evil-ex-define-buffer-cmds
     (command buf &key no-split no-vsplit no-tab)
