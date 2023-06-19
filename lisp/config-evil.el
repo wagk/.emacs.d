@@ -153,7 +153,11 @@
       (evil-ex-define-cmd new-tab-command-name
                           `(lambda () (interactive)
                             (require 'tab-bar)
-                            (let* ((buffer (funcall-interactively ,tab))
+                            (let* ((buffer (cond
+                                            ((functionp ,tab) (funcall-interactively ,tab))
+                                            ((or (bufferp ,tab)
+                                                 (stringp ,tab))
+                                             ,tab)))
                                    (tab-bar-new-tab-choice buffer))
                               (tab-bar-new-tab)))))))
 
