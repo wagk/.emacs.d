@@ -114,6 +114,8 @@ C-M-i                           backward-button
                                       (((background dark))
                                        (:inherit mode-line
                                         :box t
+                                        :overline ,sol-base02
+                                        :underline ,sol-base02
                                         :foreground ,sol-base01)))))
 (custom-set-faces `(mode-line-inactive ((((background light))
                                          (:box t
@@ -579,7 +581,7 @@ evil integration)
   :straight nil
   :custom-face
   (tab-bar ((t (:inherit minibuffer-prompt :underline nil))))
-  (tab-bar-tab ((t (:inherit default :italic t :foreground unspecified :background unspecified))))
+  (tab-bar-tab ((t (:inherit default :underline t :foreground unspecified :background unspecified))))
   (tab-bar-tab-inactive ((t (:inherit default :foreground unspecified :background unspecified))))
   :custom
   (tab-bar-close-last-tab-choice 'delete-frame)
