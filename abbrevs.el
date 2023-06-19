@@ -723,6 +723,7 @@
     ("stram" "stream" nil :count 1)
     ("striaght" "straight" nil :count 4)
     ("strign" "string" nil :count 4)
+    ("strigns" "strings" nil :count 1)
     ("strust" "struct" nil :count 2)
     ("subelt" "subtle" nil :count 1)
     ("submisison" "submission" nil :count 1)
