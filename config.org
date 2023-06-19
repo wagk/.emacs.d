@@ -2647,11 +2647,12 @@ Just do the scratch buffer simple and stupidly
                                         elem)))
                              (mapcar #'(lambda (file)
                                          (f-relative file
-                                          project-dir))))))
-      (find-file (if (eq 1 (length readme-list))
-                     (car readme-list)
-                   (--completing-read "README: " readme-list
-                                      :require-match t)))))
+                                          project-dir)))))
+           (readme (if (eq 1 (length readme-list))
+                      (car readme-list)
+                    (--completing-read "README: " readme-list
+                                       :require-match t))))
+      (find-file (f-join project-dir readme))))
 
   (--evil-ex-define-cmds-splits-and-tabs "readme" #'--project-find-readme)
 
