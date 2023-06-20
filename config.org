@@ -2617,18 +2617,9 @@ Just do the scratch buffer simple and stupidly
                                       :default-value compile-command)))
       (setq compile-history (remove command compile-history))))
 
-  (defun --find-project-todo-file ()
-    (interactive)
-    (require 'project)
-    (if-let ((proj-current (project-current))
-             (todo (f-join (project-root proj-current) ".todo.md")))
-        (find-file-other-window todo)
-      (error "No todo.md found in %s" default-directory)))
-
   (general-define-key
    :keymaps 'project-prefix-map
-   "c" #'--compile-command-completing-read
-   "t" #'--find-project-todo-file)
+   "c" #'--compile-command-completing-read)
 
   (unless (or (eq system-type 'windows-nt)
               (eq system-type 'ms-dos))
