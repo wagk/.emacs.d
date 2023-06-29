@@ -3078,5 +3078,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
 #+begin_src emacs-lisp :results output silent
 (use-package realgud-lldb
   :straight t
-  :after realgud)
+  :after realgud
+  :config
+  (defalias 'realgud:lldb (symbol-function 'realgud--lldb)))
 #+end_src
