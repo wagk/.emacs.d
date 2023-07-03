@@ -2664,9 +2664,15 @@ Just do the scratch buffer simple and stupidly
                                                                                       (region-end))))
                                           (evil-active-region -1)
                                           region))
-                        (t nil))))
-                        ;; ((thing-at-point 'symbol)))))
-
+                        (t (let* ((thing (thing-at-point 'symbol))
+                                  (prompt (concat "Grep for"
+                                                  (when thing
+                                                    (format " (default: %s)" thing))
+                                                  ": "))
+                                  (string (read-string prompt)))
+                             (if (string-empty-p string)
+                                 thing
+                               string))))))
     (general-define-key
      :keymaps 'project-prefix-map
      "g" '--consult-ripgrep-with-initial))
