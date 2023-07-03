@@ -185,15 +185,17 @@
                                             (switch-to-buffer "*Messages*"))
                                         "*Messages*")
 
-(cl-defun --pop-to-buffer-string-or-fn (buf)
+(cl-defun --convert-to-buffer (buf)
   "Normalizes BUF into a buffer, returning the buffer value."
   (let ((buffer (cond
                  ((stringp buf) (find-file-noselect buf))
-                 ((functionp buf) (funcall buf))
+                 ((or (symbol-function buf)
+                      (functionp buf)) (funcall buf))
                  ((bufferp buf) buf)
                  (t (user-error "Buf is neither string, buffer nor fn! It is %s" buf)))))
     (cl-assert (bufferp buffer))
-    (pop-to-buffer-same-window buffer)))
+    buffer))
+
 
 (cl-defun --evil-ex-define-buffer-cmds
     (command buf &key no-split no-vsplit no-tab)
@@ -206,30 +208,40 @@
    Note that some edge cases aren't handled yet: I haven't thought of
    what to do when BUF is `\(dired ...\)' or similar.
 
-   There also appears to be issues when a quoted function is passed in
-   \(like `\'ibuffer'\)."
+   Might also have issues when a quoted function is passed in \(like
+   `\'ibuffer'\)."
   (require 'evil)
   (unless (stringp command)
     (warn "given command is not a string! Got %s" command)
     (cl-return))
   (evil-ex-define-cmd command
                       `(lambda () (interactive)
-                        (--pop-to-buffer-string-or-fn ,buf)))
+                        (let ((sel (,buf)))
+                          (cl-assert (bufferp buffer) :show-args)
+                          (pop-to-buffer-same-window sel))))
   (unless no-split
     (evil-ex-define-cmd (concat "S" command)
                         `(lambda () (interactive)
-                          (call-interactively 'evil-window-split)
-                          (--pop-to-buffer-string-or-fn ,buf))))
+                           (let ((sel (,buf)))
+                             (cl-assert (bufferp sel) :show-args)
+                             (call-interactively 'evil-window-split)
+                             (pop-to-buffer-same-window sel)))))
   (unless no-vsplit
     (evil-ex-define-cmd (concat "V" command)
                         `(lambda () (interactive)
-                          (call-interactively 'evil-window-vsplit)
-                          (--pop-to-buffer-string-or-fn ,buf))))
+                           (let ((sel (,buf)))
+                             (cl-assert (bufferp sel) :show-args)
+                             (call-interactively 'evil-window-vsplit)
+                             (pop-to-buffer-same-window sel)))))
   (unless no-tab
     (evil-ex-define-cmd (concat "T" command)
                         `(lambda () (interactive)
                           (require 'tab-bar)
-                          (let ((tab-bar-new-tab-choice ,buf))
+                          (let* ((sel (,buf))
+                                 (tab-bar-new-tab-choice
+                                  (prog2
+                                      (cl-assert (bufferp sel) :show-args)
+                                      sel)))
                             (tab-bar-new-tab))))))
 
 (evil-ex-define-cmd "view" #'(lambda () (interactive) (read-only-mode 'toggle)))
@@ -280,7 +292,7 @@
 
 (defun --select-config-lisp-file ()
   (interactive)
-  (find-file (--select-config-lisp-file-name)))
+  (find-file-noselect (--select-config-lisp-file-name)))
 
 (defun --load-config-lisp-files (file-list)
   (cl-dolist (file file-list)
@@ -292,9 +304,7 @@
 (--evil-ex-define-cmds-splits-and-tabs "lisp"
                                         #'find-user-lisp-dir
                                         #'user-lisp-dir)
-(--evil-ex-define-cmds-splits-and-tabs "ll"
-                                       #'--select-config-lisp-file
-                                       #'(lambda () (find-file-noselect (--select-config-lisp-file-name))))
+(--evil-ex-define-buffer-cmds "ll" #'(lambda () (--select-config-lisp-file)))
 
 (use-package evil-lion
   :straight (:host github :repo "edkolev/evil-lion")
