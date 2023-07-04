@@ -1,3 +1,4 @@
+(require 'config-helpers)
 (require 'config-evil)
 (require 'config-git)
 (require 'config-colors)

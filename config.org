@@ -2657,22 +2657,15 @@ Just do the scratch buffer simple and stupidly
   (with-eval-after-load 'consult
     (defun --consult-ripgrep-with-initial ()
       (interactive)
-      (require 'thingatpt)
+      (require 'config-helpers)
       (consult-ripgrep nil
                        (cond
                         ((use-region-p) (let ((region (buffer-substring-no-properties (region-beginning)
                                                                                       (region-end))))
                                           (evil-active-region -1)
                                           region))
-                        (t (let* ((thing (thing-at-point 'symbol))
-                                  (prompt (concat "Grep for"
-                                                  (when thing
-                                                    (format " (default: %s)" thing))
-                                                  ": "))
-                                  (string (read-string prompt)))
-                             (if (string-empty-p string)
-                                 thing
-                               string))))))
+                        (t (--thing-at-point-or-user-input)))))
+
     (general-define-key
      :keymaps 'project-prefix-map
      "g" '--consult-ripgrep-with-initial))
