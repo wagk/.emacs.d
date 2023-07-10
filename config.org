@@ -1496,6 +1496,11 @@ clojurescript-mode derives from clojure-mode
    :states 'insert
    "RET" 'comment-indent-new-line)
 
+  (general-define-key
+   :keymaps 'rust-ts-mode-map
+   :states '(insert normal visual)
+   "C-c C-d" 'rust-dbg-wrap-or-unwrap)
+
   (require 'rust-compile)
 
   (setq rust-ts-mode-hook rust-mode-hook)
