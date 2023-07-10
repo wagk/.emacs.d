@@ -1496,6 +1496,8 @@ clojurescript-mode derives from clojure-mode
    :states 'insert
    "RET" 'comment-indent-new-line)
 
+  (require 'rust-compile)
+
   (setq rust-ts-mode-hook rust-mode-hook)
 
   (defun --rust-ts-mode-rustfmt ()
