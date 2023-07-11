@@ -1501,6 +1501,7 @@ clojurescript-mode derives from clojure-mode
    :states '(insert normal visual)
    "C-c C-d" 'rust-dbg-wrap-or-unwrap)
 
+  ;; So that `compile' will correctly color/link to rustc errors
   (require 'rust-compile)
 
   (setq rust-ts-mode-hook rust-mode-hook)
