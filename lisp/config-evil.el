@@ -156,8 +156,8 @@
                             (let* ((buffer (cond
                                             ((functionp ,tab) (funcall-interactively ,tab))
                                             ((or (bufferp ,tab)
-                                                 (stringp ,tab))
-                                             ,tab)))
+                                                 (stringp ,tab)) ,tab)
+                                            (t (current-buffer))))
                                    (tab-bar-new-tab-choice buffer))
                               (tab-bar-new-tab)))))))
 
