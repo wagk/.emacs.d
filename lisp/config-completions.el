@@ -41,7 +41,8 @@
    "g /" #'consult-line)
   :config
   (with-eval-after-load 'evil
-    (evil-ex-define-cmd "bb" 'consult-buffer))
+    (evil-ex-define-cmd "bb" 'consult-buffer)
+    (evil-ex-define-cmd "ii" 'consult-imenu))
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'consult-completion-in-region))
 
