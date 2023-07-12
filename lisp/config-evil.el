@@ -217,7 +217,7 @@
   (evil-ex-define-cmd command
                       `(lambda () (interactive)
                         (let ((sel (,buf)))
-                          (cl-assert (bufferp buffer) :show-args)
+                          (cl-assert (bufferp sel) :show-args)
                           (pop-to-buffer-same-window sel))))
   (unless no-split
     (evil-ex-define-cmd (concat "S" command)
