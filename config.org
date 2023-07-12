@@ -2657,8 +2657,12 @@ Just do the scratch buffer simple and stupidly
            (readme (if (eq 1 (length readme-list))
                       (car readme-list)
                     (--completing-read "README: " readme-list
-                                       :require-match t))))
-      (find-file (f-join project-dir readme))))
+                                       :require-match t
+                                       :default-value "README.md")))
+           (readme-path (f-join project-dir readme)))
+      (unless (f-exists-p readme-path)
+        (f-touch readme-path))
+      (find-file readme-path)))
 
   (--evil-ex-define-cmds-splits-and-tabs "readme" #'--project-find-readme)
 
