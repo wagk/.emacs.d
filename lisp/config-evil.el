@@ -201,7 +201,7 @@
     (command buf &key no-split no-vsplit no-tab)
   "Create :s*, :v*, and :t* variants of COMMAND, as configured.
    - BUF should be a function that accepts no arguments and returns a
-    buffer, or a filepath.
+    buffer.
    - NO-SPLIT, NO-VSPLIT, and NO-TAB causes the corresponding cmds to not
     be created.
 
