@@ -18,6 +18,7 @@
              magit-commit)
   :defer 15
   :custom
+  (magit-prefer-remote-upstream t)
   (magit-blame-echo-style 'headings)
   (magit-blame-read-only t)
   (magit-log-auto-more t)
