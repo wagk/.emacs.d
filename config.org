@@ -1194,6 +1194,13 @@ Use the following query to find all todo items that are overdue
     (cl-pushnew '("md" . gfm) org-src-lang-modes)))
 #+end_src
 
+** Edit-indirect
+#+begin_src emacs-lisp :results output silent
+(use-package edit-indirect
+  :straight t
+  :after markdown-mode)
+#+end_src
+
 ** Evil-markdown
 #+begin_src emacs-lisp :results output silent
 (use-package evil-markdown
