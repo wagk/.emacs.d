@@ -1183,13 +1183,12 @@ Use the following query to find all todo items that are overdue
   (with-eval-after-load 'org-table
     (defun orgtbl-to-gfm (table params)
       "Convert the Orgtbl mode TABLE to GitHub Flavored Markdown."
-      (let* ((alignment (mapconcat (lambda (x) (if x "|--:" "|---")))
-                        org-table-last-alignment ""))
-        (params2
-         (list)
-         :splice t
-         :hline (concat alignment "|")
-         :lstart "| " :lend " |" :sep " | ")
+      (let* ((alignment (mapconcat
+                         (lambda (x) (if x "|--:" "|---"))
+                         org-table-last-alignment ""))
+             (params2 (list :splice t
+                            :hline (concat alignment "|")
+                            :lstart "| " :lend " |" :sep " | ")))
         (orgtbl-to-generic table (org-combine-plists params2 params)))))
   (with-eval-after-load 'org-src
     (cl-pushnew '("md" . gfm) org-src-lang-modes)))
