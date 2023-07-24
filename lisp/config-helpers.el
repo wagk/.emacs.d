@@ -17,6 +17,17 @@
         thing
       string)))
 
+(cl-defun --convert-to-buffer (buf)
+  "Normalizes BUF into a buffer, returning the buffer value."
+  (let ((buffer (cond
+                 ((stringp buf) (find-file-noselect buf))
+                 ((or (symbol-function buf)
+                      (functionp buf)) (funcall buf))
+                 ((bufferp buf) buf)
+                 (t (user-error "Buf is neither string, buffer nor fn! It is %s" buf)))))
+    (cl-assert (bufferp buffer))
+    buffer))
+
 (provide 'config-helpers)
 
 ;;; config-helpers.el ends here

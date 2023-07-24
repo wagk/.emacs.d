@@ -185,18 +185,6 @@
                                             (switch-to-buffer "*Messages*"))
                                         "*Messages*")
 
-(cl-defun --convert-to-buffer (buf)
-  "Normalizes BUF into a buffer, returning the buffer value."
-  (let ((buffer (cond
-                 ((stringp buf) (find-file-noselect buf))
-                 ((or (symbol-function buf)
-                      (functionp buf)) (funcall buf))
-                 ((bufferp buf) buf)
-                 (t (user-error "Buf is neither string, buffer nor fn! It is %s" buf)))))
-    (cl-assert (bufferp buffer))
-    buffer))
-
-
 (cl-defun --evil-ex-define-buffer-cmds
     (command buf &key no-split no-vsplit no-tab)
   "Create :s*, :v*, and :t* variants of COMMAND, as configured.
@@ -280,15 +268,12 @@
   (require 'f)
   (require 'dash)
   (let ((file (--completing-read "file: "
-                      (-> user-lisp-dir
-                          directory-files)
-                      :require-match t
-                      :predicate
-                      (lambda (file)
-                        (-any (lambda (e) (f-ext-p file e))
-                              '("el" "org"))))))
+                                 (directory-files user-lisp-dir)
+                                 :require-match t
+                                 :predicate (lambda (file)
+                                              (-any (lambda (e) (f-ext-p file e))
+                                                    '("el" "org"))))))
     (f-join user-lisp-dir file)))
-
 
 (defun --select-config-lisp-file ()
   (interactive)
