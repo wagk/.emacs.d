@@ -2890,7 +2890,8 @@ https://github.com/akermu/emacs-libvterm
 * Shortdoc
 #+begin_src emacs-lisp :results output silent
 (when (fboundp 'shortdoc)
-  (evil-ex-define-cmd "cheat[sheet]" 'shortdoc))
+  (evil-ex-define-cmd "cheatsheet" 'shortdoc)
+  (evil-ex-define-cmd "cs" 'shortdoc))
 #+end_src
 
 * dwim shell command
