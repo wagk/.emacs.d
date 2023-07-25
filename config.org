@@ -3043,3 +3043,18 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
   :config
   (defalias 'realgud:lldb (symbol-function 'realgud--lldb)))
 #+end_src
+
+* COMMENT Democratize (documentation)
+Commented because this doesn't work all too well for now and I'm not to sure
+what the benefits are.
+#+begin_src emacs-lisp :results output silent
+(use-package xht
+  :straight (:type git :host nil :repo"https://git.sr.ht/~flandrew/xht"))
+
+(use-package democratize
+  :straight (:type git :host nil :repo "https://git.sr.ht/~flandrew/democratize")
+  :config
+  (with-eval-after-load 'helpful
+    (democratize-enable-examples-in-helpful))
+  (democratize-enable-examples-in-help))
+#+end_src
