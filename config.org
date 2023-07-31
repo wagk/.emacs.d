@@ -3026,6 +3026,8 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
 #+begin_src emacs-lisp :results output silent
 (use-package ws-butler
   :straight t
+  :custom
+  (ws-butler-global-exempt-modes '())
   :config
   (ws-butler-global-mode))
 #+end_src
