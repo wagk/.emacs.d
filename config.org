@@ -2958,10 +2958,19 @@ https://github.com/akermu/emacs-libvterm
                             (aggressive-fill-paragraph-mode 0))
                           (visual-line-mode 1)))
   :init
+  (cl-defun --obsidian-find-buffer ()
+    (interactive)
+    (cl-letf ((symbol-function 'find-file) (symbol-function 'find-file-noselect))
+      (obsidian-jump)))
   (--evil-ex-define-cmds-splits-and-tabs
    "nn"
    #'obsidian-jump
    #'(lambda () (obsidian-jump)))
+  (evil-ex-define-cmd "ni"
+                      #'(lambda ()
+                          (interactive)
+                          (require 'obsidian)
+                          (dired obsidian-directory)))
   :config
   (define-advice obsidian-file-p (:filter-args (&optional file-list) ignore-lock-files)
     "Ignore all files that start with `.#'"
