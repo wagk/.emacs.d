@@ -2973,17 +2973,20 @@ https://github.com/akermu/emacs-libvterm
                           (dired obsidian-directory)))
   :config
   (define-advice obsidian-file-p (:filter-args (&optional file-list) ignore-lock-files)
-    "Ignore all files that start with `.#'"
-    (message "file: %s" file-list)
-    (cl-flet* ((is-lockfile-p (&optional file)
-                              (and file (->> file
-                                             (f-filename)
-                                             (s-prefix-p ".#"))))
-               (is-not-lockfile-p (&optional file)
-                                  (-> file
-                                      (is-lockfile-p)
-                                      (not))))
-      (-filter #'is-not-lockfile-p file-list)))
+    "Ignore all files that start with `.#' and dotfile directories."
+    ;; (message "file: %s" file-list)
+    (cl-flet* ((is-not-lockfile-p (&optional file)
+                (and file
+                     (->> file
+                          (f-filename)
+                          (s-prefix-p ".#")
+                          (not))))
+               (is-not-git-file-p (&optional file)
+                (and file
+                     (->> file
+                          (s-contains-p "/.git")
+                          (not)))))
+      (-filter (-andfn #'is-not-lockfile-p #'is-not-git-file-p) file-list)))
 
   ;; don't forget to `obsidian-specify-path'
   (global-obsidian-mode))
