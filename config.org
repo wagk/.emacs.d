@@ -3005,6 +3005,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
   (chatgpt-shell-display-function
    #'(lambda (buf)
        (pop-to-buffer buf #'display-buffer-pop-up-window)))
+  (chatgpt-shell-prompt-query-response-style 'shell)
   :init
   (evil-define-command --evil-gpt-cmd (prompt)
     (interactive "<a>")
@@ -3021,8 +3022,8 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
        "Always explain step-by-step and in detail."
        "Never simplify the answer."
        "For code, always write test cases")))
-  (add-to-list 'chatgpt-shell-system-prompts --chatgpt-shell-system-prompt)
-  (customize-set-variable 'chatgpt-shell-system-prompt --chatgpt-shell-system-prompt))
+
+  (customize-set-variable 'chatgpt-shell-system-prompt 2))
 #+end_src
 
 * Xref
