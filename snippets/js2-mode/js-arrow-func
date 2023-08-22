@@ -2,4 +2,4 @@
 # name: js-arrow-func
 # key: l
 # --
-($1) => $0
+$1 => $0

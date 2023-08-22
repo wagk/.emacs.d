@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: js-print
-# key: print
-# --
-console.log($0);

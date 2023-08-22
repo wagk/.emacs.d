@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: javascript-function
-# key: def
-# --
-function$1($2){
-  $0
-}
