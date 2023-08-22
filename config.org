@@ -190,6 +190,14 @@ C-M-i                           backward-button
 #+end_src
 
 * Quality of Life
+
+** Set backup directory
+#+begin_src emacs-lisp :results output silent
+(setq backup-directory-alist
+      `(("." . ,(file-name-concat (when (featurep 'no-littering)
+                                    no-littering-etc-directory)
+                                  "backups"))))
+#+end_src
 ** Frame Transparency
 #+begin_src emacs-lisp :results output silent
 ;;;###autoload
