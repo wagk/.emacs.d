@@ -3074,7 +3074,7 @@ Commented because this doesn't work all too well for now and I'm not to sure
 what the benefits are.
 #+begin_src emacs-lisp :results output silent
 (use-package xht
-  :straight (:type git :host nil :repo"https://git.sr.ht/~flandrew/xht"))
+  :straight (:type git :host nil :repo "https://git.sr.ht/~flandrew/xht"))
 
 (use-package democratize
   :straight (:type git :host nil :repo "https://git.sr.ht/~flandrew/democratize")
