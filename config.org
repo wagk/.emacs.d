@@ -2637,7 +2637,7 @@ Just do the scratch buffer simple and stupidly
       (add-to-history 'compile-history command)
       (compile command)))
 
-  (defun --delete-command-from-compile-history-completing-read ()
+  (defun --compile-command-delete ()
     "Finds a compile command and removes it from `compile-history'"
     (interactive)
     (require 'dash)
