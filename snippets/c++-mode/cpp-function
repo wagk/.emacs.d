@@ -2,7 +2,7 @@
 # key: f
 # name: cpp-function
 # --
-${2:void} ${1:foo}($3)${4:
+auto $1($2) -> $3
 {
   $0
-}}
+}
