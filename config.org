@@ -1292,14 +1292,6 @@ Use the following query to find all todo items that are overdue
   (yas-global-mode))
 #+end_src
 
-#+begin_src emacs-lisp :results output silent
-(with-eval-after-load 'cape
-  (use-package cape-yasnippet
-    :straight (:host github :repo "elken/cape-yasnippet")
-    :config
-    (add-to-list 'completion-at-point-functions #'cape-yasnippet)))
-#+end_src
-
 *** Auto-yasnippet
 #+begin_src emacs-lisp :results output silent
 (use-package auto-yasnippet
