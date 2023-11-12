@@ -2533,10 +2533,12 @@ This is closer to the json serialization/deserialization module.
 ** Treesit (built-in mode)
 #+begin_src emacs-lisp :results output silent
   (use-package treesit-auto
-    :if (and (fboundp 'treesit-available-p) (treesit-available-p))
+    :if (and (not (eq system-type 'windows-nt))
+             (fboundp 'treesit-available-p)
+             (treesit-available-p))
     :straight t
     :custom
-    (tresit-auto-install 'prompt)
+    (treesit-auto-install 'prompt)
     :config
     (global-treesit-auto-mode))
 #+end_src
