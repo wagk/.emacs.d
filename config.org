@@ -1187,6 +1187,10 @@ Use the following query to find all todo items that are overdue
   :straight (:host github :repo "jrblevin/markdown-mode")
   :mode ("\\.md\\'" . markdown-mode)
   :commands (markdown-mode)
+  :general
+  (markdown-mode-map
+   :states '(normal insert)
+   "C-l" #'markdown-toggle-gfm-checkbox)
   :init
   (with-eval-after-load 'org-table
     (defun orgtbl-to-gfm (table params)
@@ -1199,7 +1203,12 @@ Use the following query to find all todo items that are overdue
                             :lstart "| " :lend " |" :sep " | ")))
         (orgtbl-to-generic table (org-combine-plists params2 params)))))
   (with-eval-after-load 'org-src
-    (cl-pushnew '("md" . gfm) org-src-lang-modes)))
+    (cl-pushnew '("md" . gfm) org-src-lang-modes))
+  :config
+  (define-advice markdown-toggle-gfm-checkbox
+      (:after () insert-checkbox-if-none)
+    "Inserts a checkbox if there is none there"
+    (markdown-insert-gfm-checkbox)))
 #+end_src
 
 ** Edit-indirect
