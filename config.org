@@ -2541,15 +2541,16 @@ This is closer to the json serialization/deserialization module.
 
 ** Treesit (built-in mode)
 #+begin_src emacs-lisp :results output silent
-  (use-package treesit-auto
-    :if (and (not (eq system-type 'windows-nt))
-             (fboundp 'treesit-available-p)
-             (treesit-available-p))
-    :straight t
-    :custom
-    (treesit-auto-install 'prompt)
-    :config
-    (global-treesit-auto-mode))
+(use-package treesit-auto
+  :disabled t
+  :if (and (not (eq system-type 'windows-nt))
+           (fboundp 'treesit-available-p)
+           (treesit-available-p))
+  :straight t
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (global-treesit-auto-mode))
 #+end_src
 
 * Scratch
@@ -2990,15 +2991,10 @@ https://github.com/akermu/emacs-libvterm
     ;; (message "file: %s" file-list)
     (cl-flet* ((is-not-lockfile-p (&optional file)
                 (and file
-                     (->> file
-                          (f-filename)
-                          (s-prefix-p ".#")
-                          (not))))
+                     (not (s-prefix-p ".#" (f-filename file)))))
                (is-not-git-file-p (&optional file)
                 (and file
-                     (->> file
-                          (s-contains-p "/.git")
-                          (not)))))
+                     (not (s-contains-p ".git" file)))))
       (-filter (-andfn #'is-not-lockfile-p #'is-not-git-file-p) file-list)))
 
   ;; don't forget to `obsidian-specify-path'
