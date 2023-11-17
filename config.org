@@ -3011,10 +3011,6 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
 #+begin_src emacs-lisp :results output silent
 (use-package chatgpt-shell
   :straight (:host github :repo "xenodium/chatgpt-shell")
-  :general
-  (:keymaps 'chatgpt-shell-mode-map
-   "S-<return>" 'comint-send-input
-   "RET" 'newline)
   :custom
   (chatgpt-shell-request-timeout 300)
   (chatgpt-shell-insert-queries-inline nil)
@@ -3024,6 +3020,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
        (pop-to-buffer buf #'display-buffer-pop-up-window)))
   (chatgpt-shell-prompt-query-response-style 'shell)
   (chatgpt-shell-system-prompt 1)
+  (chatgpt-shell-model-version 6)
   :init
   (evil-define-command --evil-gpt-cmd (prompt)
     (interactive "<a>")
@@ -3031,15 +3028,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
     (if prompt
         (chatgpt-shell-send-to-buffer prompt)
       (chatgpt-shell)))
-  (evil-ex-define-cmd "gpt" #'--evil-gpt-cmd)
-  :config
-  (defconst --chatgpt-shell-system-prompt
-    (s-join "\n"
-     '("Always show code snippets in markdown blocks with language labels."
-       "Always write the summary first."
-       "Always explain step-by-step and in detail."
-       "Never simplify the answer."
-       "For code, always write test cases"))))
+  (evil-ex-define-cmd "gpt" #'--evil-gpt-cmd))
 #+end_src
 
 * Xref
