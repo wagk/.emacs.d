@@ -1189,6 +1189,8 @@ Use the following query to find all todo items that are overdue
   :straight (:host github :repo "jrblevin/markdown-mode")
   :mode ("\\.md\\'" . markdown-mode)
   :commands (markdown-mode)
+  :custom
+  (markdown-list-indent-width 2)
   :general
   (markdown-mode-map
    :states '(normal insert)
