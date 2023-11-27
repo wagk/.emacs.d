@@ -2970,6 +2970,8 @@ https://github.com/akermu/emacs-libvterm
 (use-package obsidian
   :straight t
   :commands (obsidian-jump)
+  :custom
+  (obsidian-include-hidden-files nil)
   :hook
   (obsidian-mode-hook . (lambda ()
                           (when (featurep 'aggressive-fill-paragraph)
@@ -2990,17 +2992,6 @@ https://github.com/akermu/emacs-libvterm
                           (require 'obsidian)
                           (dired obsidian-directory)))
   :config
-  (define-advice obsidian-file-p (:filter-args (&optional file-list) ignore-lock-files)
-    "Ignore all files that start with `.#' and dotfile directories."
-    ;; (message "file: %s" file-list)
-    (cl-flet* ((is-not-lockfile-p (&optional file)
-                (and file
-                     (not (s-prefix-p ".#" (f-filename file)))))
-               (is-not-git-file-p (&optional file)
-                (and file
-                     (not (s-contains-p ".git" file)))))
-      (-filter (-andfn #'is-not-lockfile-p #'is-not-git-file-p) file-list)))
-
   ;; don't forget to `obsidian-specify-path'
   (global-obsidian-mode))
 #+end_src
