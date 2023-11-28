@@ -77,12 +77,12 @@
     "In vim, <C-u> maps to half page up. In Emacs, it corresponds to
     the `universal-argument' function that might augment a function
     call. We prefer the scrolling.")
-  (evil-split-window-below
-    t
-    "`set splitbelow` in vim")
-  (evil-vsplit-window-right
-    t
-    "`set splitright` in vim")
+  ;; (evil-split-window-below
+  ;;   t
+  ;;   "`set splitbelow` in vim")
+  ;; (evil-vsplit-window-right
+  ;;   t
+  ;;   "`set splitright` in vim")
   (evil-move-beyond-eol
     t
     "As recommended by evil-cleverparens")
