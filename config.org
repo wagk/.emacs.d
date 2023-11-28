@@ -2660,12 +2660,6 @@ Just do the scratch buffer simple and stupidly
    :keymaps 'project-prefix-map
    "c" #'--compile-command-completing-read)
 
-  (unless (or (eq system-type 'windows-nt)
-              (eq system-type 'ms-dos))
-    (general-define-key
-     :keymaps 'project-prefix-map
-     "s" #'term))
-
   (defun --project-find-readme ()
     "Finds and lists all the README (eventually documentation) files "
     (interactive)
