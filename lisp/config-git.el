@@ -13,7 +13,8 @@
 (use-package magit
   :straight (:host github :repo "magit/magit" :branch "main")
   :after transient
-  :commands (magit-status
+  :commands (magit
+             magit-status
              magit-pull
              magit-commit)
   :defer 15
