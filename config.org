@@ -2974,6 +2974,7 @@ https://github.com/akermu/emacs-libvterm
   :commands (obsidian-jump)
   :custom
   (obsidian-include-hidden-files nil)
+  (obsidian-links-use-vault-path t)
   :hook
   (obsidian-mode-hook . (lambda ()
                           (when (featurep 'aggressive-fill-paragraph)
