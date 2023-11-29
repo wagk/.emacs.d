@@ -2524,6 +2524,7 @@ This is closer to the json serialization/deserialization module.
 * Tree Sitter
 #+begin_src emacs-lisp :results output silent
 (use-package tree-sitter
+  :commands (tree-sitter-hl-mode tree-sitter-mode)
   :hook ((tree-sitter-after-on-hook . tree-sitter-hl-mode))
   :custom-face
   (tree-sitter-hl-face:type.builtin ((t (:inherit 'tree-sitter-hl-face:keyword))))
@@ -2620,10 +2621,9 @@ Just do the scratch buffer simple and stupidly
    "d" 'project-find-dir
    "D" 'project-dired)
 
-  (with-eval-after-load 'magit
-    (general-define-key
-     :keymaps 'project-prefix-map
-     "v" 'magit))
+  (general-define-key
+    :keymaps 'project-prefix-map
+    "v" 'magit)
 
   (with-eval-after-load 'consult
     (general-define-key
@@ -2659,12 +2659,6 @@ Just do the scratch buffer simple and stupidly
   (general-define-key
    :keymaps 'project-prefix-map
    "c" #'--compile-command-completing-read)
-
-  (unless (or (eq system-type 'windows-nt)
-              (eq system-type 'ms-dos))
-    (general-define-key
-     :keymaps 'project-prefix-map
-     "s" #'term))
 
   (defun --project-find-readme ()
     "Finds and lists all the README (eventually documentation) files "
