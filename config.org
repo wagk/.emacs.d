@@ -2989,11 +2989,7 @@ https://github.com/akermu/emacs-libvterm
    "nn"
    #'obsidian-jump
    #'(lambda () (obsidian-jump)))
-  (evil-ex-define-cmd "ni"
-                      #'(lambda ()
-                          (interactive)
-                          (require 'obsidian)
-                          (dired obsidian-directory)))
+  (evil-ex-define-cmd "ni" #'obsidian-insert-link)
   :config
   ;; don't forget to `obsidian-specify-path'
   (global-obsidian-mode))
