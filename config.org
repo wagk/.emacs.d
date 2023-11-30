@@ -667,6 +667,8 @@ mode."
 ** Set fill column
 #+begin_src emacs-lisp :results output silent
 (customize-set-value 'fill-column 80)
+(when (fboundp 'global-display-fill-column-indicator-mode)
+  (global-display-fill-column-indicator-mode 1))
 #+end_src
 
 ** Move Auto-Save files into directory
