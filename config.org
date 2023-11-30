@@ -2475,7 +2475,10 @@ This is closer to the json serialization/deserialization module.
   :commands (highlight-indent-guides-mode)
   :custom
   (highlight-indent-guides-method 'character)
-  (highlight-indent-guides-character ?\|))
+  (highlight-indent-guides-character ?\|)
+  :custom-face
+  (highlight-indent-guides-character-face ((((background light)) (:foreground ,sol-base2))
+                                           (((background dark)) (:foreground ,sol-base02)))))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
