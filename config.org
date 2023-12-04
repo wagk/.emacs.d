@@ -2068,12 +2068,12 @@ the thing, because that's what vim does.
   (evil-ex-define-cmd "Vshell" #'(lambda () (interactive)
                                    (evil-window-vsplit)
                                    (my-buffer-specific-shell)))
-  (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
-  :hook
-  ((shell-mode-hook . (lambda ()
-                        (shell-dirtrack-mode 0)
-                        (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
-                        (dirtrack-mode 1)))))
+  (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil))))
+  ;; :hook
+  ;; ((shell-mode-hook . (lambda ()
+  ;;                       (shell-dirtrack-mode 0)
+  ;;                       (set-variable 'dirtrack-list '("^.*[^ ]+:\\(.*\\)>" 1 nil))
+  ;;                       (dirtrack-mode 1)))))
 #+end_src
 
 *** Org-babel Shell
