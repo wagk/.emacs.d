@@ -3082,3 +3082,12 @@ what the benefits are.
     :mode (("\\.groovy\\'" . groovy-mode)
            ("\\Jenkinsfile\\'" . groovy-mode)))
 #+END_SRC
+
+* Exec path from shell
+#+begin_src emacs-lisp :results output silent
+(use-package exec-path-from-shell
+  :straight t
+  :if (not (eq system-type 'windows-nt))
+  :config
+  (exec-path-from-shell-initialize))
+#+end_src
