@@ -233,8 +233,7 @@
 ;; date and time functions
 (use-package ts :straight t)
 
-(use-package async
-  :straight t)
+(use-package async :straight t)
 
 (use-package general
   :straight (:host github :repo "noctuid/general.el")
