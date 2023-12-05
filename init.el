@@ -254,6 +254,8 @@
     (evil-ex-define-cmd "restarttest"
                         'restart-emacs-start-new-emacs)))
 
+(use-package blackout :straight t)
+
 (let ((custom (locate-user-emacs-file "custom.el")))
   (unless (f-exists-p custom)
     (f-touch custom))

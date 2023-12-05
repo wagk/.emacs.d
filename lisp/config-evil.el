@@ -11,6 +11,7 @@
 (use-package undo-tree
   :straight t
   :demand t
+  :blackout t
   :commands (turn-on-undo-tree-mode)
   :custom
   (undo-tree-visualizer-diff t)

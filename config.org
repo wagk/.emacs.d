@@ -756,7 +756,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
 (use-package smartparens
   :straight (:host github :repo "Fuco1/smartparens")
   :defer 2
-  :diminish smartparens-mode
+  :blackout t
   :commands (sp-local-pair
              smartparens-global-mode)
   :hook
@@ -1147,8 +1147,8 @@ Use the following query to find all todo items that are overdue
 * hl-todo
 #+begin_src emacs-lisp :results output silent
 (use-package hl-todo
-  :diminish t
   :straight (:host github :repo "tarsius/hl-todo")
+  :blackout t
   :commands (hl-todo-mode)
   :hook ((prog-mode-hook  . hl-todo-mode)
          (yaml-mode-hook  . hl-todo-mode))
@@ -1540,7 +1540,7 @@ Requires rust-mode and markdown-mode
 #+begin_src emacs-lisp :results output silent
 (use-package cargo
   :straight (:host github :repo "kwrooijen/cargo.el")
-  :diminish cargo-minor-mode
+  :blackout t
   :commands cargo-minor-mode
   :hook (rust-mode-hook . cargo-minor-mode))
 #+end_src
@@ -1890,7 +1890,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 (use-package abbrev
   :ensure nil
   :straight nil
-  :delight (abbrev-mode nil "abbrev")
+  :blackout t
   :custom
   (abbrev-file-name (locate-user-emacs-file "abbrevs.el"))
   (save-abbrevs 'silently)
@@ -2936,6 +2936,7 @@ https://github.com/akermu/emacs-libvterm
 (use-package scopeline
   :straight (:host github :repo "meain/scopeline.el" :branch "master")
   :hook (prog-mode-hook . scopeline-mode)
+  :blackout t
   :custom
   (scopeline-overlay-prefix " -- ")
   (scopeline-min-lines 0)

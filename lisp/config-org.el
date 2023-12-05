@@ -190,6 +190,7 @@
 
 (use-package evil-org
   :straight (:host github :repo "Somelauw/evil-org-mode")
+  :blackout t
   :preface
   (fset 'evil-redirect-digit-argument 'ignore)
   :hook ((org-mode-hook . evil-org-mode))
