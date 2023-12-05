@@ -2935,9 +2935,7 @@ https://github.com/akermu/emacs-libvterm
 #+begin_src emacs-lisp :results output silent
 (use-package scopeline
   :straight (:host github :repo "meain/scopeline.el" :branch "master")
-  :after (:or tree-sitter treesit)
-  :hook ((tree-sitter-mode-hook . scopeline-mode)
-         (rust-ts-mode-hook . scopeline-mode))
+  :hook (prog-mode-hook . scopeline-mode)
   :custom
   (scopeline-overlay-prefix " -- ")
   (scopeline-min-lines 0)
