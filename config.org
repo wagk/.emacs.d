@@ -2968,7 +2968,6 @@ https://github.com/akermu/emacs-libvterm
 #+begin_src emacs-lisp :results output silent
 (use-package obsidian
   :straight t
-  :commands (obsidian-jump)
   :custom
   (obsidian-include-hidden-files nil)
   (obsidian-links-use-vault-path t)
@@ -2977,7 +2976,9 @@ https://github.com/akermu/emacs-libvterm
                           (when (featurep 'aggressive-fill-paragraph)
                             (aggressive-fill-paragraph-mode 0))
                           (visual-line-mode 1)))
-  :init
+  :config
+  ;; don't forget to `obsidian-specify-path'
+  (global-obsidian-mode)
   (cl-defun --obsidian-find-buffer ()
     (interactive)
     (cl-letf ((symbol-function 'find-file) (symbol-function 'find-file-noselect))
@@ -2986,10 +2987,7 @@ https://github.com/akermu/emacs-libvterm
    "nn"
    #'obsidian-jump
    #'(lambda () (obsidian-jump)))
-  (evil-ex-define-cmd "ni" #'obsidian-insert-link)
-  :config
-  ;; don't forget to `obsidian-specify-path'
-  (global-obsidian-mode))
+  (evil-ex-define-cmd "ni" #'obsidian-insert-link))
 #+end_src
 
 * Chatgpt Shell
