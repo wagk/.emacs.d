@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: def-python
-# key: def
+# name: python-function
+# key: f
 # --
 def ${1:foo}($2) ${3:-> ${4:None}}:
     ${5:raise NotImplementedError()}
