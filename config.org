@@ -547,20 +547,20 @@ no bookmark will be created."
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
-(with-eval-after-load 'consult
-  (--evil-ex-define-cmds-splits-and-tabs
-   "mm"
-   #'(lambda ()
-       (interactive)
-       (require 'consult)
-       (call-interactively 'consult-bookmark))
-   #'(lambda ()
-       (interactive)
-       (let* ((bookmark (--completing-read "Bookmark: " bookmark-alist
-                                           :require-match t))
-              (filepath (a-get-in bookmark-alist `(,bookmark filename))))
-         (cond ((f-directory-p filepath) filepath)
-               (t (find-file-noselect filepath)))))))
+;; (with-eval-after-load 'consult
+;;   (--evil-ex-define-cmds-splits-and-tabs
+;;    "mm"
+;;    #'(lambda ()
+;;        (interactive)
+;;        (require 'consult)
+;;        (call-interactively 'consult-bookmark))
+;;    #'(lambda ()
+;;        (interactive)
+;;        (let* ((bookmark (--completing-read "Bookmark: " bookmark-alist
+;;                                            :require-match t))
+;;               (filepath (a-get-in bookmark-alist `(,bookmark filename))))
+;;          (cond ((f-directory-p filepath) filepath)
+;;                (t (find-file-noselect filepath)))))))
 #+end_src
 
 *** Bookmark Face

@@ -60,6 +60,14 @@
   (with-eval-after-load 'magit
     (set-default 'consult-git-log-grep-open-function #'magit-show-commit)))
 
+(use-package consult-dir
+  :straight t
+  :commands consult-dir
+  :init
+  (with-eval-after-load 'evil
+    (--evil-ex-define-cmds-splits-and-tabs
+     "mm" #'consult-dir #'consult-dir)))
+
 (use-package marginalia
   :straight t
   :after consult
