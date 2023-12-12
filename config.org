@@ -2988,7 +2988,18 @@ https://github.com/akermu/emacs-libvterm
    "nn"
    #'obsidian-jump
    #'(lambda () (obsidian-jump)))
-  (evil-ex-define-cmd "ni" #'obsidian-insert-link))
+  (evil-ex-define-cmd "ni" #'obsidian-insert-link)
+  (with-eval-after-load 'org-capture
+    (setq org-capture-templates
+          (doct-add-to org-capture-templates
+                       '("Obsidian append"
+                         :keys "c"
+                         :type plain
+                         :function (lambda () (let ((buffer (--obsidian-find-buffer))))
+                                           (with-current-buffer buffer
+                                             (goto-char (point-max))))
+                         :template "\n")))
+    (evil-ex-define-cmd "nc" #'(lambda () (interactive) (org-capture nil "c")))))
 #+end_src
 
 * Chatgpt Shell
