@@ -3099,3 +3099,10 @@ what the benefits are.
   :config
   (exec-path-from-shell-initialize))
 #+end_src
+
+* Sudoedit
+#+begin_src emacs-lisp :results output silent
+(use-package sudo-edit
+  :straight t
+  :commands sudo-edit)
+#+end_src
