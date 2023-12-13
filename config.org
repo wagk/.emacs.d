@@ -2639,6 +2639,15 @@ Just do the scratch buffer simple and stupidly
   (with-eval-after-load 'savehist
     (add-to-list 'savehist-additional-variables 'compile-history))
 
+  (with-eval-after-load 'multi-term
+    (general-define-key
+     :keymaps 'project-prefix-map
+     "s" #'(lambda ()
+             (interactive)
+             (if (file-remote-p (buffer-file-name))
+                 (project-shell)
+               (multi-term)))))
+
   ;; TODO: Also make `compile-history' project-local
   (defun --compile-command-completing-read ()
     (interactive)
@@ -2854,14 +2863,11 @@ npm install -g @mermaid-js/mermaid-cli
 #+begin_src emacs-lisp :results output silent
 (use-package multi-term
   :straight t
-  :if (not (or (featurep 'vterm) (featurep 'multi-vterm)))
+  :if (not (or (featurep 'vterm)
+               (featurep 'multi-vterm)
+               (eq system-type 'windows-nt)))
   :commands
-  (multi-term)
-  :init
-  (with-eval-after-load 'project
-    (general-define-key
-     :keymaps 'project-prefix-map
-     "s" #'multi-term)))
+  (multi-term))
 #+end_src
 
 * Vterm
