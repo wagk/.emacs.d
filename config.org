@@ -3056,7 +3056,15 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
   (ws-butler-global-mode))
 #+end_src
 
-* Realgud
+* Realgud (and Gud)
+#+begin_src emacs-lisp :results output silent
+(use-package gud
+  :straight nil
+  :ensure nil
+  :custom
+  (gud-highlight-current-line t))
+#+end_src
+
 #+begin_src emacs-lisp :results output silent
 (use-package realgud
   :straight t)
