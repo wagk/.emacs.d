@@ -3001,9 +3001,12 @@ https://github.com/akermu/emacs-libvterm
                        '("Obsidian append"
                          :keys "c"
                          :type plain
-                         :function (lambda () (let ((buffer (--obsidian-find-buffer))))
-                                           (with-current-buffer buffer
-                                             (goto-char (point-max))))
+                         :function (lambda ()
+                                     (let ((buffer(->> (obsidian-list-all-files)
+                                                       (--completing-read "File: ")
+                                                       (find-file-noselect))))
+                                       (with-current-buffer buffer
+                                         (goto-char (point-max)))))
                          :template "\n")))
     (evil-ex-define-cmd "nc" #'(lambda () (interactive) (org-capture nil "c")))))
 #+end_src
