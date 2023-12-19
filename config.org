@@ -3016,6 +3016,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
 
 #+begin_src emacs-lisp :results output silent
 (use-package chatgpt-shell
+  :disabled t
   :straight (:host github :repo "xenodium/chatgpt-shell")
   :custom
   (chatgpt-shell-request-timeout 300)
@@ -3148,4 +3149,22 @@ what the benefits are.
 (use-package sudo-edit
   :straight t
   :commands sudo-edit)
+#+end_src
+
+* Gptel
+#+begin_src emacs-lisp :results output silent
+(use-package gptel
+  :straight t
+  :custom
+  ;; prompts are under `gptel-directives'
+  (gptel-model "gpt-4-1106-preview")
+  :config
+  (evil-define-command --gptel-ex-command (_beg _end _type)
+    (interactive "<v>")
+    (if (use-region-p)
+        (gptel-menu)
+      (call-interactively 'gptel)))
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "gpt"
+                        #'--gptel-ex-command)))
 #+end_src
