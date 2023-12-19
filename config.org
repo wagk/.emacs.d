@@ -2625,8 +2625,10 @@ Just do the scratch buffer simple and stupidly
    :keymaps 'project-prefix-map
    "d" 'project-find-dir
    "D" 'project-dired
-   "v" 'magit
-   "t" 'gdb)
+   "t" '(lambda ()
+          (interactive)
+          (let ((default-directory (project-root (project-current t))))
+            (call-interactively 'gdb))))
 
   (with-eval-after-load 'consult
     (general-define-key
