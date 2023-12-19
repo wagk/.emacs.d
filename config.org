@@ -2624,11 +2624,9 @@ Just do the scratch buffer simple and stupidly
   (general-define-key
    :keymaps 'project-prefix-map
    "d" 'project-find-dir
-   "D" 'project-dired)
-
-  (general-define-key
-    :keymaps 'project-prefix-map
-    "v" 'magit)
+   "D" 'project-dired
+   "v" 'magit
+   "t" 'gdb)
 
   (with-eval-after-load 'consult
     (general-define-key
