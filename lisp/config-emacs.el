@@ -7,7 +7,17 @@
   :ensure nil
   :straight nil
   :custom
-  (fill-column 80))
+  (fill-column 80)
+  :config
+  (evil-ex-define-cmd "by" #'(lambda ()
+                               "Yanks the full path of the buffer"
+                               (interactive)
+                               (let ((name (buffer-file-name)))
+                                 (pcase name
+                                   ('nil (message "Not a file"))
+                                   (name
+                                     (kill-new name)
+                                     (message "%s" name)))))))
 
 (use-package dired
   :demand t
