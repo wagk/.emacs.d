@@ -61,6 +61,19 @@ sudo apt install autoconf build-essential texinfo libx11-dev \
             --with-pgtk
 ```
 
+### WSL2
+There's [an issue][wsl-glitch] currently where windows look weird.
+
+Workaround:
+- Create a `~/.wslgconfig` with
+``` ini
+[system-distro-env]
+;disable GPU in system-distro
+LIBGL_ALWAYS_SOFTWARE=1
+```
+
+[wsl-glitch]: https://github.com/microsoft/wslg/issues/1148
+
 ## Emacs-Plus
 on macos (here the M1 specifically) [issue](https://github.com/d12frosted/homebrew-emacs-plus/issues/485#issuecomment-1230545946)
 ```
