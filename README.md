@@ -42,19 +42,23 @@ sudo apt build-dep emacs
 ``` shell
 # depends on which version of gcc is installed
 sudo apt install autoconf build-essential texinfo libx11-dev \
-     libmagick++-dev \
-     libsqlite3-dev \
-     libgccjit0 libgccjit-11-dev \
-     libtree-sitter-dev \
-     libjansson4 \
-     gnutls-bin \
-     libxft-dev \
-     libwebp-dev \
+     libmagick++-dev                                         \
+     libsqlite3-dev                                          \
+     libgccjit0 libgccjit-11-dev                             \
+     libtree-sitter-dev                                      \
+     libjansson4                                             \
+     gnutls-bin                                              \
+     libxft-dev                                              \
+     libwebp-dev
 ```
 
-```
+``` shell
 ./autogen.sh
-./configure --with-json --with-imagemagick --with-native-compilation --with-mailutils
+./configure --with-json               \
+            --with-imagemagick        \
+            --with-native-compilation \
+            --with-mailutils          \
+            --with-pgtk
 ```
 
 ## Emacs-Plus
