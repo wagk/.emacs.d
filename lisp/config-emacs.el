@@ -12,9 +12,12 @@
   (evil-ex-define-cmd "by" #'(lambda ()
                                "Yanks the full path of the buffer"
                                (interactive)
-                               (let ((name (buffer-file-name)))
+                               (let ((name (or (buffer-file-name)
+                                               dired-directory)))
                                  (pcase name
                                    ('nil (message "Not a file"))
+                                   ;; hack since dired-directory might be a list
+                                   ((pred listp) (message "Not a file"))
                                    (name
                                      (kill-new name)
                                      (message "%s" name)))))))
