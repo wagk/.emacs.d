@@ -99,8 +99,14 @@
   (cl-defun --evil-window-tag ()
     ":h window-tag"
     (interactive)
-    (evil-window-vsplit)
-    (evil-jump-to-tag))
+    (let ((orig-window-config (current-window-configuration)))
+      (evil-window-vsplit)
+      (condition-case err
+          (evil-jump-to-tag)
+        (user-error (delete-window)
+                    (set-window-configuration orig-window-config)
+                    (message "%s" err)))))
+
   (defun update-evil-shift-width ()
     "We do this otherwise packages like parinfer would mess up with
       the indentation, since their default is 4 but lisp-mode defaults
