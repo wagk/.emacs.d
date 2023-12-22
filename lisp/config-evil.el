@@ -53,6 +53,9 @@
     "g a" 'describe-char
     "g o" 'ff-find-other-file
     "g O" 'ff-find-other-file-other-window)
+  (evil-window-map
+   "]"   '--evil-window-tag
+   "C-]" '--evil-window-tag)
   :custom
   ;; (evil-complete-next-func
   ;;  #'(lambda (_arg) (completion-at-point))
@@ -93,6 +96,11 @@
   (evil-want-fine-undo t)
   :hook ((evil-normal-state-entry-hook . evil-ex-nohighlight))
   :config
+  (cl-defun --evil-window-tag ()
+    ":h window-tag"
+    (interactive)
+    (evil-window-vsplit)
+    (evil-jump-to-tag))
   (defun update-evil-shift-width ()
     "We do this otherwise packages like parinfer would mess up with
       the indentation, since their default is 4 but lisp-mode defaults
