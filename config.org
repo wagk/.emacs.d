@@ -3158,6 +3158,16 @@ what the benefits are.
   :custom
   ;; prompts are under `gptel-directives'
   (gptel-model "gpt-4-1106-preview")
+  :general
+  (gptel-mode-map
+   "C-RET" 'gptel-send
+   "C-<return>" 'gptel-send
+   "C-c RET" nil)
+  :hook
+  (gptel-mode-hook . (lambda ()
+                       (visual-line-mode 1)
+                       (require 'visual-fill-column)
+                       (visual-fill-column-mode 1)))
   :config
   (evil-define-command --gptel-ex-command (_beg _end _type)
     (interactive "<v>")
