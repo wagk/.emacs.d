@@ -3174,7 +3174,5 @@ what the benefits are.
     (if (use-region-p)
         (gptel-menu)
       (call-interactively 'gptel)))
-  (with-eval-after-load 'evil
-    (evil-ex-define-cmd "gpt"
-                        #'--gptel-ex-command)))
+  (evil-ex-define-cmd "gpt" #'--gptel-ex-command))
 #+end_src
