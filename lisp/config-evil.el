@@ -105,7 +105,7 @@
           (evil-jump-to-tag)
         (user-error (delete-window)
                     (set-window-configuration orig-window-config)
-                    (message "%s" err)))))
+                    (message "%s" (cadr err))))))
 
   (defun update-evil-shift-width ()
     "We do this otherwise packages like parinfer would mess up with
