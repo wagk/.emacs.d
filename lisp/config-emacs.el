@@ -8,6 +8,7 @@
   :straight nil
   :custom
   (fill-column 80)
+  (ff-always-try-to-create nil)
   :config
   (evil-ex-define-cmd "by" #'(lambda ()
                                "Yanks the full path of the buffer"
