@@ -2636,6 +2636,15 @@ Just do the scratch buffer simple and stupidly
      "b" 'consult-project-buffer
      "C" 'consult-compile-error))
 
+  (with-eval-after-load 'evil
+    (cl-defun --project-find-file-in-split ()
+      (interactive)
+      (--evil-do-in-split #'project-find-file :vsplit))
+    (general-define-key
+     :keymaps 'evil-window-map
+      "f" #'--project-find-file-in-split
+      "C-f" #'--project-find-file-in-split))
+
   (with-eval-after-load 'savehist
     (add-to-list 'savehist-additional-variables 'compile-history))
 
