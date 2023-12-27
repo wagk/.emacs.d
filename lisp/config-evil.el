@@ -33,6 +33,18 @@
 
 ;;; Evil-mode
 
+(cl-defun --evil-do-in-split (func &optional split-type)
+  (interactive)
+  (let ((orig-window-config (current-window-configuration)))
+    (pcase split-type
+      (:split (evil-window-split))
+      (:vsplit (evil-window-vsplit)))
+    (condition-case err
+        (funcall func)
+      (t (delete-window)
+         (set-window-configuration orig-window-config)
+         (message "%s" (substring-no-properties (cadr err)))))))
+
 (use-package evil
   :demand t
   :straight (:host github :repo "emacs-evil/evil")
@@ -96,16 +108,11 @@
   (evil-want-fine-undo t)
   :hook ((evil-normal-state-entry-hook . evil-ex-nohighlight))
   :config
+
   (cl-defun --evil-window-tag ()
     ":h window-tag"
     (interactive)
-    (let ((orig-window-config (current-window-configuration)))
-      (evil-window-vsplit)
-      (condition-case err
-          (evil-jump-to-tag)
-        (user-error (delete-window)
-                    (set-window-configuration orig-window-config)
-                    (message "%s" (cadr err))))))
+    (--evil-do-in-split #'evil-jump-to-tag :vsplit))
 
   (defun update-evil-shift-width ()
     "We do this otherwise packages like parinfer would mess up with
