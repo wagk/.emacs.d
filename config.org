@@ -2639,7 +2639,10 @@ Just do the scratch buffer simple and stupidly
   (with-eval-after-load 'evil
     (cl-defun --project-find-file-in-split ()
       (interactive)
-      (--evil-do-in-split #'project-find-file :vsplit))
+      (let ((style (if (< (window-pixel-height)
+                          (window-pixel-width))
+                       :vsplit :split)))
+        (--evil-do-in-split #'project-find-file style)))
     (general-define-key
      :keymaps 'evil-window-map
       "f" #'--project-find-file-in-split
