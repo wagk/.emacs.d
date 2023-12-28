@@ -1806,7 +1806,7 @@ r-value references.
 *** Clang-Format+
 #+begin_src emacs-lisp :results output silent
 (use-package clang-format+
-  :after clang-format
+  :commands clang-format+-mode
   :straight t)
 #+end_src
 
@@ -2636,6 +2636,18 @@ Just do the scratch buffer simple and stupidly
      "b" 'consult-project-buffer
      "C" 'consult-compile-error))
 
+  (with-eval-after-load 'evil
+    (cl-defun --project-find-file-in-split ()
+      (interactive)
+      (let ((style (if (< (window-pixel-height)
+                          (window-pixel-width))
+                       :vsplit :split)))
+        (--evil-do-in-split #'project-find-file style)))
+    (general-define-key
+     :keymaps 'evil-window-map
+      "f" #'--project-find-file-in-split
+      "C-f" #'--project-find-file-in-split))
+
   (with-eval-after-load 'savehist
     (add-to-list 'savehist-additional-variables 'compile-history))
 
@@ -3158,13 +3170,21 @@ what the benefits are.
   :custom
   ;; prompts are under `gptel-directives'
   (gptel-model "gpt-4-1106-preview")
+  :general
+  (gptel-mode-map
+   "C-RET" 'gptel-send
+   "C-<return>" 'gptel-send
+   "C-c RET" nil)
+  :hook
+  (gptel-mode-hook . (lambda ()
+                       (visual-line-mode 1)
+                       (require 'visual-fill-column)
+                       (visual-fill-column-mode 1)))
   :config
   (evil-define-command --gptel-ex-command (_beg _end _type)
     (interactive "<v>")
     (if (use-region-p)
         (gptel-menu)
       (call-interactively 'gptel)))
-  (with-eval-after-load 'evil
-    (evil-ex-define-cmd "gpt"
-                        #'--gptel-ex-command)))
+  (evil-ex-define-cmd "gpt" #'--gptel-ex-command))
 #+end_src
