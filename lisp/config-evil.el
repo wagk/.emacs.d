@@ -45,6 +45,13 @@
          (set-window-configuration orig-window-config)
          (message "%s" (substring-no-properties (cadr err)))))))
 
+(cl-defun --evil-smart-split (func)
+  (interactive)
+  (let ((style (if (< (window-pixel-height)
+                      (window-pixel-width))
+                   :vsplit :split)))
+    (--evil-do-in-split func style)))
+
 (use-package evil
   :demand t
   :straight (:host github :repo "emacs-evil/evil")

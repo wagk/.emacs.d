@@ -2637,15 +2637,17 @@ Just do the scratch buffer simple and stupidly
      "C" 'consult-compile-error))
 
   (with-eval-after-load 'evil
+    (cl-defun --project-find-dir-in-split ()
+      (interactive)
+      (--evil-smart-split #'project-find-dir))
     (cl-defun --project-find-file-in-split ()
       (interactive)
-      (let ((style (if (< (window-pixel-height)
-                          (window-pixel-width))
-                       :vsplit :split)))
-        (--evil-do-in-split #'project-find-file style)))
+      (--evil-smart-split #'project-find-file))
     (general-define-key
      :keymaps 'evil-window-map
-      "f" #'--project-find-file-in-split
+      "d"   #'--project-find-dir-in-split
+      "C-d" #'--project-find-dir-in-split
+      "f"   #'--project-find-file-in-split
       "C-f" #'--project-find-file-in-split))
 
   (with-eval-after-load 'savehist
