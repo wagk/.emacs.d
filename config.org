@@ -3188,6 +3188,7 @@ what the benefits are.
 #+begin_src emacs-lisp :results output silent
 (use-package gptel
   :straight t
+  :demand t ;; override :general
   :custom
   ;; prompts are under `gptel-directives'
   (gptel-model "gpt-4-1106-preview")
