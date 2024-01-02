@@ -2655,6 +2655,20 @@ Just do the scratch buffer simple and stupidly
       "f"   #'--project-find-file-in-split
       "C-f" #'--project-find-file-in-split))
 
+  (with-eval-after-load 'evil
+    (cl-defun --project-any-command-in-split ()
+      (interactive)
+      (--evil-do-in-split #'project-any-command :split))
+    (cl-defun --project-any-command-in-vsplit ()
+      (interactive)
+      (--evil-do-in-split #'project-any-command :vsplit))
+    (general-define-key
+     :keymaps 'evil-window-map
+      "V"   #'--project-any-command-in-vsplit
+      "C-V" #'--project-any-command-in-vsplit
+      "S"   #'--project-any-command-in-split
+      "C-S" #'--project-any-command-in-split))
+
   (with-eval-after-load 'savehist
     (add-to-list 'savehist-additional-variables 'compile-history))
 
