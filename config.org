@@ -2643,8 +2643,13 @@ Just do the scratch buffer simple and stupidly
     (cl-defun --project-find-file-in-split ()
       (interactive)
       (--evil-smart-split #'project-find-file))
+    (cl-defun --project-dired-in-split ()
+      (interactive)
+      (--evil-smart-split #'project-dired))
     (general-define-key
      :keymaps 'evil-window-map
+      "D"   #'--project-dired-in-split
+      "C-D" #'--project-dired-in-split
       "d"   #'--project-find-dir-in-split
       "C-d" #'--project-find-dir-in-split
       "f"   #'--project-find-file-in-split
