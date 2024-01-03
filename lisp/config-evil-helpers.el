@@ -150,7 +150,7 @@
 
 (defun --select-config-lisp-file ()
   (interactive)
-  (find-file-noselect (--select-config-lisp-file-name)))
+  (find-file (--select-config-lisp-file-name)))
 
 (defun --load-config-lisp-files (file-list)
   (cl-dolist (file file-list)
