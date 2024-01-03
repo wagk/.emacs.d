@@ -2,6 +2,30 @@
 
 (evil-ex-define-cmd "view" #'(lambda () (interactive) (read-only-mode 'toggle)))
 
+(cl-defun --evil-define-splits (command func)
+  (require 'evil)
+  (evil-ex-define-cmd command
+                      `(lambda () (interactive) (,func)))
+  (evil-ex-define-cmd (concat "S" command)
+                      `(lambda () (interactive)
+                         (--evil-do-in-split ',func :split)))
+  (evil-ex-define-cmd (concat "V" command)
+                      `(lambda () (interactive)
+                         (--evil-do-in-split ',func :vsplit)))
+  (evil-ex-define-cmd (concat "T" command)
+                      `(lambda () (interactive)
+                         (--evil-do-in-tab ',func))))
+
+(--evil-define-splits "init"        'find-user-init-file)
+(--evil-define-splits "local"       'find-user-local-file)
+(--evil-define-splits "config"      'find-user-config-file)
+(--evil-define-splits "cofnig"      'find-user-config-file)
+(--evil-define-splits "cnfig"       'find-user-config-file)
+(--evil-define-splits "var[iables]" 'find-user-variables-file)
+(--evil-define-splits "buffers"     'ibuffer)
+(--evil-define-splits "me[ssage]" #'(lambda ()
+                                      (switch-to-buffer "*Messages*")))
+
 (cl-defun --evil-ex-define-cmds-splits-and-tabs
     (command buffer-fn &optional tab)
   "Does split and vsplit, and also tab. BUFFER-FN should return a buffer
@@ -35,30 +59,6 @@
                                             (t (current-buffer))))
                                    (tab-bar-new-tab-choice buffer))
                               (tab-bar-new-tab)))))))
-
-(--evil-ex-define-cmds-splits-and-tabs "init"
-                                        'find-user-init-file
-                                        user-init-file)
-(--evil-ex-define-cmds-splits-and-tabs "local"
-                                        'find-user-local-file
-                                        #'(lambda () (find-file user-local-file)))
-(--evil-ex-define-cmds-splits-and-tabs "config"
-                                        'find-user-config-file
-                                        user-config-file)
-(--evil-ex-define-cmds-splits-and-tabs "cofnig" ;; also bind typos for convenience
-                                        'find-user-config-file
-                                        user-config-file)
-(--evil-ex-define-cmds-splits-and-tabs "cnfig" ;; also bind typos for convenience
-                                        'find-user-config-file
-                                        user-config-file)
-(--evil-ex-define-cmds-splits-and-tabs "var[iables]"
-                                        'find-user-variables-file
-                                        user-variables-file)
-(--evil-ex-define-cmds-splits-and-tabs "buffers" 'ibuffer)
-(--evil-ex-define-cmds-splits-and-tabs "me[ssage]"
-                                        #'(lambda ()
-                                            (switch-to-buffer "*Messages*"))
-                                        "*Messages*")
 
 (cl-defun --evil-ex-define-buffer-cmds
     (command buf &key no-split no-vsplit no-tab)
@@ -159,24 +159,7 @@
         ("el" (load-file file))
         ("org" (org-babel-load-file file))))))
 
-(cl-defun --evil-define-splits (command func)
-  (require 'evil)
-  (evil-ex-define-cmd command `(lambda () (interactive) (,func)))
-  (evil-ex-define-cmd (concat "S" command)
-                      `(lambda () (interactive)
-                         (--evil-do-in-split ',func :split)))
-  (evil-ex-define-cmd (concat "V" command)
-                      `(lambda () (interactive)
-                         (--evil-do-in-split ',func :vsplit)))
-  (evil-ex-define-cmd (concat "T" command)
-                      `(lambda () (interactive)
-                         (--evil-do-in-tab ',func))))
-
 (--evil-define-splits "ll" #'--select-config-lisp-file)
-
-(--evil-ex-define-cmds-splits-and-tabs "lisp"
-                                        #'find-user-lisp-dir
-                                        #'user-lisp-dir)
 
 (evil-define-command config-ex-set-arg (cmd)
   (interactive "<a>")
