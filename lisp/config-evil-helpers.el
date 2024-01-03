@@ -159,10 +159,24 @@
         ("el" (load-file file))
         ("org" (org-babel-load-file file))))))
 
+(cl-defun --evil-define-splits (command func)
+  (require 'evil)
+  (evil-ex-define-cmd command `(lambda () (interactive) (,func)))
+  (evil-ex-define-cmd (concat "S" command)
+                      `(lambda () (interactive)
+                         (--evil-do-in-split ',func :split)))
+  (evil-ex-define-cmd (concat "V" command)
+                      `(lambda () (interactive)
+                         (--evil-do-in-split ',func :vsplit)))
+  (evil-ex-define-cmd (concat "T" command)
+                      `(lambda () (interactive)
+                         (--evil-do-in-tab ',func))))
+
+(--evil-define-splits "ll" #'--select-config-lisp-file)
+
 (--evil-ex-define-cmds-splits-and-tabs "lisp"
                                         #'find-user-lisp-dir
                                         #'user-lisp-dir)
-(--evil-ex-define-buffer-cmds "ll" #'(lambda () (--select-config-lisp-file)))
 
 (evil-define-command config-ex-set-arg (cmd)
   (interactive "<a>")

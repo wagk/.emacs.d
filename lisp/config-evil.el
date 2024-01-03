@@ -34,6 +34,8 @@
 ;;; Evil-mode
 
 (cl-defun --evil-do-in-split (func &optional split-type)
+  "Call FUNC after splitting by SPLIT-TYPE.
+SPLIT-TYPE must be either `:split' or `:vsplit'"
   (interactive)
   (let ((orig-window-config (current-window-configuration)))
     (pcase split-type
@@ -43,9 +45,20 @@
         (funcall func)
       (t (delete-window)
          (set-window-configuration orig-window-config)
-         (message "%s" (substring-no-properties (cadr err)))))))
+         (message "%s" err)))))
+
+(cl-defun --evil-do-in-tab (func)
+  "Call FUNC in a new tab."
+  (interactive)
+  (require 'tab-bar)
+  (tab-bar-new-tab)
+  (condition-case err
+      (funcall func)
+    (t (tab-bar-close-tab)
+       (message "%s" err))))
 
 (cl-defun --evil-smart-split (func)
+  "Call FUNC after splitting along longest axis."
   (interactive)
   (let ((style (if (< (window-pixel-height)
                       (window-pixel-width))
