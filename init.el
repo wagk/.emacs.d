@@ -117,7 +117,7 @@
   (let ((bootstrap-file
          (expand-file-name "straight/repos/straight.el/bootstrap.el"
                            user-emacs-directory))
-        (bootstrap-version 6))
+        (bootstrap-version 7))
     (unless (file-exists-p bootstrap-file)
       (message "Bootstrapping Straight.el...")
       (with-current-buffer
@@ -126,17 +126,7 @@
            'silent 'inhibit-cookies)
         (goto-char (point-max))
         (eval-print-last-sexp)))
-    (load bootstrap-file nil 'nomessage))
-  (let ((lockfile (locate-user-emacs-file "packages.el"))
-        (profile-name 'personal))
-    (when (file-exists-p lockfile)
-      (customize-set-variable 'straight-profiles
-                              (add-to-list 'straight-profiles
-                                           (cons profile-name
-                                                 lockfile)))
-      (straight-thaw-versions))
-    (customize-set-variable 'straight-current-profile
-                            profile-name)))
+    (load bootstrap-file nil 'nomessage)))
 
 ;;; Use package
 (defun bootstrap-use-package ()
