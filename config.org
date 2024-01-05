@@ -2504,14 +2504,6 @@ This is closer to the json serialization/deserialization module.
     (add-hook 'web-mode-hook #'lsp-deferred)))
 #+end_src
 
-* C# Mode
-#+begin_src emacs-lisp :results output silent
-(use-package csharp-mode
-  :straight (:host github :repo "josteink/csharp-mode")
-  :commands (csharp-mode)
-  :mode "\\.cs\\'")
-#+end_src
-
 * Fill Function Argument
 #+begin_src emacs-lisp :results output silent
 (use-package fill-function-arguments
