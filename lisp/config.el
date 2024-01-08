@@ -3,6 +3,7 @@
 (require 'config-evil-helpers)
 (require 'config-git)
 (require 'config-colors)
+(require 'config-theme)
 (require 'config-completions)
 (require 'config-emacs)
 (require 'config-org)
