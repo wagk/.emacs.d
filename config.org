@@ -165,30 +165,6 @@ C-M-i                           backward-button
 #+begin_src emacs-lisp :results output silent
 (custom-set-faces `(link ((t (:foreground ,sol-yellow :underline nil :bold t)))))
 #+end_src
-* Themes
-** Solarized
-[[https://ethanschoonover.com/solarized/][Website with more descriptions]]
-
-- Refer to docstring for =my-init-solarized-color-variables=.
-
-#+begin_src emacs-lisp :results output silent
-(use-package solarized-theme
-  :straight (:host github :repo "bbatsov/solarized-emacs")
-  ;; :if (display-graphic-p)
-  :custom
-  (solarized-use-variable-pitch nil)
-  (solarized-distinct-fringe-background nil)
-  (solarized-high-contrast-mode-line nil)
-  (solarized-use-less-bold t)
-  (solarized-use-more-italic nil)
-  (solarized-scale-org-headlines nil)
-  (solarized-height-minus-1 1.0)
-  (solarized-height-plus-1 1.0)
-  (solarized-height-plus-2 1.0)
-  (solarized-height-plus-3 1.0)
-  (solarized-height-plus-4 1.0))
-#+end_src
-
 * Quality of Life
 
 ** Set backup directory

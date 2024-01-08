@@ -47,6 +47,7 @@
   "DEPRECATED: Some parts of the config uses this, so we can't remove it yet.")
 
 (use-package nano-theme
+  :disabled t
   :straight t
   :custom
   (nano-window-divider-show t)
@@ -70,5 +71,21 @@
 (customize-set-variable 'nano-dark-strong      sol-yellow)
 (customize-set-variable 'nano-dark-popout      sol-orange)
 (customize-set-variable 'nano-dark-critical    sol-red)
+
+(use-package solarized-theme
+  :straight (:host github :repo "bbatsov/solarized-emacs")
+  ;; :if (display-graphic-p)
+  :custom
+  (solarized-use-variable-pitch nil)
+  (solarized-distinct-fringe-background nil)
+  (solarized-high-contrast-mode-line nil)
+  (solarized-use-less-bold t)
+  (solarized-use-more-italic nil)
+  (solarized-scale-org-headlines nil)
+  (solarized-height-minus-1 1.0)
+  (solarized-height-plus-1 1.0)
+  (solarized-height-plus-2 1.0)
+  (solarized-height-plus-3 1.0)
+  (solarized-height-plus-4 1.0))
 
 (provide 'config-theme)
