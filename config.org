@@ -2628,21 +2628,39 @@ Just do the scratch buffer simple and stupidly
   (with-eval-after-load 'evil
     (cl-defun --project-find-dir-in-split ()
       (interactive)
-      (--evil-smart-split #'project-find-dir))
+      (--evil-do-in-split #'project-find-dir :split))
+    (cl-defun --project-find-dir-in-vsplit ()
+      (interactive)
+      (--evil-do-in-split #'project-find-dir :vsplit))
+
     (cl-defun --project-find-file-in-split ()
       (interactive)
-      (--evil-smart-split #'project-find-file))
+      (--evil-do-in-split #'project-find-file :split))
+    (cl-defun --project-find-file-in-vsplit ()
+      (interactive)
+      (--evil-do-in-split #'project-find-file :vsplit))
+
     (cl-defun --project-dired-in-split ()
       (interactive)
-      (--evil-smart-split #'project-dired))
+      (--evil-do-in-split #'project-dired :split))
+    (cl-defun --project-dired-in-vsplit ()
+      (interactive)
+      (--evil-do-in-split #'project-dired :vsplit))
+
     (general-define-key
      :keymaps 'evil-window-map
-      "D"   #'--project-dired-in-split
-      "C-D" #'--project-dired-in-split
-      "d"   #'--project-find-dir-in-split
-      "C-d" #'--project-find-dir-in-split
-      "f"   #'--project-find-file-in-split
-      "C-f" #'--project-find-file-in-split))
+      "D v"     #'--project-dired-in-vsplit
+      "C-D C-v" #'--project-dired-in-vsplit
+      "D s"     #'--project-dired-in-split
+      "C-D C-s" #'--project-dired-in-split
+      "d v"     #'--project-find-dir-in-vsplit
+      "C-d C-v" #'--project-find-dir-in-vsplit
+      "d s"     #'--project-find-dir-in-split
+      "C-d C-s" #'--project-find-dir-in-split
+      "f v"     #'--project-find-file-in-vsplit
+      "C-f C-v" #'--project-find-file-in-vsplit
+      "f s"     #'--project-find-file-in-split
+      "C-f C-s" #'--project-find-file-in-split))
 
   (with-eval-after-load 'evil
     (cl-defun --project-any-command-in-split ()
