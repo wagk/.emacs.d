@@ -21,7 +21,6 @@
 (--evil-define-splits "config"      'find-user-config-file)
 (--evil-define-splits "cofnig"      'find-user-config-file)
 (--evil-define-splits "cnfig"       'find-user-config-file)
-(--evil-define-splits "var[iables]" 'find-user-variables-file)
 (--evil-define-splits "buffers"     'ibuffer)
 (--evil-define-splits "me[ssage]" #'(lambda ()
                                       (switch-to-buffer "*Messages*")))

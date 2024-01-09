@@ -49,10 +49,6 @@
   (locate-user-emacs-file "local.el")
   "Points to local.el.")
 
-(defconst user-variables-file
-  (locate-user-emacs-file "lisp/config-variables.el")
-  "Points to variables.el.")
-
 (defconst user-lisp-dir
   (locate-user-emacs-file "lisp")
   "Points to lisp configuration file directory")
@@ -71,11 +67,6 @@
   "Edit `local.el' without opening a new window."
   (interactive)
   (find-file user-local-file))
-
-(defun find-user-variables-file ()
-  "Edit `variables.el' without opening a new window."
-  (interactive)
-  (find-file user-variables-file))
 
 (defun find-user-lisp-dir ()
   "Edit lisp directory without opening a new window."
@@ -254,16 +245,12 @@
                             (locate-user-emacs-file)
                             (directory-file-name)))
 
-(require 'config-variables)
-
 ;; Load local configuration variables, we do it here so that
 ;; local.el gets access to the "core" init loads
 (when (f-exists-p user-local-file)
   (load-file user-local-file))
 
 (customize-set-variable 'frame-background-mode 'nil)
-(with-eval-after-load 'solarized-theme
-  (load-theme --default-emacs-theme t))
 
 (require 'config)
 (org-babel-load-file (locate-user-emacs-file "config.org"))

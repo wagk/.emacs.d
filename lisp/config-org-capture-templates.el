@@ -1,5 +1,4 @@
 (require 'config-org-capture)
-(require 'config-variables)
 
 (require 'evil)
 

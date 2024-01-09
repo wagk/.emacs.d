@@ -1,3 +1,7 @@
+(defgroup personal nil
+  "A list of configuration variables that is needed from the local
+  machine.")
+
 (require 'config-helpers)
 (require 'config-evil)
 (require 'config-evil-helpers)
