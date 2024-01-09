@@ -2757,7 +2757,7 @@ Just do the scratch buffer simple and stupidly
   :straight t
   :custom-face
   (eros-result-overlay-face ((t (:box nil
-                                 :background nil
+                                 :background unspecified
                                  :inherit shadow))))
   :config
   (eros-mode))
