@@ -66,11 +66,12 @@
 (customize-set-variable 'nano-dark-popout      sol-magenta)
 (customize-set-variable 'nano-dark-critical    sol-red)
 
+(load-theme 'nano-dark)
+
 (with-eval-after-load 'faces
-  (set-face-attribute 'fill-column-indicator nil
-                      :weight 'thin
-                      :foreground nil
-                      :inherit 'nano-subtle))
+  (custom-set-faces `(fill-column-indicator
+                      ((((background light)) (:foreground ,sol-base2))
+                       (((background dark)) (:foreground ,sol-base02))))))
 
 (with-eval-after-load 'magit
   (set-face-attribute 'magit-diff-hunk-heading nil
@@ -83,20 +84,19 @@
   (set-face-attribute 'markdown-italic-face nil
                       :italic t))
 
-(with-eval-after-load 'font-lock
-  (set-face-attribute 'font-lock-keyword-face nil
-                      :inherit 'nano-default)
-  (set-face-attribute 'font-lock-constant-face nil
-                      :inherit 'nano-default)
-  (set-face-attribute 'font-lock-function-name-face nil
-                      :inherit 'nano-default)
-  (set-face-attribute 'font-lock-builtin-face nil
-                      :inherit 'nano-default)
-  (set-face-attribute 'font-lock-type-face nil
-                      :italic t
-                      :inherit 'nano-default))
+(set-face-attribute 'font-lock-keyword-face nil
+                    :inherit 'nano-default)
+(set-face-attribute 'font-lock-constant-face nil
+                    :inherit 'nano-default)
+(set-face-attribute 'font-lock-function-name-face nil
+                    :inherit 'nano-default)
+(set-face-attribute 'font-lock-builtin-face nil
+                    :inherit 'nano-default)
+(set-face-attribute 'font-lock-type-face nil
+                    :italic t
+                    :inherit 'nano-default)
 
-(with-eval-after-load 'tree-sitter
+(with-eval-after-load 'tree-sitter-hl
   (set-face-attribute 'tree-sitter-hl-face:function nil
                       :inherit 'nano-default)
   (set-face-attribute 'tree-sitter-hl-face:function.call nil
@@ -151,9 +151,5 @@
   (solarized-height-plus-2 1.0)
   (solarized-height-plus-3 1.0)
   (solarized-height-plus-4 1.0))
-
-;; Pick a theme
-
-(load-theme 'nano-light)
 
 (provide 'config-theme)
