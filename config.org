@@ -3200,3 +3200,12 @@ what the benefits are.
       (call-interactively 'gptel)))
   (evil-ex-define-cmd "gpt" #'--gptel-ex-command))
 #+end_src
+
+* Jam-mode
+#+begin_src emacs-lisp :results output silent
+(use-package jam-mode
+  :straight nil
+  :ensure nil
+  :mode "Jamroot"
+  :load-path "lisp/3p")
+#+end_src
