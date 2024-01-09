@@ -38,14 +38,6 @@
   ;; TODO: set documentation string
   (set (car col) (cdr col)))
 
-(defface sol-subtle `((((background light)) (:foreground ,sol-base1))
-                      (((background dark)) (:foreground ,sol-base01)))
-  "DEPRECATED: Some parts of the config uses this, so we can't remove it yet.")
-
-(defface sol-subtle-background `((((background light)) (:foreground ,sol-base1 :background ,sol-base2))
-                                 (((background dark)) (:foreground ,sol-base01 :background ,sol-base02)))
-  "DEPRECATED: Some parts of the config uses this, so we can't remove it yet.")
-
 ;; Nano theme
 
 (use-package nano-theme
