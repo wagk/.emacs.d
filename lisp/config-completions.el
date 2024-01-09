@@ -63,10 +63,11 @@
 (use-package consult-dir
   :straight t
   :commands consult-dir
+  :custom
+  (consult-dir-default-command #'find-file)
   :init
   (with-eval-after-load 'evil
-    (--evil-ex-define-cmds-splits-and-tabs
-     "mm" #'consult-dir #'(lambda () (consult-dir)))))
+    (--evil-define-splits "mm" #'consult-dir)))
 
 (use-package marginalia
   :straight t
