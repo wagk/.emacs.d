@@ -2407,6 +2407,7 @@ This is closer to the json serialization/deserialization module.
 * Search Engine Mode
 #+begin_src emacs-lisp :results output silent
 (use-package engine-mode
+  :disabled t ;; chatgpt instead
   ;; :straight (:host github :repo "hrs/engine-mode" :branch "main")
   :straight t
   :commands defengine
@@ -3042,15 +3043,17 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
        (pop-to-buffer buf #'display-buffer-pop-up-window)))
   (chatgpt-shell-prompt-query-response-style 'shell)
   (chatgpt-shell-system-prompt 1)
-  (chatgpt-shell-model-version 6))
-  ;; :init
-  ;; (evil-define-command --evil-gpt-cmd (prompt)
-  ;;   (interactive "<a>")
-  ;;   (require 'chatgpt-shell)
-  ;;   (if prompt
-  ;;       (chatgpt-shell-send-to-buffer prompt)
-  ;;     (chatgpt-shell)))
-  ;; (evil-ex-define-cmd "gpt" #'--evil-gpt-cmd))
+  (chatgpt-shell-model-version 6)
+  :init
+  (evil-define-command --evil-gpt-cmd (prompt)
+    (interactive "<a>")
+    (require 'chatgpt-shell)
+    (if prompt
+        (chatgpt-shell-send-to-buffer prompt)
+      (chatgpt-shell)))
+  (evil-ex-define-cmd "gpt" #'--evil-gpt-cmd)
+  :config
+  (evil-ex-define-cmd "dd" #'chatgpt-shell-prompt))
 #+end_src
 
 * Xref
@@ -3169,6 +3172,7 @@ what the benefits are.
 * Gptel
 #+begin_src emacs-lisp :results output silent
 (use-package gptel
+  :disabled t
   :straight t
   :demand t ;; override :general
   :custom
