@@ -2754,6 +2754,10 @@ Just do the scratch buffer simple and stupidly
 #+begin_src emacs-lisp :results output silent
 (use-package eros
   :straight t
+  :custom-face
+  (eros-result-overlay-face ((t (:box nil
+                                 :background nil
+                                 :inherit shadow))))
   :config
   (eros-mode))
 #+end_src
