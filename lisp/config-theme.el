@@ -83,6 +83,13 @@
                       :bold t
                       :inherit 'nano-faded))
 
+(with-eval-after-load 'markdown-mode
+  (set-face-attribute 'markdown-inline-code-face nil
+                      :inherit 'nano-subtle)
+  (set-face-attribute 'markdown-italic-face nil
+                      :italic t))
+
+
 ;; Solarized theme
 
 (use-package solarized-theme
