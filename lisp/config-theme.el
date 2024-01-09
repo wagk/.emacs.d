@@ -46,8 +46,9 @@
                                  (((background dark)) (:foreground ,sol-base01 :background ,sol-base02)))
   "DEPRECATED: Some parts of the config uses this, so we can't remove it yet.")
 
+;; Nano theme
+
 (use-package nano-theme
-  :disabled t
   :straight t
   :custom
   (nano-window-divider-show t)
@@ -58,19 +59,31 @@
 (customize-set-variable 'nano-light-highlight  sol-base2)
 (customize-set-variable 'nano-light-subtle     sol-base2)
 (customize-set-variable 'nano-light-faded      sol-base0)
-(customize-set-variable 'nano-light-salient    sol-base01)
+(customize-set-variable 'nano-light-salient    sol-yellow)
 (customize-set-variable 'nano-light-strong     sol-base01)
 (customize-set-variable 'nano-light-popout     sol-orange)
 (customize-set-variable 'nano-light-critical   sol-red)
+
 (customize-set-variable 'nano-dark-foreground  sol-base0)
 (customize-set-variable 'nano-dark-background  sol-base03)
 (customize-set-variable 'nano-dark-highlight   sol-base02)
 (customize-set-variable 'nano-dark-subtle      sol-base02)
 (customize-set-variable 'nano-dark-faded       sol-base00)
-(customize-set-variable 'nano-dark-salient     sol-base1)
+(customize-set-variable 'nano-dark-salient     sol-yellow)
 (customize-set-variable 'nano-dark-strong      sol-base1)
 (customize-set-variable 'nano-dark-popout      sol-orange)
 (customize-set-variable 'nano-dark-critical    sol-red)
+
+(with-eval-after-load 'faces
+  (set-face-attribute 'fill-column-indicator nil
+                      :weight 'thin))
+
+(with-eval-after-load 'magit
+  (set-face-attribute 'magit-diff-hunk-heading nil
+                      :bold t
+                      :inherit 'nano-faded))
+
+;; Solarized theme
 
 (use-package solarized-theme
   :straight (:host github :repo "bbatsov/solarized-emacs")
@@ -87,5 +100,9 @@
   (solarized-height-plus-2 1.0)
   (solarized-height-plus-3 1.0)
   (solarized-height-plus-4 1.0))
+
+;; Pick a theme
+
+(load-theme 'nano-light)
 
 (provide 'config-theme)
