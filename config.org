@@ -3209,3 +3209,9 @@ what the benefits are.
   :mode "Jamroot"
   :load-path "lisp/3p")
 #+end_src
+
+* Rainbow Mode
+#+begin_src emacs-lisp :results output silent
+(use-package rainbow-mode
+  :straight t)
+#+end_src
