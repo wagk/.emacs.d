@@ -69,14 +69,16 @@
 (customize-set-variable 'nano-dark-highlight   sol-base02)
 (customize-set-variable 'nano-dark-subtle      sol-base02)
 (customize-set-variable 'nano-dark-faded       sol-base00)
-(customize-set-variable 'nano-dark-salient     sol-green)
+(customize-set-variable 'nano-dark-salient     sol-cyan)
 (customize-set-variable 'nano-dark-strong      sol-base1)
-(customize-set-variable 'nano-dark-popout      sol-orange)
+(customize-set-variable 'nano-dark-popout      sol-magenta)
 (customize-set-variable 'nano-dark-critical    sol-red)
 
 (with-eval-after-load 'faces
   (set-face-attribute 'fill-column-indicator nil
-                      :weight 'thin))
+                      :weight 'thin
+                      :foreground nil
+                      :inherit 'nano-subtle))
 
 (with-eval-after-load 'magit
   (set-face-attribute 'magit-diff-hunk-heading nil
@@ -89,6 +91,56 @@
   (set-face-attribute 'markdown-italic-face nil
                       :italic t))
 
+(with-eval-after-load 'font-lock
+  (set-face-attribute 'font-lock-keyword-face nil
+                      :inherit 'nano-default)
+  (set-face-attribute 'font-lock-constant-face nil
+                      :inherit 'nano-default)
+  (set-face-attribute 'font-lock-function-name-face nil
+                      :inherit 'nano-default)
+  (set-face-attribute 'font-lock-builtin-face nil
+                      :inherit 'nano-default)
+  (set-face-attribute 'font-lock-type-face nil
+                      :italic t
+                      :inherit 'nano-default))
+
+(with-eval-after-load 'tree-sitter
+  (set-face-attribute 'tree-sitter-hl-face:function nil
+                      :inherit 'nano-default)
+  (set-face-attribute 'tree-sitter-hl-face:function.call nil
+                      :inherit 'tree-sitter-hl-face:function)
+  (set-face-attribute 'tree-sitter-hl-face:function.builtin nil
+                      :inherit 'tree-sitter-hl-face:function)
+
+  (set-face-attribute 'tree-sitter-hl-face:method nil
+                      :inherit 'tree-sitter-hl-face:function)
+  (set-face-attribute 'tree-sitter-hl-face:method.call nil
+                      :inherit 'tree-sitter-hl-face:method)
+
+  (set-face-attribute 'tree-sitter-hl-face:variable.builtin nil
+                      :inherit 'tree-sitter-hl-face:variable)
+  (set-face-attribute 'tree-sitter-hl-face:variable.special nil
+                      :bold t
+                      :inherit 'font-lock-warning-face)
+
+  (set-face-attribute 'tree-sitter-hl-face:attribute nil
+                      :inherit 'nano-default)
+
+  (set-face-attribute 'tree-sitter-hl-face:type nil
+                      :inherit 'font-lock-type-face)
+  (set-face-attribute 'tree-sitter-hl-face:type.argument nil
+                      :inherit 'tree-sitter-hl-face:type)
+  (set-face-attribute 'tree-sitter-hl-face:type.builtin nil
+                      :inherit 'tree-sitter-hl-face:type)
+  (set-face-attribute 'tree-sitter-hl-face:type.super nil
+                      :inherit 'tree-sitter-hl-face:type)
+
+  (set-face-attribute 'tree-sitter-hl-face:function.macro nil
+                      :inherit 'nano-salient)
+
+  (set-face-attribute 'tree-sitter-hl-face:property nil
+                      :italic nil
+                      :inherit 'font-lock-function-name-face))
 
 ;; Solarized theme
 
