@@ -1323,6 +1323,7 @@ cp target/release/libparinfer_rust.dylib ~/.emacs.d/parinfer-rust/parinfer-rust-
 Much like rainbow blocks mode, but better.
 #+begin_src emacs-lisp :results output silent
 (use-package prism
+  :disabled t ;; see if I can live without this for a bit
   :straight (:host github :repo "alphapapa/prism.el")
   :commands (prism-mode
              prism-whitespace-mode)
