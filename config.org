@@ -1123,6 +1123,7 @@ Use the following query to find all todo items that are overdue
 * hl-todo
 #+begin_src emacs-lisp :results output silent
 (use-package hl-todo
+  :disabled t
   :straight (:host github :repo "tarsius/hl-todo")
   :blackout t
   :commands (hl-todo-mode)
