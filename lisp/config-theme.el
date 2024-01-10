@@ -66,7 +66,7 @@
 (customize-set-variable 'nano-dark-popout      sol-magenta)
 (customize-set-variable 'nano-dark-critical    sol-red)
 
-(load-theme 'nano-dark)
+(load-theme 'nano-light t)
 
 (with-eval-after-load 'faces
   (custom-set-faces `(fill-column-indicator
