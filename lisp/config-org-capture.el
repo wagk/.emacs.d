@@ -1,5 +1,8 @@
 (require 'config-org)
 
+(use-package anaphora
+  :straight t)
+
 (use-package org-capture
   :ensure nil ;; because org-capture is from org
   :straight nil
@@ -22,6 +25,7 @@
    https://github.com/raxod502/selectrum/wiki/Useful-Commands#user-content-org-capture-template"
     (interactive)
     (require 'org-capture)
+    (require 'anaphora)
     (let (prefixes)
       (alet (mapcan (lambda (x)
                       (let ((x-keys (car x)))
