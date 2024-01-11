@@ -78,7 +78,7 @@
   :straight t
   ;; normal tab-completion seems to beat this with how it does
   ;; incremental completions
-  ;; :demand t ;; not sure how the :general config will affect this
+  :demand t ;; not sure how the :general config will affect this
   :custom
   (corfu-auto t)
   (corfu-auto-delay 0.01)
@@ -96,7 +96,9 @@
   (corfu-bar ((t (:inherit region))))
   (corfu-border ((t (:inherit corfu-default
                      :background unspecified))))
-  (corfu-deprecated ((t (:inherit shadow :strike-through nil)))))
+  (corfu-deprecated ((t (:inherit shadow :strike-through nil))))
+  :config
+  (global-corfu-mode))
 
 (use-package embark
   :straight t
