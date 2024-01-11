@@ -118,6 +118,7 @@
 
 (use-package cape
   :straight t
+  :demand t
   :config
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
