@@ -1314,6 +1314,7 @@ cp target/release/libparinfer_rust.dylib ~/.emacs.d/parinfer-rust/parinfer-rust-
    "g p" 'parinfer-rust-toggle-paren-mode)
   :custom
   (parinfer-rust-auto-download t)
+  (parinfer-rust-dim-parens nil)
   :hook ((emacs-lisp-mode-hook . parinfer-rust-mode)
          (racket-mode-hook . parinfer-rust-mode)
          (clojure-mode-hook . parinfer-rust-mode)
