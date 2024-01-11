@@ -84,6 +84,7 @@
   (set-face-attribute 'markdown-italic-face nil
                       :italic t))
 
+;; font-lock
 (set-face-attribute 'font-lock-keyword-face nil
                     :inherit 'nano-default)
 (set-face-attribute 'font-lock-constant-face nil
@@ -133,6 +134,30 @@
   (set-face-attribute 'tree-sitter-hl-face:property nil
                       :italic nil
                       :inherit 'font-lock-function-name-face))
+
+(with-eval-after-load 'term
+ (set-face-attribute 'term-color-red nil
+                     :foreground sol-red
+                     :background sol-red)
+ (set-face-attribute 'term-color-green nil
+                     :foreground sol-green
+                     :background sol-green)
+ (set-face-attribute 'term-color-yellow nil
+                     :foreground sol-yellow
+                     :background sol-yellow)
+ (set-face-attribute 'term-color-blue nil
+                     :foreground sol-blue
+                     :background sol-blue)
+ (set-face-attribute 'term-color-magenta nil
+                     :foreground sol-magenta
+                     :background sol-magenta)
+ (set-face-attribute 'term-color-cyan nil
+                     :foreground sol-cyan
+                     :background sol-cyan)
+ (set-face-attribute 'term-color-white nil
+                     :foreground sol-base2
+                     :background sol-base2))
+
 
 ;; Solarized theme
 
