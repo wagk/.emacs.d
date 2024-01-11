@@ -3043,8 +3043,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
     (if prompt
         (chatgpt-shell-send-to-buffer prompt)
       (chatgpt-shell)))
-  (evil-ex-define-cmd "gpt" #'--evil-gpt-cmd)
-  (evil-ex-define-cmd "dd" #'chatgpt-shell-prompt))
+  (evil-ex-define-cmd "gpt" #'--evil-gpt-cmd))
 #+end_src
 
 * Xref
