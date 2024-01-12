@@ -78,7 +78,6 @@
   :straight t
   ;; normal tab-completion seems to beat this with how it does
   ;; incremental completions
-  :demand t ;; not sure how the :general config will affect this
   :custom
   (corfu-auto t)
   (corfu-auto-delay 0.01)
