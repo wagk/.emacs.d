@@ -2605,7 +2605,8 @@ Just do the scratch buffer simple and stupidly
     (cl-defun --project-buffer-name-function (mode-name)
       (require 'project)
       (concat "*" (downcase mode-name)
-              "<" (project-name (project-current)) ">"
+              (if-let ((project (project-current nil)))
+                  (concat "<" (project-name project) ">"))
               "*"))
     (customize-set-variable 'compilation-buffer-name-function
                             #'--project-buffer-name-function))
