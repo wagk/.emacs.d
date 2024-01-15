@@ -25,6 +25,13 @@
 (--evil-define-splits "me[ssage]" #'(lambda ()
                                       (switch-to-buffer "*Messages*")))
 
+(evil-define-command --rename-buffer (name)
+  (interactive "<a>")
+  (if name
+      (rename-buffer name)
+    (call-interactively 'rename-buffer)))
+(evil-ex-define-cmd "br[ename]" '--rename-buffer)
+
 (cl-defun --evil-ex-define-cmds-splits-and-tabs
     (command buffer-fn &optional tab)
   "Does split and vsplit, and also tab. BUFFER-FN should return a buffer
