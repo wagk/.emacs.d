@@ -587,7 +587,6 @@ evil integration)
       (tab-bar-new-tab)))
   (evil-ex-define-cmd "tabn[ew]" 'my-tab-bar-tab-edit)
   (evil-ex-define-cmd "tabe[dit]" 'tab-bar-new-tab)
-  ;;TODO: currently has issue where :q on a tab kills emacs
   (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
   (evil-define-command --tab-bar-rename-tab (name)
     (interactive "<a>")
