@@ -2601,6 +2601,15 @@ Just do the scratch buffer simple and stupidly
           (let ((default-directory (project-root (project-current t))))
             (call-interactively 'gdb))))
 
+  (with-eval-after-load 'compile
+    (cl-defun --project-buffer-name-function (mode-name)
+      (require 'project)
+      (concat "*" (downcase mode-name)
+              "<" (project-name (project-current)) ">"
+              "*"))
+    (customize-set-variable 'compilation-buffer-name-function
+                            #'--project-buffer-name-function))
+
   (with-eval-after-load 'consult
     (general-define-key
      :keymaps 'project-prefix-map
