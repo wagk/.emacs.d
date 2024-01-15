@@ -59,7 +59,8 @@
                           `(lambda () (interactive)
                             (require 'tab-bar)
                             (let* ((buffer (cond
-                                            ((functionp ,tab) (funcall-interactively ,tab))
+                                            ((functionp ,tab)
+                                             (funcall-interactively ,tab))
                                             ((or (bufferp ,tab)
                                                  (stringp ,tab)) ,tab)
                                             (t (current-buffer))))
