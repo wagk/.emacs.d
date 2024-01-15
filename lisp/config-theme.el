@@ -68,10 +68,20 @@
 
 (load-theme 'nano-light t)
 
+(defface sol-superlight-foreground
+  `((((background light)) (:foreground ,sol-base2))
+    (((background dark)) (:foreground ,sol-base02)))
+  "Very light foreground coloring"
+  :group 'personal)
+(defface sol-superlight-background
+  `((((background light)) (:background ,sol-base2))
+    (((background dark)) (:background ,sol-base02)))
+  "Very light background coloring"
+  :group 'personal)
+
 (with-eval-after-load 'faces
-  (custom-set-faces `(fill-column-indicator
-                      ((((background light)) (:foreground ,sol-base2))
-                       (((background dark)) (:foreground ,sol-base02))))))
+  (set-face-attribute 'fill-column-indicator nil
+                      :inherit 'sol-superlight-foreground))
 
 (with-eval-after-load 'magit
   (set-face-attribute 'magit-diff-hunk-heading nil
