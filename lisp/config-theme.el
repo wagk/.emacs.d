@@ -73,6 +73,7 @@
     (((background dark)) (:foreground ,sol-base02)))
   "Very light foreground coloring"
   :group 'personal)
+
 (defface sol-superlight-background
   `((((background light)) (:background ,sol-base2))
     (((background dark)) (:background ,sol-base02)))
@@ -96,16 +97,32 @@
 
 ;; font-lock
 (set-face-attribute 'font-lock-keyword-face nil
+                    :foreground 'unspecified
                     :inherit 'nano-default)
 (set-face-attribute 'font-lock-constant-face nil
+                    :foreground 'unspecified
                     :inherit 'nano-default)
 (set-face-attribute 'font-lock-function-name-face nil
+                    :foreground 'unspecified
                     :inherit 'nano-default)
 (set-face-attribute 'font-lock-builtin-face nil
+                    :foreground 'unspecified
                     :inherit 'nano-default)
+(set-face-attribute 'font-lock-variable-name-face nil
+                    :foreground 'unspecified
+                    :inherit 'nano-strong)
+(set-face-attribute 'font-lock-comment-face nil
+                    :foreground 'unspecified
+                    :inherit '(nano-faded sol-superlight-background))
+(set-face-attribute 'font-lock-doc-face nil
+                    :foreground 'unspecified
+                    :inherit '(nano-default sol-superlight-background))
 (set-face-attribute 'font-lock-type-face nil
                     :italic t
+                    :foreground 'unspecified
                     :inherit 'nano-default)
+(set-face-attribute 'font-lock-string-face nil
+                    :foreground 'unspecified)
 
 (with-eval-after-load 'tree-sitter-hl
   (set-face-attribute 'tree-sitter-hl-face:function nil
