@@ -82,7 +82,9 @@
 
 (with-eval-after-load 'faces
   (set-face-attribute 'fill-column-indicator nil
-                      :inherit 'sol-superlight-foreground))
+                      :inherit 'sol-superlight-foreground)
+  (set-face-attribute 'show-paren-match nil
+                      :foreground 'unspecified))
 
 (with-eval-after-load 'magit
   (set-face-attribute 'magit-diff-hunk-heading nil
