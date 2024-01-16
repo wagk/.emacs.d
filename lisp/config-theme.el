@@ -95,7 +95,17 @@
   (set-face-attribute 'markdown-inline-code-face nil
                       :inherit 'nano-subtle)
   (set-face-attribute 'markdown-italic-face nil
-                      :italic t))
+                      :italic t)
+  (set-face-attribute 'markdown-url-face nil
+                      :inherit 'markdown-plain-url-face)
+
+  (defface --markdown-tag-face
+    '((t (:bold t :inherit nano-faded)))
+    "Face used to describe tags (like `#foo'). I like using tags."
+    :group 'personal)
+  (font-lock-add-keywords
+   'markdown-mode `((,(rx "#" (one-or-more (any alnum "_" "-")))
+                     0 '--markdown-tag-face))))
 
 ;; font-lock
 (set-face-attribute 'font-lock-keyword-face nil
