@@ -107,6 +107,10 @@
    'markdown-mode `((,(rx "#" (one-or-more (any alnum "_" "-")))
                      0 '--markdown-tag-face))))
 
+(with-eval-after-load 'isearch
+  (set-face-attribute 'lazy-highlight nil
+                      :inherit 'match))
+
 ;; font-lock
 (set-face-attribute 'font-lock-keyword-face nil
                     :foreground 'unspecified
