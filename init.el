@@ -241,6 +241,7 @@
     (f-touch custom))
   (setq custom-file custom))
 
+;; this _does not_ recursively list directories
 (add-to-list 'load-path (-> "lisp"
                             (locate-user-emacs-file)
                             (directory-file-name)))
