@@ -2263,6 +2263,7 @@ Or evil-spongebob if you want to think of it that way.
   :commands (lsp lsp-deferred)
   :custom
   (lsp-headerline-breadcrumb-enable t)
+  (lsp-headerline-breadcrumb-enable-diagnostics nil)
   (lsp-file-watch-threshold 1500)
   (lsp-enable-file-watchers nil)
   :init
@@ -2284,11 +2285,31 @@ Or evil-spongebob if you want to think of it that way.
   (general-define-key
    :states 'normal
    :prefix my-default-evil-leader-key
-   "l" lsp-command-map))
+   "l" lsp-command-map)
 ;; (lsp-mode-map
 ;;  :states 'normal
 ;;  :prefix my-default-evil-leader-key
 ;;   "l a a" 'lsp-execute-code-action))
+  (set-face-attribute 'lsp-headerline-breadcrumb-path-error-face nil
+                      :underline `(:color ,sol-red :style line))
+  (set-face-attribute 'lsp-headerline-breadcrumb-symbols-error-face nil
+                      :underline `(:color ,sol-red :style line))
+  (set-face-attribute 'lsp-headerline-breadcrumb-path-hint-face nil
+                      :underline `(:color ,sol-magenta :style line))
+  (set-face-attribute 'lsp-headerline-breadcrumb-symbols-hint-face nil
+                      :underline `(:color ,sol-magenta :style line))
+  (set-face-attribute 'lsp-headerline-breadcrumb-path-info-face nil
+                      :underline `(:color ,sol-blue :style line))
+  (set-face-attribute 'lsp-headerline-breadcrumb-symbols-info-face nil
+                      :underline `(:color ,sol-blue :style line))
+  (set-face-attribute 'lsp-headerline-breadcrumb-path-warning-face nil
+                      :underline `(:color ,sol-yellow :style line))
+  (set-face-attribute 'lsp-headerline-breadcrumb-symbols-warning-face nil
+                      :underline `(:color ,sol-yellow :style line))
+  ;; practically disabling it
+  (custom-set-faces `(lsp-flycheck-warning-unnecessary-face
+                      ((t (:foreground unspecified
+                           :underline unspecified))))))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
