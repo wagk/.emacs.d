@@ -103,10 +103,10 @@
     '((t (:bold t :inherit nano-faded)))
     "Face used to describe tags (like `#foo'). I like using tags."
     :group 'personal)
-  (defconst --markdown-tag-keyword
+  (defconst --markdown-tag-keyword-regex
     (rx (or line-start space) "#" (one-or-more (any alnum "_" "-"))))
   (font-lock-add-keywords
-   'markdown-mode `((,--markdown-tag-keyword 0 '--markdown-tag-face))))
+   'markdown-mode `((,--markdown-tag-keyword-regex 0 '--markdown-tag-face))))
 
 (with-eval-after-load 'isearch
   (set-face-attribute 'lazy-highlight nil
