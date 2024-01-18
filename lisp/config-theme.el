@@ -205,13 +205,13 @@
 (with-eval-after-load 'smerge-mode
   (set-face-attribute 'smerge-base nil
                       :foreground sol-blue
-                      :inherit 'nano-subtle)
+                      :background 'unspecified)
   (set-face-attribute 'smerge-lower nil
                       :foreground sol-green
-                      :inherit 'nano-subtle)
+                      :background 'unspecified)
   (set-face-attribute 'smerge-upper nil
                       :foreground sol-red
-                      :inherit 'nano-subtle))
+                      :background 'unspecified))
 
 ;; Solarized theme
 
