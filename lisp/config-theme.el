@@ -86,6 +86,20 @@
   (set-face-attribute 'show-paren-match nil
                       :foreground 'unspecified))
 
+(with-eval-after-load 'flycheck
+  (custom-set-faces `(flycheck-error ((((background light))
+                                       (:underline ,sol-red))
+                                      (((background dark))
+                                       (:underline ,sol-red))))
+                    `(flycheck-info ((((background light))
+                                      (:underline ,sol-base2))
+                                     (((background dark))
+                                      (:underline ,sol-base02))))
+                    `(flycheck-warning ((((background light))
+                                         (:underline ,sol-base1))
+                                        (((background dark))
+                                         (:underline ,sol-base01))))))
+
 (with-eval-after-load 'magit
   (set-face-attribute 'magit-diff-hunk-heading nil
                       :bold t
