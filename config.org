@@ -87,6 +87,9 @@ C-M-i                           backward-button
 
 * General Faces
 #+begin_src emacs-lisp :results output silent
+(evil-ex-define-cmd "faces" 'list-faces-display)
+#+end_src
+#+begin_src emacs-lisp :results output silent
 (custom-set-faces `(vertical-border ((((background light)) (:foreground ,sol-base2))
                                      (((background dark)) (:foreground ,sol-base02)))))
 #+end_src
