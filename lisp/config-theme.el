@@ -227,6 +227,17 @@
                       :foreground sol-red
                       :background 'unspecified))
 
+(with-eval-after-load 'compile
+  (set-face-attribute 'compilation-mode-line-run nil
+                      :background 'unspecified
+                      :foreground 'unspecified
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'compilation-mode-line-exit nil
+                      :background 'unspecified
+                      :foreground 'unspecified
+                      :bold t
+                      :inherit 'sol-superlight-background))
+
 ;; Solarized theme
 
 (use-package solarized-theme
