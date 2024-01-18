@@ -230,6 +230,7 @@
 ;; Solarized theme
 
 (use-package solarized-theme
+  :disabled t
   :straight (:host github :repo "bbatsov/solarized-emacs")
   ;; :if (display-graphic-p)
   :custom
