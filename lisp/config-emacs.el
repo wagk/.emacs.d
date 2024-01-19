@@ -10,18 +10,30 @@
   (fill-column 80)
   (ff-always-try-to-create nil)
   :config
-  (evil-ex-define-cmd "by" #'(lambda ()
-                               "Yanks the full path of the buffer"
-                               (interactive)
-                               (let ((name (or (buffer-file-name)
-                                               dired-directory)))
-                                 (pcase name
-                                   ('nil (message "Not a file"))
-                                   ;; hack since dired-directory might be a list
-                                   ((pred listp) (message "Not a file"))
-                                   (name
-                                     (kill-new name)
-                                     (message "%s" name)))))))
+  (cl-defun --point-to-file-and-line-number ()
+    (interactive)
+    (require 'project)
+    (let* ((buf (if (project-current nil)
+                  (file-relative-name (buffer-file-name)
+                                      (project-root (project-current)))
+                  (buffer-file-name)))
+           (info (concat buf
+                         ":"
+                         (number-to-string (line-number-at-pos)))))
+      (kill-new info)
+      (message "%s" info)))
+
+  (cl-defun --kill-buffer-path ()
+    (interactive)
+    (let ((name (or (buffer-file-name) dired-directory)))
+      (pcase name
+        ;; hack since dired-directory might be a list
+        ((or 'nil (pred listp)) (message "Not a file"))
+        (name (kill-new name)
+              (message "%s" name)))))
+
+  (evil-ex-define-cmd "byl" #'--point-to-file-and-line-number)
+  (evil-ex-define-cmd "byf" #'--kill-buffer-path))
 
 (use-package dired
   :demand t
