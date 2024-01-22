@@ -108,6 +108,9 @@
 (with-eval-after-load 'markdown-mode
   (set-face-attribute 'markdown-inline-code-face nil
                       :inherit 'nano-subtle)
+  (set-face-attribute 'markdown-code-face nil
+                      :extend t
+                      :inherit 'nano-subtle)
   (set-face-attribute 'markdown-italic-face nil
                       :italic t)
   (set-face-attribute 'markdown-url-face nil
