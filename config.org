@@ -1176,6 +1176,7 @@ Use the following query to find all todo items that are overdue
   :commands (markdown-mode)
   :custom
   (markdown-list-indent-width 2)
+  (markdown-unordered-list-item-prefix "  - ")
   :general
   (markdown-mode-map
    :states '(normal insert)
