@@ -316,6 +316,7 @@
     ("extenrally" "externally" nil :count 1)
     ("extned" "extend" nil :count 1)
     ("faield" "failed" nil :count 1)
+    ("falgs" "flags" nil :count 1)
     ("fallbck" "fallback" nil :count 1)
     ("fasle" "false" nil :count 4)
     ("feelinggs" "feelings" nil :count 1)
