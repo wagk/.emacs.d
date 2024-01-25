@@ -230,6 +230,25 @@
                       :foreground sol-red
                       :background 'unspecified))
 
+(with-eval-after-load 'wgrep
+  (set-face-attribute 'wgrep-face nil
+                      :foreground sol-green
+                      :background 'unspecified)
+  (set-face-attribute 'wgrep-file-face nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'wgrep-face)
+  (set-face-attribute 'wgrep-done-face nil
+                      :foreground sol-blue
+                      :background 'unspecified)
+  (set-face-attribute 'wgrep-reject-face nil
+                      :foreground sol-red)
+  (set-face-attribute 'wgrep-delete-face nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'wgrep-face
+                      :strike-through t))
+
 (with-eval-after-load 'compile
   (set-face-attribute 'compilation-mode-line-run nil
                       :background 'unspecified
