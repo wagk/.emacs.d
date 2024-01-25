@@ -1195,7 +1195,7 @@ Use the following query to find all todo items that are overdue
   (markdown-gfm-uppercase-checkbox nil)
   (markdown-hide-urls nil)
   (markdown-list-indent-width 2)
-  (markdown-unordered-list-item-prefix "  - ")
+  (markdown-unordered-list-item-prefix "- ")
   (markdown-wiki-link-fontify-missing nil)
   (markdown-wiki-link-search-type 'project)
   :general
