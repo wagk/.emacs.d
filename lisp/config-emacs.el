@@ -83,4 +83,6 @@
   (with-eval-after-load 'consult
     (evil-ex-define-cmd "recent" 'consult-recent-file)))
 
+(auto-insert-mode)
+
 (provide 'config-emacs)
