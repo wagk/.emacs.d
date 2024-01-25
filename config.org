@@ -1203,6 +1203,11 @@ Use the following query to find all todo items that are overdue
    :states '(normal insert)
    "C-l" #'markdown-toggle-gfm-checkbox)
   :init
+  (with-eval-after-load 'autoinsert
+    (define-auto-insert "\\.md\\'"
+      '("Front matter"
+        "---\n"
+        "---\n")))
   (with-eval-after-load 'aggressive-fill-paragraph
     (add-hook 'markdown-mode-hook #'aggressive-fill-paragraph-mode))
   (with-eval-after-load 'org-table
