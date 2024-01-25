@@ -1235,7 +1235,16 @@ Use the following query to find all todo items that are overdue
   :after (:and evil markdown-mode)
   :straight (:host github :repo "Somelauw/evil-markdown")
   :commands (evil-markdown-mode)
-  :hook (markdown-mode-hook . evil-markdown-mode))
+  :hook (markdown-mode-hook . evil-markdown-mode)
+  :general
+  (evil-markdown-mode-map
+   :states 'insert
+   "M-J" 'markdown-move-subtree-down
+   "M-K" 'markdown-move-subtree-up
+   "M-h" 'markdown-promote
+   "M-j" 'markdown-move-down
+   "M-k" 'markdown-move-up
+   "M-l" 'markdown-demote))
 #+end_src
 
 * Text
