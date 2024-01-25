@@ -144,7 +144,8 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   ;; Back to our regularly scheduled programming
   (evil-select-search-module 'evil-search-module 'evil-search)
 
-  (evil-ex-define-cmd "bc[lose]" 'kill-this-buffer)
+  (evil-ex-define-cmd "bc[lose]" #'(lambda () (interactive)
+                                     (kill-buffer (current-buffer))))
   (evil-define-command my-evil-vsplit-buffer (&optional buffer)
     "Strictly speaking this isn't implemented in vim, which is why
     we're adding a custom function for it here."
