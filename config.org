@@ -1203,6 +1203,8 @@ Use the following query to find all todo items that are overdue
    :states '(normal insert)
    "C-l" #'markdown-toggle-gfm-checkbox)
   :init
+  (with-eval-after-load 'aggressive-fill-paragraph
+    (add-hook 'markdown-mode-hook #'aggressive-fill-paragraph-mode))
   (with-eval-after-load 'org-table
     (defun orgtbl-to-gfm (table params)
       "Convert the Orgtbl mode TABLE to GitHub Flavored Markdown."
@@ -3057,13 +3059,13 @@ https://github.com/akermu/emacs-libvterm
   :custom
   (obsidian-include-hidden-files nil)
   (obsidian-links-use-vault-path t)
-  :hook
-  (obsidian-mode-hook . (lambda ()
-                          (when (featurep 'aggressive-fill-paragraph)
-                            (aggressive-fill-paragraph-mode 0))
-                          (require 'visual-fill-column)
-                          (visual-fill-column-mode 1)
-                          (visual-line-mode 1)))
+  ;; :hook
+  ;; (obsidian-mode-hook . (lambda ()
+  ;;                         (when (featurep 'aggressive-fill-paragraph)
+  ;;                           (aggressive-fill-paragraph-mode 0))
+  ;;                         (require 'visual-fill-column)
+  ;;                         (visual-fill-column-mode 1)
+  ;;                         (visual-line-mode 1)))
   :config
   ;; don't forget to `obsidian-specify-path'
   (global-obsidian-mode)
