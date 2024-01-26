@@ -2476,7 +2476,6 @@ This is closer to the json serialization/deserialization module.
 * Search Engine Mode
 #+begin_src emacs-lisp :results output silent
 (use-package engine-mode
-  :disabled t ;; chatgpt instead
   ;; :straight (:host github :repo "hrs/engine-mode" :branch "main")
   :straight t
   :commands defengine
