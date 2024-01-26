@@ -2,6 +2,13 @@
   "A list of configuration variables that is needed from the local
   machine.")
 
+(require 'config-prelude)
+
+;; Load local configuration variables, we do it here so that
+;; local.el gets access to the "core" init loads
+(when (f-exists-p user-local-file)
+  (load-file user-local-file))
+
 (require 'config-helpers)
 (require 'config-evil)
 (require 'config-evil-helpers)
