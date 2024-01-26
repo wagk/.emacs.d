@@ -101,6 +101,9 @@
                                          (:underline ,sol-base01))))))
 
 (with-eval-after-load 'magit
+  (set-face-attribute 'magit-diff-revision-summary nil
+                      :bold 'unspecified
+                      :inherit 'nano-strong)
   (set-face-attribute 'magit-diff-hunk-heading nil
                       :bold t
                       :inherit 'nano-faded))
