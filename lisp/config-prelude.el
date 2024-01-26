@@ -77,30 +77,6 @@
   (customize-set-variable 'use-package-hook-name-suffix nil)
   (use-package use-package-ensure-system-package))
 
-(defun load-config-org-files (files)
-  "Given a list of org FILES, load them sequentially in the order.
- specified The list of files is assumed to be relative to
- `user-init-dir' TODO: Error checking; relative pathing, error
- recovery. Maybe eventually load dependencies and all that."
-  (dolist (file files)
-    (message "Loading %s" file)
-    (condition-case nil
-        (org-babel-load-file (locate-user-emacs-file file))
-      (error (message "There was an error when loading %s" file)))))
-
-(cl-defun --completing-read (prompt collection
-                                    &key predicate require-match
-                                    initial-input history default-value
-                                    inherit-input-method)
-  "Wrapper around `completing-read' that allow the use of keywords."
-  (completing-read prompt collection
-                   predicate
-                   require-match
-                   initial-input
-                   history
-                   default-value
-                   inherit-input-method))
-
 (defvar bootstrap-version)
 (let ((bootstrap-file (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 6))

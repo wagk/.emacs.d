@@ -4,6 +4,19 @@
 
 ;;; Code:
 
+(cl-defun --completing-read (prompt collection
+                                    &key predicate require-match
+                                    initial-input history default-value
+                                    inherit-input-method)
+  "Wrapper around `completing-read' that allow the use of keywords."
+  (completing-read prompt collection
+                   predicate
+                   require-match
+                   initial-input
+                   history
+                   default-value
+                   inherit-input-method))
+
 (cl-defun --thing-at-point-or-user-input ()
   "Prompt the user for input, defaulting to symbol at point if none."
   (require 'thingatpt)
