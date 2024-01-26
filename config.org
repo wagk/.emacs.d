@@ -3120,6 +3120,10 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
   (chatgpt-shell-prompt-query-response-style 'shell)
   (chatgpt-shell-system-prompt 1)
   (chatgpt-shell-model-version 6)
+  :hook
+  (chatgpt-shell-mode-hook . (lambda ()
+                               (when (bound-and-true-p parinfer-rust-mode)
+                                 (parinfer-rust-mode 0))))
   :init
   (evil-define-command --evil-gpt-cmd (prompt)
     (interactive "<a>")
