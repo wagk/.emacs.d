@@ -3,6 +3,9 @@
 ;;; Code:
 (setq package-enable-at-startup nil)
 
+(when (boundp 'package-install-upgrade-built-in)
+  (setq package-install-upgrade-built-in t))
+
 (when (eq system-type 'windows-nt)
   (setq native-comp-speed -1)
   (setq native-comp-enable-subr-trampolines nil))
