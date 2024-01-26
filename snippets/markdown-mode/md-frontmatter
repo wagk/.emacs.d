@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: md-frontmatter
+# key: ---
+# --
+---
+$0
+---
