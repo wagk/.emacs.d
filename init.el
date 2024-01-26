@@ -19,8 +19,6 @@
 ;; You may delete these explanatory comments.
 ;; (package-initialize)
 
-(defconst my-init-start-time (current-time))
-
 (setq user-full-name    "Pang Tun Jiang"
       user-mail-address "mail@pangt.dev")
 
@@ -96,8 +94,3 @@
 (put 'list-timers 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 
-(add-hook 'after-init-hook
-          #'(lambda ()
-              (message "Init in %.06f seconds."
-                       (float-time (time-since my-init-start-time)))
-              (message "Configuration complete.")))
