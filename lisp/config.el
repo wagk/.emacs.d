@@ -55,11 +55,10 @@
   machine.")
 
 (setq initial-scratch-message
-      (s-join "\n"
-              '("# Programmers are not to be measured by their ingenuity and their"
-                "# logic but by the completeness of their case analysis."
-                ""
-                "")))
+      (concat "# Programmers are not to be measured by their ingenuity and their\n"
+              "# logic but by the completeness of their case analysis.\n"
+              "\n"
+              "\n"))
 
 ;; Emacs considers the following "dangerous" (i.e they'll ask you to
 ;; confirm)
