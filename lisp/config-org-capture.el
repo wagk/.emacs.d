@@ -1,11 +1,11 @@
 (require 'config-org)
 
 (use-package anaphora
-  :straight t)
+  :elpaca t)
 
 (use-package org-capture
   :ensure nil ;; because org-capture is from org
-  :straight nil
+  :elpaca nil
   :after (org)
   :defer 20
   :commands (org-capture
@@ -76,6 +76,6 @@
 
 ;; https://github.com/progfolio/doct
 (use-package doct
-  :straight (:host github :repo "progfolio/doct"))
+  :elpaca (:host github :repo "progfolio/doct"))
 
 (provide 'config-org-capture)

@@ -41,7 +41,7 @@
 ;; Nano theme
 
 (use-package nano-theme
-  :straight t
+  :elpaca t
   :custom
   (nano-window-divider-show t)
   (nano-fonts-use nil)) ;; for now
@@ -271,7 +271,7 @@
 
 (use-package solarized-theme
   :disabled t
-  :straight (:host github :repo "bbatsov/solarized-emacs")
+  :elpaca (:host github :repo "bbatsov/solarized-emacs")
   ;; :if (display-graphic-p)
   :custom
   (solarized-use-variable-pitch nil)

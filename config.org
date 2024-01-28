@@ -565,7 +565,7 @@ evil integration)
 #+begin_src emacs-lisp :results output silent
 (use-package tab-bar
   :ensure nil
-  :straight nil
+  :elpaca nil
   :custom-face
   (tab-bar ((t (:inherit minibuffer-prompt :underline nil))))
   (tab-bar-tab ((((background light)) (:background ,sol-base2))
@@ -704,7 +704,7 @@ mode."
 #+begin_src emacs-lisp :results output silent
 (use-package apropos
   :ensure nil
-  :straight nil
+  :elpaca nil
   :custom
   (apropos-do-all t)
   :init
@@ -717,7 +717,7 @@ mode."
 * Which Key
 #+begin_src emacs-lisp :results output silent
 (use-package which-key
-  :straight (:host github :repo "justbur/emacs-which-key")
+  :elpaca (:host github :repo "justbur/emacs-which-key")
   :demand t
   :init
   (when (featurep 'evil)
@@ -747,7 +747,7 @@ pressing RET autoformats it, instead of doing nothing as it does right now
 
 #+begin_src emacs-lisp :results output silent
 (use-package smartparens
-  :straight (:host github :repo "Fuco1/smartparens")
+  :elpaca (:host github :repo "Fuco1/smartparens")
   :defer 2
   :blackout t
   :commands (sp-local-pair
@@ -822,7 +822,7 @@ For some reason we can't do this in the scratch buffer
 #+begin_src emacs-lisp :results output silent
 (use-package org-agenda
   :ensure nil
-  :straight nil
+  :elpaca nil
   :commands (org-todo-list
              org-agenda-list
              org-agenda-file-to-front
@@ -916,7 +916,7 @@ https://github.com/alphapapa/org-super-agenda
 
 #+begin_src emacs-lisp :results output silent
 (use-package org-super-agenda
-  :straight t
+  :elpaca t
   :commands org-super-agenda-mode
   :hook (org-agenda-mode-hook . org-super-agenda-mode)
   :general
@@ -950,7 +950,7 @@ language's mappings.
 #+begin_src emacs-lisp :results output silent
 (use-package org-src
   :ensure nil
-  :straight nil
+  :elpaca nil
   :init
   (defun my-evil-org-src-save-exit ()
     (interactive)
@@ -1008,14 +1008,14 @@ language's mappings.
 ** Ob-async
 #+begin_src emacs-lisp :results output silent
 (use-package ob-async
-  :straight t
+  :elpaca t
   :after org)
 #+end_src
 
 ** Ob-http
 #+begin_src emacs-lisp :results output silent
 (use-package ob-http
-  :straight t
+  :elpaca t
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -1025,14 +1025,14 @@ language's mappings.
 ** Org Latex Fragment Toggle
 #+begin_src emacs-lisp :results output silent
 (use-package org-fragtog
-  :straight (:host github :repo "io12/org-fragtog")
+  :elpaca (:host github :repo "io12/org-fragtog")
   :hook (org-mode-hook . org-fragtog-mode))
 #+end_src
 
 ** Org Clock
 #+begin_src emacs-lisp :results output silent
 (use-package org-clock
-  :straight nil
+  :elpaca nil
   :ensure nil
   :custom
   (org-clock-clocked-in-display 'both)
@@ -1109,7 +1109,7 @@ language's mappings.
 ** Org Appear
 #+begin_src emacs-lisp :results output silent
 (use-package org-appear
-  :straight (:host github :repo "awth13/org-appear")
+  :elpaca (:host github :repo "awth13/org-appear")
   :commands (org-appear-mode)
   :hook (org-mode-hook . org-appear-mode))
 #+end_src
@@ -1117,7 +1117,7 @@ language's mappings.
 ** Valign
 #+begin_src emacs-lisp :results output silent
 (use-package valign
-  :straight t
+  :elpaca t
   :hook (org-mode-hook . valign-mode))
 #+end_src
 
@@ -1126,7 +1126,7 @@ language's mappings.
 
 #+begin_src emacs-lisp :results output silent
 (use-package org-ql
-  :straight t
+  :elpaca t
   :commands
   (org-ql-search
     org-ql-view
@@ -1141,7 +1141,7 @@ Use the following query to find all todo items that are overdue
 #+begin_src emacs-lisp :results output silent
 (use-package hl-todo
   :disabled t
-  :straight (:host github :repo "tarsius/hl-todo")
+  :elpaca (:host github :repo "tarsius/hl-todo")
   :blackout t
   :commands (hl-todo-mode)
   :hook ((prog-mode-hook  . hl-todo-mode)
@@ -1182,7 +1182,7 @@ Use the following query to find all todo items that are overdue
 * Markdown                                                            :major:
 #+begin_src emacs-lisp :results output silent
 (use-package markdown-mode
-  :straight (:host github :repo "jrblevin/markdown-mode")
+  :elpaca (:host github :repo "jrblevin/markdown-mode")
   :mode ("\\.md\\'" . markdown-mode)
   :commands (markdown-mode)
   :custom
@@ -1232,7 +1232,7 @@ Use the following query to find all todo items that are overdue
 ** Edit-indirect
 #+begin_src emacs-lisp :results output silent
 (use-package edit-indirect
-  :straight t
+  :elpaca t
   :after markdown-mode)
 #+end_src
 
@@ -1240,7 +1240,7 @@ Use the following query to find all todo items that are overdue
 #+begin_src emacs-lisp :results output silent
 (use-package evil-markdown
   :after (:and evil markdown-mode)
-  :straight (:host github :repo "Somelauw/evil-markdown")
+  :elpaca (:host github :repo "Somelauw/evil-markdown")
   :commands (evil-markdown-mode)
   :hook (markdown-mode-hook . evil-markdown-mode)
   :general
@@ -1258,7 +1258,7 @@ Use the following query to find all todo items that are overdue
 ** Aggressive Fill Paragraph
 #+begin_src emacs-lisp :results output silent
 (use-package aggressive-fill-paragraph
-  :straight (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode")
+  :elpaca (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode")
   :commands (aggressive-fill-paragraph-mode)
   :general
   (:states 'normal
@@ -1271,7 +1271,7 @@ Use the following query to find all todo items that are overdue
 ** Aggressive Indent
 #+begin_src emacs-lisp :results output silent
 (use-package aggressive-indent
-  :straight (:host github :repo "malabarba/aggressive-indent-mode")
+  :elpaca (:host github :repo "malabarba/aggressive-indent-mode")
   :commands (aggressive-indent-mode)
   :custom
   (aggressive-indent-comments-too t)
@@ -1285,7 +1285,7 @@ Use the following query to find all todo items that are overdue
 #+begin_src emacs-lisp :results output silent
 (use-package yasnippet
   :defer 20
-  :straight (:host github :repo "joaotavora/yasnippet")
+  :elpaca (:host github :repo "joaotavora/yasnippet")
   :commands (yas-minor-mode
              yas-expand-snippet)
   :hook
@@ -1331,7 +1331,7 @@ Use the following query to find all todo items that are overdue
 *** Auto-yasnippet
 #+begin_src emacs-lisp :results output silent
 (use-package auto-yasnippet
-  :straight (:host github :repo "abo-abo/auto-yasnippet")
+  :elpaca (:host github :repo "abo-abo/auto-yasnippet")
   :commands (aya-create
              aya-expand)
   :custom
@@ -1351,7 +1351,7 @@ cp target/release/libparinfer_rust.dylib ~/.emacs.d/parinfer-rust/parinfer-rust-
 
 #+begin_src emacs-lisp :results output silent
 (use-package parinfer-rust-mode
-  :straight t
+  :elpaca t
   :commands (parinfer-rust-mode)
   :general
   (:states 'motion
@@ -1370,7 +1370,7 @@ Much like rainbow blocks mode, but better.
 #+begin_src emacs-lisp :results output silent
 (use-package prism
   :disabled t ;; see if I can live without this for a bit
-  :straight (:host github :repo "alphapapa/prism.el")
+  :elpaca (:host github :repo "alphapapa/prism.el")
   :commands (prism-mode
              prism-whitespace-mode)
   :hook
@@ -1381,7 +1381,7 @@ Much like rainbow blocks mode, but better.
    (hy-mode-hook . prism-mode))
   :preface
   (use-package anaphora
-    :straight (:host github :repo "rolandwalker/anaphora")))
+    :elpaca (:host github :repo "rolandwalker/anaphora")))
 #+end_src
 
 * Elisp                                                               :major:
@@ -1389,7 +1389,7 @@ package is known as elisp-mode but it reads as emacs-lisp
 
 #+begin_src emacs-lisp :results output silent
 (use-package elisp-mode
-  :straight nil
+  :elpaca nil
   :hook ((emacs-lisp-mode-hook . update-evil-shift-width)))
 ;; (emacs-lisp-mode-hook . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
 ;; (emacs-lisp-mode-hook . (lambda ()
@@ -1487,7 +1487,7 @@ Lisp function does not specify a special indentation."
 * Racket
 #+begin_src emacs-lisp :results output silent
 (use-package racket-mode
-  :straight (:host github :repo "greghendershott/racket-mode")
+  :elpaca (:host github :repo "greghendershott/racket-mode")
   :commands (racket-mode)
   :mode "\\.rkt\\'"
   :init
@@ -1502,7 +1502,7 @@ clojurescript-mode derives from clojure-mode
 
 #+begin_src emacs-lisp :results output silent
 (use-package clojure-mode
-  :straight (:host github :repo "clojure-emacs/clojure-mode")
+  :elpaca (:host github :repo "clojure-emacs/clojure-mode")
   :commands (clojure-mode
              clojurescript-mode)
   :hook ((clojure-mode-hook . update-evil-shift-width)
@@ -1517,7 +1517,7 @@ clojurescript-mode derives from clojure-mode
 * Rust                                                                :major:
 #+begin_src emacs-lisp :results output silent
 (use-package rust-mode
-  :straight (:host github :repo "rust-lang/rust-mode")
+  :elpaca (:host github :repo "rust-lang/rust-mode")
   :mode
   ("\\.rs\\'" . rust-mode)
   :custom
@@ -1562,7 +1562,7 @@ clojurescript-mode derives from clojure-mode
 Requires rust-mode and markdown-mode
 #+begin_src emacs-lisp :results output silent
 (use-package cargo
-  :straight (:host github :repo "kwrooijen/cargo.el")
+  :elpaca (:host github :repo "kwrooijen/cargo.el")
   :blackout t
   :commands cargo-minor-mode
   :hook (rust-mode-hook . cargo-minor-mode))
@@ -1571,7 +1571,7 @@ Requires rust-mode and markdown-mode
 ** Cargo-Mode
 #+begin_src emacs-lisp :results output silent
 (use-package cargo-mode
-  :straight (:host github :repo "ayrat555/cargo-mode")
+  :elpaca (:host github :repo "ayrat555/cargo-mode")
   :commands
   (cargo-mode-execute-task
    cargo-mode-test
@@ -1593,7 +1593,7 @@ Requires rust-mode and markdown-mode
 (use-package dired-hacks
   :ensure nil
   :after dired
-  :straight (:host github :repo "Fuco1/dired-hacks")
+  :elpaca (:host github :repo "Fuco1/dired-hacks")
   :custom-face
   (dired-subtree-depth-1-face ((((background light)) (:background ,sol-base2))
                                (((background dark)) (:background, sol-base02))))
@@ -1621,7 +1621,7 @@ Requires rust-mode and markdown-mode
 * Dumb Jump
 #+begin_src emacs-lisp :results output silent
 (use-package dumb-jump
-  :straight (:host github :repo "jacktasia/dumb-jump")
+  :elpaca (:host github :repo "jacktasia/dumb-jump")
   :config
   (add-to-list 'xref-backend-functions #'dumb-jump-xref-activate))
 #+end_src
@@ -1629,7 +1629,7 @@ Requires rust-mode and markdown-mode
 * JSON                                                                :major:
 #+begin_src emacs-lisp :results output silent
 (use-package json-mode
-  :straight (:host github :repo "joshwnj/json-mode")
+  :elpaca (:host github :repo "joshwnj/json-mode")
   :mode "\\.json\\'"
   :commands (json-mode)
   :init
@@ -1640,7 +1640,7 @@ Requires rust-mode and markdown-mode
 ** Json Snatcher
 #+begin_src emacs-lisp :results output silent
 (use-package json-snatcher
-  :straight t
+  :elpaca t
   :commands (jsons-print-path))
 #+end_src
 
@@ -1648,7 +1648,7 @@ Requires rust-mode and markdown-mode
 https://github.com/zkry/yaml.el/tree/9ebddb55238d746dc5a5d46db04c9f360c140b99
 #+begin_src emacs-lisp :results output silent
 (use-package yaml
-  :straight t
+  :elpaca t
   :commands (yaml-parse-string))
 #+end_src
 
@@ -1660,7 +1660,7 @@ In the =ag= buffer call =C-c C-p= to launch wgrep.
 
 #+begin_src emacs-lisp :results output silent
 (use-package wgrep
-  :straight (:host github :repo "mhayashi1120/Emacs-wgrep")
+  :elpaca (:host github :repo "mhayashi1120/Emacs-wgrep")
   :commands (wgrep-change-to-wgrep-mode)
   :custom (wgrep-auto-save-buffer t))
 #+end_src
@@ -1693,7 +1693,7 @@ filters*.
 
 #+begin_src emacs-lisp :results output silent
 (use-package rg
-  :straight (:host github :repo "dajva/rg.el")
+  :elpaca (:host github :repo "dajva/rg.el")
   :commands (rg
              rg-project
              rg-dwim
@@ -1794,7 +1794,7 @@ r-value references.
 ** Clang Format
 #+begin_src emacs-lisp :results output silent
 (use-package clang-format
-  :straight (:host github :repo "emacsmirror/clang-format")
+  :elpaca (:host github :repo "emacsmirror/clang-format")
   :commands (clang-format-region
              clang-format-buffer
              clang-format)
@@ -1830,14 +1830,14 @@ r-value references.
 #+begin_src emacs-lisp :results output silent
 (use-package clang-format+
   :commands clang-format+-mode
-  :straight t)
+  :elpaca t)
 #+end_src
 
 * Beancount
 It's a minor mode, much like how magit's commit mode is a minor mode
 #+begin_src emacs-lisp :results output silent
 (use-package beancount
-  :straight (:host github :repo "beancount/beancount-mode")
+  :elpaca (:host github :repo "beancount/beancount-mode")
   :mode (("\\.beancount\\'" . beancount-mode)
          ("\\.ledger\\'" . beancount-mode))
   :init
@@ -1912,7 +1912,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 #+begin_src emacs-lisp :results output silent
 (use-package abbrev
   :ensure nil
-  :straight nil
+  :elpaca nil
   :blackout t
   :custom
   (abbrev-file-name (locate-user-emacs-file "abbrevs.el"))
@@ -1971,7 +1971,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 * Writeroom
 #+begin_src emacs-lisp :results output silent
 (use-package writeroom-mode
-  :straight (:host github :repo "joostkremers/writeroom-mode")
+  :elpaca (:host github :repo "joostkremers/writeroom-mode")
   :commands (writeroom-mode)
   :custom
   (writeroom-mode-line t)
@@ -1999,7 +1999,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 * Helpful
 #+begin_src emacs-lisp :results output silent
 (use-package helpful
-  :straight (:host github :repo "Wilfred/helpful")
+  :elpaca (:host github :repo "Wilfred/helpful")
   :general
   ("C-h k"   'helpful-key
    "C-h f"   'helpful-callable
@@ -2035,7 +2035,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 #+begin_src emacs-lisp :results output silent
 (use-package elisp-demos
   :after (helpful)
-  :straight (:host github :repo "xuchunyang/elisp-demos"
+  :elpaca (:host github :repo "xuchunyang/elisp-demos"
              :files (:defaults "elisp-demos.org"))
   :config
   (with-eval-after-load 'helpful
@@ -2047,7 +2047,7 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 #+begin_src emacs-lisp :results output silent
 (use-package comint-mode
   :ensure nil
-  :straight nil
+  :elpaca nil
   :custom
   ;; Make cursor always move to end when entering insert mode in
   ;; comint modes
@@ -2073,7 +2073,7 @@ the thing, because that's what vim does.
 #+begin_src emacs-lisp :results output silent
 (use-package shell
   :ensure nil
-  :straight nil
+  :elpaca nil
   :commands shell
   :custom
   (comint-scroll-to-bottom-on-input t)
@@ -2104,7 +2104,7 @@ the thing, because that's what vim does.
 * Groovy mode                                                         :major:
 #+begin_src emacs-lisp :results output silent
 (use-package groovy-mode
-  :straight (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes")
+  :elpaca (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes")
   :mode (("\\.groovy\\'" . groovy-mode)
          ("\\Jenkinsfile\\'" . groovy-mode))
   :hook ((groovy-mode-hook . (lambda () (setq-local comment-start "// "))))
@@ -2116,7 +2116,7 @@ the thing, because that's what vim does.
 * Hy Mode                                                             :major:
 #+begin_src emacs-lisp :results output silent
 (use-package hy-mode
-  :straight (:host github :repo "hylang/hy-mode")
+  :elpaca (:host github :repo "hylang/hy-mode")
   :mode "\\.hy\\'"
   :general
   (hy-mode-map
@@ -2132,7 +2132,7 @@ the thing, because that's what vim does.
 ** ob-hy
 #+begin_src emacs-lisp :results output silent
 (use-package ob-hy
-  :straight (:host github :repo "brantou/ob-hy")
+  :elpaca (:host github :repo "brantou/ob-hy")
   :after org-src)
 #+end_src
 
@@ -2167,7 +2167,7 @@ the thing, because that's what vim does.
 ** Virtual Environment
 #+begin_src emacs-lisp :results output silent
 (use-package pyvenv
-  :straight (:host github :repo "jorgenschaefer/pyvenv")
+  :elpaca (:host github :repo "jorgenschaefer/pyvenv")
   :commands (pyvenv-activate
              pyvenv-workon))
 #+end_src
@@ -2175,7 +2175,7 @@ the thing, because that's what vim does.
 * Powershell
 #+begin_src emacs-lisp :results output silent
 (use-package powershell.el
-  :straight (:host github :repo "jschaf/powershell.el")
+  :elpaca (:host github :repo "jschaf/powershell.el")
   :commands (powershell-mode powershell)
   :init
   (with-eval-after-load 'org-src
@@ -2190,8 +2190,8 @@ the thing, because that's what vim does.
 * Yaml-mode
 #+begin_src emacs-lisp :results output silent
 (use-package yaml-mode
-  ;; :straight (:host github :repo "yoshiki/yaml-mode")
-  :straight t
+  ;; :elpaca (:host github :repo "yoshiki/yaml-mode")
+  :elpaca t
   :mode ("\\.yml\\'"
          "\\.yaml\\'")
   :hook
@@ -2209,7 +2209,7 @@ the thing, because that's what vim does.
 * Cmake
 #+begin_src emacs-lisp :results output silent
 (use-package cmake-mode
-  :straight t
+  :elpaca t
   :mode ("\\cmakelists.txt\\'" . cmake-mode)
   ;; :ensure t ;; the package is nested in the greater cmake repo, and
   ;;           ;; not practical to use straight on (yet)
@@ -2219,8 +2219,8 @@ the thing, because that's what vim does.
 ** Cmake-font-lock
 #+begin_src emacs-lisp :results output silent
 (use-package cmake-font-lock
-  ;; :straight (:host github :repo "Lindydancer/cmake-font-lock")
-  :straight t
+  ;; :elpaca (:host github :repo "Lindydancer/cmake-font-lock")
+  :elpaca t
   :hook (cmake-mode-hook . cmake-font-lock-activate))
 #+end_src
 
@@ -2254,8 +2254,8 @@ Or evil-spongebob if you want to think of it that way.
 * Go Mode                                                             :major:
 #+begin_src emacs-lisp :results output silent
 (use-package go-mode
-  ;; :straight (:host github :repo "dominikh/go-mode.el")
-  :straight t
+  ;; :elpaca (:host github :repo "dominikh/go-mode.el")
+  :elpaca t
   :mode ("\\.go\\'" . go-mode)
   :hook
   (go-mode-hook . gofmt-before-save)
@@ -2278,7 +2278,7 @@ Or evil-spongebob if you want to think of it that way.
 * Flycheck
 #+begin_src emacs-lisp :results output silent
 (use-package flycheck
-  :straight (:host github :repo "flycheck/flycheck")
+  :elpaca (:host github :repo "flycheck/flycheck")
   :custom
   (flycheck-indication-mode 'left-margin)
   :custom-face
@@ -2301,7 +2301,7 @@ Or evil-spongebob if you want to think of it that way.
 ** lsp-mode
 #+begin_src emacs-lisp :results output silent
 (use-package lsp-mode
-  :straight t
+  :elpaca t
   :commands (lsp lsp-deferred)
   :custom
   (lsp-headerline-breadcrumb-enable t)
@@ -2408,7 +2408,7 @@ snippet is a patch provided in the thread.
 * Code Folding (Origami)
 #+begin_src emacs-lisp :results output silent
 (use-package origami
-  :straight (:host github :repo "gregsexton/origami.el")
+  :elpaca (:host github :repo "gregsexton/origami.el")
   :after evil
   :defer 2
   :general
@@ -2445,7 +2445,7 @@ file will not itself be encrypted.
 
 #+begin_src emacs-lisp :results output silent
 (use-package plantuml-mode
-  :straight (:host github :repo "skuro/plantuml-mode")
+  :elpaca (:host github :repo "skuro/plantuml-mode")
   :commands (plantuml-mode)
   :custom
   (plantuml-output-type "txt"
@@ -2468,7 +2468,7 @@ This is closer to the json serialization/deserialization module.
 
 #+begin_src emacs-lisp :results output silent
 (use-package edn
-  :straight (:host github :repo "expez/edn.el")
+  :elpaca (:host github :repo "expez/edn.el")
   :commands (edn-read
              edn-print-string))
 #+end_src
@@ -2476,8 +2476,8 @@ This is closer to the json serialization/deserialization module.
 * Search Engine Mode
 #+begin_src emacs-lisp :results output silent
 (use-package engine-mode
-  ;; :straight (:host github :repo "hrs/engine-mode" :branch "main")
-  :straight t
+  ;; :elpaca (:host github :repo "hrs/engine-mode" :branch "main")
+  :elpaca t
   :commands defengine
   :init
   (evil-define-command --ddg-search (beg end _type)
@@ -2505,7 +2505,7 @@ This is closer to the json serialization/deserialization module.
 * Link hinting
 #+begin_src emacs-lisp :results output silent
 (use-package link-hint
-  :straight t
+  :elpaca t
   :commands (link-hint-open-link
              link-hint-copy-link))
 #+end_src
@@ -2513,7 +2513,7 @@ This is closer to the json serialization/deserialization module.
 * Highlight Indent Guides
 #+begin_src emacs-lisp :results output silent
 (use-package highlight-indent-guides
-  :straight t
+  :elpaca t
   :commands (highlight-indent-guides-mode)
   :custom
   (highlight-indent-guides-method 'character)
@@ -2538,7 +2538,7 @@ This is closer to the json serialization/deserialization module.
 * Web mode
 #+begin_src emacs-lisp :results output silent
 (use-package web-mode
-  :straight t
+  :elpaca t
   :mode (("\\.svelte\\'" . web-mode)
          ("\\.vue\\'" . web-mode))
   :custom
@@ -2553,7 +2553,7 @@ This is closer to the json serialization/deserialization module.
 * Fill Function Argument
 #+begin_src emacs-lisp :results output silent
 (use-package fill-function-arguments
-  :straight (:host github :repo "davidshepherd7/fill-function-arguments")
+  :elpaca (:host github :repo "davidshepherd7/fill-function-arguments")
   :commands (fill-function-arguments-dwim)
   :custom (fill-function-arguments-indent-after-fill t)
   :general
@@ -2575,7 +2575,7 @@ This is closer to the json serialization/deserialization module.
 ** Text objects
 #+begin_src emacs-lisp :results output silent
 (use-package evil-textobj-tree-sitter
-  :straight (:host github
+  :elpaca (:host github
              :repo "meain/evil-textobj-tree-sitter"
              :files (:defaults "queries"))
   :after tree-sitter
@@ -2593,7 +2593,7 @@ This is closer to the json serialization/deserialization module.
   :if (and (not (eq system-type 'windows-nt))
            (fboundp 'treesit-available-p)
            (treesit-available-p))
-  :straight t
+  :elpaca t
   :custom
   (treesit-auto-install 'prompt)
   :config
@@ -2612,21 +2612,21 @@ Just do the scratch buffer simple and stupidly
 * Macrostep
 #+begin_src emacs-lisp :results output silent
 (use-package macrostep
-  :straight t
+  :elpaca t
   :commands (macrostep-expand))
 #+end_src
 
 * Buttercup (Emacs Test Framework)
 #+begin_src emacs-lisp :results output silent
 (use-package buttercup
-  :straight t
+  :elpaca t
   :defer t) ;; uncomment when we actually need this
 #+end_src
 
 * Compilation Mode
 #+begin_src emacs-lisp :results output silent
 (use-package compile
-  :straight nil
+  :elpaca nil
   :ensure nil
   :custom
   (compilation-auto-jump-to-first-error nil)
@@ -2650,7 +2650,7 @@ Just do the scratch buffer simple and stupidly
 #+begin_src emacs-lisp :results output silent
 (use-package project
   :ensure nil
-  :straight nil
+  :elpaca nil
   :init
   (advice-add 'evil-make :before
               #'(lambda (&rest _) (require 'project)))
@@ -2803,7 +2803,7 @@ Just do the scratch buffer simple and stupidly
 #+begin_src emacs-lisp :results output silent
 (use-package calendar
   :ensure nil
-  :straight nil
+  :elpaca nil
   :custom
   (calendar-week-start-day 1 "monday"))
 #+end_src
@@ -2811,13 +2811,13 @@ Just do the scratch buffer simple and stupidly
 * Hydras
 #+begin_src emacs-lisp :results output silent
 (use-package hydra
-  :straight t)
+  :elpaca t)
 #+end_src
 
 * Evaluation Result Overlay for Emacs Lisp
 #+begin_src emacs-lisp :results output silent
 (use-package eros
-  :straight t
+  :elpaca t
   :custom-face
   (eros-result-overlay-face ((t (:box nil
                                  :background unspecified
@@ -2829,13 +2829,13 @@ Just do the scratch buffer simple and stupidly
 * Moonscript
 #+begin_src emacs-lisp :results output silent
 (use-package moonscript
-  :straight t)
+  :elpaca t)
 #+end_src
 
 * Decide-mode
 #+begin_src emacs-lisp :results output silent
 (use-package decide
-  :straight t
+  :elpaca t
   :config
   (decide-mode))
 #+end_src
@@ -2843,13 +2843,13 @@ Just do the scratch buffer simple and stupidly
 * HCL-mode
 #+begin_src emacs-lisp :results output silent
 (use-package hcl-mode
-  :straight t)
+  :elpaca t)
 #+end_src
 
 * Terraform mode
 #+begin_src emacs-lisp :results output silent
 (use-package terraform-mode
-  :straight t
+  :elpaca t
   :hook (terraform-mode-hook . terraform-format-on-save-mode)
   :config
   (with-eval-after-load 'tree-sitter
@@ -2860,7 +2860,7 @@ Just do the scratch buffer simple and stupidly
 https://github.com/Silex/docker.el
 #+begin_src emacs-lisp :results output silent
 (use-package docker
-  :straight t
+  :elpaca t
   :commands docker
   :init
   (evil-ex-define-cmd "docker" #'docker))
@@ -2869,13 +2869,13 @@ https://github.com/Silex/docker.el
 * Dockerfile mode
 #+begin_src emacs-lisp :results output silent
 (use-package dockerfile-mode
-  :straight t)
+  :elpaca t)
 #+end_src
 
 * mmm-mode
 #+begin_src emacs-lisp :results output silent
 (use-package mmm-mode
-  :straight t
+  :elpaca t
   :custom-face
   (mmm-default-submode-face ((t (:background unspecified)))))
 #+end_src
@@ -2893,7 +2893,7 @@ https://github.com/Silex/docker.el
 * Typescript
 #+begin_src emacs-lisp :results output silent
 (use-package typescript-mode
-  :straight t
+  :elpaca t
   :mode "\\.ts\\'"
   :config
   (with-eval-after-load 'tree-sitter
@@ -2908,7 +2908,7 @@ npm install -g @mermaid-js/mermaid-cli
 
 #+begin_src emacs-lisp :results output silent
 (use-package mermaid-mode
-  :straight t
+  :elpaca t
   :if (and (bound-and-true-p --mermaid-cli-bin)
            (f-exists-p --mermaid-cli-bin))
   :custom
@@ -2923,7 +2923,7 @@ npm install -g @mermaid-js/mermaid-cli
 #+begin_src emacs-lisp :results output silent
 (use-package ob-mermaid
   :after org
-  :straight t
+  :elpaca t
   :if (and (bound-and-true-p --mermaid-cli-bin)
            (f-exists-p --mermaid-cli-bin))
   :custom
@@ -2933,13 +2933,13 @@ npm install -g @mermaid-js/mermaid-cli
 * Svg Tag Mode
 #+begin_src emacs-lisp :results output silent
 (use-package svg-lib
-  :straight
+  :elpaca
   (:host github :repo "rougier/svg-lib"))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
 (use-package svg-tag-mode
-  :straight t ;; depends on `svg-lib'
+  :elpaca t ;; depends on `svg-lib'
   :after svg-lib)
 #+end_src
 
@@ -2947,7 +2947,7 @@ npm install -g @mermaid-js/mermaid-cli
 ** Multi-Term
 #+begin_src emacs-lisp :results output silent
 (use-package multi-term
-  :straight t
+  :elpaca t
   :if (not (or (featurep 'vterm)
                (featurep 'multi-vterm)
                (eq system-type 'windows-nt)))
@@ -2961,7 +2961,7 @@ https://github.com/akermu/emacs-libvterm
 #+begin_src emacs-lisp :results output silent
 (use-package vterm
   :if (not (eq system-type 'windows-nt))
-  :straight t
+  :elpaca t
   :custom
   (vterm-max-scrollback 100000 "maximum allowed without recompilation")
   (vterm-always-compile-module t)
@@ -2972,7 +2972,7 @@ https://github.com/akermu/emacs-libvterm
 ** Multi-Vterm
 #+begin_src emacs-lisp :results output silent
 (use-package multi-vterm
-  :straight t
+  :elpaca t
   :after vterm
   :commands (multi-vterm)
   :general
@@ -2986,14 +2986,14 @@ https://github.com/akermu/emacs-libvterm
 * Kotlin Mode
 #+begin_src emacs-lisp :results output silent
 (use-package kotlin-mode
-  :straight t
+  :elpaca t
   :mode ("\\.kt\\'" . kotlin-mode))
 #+end_src
 
 * Swift Mode
 #+begin_src emacs-lisp :results output silent
 (use-package swift-mode
-  :straight t
+  :elpaca t
   :mode ("\\.swift\\'" . swift-mode))
 #+end_src
 
@@ -3007,25 +3007,25 @@ https://github.com/akermu/emacs-libvterm
 * dwim shell command
 #+begin_src emacs-lisp :results output silent
 (use-package dwim-shell-command
-  :straight (:host github :repo "xenodium/dwim-shell-command"))
+  :elpaca (:host github :repo "xenodium/dwim-shell-command"))
 #+end_src
 
 * Earthfile
 #+begin_src emacs-lisp :results output silent
 (use-package earthfile-mode
-  :straight t)
+  :elpaca t)
 #+end_src
 
 * Asciidoc
 #+begin_src emacs-lisp :results output silent
 (use-package adoc-mode
-  :straight t)
+  :elpaca t)
 #+end_src
 
 * Scopeline
 #+begin_src emacs-lisp :results output silent
 (use-package scopeline
-  :straight (:host github :repo "meain/scopeline.el" :branch "master")
+  :elpaca (:host github :repo "meain/scopeline.el" :branch "master")
   :hook (prog-mode-hook . scopeline-mode)
   :blackout t
   :custom
@@ -3040,7 +3040,7 @@ https://github.com/akermu/emacs-libvterm
 #+begin_src emacs-lisp :results output silent
 (use-package consult-notes
   :disabled t
-  :straight t
+  :elpaca t
   :after consult
   :if (bound-and-true-p --notes-folder)
   :commands
@@ -3059,7 +3059,7 @@ https://github.com/akermu/emacs-libvterm
 * Obsidian.el
 #+begin_src emacs-lisp :results output silent
 (use-package obsidian
-  :straight t
+  :elpaca t
   :custom
   (obsidian-include-hidden-files nil)
   (obsidian-links-use-vault-path t)
@@ -3103,7 +3103,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
 
 #+begin_src emacs-lisp :results output silent
 (use-package chatgpt-shell
-  :straight (:host github :repo "xenodium/chatgpt-shell")
+  :elpaca (:host github :repo "xenodium/chatgpt-shell")
   :commands chatgpt-shell-prompt
   :general
   (chatgpt-shell-mode-map
@@ -3137,7 +3137,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
 #+begin_src emacs-lisp :results output silent
 (use-package xref
   :ensure nil
-  :straight nil
+  :elpaca nil
   :config
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
 #+end_src
@@ -3145,7 +3145,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
 * ws-butler
 #+begin_src emacs-lisp :results output silent
 (use-package ws-butler
-  :straight t
+  :elpaca t
   :custom
   (ws-butler-global-exempt-modes '())
   :config
@@ -3155,7 +3155,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
 * Realgud (and Gud)
 #+begin_src emacs-lisp :results output silent
 (use-package gud
-  :straight nil
+  :elpaca nil
   :ensure nil
   :custom
   (gud-highlight-current-line t)
@@ -3189,12 +3189,12 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
 
 #+begin_src emacs-lisp :results output silent
 (use-package realgud
-  :straight t)
+  :elpaca t)
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
 (use-package realgud-lldb
-  :straight t
+  :elpaca t
   :after realgud
   :config
   (defalias 'realgud:lldb (symbol-function 'realgud--lldb)))
@@ -3205,10 +3205,10 @@ Commented because this doesn't work all too well for now and I'm not to sure
 what the benefits are.
 #+begin_src emacs-lisp :results output silent
 (use-package xht
-  :straight (:type git :host nil :repo "https://git.sr.ht/~flandrew/xht"))
+  :elpaca (:type git :host nil :repo "https://git.sr.ht/~flandrew/xht"))
 
 (use-package democratize
-  :straight (:type git :host nil :repo "https://git.sr.ht/~flandrew/democratize")
+  :elpaca (:type git :host nil :repo "https://git.sr.ht/~flandrew/democratize")
   :config
   (with-eval-after-load 'helpful
     (democratize-enable-examples-in-helpful))
@@ -3218,14 +3218,14 @@ what the benefits are.
 * Jinx (spell-checking)
 #+begin_src emacs-lisp :results output silent
 (use-package jinx
-  :straight t
+  :elpaca t
   :custom (jinx-languages "en_US"))
 #+end_src
 
 * Groovy mode
 #+BEGIN_SRC emacs-lisp :results output silent
   (use-package groovy-mode
-    :straight (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes")
+    :elpaca (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes")
     :mode (("\\.groovy\\'" . groovy-mode)
            ("\\Jenkinsfile\\'" . groovy-mode)))
 #+END_SRC
@@ -3233,7 +3233,7 @@ what the benefits are.
 * Exec path from shell
 #+begin_src emacs-lisp :results output silent
 (use-package exec-path-from-shell
-  :straight t
+  :elpaca t
   :if (not (eq system-type 'windows-nt))
   :config
   (exec-path-from-shell-initialize))
@@ -3242,7 +3242,7 @@ what the benefits are.
 * Sudoedit
 #+begin_src emacs-lisp :results output silent
 (use-package sudo-edit
-  :straight t
+  :elpaca t
   :commands sudo-edit)
 #+end_src
 
@@ -3250,7 +3250,7 @@ what the benefits are.
 #+begin_src emacs-lisp :results output silent
 (use-package gptel
   :disabled t
-  :straight t
+  :elpaca t
   :demand t ;; override :general
   :custom
   ;; prompts are under `gptel-directives'
@@ -3277,7 +3277,7 @@ what the benefits are.
 * Jam-mode
 #+begin_src emacs-lisp :results output silent
 (use-package jam-mode
-  :straight nil
+  :elpaca nil
   :ensure nil
   :mode "Jamroot"
   :load-path "lisp/3p")
@@ -3286,7 +3286,7 @@ what the benefits are.
 * Rainbow Mode
 #+begin_src emacs-lisp :results output silent
 (use-package rainbow-mode
-  :straight t)
+  :elpaca t)
 #+end_src
 
 * Buttercup                                                            :testing:
@@ -3295,5 +3295,5 @@ https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/running-tests
 
 #+begin_src emacs-lisp :results output silent
 (use-package buttercup
-  :straight t)
+  :elpaca t)
 #+end_src

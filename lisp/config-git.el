@@ -2,7 +2,7 @@
 (require 'config-theme)
 
 (use-package transient
-  :straight (:host github :repo "magit/transient"))
+  :elpaca (:host github :repo "magit/transient"))
 
 ;; If magit complains about not finding the config on windows, it's
 ;; because of [this issue], the easiest solution is to make a link.
@@ -11,7 +11,7 @@
 ;;
 ;; [this issue]: https://github.com/magit/magit/issues/1497
 (use-package magit
-  :straight (:host github :repo "magit/magit" :branch "main")
+  :elpaca (:host github :repo "magit/magit" :branch "main")
   :after transient
   :commands (magit
              magit-status
@@ -96,7 +96,7 @@
 ;; TODO: Somehow jigger `magit-todos-branch-list' to *only* show
 ;; branch todos instead of it being an appended section
 (use-package magit-todos
-  :straight (:host github :repo "alphapapa/magit-todos")
+  :elpaca (:host github :repo "alphapapa/magit-todos")
   :custom
   (magit-todos-ignore-case t)
   (magit-todos-nice
@@ -120,7 +120,7 @@
   (magit-status-mode-hook . magit-todos-mode))
 
 (use-package git-link
-  :straight t
+  :elpaca t
   :commands (git-link
              git-link-commit
              git-link-homepage)
@@ -143,7 +143,7 @@
                                    (browse-url (concat url "/pulls"))))))
 
 (use-package git-timemachine
-  :straight t
+  :elpaca t
   :commands git-timemachine
   :general
   (git-timemachine-mode-map
@@ -156,7 +156,7 @@
   (evil-ex-define-cmd "gtime" #'git-timemachine))
 
 (use-package blamer
-  :straight (:host github :repo "Artawower/blamer.el")
+  :elpaca (:host github :repo "Artawower/blamer.el")
   :custom
   (blamer-commit-formatter ": %s")
   (blamer-min-offset 5)

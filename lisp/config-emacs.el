@@ -5,7 +5,7 @@
 (use-package emacs
   :demand t
   :ensure nil
-  :straight nil
+  :elpaca nil
   :custom
   (fill-column 80)
   (ff-always-try-to-create nil)
@@ -43,7 +43,7 @@
 (use-package dired
   :demand t
   :ensure nil
-  :straight nil
+  :elpaca nil
   :general
   (dired-mode-map
    :states 'normal

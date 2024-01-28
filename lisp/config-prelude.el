@@ -106,52 +106,57 @@
     (unless (require 'elpaca-autoloads nil t)
       (require 'elpaca)
       (elpaca-generate-autoloads "elpaca" repo)
-      (load "./elpaca-autoloads"))))
+      (load "./elpaca-autoloads")))
+  (add-hook 'after-init-hook #'elpaca-process-queues))
+  ;; (elpaca `(,@elpaca-order)))
+  ;; (elpaca-wait)
 
-;; (add-hook 'after-init-hook #'elpaca-process-queues)
-;; (elpaca `(,@elpaca-order))
-
-(bootstrap-straight)
+(elpaca-no-symlink-mode)
+(bootstrap-elpaca)
 (bootstrap-use-package)
 
+(elpaca elpaca-use-package
+    (elpaca-use-package-mode)
+    (setq elpaca-use-package-by-default t))
+(elpaca-wait)
 ;; Package stuff end
 
 ;; https://github.com/magnars/dash.el
-(use-package dash :straight t)
+(use-package dash :elpaca t)
 
 ;; https://github.com/plexus/a.el/
 ;; alist functions
-(use-package a :straight t)
+(use-package a :elpaca t)
 
 ;; https://github.com/rejeep/f.el/
 ;; file functions
-(use-package f :straight t)
+(use-package f :elpaca t)
 
 ;; https://github.com/magnars/s.el/
 ;; string functions
-(use-package s :straight t)
+(use-package s :elpaca t)
 
 ;; https://github.com/Wilfred/ht.el/
 ;; hash-table functions
-(use-package ht :straight t)
+(use-package ht :elpaca t)
 
 ;; https://github.com/alphapapa/ts.el
 ;; date and time functions
-(use-package ts :straight t)
+(use-package ts :elpaca t)
 
-(use-package async :straight t)
+(use-package async :elpaca t)
 
 (use-package general
-  :straight (:host github :repo "noctuid/general.el")
+  :elpaca (:host github :repo "noctuid/general.el")
   :init
   (defconst my-default-evil-leader-key "SPC"))
 
 (use-package no-littering
-  :straight (:host github :repo "emacscollective/no-littering"))
+  :elpaca (:host github :repo "emacscollective/no-littering"))
 
 (use-package restart-emacs
   :if (not (eq system-type 'darwin))
-  :straight (:host github :repo "iqbalansari/restart-emacs")
+  :elpaca (:host github :repo "iqbalansari/restart-emacs")
   :commands (restart-emacs restart-emacs-start-new-emacs)
   :init
   (with-eval-after-load 'evil
@@ -159,7 +164,7 @@
     (evil-ex-define-cmd "restarttest"
                         'restart-emacs-start-new-emacs)))
 
-(use-package blackout :straight t)
+(use-package blackout :elpaca t)
 
 (let ((custom (locate-user-emacs-file "custom.el")))
   (unless (f-exists-p custom)

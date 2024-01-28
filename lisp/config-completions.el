@@ -6,7 +6,7 @@
 ;; history
 (use-package vertico
   :demand t
-  :straight t
+  :elpaca t
   :custom
   (vertico-count 23)
   :general
@@ -24,7 +24,7 @@
   (vertico-mode))
 
 (use-package prescient
-  :straight (:host github
+  :elpaca (:host github
              :repo "radian-software/prescient.el"
              :files (:defaults "/*.el"))
   :config
@@ -35,7 +35,7 @@
 
 (use-package consult
   :demand t
-  :straight t
+  :elpaca t
   :general
   (:states 'normal
    "g /" #'consult-line)
@@ -48,20 +48,20 @@
 
 (use-package consult-xref
   :ensure nil
-  :straight nil
+  :elpaca nil
   :after (:all consult xref)
   :config
   (setq xref-show-xrefs-function 'consult-xref))
 
 (use-package consult-git-log-grep
-  :straight (:host github :repo "ghosty141/consult-git-log-grep")
+  :elpaca (:host github :repo "ghosty141/consult-git-log-grep")
   :commands (consult-git-log-grep)
   :config
   (with-eval-after-load 'magit
     (set-default 'consult-git-log-grep-open-function #'magit-show-commit)))
 
 (use-package consult-dir
-  :straight t
+  :elpaca t
   :commands consult-dir
   :custom
   (consult-dir-default-command #'find-file)
@@ -70,12 +70,12 @@
     (--evil-define-splits "mm" #'consult-dir)))
 
 (use-package marginalia
-  :straight t
+  :elpaca t
   :after consult
   :config (marginalia-mode))
 
 (use-package corfu
-  :straight t
+  :elpaca t
   ;; normal tab-completion seems to beat this with how it does
   ;; incremental completions
   :custom
@@ -100,7 +100,7 @@
   (global-corfu-mode))
 
 (use-package embark
-  :straight t
+  :elpaca t
   :after vertico
   :commands (embark-act
              embark-dwim
@@ -115,10 +115,10 @@
    "C-<SPC>" 'embark-act))
 
 (use-package embark-consult
-  :straight t)
+  :elpaca t)
 
 (use-package cape
-  :straight t
+  :elpaca t
   :demand t
   :config
   (add-to-list 'completion-at-point-functions #'cape-abbrev)
@@ -130,7 +130,7 @@
   (add-to-list 'completion-at-point-functions #'cape-line))
 
 (use-package yasnippet-capf
-  :straight t
+  :elpaca t
   :after cape
   :config
   (add-to-list 'completion-at-point-functions #'yasnippet-capf))
