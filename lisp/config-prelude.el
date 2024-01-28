@@ -55,32 +55,33 @@
   ;;     :url "https://framagit.org/steckerhalter/quelpa-use-package.git"))
   ;; (require 'quelpa-use-package)
   (require 'straight)
-  (customize-set-variable 'load-prefer-newer t)
   (straight-use-package '(use-package
                            :host github
-                           :repo "jwiegley/use-package"))
-  (require 'use-package)
-  ;; download packages if needed
-  (customize-set-variable 'use-package-always-defer nil
-                          "we don't always lazy load because of explicitness")
-  (customize-set-variable 'use-package-always-ensure nil
-                          "always make sure it never skips if not
-                          found. Disabled because we want straight to
-                          do the heavy lifting")
-  (customize-set-variable 'use-package-verbose t)
-  (customize-set-variable 'use-package-compute-statistics t)
-  (customize-set-variable 'use-package-hook-name-suffix nil)
-  (use-package use-package-ensure-system-package))
+                           :repo "jwiegley/use-package")))
 
 (require 'config-elpaca)
 
-(bootstrap-use-package)
+;; (bootstrap-use-package)
 
 (elpaca elpaca-use-package
     (elpaca-use-package-mode)
     (setq elpaca-use-package-by-default t))
 
 (elpaca-wait)
+
+(customize-set-variable 'load-prefer-newer t)
+(require 'use-package)
+;; download packages if needed
+(customize-set-variable 'use-package-always-defer nil
+                        "we don't always lazy load because of explicitness")
+(customize-set-variable 'use-package-always-ensure nil
+                        "always make sure it never skips if not
+                        found. Disabled because we want straight to
+                        do the heavy lifting")
+(customize-set-variable 'use-package-verbose t)
+(customize-set-variable 'use-package-compute-statistics t)
+(customize-set-variable 'use-package-hook-name-suffix nil)
+(use-package use-package-ensure-system-package)
 ;; Package stuff end
 
 ;; https://github.com/magnars/dash.el
@@ -127,6 +128,8 @@
                         'restart-emacs-start-new-emacs)))
 
 (use-package blackout :elpaca t)
+
+(elpaca-wait)
 
 (let ((custom (locate-user-emacs-file "custom.el")))
   (unless (f-exists-p custom)

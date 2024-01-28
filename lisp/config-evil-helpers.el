@@ -1,4 +1,4 @@
-(require 'config-evil)
+;; (require 'config-evil)
 
 (evil-ex-define-cmd "view" #'(lambda () (interactive) (read-only-mode 'toggle)))
 

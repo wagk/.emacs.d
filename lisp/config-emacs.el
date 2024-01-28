@@ -75,6 +75,7 @@
                                          (dired-jump)))))
 
 (use-package recentf
+  :elpaca nil
   :ensure nil
   :custom
   (recentf-max-saved-items nil)

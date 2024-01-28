@@ -162,6 +162,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 
 (use-package evil-collection
   :elpaca t
+  :after (evil)
   :custom
   (evil-collection-setup-minibuffer t)
   ;; the following causes a crash because:
@@ -215,6 +216,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (global-evil-surround-mode))
 
 (use-package evil-embrace
+  :disabled t
   :elpaca t
   :custom
   (evil-embrace-show-help-p
@@ -251,5 +253,10 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (evil-outer-text-objects-map
    "i" 'evil-indent-plus-i-indent-up
    "I" 'evil-indent-plus-a-indent-up))
+
+(elpaca-wait)
+
+(with-eval-after-load 'evil
+  (require 'config-evil-helpers))
 
 (provide 'config-evil)

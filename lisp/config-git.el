@@ -4,6 +4,13 @@
 (use-package transient
   :elpaca (:host github :repo "magit/transient"))
 
+(when (eq system-type 'windows-nt)
+  ;; magit requires seq 2.24, windows only seems to have 2.23
+  (use-package seq
+    :elpaca t
+    :demand t)
+  (elpaca-wait))
+
 ;; If magit complains about not finding the config on windows, it's
 ;; because of [this issue], the easiest solution is to make a link.
 ;;
@@ -17,7 +24,6 @@
              magit-status
              magit-pull
              magit-commit)
-  :defer 15
   :custom
   (magit-prefer-remote-upstream t)
   (magit-blame-echo-style 'headings)

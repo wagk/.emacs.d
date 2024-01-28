@@ -66,7 +66,8 @@
 (customize-set-variable 'nano-dark-popout      sol-magenta)
 (customize-set-variable 'nano-dark-critical    sol-red)
 
-(load-theme (or (bound-and-true-p --default-background) 'nano-light) t)
+(with-eval-after-load 'nano-theme
+  (load-theme (or (bound-and-true-p --default-background) 'nano-light) t))
 
 (customize-set-variable 'frame-background-mode 'nil)
 

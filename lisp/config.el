@@ -74,7 +74,6 @@
 
 (require 'config-helpers)
 (require 'config-evil)
-(require 'config-evil-helpers)
 (require 'config-theme)
 (require 'config-git)
 (require 'config-completions)
@@ -85,6 +84,8 @@
 
 (require 'config-japanese)
 (require 'config-anki)
+
+(elpaca-wait)
 
 (org-babel-load-file (locate-user-emacs-file "config.org"))
 
