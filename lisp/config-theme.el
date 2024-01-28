@@ -68,6 +68,8 @@
 
 (load-theme (or (bound-and-true-p --default-background) 'nano-light) t)
 
+(customize-set-variable 'frame-background-mode 'nil)
+
 (defface sol-superlight-foreground
   `((((background light)) (:foreground ,sol-base2))
     (((background dark)) (:foreground ,sol-base02)))
