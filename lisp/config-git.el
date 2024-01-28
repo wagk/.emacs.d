@@ -102,6 +102,7 @@
 ;; TODO: Somehow jigger `magit-todos-branch-list' to *only* show
 ;; branch todos instead of it being an appended section
 (use-package magit-todos
+  :disabled t ;; we disabled hl-todo
   :elpaca (:host github :repo "alphapapa/magit-todos")
   :custom
   (magit-todos-ignore-case t)
