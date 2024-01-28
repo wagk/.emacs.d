@@ -30,23 +30,18 @@
  `package-initialize' must be called prior to this."
   ;; Requires (package-initialize) to be called
   ;; https://github.com/raxod502/straight.el
-  (customize-set-variable 'straight-repository-branch "develop")
-  (customize-set-variable 'straight-use-package-by-default t)
-  (customize-set-variable 'straight-check-for-modifications
-                          '(check-on-save find-when-checking))
-  (let ((bootstrap-file
-         (expand-file-name "straight/repos/straight.el/bootstrap.el"
-                           user-emacs-directory))
-        (bootstrap-version 7))
+  (defvar bootstrap-version)
+  (let ((bootstrap-file (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 6))
     (unless (file-exists-p bootstrap-file)
-      (message "Bootstrapping Straight.el...")
       (with-current-buffer
           (url-retrieve-synchronously
            "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
            'silent 'inhibit-cookies)
         (goto-char (point-max))
         (eval-print-last-sexp)))
-    (load bootstrap-file nil 'nomessage)))
+    (load bootstrap-file nil 'nomessage))
+  (customize-set-variable 'straight-use-package-by-default t))
 
 ;;; Use package
 (defun bootstrap-use-package ()
@@ -116,21 +111,7 @@
 ;; (add-hook 'after-init-hook #'elpaca-process-queues)
 ;; (elpaca `(,@elpaca-order))
 
-(defvar bootstrap-version)
-
-(let ((bootstrap-file (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 6))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-(customize-set-variable 'straight-use-package-by-default t)
-
-(bootstrap-package)
+(bootstrap-straight)
 (bootstrap-use-package)
 
 ;; Package stuff end
