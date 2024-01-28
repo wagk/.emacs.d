@@ -66,7 +66,7 @@
 (customize-set-variable 'nano-dark-popout      sol-magenta)
 (customize-set-variable 'nano-dark-critical    sol-red)
 
-(load-theme 'nano-light t)
+(load-theme (or (bound-and-true-p --default-background) 'nano-light) t)
 
 (defface sol-superlight-foreground
   `((((background light)) (:foreground ,sol-base2))
