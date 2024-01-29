@@ -3104,6 +3104,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
 #+begin_src emacs-lisp :results output silent
 (use-package chatgpt-shell
   :elpaca (:host github :repo "xenodium/chatgpt-shell")
+  :after (dash)
   :commands chatgpt-shell-prompt
   :general
   (chatgpt-shell-mode-map
@@ -3117,12 +3118,28 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
    #'(lambda (buf)
        (pop-to-buffer buf #'display-buffer-pop-up-window)))
   (chatgpt-shell-prompt-query-response-style 'shell)
-  (chatgpt-shell-system-prompt 1)
-  (chatgpt-shell-model-version 6)
   :hook
   (chatgpt-shell-mode-hook . (lambda ()
                                (when (bound-and-true-p parinfer-rust-mode)
                                  (parinfer-rust-mode 0))))
+  :config
+  (setq chatgpt-shell-system-prompt
+        (-find-index (lambda (elem)
+                       (string-equal "Programming" (car elem)))
+                     chatgpt-shell-system-prompts))
+  (setq chatgpt-shell-model-version
+        (-find-index (lambda (elem)
+                       (string-equal "gpt-4-turbo-preview" elem))
+                     chatgpt-shell-model-versions))
+  (setq chatgpt-shell-welcome-function
+        #'(lambda (config)
+            "Adapted from `shell-maker-welcome-function'"
+           (format
+            "Welcome to %s shell\n\n  Type %s and press %s for details.\n\n"
+            (propertize (shell-maker-config-name config)
+                        'font-lock-face 'font-lock-comment-face)
+            (propertize "help" 'font-lock-face 'italic)
+            (shell-maker--propertize-key-binding "-shell-submit" config))))
   :init
   (evil-define-command --evil-gpt-cmd (prompt)
     (interactive "<a>")
