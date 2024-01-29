@@ -126,6 +126,10 @@
   :hook
   (magit-status-mode-hook . magit-todos-mode))
 
+(use-package magit-lfs
+  :elpaca t
+  :after magit)
+
 (use-package git-link
   :elpaca t
   :commands (git-link
