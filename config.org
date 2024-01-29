@@ -3077,10 +3077,10 @@ https://github.com/akermu/emacs-libvterm
     (interactive)
     (cl-letf ((symbol-function 'find-file) (symbol-function 'find-file-noselect))
       (obsidian-jump)))
-  (--evil-ex-define-cmds-splits-and-tabs
-   "nn"
-   #'obsidian-jump
-   #'(lambda () (obsidian-jump)))
+  ;; (--evil-ex-define-cmds-splits-and-tabs
+  ;;  "nn"
+  ;;  #'obsidian-jump
+  ;;  #'(lambda () (obsidian-jump)))
   (evil-ex-define-cmd "ni" #'obsidian-insert-link)
   (with-eval-after-load 'org-capture
     (setq org-capture-templates

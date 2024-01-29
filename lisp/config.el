@@ -83,6 +83,7 @@
 
 (require 'config-japanese)
 (require 'config-anki)
+(require 'config-obsidian)
 
 (elpaca-wait)
 
