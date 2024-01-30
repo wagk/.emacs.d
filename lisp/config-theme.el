@@ -119,7 +119,13 @@
                       :inherit 'nano-subtle)
   (set-face-attribute 'markdown-italic-face nil
                       :italic t)
+  (set-face-attribute 'markdown-plain-url-face nil
+                      :italic t)
   (set-face-attribute 'markdown-url-face nil
+                      :italic t
+                      :inherit 'markdown-plain-url-face)
+  (set-face-attribute 'markdown-link-face nil
+                      :italic t
                       :inherit 'markdown-plain-url-face)
 
   (defface --markdown-tag-face
