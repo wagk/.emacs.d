@@ -3,7 +3,7 @@
 ;; bit sus at times and we don't use all of its features anyway. Have a small
 ;; bootstrapped markdown configuration we can use.
 
-(defgroup 'config-markdown nil
+(defgroup config-markdown nil
   "Personal Markdown hacks")
 
 (defcustom config-markdown-directory nil
@@ -58,12 +58,11 @@ point."
         (doct-add-to
          org-capture-templates
          `(("Notes - File - Header"
-            :keys "c"
+            :keys "file"
             :type plain
             :function config-markdown--find-file-and-point
             :unnarrowed t
             :empty-lines 1
-            :template "# %<%F>\n\n%?"))))
-  (evil-ex-define-cmd "nc" #'(lambda () (interactive) (org-capture nil "c"))))
+            :template "# %<%F>\n\n%?")))))
 
 (provide 'config-markdown)
