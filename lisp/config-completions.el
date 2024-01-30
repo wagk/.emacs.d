@@ -132,7 +132,7 @@
 
 (use-package yasnippet-capf
   :elpaca t
-  :after cape
+  :after (:all cape yasnippet)
   :config
   (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 

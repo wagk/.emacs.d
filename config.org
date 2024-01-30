@@ -1127,6 +1127,7 @@ language's mappings.
 #+begin_src emacs-lisp :results output silent
 (use-package org-ql
   :elpaca t
+  :after org-super-agenda
   :commands
   (org-ql-search
     org-ql-view
@@ -2616,13 +2617,6 @@ Just do the scratch buffer simple and stupidly
   :commands (macrostep-expand))
 #+end_src
 
-* Buttercup (Emacs Test Framework)
-#+begin_src emacs-lisp :results output silent
-(use-package buttercup
-  :elpaca t
-  :defer t) ;; uncomment when we actually need this
-#+end_src
-
 * Compilation Mode
 #+begin_src emacs-lisp :results output silent
 (use-package compile
@@ -3237,14 +3231,6 @@ what the benefits are.
   :elpaca t
   :custom (jinx-languages "en_US"))
 #+end_src
-
-* Groovy mode
-#+BEGIN_SRC emacs-lisp :results output silent
-  (use-package groovy-mode
-    :elpaca (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes")
-    :mode (("\\.groovy\\'" . groovy-mode)
-           ("\\Jenkinsfile\\'" . groovy-mode)))
-#+END_SRC
 
 * Exec path from shell
 #+begin_src emacs-lisp :results output silent
