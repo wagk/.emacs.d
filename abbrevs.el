@@ -153,6 +153,7 @@
     ("closeing" "closing" nil :count 1)
     ("closign" "closing" nil :count 1)
     ("cna" "can" nil :count 18)
+    ("cofig" "config" nil :count 1)
     ("cofnig" "config" nil :count 10)
     ("columsn" "columns" nil :count 1)
     ("comamdn" "command" nil :count 1)
