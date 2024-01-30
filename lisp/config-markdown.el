@@ -31,22 +31,26 @@
 (with-eval-after-load 'config-evil-helpers
   (--evil-define-splits "nn" #'config-markdown-find-file))
 
+(cl-defun config-markdown--find-point ()
+  "Assuming that we are in the appropriate capture file, find the capture
+point."
+  ;; ignore list items
+  (if (markdown-list-item-at-point-p)
+    (goto-char (point-max))
+    ;; we want to append, so go to the next outline and backtrack
+    (pcase (markdown-outline-next)
+      ('nil (goto-char (point-max)))
+      (_ (beginning-of-line)
+         (newline-and-indent)
+         (forward-line -1)))))
+
 (cl-defun config-markdown--find-file-and-point ()
   (config-markdown-find-file)
   (condition-case err
       (consult-imenu)
     ;; no headings in file
     (t (goto-char (point-max)))
-    (:success
-     ;; ignore list items
-     (if (markdown-list-item-at-point-p)
-         (goto-char (point-max))
-       ;; we want to append, so go to the next outline and backtrack
-       (pcase (markdown-outline-next)
-         ('nil (goto-char (point-max)))
-         (_ (beginning-of-line)
-            (newline-and-indent)
-            (forward-line -1)))))))
+    (:success (config-markdown--find-point))))
 
 (with-eval-after-load 'org-capture
   (require 'doct)
