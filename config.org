@@ -2967,7 +2967,7 @@ https://github.com/akermu/emacs-libvterm
 #+begin_src emacs-lisp :results output silent
 (use-package multi-vterm
   :elpaca t
-  :after vterm
+  :after (:all vterm multi-term)
   :commands (multi-vterm)
   :general
   (general-define-key
