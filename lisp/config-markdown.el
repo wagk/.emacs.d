@@ -21,6 +21,9 @@
                                                    config-markdown-directory))
                            it)))
          (selected-file (--completing-read "File: " files)))
+    ;; make sure it's markdown
+    (unless (s-ends-with-p ".md" selected-file)
+      (setq selected-file (concat selected-file ".md")))
     (file-name-concat config-markdown-directory selected-file)))
 
 (cl-defun config-markdown-find-file ()
