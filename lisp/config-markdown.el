@@ -79,6 +79,12 @@ point."
             ,#'(lambda () (setq org-capture-last-stored-marker (make-marker)))
             :template "# %?")))))
 
+(with-eval-after-load 'rg
+  (rg-define-search config-markdown-search-in-notes
+    :files "everything"
+    :dir config-markdown-directory)
+  (evil-ex-define-cmd "ng" 'config-markdown-search-in-notes))
+
 ;;; Experimentations with datetrees in markdown
 
 (provide 'config-markdown)
