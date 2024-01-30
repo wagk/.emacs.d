@@ -66,6 +66,8 @@ point."
             :function config-markdown--find-file-and-point
             :unnarrowed t
             :empty-lines 1
-            :template "# %<%F>\n\n%?")))))
+            :after-finalize
+            ,#'(lambda () (setq org-capture-last-stored-marker (make-marker)))
+            :template "# %?")))))
 
 (provide 'config-markdown)
