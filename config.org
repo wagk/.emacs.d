@@ -3199,11 +3199,13 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
 
 #+begin_src emacs-lisp :results output silent
 (use-package realgud
+  :disabled t
   :elpaca t)
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
 (use-package realgud-lldb
+  :disabled t
   :elpaca t
   :after realgud
   :config
