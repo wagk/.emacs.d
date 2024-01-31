@@ -130,10 +130,4 @@
   (add-to-list 'completion-at-point-functions #'cape-symbol)
   (add-to-list 'completion-at-point-functions #'cape-line))
 
-(use-package yasnippet-capf
-  :elpaca t
-  :after (:all cape yasnippet)
-  :config
-  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
-
 (provide 'config-completions)

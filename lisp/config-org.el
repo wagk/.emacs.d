@@ -223,13 +223,6 @@
                             ;; heading
                             calendar)))
 
-(use-package org-ql
-  :elpaca t
-  :commands (org-ql-find
-             org-ql-find-heading
-             org-ql-refile
-             org-ql-find-path))
-
 (use-package org-web-tools
   :elpaca t
   :commands

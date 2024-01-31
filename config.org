@@ -1329,10 +1329,20 @@ Use the following query to find all todo items that are overdue
   (yas-global-mode))
 #+end_src
 
+*** Yasnippet Capf
+#+begin_src emacs-lisp :results output silent
+(use-package yasnippet-capf
+  :elpaca t
+  :after (:all cape yasnippet)
+  :config
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
+#+end_src
+
 *** Auto-yasnippet
 #+begin_src emacs-lisp :results output silent
 (use-package auto-yasnippet
   :elpaca (:host github :repo "abo-abo/auto-yasnippet")
+  :after yasnippet
   :commands (aya-create
              aya-expand)
   :custom
