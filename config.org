@@ -1720,6 +1720,10 @@ filters*.
   (rg-mode-map
    :states '(motion normal)
    "gg" 'evil-goto-first-line)
+  (rg-mode-map
+   :states 'normal
+    "M-j" "C-j"
+    "M-k" "C-k")
   (grep-mode-map
    :states '(motion normal)
    "n" 'evil-ex-search-next
