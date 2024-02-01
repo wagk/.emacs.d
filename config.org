@@ -1705,12 +1705,7 @@ filters*.
 #+begin_src emacs-lisp :results output silent
 (use-package rg
   :elpaca (:host github :repo "dajva/rg.el")
-  :commands (rg
-             rg-project
-             rg-dwim
-             rg-literal
-             rg-define-search
-             rg-menu)
+  :demand t
   :custom
   (rg-ignore-case 'smart)
   (rg-keymap-prefix "")
