@@ -112,6 +112,9 @@
                       :inherit 'nano-faded))
 
 (with-eval-after-load 'markdown-mode
+  (set-face-attribute 'markdown-strike-through-face nil
+                      :strike-through t
+                      :inherit 'nano-faded)
   (set-face-attribute 'markdown-inline-code-face nil
                       :inherit 'nano-subtle)
   (set-face-attribute 'markdown-code-face nil
