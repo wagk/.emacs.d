@@ -1208,7 +1208,11 @@ Use the following query to find all todo items that are overdue
     (define-auto-insert "\\.md\\'"
       '("Front matter"
         "---\n"
-        "---\n")))
+        "created: " (format-time-string "%F") "\n"
+        "---\n"
+        "\n"
+        "# " (file-name-base (buffer-file-name)) "\n"
+        "\n")))
   (with-eval-after-load 'aggressive-fill-paragraph
     (add-hook 'markdown-mode-hook #'aggressive-fill-paragraph-mode))
   (with-eval-after-load 'org-table
