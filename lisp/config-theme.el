@@ -164,6 +164,7 @@
                     :inherit '(nano-faded sol-superlight-background))
 (set-face-attribute 'font-lock-doc-face nil
                     :foreground 'unspecified
+                    :extend t
                     :inherit '(nano-default sol-superlight-background))
 (set-face-attribute 'font-lock-type-face nil
                     :italic t
