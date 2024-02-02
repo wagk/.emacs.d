@@ -84,6 +84,10 @@
   (with-eval-after-load 'consult
     (evil-ex-define-cmd "recent" 'consult-recent-file)))
 
-(auto-insert-mode)
+(use-package autoinsert
+  :elpaca nil
+  :ensure nil
+  :config
+  (auto-insert-mode))
 
 (provide 'config-emacs)
