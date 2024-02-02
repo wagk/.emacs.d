@@ -1244,7 +1244,7 @@ Use the following query to find all todo items that are overdue
 ** Evil-markdown
 #+begin_src emacs-lisp :results output silent
 (use-package evil-markdown
-  :after (:and evil markdown-mode)
+  :after (markdown-mode)
   :elpaca (:host github :repo "Somelauw/evil-markdown")
   :commands (evil-markdown-mode)
   :hook (markdown-mode-hook . evil-markdown-mode)
