@@ -90,4 +90,39 @@
   :config
   (auto-insert-mode))
 
+(use-package bookmark
+  :elpaca nil
+  :ensure nil
+  :custom
+  (bookmark-save-flag 1 "Write to bookmark file immediately")
+  :custom-face
+  (bookmark-face ((t (:inherit sol-subtle))))
+  :config
+  (defun config-define-bookmark (name path &optional overwrite annotation)
+    "Programmatically creates and stores bookmarks into the bookmark file. We do
+this here because as of 2019-04-01T16:13:14+0800 we have no idea if there is an
+existing interface to do this. If one is found this will be marked obsolete and
+we'll move to that instead.
+
+The bookmark list format is found at `bookmark-alist'.
+
+NAME - Name of the bookmark. PATH - filepath of the bookmark. OVERWRITE - if
+true, overwrite an existing bookmark of the same name if one currently exists.
+ANNOTATION - Optional annotation of the bookmark.
+
+If PATH does not point to anywhere valid, this function is a no-op and no
+bookmark will be created."
+    (require 'bookmark)
+    (when (file-exists-p path)
+      (let* ((annot (if annotation annotation ""))
+             (alist `((filename . ,path)
+                      (front-context-string . "")
+                      (rear-context-string . "")
+                      (position . 0)
+                      (annotation . ,annot))))
+        (bookmark-store name alist overwrite))))
+  (config-define-bookmark "init" user-init-file)
+  (config-define-bookmark "config" user-config-file)
+  (config-define-bookmark "local" user-local-file))
+
 (provide 'config-emacs)
