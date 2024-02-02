@@ -90,26 +90,27 @@
                       :foreground 'unspecified))
 
 (with-eval-after-load 'flycheck
-  (custom-set-faces `(flycheck-error ((((background light))
-                                       (:underline ,sol-red))
-                                      (((background dark))
-                                       (:underline ,sol-red))))
-                    `(flycheck-info ((((background light))
-                                      (:underline ,sol-base2))
-                                     (((background dark))
-                                      (:underline ,sol-base02))))
-                    `(flycheck-warning ((((background light))
-                                         (:underline ,sol-base1))
-                                        (((background dark))
-                                         (:underline ,sol-base01))))))
+  (custom-set-faces
+    `(flycheck-error ((((background light))
+                       (:box ,sol-base1))
+                      (((background dark))
+                       (:box ,sol-base01))))
+    `(flycheck-info ((((background light))
+                      (:underline ,sol-base2))
+                     (((background dark))
+                      (:underline ,sol-base02))))
+    `(flycheck-warning ((((background light))
+                         (:underline ,sol-base1))
+                        (((background dark))
+                         (:underline ,sol-base01))))))
 
 (with-eval-after-load 'magit
-  (set-face-attribute 'magit-diff-revision-summary nil
-                      :bold 'unspecified
-                      :inherit 'nano-strong)
-  (set-face-attribute 'magit-diff-hunk-heading nil
-                      :bold t
-                      :inherit 'nano-faded))
+ (set-face-attribute 'magit-diff-revision-summary nil
+                     :bold 'unspecified
+                     :inherit 'nano-strong)
+ (set-face-attribute 'magit-diff-hunk-heading nil
+                     :bold t
+                     :inherit 'nano-faded))
 
 (with-eval-after-load 'markdown-mode
   (set-face-attribute 'markdown-strike-through-face nil
