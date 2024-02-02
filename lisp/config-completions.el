@@ -45,7 +45,11 @@
     (evil-ex-define-cmd "ii" 'consult-imenu)
     (evil-ex-define-cmd "ia" 'consult-imenu-multi))
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
-  (setq completion-in-region-function #'consult-completion-in-region))
+  (setq completion-in-region-function #'(lambda (&rest args)
+                                          (apply (if vertico-mode
+                                                     #'consult-completion-in-region
+                                                   #'completion--in-region)
+                                                 args))))
 
 (use-package consult-xref
   :ensure nil
