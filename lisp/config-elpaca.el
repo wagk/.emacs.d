@@ -49,4 +49,11 @@
 
 (elpaca-wait)
 
+(with-eval-after-load 'evil
+  (with-eval-after-load 'general
+    (general-define-key
+     :keymaps 'elpaca-ui-mode-map
+     :states 'normal
+      "M" 'elpaca-ui-mark-merge)))
+
 (provide 'config-elpaca)
