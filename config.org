@@ -574,7 +574,6 @@ evil integration)
   (tab-bar-tab-inactive ((t (:inherit default :foreground unspecified :background unspecified))))
   :general
   (evil-window-map
-   "t"   'tab-window-detach
    ;; single window in tab gets moved into frame
    "g f" #'(lambda ()
              (interactive)
