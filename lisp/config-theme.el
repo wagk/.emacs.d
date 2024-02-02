@@ -239,6 +239,10 @@
                      :background sol-base2))
 
 (with-eval-after-load 'smerge-mode
+  (set-face-attribute 'smerge-markers nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-subtle)
   (set-face-attribute 'smerge-base nil
                       :foreground sol-blue
                       :background 'unspecified)
