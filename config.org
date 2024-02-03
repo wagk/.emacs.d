@@ -1182,8 +1182,9 @@ Use the following query to find all todo items that are overdue
   :elpaca (:host github :repo "Somelauw/evil-markdown")
   :commands (evil-markdown-mode)
   :hook (markdown-mode-hook . evil-markdown-mode)
-  :general
-  (evil-markdown-mode-map
+  :config
+  (general-define-key
+   :keymaps 'evil-markdown-mode-map
    :states 'insert
    "M-J" 'markdown-move-subtree-down
    "M-K" 'markdown-move-subtree-up
