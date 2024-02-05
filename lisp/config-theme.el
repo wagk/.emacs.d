@@ -325,21 +325,6 @@
                       :foreground sol-blue
                       :background 'unspecified))
 
-(with-eval-after-load 'diff
-  (set-face-attribute 'diff-changed-unspecified nil
-                      :background 'unspecified
-                      :inherit '(diff-changed sol-superlight-background))
-  (set-face-attribute 'diff-error nil
-                      :background 'unspecified
-                      :foreground sol-red)
-  (set-face-attribute 'diff-indicator-added nil
-                      :foreground 'unspecified)
-  (set-face-attribute 'diff-indicator-changed nil
-                      :foreground 'unspecified)
-  (set-face-attribute 'diff-indicator-removed nil
-                      :foreground 'unspecified))
-
-
 ;; Solarized theme
 
 (use-package solarized-theme
