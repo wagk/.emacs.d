@@ -185,6 +185,9 @@
   (set-face-attribute 'tree-sitter-hl-face:function.builtin nil
                       :inherit 'tree-sitter-hl-face:function)
 
+  (set-face-attribute 'tree-sitter-hl-face:function.macro nil
+                      :inherit 'tree-sitter-hl-face:function)
+
   (set-face-attribute 'tree-sitter-hl-face:method nil
                       :inherit 'tree-sitter-hl-face:function)
   (set-face-attribute 'tree-sitter-hl-face:method.call nil
@@ -193,8 +196,7 @@
   (set-face-attribute 'tree-sitter-hl-face:variable.builtin nil
                       :inherit 'tree-sitter-hl-face:variable)
   (set-face-attribute 'tree-sitter-hl-face:variable.special nil
-                      :bold t
-                      :inherit 'font-lock-warning-face)
+                      :inherit 'nano-strong)
 
   (set-face-attribute 'tree-sitter-hl-face:attribute nil
                       :inherit 'nano-default)
@@ -207,9 +209,6 @@
                       :inherit 'tree-sitter-hl-face:type)
   (set-face-attribute 'tree-sitter-hl-face:type.super nil
                       :inherit 'tree-sitter-hl-face:type)
-
-  (set-face-attribute 'tree-sitter-hl-face:function.macro nil
-                      :inherit 'nano-salient)
 
   (set-face-attribute 'tree-sitter-hl-face:property nil
                       :italic nil
