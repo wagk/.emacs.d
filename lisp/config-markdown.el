@@ -12,7 +12,7 @@
   (markdown-asymmetric-header t)
   (markdown-code-block-braces t)
   (markdown-enable-highlighting-syntax t)
-  (markdown-enable-math t)
+  (markdown-enable-math nil)
   (markdown-fontify-code-blocks-natively t)
   (markdown-footnote-location 'subtree)
   (markdown-gfm-uppercase-checkbox nil)
