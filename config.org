@@ -2173,6 +2173,7 @@ Or evil-spongebob if you want to think of it that way.
   :elpaca t
   :commands (lsp lsp-deferred)
   :custom
+  (lsp-enable-links nil "We don't rely on clickable links and they clutter the color")
   (lsp-headerline-breadcrumb-enable t)
   (lsp-headerline-breadcrumb-enable-diagnostics nil)
   (lsp-file-watch-threshold 1500)
