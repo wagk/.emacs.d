@@ -59,14 +59,8 @@
                       (elpaca-merge   . "M")
                       (elpaca-pull    . "P"))))
     (mapcar (lambda (elem)
-              (setf (--> elem
-                         (cdr it)
-                         (plist-get it :prefix))
-                    (--> subst-list
-                         (assoc (car elem) it)
-                         (cdr it)
-                         ;; if unhandled, default to "X"
-                         (or it "X"))))
+              (setf (plist-get (cdr elem) :prefix)
+                    (or (cdr (assoc (car elem) subst-list)) "X")))
             elpaca-ui-marks)))
 
 (with-eval-after-load 'evil
