@@ -112,6 +112,14 @@
                      :bold t
                      :inherit 'nano-faded))
 
+(with-eval-after-load 'transient
+  (set-face-attribute 'transient-key-exit nil
+                      :foreground sol-red)
+  (set-face-attribute 'transient-key-return nil
+                      :foreground sol-yellow)
+  (set-face-attribute 'transient-key-stay nil
+                      :foreground sol-blue))
+
 (with-eval-after-load 'markdown-mode
   (set-face-attribute 'markdown-strike-through-face nil
                       :strike-through t
