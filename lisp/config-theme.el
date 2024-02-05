@@ -284,6 +284,22 @@
                       :bold 'unspecified
                       :inherit 'nano-default))
 
+(with-eval-after-load 'undo-tree
+  (set-face-attribute 'undo-tree-visualizer-default-face nil
+                      :foreground 'unspecified
+                      :inherit 'nano-default)
+  (set-face-attribute 'undo-tree-visualizer-active-branch-face nil
+                      :bold 'unspecified
+                      :foreground 'unspecified
+                      :inherit 'nano-strong)
+  (set-face-attribute 'undo-tree-visualizer-current-face nil
+                      :foreground 'unspecified
+                      :inherit 'nano-salient)
+  (set-face-attribute 'undo-tree-visualizer-register-face nil
+                      :foreground sol-yellow)
+  (set-face-attribute 'undo-tree-visualizer-unmodified-face nil
+                      :foreground sol-blue))
+
 ;; Solarized theme
 
 (use-package solarized-theme
