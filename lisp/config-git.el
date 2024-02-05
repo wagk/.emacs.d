@@ -176,6 +176,7 @@
   (evil-ex-define-cmd "gtime" #'git-timemachine))
 
 (use-package blamer
+  :disabled t
   :elpaca (:host github :repo "Artawower/blamer.el")
   :custom
   (blamer-commit-formatter ": %s")
