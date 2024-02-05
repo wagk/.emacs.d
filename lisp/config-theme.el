@@ -308,6 +308,23 @@
   (set-face-attribute 'undo-tree-visualizer-unmodified-face nil
                       :foreground sol-blue))
 
+(with-eval-after-load 'avy
+  (set-face-attribute 'avy-background-face nil
+                      :foreground 'unspecified
+                      :inherit 'nano-default)
+  (set-face-attribute 'avy-lead-face nil
+                      :foreground sol-red
+                      :background 'unspecified)
+  (set-face-attribute 'avy-lead-face-0 nil
+                      :foreground sol-magenta
+                      :background 'unspecified)
+  (set-face-attribute 'avy-lead-face-1 nil
+                      :foreground sol-violet
+                      :background 'unspecified)
+  (set-face-attribute 'avy-lead-face-2 nil
+                      :foreground sol-blue
+                      :background 'unspecified))
+
 ;; Solarized theme
 
 (use-package solarized-theme
