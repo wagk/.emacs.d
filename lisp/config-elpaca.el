@@ -49,6 +49,26 @@
 
 (elpaca-wait)
 
+(if (not (boundp 'elpaca-ui-marks))
+    (warn "elpaca-ui-marks can't be found! Skipping configuration")
+  ;; Replace prefix emojis with non-emojis.
+  (let ((subst-list '((elpaca-delete  . "D")
+                      (elpaca-try     . "T")
+                      (elpaca-rebuild . "R")
+                      (elpaca-fetch   . "F")
+                      (elpaca-merge   . "M")
+                      (elpaca-pull    . "P"))))
+    (mapcar (lambda (elem)
+              (setf (--> elem
+                         (cdr it)
+                         (plist-get it :prefix))
+                    (--> subst-list
+                         (assoc (car elem) it)
+                         (cdr it)
+                         ;; if unhandled, default to "X"
+                         (or it "X"))))
+            elpaca-ui-marks)))
+
 (with-eval-after-load 'evil
   (with-eval-after-load 'general
     (general-define-key
