@@ -213,6 +213,7 @@
     ("currnet" "current" nil :count 11)
     ("currnetly" "currently" nil :count 3)
     ("cusotm" "custom" nil :count 1)
+    ("customizatino" "customization" nil :count 1)
     ("danglign" "dangling" nil :count 1)
     ("decisoin" "decision" nil :count 1)
     ("decison" "decision" nil :count 1)
