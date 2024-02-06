@@ -143,5 +143,10 @@ bookmark will be created."
     (set-face-attribute 'diff-indicator-removed nil
                         :foreground 'unspecified)))
 
+(use-package calendar
+  :ensure nil
+  :elpaca nil
+  :custom
+  (calendar-week-start-day 1 "monday"))
 
 (provide 'config-emacs)
