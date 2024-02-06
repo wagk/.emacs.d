@@ -76,6 +76,7 @@
 (require 'config-theme)
 (require 'config-git)
 (require 'config-completions)
+(require 'config-project)
 (require 'config-emacs)
 (require 'config-org)
 (require 'config-org-capture)
