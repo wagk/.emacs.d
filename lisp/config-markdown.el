@@ -149,7 +149,7 @@ point."
             :empty-lines 1
             :after-finalize
             ,#'(lambda () (setq org-capture-last-stored-marker (make-marker)))
-            :template "# %?")))))
+            :template "%?")))))
 
 (with-eval-after-load 'rg
   (rg-define-search config-markdown-search-in-notes
