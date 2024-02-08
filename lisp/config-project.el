@@ -29,7 +29,7 @@
   (general-define-key
    :keymaps 'project-prefix-map
    "b" 'consult-project-buffer
-   "C" 'consult-compile-error))
+   "C-c" 'consult-compile-error))
 
 (with-eval-after-load 'evil
   (cl-defun --project-find-dir-in-split ()
