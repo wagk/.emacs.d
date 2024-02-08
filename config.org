@@ -2104,7 +2104,7 @@ Use this instead of pretty mode because it's built in and shouldn't
 spaz out as much
 
 #+begin_src emacs-lisp :results output silent
-(global-prettify-symbols-mode)
+;; (global-prettify-symbols-mode)
 #+end_src
 
 * Studlify operator
