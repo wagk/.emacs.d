@@ -129,6 +129,8 @@
   (set-face-attribute 'markdown-code-face nil
                       :extend t
                       :inherit 'nano-subtle)
+  (set-face-attribute 'markdown-table-face nil
+                      :inherit 'nano-subtle)
   (set-face-attribute 'markdown-reference-face nil
                       :inherit 'nano-default)
   (set-face-attribute 'markdown-italic-face nil
