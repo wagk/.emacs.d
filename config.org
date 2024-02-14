@@ -299,21 +299,6 @@ actually, don't (outside of text modes)
 (add-hook 'after-change-major-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 #+end_src
 
-** Ensure that files being edited are recoverable
-#+begin_src emacs-lisp :results output silent
-(setq delete-old-versions t
-      backup-by-copying t
-      version-control t
-      kept-new-versions 20
-      kept-old-versions 5
-      vc-make-backup-files t)
-(setq savehist-save-minibuffer-history 1
-      savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
-(setq history-length t
-      history-delete-duplicates t)
-(savehist-mode 1)
-#+end_src
-
 ** Stretch caret to cover full width of character
 http://pragmaticemacs.com/emacs/adaptive-cursor-width/
 #+begin_src emacs-lisp :results output silent

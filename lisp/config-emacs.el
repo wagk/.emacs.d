@@ -7,6 +7,14 @@
   :ensure nil
   :elpaca nil
   :custom
+  (history-delete-duplicates t)
+  (history-length t)
+  (version-control t)
+  (delete-old-versions t)
+  (backup-by-copying t)
+  (vc-make-backup-files t)
+  (kept-new-versions 20)
+  (kept-old-versions 5)
   (fill-column 80)
   (ff-always-try-to-create nil)
   :config
@@ -39,6 +47,14 @@
   (general-define-key
    :keymap 'minibuffer-mode-map
    "C-<return>" "RET"))
+
+(use-package savehist
+  :ensure nil
+  :custom
+  (savehist-save-minibuffer-history 1)
+  (savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
+  :config
+  (savehist-mode 1))
 
 (use-package dired
   :demand t
@@ -100,18 +116,18 @@
   :config
   (defun config-define-bookmark (name path &optional overwrite annotation)
     "Programmatically creates and stores bookmarks into the bookmark file. We do
-this here because as of 2019-04-01T16:13:14+0800 we have no idea if there is an
-existing interface to do this. If one is found this will be marked obsolete and
-we'll move to that instead.
+   this here because as of 2019-04-01T16:13:14+0800 we have no idea if there is an
+   existing interface to do this. If one is found this will be marked obsolete and
+   we'll move to that instead.
 
-The bookmark list format is found at `bookmark-alist'.
+   The bookmark list format is found at `bookmark-alist'.
 
-NAME - Name of the bookmark. PATH - filepath of the bookmark. OVERWRITE - if
-true, overwrite an existing bookmark of the same name if one currently exists.
-ANNOTATION - Optional annotation of the bookmark.
+   NAME - Name of the bookmark. PATH - filepath of the bookmark. OVERWRITE - if
+   true, overwrite an existing bookmark of the same name if one currently exists.
+   ANNOTATION - Optional annotation of the bookmark.
 
-If PATH does not point to anywhere valid, this function is a no-op and no
-bookmark will be created."
+   If PATH does not point to anywhere valid, this function is a no-op and no
+   bookmark will be created."
     (require 'bookmark)
     (when (file-exists-p path)
       (let* ((annot (if annotation annotation ""))
