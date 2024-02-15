@@ -89,7 +89,7 @@
                (project-shell)
              (multi-term)))))
 
-(defun --compile-command-completing-read ()
+(cl-defun --compile-command-completing-read ()
   (interactive)
   (require 'dash)
   (require 'project)
