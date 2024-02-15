@@ -59,6 +59,8 @@
 (use-package dired
   :demand t
   :ensure nil
+  :hook
+  (dired-mode-hook . hl-line-mode)
   :general
   (dired-mode-map
    :states 'normal
