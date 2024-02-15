@@ -39,8 +39,9 @@
         (name (kill-new name)
               (message "%s" name)))))
 
-  (evil-ex-define-cmd "byl" #'--point-to-file-and-line-number)
-  (evil-ex-define-cmd "byf" #'--kill-buffer-path))
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "byl" #'--point-to-file-and-line-number)
+    (evil-ex-define-cmd "byf" #'--kill-buffer-path)))
 
 (with-eval-after-load 'minibuffer
   (general-define-key

@@ -250,8 +250,6 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
    "i" 'evil-indent-plus-i-indent-up
    "I" 'evil-indent-plus-a-indent-up))
 
-(elpaca-wait)
-
 (with-eval-after-load 'evil
   (require 'config-evil-helpers))
 

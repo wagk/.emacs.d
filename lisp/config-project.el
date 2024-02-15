@@ -145,7 +145,8 @@
       (f-touch readme-path))
     (find-file readme-path)))
 
-(--evil-ex-define-cmds-splits-and-tabs "readme" #'--project-find-readme)
+(with-eval-after-load 'config-evil-helpers
+  (--evil-ex-define-cmds-splits-and-tabs "readme" #'--project-find-readme))
 
 (with-eval-after-load 'rg
   (general-define-key
