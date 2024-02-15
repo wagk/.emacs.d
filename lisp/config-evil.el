@@ -9,7 +9,6 @@
 ;; NOTE: reddit notes that there might still be some history
 ;; corruption?
 (use-package undo-tree
-  :elpaca t
   :demand t
   :blackout t
   :commands (turn-on-undo-tree-mode)
@@ -28,8 +27,7 @@
       "U"     'undo-tree-visualize)))
 
 ;; Needed for g; and g,
-(use-package goto-chg
-  :elpaca t)
+(use-package goto-chg)
 
 ;;; Evil-mode
 
@@ -67,7 +65,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 
 (use-package evil
   :demand t
-  :elpaca (:host github :repo "emacs-evil/evil")
+  :ensure (:host github :repo "emacs-evil/evil")
   :commands (evil-set-initial-state
              evil-insert-state
              evil-ex-define-cmd)
@@ -161,7 +159,6 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 ;;; evil-collection
 
 (use-package evil-collection
-  :elpaca t
   :after (evil)
   :custom
   (evil-collection-setup-minibuffer t)
@@ -172,7 +169,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (evil-collection-init))
 
 (use-package evil-lion
-  :elpaca (:host github :repo "edkolev/evil-lion")
+  :ensure (:host github :repo "edkolev/evil-lion")
   :after (evil)
   :general
   (:keymaps '(normal visual)
@@ -190,16 +187,16 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 ;; :tyank             copy range into tmux paste buffer, requires running under tmux
 ;; :tput              paste from tmux paste nuffer, requires running under tmux
 (use-package evil-expat
-  :elpaca (:host github :repo "edkolev/evil-expat"))
+  :ensure (:host github :repo "edkolev/evil-expat"))
 
 (use-package evil-matchit
-  :elpaca (:host github :repo "redguardtoo/evil-matchit")
+  :ensure (:host github :repo "redguardtoo/evil-matchit")
   :after evil
   :config
   (global-evil-matchit-mode))
 
 (use-package evil-visualstar
-  :elpaca (:host github :repo "bling/evil-visualstar")
+  :ensure (:host github :repo "bling/evil-visualstar")
   :general
   (:keymaps 'visual
    "*" 'evil-visualstar/begin-search-forward
@@ -210,14 +207,13 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
  "C-\\" 'toggle-input-method)
 
 (use-package evil-surround
-  :elpaca (:host github :repo "emacs-evil/evil-surround")
+  :ensure (:host github :repo "emacs-evil/evil-surround")
   :after (evil)
   :config
   (global-evil-surround-mode))
 
 (use-package evil-embrace
   :disabled t
-  :elpaca t
   :custom
   (evil-embrace-show-help-p
    nil
@@ -226,7 +222,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (evil-embrace-enable-evil-surround-integration))
 
 (use-package evil-args
-  :elpaca (:host github :repo "wcsmith/evil-args")
+  :ensure (:host github :repo "wcsmith/evil-args")
   :after (evil)
   :general
   (evil-inner-text-objects-map
@@ -239,13 +235,13 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (push ">" evil-args-closers))
 
 (use-package evil-commentary
-  :elpaca (:host github :repo "linktohack/evil-commentary")
+  :ensure (:host github :repo "linktohack/evil-commentary")
   :after (evil)
   :config
   (evil-commentary-mode))
 
 (use-package evil-indent-plus
-  :elpaca (:host github :repo "TheBB/evil-indent-plus")
+  :ensure (:host github :repo "TheBB/evil-indent-plus")
   :general
   (evil-inner-text-objects-map
    "i" 'evil-indent-plus-i-indent

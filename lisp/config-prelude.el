@@ -81,41 +81,41 @@
 ;; Package stuff end
 
 ;; https://github.com/magnars/dash.el
-(use-package dash :elpaca t)
+(use-package dash)
 
 ;; https://github.com/plexus/a.el/
 ;; alist functions
-(use-package a :elpaca t)
+(use-package a)
 
 ;; https://github.com/rejeep/f.el/
 ;; file functions
-(use-package f :elpaca t)
+(use-package f)
 
 ;; https://github.com/magnars/s.el/
 ;; string functions
-(use-package s :elpaca t)
+(use-package s)
 
 ;; https://github.com/Wilfred/ht.el/
 ;; hash-table functions
-(use-package ht :elpaca t)
+(use-package ht)
 
 ;; https://github.com/alphapapa/ts.el
 ;; date and time functions
-(use-package ts :elpaca t)
+(use-package ts)
 
-(use-package async :elpaca t)
+(use-package async)
 
 (use-package general
-  :elpaca (:host github :repo "noctuid/general.el")
+  :ensure (:host github :repo "noctuid/general.el")
   :init
   (defconst my-default-evil-leader-key "SPC"))
 
 (use-package no-littering
-  :elpaca (:host github :repo "emacscollective/no-littering"))
+  :ensure (:host github :repo "emacscollective/no-littering"))
 
 (use-package restart-emacs
   :if (not (eq system-type 'darwin))
-  :elpaca (:host github :repo "iqbalansari/restart-emacs")
+  :ensure (:host github :repo "iqbalansari/restart-emacs")
   :commands (restart-emacs restart-emacs-start-new-emacs)
   :init
   (with-eval-after-load 'evil
@@ -123,7 +123,7 @@
     (evil-ex-define-cmd "restarttest"
                         'restart-emacs-start-new-emacs)))
 
-(use-package blackout :elpaca t)
+(use-package blackout)
 
 (elpaca-wait)
 

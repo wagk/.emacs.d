@@ -5,7 +5,6 @@
 (use-package emacs
   :demand t
   :ensure nil
-  :elpaca nil
   :custom
   (history-delete-duplicates t)
   (history-length t)
@@ -59,7 +58,6 @@
 (use-package dired
   :demand t
   :ensure nil
-  :elpaca nil
   :general
   (dired-mode-map
    :states 'normal
@@ -91,7 +89,6 @@
                                          (dired-jump)))))
 
 (use-package recentf
-  :elpaca nil
   :ensure nil
   :custom
   (recentf-max-saved-items nil)
@@ -101,13 +98,11 @@
     (evil-ex-define-cmd "recent" 'consult-recent-file)))
 
 (use-package autoinsert
-  :elpaca nil
   :ensure nil
   :config
   (auto-insert-mode))
 
 (use-package bookmark
-  :elpaca nil
   :ensure nil
   :custom
   (bookmark-save-flag 1 "Write to bookmark file immediately")
@@ -142,7 +137,6 @@
   (config-define-bookmark "local" user-local-file))
 
 (use-package diff
-  :elpaca nil
   :ensure nil
   :config
   (with-eval-after-load 'config-theme
@@ -161,7 +155,7 @@
 
 (use-package calendar
   :ensure nil
-  :elpaca nil
+  
   :custom
   (calendar-week-start-day 1 "monday"))
 

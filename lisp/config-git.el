@@ -2,7 +2,7 @@
 (require 'config-theme)
 
 (use-package transient
-  :elpaca (:host github :repo "magit/transient"))
+  :ensure (:host github :repo "magit/transient"))
 
 (when (eq system-type 'windows-nt)
   ;; magit requires seq 2.24, windows only seems to have 2.23
@@ -16,7 +16,7 @@
                        elpaca-build-steps))
             (list #'--elpaca-unload-seq #'elpaca--activate-package)))
   (use-package seq
-    :elpaca `(seq :build ,(--elpaca-build-seq))
+    :ensure `(seq :build ,(--elpaca-build-seq))
     :demand t)
   (elpaca-wait))
 
@@ -27,7 +27,7 @@
 ;;
 ;; [this issue]: https://github.com/magit/magit/issues/1497
 (use-package magit
-  :elpaca (:host github :repo "magit/magit" :branch "main")
+  :ensure (:host github :repo "magit/magit" :branch "main")
   :after transient
   :commands (magit
              magit-status
@@ -112,7 +112,7 @@
 ;; branch todos instead of it being an appended section
 (use-package magit-todos
   :disabled t ;; we disabled hl-todo
-  :elpaca (:host github :repo "alphapapa/magit-todos")
+  :ensure (:host github :repo "alphapapa/magit-todos")
   :custom
   (magit-todos-ignore-case t)
   (magit-todos-nice
@@ -136,11 +136,9 @@
   (magit-status-mode-hook . magit-todos-mode))
 
 (use-package magit-lfs
-  :elpaca t
   :after magit)
 
 (use-package git-link
-  :elpaca t
   :commands (git-link
              git-link-commit
              git-link-homepage)
@@ -163,7 +161,6 @@
                                    (browse-url (concat url "/pulls"))))))
 
 (use-package git-timemachine
-  :elpaca t
   :commands git-timemachine
   :general
   (git-timemachine-mode-map
@@ -177,7 +174,7 @@
 
 (use-package blamer
   :disabled t
-  :elpaca (:host github :repo "Artawower/blamer.el")
+  :ensure (:host github :repo "Artawower/blamer.el")
   :custom
   (blamer-commit-formatter ": %s")
   (blamer-min-offset 5)

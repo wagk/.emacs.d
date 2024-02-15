@@ -6,7 +6,6 @@
 ;; history
 (use-package vertico
   :demand t
-  :elpaca t
   :custom
   (vertico-count 23)
   :general
@@ -24,9 +23,9 @@
   (vertico-mode))
 
 (use-package prescient
-  :elpaca (:host github
-             :repo "radian-software/prescient.el"
-             :files (:defaults "/*.el"))
+  :ensure (:host github
+           :repo "radian-software/prescient.el"
+           :files (:defaults "/*.el"))
   :config
   (with-eval-after-load 'vertico
     (vertico-prescient-mode))
@@ -35,7 +34,6 @@
 
 (use-package consult
   :demand t
-  :elpaca t
   :general
   (:states 'normal
    "g /" #'consult-line)
@@ -53,20 +51,18 @@
 
 (use-package consult-xref
   :ensure nil
-  :elpaca nil
   :after (:all consult xref)
   :config
   (setq xref-show-xrefs-function 'consult-xref))
 
 (use-package consult-git-log-grep
-  :elpaca (:host github :repo "ghosty141/consult-git-log-grep")
+  :ensure (:host github :repo "ghosty141/consult-git-log-grep")
   :commands (consult-git-log-grep)
   :config
   (with-eval-after-load 'magit
     (set-default 'consult-git-log-grep-open-function #'magit-show-commit)))
 
 (use-package consult-dir
-  :elpaca t
   :commands consult-dir
   :custom
   (consult-dir-default-command #'find-file)
@@ -75,12 +71,10 @@
     (--evil-define-splits "mm" #'consult-dir)))
 
 (use-package marginalia
-  :elpaca t
   :after consult
   :config (marginalia-mode))
 
 (use-package corfu
-  :elpaca t
   ;; normal tab-completion seems to beat this with how it does
   ;; incremental completions
   :custom
@@ -105,7 +99,6 @@
   (global-corfu-mode))
 
 (use-package embark
-  :elpaca t
   :after vertico
   :commands (embark-act
              embark-dwim
@@ -120,10 +113,10 @@
    "C-<SPC>" 'embark-act))
 
 (use-package embark-consult
-  :elpaca t)
+  )
 
 (use-package cape
-  :elpaca t
+  
   :demand t
   :config
   (add-to-list 'completion-at-point-functions #'cape-abbrev)

@@ -5,7 +5,6 @@
 ;;; org-mode
 
 (use-package org
-  :elpaca t
   :demand t
   :commands (orgtbl-mode
              org-babel-load-file)
@@ -182,14 +181,13 @@
 
 (use-package org-id
   :ensure nil
-  :elpaca nil
   :defer t
   :custom
   (org-id-ts-format "%s")
   (org-id-method 'ts))
 
 (use-package evil-org
-  :elpaca (:host github :repo "Somelauw/evil-org-mode")
+  :ensure (:host github :repo "Somelauw/evil-org-mode")
   :blackout t
   :preface
   (fset 'evil-redirect-digit-argument 'ignore)
@@ -224,7 +222,7 @@
                             calendar)))
 
 (use-package org-web-tools
-  :elpaca t
+  
   :commands
   (org-web-tools-insert-link-for-url
    org-web-tools-insert-web-page-as-entry

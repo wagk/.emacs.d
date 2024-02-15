@@ -5,7 +5,7 @@
 (require 'config-evil)
 
 (use-package markdown-mode
-  :elpaca (:host github :repo "jrblevin/markdown-mode")
+  :ensure (:host github :repo "jrblevin/markdown-mode")
   :mode ("\\.md\\'" . markdown-mode)
   :commands (markdown-mode)
   :custom
@@ -56,12 +56,11 @@
     (markdown-insert-gfm-checkbox)))
 
 (use-package edit-indirect
-  :elpaca t
   :after markdown-mode)
 
 (use-package evil-markdown
   :after (markdown-mode)
-  :elpaca (:host github :repo "Somelauw/evil-markdown")
+  :ensure (:host github :repo "Somelauw/evil-markdown")
   :commands (evil-markdown-mode)
   :hook (markdown-mode-hook . evil-markdown-mode)
   :config

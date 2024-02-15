@@ -1,6 +1,5 @@
 (use-package project
   :ensure nil
-  :elpaca nil
   :init
   (advice-add 'evil-make :before
               #'(lambda (&rest _) (require 'project)))
