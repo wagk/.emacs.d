@@ -2938,3 +2938,14 @@ https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/running-tests
 (use-package buttercup
   )
 #+end_src
+
+* ll-debug
+#+begin_src emacs-lisp :results output silent
+(use-package ll-debug
+  :commands ll-debug-insert
+  :custom
+  (ll-debug-output-prefix "DEBUG-pangt-")
+  :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "dp" #'ll-debug-insert)))
+#+end_src
