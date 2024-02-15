@@ -1244,7 +1244,7 @@ package is known as elisp-mode but it reads as emacs-lisp
 
 #+begin_src emacs-lisp :results output silent
 (use-package elisp-mode
-  :elpaca nil
+  :ensure nil
   :hook ((emacs-lisp-mode-hook . update-evil-shift-width)))
 ;; (emacs-lisp-mode-hook . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
 ;; (emacs-lisp-mode-hook . (lambda ()
