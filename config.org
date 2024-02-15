@@ -1674,6 +1674,14 @@ r-value references.
   :commands clang-format+-mode)
 #+end_src
 
+** clang-capf
+#+begin_src emacs-lisp :results output silent
+(use-package clang-capf
+  :config
+  (add-hook 'c-mode-hook
+            #'(lambda ()
+                (add-hook 'completion-at-point-functions #'clang-capf nil t))))
+#+end_src
 * Beancount
 It's a minor mode, much like how magit's commit mode is a minor mode
 #+begin_src emacs-lisp :results output silent
