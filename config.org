@@ -451,10 +451,12 @@ with Chinese/Japanese.
 #+begin_src emacs-lisp :results output silent
 (defun --set-fonts ()
   (cond
-   ((find-font (font-spec :name "Iosevka")
-               (cond
-                ((eq system-type 'darwin) (set-frame-font "Iosevka-14" nil t))
-                (t (set-frame-font "Iosevka-12" nil t)))))
+   ((find-font (font-spec :name "Sarasa Mono J Nerd Font"))
+    (set-frame-font "Sarasa Mono J Nerd Font-14" nil t))
+   ((find-font (font-spec :name "Iosevka"))
+    (cond
+     ((eq system-type 'darwin) (set-frame-font "Iosevka-14" nil t))
+     (t (set-frame-font "Iosevka-12" nil t))))
    ((find-font (font-spec :name "Courier")) (set-frame-font "Courier-10" nil t)))
   (when (find-font (font-spec :name "Iosevka"))
     (custom-set-faces '(fixed-pitch ((t (:family "Iosevka")))))
