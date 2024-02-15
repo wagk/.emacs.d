@@ -72,6 +72,7 @@
 
 (use-package marginalia
   :after consult
+  :demand t
   :config (marginalia-mode))
 
 (use-package corfu
