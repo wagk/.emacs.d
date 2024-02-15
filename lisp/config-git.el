@@ -172,6 +172,10 @@
   :init
   (evil-ex-define-cmd "gtime" #'git-timemachine))
 
+(use-package abridge-diff
+  :after magit
+  :hook (magit-diff-mode-hook . abridge-diff-enable))
+
 (use-package blamer
   :disabled t
   :ensure (:host github :repo "Artawower/blamer.el")
