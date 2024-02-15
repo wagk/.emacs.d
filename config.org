@@ -1671,8 +1671,7 @@ r-value references.
 *** Clang-Format+
 #+begin_src emacs-lisp :results output silent
 (use-package clang-format+
-  :commands clang-format+-mode
-  )
+  :commands clang-format+-mode)
 #+end_src
 
 * Beancount
@@ -2468,8 +2467,7 @@ Just do the scratch buffer simple and stupidly
 
 * Hydras
 #+begin_src emacs-lisp :results output silent
-(use-package hydra
-  )
+(use-package hydra)
 #+end_src
 
 * Evaluation Result Overlay for Emacs Lisp
@@ -2498,8 +2496,7 @@ Just do the scratch buffer simple and stupidly
 
 * HCL-mode
 #+begin_src emacs-lisp :results output silent
-(use-package hcl-mode
-  )
+(use-package hcl-mode)
 #+end_src
 
 * Terraform mode
@@ -2522,8 +2519,7 @@ https://github.com/Silex/docker.el
 
 * Dockerfile mode
 #+begin_src emacs-lisp :results output silent
-(use-package dockerfile-mode
-  )
+(use-package dockerfile-mode)
 #+end_src
 
 * mmm-mode
@@ -2655,14 +2651,12 @@ https://github.com/akermu/emacs-libvterm
 
 * Earthfile
 #+begin_src emacs-lisp :results output silent
-(use-package earthfile-mode
-  )
+(use-package earthfile-mode)
 #+end_src
 
 * Asciidoc
 #+begin_src emacs-lisp :results output silent
-(use-package adoc-mode
-  )
+(use-package adoc-mode)
 #+end_src
 
 * Scopeline
@@ -2844,8 +2838,7 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
 
 #+begin_src emacs-lisp :results output silent
 (use-package realgud
-  :disabled t
-  )
+  :disabled t)
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
@@ -2928,8 +2921,7 @@ what the benefits are.
 
 * Rainbow Mode
 #+begin_src emacs-lisp :results output silent
-(use-package rainbow-mode
-  )
+(use-package rainbow-mode)
 #+end_src
 
 * Buttercup                                                            :testing:
@@ -2937,8 +2929,7 @@ https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/writing-tests
 https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/running-tests.md
 
 #+begin_src emacs-lisp :results output silent
-(use-package buttercup
-  )
+(use-package buttercup)
 #+end_src
 
 * ll-debug
