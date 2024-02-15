@@ -64,8 +64,7 @@
 ;; (bootstrap-use-package)
 
 (elpaca elpaca-use-package
-    (elpaca-use-package-mode)
-    (setq elpaca-use-package-by-default t))
+    (elpaca-use-package-mode))
 
 (elpaca-wait)
 
@@ -74,10 +73,7 @@
 ;; download packages if needed
 (customize-set-variable 'use-package-always-defer nil
                         "we don't always lazy load because of explicitness")
-(customize-set-variable 'use-package-always-ensure nil
-                        "always make sure it never skips if not
-                        found. Disabled because we want straight to
-                        do the heavy lifting")
+(customize-set-variable 'use-package-always-ensure t)
 (customize-set-variable 'use-package-verbose t)
 (customize-set-variable 'use-package-compute-statistics t)
 (customize-set-variable 'use-package-hook-name-suffix nil)
