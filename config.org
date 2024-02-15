@@ -2191,7 +2191,9 @@ Or evil-spongebob if you want to think of it that way.
   ;; practically disabling it
   (custom-set-faces `(lsp-flycheck-warning-unnecessary-face
                       ((t (:foreground unspecified
-                           :underline unspecified))))))
+                           :underline unspecified)))))
+  (with-eval-after-load 'lsp-modeline
+    (setq lsp-modeline-code-action-fallback-icon "Actions Available")))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
