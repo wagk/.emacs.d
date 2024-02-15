@@ -112,8 +112,8 @@
   (:states 'motion
    "C-<SPC>" 'embark-act))
 
-(use-package embark-consult
-  )
+(use-package embark-consult)
+  
 
 (use-package cape
   
