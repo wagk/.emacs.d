@@ -2244,6 +2244,14 @@ snippet is a patch provided in the thread.
                 :character (lsp--column))))))
 #+end_src
 
+** Consult-lsp
+#+begin_src emacs-lisp :results output silent
+(use-package consult-lsp
+  :after (consult lsp)
+  :commands (consult-lsp-diagnostics
+             consult-lsp-symbols
+             consult-lsp-file-symbols))
+#+end_src
 * Code Folding (Origami)
 #+begin_src emacs-lisp :results output silent
 (use-package origami
