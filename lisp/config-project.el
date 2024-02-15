@@ -93,13 +93,13 @@
   (interactive)
   (require 'dash)
   (require 'project)
+  (require 'savehist)
   (let* ((name (project-name (project-current)))
          (history-name (intern (concat "compile-history-" name))))
     ;; If variable doesn't exist yet, create it and mark it for persistence.
     (unless (boundp history-name)
-      (set history-name (list))
-      (with-eval-after-load 'savehist
-        (add-to-list 'savehist-additional-variables history-name)))
+      (set history-name (list)))
+    (add-to-list 'savehist-additional-variables history-name)
     (let ((command (--completing-read "Compile command: "
                                       (eval history-name)))
           (default-directory (or (project-root (project-current))
