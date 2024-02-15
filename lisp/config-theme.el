@@ -332,6 +332,10 @@
                       :foreground sol-blue
                       :background 'unspecified))
 
+(with-eval-after-load 'corfu
+  (set-face-attribute 'corfu-current nil
+                      :bold t))
+
 (with-eval-after-load 'stripe-buffer
   (set-face-attribute 'stripe-highlight nil
                       :background 'unspecified
