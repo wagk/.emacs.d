@@ -17,6 +17,7 @@
   (fill-column 80)
   (ff-always-try-to-create nil)
   :config
+  (column-number-mode)
   (cl-defun --point-to-file-and-line-number ()
     (interactive)
     (require 'project)
