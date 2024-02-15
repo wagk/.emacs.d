@@ -64,11 +64,17 @@
 
 (use-package consult-dir
   :commands consult-dir
-  :custom
-  (consult-dir-default-command #'find-file)
   :init
   (with-eval-after-load 'evil
-    (--evil-define-splits "mm" #'consult-dir)))
+    (--evil-define-splits "mm" #'consult-dir))
+
+  (with-eval-after-load 'project
+    (cl-defun --maybe-project-find-file ()
+      (interactive)
+      (if-let ((project (project-current)))
+          (project-find-file)
+        (find-file)))
+    (setq consult-dir-default-command #'--maybe-project-find-file)))
 
 (use-package marginalia
   :after consult
