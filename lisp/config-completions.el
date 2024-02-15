@@ -80,7 +80,7 @@
   ;; incremental completions
   :demand t
   :custom
-  (corfu-auto t)
+  (corfu-auto nil)
   (corfu-auto-delay 0.2)
   (corfu-auto-prefix 3)
   (corfu-cycle t)
