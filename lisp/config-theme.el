@@ -342,6 +342,13 @@
                       :extend t
                       :inherit 'nano-subtle))
 
+(with-eval-after-load 'lsp-modeline
+  (set-face-attribute 'lsp-modeline-code-actions-face nil
+                      ;; consider just making this nano-faded or something
+                      :foreground sol-yellow)
+  (set-face-attribute 'lsp-modeline-code-actions-preferred-face nil
+                      :foreground sol-red))
+
 ;; Solarized theme
 
 (use-package solarized-theme
