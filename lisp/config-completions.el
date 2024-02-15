@@ -78,12 +78,14 @@
 (use-package corfu
   ;; normal tab-completion seems to beat this with how it does
   ;; incremental completions
+  :demand t
   :custom
   (corfu-auto t)
   (corfu-auto-delay 0.2)
-  (corfu-auto-prefix 1)
+  (corfu-auto-prefix 3)
   (corfu-cycle t)
-  (corfu-quit-no-match t)
+  (corfu-quit-no-match 'separator)
+  (corfu-quit-at-boundary nil)
   :commands
   (corfu-mode
    global-corfu-mode)
@@ -96,7 +98,8 @@
                      :background unspecified))))
   (corfu-deprecated ((t (:inherit shadow :strike-through nil))))
   :config
-  (global-corfu-mode))
+  (global-corfu-mode)
+  (corfu-echo-mode))
 
 (use-package embark
   :after vertico
@@ -123,7 +126,6 @@
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-history)
   (add-to-list 'completion-at-point-functions #'cape-keyword)
-  (add-to-list 'completion-at-point-functions #'cape-symbol)
-  (add-to-list 'completion-at-point-functions #'cape-line))
+  (add-to-list 'completion-at-point-functions #'cape-symbol))
 
 (provide 'config-completions)
