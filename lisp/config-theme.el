@@ -104,6 +104,12 @@
                         (((background dark))
                          (:underline ,sol-base01))))))
 
+(with-eval-after-load 'evil
+  (set-face-attribute 'evil-ex-info nil
+                      :foreground sol-red)
+  (set-face-attribute 'evil-ex-substitute-replacement nil
+                      :foreground sol-red))
+
 (with-eval-after-load 'magit
  (set-face-attribute 'magit-diff-revision-summary nil
                      :bold 'unspecified
