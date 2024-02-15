@@ -332,6 +332,12 @@
                       :foreground sol-blue
                       :background 'unspecified))
 
+(with-eval-after-load 'stripe-buffer
+  (set-face-attribute 'stripe-highlight nil
+                      :background 'unspecified
+                      :extend t
+                      :inherit 'nano-subtle))
+
 ;; Solarized theme
 
 (use-package solarized-theme
