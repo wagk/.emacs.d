@@ -1,6 +1,8 @@
 (require 'use-package)
 (require 'config-theme)
 
+;; More examples about transient can be found at:
+;; https://github.com/positron-solutions/transient-showcase
 (use-package transient
   :ensure (:host github :repo "magit/transient"))
 
