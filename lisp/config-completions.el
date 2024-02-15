@@ -116,7 +116,6 @@
   
 
 (use-package cape
-  
   :demand t
   :config
   (add-to-list 'completion-at-point-functions #'cape-abbrev)
