@@ -6,6 +6,7 @@
   :demand t
   :ensure nil
   :custom
+  (enable-recursive-minibuffers t)
   (history-delete-duplicates t)
   (history-length t)
   (version-control t)
