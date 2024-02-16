@@ -452,24 +452,28 @@ with Chinese/Japanese.
 (defun --set-fonts ()
   (cond
    ((find-font (font-spec :name "Sarasa Mono J Nerd Font"))
-    (set-frame-font "Sarasa Mono J Nerd Font-14" nil t))
+    (set-frame-font "Sarasa Mono J Nerd Font-14" nil t)
+    (custom-set-faces '(fixed-pitch ((t (:family "Sarasa Mono J Nerd Font")))))
+    (custom-set-faces '(variable-pitch ((t (:family "Sarasa Mono J Nerd Font")))))
+    (custom-set-faces '(fixed-pitch-serif ((t (:family "Sarasa Mono J Nerd Font"))))))
    ((find-font (font-spec :name "Iosevka"))
-    (cond
-     ((eq system-type 'darwin) (set-frame-font "Iosevka-14" nil t))
-     (t (set-frame-font "Iosevka-12" nil t))))
-   ((find-font (font-spec :name "Courier")) (set-frame-font "Courier-10" nil t)))
-  (when (find-font (font-spec :name "Iosevka"))
+    (set-frame-font "Iosevka-14" nil t)
     (custom-set-faces '(fixed-pitch ((t (:family "Iosevka")))))
     (custom-set-faces '(variable-pitch ((t (:family "Iosevka")))))
     (custom-set-faces '(fixed-pitch-serif ((t (:family "Iosevka"))))))
+   ((find-font (font-spec :name "Courier"))
+    (set-frame-font "Courier-10" nil t)))
   (when (find-font (font-spec :name "Iosevka Etoile"))
     (custom-set-faces '(variable-pitch ((t (:family "Iosevka Etoile"))))))
   (when (find-font (font-spec :name "Iosevka Aile"))
     (custom-set-faces '(fixed-pitch-serif ((t (:family "Iosevka Aile")))))))
 
-(if (daemonp)
-    (add-hook 'server-after-make-frame-hook #'--set-fonts)
-  (--set-fonts))
+(with-eval-after-load 'elpaca
+  (add-hook 'elpaca-after-init-hook #'--set-fonts))
+
+;; (if (daemonp)
+;;     (add-hook 'server-after-make-frame-hook #'--set-fonts)
+;;   (--set-fonts))
 #+end_src
 
 TODO:
