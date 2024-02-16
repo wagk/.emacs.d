@@ -242,6 +242,7 @@
     ("direcotry" "directory" nil :count 1)
     ("direcotyr" "directory" nil :count 1)
     ("directoyr" "directory" nil :count 9)
+    ("disalbe" "disable" nil :count 1)
     ("disalbed" "disabled" nil :count 2)
     ("discusion" "discussion" nil :count 2)
     ("dispalcement" "displacement" nil :count 1)
