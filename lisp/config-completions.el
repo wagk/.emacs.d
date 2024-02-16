@@ -31,7 +31,9 @@
                                orderless-flex))
   :config
   (add-to-list 'completion-styles 'orderless)
-  (add-to-list 'completion-category-overrides '((file (styles basic partial-completion)))))
+  (add-to-list 'completion-category-overrides
+               '((file
+                  (styles basic partial-completion)))))
 
 (use-package prescient
   :disabled t
@@ -136,7 +138,6 @@
    "C-<SPC>" 'embark-act))
 
 (use-package embark-consult)
-  
 
 (use-package cape
   :demand t
