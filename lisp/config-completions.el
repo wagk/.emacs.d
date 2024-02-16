@@ -23,6 +23,12 @@
   (vertico-mode))
 
 (use-package orderless
+  :custom
+  (orderless-matching-styles '(orderless-literal
+                               orderless-regexp
+                               orderless-initialism
+                               orderless-prefixes
+                               orderless-flex))
   :config
   (add-to-list 'completion-styles 'orderless)
   (add-to-list 'completion-category-overrides '((file (styles basic partial-completion)))))
