@@ -1675,6 +1675,7 @@ r-value references.
 #+end_src
 
 ** clang-capf
+Requires `clang` to be installed (perhaps unsurprisingly).
 #+begin_src emacs-lisp :results output silent
 (use-package clang-capf
   :config
