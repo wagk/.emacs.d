@@ -349,6 +349,10 @@
   (set-face-attribute 'lsp-modeline-code-actions-preferred-face nil
                       :foreground sol-red))
 
+(with-eval-after-load 'orderless
+  (set-face-attribute 'orderless-match-face-0 nil
+                      :inherit 'nano-strong))
+
 ;; Solarized theme
 
 (use-package solarized-theme
