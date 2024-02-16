@@ -69,6 +69,10 @@
 (elpaca-wait)
 
 (customize-set-variable 'load-prefer-newer t)
+
+;; must be set before loading use-package
+(customize-set-variable 'use-package-enable-imenu-support t)
+
 (require 'use-package)
 ;; download packages if needed
 (customize-set-variable 'use-package-always-defer nil
