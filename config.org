@@ -2150,16 +2150,23 @@ Or evil-spongebob if you want to think of it that way.
   (lsp-enable-file-watchers nil)
   :init
   ;; from https://github.com/minad/corfu/wiki#user-content-example-configuration-with-flex
-  (with-eval-after-load 'corfu
-    (customize-set-variable 'lsp-completion-provider :none)
-    (cl-defun --lsp-mode-completion ()
+  (with-eval-after-load 'orderless
+    (setq lsp-completion-provider :none)
+    (cl-defun --lsp-orderless-completion ()
       (setf (->> completion-category-defaults
                  (alist-get 'lsp-capf)
                  (alist-get 'styles))
-            (if (featurep 'prescient)
-                '(prescient)
-              '(flex))))
-    (add-hook 'lsp-completion-mode-hook #'--lsp-mode-completion))
+            '(orderless flex basic)))
+    (add-hook 'lsp-completion-mode-hook #'--lsp-orderless-completion))
+
+  ;; (with-eval-after-load 'prescient
+  ;;   (setq lsp-completion-provider :none)
+  ;;   (cl-defun --lsp-prescient-completion ()
+  ;;     (setf (->> completion-category-defaults
+  ;;                (alist-get 'lsp-capf)
+  ;;                (alist-get 'styles))
+  ;;           '(prescient flex basic)))
+  ;;   (add-hook 'lsp-completion-mode-hook #'--lsp-prescient-completion))
   :config
   ;; https://github.com/emacs-lsp/lsp-mode/issues/3577
   ;; (delete 'lsp-terraform lsp-client-packages)
@@ -2168,10 +2175,10 @@ Or evil-spongebob if you want to think of it that way.
    :states 'normal
    :prefix my-default-evil-leader-key
    "l" lsp-command-map)
-;; (lsp-mode-map
-;;  :states 'normal
-;;  :prefix my-default-evil-leader-key
-;;   "l a a" 'lsp-execute-code-action))
+  ;; (lsp-mode-map
+  ;;  :states 'normal
+  ;;  :prefix my-default-evil-leader-key
+  ;;   "l a a" 'lsp-execute-code-action))
   (with-eval-after-load 'lsp-headerline
    (set-face-attribute 'lsp-headerline-breadcrumb-path-error-face nil
                        :underline `(:color ,sol-red :style line))
