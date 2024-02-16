@@ -24,9 +24,11 @@
 
 (use-package orderless
   :config
-  (add-to-list 'completion-styles 'orderless))
+  (add-to-list 'completion-styles 'orderless)
+  (add-to-list 'completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package prescient
+  :disabled t
   :ensure (:host github
            :repo "radian-software/prescient.el"
            :files (:defaults "/*.el"))
