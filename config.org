@@ -2495,6 +2495,13 @@ Just do the scratch buffer simple and stupidly
    (compilation-mode-hook . visual-line-mode)))
 #+end_src
 
+#+begin_src emacs-lisp :results output silent
+(use-package fancy-compilation
+  :after compile
+  :config
+  (fancy-compilation-mode))
+#+end_src
+
 * Hydras
 #+begin_src emacs-lisp :results output silent
 (use-package hydra)
