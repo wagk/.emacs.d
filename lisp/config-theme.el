@@ -265,7 +265,13 @@
                       :background 'unspecified)
   (set-face-attribute 'smerge-upper nil
                       :foreground sol-red
-                      :background 'unspecified))
+                      :background 'unspecified)
+  (set-face-attribute 'smerge-refined-added nil
+                      :background sol-green
+                      :inherit 'nano-default-i)
+  (set-face-attribute 'smerge-refined-removed nil
+                      :background sol-red
+                      :inherit 'nano-default-i))
 
 (with-eval-after-load 'wgrep
   (set-face-attribute 'wgrep-face nil
