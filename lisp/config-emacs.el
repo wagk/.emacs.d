@@ -95,6 +95,7 @@
                                          (dired-jump)))))
 
 (use-package dired-auto-readme
+  :after dired
   :ensure (:host github :repo "amno1/dired-auto-readme")
   :hook (dired-mode-hook . dired-auto-readme-mode))
 
