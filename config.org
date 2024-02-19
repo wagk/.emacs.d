@@ -2979,3 +2979,26 @@ Zebra patterns for buffer
 (use-package stripe-buffer
   :commands stripe-buffer-mode)
 #+end_src
+
+* Dogears
+#+begin_src emacs-lisp :results output silent
+(use-package dogears
+  :demand t
+  :commands (dogears-list dogears-remember dogears-go)
+  :general
+  (dogears-list-mode-map
+   :states 'normal
+   "RET" 'dogears-list-go
+   "d"   'dogears-list-delete)
+  :init
+  (evil-ex-define-cmd "fa" 'dogears-list)
+  (evil-ex-define-cmd "fr" 'dogears-remember)
+  (evil-ex-define-cmd "ff" 'dogears-go)
+
+  :config
+  (dogears-mode)
+
+  ;; places to remember
+  (add-to-list 'dogears-hooks 'xref-after-jump-hook)
+  (add-to-list 'dogears-hooks 'bookmark-after-jump-hook))
+#+end_src
