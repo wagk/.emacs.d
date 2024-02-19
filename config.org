@@ -2989,7 +2989,7 @@ Zebra patterns for buffer
   (dogears-list-mode-map
    :states 'normal
    "RET" 'dogears-list-go
-   "d"   'dogears-list-delete)
+   "d d" 'dogears-list-delete)
   :init
   (evil-ex-define-cmd "fa" 'dogears-list)
   (evil-ex-define-cmd "fr" 'dogears-remember)
