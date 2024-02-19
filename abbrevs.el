@@ -920,6 +920,7 @@
     ("wih" "with" nil :count 1)
     ("wiht" "with" nil :count 12)
     ("wihtin" "within" nil :count 2)
+    ("wlel" "well" nil :count 1)
     ("wnat" "want" nil :count 38)
     ("wnats" "wants" nil :count 1)
     ("wnhat" "what" nil :count 1)
