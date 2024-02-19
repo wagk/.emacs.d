@@ -63,6 +63,7 @@
   :ensure nil
   :hook
   (dired-mode-hook . hl-line-mode)
+  (dired-mode-hook . dired-hide-details-mode)
   :general
   (dired-mode-map
    :states 'normal

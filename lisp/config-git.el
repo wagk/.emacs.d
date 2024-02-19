@@ -191,4 +191,10 @@
   :hook
   (prog-mode-hook . blamer-mode))
 
+(use-package dired-git-info
+  :ensure (:host github :repo "clemera/dired-git-info")
+  :after (dired)
+  :hook
+  ((dired-after-readin-hook . (lambda () (dired-git-info-auto-enable)))))
+
 (provide 'config-git)

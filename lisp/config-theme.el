@@ -359,6 +359,14 @@
   (set-face-attribute 'orderless-match-face-0 nil
                       :inherit 'nano-strong))
 
+(with-eval-after-load 'dired-git-info
+  (set-face-attribute 'dgi-commit-message-face nil
+                      :inherit 'default))
+
+(with-eval-after-load 'dired
+  (set-face-attribute 'dired-directory nil
+                      :bold t))
+
 ;; Solarized theme
 
 (use-package solarized-theme
