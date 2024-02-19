@@ -116,6 +116,7 @@
 (use-package bookmark
   :ensure nil
   :custom
+  (bookmark-fringe-mark nil)
   (bookmark-save-flag 1 "Write to bookmark file immediately")
   :custom-face
   (bookmark-face ((t (:inherit sol-subtle))))
