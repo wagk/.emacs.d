@@ -79,6 +79,7 @@
    "g /" #'consult-line)
   :config
   (with-eval-after-load 'evil
+    (evil-ex-define-cmd "mb" 'consult-bookmark)
     (evil-ex-define-cmd "bb" 'consult-buffer)
     (evil-ex-define-cmd "ii" 'consult-imenu)
     (evil-ex-define-cmd "ia" 'consult-imenu-multi))
