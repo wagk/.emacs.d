@@ -94,6 +94,10 @@
                                            (my-evil-new-tab nil))
                                          (dired-jump)))))
 
+(use-package dired-auto-readme
+  :ensure (:host github :repo "amno1/dired-auto-readme")
+  :hook (dired-mode-hook . dired-auto-readme-mode))
+
 (use-package recentf
   :ensure nil
   :custom
@@ -161,7 +165,6 @@
 
 (use-package calendar
   :ensure nil
-  
   :custom
   (calendar-week-start-day 1 "monday"))
 
