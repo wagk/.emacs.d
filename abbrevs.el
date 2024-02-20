@@ -400,6 +400,7 @@
     ("htink" "think" nil :count 8)
     ("htis" "this" nil :count 17)
     ("huntry" "hungry" nil :count 1)
+    ("hwat" "what" nil :count 1)
     ("hwen" "when" nil :count 2)
     ("hwihc" "which" nil :count 2)
     ("hwo" "who" nil :count 6)
