@@ -362,13 +362,6 @@ Stolen from https://github.com/bbatsov/crux
 ;; (evil-ex-define-cmd "eval" 'eval-and-replace)
 #+end_src
 
-** Completion
-#+begin_src emacs-lisp :results output silent
-(customize-set-variable 'completion-ignore-case t)
-(customize-set-variable 'read-file-name-completion-ignore-case t)
-(customize-set-variable 'read-buffer-completion-ignore-case t)
-#+end_src
-
 ** Copy file name to keyboard
 #+begin_src emacs-lisp :results output silent
 (defun my-kill-path-to-keyboard ()

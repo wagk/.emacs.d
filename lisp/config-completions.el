@@ -1,6 +1,9 @@
 (require 'use-package)
 
 (setq-default tab-always-indent 'complete)
+(customize-set-variable 'completion-ignore-case t)
+(customize-set-variable 'read-file-name-completion-ignore-case t)
+(customize-set-variable 'read-buffer-completion-ignore-case t)
 
 ;; TODO: Figure out how to delete an entry from the completion
 ;; history
