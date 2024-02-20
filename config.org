@@ -449,31 +449,33 @@ with Chinese/Japanese.
 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ {} <> "'`  ~-_/|\?
 
 #+begin_src emacs-lisp :results output silent
-(defun --set-fonts ()
-  (cond
-   ((find-font (font-spec :name "Sarasa Mono J Nerd Font"))
-    (set-frame-font "Sarasa Mono J Nerd Font-14" nil t)
-    (custom-set-faces '(fixed-pitch ((t (:family "Sarasa Mono J Nerd Font")))))
-    (custom-set-faces '(variable-pitch ((t (:family "Sarasa Mono J Nerd Font")))))
-    (custom-set-faces '(fixed-pitch-serif ((t (:family "Sarasa Mono J Nerd Font"))))))
-   ((find-font (font-spec :name "Iosevka"))
-    (set-frame-font "Iosevka-14" nil t)
-    (custom-set-faces '(fixed-pitch ((t (:family "Iosevka")))))
-    (custom-set-faces '(variable-pitch ((t (:family "Iosevka")))))
-    (custom-set-faces '(fixed-pitch-serif ((t (:family "Iosevka"))))))
-   ((find-font (font-spec :name "Courier"))
-    (set-frame-font "Courier-10" nil t)))
-  (when (find-font (font-spec :name "Iosevka Etoile"))
-    (custom-set-faces '(variable-pitch ((t (:family "Iosevka Etoile"))))))
-  (when (find-font (font-spec :name "Iosevka Aile"))
-    (custom-set-faces '(fixed-pitch-serif ((t (:family "Iosevka Aile")))))))
+(cl-defun --find-and-set-fonts ()
+  (let ((sarasa-mono (font-spec :family "Sarasa Mono J Nerd Font" :size 14))
+        (iosevka (font-spec :family "Iosevka" :size 14))
+        (iosevka-etoile (font-spec :family "Iosevka Etoile" :size 14))
+        (iosevka-aile (font-spec :family "Iosevka Aile" :size 14))
+        (courier (font-spec :family "Courier" :size 14)))
+    (cond
+     ((find-font sarasa-mono)
+      (set-frame-font sarasa-mono nil t)
+      (custom-set-faces `(fixed-pitch ((t (:font ,sarasa-mono))))
+                        `(variable-pitch ((t (:font ,sarasa-mono))))
+                        `(fixed-pitch-serif ((t (:font ,sarasa-mono))))))
+     ((find-font iosevka)
+      (set-frame-font iosevka nil t)
+      (custom-set-faces `(fixed-pitch ((t (:font ,iosevka))))
+                        `(variable-pitch ((t (:font ,iosevka))))
+                        `(fixed-pitch-serif ((t (:font ,iosevka)))))
+      ;; If iosevka proportional fonts are also found, use that.
+      (when (find-font iosevka-etoile)
+        (custom-set-faces `(variable-pitch ((t (:font ,iosevka-etoile))))))
+      (when (find-font iosevka-aile)
+        (custom-set-faces `(fixed-pitch-serif ((t (:font ,iosevka-aile)))))))
+     ((find-font courier)
+      (set-frame-font courier nil t)))))
 
 (with-eval-after-load 'elpaca
-  (add-hook 'elpaca-after-init-hook #'--set-fonts))
-
-;; (if (daemonp)
-;;     (add-hook 'server-after-make-frame-hook #'--set-fonts)
-;;   (--set-fonts))
+  (add-hook 'elpaca-after-init-hook #'--find-and-set-fonts))
 #+end_src
 
 TODO:
