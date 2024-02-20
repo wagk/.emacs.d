@@ -101,8 +101,13 @@
   :general
   (dired-mode-map
    :states 'normal
-   ")" 'dired-auto-readme-mode)
+   ")" '--toggle-dired-auto-readme-mode)
   :init
+  (cl-defun --toggle-dired-auto-readme-mode ()
+    (interactive)
+    (if dired-auto-readme-mode
+        (dired-auto-readme-mode -1)
+      (dired-auto-readme-mode)))
   (add-hook 'dired-mode-hook 'dired-auto-readme-mode 99)
   :config
   (with-eval-after-load 'consult
