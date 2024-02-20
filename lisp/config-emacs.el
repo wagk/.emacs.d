@@ -97,11 +97,13 @@
 (use-package dired-auto-readme
   :after dired
   :ensure (:host github :repo "amno1/dired-auto-readme")
-  :hook (dired-mode-hook . dired-auto-readme-mode)
+  :commands (dired-auto-readme-mode)
   :general
   (dired-mode-map
    :states 'normal
    ")" 'dired-auto-readme-mode)
+  :init
+  (add-hook 'dired-mode-hook 'dired-auto-readme-mode 99)
   :config
   (with-eval-after-load 'consult
     (define-advice consult-imenu (:around (func) toggle-dired-auto-readme-mode)
