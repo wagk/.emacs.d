@@ -38,6 +38,36 @@
   ;; TODO: set documentation string
   (set (car col) (cdr col)))
 
+;; Fonts
+
+(cl-defun --find-and-set-fonts ()
+  (let ((sarasa-mono (font-spec :family "Sarasa Mono J Nerd Font" :size 14))
+        (iosevka (font-spec :family "Iosevka" :size 14))
+        (iosevka-etoile (font-spec :family "Iosevka Etoile" :size 14))
+        (iosevka-aile (font-spec :family "Iosevka Aile" :size 14))
+        (courier (font-spec :family "Courier" :size 14)))
+    (cond
+     ((find-font sarasa-mono)
+      (set-frame-font sarasa-mono nil t)
+      (custom-set-faces `(fixed-pitch ((t (:font ,sarasa-mono))))
+                        `(variable-pitch ((t (:font ,sarasa-mono))))
+                        `(fixed-pitch-serif ((t (:font ,sarasa-mono))))))
+     ((find-font iosevka)
+      (set-frame-font iosevka nil t)
+      (custom-set-faces `(fixed-pitch ((t (:font ,iosevka))))
+                        `(variable-pitch ((t (:font ,iosevka))))
+                        `(fixed-pitch-serif ((t (:font ,iosevka)))))
+      ;; If iosevka proportional fonts are also found, use that.
+      (when (find-font iosevka-etoile)
+        (custom-set-faces `(variable-pitch ((t (:font ,iosevka-etoile))))))
+      (when (find-font iosevka-aile)
+        (custom-set-faces `(fixed-pitch-serif ((t (:font ,iosevka-aile)))))))
+     ((find-font courier)
+      (set-frame-font courier nil t)))))
+
+(with-eval-after-load 'elpaca
+  (add-hook 'elpaca-after-init-hook #'--find-and-set-fonts))
+
 ;; Nano theme
 
 (use-package nano-theme

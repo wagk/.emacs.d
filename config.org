@@ -436,53 +436,6 @@ instead.
 #+begin_src emacs-lisp :results output silent
 (customize-set-value 'inhibit-compacting-font-caches t)
 #+end_src
-** COMMENT Prefer dark backgrounds
-#+begin_src emacs-lisp :results output silent
-(customize-set-variable 'frame-background-mode 'dark)
-(set-terminal-parameter nil 'background-mode 'dark)
-#+end_src
-
-** Fonts
-We are preferring these fonts because they look nicer and play nicer
-with Chinese/Japanese.
-
-0123456789abcdefghijklmnopqrstuvwxyz [] () :;,. !@#$^&*
-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ {} <> "'`  ~-_/|\?
-
-#+begin_src emacs-lisp :results output silent
-(cl-defun --find-and-set-fonts ()
-  (let ((sarasa-mono (font-spec :family "Sarasa Mono J Nerd Font" :size 14))
-        (iosevka (font-spec :family "Iosevka" :size 14))
-        (iosevka-etoile (font-spec :family "Iosevka Etoile" :size 14))
-        (iosevka-aile (font-spec :family "Iosevka Aile" :size 14))
-        (courier (font-spec :family "Courier" :size 14)))
-    (cond
-     ((find-font sarasa-mono)
-      (set-frame-font sarasa-mono nil t)
-      (custom-set-faces `(fixed-pitch ((t (:font ,sarasa-mono))))
-                        `(variable-pitch ((t (:font ,sarasa-mono))))
-                        `(fixed-pitch-serif ((t (:font ,sarasa-mono))))))
-     ((find-font iosevka)
-      (set-frame-font iosevka nil t)
-      (custom-set-faces `(fixed-pitch ((t (:font ,iosevka))))
-                        `(variable-pitch ((t (:font ,iosevka))))
-                        `(fixed-pitch-serif ((t (:font ,iosevka)))))
-      ;; If iosevka proportional fonts are also found, use that.
-      (when (find-font iosevka-etoile)
-        (custom-set-faces `(variable-pitch ((t (:font ,iosevka-etoile))))))
-      (when (find-font iosevka-aile)
-        (custom-set-faces `(fixed-pitch-serif ((t (:font ,iosevka-aile)))))))
-     ((find-font courier)
-      (set-frame-font courier nil t)))))
-
-(with-eval-after-load 'elpaca
-  (add-hook 'elpaca-after-init-hook #'--find-and-set-fonts))
-#+end_src
-
-TODO:
-- [ ] Update variable-pitch to use iosevka-aile
-- [ ] Update fixed-pitch and fixed-pitch-serif
-
 ** Doctor mode
 #+begin_src emacs-lisp :results output silent
 (evil-ex-define-cmd "doc[tor]" 'doctor)
