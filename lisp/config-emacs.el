@@ -121,6 +121,12 @@
 (use-package dired-imenu
   :after dired)
 
+(use-package dired-git-info
+  :ensure (:host github :repo "clemera/dired-git-info")
+  :after dired
+  :hook
+  (dired-after-readin-hook . (lambda () (dired-git-info-auto-enable))))
+
 (use-package recentf
   :ensure nil
   :custom
