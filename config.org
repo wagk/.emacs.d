@@ -2501,6 +2501,9 @@ Just do the scratch buffer simple and stupidly
 #+begin_src emacs-lisp :results output silent
 (use-package fancy-compilation
   :after compile
+  :custom
+  (fancy-compilation-override-colors nil)
+  (fancy-compilation-scroll-output 'first-error)
   :config
   (fancy-compilation-mode))
 #+end_src
