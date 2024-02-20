@@ -437,6 +437,10 @@
                       :background sol-yellow
                       :inherit 'nano-default-i))
 
+(with-eval-after-load 'scopeline
+  (set-face-attribute 'scopeline-face nil
+                      :inherit 'sol-superlight-foreground))
+
 ;; Solarized theme
 
 (use-package solarized-theme
