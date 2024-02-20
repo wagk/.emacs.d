@@ -38,7 +38,7 @@
 (add-hook 'after-init-hook #'elpaca-process-queues)
 
 (when (eq system-type 'windows-nt)
-  (setq elpaca-queue-limit 25)
+  (setq elpaca-queue-limit 20)
   (elpaca-no-symlink-mode))
 
 ;; some issues with https://github.com/progfolio/elpaca/issues/143
