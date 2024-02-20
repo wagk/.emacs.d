@@ -89,23 +89,33 @@
                (project-shell)
              (multi-term)))))
 
+;; (cl-defun --compile-command-completing-read ()
+;;   (interactive)
+;;   (require 'dash)
+;;   (require 'project)
+;;   (require 'savehist)
+;;   (let* ((name (project-name (project-current)))
+;;          (history-name (intern (concat "compile-history-" name))))
+;;     ;; If variable doesn't exist yet, create it and mark it for persistence.
+;;     (unless (boundp history-name)
+;;       (set history-name (list)))
+;;     (add-to-list 'savehist-additional-variables history-name)
+;;     (let ((command (--completing-read "Compile command: "
+;;                                       (eval history-name)))
+;;           (default-directory (or (project-root (project-current))
+;;                                  default-directory)))
+;;       (add-to-history history-name command)
+;;       (compile command))))
+
 (cl-defun --compile-command-completing-read ()
   (interactive)
-  (require 'dash)
   (require 'project)
-  (require 'savehist)
-  (let* ((name (project-name (project-current)))
-         (history-name (intern (concat "compile-history-" name))))
-    ;; If variable doesn't exist yet, create it and mark it for persistence.
-    (unless (boundp history-name)
-      (set history-name (list)))
-    (add-to-list 'savehist-additional-variables history-name)
-    (let ((command (--completing-read "Compile command: "
-                                      (eval history-name)))
-          (default-directory (or (project-root (project-current))
-                                 default-directory)))
-      (add-to-history history-name command)
-      (compile command))))
+  (let ((command (--completing-read "Compile command: "
+                                    compile-history))
+        (default-directory (or (project-root (project-current))
+                               default-directory)))
+    (add-to-history 'compile-history command)
+    (compile command)))
 
 (defun --compile-command-delete ()
   "Finds a compile command and removes it from `compile-history'"
