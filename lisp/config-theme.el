@@ -83,9 +83,10 @@
   :group 'personal)
 
 (with-eval-after-load 'simple
-  (set-face-attribute 'blink-matching-paren-offscreen nil
-                      :foreground 'unspecified
-                      :inherit 'nano-salient))
+  (when (boundp 'blink-matching-paren-offscreen)
+    (set-face-attribute 'blink-matching-paren-offscreen nil
+			:foreground 'unspecified
+			:inherit 'nano-salient)))
 
 (with-eval-after-load 'faces
   (set-face-attribute 'fill-column-indicator nil
