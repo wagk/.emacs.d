@@ -82,6 +82,11 @@
   "Very light background coloring"
   :group 'personal)
 
+(with-eval-after-load 'simple
+  (set-face-attribute 'blink-matching-paren-offscreen nil
+                      :foreground 'unspecified
+                      :inherit 'nano-salient))
+
 (with-eval-after-load 'faces
   (set-face-attribute 'fill-column-indicator nil
                       :inherit 'sol-superlight-foreground)

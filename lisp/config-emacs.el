@@ -17,6 +17,7 @@
   (kept-old-versions 5)
   (fill-column 80)
   (ff-always-try-to-create nil)
+  (blink-matching-paren-highlight-offscreen t)
   :config
   (column-number-mode)
   (cl-defun --point-to-file-and-line-number ()
