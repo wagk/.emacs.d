@@ -1638,6 +1638,8 @@ r-value references.
 Requires `clang` to be installed (perhaps unsurprisingly).
 #+begin_src emacs-lisp :results output silent
 (use-package clang-capf
+  :custom
+  (clang-capf-ignore-case t)
   :config
   (add-hook 'c-mode-hook
             #'(lambda ()
