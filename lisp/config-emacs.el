@@ -97,7 +97,22 @@
 (use-package dired-auto-readme
   :after dired
   :ensure (:host github :repo "amno1/dired-auto-readme")
-  :hook (dired-mode-hook . dired-auto-readme-mode))
+  :hook (dired-mode-hook . dired-auto-readme-mode)
+  :general
+  (dired-mode-map
+   :states 'normal
+   ")" 'dired-auto-readme-mode)
+  :config
+  (with-eval-after-load 'consult
+    (define-advice consult-imenu (:around (func) toggle-dired-auto-readme-mode)
+      (dired-auto-readme-mode -1)
+      (condition-case err
+          (funcall func)
+        (t (dired-auto-readme-mode 1))
+        (:success (dired-auto-readme-mode 1))))))
+
+(use-package dired-imenu
+  :after dired)
 
 (use-package recentf
   :ensure nil
