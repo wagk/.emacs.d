@@ -86,7 +86,9 @@
   (set-face-attribute 'fill-column-indicator nil
                       :inherit 'sol-superlight-foreground)
   (set-face-attribute 'show-paren-match nil
-                      :foreground 'unspecified))
+                      :foreground 'unspecified)
+  (set-face-attribute 'italic nil
+                      :italic t))
 
 (with-eval-after-load 'flycheck
   (custom-set-faces
@@ -366,6 +368,38 @@
 (with-eval-after-load 'dired
   (set-face-attribute 'dired-directory nil
                       :bold t))
+
+(with-eval-after-load 'ansi-color
+  (set-face-attribute 'ansi-color-blue nil
+                      :foreground sol-blue)
+  (set-face-attribute 'ansi-color-bright-blue nil
+                      :background sol-blue
+                      :inherit 'nano-default-i)
+  (set-face-attribute 'ansi-color-cyan nil
+                      :foreground sol-cyan)
+  (set-face-attribute 'ansi-color-bright-cyan nil
+                      :background sol-cyan
+                      :inherit 'nano-default-i)
+  (set-face-attribute 'ansi-color-green nil
+                      :foreground sol-green)
+  (set-face-attribute 'ansi-color-bright-green nil
+                      :background sol-green
+                      :inherit 'nano-default-i)
+  (set-face-attribute 'ansi-color-magenta nil
+                      :foreground sol-magenta)
+  (set-face-attribute 'ansi-color-bright-magenta nil
+                      :background sol-magenta
+                      :inherit 'nano-default-i)
+  (set-face-attribute 'ansi-color-red nil
+                      :foreground sol-red)
+  (set-face-attribute 'ansi-color-bright-red nil
+                      :background sol-red
+                      :inherit 'nano-default-i)
+  (set-face-attribute 'ansi-color-yellow nil
+                      :foreground sol-yellow)
+  (set-face-attribute 'ansi-color-bright-yellow nil
+                      :background sol-yellow
+                      :inherit 'nano-default-i))
 
 ;; Solarized theme
 
