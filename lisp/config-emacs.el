@@ -96,6 +96,7 @@
                                          (dired-jump)))))
 
 (use-package dired-auto-readme
+  :disabled t
   :after dired
   :ensure (:host github :repo "amno1/dired-auto-readme")
   :commands (dired-auto-readme-mode)
@@ -120,7 +121,12 @@
         (:success (dired-auto-readme-mode 1))))))
 
 (use-package dired-imenu
-  :after dired)
+  :after dired
+  :init
+  (add-hook 'dired-mode-hook
+            #'(lambda ()
+                (add-hook 'imenu-after-jump-hook #'dired-find-file nil t))))
+            
 
 (use-package dired-git-info
   :ensure (:host github :repo "clemera/dired-git-info")
