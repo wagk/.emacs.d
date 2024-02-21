@@ -41,7 +41,7 @@
 ;; Fonts
 
 (cl-defun --find-and-set-fonts ()
-  (let ((sarasa-mono (font-spec :family "Sarasa Mono J Nerd Font" :size 14))
+  (let ((sarasa-mono (font-spec :family "Sarasa Mono J" :size 14))
         (iosevka (font-spec :family "Iosevka" :size 14))
         (iosevka-etoile (font-spec :family "Iosevka Etoile" :size 14))
         (iosevka-aile (font-spec :family "Iosevka Aile" :size 14))
@@ -56,14 +56,12 @@
       (set-frame-font iosevka nil t)
       (custom-set-faces `(fixed-pitch ((t (:font ,iosevka))))
                         `(variable-pitch ((t (:font ,iosevka))))
-                        `(fixed-pitch-serif ((t (:font ,iosevka)))))
-      ;; If iosevka proportional fonts are also found, use that.
-      (when (find-font iosevka-etoile)
-        (custom-set-faces `(variable-pitch ((t (:font ,iosevka-etoile))))))
-      (when (find-font iosevka-aile)
-        (custom-set-faces `(fixed-pitch-serif ((t (:font ,iosevka-aile)))))))
-     ((find-font courier)
-      (set-frame-font courier nil t)))))
+                        `(fixed-pitch-serif ((t (:font ,iosevka)))))))
+    ;; If iosevka proportional fonts are also found, use that.
+    (when (find-font iosevka-etoile)
+      (custom-set-faces `(variable-pitch ((t (:font ,iosevka-etoile))))))
+    (when (find-font iosevka-aile)
+      (custom-set-faces `(fixed-pitch-serif ((t (:font ,iosevka-aile))))))))
 
 (with-eval-after-load 'elpaca
   (add-hook 'elpaca-after-init-hook #'--find-and-set-fonts))
