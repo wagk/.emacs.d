@@ -2951,9 +2951,14 @@ Zebra patterns for buffer
   (evil-ex-define-cmd "fa" 'dogears-list)
   (evil-ex-define-cmd "fr" 'dogears-remember)
   (evil-ex-define-cmd "ff" 'dogears-go)
+  (evil-ex-define-cmd "fn" 'dogears-forward)
+  (evil-ex-define-cmd "fp" 'dogears-back)
 
   :config
   (dogears-mode)
+
+  (when savehist-mode
+    (add-to-list 'savehist-additional-variables 'dogears-list))
 
   ;; places to remember
   (add-to-list 'dogears-hooks 'xref-after-jump-hook)
