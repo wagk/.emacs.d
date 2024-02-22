@@ -13,5 +13,7 @@
     autostash = true
 [pull]
     rebase = true
+[push]
+    autoSetupRemote = true
 [log]
     date = iso
