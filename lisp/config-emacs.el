@@ -131,7 +131,13 @@
   (add-hook 'dired-mode-hook
             #'(lambda ()
                 (add-hook 'imenu-after-jump-hook #'dired-find-file nil t))))
-            
+
+(use-package flymake
+  :ensure nil
+  :custom
+  (flymake-error-bitmap nil)
+  (flymake-warning-bitmap nil)
+  (flymake-note-bitmap nil))
 
 (use-package dired-git-info
   :ensure (:host github :repo "clemera/dired-git-info")
