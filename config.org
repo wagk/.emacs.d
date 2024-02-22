@@ -2161,6 +2161,12 @@ Or evil-spongebob if you want to think of it that way.
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
+(use-package lsp-ui
+  :after lsp
+  :hook (lsp-mode-hook . lsp-ui-mode))
+#+end_src
+
+#+begin_src emacs-lisp :results output silent
 (with-eval-after-load 'lsp-rust
   (customize-set-value 'lsp-rust-clippy-preference "on")
   (customize-set-value 'lsp-rust-cfg-test t))
