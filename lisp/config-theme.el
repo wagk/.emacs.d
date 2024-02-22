@@ -124,6 +124,21 @@
   (set-face-attribute 'italic nil
                       :italic t))
 
+(with-eval-after-load 'flymake
+  (custom-set-faces
+    `(flymake-error ((((background light))
+                      (:box ,sol-base1))
+                     (((background dark))
+                      (:box ,sol-base01))))
+    `(flymake-note ((((background light))
+                     (:underline ,sol-base2))
+                    (((background dark))
+                     (:underline ,sol-base02))))
+    `(flymake-warning ((((background light))
+                        (:underline ,sol-base1))
+                       (((background dark))
+                        (:underline ,sol-base01))))))
+
 (with-eval-after-load 'flycheck
   (custom-set-faces
     `(flycheck-error ((((background light))
