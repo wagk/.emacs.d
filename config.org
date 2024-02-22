@@ -2964,5 +2964,6 @@ Zebra patterns for buffer
 
   ;; places to remember
   (add-to-list 'dogears-hooks 'xref-after-jump-hook)
-  (add-to-list 'dogears-hooks 'bookmark-after-jump-hook))
+  (add-to-list 'dogears-hooks 'bookmark-after-jump-hook)
+  (add-to-list 'dogears-functions 'set-marker))
 #+end_src
