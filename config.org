@@ -2102,6 +2102,7 @@ Or evil-spongebob if you want to think of it that way.
   (lsp-headerline-breadcrumb-enable t)
   (lsp-headerline-breadcrumb-enable-diagnostics nil)
   (lsp-file-watch-threshold 1500)
+  (lsp-imenu-index-function #'lsp-imenu-create-categorized-index)
   (lsp-enable-file-watchers nil)
   :init
   ;; from https://github.com/minad/corfu/wiki#user-content-example-configuration-with-flex
