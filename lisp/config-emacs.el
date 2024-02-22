@@ -120,6 +120,11 @@
         (t (dired-auto-readme-mode 1))
         (:success (dired-auto-readme-mode 1))))))
 
+(use-package imenu
+  :ensure nil
+  :custom
+  (imenu-auto-rescan t))
+
 (use-package dired-imenu
   :after dired
   :init
