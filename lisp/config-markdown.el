@@ -115,13 +115,15 @@ point."
        (newline-and-indent)
        (forward-line -1))))
 
-(cl-defun config-markdown--find-date-heading-point ()
+(cl-defun config-markdown--find-or-insert-date-heading-point ()
   "Find heading containing today's date, and go to the bottom of it."
   (let* ((today (format-time-string "%F"))
          (regex (rx (1+ "#") " " (literal today))))
     (goto-char (point-min))
     (unless (search-forward-regexp regex nil :move-to-end)
-      (markdown-insert-header 2 today))))
+      ;; Top level heading
+      ;; TODO (pangt): Make this dynamic
+      (markdown-insert-header 1 today))))
 
 (cl-defun config-markdown--find-file-and-point ()
   (config-markdown-find-file)
@@ -141,11 +143,29 @@ point."
         (doct-add-to
          org-capture-templates
          `(("Notes - File - Header"
-            :keys "file"
+            :keys "header"
             :type plain
             :function config-markdown--find-file-and-point
             :unnarrowed t
             :empty-lines 1
+            :after-finalize
+            ,#'(lambda () (setq org-capture-last-stored-marker (make-marker)))
+            :template "%?")
+           ("Notes - diary"
+            :keys "diary"
+            :type plain
+            :unnarrowed t
+            :function
+            ,#'(lambda ()
+                 (assert config-markdown-directory
+                         t "markdown notes directory not set!")
+                 (-> config-markdown-directory
+                     (file-name-concat "Diary.md")
+                     (find-file))
+                 (config-markdown--find-or-insert-date-heading-point))
+            :unnarrowed t
+            :empty-lines 1
+            :append t
             :after-finalize
             ,#'(lambda () (setq org-capture-last-stored-marker (make-marker)))
             :template "%?")))))
