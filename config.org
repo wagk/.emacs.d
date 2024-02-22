@@ -2942,6 +2942,7 @@ Zebra patterns for buffer
 * Dogears
 #+begin_src emacs-lisp :results output silent
 (use-package dogears
+  :disabled t
   :demand t
   :commands (dogears-list dogears-remember dogears-go)
   :general
