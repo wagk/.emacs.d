@@ -140,6 +140,7 @@
   (flymake-note-bitmap nil))
 
 (use-package dired-git-info
+  :disabled t
   :ensure (:host github :repo "clemera/dired-git-info")
   :after dired
   :hook
