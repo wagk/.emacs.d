@@ -2452,6 +2452,8 @@ Just do the scratch buffer simple and stupidly
   :custom
   (fancy-compilation-override-colors nil)
   (fancy-compilation-scroll-output 'first-error)
+  (fancy-compilation-quiet-prolog nil)
+  (fancy-compilation-quiet-prelude nil)
   :config
   (fancy-compilation-mode))
 #+end_src
