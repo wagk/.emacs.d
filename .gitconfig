@@ -1,0 +1,17 @@
+[merge]
+	conflictstyle = diff3
+[diff]
+    algorithm = histogram
+    # tool = difftastic
+    context = 10
+[rerere]
+	enabled = true
+[merge]
+    keepbackup = false
+[rebase]
+    autosquash = true
+    autostash = true
+[pull]
+    rebase = true
+[log]
+    date = iso
