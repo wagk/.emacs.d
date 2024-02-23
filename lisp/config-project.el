@@ -153,7 +153,9 @@
       (find-file readme-path)))
 
   (with-eval-after-load 'config-evil-helpers
-    (--evil-define-splits "readme" #'--project-find-readme))
+    (--evil-define-splits "readme" #'--project-find-readme)
+    (--evil-define-splits "pf" #'project-find-file)
+    (--evil-define-splits "pd" #'project-dired))
 
   (with-eval-after-load 'rg
     (general-define-key
