@@ -1511,22 +1511,10 @@ filters*.
   (:states '(normal motion visual)
    "C-+" 'rg-menu)
   :init
-  ;; (evil-define-command config-rg-explicit (arg)
-  ;;   (interactive "<a>") ;TODO: Figure out how to programmatically generate a files list, which we need in addition to a query
-  ;;   (cond
-  ;;    ;; ((and arg (projectile-project-p)) (rg-project arg))
-  ;;    ((and (not arg) (projectile-project-p)) (call-interactively 'rg-project))
-  ;;    ;; (arg (rg arg))
-  ;;    (t (call-interactively 'rg))))
   (evil-ex-define-cmd "rg" 'rg-menu)
   ;; (evil-ex-define-cmd "prg" 'rg-project)
   :config
   (rg-enable-menu)
-  (rg-define-search search-everything-in-project
-    "Uses the everything filter for project searches"
-    :files "everything"
-    :dir project
-    :menu ("Custom" "e" "Unfiltered Project"))
   (with-eval-after-load 'hl-todo
     (rg-define-search search-hl-todo-keywords
       "Uses the everything filter for project searches"
