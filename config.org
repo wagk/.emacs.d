@@ -2323,7 +2323,13 @@ This is closer to the json serialization/deserialization module.
 #+begin_src emacs-lisp :results output silent
 (use-package link-hint
   :commands (link-hint-open-link
-             link-hint-copy-link))
+             link-hint-copy-link)
+  :config
+  (general-define-key
+   :keymaps 'help-mode-map
+   :states '(motion normal)
+   "f" 'link-hint-open-link
+   "y f" 'link-hint-copy-link))
 #+end_src
 
 * Highlight Indent Guides
