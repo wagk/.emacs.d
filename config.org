@@ -1575,6 +1575,20 @@ r-value references.
 ;; ("||" . #x2228)))))
 #+end_src
 
+** Patch in completion
+#+begin_src emacs-lisp :results output silent
+(with-eval-after-load 'cc-mode
+  (cl-defun --c-indent-then-complete ()
+    (interactive)
+    (when (= 0 (c-indent-line-or-region))
+      (completion-at-point)))
+  (with-eval-after-load 'general
+    (general-define-key
+     :keymaps '(c-mode-map c++-mode-map)
+      "<tab>" #'--c-indent-then-complete
+      "TAB" "<tab>")))
+#+end_src
+
 ** Clang Format
 #+begin_src emacs-lisp :results output silent
 (use-package clang-format
