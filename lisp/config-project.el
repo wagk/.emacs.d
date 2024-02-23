@@ -77,9 +77,6 @@
     "S"   #'--project-any-command-in-split
     "C-S" #'--project-any-command-in-split))
 
-(with-eval-after-load 'savehist
-  (add-to-list 'savehist-additional-variables 'compile-history))
-
 (with-eval-after-load 'multi-term
   (general-define-key
    :keymaps 'project-prefix-map

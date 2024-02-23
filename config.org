@@ -2432,6 +2432,9 @@ Just do the scratch buffer simple and stupidly
   :custom
   (compilation-auto-jump-to-first-error nil)
   (compilation-ask-about-save nil)
+  :config
+  (with-eval-after-load 'savehist
+    (add-to-list 'savehist-additional-variables 'compile-history))
   :general
   (compilation-mode-map
    :states 'normal
