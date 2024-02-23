@@ -2166,6 +2166,9 @@ Or evil-spongebob if you want to think of it that way.
 #+begin_src emacs-lisp :results output silent
 (use-package lsp-ui
   :after lsp
+  :custom
+  (lsp-ui-doc-enable nil)
+  (lsp-ui-peek-enable nil)
   :hook (lsp-mode-hook . lsp-ui-mode))
 #+end_src
 
