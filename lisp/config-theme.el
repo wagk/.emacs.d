@@ -176,6 +176,11 @@
   (set-face-attribute 'transient-key-stay nil
                       :foreground sol-blue))
 
+(with-eval-after-load 'sh-script
+  (set-face-attribute 'sh-quoted-exec nil
+                      :foreground 'unspecified
+                      :inherit 'nano-salient))
+
 (with-eval-after-load 'markdown-mode
   (set-face-attribute 'markdown-strike-through-face nil
                       :strike-through t
