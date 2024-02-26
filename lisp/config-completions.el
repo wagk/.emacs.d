@@ -89,7 +89,8 @@
     (evil-ex-define-cmd "fk"  'consult-yank-from-kill-ring)
     (evil-ex-define-cmd "fl"  'consult-line)
     (evil-ex-define-cmd "fla" 'consult-line-multi)
-    (evil-ex-define-cmd "fo"  'consult-outline))
+    (evil-ex-define-cmd "fo"  'consult-outline)
+    (evil-ex-define-cmd "fi"  'consult-info))
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'(lambda (&rest args)
                                           (apply (if vertico-mode
