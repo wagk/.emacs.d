@@ -1516,6 +1516,23 @@ filters*.
   ;; (evil-ex-define-cmd "prg" 'rg-project)
   :config
   (rg-enable-menu)
+  ;; (transient-remove-suffix 'rg-menu "d")
+  ;; (transient-remove-suffix 'rg-menu "c")
+  ;; (transient-remove-suffix 'rg-menu "f")
+
+  ;; Note that this is not a true 1-file search. It's all the files with the
+  ;; same name within the directory
+  ;; https://github.com/dajva/rg.el/issues/91
+  (rg-define-search --rg-search-file
+    :files (funcall #'(lambda () (file-name-nondirectory (buffer-file-name))))
+    :dir current
+    :query (funcall #'--thing-at-point-or-region-or-user-input)
+    :menu ("Search" "f" "File"))
+  (rg-define-search --rg-search-dir
+    :files "everything"
+    :dir current
+    :query (funcall #'--thing-at-point-or-region-or-user-input)
+    :menu ("Search" "d" "Directory"))
   (with-eval-after-load 'hl-todo
     (rg-define-search search-hl-todo-keywords
       "Uses the everything filter for project searches"

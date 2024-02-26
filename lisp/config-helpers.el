@@ -17,18 +17,16 @@
                    default-value
                    inherit-input-method))
 
-(cl-defun --thing-at-point-or-user-input ()
+(cl-defun --thing-at-point-or-region-or-user-input ()
   "Prompt the user for input, defaulting to symbol at point if none."
+  (interactive)
   (require 'thingatpt)
-  (let* ((thing (thing-at-point 'symbol))
-         (prompt (concat "Grep for"
-                         (when thing
-                           (format " (default: %s)" thing))
-                         ": "))
-         (string (read-string prompt)))
-    (if (string-empty-p string)
-        thing
-      string)))
+  (read-string "String: "
+               (cond ((use-region-p)
+                      (buffer-substring-no-properties
+                       (use-region-beginning)
+                       (use-region-end)))
+                     (t (thing-at-point 'symbol)))))
 
 (cl-defun --convert-to-buffer (buf)
   "Normalizes BUF into a buffer, returning the buffer value."
