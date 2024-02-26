@@ -21,10 +21,11 @@
   (markdown-unordered-list-item-prefix "- ")
   (markdown-wiki-link-fontify-missing nil)
   (markdown-wiki-link-search-type 'project)
-  ;; :general
-  ;; (markdown-mode-map
-  ;;  :states '(normal insert)
-  ;;  "C-l" #'markdown-toggle-gfm-checkbox)
+  :general
+  (markdown-mode-map
+   :states '(normal insert)
+   "<tab>" #'completion-at-point
+   "TAB" "<tab>")
   :init
   (with-eval-after-load 'autoinsert
     (define-auto-insert "\\.md\\'"
