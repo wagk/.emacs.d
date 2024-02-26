@@ -413,6 +413,10 @@
                       :foreground 'unspecified
     :inherit '(nano-salient nano-subtle)))
 
+(with-eval-after-load 'focus
+  (set-face-attribute 'focus-unfocused nil
+                      :inherit 'sol-superlight-foreground))
+
 (with-eval-after-load 'lsp-modeline
   (set-face-attribute 'lsp-modeline-code-actions-face nil
                       ;; consider just making this nano-faded or something

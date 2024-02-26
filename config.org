@@ -3008,3 +3008,12 @@ Zebra patterns for buffer
   (add-to-list 'dogears-hooks 'bookmark-after-jump-hook)
   (add-to-list 'dogears-functions 'set-marker))
 #+end_src
+
+* Focus
+#+begin_src emacs-lisp :results output silent
+(use-package focus
+  :commands focus-mode
+  :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "fo[cus]" 'focus-mode)))
+#+end_src
