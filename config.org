@@ -2834,6 +2834,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
 #+begin_src emacs-lisp :results output silent
 (use-package gud
   :ensure nil
+  :mode ("\\.gdb\\'" . gdb-script-mode)
   :custom
   (gud-highlight-current-line t)
   :config
