@@ -404,6 +404,15 @@
                       :extend t
                       :inherit 'nano-subtle))
 
+(with-eval-after-load 'lsp-ui-doc
+  (set-face-attribute 'lsp-ui-doc-background nil
+                      :background 'unspecified
+                      :inherit 'nano-subtle)
+  (set-face-attribute 'lsp-ui-doc-header nil
+                      :background 'unspecified
+                      :foreground 'unspecified
+    :inherit '(nano-salient nano-subtle)))
+
 (with-eval-after-load 'lsp-modeline
   (set-face-attribute 'lsp-modeline-code-actions-face nil
                       ;; consider just making this nano-faded or something
