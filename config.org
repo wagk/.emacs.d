@@ -3015,5 +3015,14 @@ Zebra patterns for buffer
   :commands focus-mode
   :init
   (with-eval-after-load 'evil
-    (evil-ex-define-cmd "fo[cus]" 'focus-mode)))
+    (evil-ex-define-cmd "fo[cus]" 'focus-mode)
+    (evil-ex-define-cmd "fou" 'focus-unpin)
+    (evil-ex-define-cmd "fop" 'focus-pin))
+  (with-eval-after-load 'embark
+    (with-eval-after-load 'general
+      (general-define-key
+       :keymaps 'embark-defun-map
+        "f f" 'focus-mode
+        "f u" 'focus-unpin
+        "f p" 'focus-pin))))
 #+end_src
