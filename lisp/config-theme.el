@@ -404,6 +404,10 @@
                       :extend t
                       :inherit 'nano-subtle))
 
+(with-eval-after-load 'lsp-mode
+  (set-face-attribute 'lsp-details-face nil
+                      :inherit 'sol-superlight-foreground))
+
 (with-eval-after-load 'lsp-ui-doc
   (set-face-attribute 'lsp-ui-doc-background nil
                       :background 'unspecified
