@@ -408,6 +408,36 @@
   (set-face-attribute 'lsp-details-face nil
                       :inherit 'sol-superlight-foreground))
 
+(with-eval-after-load 'lsp-ui-peek
+  (set-face-attribute 'lsp-ui-peek-peek nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-subtle)
+  (set-face-attribute 'lsp-ui-peek-list nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-subtle)
+  (set-face-attribute 'lsp-ui-peek-selection nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-strong-i)
+  (set-face-attribute 'lsp-ui-peek-line-number nil
+                      :foreground 'unspecified
+                      :inherit 'nano-default)
+  (set-face-attribute 'lsp-ui-peek-filename nil
+                      :foreground 'unspecified
+                      :inherit 'nano-salient)
+  (set-face-attribute 'lsp-ui-peek-header nil
+                      :bold t
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-subtle)
+  (set-face-attribute 'lsp-ui-peek-highlight nil
+                      :foreground 'unspecified
+                      :box 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-strong))
+
 (with-eval-after-load 'lsp-ui-doc
   (set-face-attribute 'lsp-ui-doc-background nil
                       :background 'unspecified
@@ -415,7 +445,7 @@
   (set-face-attribute 'lsp-ui-doc-header nil
                       :background 'unspecified
                       :foreground 'unspecified
-    :inherit '(nano-salient nano-subtle)))
+                      :inherit '(nano-salient nano-subtle)))
 
 (with-eval-after-load 'focus
   (set-face-attribute 'focus-unfocused nil
