@@ -1517,7 +1517,7 @@ filters*.
   :config
   (rg-enable-menu)
   ;; (transient-remove-suffix 'rg-menu "d")
-  ;; (transient-remove-suffix 'rg-menu "c")
+  (transient-remove-suffix 'rg-menu "c")
   ;; (transient-remove-suffix 'rg-menu "f")
 
   ;; Note that this is not a true 1-file search. It's all the files with the
