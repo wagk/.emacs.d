@@ -1346,7 +1346,8 @@ clojurescript-mode derives from clojure-mode
   ;; So that `compile' will correctly color/link to rustc errors
   (require 'rust-compile)
 
-  (setq rust-ts-mode-hook rust-mode-hook)
+  (with-eval-after-load 'rust-mode
+    (setq rust-ts-mode-hook rust-mode-hook))
 
   (defun --rust-ts-mode-rustfmt ()
     "Rustfmts buffer before saving."
