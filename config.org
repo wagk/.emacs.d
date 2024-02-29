@@ -1549,6 +1549,9 @@ filters*.
 ** Indentation of 4
 #+begin_src emacs-lisp :results output silent
 (setq-default c-basic-offset 4)
+
+(with-eval-after-load 'c-ts-mode
+  (setq c-ts-mode-indent-offset 4))
 #+end_src
 
 ** Default to K&R style
