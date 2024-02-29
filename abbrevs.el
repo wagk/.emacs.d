@@ -739,7 +739,7 @@
     ("securiyt" "security" nil :count 5)
     ("seesm" "seems" nil :count 2)
     ("sefl" "self" nil :count 6)
-    ("segmentaiton" "Segmentation" nil :count 1)
+    ("segmentaiton" "segmentation" nil :count 1)
     ("seleciton" "selection" nil :count 2)
     ("seme" "seem" nil :count 4)
     ("sens" "sense" nil :count 1)
@@ -960,6 +960,6 @@
     ("wya" "way" nil :count 5)
     ("yb" "by" nil :count 3)
     ("yeaterday" "yesterday" nil :count 1)
-    ("yse" "yes" nil :count 1)
-   ))
+    ("yse" "yes" nil :count 1)))
+   
 
