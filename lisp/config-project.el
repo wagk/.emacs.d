@@ -156,6 +156,7 @@
     (--evil-define-splits "readme" #'--project-find-readme)
     (--evil-define-splits "pf" #'project-find-file)
     (--evil-define-splits "pd" #'project-dired)
+    (--evil-define-splits "pdd" #'project-find-dir)
     (evil-ex-define-cmd "pc" #'--compile-command-completing-read)
     (evil-ex-define-cmd "pcd" #'--compile-command-completing-read))
 
