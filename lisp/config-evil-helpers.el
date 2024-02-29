@@ -1,4 +1,5 @@
 ;; (require 'config-evil)
+;; Must be evaluated after evil is loaded!
 
 (evil-ex-define-cmd "view" #'(lambda () (interactive) (read-only-mode 'toggle)))
 
@@ -27,6 +28,11 @@
 (--evil-define-splits "buffers"     'ibuffer)
 (--evil-define-splits "me[ssage]" #'(lambda ()
                                       (switch-to-buffer "*Messages*")))
+
+(evil-ex-define-cmd "Wn" '(lambda () (interactive)
+                            (select-frame-set-input-focus (next-frame))))
+(evil-ex-define-cmd "Wp" '(lambda () (interactive)
+                            (select-frame-set-input-focus (previous-frame))))
 
 (evil-define-command --rename-buffer (name)
   (interactive "<a>")
