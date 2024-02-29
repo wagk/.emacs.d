@@ -14,7 +14,10 @@
                          (--evil-do-in-split ',func :vsplit)))
   (evil-ex-define-cmd (concat "T" command)
                       `(lambda () (interactive)
-                         (--evil-do-in-tab ',func))))
+                         (--evil-do-in-tab ',func)))
+  (evil-ex-define-cmd (concat "W" command)
+                      `(lambda () (interactive)
+                         (--evil-do-in-frame ',func))))
 
 (--evil-define-splits "init"        'find-user-init-file)
 (--evil-define-splits "local"       'find-user-local-file)

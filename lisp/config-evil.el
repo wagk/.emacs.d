@@ -55,6 +55,15 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
     (t (tab-bar-close-tab)
        (message "%s" err))))
 
+(cl-defun --evil-do-in-frame (func)
+  "Call FUNC in a new frame."
+  (interactive)
+  (make-frame)
+  (condition-case err
+       (funcall func)
+    (t (delete-frame)
+       (message "%s" err))))
+
 (cl-defun --evil-smart-split (func)
   "Call FUNC after splitting along longest axis."
   (interactive)
