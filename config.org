@@ -2186,14 +2186,17 @@ Or evil-spongebob if you want to think of it that way.
   :custom
   (lsp-ui-doc-enable t)
   (lsp-ui-peek-enable t)
-  :hook (lsp-mode-hook . lsp-ui-mode)
+  :hook (lsp-mode-hook . lsp-ui-mode))
+
+(use-package lsp-ui-peek
+  :after lsp-ui
+  :ensure nil
   :general
   (lsp-ui-peek-mode-map
-   :states 'normal
-    "C-j" "C-n"
-    "C-k" "C-p"
-    "M-j" "M-n"
-    "M-k" "M-p"))
+   "C-j" 'lsp-ui-peek--select-next
+   "C-k" 'lsp-ui-peek--select-prev
+   "M-j" 'lsp-ui-peek--select-next
+   "M-k" 'lsp-ui-peek--select-prev))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
