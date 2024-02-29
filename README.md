@@ -61,6 +61,14 @@ sudo apt install autoconf build-essential texinfo libx11-dev \
             --with-pgtk
 ```
 
+We would normally also use `--with-tree-sitter` if it's `libtree-sitter-dev` is
+present.
+
+```
+make
+sudo make install
+```
+
 ### WSL2
 There's [an issue][wsl-glitch] currently where windows look weird.
 
