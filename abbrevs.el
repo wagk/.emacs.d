@@ -290,6 +290,7 @@
     ("ensrue" "ensure" nil :count 2)
     ("entereis" "entries" nil :count 1)
     ("entier" "entire" nil :count 1)
+    ("entirley" "entirely" nil :count 1)
     ("entirsly" "entirely" nil :count 1)
     ("entreis" "entries" nil :count 1)
     ("enviornment" "environment" nil :count 1)
@@ -440,6 +441,7 @@
     ("improvemyself" "improve myself" nil :count 1)
     ("inconsistnet" "inconsistent" nil :count 1)
     ("indentaiton" "indentation" nil :count 1)
+    ("inehrit" "inherit" nil :count 1)
     ("informaitno" "information" nil :count 3)
     ("informaiton" "information" nil :count 15)
     ("informaoiton" "information" nil :count 1)
@@ -960,6 +962,6 @@
     ("wya" "way" nil :count 5)
     ("yb" "by" nil :count 3)
     ("yeaterday" "yesterday" nil :count 1)
-    ("yse" "yes" nil :count 1)))
-   
+    ("yse" "yes" nil :count 1)
+   ))
 
