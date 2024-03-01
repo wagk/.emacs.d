@@ -195,15 +195,20 @@
   (set-face-attribute 'markdown-reference-face nil
                       :inherit 'nano-default)
   (set-face-attribute 'markdown-italic-face nil
-                      :italic t)
+                      :italic t
+                      :inherit 'nano-default)
+  (set-face-attribute 'markdown-bold-face nil
+                      :bold t
+                      :inherit 'nano-default)
   (set-face-attribute 'markdown-plain-url-face nil
-                      :italic t)
+                      :italic t
+                      :inherit 'nano-default)
   (set-face-attribute 'markdown-url-face nil
                       :italic t
-                      :inherit 'markdown-plain-url-face)
+                      :inherit 'nano-faded)
   (set-face-attribute 'markdown-link-face nil
                       :italic t
-                      :inherit 'markdown-plain-url-face)
+                      :inherit 'nano-default)
 
   (defface --markdown-tag-face
     '((t (:bold t :inherit nano-faded)))
