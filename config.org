@@ -644,18 +644,18 @@ pressing RET autoformats it, instead of doing nothing as it does right now
    "Maintain chomp-like behavior of electric-pair")
   :config
   (smartparens-global-mode)
-  (defun my-add-newline-and-indent-braces (_opening_delimiter
-                                           _actions
-                                           _context)
+  (cl-defun --double-newline-and-indent-braces (_opening_delimiter
+                                                _action
+                                                _context)
     "adds that cool vim indent thing we always wanted, Refer to WHEN
       segment of `sp-pair' documentation on what each parameter does"
     (newline)
     (indent-according-to-mode)
-    (forward-line -1)
+    (previous-line)
     (indent-according-to-mode))
-  (sp-pair "{" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-  (sp-pair "[" nil :post-handlers '((my-add-newline-and-indent-braces "RET")))
-  (sp-pair "(" nil :post-handlers '((my-add-newline-and-indent-braces "RET"))))
+  (sp-local-pair 'prog-mode "{" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
+  (sp-local-pair 'prog-mode "[" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
+  (sp-local-pair 'prog-mode "(" nil :post-handlers '((--double-newline-and-indent-braces "RET"))))
 #+end_src
 
 * Org Mode
