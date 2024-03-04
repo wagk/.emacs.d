@@ -210,6 +210,15 @@
                       :italic t
                       :inherit 'nano-default)
 
+  (defface --markdown-timestamp-face
+    '((t (:underline t)))
+    "Face used to describe timestamps."
+    :group 'personal)
+  (defconst --markdown-timestamp-regex
+    "\\([0-9]\\{4\\}\\)-\\([0-1][0-9]\\)-\\([0-3][0-9]\\)")
+  (font-lock-add-keywords
+   'markdown-mode `((,--markdown-timestamp-regex 0 '--markdown-timestamp-face)))
+
   (defface --markdown-tag-face
     '((t (:bold t :inherit nano-faded)))
     "Face used to describe tags (like `#foo'). I like using tags."
