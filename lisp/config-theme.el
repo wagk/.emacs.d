@@ -110,6 +110,12 @@
   "Very light background coloring"
   :group 'personal)
 
+(defface sol-superlight-underline
+  `((((background light)) (:underline ,sol-base2))
+    (((background dark)) (:underline ,sol-base02)))
+  "Very light background coloring"
+  :group 'personal)
+
 (with-eval-after-load 'simple
   (when (boundp 'blink-matching-paren-offscreen)
     (set-face-attribute 'blink-matching-paren-offscreen nil
@@ -211,13 +217,11 @@
                       :inherit 'nano-default)
 
   (defface --markdown-timestamp-face
-    '((t (:underline t)))
+    '((t (:inherit sol-superlight-underline :weight light)))
     "Face used to describe timestamps."
     :group 'personal)
   (defconst --markdown-timestamp-regex
     (rx (= 4 (any digit)) "-" (any "0-1") (any digit) "-" (any "0-3") (any digit)))
-  (font-lock-add-keywords
-   'markdown-mode `((,--markdown-timestamp-regex 0 '--markdown-timestamp-face)))
 
   (defface --markdown-tag-face
     '((t (:bold t :inherit nano-faded)))
@@ -225,8 +229,10 @@
     :group 'personal)
   (defconst --markdown-tag-keyword-regex
     (rx (or line-start space) "#" (one-or-more (any alnum "_" "-"))))
+
   (font-lock-add-keywords
-   'markdown-mode `((,--markdown-tag-keyword-regex 0 '--markdown-tag-face))))
+   'markdown-mode `((,--markdown-tag-keyword-regex 0 '--markdown-tag-face)
+                    (,--markdown-timestamp-regex 0 '--markdown-timestamp-face))))
 
 (with-eval-after-load 'isearch
   (set-face-attribute 'lazy-highlight nil
