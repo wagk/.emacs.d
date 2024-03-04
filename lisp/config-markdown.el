@@ -78,22 +78,22 @@
 (defgroup config-markdown nil
   "Personal Markdown hacks")
 
-(defcustom config-markdown-directory nil
+(defcustom config-markdown-directories nil
   "Location of Markdown directory."
-  :type (list directory))
+  :type '(list directory))
 
 (cl-defun config-markdown--select-file-name ()
-  "Search `config-markdown-directory' for files ending in `.md'."
+  "Search `config-markdown-directories' for files ending in `.md'."
   (interactive)
   (require 'dash)
   (let* ((files (mapcar
                  (lambda (dir)
                    (directory-files-recursively dir "\\.md$"))
-                 config-markdown-directory)))
+                 config-markdown-directories)))
     (--completing-read "File: " (apply #'append files))))
 
 (cl-defun config-markdown-find-file ()
-  "Opens a markdown file in `config-markdown-directory'."
+  "Opens a markdown file in `config-markdown-directories'."
   (interactive)
   (find-file (config-markdown--select-file-name)))
 
@@ -152,9 +152,9 @@ point."
             :unnarrowed t
             :function
             ,#'(lambda ()
-                 (assert config-markdown-directory
+                 (assert config-markdown-directories
                          t "markdown notes directory not set!")
-                 (-> config-markdown-directory
+                 (-> config-markdown-directories
                      (file-name-concat "Diary.md")
                      (find-file))
                  (config-markdown--find-or-insert-date-heading-point))
@@ -168,7 +168,7 @@ point."
 (with-eval-after-load 'rg
   (rg-define-search config-markdown-search-in-notes
     :files "everything"
-    :dir config-markdown-directory)
+    :dir config-markdown-directories)
   (evil-ex-define-cmd "ng" 'config-markdown-search-in-notes))
 
 ;;; Experimentations with datetrees in markdown
