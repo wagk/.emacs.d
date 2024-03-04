@@ -215,6 +215,8 @@
   (set-face-attribute 'markdown-link-face nil
                       :italic t
                       :inherit 'nano-default)
+  (set-face-attribute 'markdown-blockquote-face nil
+                      :inherit 'nano-subtle)
 
   (defface --markdown-timestamp-face
     '((t (:weight light)))
