@@ -215,7 +215,7 @@
     "Face used to describe timestamps."
     :group 'personal)
   (defconst --markdown-timestamp-regex
-    "\\([0-9]\\{4\\}\\)-\\([0-1][0-9]\\)-\\([0-3][0-9]\\)")
+    (rx (= 4 (any digit)) "-" (any "0-1") (any digit) "-" (any "0-3") (any digit)))
   (font-lock-add-keywords
    'markdown-mode `((,--markdown-timestamp-regex 0 '--markdown-timestamp-face)))
 
