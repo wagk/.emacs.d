@@ -217,14 +217,14 @@
                       :inherit 'nano-default)
 
   (defface --markdown-timestamp-face
-    '((t (:inherit sol-superlight-underline :weight light)))
+    '((t (:weight light)))
     "Face used to describe timestamps."
     :group 'personal)
   (defconst --markdown-timestamp-regex
     (rx (= 4 (any digit)) "-" (any "0-1") (any digit) "-" (any "0-3") (any digit)))
 
   (defface --markdown-tag-face
-    '((t (:bold t :inherit nano-faded)))
+    '((t (:weight light :inherit nano-faded)))
     "Face used to describe tags (like `#foo'). I like using tags."
     :group 'personal)
   (defconst --markdown-tag-keyword-regex
