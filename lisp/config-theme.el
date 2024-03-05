@@ -149,7 +149,7 @@
                       :box nil
                       :inherit '(sol-superlight-foreground nano-default))
   (set-face-attribute 'mode-line-buffer-id nil
-                      :inherit 'sol-light-foregroundj)
+                      :inherit 'sol-light-foreground)
   (set-face-attribute 'header-line nil
                       :inherit 'nano-default)
   (set-face-attribute 'help-key-binding nil
