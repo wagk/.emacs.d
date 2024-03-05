@@ -198,7 +198,7 @@ Emulate the best feature of notepad
 actually, don't (outside of text modes)
 #+begin_src emacs-lisp :results output silent
 (add-hook 'prog-mode-hook
-          (customize-set-value 'show-trailing-whitespace t))
+          (lambda () (customize-set-value 'show-trailing-whitespace t)))
 #+end_src
 
 ** After creating a new frame, immediately focus on that frame.
