@@ -107,6 +107,12 @@
   "Very light foreground coloring"
   :group 'personal)
 
+(defface sol-light-foreground
+  `((((background light)) (:foreground ,sol-base1))
+    (((background dark)) (:foreground ,sol-base01)))
+  "Somewhat light foreground coloring"
+  :group 'personal)
+
 (defface sol-superlight-background
   `((((background light)) (:background ,sol-base2))
     (((background dark)) (:background ,sol-base02)))
@@ -133,15 +139,17 @@
   (set-face-attribute 'italic nil
                       :italic t)
   (set-face-attribute 'vertical-border nil
+                      :foreground 'unspecified
                       :inherit 'sol-superlight-foreground)
-  (set-face-attribute 'mode-line nil
-                      :inherit '(sol-superlight-foreground nano-default))
   (set-face-attribute 'mode-line-active nil
-                      :inherit 'nano-default)
+                      :inherit '(sol-light-foreground))
   (set-face-attribute 'mode-line-inactive nil
-                      :inherit 'sol-superlight-foreground)
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :box nil
+                      :inherit '(sol-superlight-foreground nano-default))
   (set-face-attribute 'mode-line-buffer-id nil
-                      :inherit 'nano-default)
+                      :inherit 'sol-light-foregroundj)
   (set-face-attribute 'header-line nil
                       :inherit 'nano-default)
   (set-face-attribute 'help-key-binding nil
@@ -151,7 +159,11 @@
   (set-face-attribute 'link nil
                       :foreground sol-yellow
                       :underline nil
-                      :bold t))
+                      :bold t)
+  (set-face-attribute 'line-number nil
+                      :inherit 'sol-superlight-foreground)
+  (set-face-attribute 'line-number-current-line nil
+                      :inherit 'sol-light-foreground))
 
 (with-eval-after-load 'flymake
   (custom-set-faces
