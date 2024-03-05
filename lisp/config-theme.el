@@ -38,6 +38,9 @@
   ;; TODO: set documentation string
   (set (car col) (cdr col)))
 
+(with-eval-after-load 'evil
+  (evil-ex-define-cmd "faces" 'list-faces-display))
+
 ;; Fonts
 
 (cl-defun --find-and-set-fonts ()
@@ -128,7 +131,27 @@
   (set-face-attribute 'show-paren-match nil
                       :foreground 'unspecified)
   (set-face-attribute 'italic nil
-                      :italic t))
+                      :italic t)
+  (set-face-attribute 'vertical-border nil
+                      :inherit 'sol-superlight-foreground)
+  (set-face-attribute 'mode-line nil
+                      :inherit '(sol-superlight-foreground nano-default))
+  (set-face-attribute 'mode-line-active nil
+                      :inherit 'nano-default)
+  (set-face-attribute 'mode-line-inactive nil
+                      :inherit 'sol-superlight-foreground)
+  (set-face-attribute 'mode-line-buffer-id nil
+                      :inherit 'nano-default)
+  (set-face-attribute 'header-line nil
+                      :inherit 'nano-default)
+  (set-face-attribute 'help-key-binding nil
+                      :foreground sol-yellow
+                      :box nil
+                      :background 'unspecified)
+  (set-face-attribute 'link nil
+                      :foreground sol-yellow
+                      :underline nil
+                      :bold t))
 
 (with-eval-after-load 'flymake
   (custom-set-faces
