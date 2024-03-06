@@ -122,7 +122,19 @@
 (defface sol-superlight-underline
   `((((background light)) (:underline ,sol-base2))
     (((background dark)) (:underline ,sol-base02)))
-  "Very light background coloring"
+  "Very light underline coloring"
+  :group 'personal)
+
+(defface sol-superlight-overline
+  `((((background light)) (:overline ,sol-base2))
+    (((background dark)) (:overline ,sol-base02)))
+  "Very light overline coloring"
+  :group 'personal)
+
+(defface sol-superlight-box
+  `((((background light)) (:box ,sol-base2))
+    (((background dark)) (:box ,sol-base02)))
+  "Very light box coloring"
   :group 'personal)
 
 (with-eval-after-load 'simple
@@ -144,7 +156,8 @@
                       :foreground 'unspecified
                       :inherit 'sol-superlight-foreground)
   (set-face-attribute 'mode-line-active nil
-                      :inherit '(sol-light-foreground))
+                      :inherit '(sol-light-foreground
+                                 sol-superlight-box))
   (set-face-attribute 'mode-line-inactive nil
                       :foreground 'unspecified
                       :background 'unspecified
