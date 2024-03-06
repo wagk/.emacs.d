@@ -132,6 +132,8 @@
                         :inherit 'nano-salient)))
 
 (with-eval-after-load 'faces
+  (set-face-attribute 'variable-pitch-text nil
+                      :height 1)
   (set-face-attribute 'fill-column-indicator nil
                       :inherit 'sol-superlight-foreground)
   (set-face-attribute 'show-paren-match nil
@@ -304,6 +306,33 @@
                     :inherit 'nano-default)
 (set-face-attribute 'font-lock-string-face nil
                     :foreground 'unspecified)
+
+(with-eval-after-load 'eww
+  (set-face-attribute 'eww-form-submit nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-strong)
+  (set-face-attribute 'eww-form-textarea nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-default)
+  (set-face-attribute 'eww-form-text nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-subtle)
+  (set-face-attribute 'eww-form-select nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-salient)
+  (set-face-attribute 'eww-form-file nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-default)
+  (set-face-attribute 'eww-form-checkbox nil
+                      :box t
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-subtle))
 
 (with-eval-after-load 'tree-sitter-hl
   (set-face-attribute 'tree-sitter-hl-face:function nil
