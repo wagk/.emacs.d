@@ -36,6 +36,9 @@
         "\n"
         "# " (file-name-base (buffer-file-name)) "\n"
         "\n")))
+  (with-eval-after-load 'smartparens
+    (sp-local-pair 'markdown-mode "```" "```"
+                   :post-handlers '((--double-newline-and-indent-braces "RET"))))
   (with-eval-after-load 'aggressive-fill-paragraph
     (add-hook 'markdown-mode-hook #'aggressive-fill-paragraph-mode))
   (with-eval-after-load 'org-table
