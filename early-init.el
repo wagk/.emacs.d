@@ -9,7 +9,8 @@
 (when (eq system-type 'windows-nt)
   (setq native-comp-speed -1)
   (setq no-native-compile t)
-  (setq native-comp-enable-subr-trampolines nil))
+  (setq native-comp-enable-subr-trampolines nil)
+  (setq native-comp-jit-compilation nil))
 
 (unless (eq system-type 'windows-nt)
   (add-to-list 'default-frame-alist '(undecorated . t)))
