@@ -505,7 +505,9 @@
 
 (with-eval-after-load 'lsp-mode
   (set-face-attribute 'lsp-details-face nil
-                      :inherit 'sol-superlight-foreground))
+                      :height 1.0
+                      :weight 'light
+                      :inherit 'sol-light-foreground))
 
 (with-eval-after-load 'lsp-ui-peek
   (set-face-attribute 'lsp-ui-peek-peek nil
