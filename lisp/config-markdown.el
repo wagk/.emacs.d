@@ -85,15 +85,24 @@
   "Location of Markdown directory."
   :type '(list directory))
 
+(cl-defun config-markdown--select-directory ()
+  (interactive)
+  (if (length= config-markdown-directories 1)
+      (car config-markdown-directories)
+    (--completing-read "Directory: " config-markdown-directories)))
+
 (cl-defun config-markdown--select-file-name ()
   "Search `config-markdown-directories' for files ending in `.md'."
   (interactive)
   (require 'dash)
-  (let* ((files (mapcar
-                 (lambda (dir)
-                   (directory-files-recursively dir "\\.md$"))
-                 config-markdown-directories)))
-    (--completing-read "File: " (apply #'append files))))
+  (let* ((dir (config-markdown--select-directory))
+         (files (mapcar (lambda (file)
+                          (file-relative-name file dir))
+                        (directory-files-recursively dir "\\.md$")))
+         (file (--completing-read (format "File [%s]: " dir) files)))
+    (unless (file-name-extension file)
+      (setq file (file-name-with-extension file "md")))
+    (file-name-concat dir file)))
 
 (cl-defun config-markdown-find-file ()
   "Opens a markdown file in `config-markdown-directories'."
