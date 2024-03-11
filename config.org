@@ -2937,3 +2937,10 @@ Zebra patterns for buffer
   (evil-window-map
    "SPC" 'ace-window))
 #+end_src
+
+* Pomm
+#+begin_src emacs-lisp :results output silent
+(use-package pomm
+  :ensure t
+  :commands (pomm pomm-third-time))
+#+end_src
