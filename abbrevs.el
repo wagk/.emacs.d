@@ -194,6 +194,7 @@
     ("consdier" "consider" nil :count 1)
     ("consitent" "consistent" nil :count 1)
     ("constrol" "control" nil :count 1)
+    ("construtor" "constructor" nil :count 1)
     ("contain" "contain" nil :count 82)
     ("contian" "contain" nil :count 3)
     ("contians" "contains" nil :count 1)
