@@ -224,6 +224,20 @@
                      :bold t
                      :inherit 'nano-faded))
 
+(with-eval-after-load 're-builder
+  (set-face-attribute 'reb-match-0 nil
+                      :foreground sol-cyan
+                      :background 'unspecified)
+  (set-face-attribute 'reb-match-1 nil
+                      :foreground sol-blue
+                      :background 'unspecified)
+  (set-face-attribute 'reb-match-2 nil
+                      :foreground sol-violet
+                      :background 'unspecified)
+  (set-face-attribute 'reb-match-3 nil
+                      :foreground sol-magenta
+                      :background 'unspecified))
+
 (with-eval-after-load 'transient
   (set-face-attribute 'transient-key-exit nil
                       :foreground sol-red)
