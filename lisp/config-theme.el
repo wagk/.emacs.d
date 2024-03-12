@@ -222,7 +222,10 @@
                      :inherit 'nano-strong)
  (set-face-attribute 'magit-diff-hunk-heading nil
                      :bold t
-                     :inherit 'nano-faded))
+                     :inherit 'nano-faded)
+ (set-face-attribute 'magit-head nil
+                     :bold t
+                     :inherit 'nano-salient))
 
 (with-eval-after-load 'magit-sequence
   (set-face-attribute 'magit-sequence-head nil
