@@ -224,6 +224,12 @@
                      :bold t
                      :inherit 'nano-faded))
 
+(with-eval-after-load 'magit-sequence
+  (set-face-attribute 'magit-sequence-head nil
+                      :inherit 'nano-salient)
+  (set-face-attribute 'magit-sequence-drop nil
+                      :strike-through t))
+
 (with-eval-after-load 're-builder
   (set-face-attribute 'reb-match-0 nil
                       :foreground sol-cyan
