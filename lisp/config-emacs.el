@@ -217,4 +217,9 @@
   :custom
   (calendar-week-start-day 1 "monday"))
 
+(use-package time
+  :ensure nil
+  :custom
+  (display-time-24hr-format t))
+
 (provide 'config-emacs)
