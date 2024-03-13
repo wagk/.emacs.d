@@ -2462,7 +2462,7 @@ https://github.com/Silex/docker.el
 
 * Proced
 #+begin_src emacs-lisp :results output silent
-(evil-ex-define-cmd "ps" 'proced)
+;; (evil-ex-define-cmd "ps" 'proced)
 #+end_src
 
 * ObjC
