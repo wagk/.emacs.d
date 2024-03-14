@@ -157,13 +157,12 @@
     (--evil-define-splits "pf" #'project-find-file)
     (--evil-define-splits "pd" #'project-dired)
     (--evil-define-splits "pdd" #'project-find-dir)
-    (evil-ex-define-cmd "ps" #'project-shell)
+    (evil-ex-define-cmd "ps" #'(lambda () (interactive)
+                                 (if (fboundp 'multi-vterm-project)
+                                     (multi-vterm-project)
+                                   (project-shell))))
     (evil-ex-define-cmd "pc" #'--compile-command-completing-read)
-    (evil-ex-define-cmd "pcd" #'--compile-command-completing-read)
-
-    (with-eval-after-load 'multi-vterm
-      (evil-ex-define-cmd "ps" #'multi-vterm-project)))
-
+    (evil-ex-define-cmd "pcd" #'--compile-command-completing-read))
 
   (with-eval-after-load 'rg
     (general-define-key
