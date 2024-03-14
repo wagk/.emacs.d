@@ -7,6 +7,9 @@
 (require 'markdown-mode)
 
 ;; TODO (pangt): Parse headers for date
+;; TODO (pangt): Assert that the hierarchy of year -> month -> day is correct
+;; TODO (pangt): Provide helper functions to find, insert, and possibly fix
+;; datetrees.
 
 (defconst markdown-datetree-header-regexp
   (rx bol
@@ -17,14 +20,14 @@
   "Matches the markdown header I use (the ones that start with \"#\"). Captures
   as first group the contents of the header, so we can check the date.")
 
-(cl-defun markdown-datetree-parse-file (filename)
-  "Given FILENAME, parse it as a datetree.
+(cl-defun markdown-datetree-parse-buffer (buffer)
+  "Given BUFFER, parse it as a datetree.
 Return a list of datetree elements."
-  (with-temp-buffer
-    (insert-file-contents filename)
-    (goto-char (point-min))
-    (let (points)
-      (while (search-forward-regexp markdown-datetree-header-regexp nil t)
+  (with-current-buffer buffer
+    (save-excursion
+      (goto-char (point-min))
+      (let (points)
+        (while (search-forward-regexp markdown-datetree-header-regexp nil t))
         (push (line-beginning-position) points)))))
 
 (provide 'markdown-datetree)
