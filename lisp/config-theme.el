@@ -169,6 +169,7 @@
   (set-face-attribute 'mode-line-buffer-id nil
                       :inherit 'sol-light-foreground)
   (set-face-attribute 'header-line nil
+                      :background 'unspecified
                       :inherit 'nano-default)
   (set-face-attribute 'help-key-binding nil
                       :foreground sol-yellow
