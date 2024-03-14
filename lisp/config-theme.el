@@ -586,6 +586,11 @@
   (set-face-attribute 'lsp-modeline-code-actions-preferred-face nil
                       :foreground sol-red))
 
+(with-eval-after-load 'lsp-headerline
+  (set-face-attribute 'lsp-headerline-breadcrumb-symbols-face nil
+                      :bold nil
+                      :inherit 'nano-default))
+
 (with-eval-after-load 'orderless
   (set-face-attribute 'orderless-match-face-0 nil
                       :inherit 'nano-strong))
