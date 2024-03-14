@@ -69,6 +69,9 @@
 (with-eval-after-load 'elpaca
   (add-hook 'elpaca-after-init-hook #'--find-and-set-fonts))
 
+(with-eval-after-load 'server
+  (add-hook 'server-mode-hook #'--find-and-set-fonts))
+
 ;; Nano theme
 
 (use-package nano-theme
