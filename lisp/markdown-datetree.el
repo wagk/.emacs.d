@@ -30,4 +30,9 @@ Return a list of datetree elements."
         (while (search-forward-regexp markdown-datetree-header-regexp nil t))
         (push (line-beginning-position) points)))))
 
+(cl-defun markdown-datetree-parse-file (file)
+  (with-temp-buffer
+    (insert-file-contents file)
+    (markdown-datetree-parse-buffer (current-buffer))))
+
 (provide 'markdown-datetree)
