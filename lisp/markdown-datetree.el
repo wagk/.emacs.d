@@ -3,7 +3,6 @@
 ;; Author: Pang Tun Jiang <mail@pangt.dev>
 ;; Keywords: docs, tools,
 
-(require 'buttercup)
 (require 'markdown-mode)
 
 ;; TODO (pangt): Parse headers for date
@@ -16,11 +15,14 @@
       (group-n 1 (one-or-more "#"))
       (one-or-more whitespace)
       (group-n 2 (one-or-more any))
+      (zero-or-more whitespace)
       eol)
   "Matches the markdown header I use (the ones that start with \"#\").
 Capture groups:
-- 1: The headings. The length of this is the depth of the header
-- 2: The contents of the header.")
+- 1: The headings. The length of this is the depth of the header.
+- 2: The contents of the header.
+
+Accounts for trailing whitespace.")
 
 (cl-defun markdown-datetree--buffer-collect-headings (buffer)
   "Given BUFFER, collect all headings.
@@ -33,7 +35,6 @@ Collect:
       (save-excursion
         (goto-char (point-min))
         (while (search-forward-regexp markdown-datetree-header-regexp nil t)
-          (message "match 1: %s" (match-string 1))
           (setq points (append points
                                `((:point ,(line-beginning-position)
                                   :level ,(length (match-string 1))
