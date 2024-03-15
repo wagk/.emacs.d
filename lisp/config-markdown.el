@@ -86,6 +86,8 @@
   :type '(list directory))
 
 (cl-defun config-markdown--select-directory ()
+  "Select a directory from `config-markdown-directories'.
+If there is only one directory just return that."
   (interactive)
   (if (length= config-markdown-directories 1)
       (car config-markdown-directories)
@@ -109,9 +111,6 @@
   (interactive)
   (find-file (config-markdown--select-file-name)))
 
-(with-eval-after-load 'config-evil-helpers
-  (--evil-define-splits "nn" #'config-markdown-find-file))
-
 (cl-defun config-markdown--find-heading-end-point ()
   "Assuming that we are in the appropriate capture file, find the capture
 point."
@@ -120,9 +119,9 @@ point."
     ('nil (goto-char (point-max)))
     (_ (beginning-of-line)
        (newline-and-indent)
-       (forward-line -1))))
+       (previous-line))))
 
-(cl-defun config-markdown--find-or-insert-date-heading-point ()
+(cl-defun config-markdown--find-or-insert-date-heading-point-at-level (level)
   "Find heading containing today's date, and go to the bottom of it."
   (let* ((today (format-time-string "%F"))
          (regex (rx (1+ "#") " " (literal today))))
@@ -130,9 +129,12 @@ point."
     (unless (search-forward-regexp regex nil :move-to-end)
       ;; Top level heading
       ;; TODO (pangt): Make this dynamic
-      (markdown-insert-header 1 today))))
+      (markdown-insert-header level today))))
 
 (cl-defun config-markdown--find-file-and-point ()
+  "Searches through files and headings and attempts to position the point at the
+end of the selected heading."
+  (interactive)
   (config-markdown-find-file)
   (condition-case err
       (consult-imenu)
@@ -143,6 +145,9 @@ point."
       (if (markdown-list-item-at-point-p)
           (goto-char (point-max))
         (config-markdown--find-heading-end-point)))))
+
+(with-eval-after-load 'config-evil-helpers
+  (--evil-define-splits "nn" #'config-markdown-find-file))
 
 (with-eval-after-load 'org-capture
   (require 'doct)
@@ -166,10 +171,10 @@ point."
             ,#'(lambda ()
                  (assert config-markdown-directories
                          t "markdown notes directory not set!")
-                 (-> config-markdown-directories
+                 (-> (config-markdown--select-directory)
                      (file-name-concat "Diary.md")
                      (find-file))
-                 (config-markdown--find-or-insert-date-heading-point))
+                 (config-markdown--find-or-insert-date-heading-point-at-level 2))
             :unnarrowed t
             :empty-lines 1
             :append t
