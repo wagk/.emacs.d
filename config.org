@@ -2665,6 +2665,7 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
 
 #+begin_src emacs-lisp :results output silent
 (use-package chatgpt-shell
+  :disabled t
   :ensure (:host github :repo "xenodium/chatgpt-shell")
   :after (dash)
   :commands chatgpt-shell-prompt
@@ -2816,11 +2817,10 @@ what the benefits are.
 * Gptel
 #+begin_src emacs-lisp :results output silent
 (use-package gptel
-  :disabled t
-  :demand t ;; override :general
+  :ensure t ;; override :general
   :custom
   ;; prompts are under `gptel-directives'
-  (gptel-model "gpt-4-1106-preview")
+  ;; (gptel-model "gpt-4-1106-preview")
   :general
   (gptel-mode-map
    "C-RET" 'gptel-send
