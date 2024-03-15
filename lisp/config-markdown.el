@@ -106,6 +106,18 @@ If there is only one directory just return that."
       (setq file (file-name-with-extension file "md")))
     (file-name-concat dir file)))
 
+(cl-defun config-markdown--find-files-named (name)
+  (interactive)
+  (let* ((dir (config-markdown--select-directory))
+         (case-fold-search t)
+         (files (mapcar (lambda (file)
+                          (file-relative-name file dir))
+                        (directory-files-recursively dir name)))
+         (diary (if (length= files 1)
+                    (car files)
+                  (--completing-read (format "%s: " name) files))))
+    (file-name-concat dir diary)))
+
 (cl-defun config-markdown-find-file ()
   "Opens a markdown file in `config-markdown-directories'."
   (interactive)
@@ -171,8 +183,7 @@ end of the selected heading."
             ,#'(lambda ()
                  (assert config-markdown-directories
                          t "markdown notes directory not set!")
-                 (-> (config-markdown--select-directory)
-                     (file-name-concat "Diary.md")
+                 (-> (config-markdown--find-files-named "Diary")
                      (find-file))
                  (config-markdown--find-or-insert-date-heading-point-at-level 2))
             :unnarrowed t
