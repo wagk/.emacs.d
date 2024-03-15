@@ -13,26 +13,35 @@
 
 (defconst markdown-datetree-header-regexp
   (rx bol
-      (one-or-more "#")
+      (group-n 1 (one-or-more "#"))
       (one-or-more whitespace)
-      (group-n 1 (one-or-more any))
+      (group-n 2 (one-or-more any))
       eol)
-  "Matches the markdown header I use (the ones that start with \"#\"). Captures
-  as first group the contents of the header, so we can check the date.")
+  "Matches the markdown header I use (the ones that start with \"#\").
+Capture groups:
+- 1: The headings. The length of this is the depth of the header
+- 2: The contents of the header.")
 
-(cl-defun markdown-datetree-parse-buffer (buffer)
-  "Given BUFFER, parse it as a datetree.
-Return a list of datetree elements."
+(cl-defun markdown-datetree--buffer-collect-headings (buffer)
+  "Given BUFFER, collect all headings.
+Collect:
+- The point
+- The level
+- The text"
   (with-current-buffer buffer
-    (save-excursion
-      (goto-char (point-min))
-      (let (points)
-        (while (search-forward-regexp markdown-datetree-header-regexp nil t))
-        (push (line-beginning-position) points)))))
+    (let (points)
+      (save-excursion
+        (goto-char (point-min))
+        (while (search-forward-regexp markdown-datetree-header-regexp nil t)
+          (message "match 1: %s" (match-string 1))
+          (setq points (append points
+                               `((:point ,(line-beginning-position)
+                                  :level ,(length (match-string 1))
+                                  ;; might not be a date!
+                                  :header ,(match-string 2)))))))
+      points)))
 
-(cl-defun markdown-datetree-parse-file (file)
-  (with-temp-buffer
-    (insert-file-contents file)
-    (markdown-datetree-parse-buffer (current-buffer))))
+(cl-defun markdown-datetree-p (buffer)
+  (let ((headings (markdown-datetree--buffer-collect-headings buffer)))))
 
 (provide 'markdown-datetree)
