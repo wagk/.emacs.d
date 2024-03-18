@@ -514,7 +514,6 @@
     ("iwthin" "within" nil :count 2)
     ("jbects" "objects" nil :count 1)
     ("jenkisn" "jenkins" nil :count 4)
-    ("jira" "JIRA" nil :count 4)
     ("josn" "json" nil :count 2)
     ("jsut" "just" nil :count 7)
     ("jujst" "just" nil :count 1)
