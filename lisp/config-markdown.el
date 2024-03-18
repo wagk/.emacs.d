@@ -138,11 +138,10 @@ If there is only one directory just return that."
   (find-file (config-markdown--select-file-name)))
 
 (cl-defun config-markdown--find-heading-insertion-point (style)
-  "Assuming that we are in the appropriate capture file, find the capture
-point.
+  "Assuming that we are in the appropriate heading, move point to either the top
+or bottom.
 
 STYLE can be either `:append' or `:prepend'"
-  ;; we want to append, so go to the next outline and backtrack
   (pcase style
     (:prepend
      (end-of-line)
@@ -182,7 +181,8 @@ If point is at a header, return the level, nil otherwise."
     (unless (search-forward-regexp regex nil :move-to-end)
       ;; Top level heading
       ;; TODO (pangt): Make this dynamic
-      (markdown-insert-header level today))))
+      (markdown-insert-header level today))
+    (config-markdown--find-heading-insertion-point :append)))
 
 (cl-defun config-markdown--find-file-and-point (&optional file)
   "Searches through files and headings and attempts to position the point at the
@@ -230,14 +230,14 @@ end of the selected heading."
                      (find-file))
                  (let ((previous-heading-level
                         (save-excursion (markdown-previous-heading)
-                                        (config-markdown--level-of-heading-at-point)))))
-                 (config-markdown--find-or-insert-date-heading-point-at-level previous-heading-level))
+                                        (config-markdown--level-of-heading-at-point))))
+                   (config-markdown--find-or-insert-date-heading-point-at-level previous-heading-level)))
             :unnarrowed t
             :empty-lines 1
             :append t
             :after-finalize
             ,#'(lambda () (setq org-capture-last-stored-marker (make-marker)))
-            :template "%?")))))
+            :template "%<%H:%M> %?")))))
 
 (with-eval-after-load 'rg
   (rg-define-search config-markdown-search-in-notes
