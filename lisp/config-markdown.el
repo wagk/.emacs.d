@@ -179,8 +179,6 @@ If point is at a header, return the level, nil otherwise."
          (regex (rx (1+ "#") " " (literal today))))
     (goto-char (point-min))
     (unless (search-forward-regexp regex nil :move-to-end)
-      ;; Top level heading
-      ;; TODO (pangt): Make this dynamic
       (markdown-insert-header level today))
     (config-markdown--find-heading-insertion-point :append)))
 
