@@ -617,6 +617,11 @@
   (set-face-attribute 'dired-directory nil
                       :bold t))
 
+(with-eval-after-load 'ace-window
+  (set-face-attribute 'aw-leading-char-face nil
+                      :foreground 'unspecified
+                      :inherit 'nano-critical-i))
+
 (with-eval-after-load 'ansi-color
   (set-face-attribute 'ansi-color-blue nil
                       :foreground sol-blue)
