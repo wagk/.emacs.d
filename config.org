@@ -2818,7 +2818,7 @@ what the benefits are.
 #+begin_src emacs-lisp :results output silent
 (use-package gptel
   :ensure t ;; override :general
-  :custom
+  ;; :custom
   ;; prompts are under `gptel-directives'
   ;; (gptel-model "gpt-4-1106-preview")
   :general
@@ -2831,7 +2831,7 @@ what the benefits are.
                        (visual-line-mode 1)
                        (require 'visual-fill-column)
                        (visual-fill-column-mode 1)))
-  :config
+  :init
   (evil-define-command --gptel-ex-command (_beg _end _type)
     (interactive "<v>")
     (if (use-region-p)
