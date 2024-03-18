@@ -143,11 +143,13 @@ point."
       ;; TODO (pangt): Make this dynamic
       (markdown-insert-header level today))))
 
-(cl-defun config-markdown--find-file-and-point ()
+(cl-defun config-markdown--find-file-and-point (&optional file)
   "Searches through files and headings and attempts to position the point at the
 end of the selected heading."
   (interactive)
-  (config-markdown-find-file)
+  (if file
+      (find-file file)
+    (config-markdown-find-file))
   (condition-case err
       (consult-imenu)
     ;; no headings in file
