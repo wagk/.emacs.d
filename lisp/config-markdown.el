@@ -85,6 +85,20 @@
   "Location of Markdown directory."
   :type '(list directory))
 
+(defconst config-markdown-header-regexp
+  (rx bol
+      (group-n 1 (one-or-more "#"))
+      (one-or-more whitespace)
+      (group-n 2 (one-or-more any))
+      (zero-or-more whitespace)
+      eol)
+  "Matches the markdown header I use (the ones that start with \"#\").
+Capture groups:
+- 1: The headings. The length of this is the depth of the header.
+- 2: The contents of the header.
+
+Accounts for trailing whitespace.")
+
 (cl-defun config-markdown--select-directory ()
   "Select a directory from `config-markdown-directories'.
 If there is only one directory just return that."
@@ -141,6 +155,25 @@ STYLE can be either `:append' or `:prepend'"
           (newline-and-indent)
           (previous-line))))))
 
+(cl-defun config-markdown--level-of-heading-at-point ()
+  "Returns the level of the header.
+If point is at a header, return the level, nil otherwise."
+  (interactive)
+  (save-excursion
+    (beginning-of-line)
+    (when (looking-at config-markdown-header-regexp)
+      (length (match-string 1)))))
+
+(cl-defun config-markdown--predict-expected-level-of-heading-at-point ()
+  "Look ahead and behind to guesstimate what should be the expected level.
+
+| Before | After | Expected (at point) | Why                          |
+|--------|-------|---------------------|------------------------------|
+| #      | #     | #                   | Same level                   |
+| #      | ##    | ##                  | Nested from now on           |
+| ##     | #     | ##                  | Append into previous subtree |
+")
+
 (cl-defun config-markdown--find-or-insert-date-heading-point-at-level (level)
   "Find heading containing today's date, and go to the bottom of it."
   (let* ((today (format-time-string "%F"))
@@ -195,7 +228,10 @@ end of the selected heading."
                          t "markdown notes directory not set!")
                  (-> (config-markdown--find-files-named "Diary")
                      (find-file))
-                 (config-markdown--find-or-insert-date-heading-point-at-level 2))
+                 (let ((previous-heading-level
+                        (save-excursion (markdown-previous-heading)
+                                        (config-markdown--level-of-heading-at-point)))))
+                 (config-markdown--find-or-insert-date-heading-point-at-level previous-heading-level))
             :unnarrowed t
             :empty-lines 1
             :append t
