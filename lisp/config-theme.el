@@ -503,6 +503,20 @@
   (set-face-attribute 'undo-tree-visualizer-unmodified-face nil
                       :foreground sol-blue))
 
+(with-eval-after-load 'tab-bar
+  (set-face-attribute 'tab-bar nil
+                      :underline nil
+                      :inherit 'minibuffer-prompt)
+  (set-face-attribute 'tab-bar-tab nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :underline t
+                      :inherit '(default))
+  (set-face-attribute 'tab-bar-tab-inactive nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'default))
+
 (with-eval-after-load 'avy
   (set-face-attribute 'avy-background-face nil
                       :foreground 'unspecified

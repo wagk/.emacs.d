@@ -326,12 +326,6 @@ evil integration)
 #+begin_src emacs-lisp :results output silent
 (use-package tab-bar
   :ensure nil
-  :custom-face
-  (tab-bar ((t (:inherit minibuffer-prompt :underline nil))))
-  (tab-bar-tab ((((background light)) (:background ,sol-base2))
-                (((background dark)) (:background ,sol-base02))
-                (t (:inherit default :foreground unspecified))))
-  (tab-bar-tab-inactive ((t (:inherit default :foreground unspecified :background unspecified))))
   :general
   (evil-window-map
    ;; single window in tab gets moved into frame
