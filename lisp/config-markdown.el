@@ -123,15 +123,23 @@ If there is only one directory just return that."
   (interactive)
   (find-file (config-markdown--select-file-name)))
 
-(cl-defun config-markdown--find-heading-end-point ()
+(cl-defun config-markdown--find-heading-insertion-point (style)
   "Assuming that we are in the appropriate capture file, find the capture
-point."
+point.
+
+STYLE can be either `:append' or `:prepend'"
   ;; we want to append, so go to the next outline and backtrack
-  (pcase (markdown-outline-next)
-    ('nil (goto-char (point-max)))
-    (_ (beginning-of-line)
-       (newline-and-indent)
-       (previous-line))))
+  (pcase style
+    (:prepend
+     (end-of-line)
+     (newline-and-indent)
+     (newline-and-indent))
+    (:append
+     (pcase (markdown-outline-next)
+       ('nil (goto-char (point-max)))
+       (_ (beginning-of-line)
+          (newline-and-indent)
+          (previous-line))))))
 
 (cl-defun config-markdown--find-or-insert-date-heading-point-at-level (level)
   "Find heading containing today's date, and go to the bottom of it."
@@ -158,7 +166,7 @@ end of the selected heading."
       ;; ignore list items
       (if (markdown-list-item-at-point-p)
           (goto-char (point-max))
-        (config-markdown--find-heading-end-point)))))
+        (config-markdown--find-heading-insertion-point :prepend)))))
 
 (with-eval-after-load 'config-evil-helpers
   (--evil-define-splits "nn" #'config-markdown-find-file))
