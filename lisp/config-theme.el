@@ -128,6 +128,12 @@
   "Very light underline coloring"
   :group 'personal)
 
+(defface sol-light-underline
+  `((((background light)) (:underline ,sol-base1))
+    (((background dark)) (:underline ,sol-base01)))
+  "Light underline coloring"
+  :group 'personal)
+
 (defface sol-superlight-overline
   `((((background light)) (:overline ,sol-base2))
     (((background dark)) (:overline ,sol-base02)))
@@ -510,12 +516,14 @@
   (set-face-attribute 'tab-bar-tab nil
                       :foreground 'unspecified
                       :background 'unspecified
-                      :underline t
-                      :inherit '(default))
+                      :underline 'unspecified
+                      :bold nil
+                      :inherit '(sol-light-underline default))
   (set-face-attribute 'tab-bar-tab-inactive nil
                       :foreground 'unspecified
                       :background 'unspecified
-                      :inherit 'default))
+                      :bold nil
+                      :inherit 'sol-light-foreground))
 
 (with-eval-after-load 'avy
   (set-face-attribute 'avy-background-face nil
