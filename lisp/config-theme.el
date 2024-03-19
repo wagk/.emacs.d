@@ -326,6 +326,7 @@
 ;; font-lock
 (set-face-attribute 'font-lock-keyword-face nil
                     :foreground 'unspecified
+                    :weight 'light
                     :inherit 'nano-default)
 (set-face-attribute 'font-lock-constant-face nil
                     :foreground 'unspecified
