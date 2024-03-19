@@ -1202,6 +1202,7 @@ clojurescript-mode derives from clojure-mode
   (rust-format-show-buffer nil
                            "Stop polluting my workspace with orphaned
                            windows thanks")
+  (rust-format-on-save t)
   :general
   (:states 'insert
    :keymaps 'rust-mode-map
