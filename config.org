@@ -2812,9 +2812,10 @@ what the benefits are.
 #+begin_src emacs-lisp :results output silent
 (use-package gptel
   :ensure t ;; override :general
-  ;; :custom
+  :custom
   ;; prompts are under `gptel-directives'
   ;; (gptel-model "gpt-4-1106-preview")
+  (gptel-display-buffer-action '(display-buffer-same-window))
   :general
   (gptel-mode-map
    "C-RET" 'gptel-send
