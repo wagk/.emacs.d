@@ -180,7 +180,7 @@ If point is at a header, return the level, nil otherwise."
     (goto-char (point-min))
     (unless (search-forward-regexp regex nil :move-to-end)
       (markdown-insert-header level today))
-    (config-markdown--find-heading-insertion-point :append)))
+    (config-markdown--find-heading-insertion-point :prepend)))
 
 (cl-defun config-markdown--find-file-and-point (&optional file)
   "Searches through files and headings and attempts to position the point at the
