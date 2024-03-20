@@ -190,4 +190,10 @@
                                    (visual-fill-column-mode -1)))))
 (evil-ex-define-cmd "set" 'config-ex-set-arg)
 
+(evil-ex-define-cmd "date" #'(lambda () (interactive)
+                               (insert (format-time-string "%f"))))
+
+(evil-ex-define-cmd "time" #'(lambda () (interactive)
+                               (insert (format-time-string "%H:%M"))))
+
 (provide 'config-evil-helpers)

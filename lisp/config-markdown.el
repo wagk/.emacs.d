@@ -235,7 +235,7 @@ end of the selected heading."
             :append t
             :after-finalize
             ,#'(lambda () (setq org-capture-last-stored-marker (make-marker)))
-            :template "%<%H:%M> %?")))))
+            :template "%?")))))
 
 (with-eval-after-load 'rg
   (rg-define-search config-markdown-search-in-notes
