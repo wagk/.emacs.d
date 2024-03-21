@@ -83,12 +83,18 @@
   :config
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "mb"  'consult-bookmark)
+    (evil-ex-define-cmd "fm"  'consult-bookmark)
     (evil-ex-define-cmd "bb"  'consult-buffer)
+    (evil-ex-define-cmd "fb"  'consult-buffer)
+    ;; :fo is currently used by focus-mode, and I sort of like it that way right
+    ;; now.
+    (evil-ex-define-cmd "fout"  'consult-outline)
     (evil-ex-define-cmd "ii"  'consult-imenu)
     (evil-ex-define-cmd "ia"  'consult-imenu-multi)
     (evil-ex-define-cmd "fk"  'consult-yank-from-kill-ring)
     (evil-ex-define-cmd "fl"  'consult-line)
     (evil-ex-define-cmd "fla" 'consult-line-multi)
+    (evil-ex-define-cmd "fal" 'consult-line-multi)
     (evil-ex-define-cmd "fi"  'consult-info))
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'(lambda (&rest args)
