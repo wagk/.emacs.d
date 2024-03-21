@@ -2082,6 +2082,20 @@ Or evil-spongebob if you want to think of it that way.
    "C-k" 'lsp-ui-peek--select-prev
    "M-j" 'lsp-ui-peek--select-next
    "M-k" 'lsp-ui-peek--select-prev))
+
+(use-package lsp-ui-doc
+  :after lsp-ui
+  :ensure nil
+  :custom
+  (lsp-ui-doc-show-with-cursor nil)
+  (lsp-ui-doc-position 'at-point)
+  :hook
+  (lsp-ui-doc-mode-hook . (lambda ()
+                            (general-define-key
+                             :keymaps 'lsp-command-map
+                              "h h" (if lsp-ui-doc-mode
+                                        'lsp-ui-doc-glance
+                                      'lsp-describe-thing-at-point)))))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
