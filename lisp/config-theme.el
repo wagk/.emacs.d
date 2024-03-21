@@ -226,6 +226,74 @@
   (set-face-attribute 'evil-ex-substitute-replacement nil
                       :foreground sol-red))
 
+(with-eval-after-load 'ediff
+  (set-face-attribute 'ediff-current-diff-A nil
+                      :foreground sol-red
+                      :background 'unspecified
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'ediff-fine-diff-A nil
+                      :foreground sol-red
+                      :bold t
+                      :background 'unspecified
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'ediff-current-diff-Ancestor nil
+                      :foreground sol-blue
+                      :background 'unspecified
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'ediff-fine-diff-Ancestor nil
+                      :foreground sol-blue
+                      :bold t
+                      :background 'unspecified
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'ediff-current-diff-B nil
+                      :foreground sol-green
+                      :background 'unspecified
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'ediff-fine-diff-B nil
+                      :foreground sol-green
+                      :bold t
+                      :background 'unspecified
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'ediff-current-diff-C nil
+                      :foreground sol-yellow
+                      :background 'unspecified
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'ediff-fine-diff-C nil
+                      :foreground sol-yellow
+                      :bold t
+                      :background 'unspecified
+                      :inherit 'sol-superlight-background)
+
+  (set-face-attribute 'ediff-even-diff-A nil
+                      :foreground sol-red
+                      :background 'unspecified
+                      :inherit nil)
+  (set-face-attribute 'ediff-even-diff-Ancestor nil
+                      :foreground sol-blue
+                      :background 'unspecified
+                      :inherit nil)
+  (set-face-attribute 'ediff-even-diff-B nil
+                      :foreground sol-green
+                      :background 'unspecified
+                      :inherit nil)
+  (set-face-attribute 'ediff-even-diff-C nil
+                      :foreground sol-yellow
+                      :background 'unspecified
+                      :inherit nil)
+
+  (set-face-attribute 'ediff-odd-diff-A nil
+                      :background 'unspecified
+                      :inherit 'ediff-even-diff-A)
+  (set-face-attribute 'ediff-odd-diff-Ancestor nil
+                      :background 'unspecified
+                      :inherit 'ediff-even-diff-Ancestor)
+  (set-face-attribute 'ediff-odd-diff-B nil
+                      :background 'unspecified
+                      :inherit 'ediff-even-diff-B)
+  (set-face-attribute 'ediff-odd-diff-C nil
+                      :background 'unspecified
+                      :inherit 'ediff-even-diff-C))
+
 (with-eval-after-load 'magit
  (set-face-attribute 'magit-diff-revision-summary nil
                      :bold 'unspecified
@@ -326,7 +394,6 @@
 ;; font-lock
 (set-face-attribute 'font-lock-keyword-face nil
                     :foreground 'unspecified
-                    :weight 'light
                     :inherit 'nano-default)
 (set-face-attribute 'font-lock-constant-face nil
                     :foreground 'unspecified
