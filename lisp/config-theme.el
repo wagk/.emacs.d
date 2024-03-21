@@ -220,6 +220,11 @@
                         (((background dark))
                          (:underline ,sol-base01))))))
 
+(with-eval-after-load 'pulse
+  (set-face-attribute 'pulse-highlight-start-face nil
+                      :background 'unspecified
+                      :inherit 'sol-superlight-background))
+
 (with-eval-after-load 'evil
   (set-face-attribute 'evil-ex-info nil
                       :foreground sol-red)
@@ -657,6 +662,10 @@
                       :inherit 'nano-strong))
 
 (with-eval-after-load 'lsp-ui-doc
+  (setq lsp-ui-doc-border (plist-get
+                           (custom-face-attributes-get 'default nil)
+                           :foreground))
+
   (set-face-attribute 'lsp-ui-doc-background nil
                       :background 'unspecified
                       :inherit 'nano-subtle)
