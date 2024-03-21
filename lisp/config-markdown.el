@@ -150,9 +150,9 @@ STYLE can be either `:append' or `:prepend'"
     (:append
      (pcase (markdown-outline-next)
        ('nil (goto-char (point-max)))
-       (_ (beginning-of-line)
-          (newline-and-indent)
-          (previous-line))))))
+       (_point (beginning-of-line)
+               (newline-and-indent)
+               (previous-line))))))
 
 (cl-defun config-markdown--level-of-heading-at-point ()
   "Returns the level of the header.
