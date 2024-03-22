@@ -212,6 +212,11 @@
     (set-face-attribute 'diff-indicator-removed nil
                         :foreground 'unspecified)))
 
+(use-package ediff
+  :ensure nil
+  :custom
+  (ediff-window-setup-function 'ediff-setup-window-plain))
+
 (use-package calendar
   :ensure nil
   :custom
@@ -221,5 +226,68 @@
   :ensure nil
   :custom
   (display-time-24hr-format t))
+
+(use-package tab-bar
+  :ensure nil
+  :general
+  (evil-window-map
+   ;; single window in tab gets moved into frame
+   "g f" #'(lambda ()
+             (interactive)
+             (unless (= 1 (length (window-list)))
+               (tab-window-detach))
+             (tab-detach))
+   "g w" "g f"
+   ;; entire tab gets moved into frame
+   "g F" 'tab-detach
+   "g W" "g F")
+  :custom
+  (tab-bar-close-last-tab-choice 'delete-frame)
+  (tab-bar-new-tab-choice t)
+  (tab-bar-close-button-show nil)
+  (tab-bar-new-button-show nil)
+  (tab-bar-close-tab-select 'left)
+  (tab-bar-new-button nil)
+  (tab-bar-new-tab-to 'right)
+  :config
+  (tab-bar-mode)
+  (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
+  (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
+  (evil-define-command my-tab-bar-tab-edit (file)
+    (interactive "<f>")
+    (let ((tab-bar-new-tab-choice (if file file "*scratch*")))
+      (tab-bar-new-tab)))
+  (evil-ex-define-cmd "tabn[ew]" 'my-tab-bar-tab-edit)
+  (evil-ex-define-cmd "tabe[dit]" 'tab-bar-new-tab)
+  (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
+  (evil-define-command --tab-bar-rename-tab (name)
+    (interactive "<a>")
+    (tab-bar-rename-tab name))
+  (evil-ex-define-cmd "tabr[ename]" '--tab-bar-rename-tab)
+  (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
+  (evil-ex-define-cmd "tt" 'tab-bar-select-tab-by-name)
+  (evil-ex-define-cmd "tabm[ove]+" 'tab-bar-move-tab)
+  (evil-ex-define-cmd "tabm[ove]-" 'tab-bar-move-tab-right)
+  (evil-ex-define-cmd "tabd[etach]" 'tab-detach)
+  (defun --tab-bar-tab-name-fn ()
+    (require 'project)
+    (let ((buffer-name (-> (minibuffer-selected-window)
+                           (window-buffer)
+                           (buffer-name))))
+      (if-let ((project-info (project-current)))
+          (format "%s<%s>" buffer-name (project-root project-info))
+        (format "%s" buffer-name))))
+  ;; (customize-set-value 'tab-bar-tab-name-function #'--tab-bar-tab-name-fn)
+  (customize-set-value 'tab-bar-tab-name-function #'tab-bar-tab-name-truncated)
+
+  (define-advice delete-frame (:around (oldfun &rest _old_args)
+                                       --tab-bar-delete-tab-or-emacs)
+    (interactive)
+    (let* ((tabs (find-if (lambda (elem) (eq 'tabs (car elem)))
+                          (frame-parameters)))
+           (num-tabs (length (cdr tabs))))
+      (if (eq num-tabs 1)
+          (call-interactively oldfun)
+        (tab-bar-close-tab)))))
 
 (provide 'config-emacs)
