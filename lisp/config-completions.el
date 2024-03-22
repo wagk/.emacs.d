@@ -85,6 +85,7 @@
     (evil-ex-define-cmd "mb"  'consult-bookmark)
     (evil-ex-define-cmd "fm"  'consult-bookmark)
     (evil-ex-define-cmd "bb"  'consult-buffer)
+    (evil-ex-define-cmd "fr"  'consult-recent-file)
     (evil-ex-define-cmd "fb"  'consult-buffer)
     ;; :fo is currently used by focus-mode, and I sort of like it that way right
     ;; now.
