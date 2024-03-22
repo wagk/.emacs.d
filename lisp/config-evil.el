@@ -115,11 +115,15 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
     t
     "Use regular expressions while searching instead of plaintext
     matching.")
+  (evil-v$-excludes-newline t)
   (evil-want-C-u-scroll
     t
     "In vim, <C-u> maps to half page up. In Emacs, it corresponds to
     the `universal-argument' function that might augment a function
     call. We prefer the scrolling.")
+  (evil-want-C-u-delete
+    t
+    "Apparently C-u deletes back to indentation in insert state.")
   ;; (evil-split-window-below
   ;;   t
   ;;   "`set splitbelow` in vim")
@@ -135,19 +139,16 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (evil-want-fine-undo t)
   :hook ((evil-normal-state-entry-hook . evil-ex-nohighlight))
   :config
-
   (cl-defun --evil-window-tag ()
     ":h window-tag"
     (interactive)
     (--evil-do-in-split #'evil-jump-to-tag :vsplit))
-
   (defun update-evil-shift-width ()
     "We do this otherwise packages like parinfer would mess up with
       the indentation, since their default is 4 but lisp-mode defaults
       are generally 2."
     (require 'evil)
     (customize-set-variable 'evil-shift-width lisp-body-indent))
-
   ;; Back to our regularly scheduled programming
   (evil-select-search-module 'evil-search-module 'evil-search)
 
