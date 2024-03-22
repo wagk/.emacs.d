@@ -662,9 +662,10 @@
                       :inherit 'nano-strong))
 
 (with-eval-after-load 'lsp-ui-doc
-  (setq lsp-ui-doc-border (plist-get
-                           (custom-face-attributes-get 'default nil)
-                           :foreground))
+  (setq lsp-ui-doc-border
+        (plist-get
+         (custom-face-attributes-get 'sol-superlight-foreground nil)
+         :foreground))
 
   (set-face-attribute 'lsp-ui-doc-background nil
                       :background 'unspecified
