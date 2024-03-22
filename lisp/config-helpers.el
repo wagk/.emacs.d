@@ -39,6 +39,25 @@
     (cl-assert (bufferp buffer))
     buffer))
 
+;; The best feature of notepad
+(defun --make-iso-8601-timestamp (with-hours)
+  (insert (format-time-string (if with-hours "%FT%H%M" "%F"))))
+
+(with-eval-after-load 'general
+  (general-define-key
+   :states '(normal motion insert)
+    "<f5>" #'(lambda () (interactive)
+               (--make-iso-8601-timestamp nil))
+    "S-<f5>" #'(lambda () (interactive)
+                 (--make-iso-8601-timestamp t))
+   (general-define-key
+    :states '(normal)
+    "gb" #'(lambda () (interactive)
+             (--make-iso-8601-timestamp nil))
+    "gB" #'(lambda () (interactive)
+             (--make-iso-8601-timestamp t)))))
+
+
 (provide 'config-helpers)
 
 ;;; config-helpers.el ends here

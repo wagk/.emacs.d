@@ -19,6 +19,11 @@
   (ff-always-try-to-create nil)
   (blink-matching-paren-highlight-offscreen t)
   :config
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (if (boundp 'scroll-bar-mode)
+      (scroll-bar-mode -1))
+  (window-divider-mode -1)
   (column-number-mode)
   (cl-defun --point-to-file-and-line-number ()
     (interactive)
@@ -27,8 +32,7 @@
                   (file-relative-name (buffer-file-name)
                                       (project-root (project-current)))
                   (buffer-file-name)))
-           (info (concat buf
-                         ":"
+           (info (concat buf ":"
                          (number-to-string (line-number-at-pos)))))
       (kill-new info)
       (message "%s" info)))
@@ -41,6 +45,11 @@
         ((or 'nil (pred listp)) (message "Not a file"))
         (name (kill-new name)
               (message "%s" name)))))
+
+  (setq backup-directory-alist
+        `(("." . ,(file-name-concat (when (featurep 'no-littering)
+                                      no-littering-etc-directory)
+                                    "backups"))))
 
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "byl" #'--point-to-file-and-line-number)
