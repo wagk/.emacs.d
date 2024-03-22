@@ -180,7 +180,7 @@ If point is at a header, return the level, nil otherwise."
     (goto-char (point-min))
     (unless (search-forward-regexp regex nil :move-to-end)
       (markdown-insert-header level today))
-    (config-markdown--find-heading-insertion-point :prepend)))
+    (config-markdown--find-heading-insertion-point :append)))
 
 (cl-defun config-markdown--find-file-and-point (&optional file)
   "Searches through files and headings and attempts to position the point at the
@@ -226,10 +226,10 @@ end of the selected heading."
                          t "markdown notes directory not set!")
                  (-> (config-markdown--find-files-named "Diary")
                      (find-file))
-                 (let ((previous-heading-level
-                        (save-excursion (markdown-previous-heading)
-                                        (config-markdown--level-of-heading-at-point))))
-                   (config-markdown--find-or-insert-date-heading-point-at-level previous-heading-level)))
+                 (config-markdown--find-or-insert-date-heading-point-at-level
+                  (save-excursion
+                    (markdown-previous-heading)
+                    (config-markdown--level-of-heading-at-point))))
             :unnarrowed t
             :empty-lines 1
             :append t
