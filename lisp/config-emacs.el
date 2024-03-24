@@ -25,35 +25,38 @@
       (scroll-bar-mode -1))
   (window-divider-mode -1)
   (column-number-mode)
-  (cl-defun --point-to-file-and-line-number ()
-    (interactive)
-    (require 'project)
-    (let* ((buf (if (project-current nil)
-                  (file-relative-name (buffer-file-name)
-                                      (project-root (project-current)))
-                  (buffer-file-name)))
-           (info (concat buf ":"
-                         (number-to-string (line-number-at-pos)))))
-      (kill-new info)
-      (message "%s" info)))
-
-  (cl-defun --kill-buffer-path ()
-    (interactive)
-    (let ((name (or (buffer-file-name) dired-directory)))
-      (pcase name
-        ;; hack since dired-directory might be a list
-        ((or 'nil (pred listp)) (message "Not a file"))
-        (name (kill-new name)
-              (message "%s" name)))))
-
+  (setq-default fringe-indicator-alist
+                (delq (assq 'continuation fringe-indicator-alist) fringe-indicator-alist))
   (setq backup-directory-alist
         `(("." . ,(file-name-concat (when (featurep 'no-littering)
                                       no-littering-etc-directory)
-                                    "backups"))))
+                                    "backups")))))
 
-  (with-eval-after-load 'evil
-    (evil-ex-define-cmd "byl" #'--point-to-file-and-line-number)
-    (evil-ex-define-cmd "byf" #'--kill-buffer-path)))
+
+(cl-defun --point-to-file-and-line-number ()
+  (interactive)
+  (require 'project)
+  (let* ((buf (if (project-current nil)
+                (file-relative-name (buffer-file-name)
+                                    (project-root (project-current)))
+                (buffer-file-name)))
+         (info (concat buf ":"
+                       (number-to-string (line-number-at-pos)))))
+    (kill-new info)
+    (message "%s" info)))
+
+(cl-defun --kill-buffer-path ()
+  (interactive)
+  (let ((name (or (buffer-file-name) dired-directory)))
+    (pcase name
+      ;; hack since dired-directory might be a list
+      ((or 'nil (pred listp)) (message "Not a file"))
+      (name (kill-new name)
+            (message "%s" name)))))
+
+(with-eval-after-load 'evil
+  (evil-ex-define-cmd "byl" #'--point-to-file-and-line-number)
+  (evil-ex-define-cmd "byf" #'--kill-buffer-path))
 
 (with-eval-after-load 'minibuffer
   (general-define-key
