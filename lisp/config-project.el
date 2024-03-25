@@ -162,7 +162,9 @@
                                      (multi-vterm-project)
                                    (project-shell))))
     (evil-ex-define-cmd "pc" #'--compile-command-completing-read)
+    (evil-ex-define-cmd "pcc" #'recompile)
     (evil-ex-define-cmd "pcd" #'--compile-command-completing-read)
+
     (with-eval-after-load 'consult
       (--evil-define-splits "pbb" #'consult-project-buffers)))
 

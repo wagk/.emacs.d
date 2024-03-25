@@ -382,4 +382,10 @@
       (apropos pattern))
     (evil-ex-define-cmd "h[elp]" 'my-apropos)))
 
+(use-package ibuffer
+  :ensure nil
+  :hook
+  (ibuffer-mode-hook . hl-line-mode))
+
+
 (provide 'config-emacs)

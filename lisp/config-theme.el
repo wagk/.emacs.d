@@ -145,8 +145,9 @@
 (with-eval-after-load 'simple
   (when (facep 'blink-matching-paren-offscreen)
     (set-face-attribute 'blink-matching-paren-offscreen nil
+                        :bold t
                         :foreground 'unspecified
-                        :inherit 'nano-salient)))
+                        :inherit 'nano-critical)))
 
 (with-eval-after-load 'faces
   (set-face-attribute 'fringe nil
