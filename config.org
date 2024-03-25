@@ -5,138 +5,6 @@
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
 * Quality of Life
-** Do not truncate lines
-#+begin_src emacs-lisp :results output silent
-(setq-default truncate-lines t)
-#+end_src
-
-** Disable startup screen
-#+begin_src emacs-lisp :results output silent
-(setq inhibit-startup-screen t)
-#+end_src
-
-** Change "yes or no" to "y or n"
-#+begin_src emacs-lisp :results output silent
-(fset 'yes-or-no-p 'y-or-n-p)
-#+end_src
-
-** Require newlines at the end of all files
-#+begin_src emacs-lisp :results output silent
-(setq-default require-final-newline t)
-#+end_src
-
-** Disable alert sounds
-#+begin_src emacs-lisp :results output silent
-(setq ring-bell-function 'ignore)
-#+end_src
-
-** Automatically refresh buffer when underlying file is changed externally
-#+begin_src emacs-lisp :results output silent
-(customize-set-variable 'global-auto-revert-non-file-buffers t)
-(global-auto-revert-mode)
-#+end_src
-
-** Make window subprocess communications faster
-#+begin_src emacs-lisp :results output silent
-(if (< emacs-major-version 27)
-    (setq w32-pipe-read-delay 0))
-#+end_src
-
-** Set default tab width
-#+begin_src emacs-lisp :results output silent
-(setq-default tab-width 4)
-#+end_src
-
-** Never indent with a TAB character
-#+begin_src emacs-lisp :results output silent
-(setq-default indent-tabs-mode nil)
-#+end_src
-
-** Bind whitespace-mode
-#+begin_src emacs-lisp :results output silent
-(general-define-key
- :states 'normal
- :prefix my-default-evil-leader-key
- "." 'whitespace-mode)
-#+end_src
-
-** Show trailing whitespace
-actually, don't (outside of text modes)
-#+begin_src emacs-lisp :results output silent
-(add-hook 'prog-mode-hook
-          (lambda () (customize-set-value 'show-trailing-whitespace t)))
-#+end_src
-
-** After creating a new frame, immediately focus on that frame.
-#+begin_src emacs-lisp :results output silent
-(add-hook 'after-make-frame-functions 'select-frame)
-#+end_src
-
-** Sentences should end after a single space, not two
-#+begin_src emacs-lisp :results output silent
-(customize-set-variable 'sentence-end-double-space nil)
-#+end_src
-
-** Underscores should be considered as part of a word
-#+begin_src emacs-lisp :results output silent
-(add-hook 'after-change-major-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-#+end_src
-
-** Stretch caret to cover full width of character
-http://pragmaticemacs.com/emacs/adaptive-cursor-width/
-#+begin_src emacs-lisp :results output silent
-(setq x-stretch-cursor t)
-#+end_src
-
-** Display line numbers when editing code
-#+begin_src emacs-lisp :results output silent
-(when (>= emacs-major-version 26)
-  (add-hook 'prog-mode-hook 'display-line-numbers-mode))
-#+end_src
-
-** Show matching parens
-#+begin_src emacs-lisp :results output silent
-(customize-set-variable 'show-paren-when-point-inside-paren t)
-(customize-set-variable 'show-paren-when-point-in-periphery t)
-(customize-set-variable 'show-paren-context-when-offscreen t)
-(add-hook 'prog-mode-hook 'show-paren-mode)
-#+end_src
-
-** Scroll like Vim
-#+begin_src emacs-lisp :results output silent
-(setq scroll-step 1
-      scroll-margin 1
-      scroll-conservatively 9999)
-#+end_src
-
-** Activate hs-minor-mode on prog mode
-#+begin_src emacs-lisp :results output silent
-(add-hook 'prog-mode-hook 'hs-minor-mode)
-#+end_src
-
-** Eval sexp and replace with results
-Stolen from https://github.com/bbatsov/crux
-
-#+begin_src emacs-lisp :results output silent
-;; ;;;###autoload
-(defun --eval-and-replace ()
-  "Replace the preceding sexp with its value."
-  (interactive)
-  (let ((value (eval (elisp--preceding-sexp))))
-    (backward-kill-sexp)
-    (insert (format "%S" value))))
-(evil-ex-define-cmd "eval" #'--eval-and-replace)
-
-;; ;;TODO: it's not working somehow
-;; ;;;###autoload
-;; (evil-define-command my-eval-and-replace (beg end _type)
-;;   "Replace the preceding sexp with its value."
-;;   (interactive "<v>")
-;;   (let ((value (eval-region beg end (get-buffer (buffer-name)))))
-;;     (insert (format "%S" value))))
-;; (evil-ex-define-cmd "eval" 'eval-and-replace)
-#+end_src
-
 ** Copy file name to keyboard
 #+begin_src emacs-lisp :results output silent
 (defun my-kill-path-to-keyboard ()
@@ -153,22 +21,6 @@ Stolen from https://github.com/bbatsov/crux
 (evil-ex-define-cmd "ypath" 'my-kill-path-to-keyboard)
 #+end_src
 
-** Tags table defaults
-#+begin_src emacs-lisp :results output silent
-(setq-default tags-add-tables nil)
-#+end_src
-
-** Disable native compilation warnings
-#+begin_src emacs-lisp :results output silent
-(when (and (featurep 'nativecomp) (native-comp-available-p))
-  (customize-set-variable 'comp-async-report-warnings-errors nil))
-#+end_src
-
-** Electric Indent
-#+begin_src emacs-lisp :results output silent
-(electric-indent-mode)
-#+end_src
-
 ** Buffer menu mode map config
 #+begin_src emacs-lisp :results output silent
 (general-define-key
@@ -177,10 +29,6 @@ Stolen from https://github.com/bbatsov/crux
  "C-d" 'evil-scroll-down)
 #+end_src
 
-** Don't compact font caches
-#+begin_src emacs-lisp :results output silent
-(customize-set-value 'inhibit-compacting-font-caches t)
-#+end_src
 ** Doctor mode
 #+begin_src emacs-lisp :results output silent
 (evil-ex-define-cmd "doc[tor]" 'doctor)
@@ -202,62 +50,6 @@ mode."
 ** Add :repl for ielm
 #+begin_src emacs-lisp :results output silent
 (evil-ex-define-cmd "repl" 'ielm)
-#+end_src
-
-** Set fill column
-#+begin_src emacs-lisp :results output silent
-(customize-set-value 'fill-column 80)
-(when (fboundp 'global-display-fill-column-indicator-mode)
-  (global-display-fill-column-indicator-mode 1))
-#+end_src
-
-** Move Auto-Save files into directory
-#+begin_src emacs-lisp :results output silent
-(with-eval-after-load 'no-littering
-  (let ((dir (f-join no-littering-etc-directory "auto-save/")))
-    (unless (f-exists-p dir)
-      (f-mkdir dir))
-    (add-to-list 'auto-save-file-name-transforms
-                 `(".*" ,dir t))))
-#+end_src
-
-** Enable saving bufferplaces
-#+begin_src emacs-lisp :results output silent
-(save-place-mode 1)
-#+end_src
-
-** Disable dialog boxes
-#+begin_src emacs-lisp :results output silent
-(customize-set-value 'use-dialog-box nil)
-#+end_src
-
-** Pixel scroll precision (for mouse scrolling)
-#+begin_src emacs-lisp :results output silent
-(when (boundp 'pixel-scroll-precision-mode)
-  (pixel-scroll-precision-mode))
-#+end_src
-
-** Detailed Completions
-#+begin_src emacs-lisp :results output silent
-(customize-set-value 'completions-detailed t)
-#+end_src
-
-** Resize frames pixelwise
-#+begin_src emacs-lisp :results output silent
-(setq frame-resize-pixelwise t)
-#+end_src
-
-* Apropos Configuration
-#+begin_src emacs-lisp :results output silent
-(use-package apropos
-  :ensure nil
-  :custom
-  (apropos-do-all t)
-  :init
-  (evil-define-command my-apropos (pattern)
-    (interactive "<a>")
-    (apropos pattern))
-  (evil-ex-define-cmd "h[elp]" 'my-apropos))
 #+end_src
 
 * Which Key

@@ -115,7 +115,13 @@
   (defconst my-default-evil-leader-key "SPC"))
 
 (use-package no-littering
-  :ensure (:host github :repo "emacscollective/no-littering"))
+  :ensure (:host github :repo "emacscollective/no-littering")
+  :config
+  (let ((dir (f-join no-littering-etc-directory "auto-save/")))
+    (unless (f-exists-p dir)
+      (f-mkdir dir))
+    (add-to-list 'auto-save-file-name-transforms
+                 `(".*" ,dir t))))
 
 (use-package restart-emacs
   :if (not (eq system-type 'darwin))

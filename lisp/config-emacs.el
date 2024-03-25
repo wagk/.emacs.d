@@ -18,20 +18,69 @@
   (fill-column 80)
   (ff-always-try-to-create nil)
   (blink-matching-paren-highlight-offscreen t)
+  (truncate-lines t)
+  (inhibit-startup-screen t)
+  (require-final-newline t)
+  (ring-bell-function 'ignore)
+  (tab-width 4)
+  (sentence-end-double-space nil)
+  (x-stretch-cursor t) ;; http://pragmaticemacs.com/emacs/adaptive-cursor-width/
+  (show-paren-when-point-inside-paren t)
+  (show-paren-when-point-in-periphery t)
+  (show-paren-context-when-offscreen t)
+  (tags-add-tables nil)
+  (use-dialog-box nil)
+  (fill-column 80)
+  (frame-resize-pixelwise t)
+  (inhibit-compacting-font-caches t)
+  ;; make things more vim-like
+  (scroll-step 1)
+  (scroll-margin 1)
+  (scroll-conservatively 9999)
+  :general
+  (:states 'normal
+   :prefix my-default-evil-leader-key
+   "." 'whitespace-mode)
+  :hook
+  (prog-mode-hook . hs-minor-mode)
+  (prog-mode-hook . show-paren-mode)
+  (prog-mode-hook . (lambda () (setq-local show-trailing-whitespace t)))
+  (after-make-frame-functions . select-frame)
+  (after-change-major-mode-hook . (lambda () (modify-syntax-entry ?_ "w")))
   :config
+  (electric-indent-mode)
+
+  (when (>= emacs-major-version 26)
+    (add-hook 'prog-mode-hook 'display-line-numbers-mode))
+
   (tool-bar-mode -1)
   (menu-bar-mode -1)
-  (if (boundp 'scroll-bar-mode)
-      (scroll-bar-mode -1))
+  (when (boundp 'scroll-bar-mode)
+    (scroll-bar-mode -1))
   (window-divider-mode -1)
-  (column-number-mode)
+
+  (when (fboundp 'global-display-fill-column-indicator-mode)
+    (global-display-fill-column-indicator-mode 1))
+
+  (when (boundp 'pixel-scroll-precision-mode)
+    (pixel-scroll-precision-mode))
+
+  (save-place-mode 1)
+
+  (column-number-mode 1)
+  (indent-tabs-mode -1)
+  (fset 'yes-or-no-p 'y-or-n-p) ;; Change "yes or no" to "y or n"
+
   (setf (alist-get 'continuation fringe-indicator-alist) 'empty-line)
   (setf (alist-get 'truncation fringe-indicator-alist) 'empty-line)
+
   (setq backup-directory-alist
         `(("." . ,(file-name-concat (when (featurep 'no-littering)
                                       no-littering-etc-directory)
-                                    "backups")))))
+                                    "backups"))))
 
+  (when (< emacs-major-version 27)
+    (setq w32-pipe-read-delay 0)))
 
 (cl-defun --point-to-file-and-line-number ()
   (interactive)
@@ -57,6 +106,17 @@
 (with-eval-after-load 'evil
   (evil-ex-define-cmd "byl" #'--point-to-file-and-line-number)
   (evil-ex-define-cmd "byf" #'--kill-buffer-path))
+
+;; from https://github.com/bbatsov/crux
+(cl-defun --eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (let ((value (eval (elisp--preceding-sexp))))
+    (backward-kill-sexp)
+    (insert (format "%S" value))))
+
+(with-eval-after-load 'evil
+  (evil-ex-define-cmd "eval" #'--eval-and-replace))
 
 (with-eval-after-load 'minibuffer
   (general-define-key
@@ -303,5 +363,23 @@
       (if (eq num-tabs 1)
           (call-interactively oldfun)
         (tab-bar-close-tab)))))
+
+(use-package autorevert
+  :ensure nil
+  :custom
+  (global-auto-revert-non-file-buffers t)
+  :config
+  (global-auto-revert-mode))
+
+(use-package apropos
+  :ensure nil
+  :custom
+  (apropos-do-all t)
+  :init
+  (with-eval-after-load 'evil
+    (evil-define-command my-apropos (pattern)
+      (interactive "<a>")
+      (apropos pattern))
+    (evil-ex-define-cmd "h[elp]" 'my-apropos)))
 
 (provide 'config-emacs)
