@@ -24,9 +24,15 @@
   :general
   (markdown-mode-map
    :states '(normal insert)
-   "<tab>" #'completion-at-point
-   "TAB" "<tab>")
+	"<tab>" #'--markdown-complete-or-indent-at-table
+	"TAB" "<tab>")
   :init
+  (cl-defun --markdown-complete-or-indent-at-table ()
+    (interactive)
+	(if (markdown-table-at-point-p)
+		(call-interactively #'markdown-table-forward-cell)
+	  (indent-for-tab-command)))
+
   (with-eval-after-load 'autoinsert
     (define-auto-insert "\\.md\\'"
       '("Front matter"
