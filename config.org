@@ -2433,7 +2433,8 @@ what the benefits are.
     (if (use-region-p)
         (gptel-menu)
       (call-interactively 'gptel)))
-  (evil-ex-define-cmd "gpt" #'--gptel-ex-command))
+  (evil-ex-define-cmd "gpt" #'--gptel-ex-command)
+  (evil-ex-define-cmd "gptt" #'gptel-menu))
 #+end_src
 
 * Jam-mode
