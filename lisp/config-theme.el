@@ -143,7 +143,7 @@
   :group 'personal)
 
 (with-eval-after-load 'simple
-  (when (boundp 'blink-matching-paren-offscreen)
+  (when (facep 'blink-matching-paren-offscreen)
     (set-face-attribute 'blink-matching-paren-offscreen nil
                         :foreground 'unspecified
                         :inherit 'nano-salient)))
