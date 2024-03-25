@@ -149,6 +149,8 @@
                         :inherit 'nano-salient)))
 
 (with-eval-after-load 'faces
+  (set-face-attribute 'fringe nil
+                      :inherit 'sol-light-foreground)
   (set-face-attribute 'variable-pitch-text nil
                       :height 1)
   (set-face-attribute 'fill-column-indicator nil

@@ -25,8 +25,8 @@
       (scroll-bar-mode -1))
   (window-divider-mode -1)
   (column-number-mode)
-  (setq-default fringe-indicator-alist
-                (delq (assq 'continuation fringe-indicator-alist) fringe-indicator-alist))
+  (setf (alist-get 'continuation fringe-indicator-alist) 'empty-line)
+  (setf (alist-get 'truncation fringe-indicator-alist) 'empty-line)
   (setq backup-directory-alist
         `(("." . ,(file-name-concat (when (featurep 'no-littering)
                                       no-littering-etc-directory)
