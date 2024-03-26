@@ -24,14 +24,14 @@
   :general
   (markdown-mode-map
    :states '(normal insert)
-	"<tab>" #'--markdown-complete-or-indent-at-table
-	"TAB" "<tab>")
+    "<tab>" #'--markdown-complete-or-indent-at-table
+    "TAB" "<tab>")
   :init
   (cl-defun --markdown-complete-or-indent-at-table ()
     (interactive)
-	(if (markdown-table-at-point-p)
-		(call-interactively #'markdown-table-forward-cell)
-	  (indent-for-tab-command)))
+    (if (markdown-table-at-point-p)
+        (call-interactively #'markdown-table-forward-cell)
+      (indent-for-tab-command)))
 
   (with-eval-after-load 'autoinsert
     (define-auto-insert "\\.md\\'"
@@ -176,7 +176,7 @@ If point is at a header, return the level, nil otherwise."
     (goto-char (point-min))
     (unless (search-forward-regexp regex nil :move-to-end)
       (markdown-insert-header level today)
-	  (newline-and-indent))
+      (newline-and-indent))
     (config-markdown--find-heading-insertion-point :append)))
 
 (cl-defun config-markdown--find-file-and-point (&optional file)
