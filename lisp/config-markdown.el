@@ -169,16 +169,6 @@ If point is at a header, return the level, nil otherwise."
     (when (looking-at config-markdown-header-regexp)
       (length (match-string 1)))))
 
-(cl-defun config-markdown--predict-expected-level-of-heading-at-point ()
-  "Look ahead and behind to guesstimate what should be the expected level.
-
-| Before | After | Expected (at point) | Why                          |
-|--------|-------|---------------------|------------------------------|
-| #      | #     | #                   | Same level                   |
-| #      | ##    | ##                  | Nested from now on           |
-| ##     | #     | ##                  | Append into previous subtree |
-")
-
 (cl-defun config-markdown--find-or-insert-date-heading-point-at-level (level)
   "Find heading containing today's date, and go to the bottom of it."
   (let* ((today (format-time-string "%F"))
