@@ -1971,10 +1971,15 @@ Just do the scratch buffer simple and stupidly
    "]]" 'compilation-next-error
    "[[" 'compilation-previous-error)
   :init
-  (defun my-colorize-completion-buffer ()
-    (require 'ansi-color)
-    (let ((inhibit-read-only t))
-      (ansi-color-apply-on-region compilation-filter-start (point))))
+  ;; (defun my-colorize-completion-buffer ()
+  ;;   (require 'ansi-color)
+  ;;   (let ((inhibit-read-only t))
+  ;;     (ansi-color-apply-on-region compilation-filter-start (point))))
+  (with-eval-after-load 'consult
+    (general-define-key
+     :keymaps 'compilation-mode-map
+     :states 'normal
+      "g g" #'consult-compile-error))
   :hook
   ((compilation-filter-hook . my-colorize-completion-buffer)
    (compilation-mode-hook . visual-line-mode)))
