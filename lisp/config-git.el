@@ -51,62 +51,62 @@
    :states '(normal)
    "g x" 'magit-browse-thing)
   :init
-  (evil-define-command ex-magit-cli (cmd)
-    "Calls specific magit functions"
-    (interactive "<a>")
-    (cond
-     ((eq cmd nil) (magit-status))
-     (t (magit-shell-command (concat "git " cmd)))))
-  (evil-ex-define-cmd "gF"     'magit-pull)
-  (evil-ex-define-cmd "gB"     'magit-branch)
-  (evil-ex-define-cmd "gb"     'magit-blame-addition)
-  (evil-ex-define-cmd "blame"  'magit-blame-addition)
-  (evil-ex-define-cmd "gblame" 'magit-blame)
-  (evil-ex-define-cmd "gc"     'magit-commit)
-  (evil-ex-define-cmd "gf"     'magit-fetch)
-  (evil-ex-define-cmd "gg"     'ex-magit-cli)
-  (evil-ex-define-cmd "git"    'ex-magit-cli)
-  (evil-ex-define-cmd "gl"     'magit-log)
-  (evil-ex-define-cmd "gp"     'magit-push)
-  (evil-ex-define-cmd "gz"     'magit-stash)
+  (with-eval-after-load 'evil
+    (evil-define-command ex-magit-cli (cmd)
+      "Calls specific magit functions"
+      (interactive "<a>")
+      (cond
+       ((eq cmd nil) (magit-status))
+       (t (magit-shell-command (concat "git " cmd)))))
+    (evil-ex-define-cmd "gF"     'magit-pull)
+    (evil-ex-define-cmd "gB"     'magit-branch)
+    (evil-ex-define-cmd "gb"     'magit-blame-addition)
+    (evil-ex-define-cmd "blame"  'magit-blame-addition)
+    (evil-ex-define-cmd "gblame" 'magit-blame)
+    (evil-ex-define-cmd "gc"     'magit-commit)
+    (evil-ex-define-cmd "gf"     'magit-fetch)
+    (evil-ex-define-cmd "gg"     'ex-magit-cli)
+    (evil-ex-define-cmd "git"    'ex-magit-cli)
+    (evil-ex-define-cmd "gl"     'magit-log)
+    (evil-ex-define-cmd "gp"     'magit-push)
+    (evil-ex-define-cmd "gz"     'magit-stash))
   :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
          (git-commit-setup-hook . markdown-mode)
-         (git-commit-setup-hook . evil-markdown-mode)
-         (git-commit-setup-hook . (lambda () (display-fill-column-indicator-mode 1))))
+         (git-commit-setup-hook . evil-markdown-mode))
   :config
-  (add-to-list 'evil-motion-state-modes 'magit-mode)
-
-  ;; ;; Add section headings for submodule information
-  ;; ;;
-  ;; ;; Also remember that C-u (or g C-u last I checked) applies individual
-  ;; ;; submodule commands to all submodules
-  ;; ;; https://github.com/magit/magit/issues/2657#issuecomment-220851059
-  ;; ;; Disabled on windows because magit is _slow_ there. Hopefully mac is faster.
-  ;; ;; TODO: some way to conditionally toggle this.
-  ;;
-  ;; (when (not (eq system-type 'windows-nt))
-  ;;   (magit-add-section-hook 'magit-status-sections-hook
-  ;;                           'magit-insert-modules-unpulled-from-upstream
-  ;;                           'magit-insert-unpulled-from-upstream)
-  ;;   (magit-add-section-hook 'magit-status-sections-hook
-  ;;                           'magit-insert-modules-unpulled-from-pushremote
-  ;;                           'magit-insert-unpulled-from-upstream)
-  ;;   (magit-add-section-hook 'magit-status-sections-hook
-  ;;                           'magit-insert-modules-unpushed-to-upstream
-  ;;                           'magit-insert-unpulled-from-upstream)
-  ;;   (magit-add-section-hook 'magit-status-sections-hook
-  ;;                           'magit-insert-modules-unpushed-to-pushremote
-  ;;                           'magit-insert-unpulled-from-upstream)
-  ;;   (magit-add-section-hook 'magit-status-sections-hook
-  ;;                           'magit-insert-modules-overview
-  ;;   		                   'magit-insert-unpulled-from-upstream))
-
+  (with-eval-after-load 'evil
+    (add-to-list 'evil-motion-state-modes 'magit-mode))
   (with-eval-after-load 'magit-diff
     (general-define-key
      :keymaps 'magit-diff-mode-map
      :states 'normal
      "[[" 'help-go-back
      "]]" 'help-go-forward)))
+
+;; ;; Add section headings for submodule information
+;; ;;
+;; ;; Also remember that C-u (or g C-u last I checked) applies individual
+;; ;; submodule commands to all submodules
+;; ;; https://github.com/magit/magit/issues/2657#issuecomment-220851059
+;; ;; Disabled on windows because magit is _slow_ there. Hopefully mac is faster.
+;; ;; TODO: some way to conditionally toggle this.
+;;
+;; (when (not (eq system-type 'windows-nt))
+;;   (magit-add-section-hook 'magit-status-sections-hook
+;;                           'magit-insert-modules-unpulled-from-upstream
+;;                           'magit-insert-unpulled-from-upstream)
+;;   (magit-add-section-hook 'magit-status-sections-hook
+;;                           'magit-insert-modules-unpulled-from-pushremote
+;;                           'magit-insert-unpulled-from-upstream)
+;;   (magit-add-section-hook 'magit-status-sections-hook
+;;                           'magit-insert-modules-unpushed-to-upstream
+;;                           'magit-insert-unpulled-from-upstream)
+;;   (magit-add-section-hook 'magit-status-sections-hook
+;;                           'magit-insert-modules-unpushed-to-pushremote
+;;                           'magit-insert-unpulled-from-upstream)
+;;   (magit-add-section-hook 'magit-status-sections-hook
+;;                           'magit-insert-modules-overview
+;;                           'magit-insert-unpulled-from-upstream))
 
 ;; TODO: jigger `magit-todos-keyword-suffix' to handle rust todo!()
 ;; macros
