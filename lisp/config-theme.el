@@ -628,7 +628,7 @@
 (with-eval-after-load 'lsp-mode
   (set-face-attribute 'lsp-details-face nil
                       :height 1.0
-                      :weight 'light
+                      :weight 'normal
                       :inherit 'sol-light-foreground))
 
 (with-eval-after-load 'lsp-ui-peek
