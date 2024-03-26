@@ -94,10 +94,7 @@
     (evil-ex-define-cmd "ii"  'consult-imenu)
     (evil-ex-define-cmd "ia"  'consult-imenu-multi)
     (evil-ex-define-cmd "fp"  'consult-yank-from-kill-ring) ;; p for paste
-    (evil-ex-define-cmd "ff"  '(lambda ()
-                                (interactive)
-                                (require 'thingatpt)
-                                (consult-line (thing-at-point 'symbol))))
+    (evil-ex-define-cmd "ff"  'consult-line)
     (evil-ex-define-cmd "fa"  'consult-line-multi)
     (evil-ex-define-cmd "fi"  'consult-info))
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
