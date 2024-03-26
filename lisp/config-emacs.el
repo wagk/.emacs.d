@@ -68,7 +68,7 @@
   (save-place-mode 1)
 
   (column-number-mode 1)
-  (indent-tabs-mode -1)
+  (setq-default indent-tabs-mode nil)
   (fset 'yes-or-no-p 'y-or-n-p) ;; Change "yes or no" to "y or n"
 
   (setf (alist-get 'continuation fringe-indicator-alist) 'empty-line)
