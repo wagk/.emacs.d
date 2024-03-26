@@ -2147,6 +2147,7 @@ https://github.com/akermu/emacs-libvterm
 #+begin_src emacs-lisp :results output silent
 (use-package multi-vterm
   :after vterm
+  :if (not (eq system-type 'windows-nt))
   :general
   (general-define-key
    :keymaps 'project-prefix-map
