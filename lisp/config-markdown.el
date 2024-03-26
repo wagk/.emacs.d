@@ -59,12 +59,12 @@
                             :lstart "| " :lend " |" :sep " | ")))
         (orgtbl-to-generic table (org-combine-plists params2 params)))))
   (with-eval-after-load 'org-src
-    (cl-pushnew '("md" . gfm) org-src-lang-modes))
-  :config
-  (define-advice markdown-toggle-gfm-checkbox
-      (:after () insert-checkbox-if-none)
-    "Inserts a checkbox if there is none there"
-    (markdown-insert-gfm-checkbox)))
+    (cl-pushnew '("md" . gfm) org-src-lang-modes)))
+  ;; :config
+  ;; (define-advice markdown-toggle-gfm-checkbox
+  ;;     (:after () insert-checkbox-if-none)
+  ;;   "Inserts a checkbox if there is none there"
+  ;;   (markdown-insert-gfm-checkbox)))
 
 (use-package edit-indirect
   :after markdown-mode)
