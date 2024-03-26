@@ -185,7 +185,8 @@ If point is at a header, return the level, nil otherwise."
          (regex (rx (1+ "#") " " (literal today))))
     (goto-char (point-min))
     (unless (search-forward-regexp regex nil :move-to-end)
-      (markdown-insert-header level today))
+      (markdown-insert-header level today)
+	  (newline-and-indent))
     (config-markdown--find-heading-insertion-point :append)))
 
 (cl-defun config-markdown--find-file-and-point (&optional file)
