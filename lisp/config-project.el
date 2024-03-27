@@ -166,7 +166,7 @@
     (evil-ex-define-cmd "pcc" #'recompile)
 
     (with-eval-after-load 'consult
-      (--evil-define-splits "pbb" #'consult-project-buffers)))
+      (--evil-define-splits "pbb" #'consult-project-buffer)))
 
   (with-eval-after-load 'rg
     (general-define-key
