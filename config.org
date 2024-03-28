@@ -4,26 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Lisp
-** Prism mode
-Much like rainbow blocks mode, but better.
-#+begin_src emacs-lisp :results output silent
-(use-package prism
-  :disabled t ;; see if I can live without this for a bit
-  :ensure (:host github :repo "alphapapa/prism.el")
-  :commands (prism-mode
-             prism-whitespace-mode)
-  :hook
-  ((racket-mode-hook . prism-mode)
-   (clojure-mode-hook . prism-mode)
-   (json-mode-hook . prism-mode)
-   (emacs-lisp-mode-hook . prism-mode)
-   (hy-mode-hook . prism-mode))
-  :preface
-  (use-package anaphora
-    :ensure (:host github :repo "rolandwalker/anaphora")))
-#+end_src
-
 * Elisp                                                               :major:
 package is known as elisp-mode but it reads as emacs-lisp
 

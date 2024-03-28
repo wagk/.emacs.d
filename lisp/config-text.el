@@ -97,4 +97,19 @@
          (clojure-mode-hook . parinfer-rust-mode)
          (hy-mode-hook . parinfer-rust-mode)))
 
+(use-package prism
+  :disabled t ;; see if I can live without this for a bit
+  :ensure (:host github :repo "alphapapa/prism.el")
+  :commands (prism-mode
+             prism-whitespace-mode)
+  :hook
+  ((racket-mode-hook . prism-mode)
+   (clojure-mode-hook . prism-mode)
+   (json-mode-hook . prism-mode)
+   (emacs-lisp-mode-hook . prism-mode)
+   (hy-mode-hook . prism-mode))
+  :preface
+  (use-package anaphora
+    :ensure (:host github :repo "rolandwalker/anaphora")))
+
 (provide 'config-text)
