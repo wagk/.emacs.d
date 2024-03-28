@@ -5,22 +5,6 @@
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
 * Quality of Life
-** Copy file name to keyboard
-#+begin_src emacs-lisp :results output silent
-(defun my-kill-path-to-keyboard ()
-  "https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
-  (interactive)
-  (let ((filename (if (equal major-mode 'dired-mode)
-                      default-directory
-                    (buffer-file-name))))
-    (when filename
-      (kill-new filename))))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-(evil-ex-define-cmd "ypath" 'my-kill-path-to-keyboard)
-#+end_src
-
 ** Buffer menu mode map config
 #+begin_src emacs-lisp :results output silent
 (general-define-key
