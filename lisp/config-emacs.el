@@ -530,4 +530,9 @@
   (with-eval-after-load 'org
    (org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))))
 
+(use-package so-long
+  :ensure nil
+  :config
+  (global-so-long-mode))
+
 (provide 'config-emacs)

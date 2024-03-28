@@ -454,12 +454,6 @@ It's a minor mode, much like how magit's commit mode is a minor mode
   :after org-src)
 #+end_src
 
-* so-long-mode / vlf-mode
-#+begin_src emacs-lisp :results output silent
-(when (fboundp 'global-so-long-mode)
-  (global-so-long-mode))
-#+end_src
-
 * Batch/CMD
 #+begin_src emacs-lisp :results output silent
 (with-eval-after-load 'org-src
