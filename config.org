@@ -1907,35 +1907,6 @@ Just do the scratch buffer simple and stupidly
   :commands (macrostep-expand))
 #+end_src
 
-* Compilation Mode
-#+begin_src emacs-lisp :results output silent
-(use-package compile
-  :ensure nil
-  :custom
-  (compilation-auto-jump-to-first-error nil)
-  (compilation-ask-about-save nil)
-  :config
-  (with-eval-after-load 'savehist
-    (add-to-list 'savehist-additional-variables 'compile-history))
-  :general
-  (compilation-mode-map
-   :states 'normal
-   "]]" 'compilation-next-error
-   "[[" 'compilation-previous-error)
-  :init
-  ;; (defun my-colorize-completion-buffer ()
-  ;;   (require 'ansi-color)
-  ;;   (let ((inhibit-read-only t))
-  ;;     (ansi-color-apply-on-region compilation-filter-start (point))))
-  (with-eval-after-load 'consult
-    (general-define-key
-     :keymaps 'compilation-mode-map
-     :states 'normal
-      "g g" #'consult-compile-error))
-  :hook
-  ;; (compilation-filter-hook . my-colorize-completion-buffer)
-  (compilation-mode-hook . visual-line-mode))
-#+end_src
 
 #+begin_src emacs-lisp :results output silent
 (use-package fancy-compilation

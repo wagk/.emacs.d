@@ -1,7 +1,9 @@
+;;; Configuration for packages built into Emacs
+
 (require 'use-package)
 (require 'config-evil)
 
-;; Catch-all config for emac variables
+;; Catch-all config for emacs variables
 (use-package emacs
   :demand t
   :ensure nil
@@ -402,5 +404,31 @@
   :hook
   (ibuffer-mode-hook . hl-line-mode))
 
+(use-package compile
+  :ensure nil
+  :custom
+  (compilation-auto-jump-to-first-error nil)
+  (compilation-ask-about-save nil)
+  :config
+  (with-eval-after-load 'savehist
+    (add-to-list 'savehist-additional-variables 'compile-history))
+  :general
+  (compilation-mode-map
+   :states 'normal
+   "]]" 'compilation-next-error
+   "[[" 'compilation-previous-error)
+  :init
+  ;; (defun my-colorize-completion-buffer ()
+  ;;   (require 'ansi-color)
+  ;;   (let ((inhibit-read-only t))
+  ;;     (ansi-color-apply-on-region compilation-filter-start (point))))
+  (with-eval-after-load 'consult
+    (general-define-key
+     :keymaps 'compilation-mode-map
+     :states 'normal
+      "g g" #'consult-compile-error))
+  :hook
+  ;; (compilation-filter-hook . my-colorize-completion-buffer)
+  (compilation-mode-hook . visual-line-mode))
 
 (provide 'config-emacs)
