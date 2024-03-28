@@ -133,4 +133,36 @@
   :config
   (add-to-list 'xref-backend-functions #'dumb-jump-xref-activate))
 
+(use-package helpful
+  :ensure (:host github :repo "Wilfred/helpful")
+  :general
+  ("C-h k"   'helpful-key
+   "C-h f"   'helpful-callable
+   "C-h x"   'helpful-command
+   "C-h v"   'helpful-variable
+   "C-h o"   'helpful-symbol
+   "C-h RET" 'helpful-at-point
+   "C-h M-k" '--helpful-keymap)
+  :init
+  (defun --helpful-keymap ()
+    (interactive)
+    (require 'helpful)
+    (let ((sym (--completing-read "Keymap: " obarray
+                                  :predicate #'(lambda (sym)
+                                                 (and (boundp sym)
+                                                      (keymapp (symbol-value sym))))
+                                  :require-match t)))
+      (-> sym (intern) (helpful-symbol))))
+  :config
+  (require 'link-hint)
+  (general-define-key
+   :keymaps 'helpful-mode-map
+   :states 'normal
+   "f" 'link-hint-open-link
+   "y f" 'link-hint-copy-link))
+  ;; (helpful-mode-map
+  ;;  :states 'normal
+  ;;  "f" 'ace-link-help
+  ;;  "F" 'ace-link-help))
+
 (provide 'config-qol)
