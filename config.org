@@ -2335,8 +2335,9 @@ what the benefits are.
   (gptel-display-buffer-action '(display-buffer-same-window))
   :general
   (gptel-mode-map
-   "C-RET" 'gptel-send
-   "C-<return>" 'gptel-send
+   "C-<return>" #'(lambda () (interactive)
+                    (goto-char (point-max))
+                    (gptel-send))
    "C-c RET" nil)
   :hook
   (gptel-mode-hook . (lambda ()
