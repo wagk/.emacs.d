@@ -5,11 +5,6 @@
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
 * Quality of Life
-** Doctor mode
-#+begin_src emacs-lisp :results output silent
-(evil-ex-define-cmd "doc[tor]" 'doctor)
-#+end_src
-
 ** Function to find all parent modes
 I wrote this for =fci-mode= restarting then I figured I could just check
 for the existence of =fci-mode= instead of finding through all the modes

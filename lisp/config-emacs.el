@@ -126,6 +126,12 @@
    :keymap 'minibuffer-mode-map
    "C-<return>" "RET"))
 
+(use-package doctor
+  :ensure nil
+  :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "doc[tor]" 'doctor)))
+
 (use-package savehist
   :ensure nil
   :custom
