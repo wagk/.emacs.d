@@ -113,4 +113,32 @@
 ;;                    :get-line #'buffer-substring)
 ;;         :buffer "*helm hl-todo*"))
 
+;; TODO: update `dired-collapse--create-ov' to not hardcode the shadow
+;; face. This should be a PR
+(use-package dired-hacks
+  :after dired
+  :ensure (:host github :repo "Fuco1/dired-hacks")
+  :custom-face
+  (dired-subtree-depth-1-face ((((background light)) (:background ,sol-base2))
+                               (((background dark)) (:background, sol-base02))))
+  (dired-subtree-depth-2-face ((((background light)) (:background ,sol-base2))
+                               (((background dark)) (:background, sol-base02))))
+  (dired-subtree-depth-3-face ((((background light)) (:background ,sol-base2))
+                               (((background dark)) (:background, sol-base02))))
+  (dired-subtree-depth-4-face ((((background light)) (:background ,sol-base2))
+                               (((background dark)) (:background, sol-base02))))
+  (dired-subtree-depth-5-face ((((background light)) (:background ,sol-base2))
+                               (((background dark)) (:background, sol-base02))))
+  (dired-subtree-depth-6-face ((((background light)) (:background ,sol-base2))
+                               (((background dark)) (:background, sol-base02))))
+  ;; :general
+  ;; (dired-mode-map
+  ;;  :states 'normal
+  ;;   "TAB" 'dired-subtree-toggle
+  ;;   "z a" 'dired-subtree-toggle
+  ;;   "z o" 'dired-subtree-insert
+  ;;   "z c" 'dired-subtree-remove)
+  :hook ((dired-mode-hook . dired-collapse-mode)
+         (dired-mode-hook . dired-filter-mode)))
+
 (provide 'config-qol)
