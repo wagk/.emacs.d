@@ -67,7 +67,8 @@
     (when (find-font iosevka-aile)
       (custom-set-faces `(fixed-pitch-serif ((t (:font ,iosevka-aile))))))))
 
-(add-hook 'emacs-startup-hook #'--find-and-set-fonts)
+(add-hook 'after-init-hook #'--find-and-set-fonts)
+(add-hook 'server-after-make-frame-hook #'--find-and-set-fonts)
 
 ;; Nano theme
 
