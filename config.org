@@ -419,34 +419,6 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 ;; :hook ((org-mode-hook . beancount-mode)))
 #+end_src
 
-* Writeroom
-#+begin_src emacs-lisp :results output silent
-(use-package writeroom-mode
-  :ensure (:host github :repo "joostkremers/writeroom-mode")
-  :commands (writeroom-mode)
-  :custom
-  (writeroom-mode-line t)
-  (writeroom-bottom-divider-width 0)
-  (writeroom-maximize-window nil)
-  (writeroom-fullscreen-effect 'maximized)
-  (writeroom-width 80)
-  (writeroom-restore-window-config nil)
-  ;; :general
-  ;; (:states 'normal
-  ;;  "g z" 'writeroom-mode)
-  :init
-  (evil-ex-define-cmd "writeroom" 'writeroom-mode))
-;; :hook
-;; ((writeroom-mode-hook . (lambda () (require 'focus)
-;;                      (if writeroom-mode
-;;                          (progn (focus-init)
-;;                                 (when display-line-numbers-mode
-;;                                   (display-line-numbers-mode -1)))
-;;                        (focus-terminate)
-;;                        (unless display-line-numbers-mode
-;;                          (display-line-numbers-mode)))))))
-#+end_src
-
 * Comint Mode
 #+begin_src emacs-lisp :results output silent
 (use-package comint-mode

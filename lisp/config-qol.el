@@ -174,4 +174,30 @@
     (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update))
   (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1))
 
+(use-package writeroom-mode
+  :ensure (:host github :repo "joostkremers/writeroom-mode")
+  :commands (writeroom-mode)
+  :custom
+  (writeroom-mode-line t)
+  (writeroom-bottom-divider-width 0)
+  (writeroom-maximize-window nil)
+  (writeroom-fullscreen-effect 'maximized)
+  (writeroom-width 80)
+  (writeroom-restore-window-config nil)
+  ;; :general
+  ;; (:states 'normal
+  ;;  "g z" 'writeroom-mode)
+  :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "writeroom" 'writeroom-mode)))
+;; :hook
+;; ((writeroom-mode-hook . (lambda () (require 'focus)
+;;                      (if writeroom-mode
+;;                          (progn (focus-init)
+;;                                 (when display-line-numbers-mode
+;;                                   (display-line-numbers-mode -1)))
+;;                        (focus-terminate)
+;;                        (unless display-line-numbers-mode
+;;                          (display-line-numbers-mode)))))))
+
 (provide 'config-qol)
