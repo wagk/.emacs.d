@@ -20,4 +20,60 @@
    :prefix my-default-evil-leader-key
    "=" 'aggressive-indent-mode))
 
+(use-package yasnippet
+  :ensure (:host github :repo "joaotavora/yasnippet")
+  :commands (yas-minor-mode
+             yas-expand-snippet)
+  :hook
+  ((prog-mode-hook . yas-minor-mode)
+   (org-mode-hook . yas-minor-mode))
+  :general
+  (yas-keymap
+   "C-j" 'yas-next-field-or-maybe-expand
+   "C-k" 'yas-prev-field)
+  (:states '(normal visual)
+   :prefix my-default-evil-leader-key
+   "s s" 'yas-insert-snippet
+   "s n" 'yas-new-snippet
+   "s f" 'yas-visit-snippet-file)
+  (snippet-mode-map
+   [remap evil-save-and-close]          'yas-load-snippet-buffer-and-close
+   [remap evil-save-modified-and-close] 'yas-load-snippet-buffer-and-close
+   [remap evil-quit]                    'kill-this-buffer)
+  :custom
+  (yas-snippet-dirs (list (file-name-as-directory
+                           (locate-user-emacs-file "snippets"))))
+  (yas-indent-line 'auto)
+  (yas-also-auto-indent-first-line t)
+  :config
+  (defun yas-with-comment (str)
+    ;; TODO: note that this is a hack; the proper way should be
+    ;; something as written in the comment box. That said, the
+    ;; "proper" way is also not working.
+
+    ;; (with-temp-buffer
+    ;;   (format "%s" str)
+    ;; this might explain why this function seems to bug out sometimes.
+    ;;   (comment-normalize-vars)
+    ;;   (comment-region (point-min) (point-max))
+    ;;   (buffer-string)))
+    (let ((comment-start (cond ((eq major-mode 'emacs-lisp-mode) ";; ")
+                               ((eq major-mode 'terraform-mode) "# ")
+                               (t comment-start))))
+      (format "%s%s%s" comment-start str comment-end)))
+  (yas-global-mode))
+
+(use-package yasnippet-capf
+  :after (:all cape yasnippet)
+  :config
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
+
+(use-package auto-yasnippet
+  :ensure (:host github :repo "abo-abo/auto-yasnippet")
+  :after yasnippet
+  :commands (aya-create
+             aya-expand)
+  :custom
+  (aya-case-fold t "smartcasing"))
+
 (provide 'config-text)
