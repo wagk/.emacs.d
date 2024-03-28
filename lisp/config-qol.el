@@ -128,4 +128,9 @@
   :hook ((dired-mode-hook . dired-collapse-mode)
          (dired-mode-hook . dired-filter-mode)))
 
+(use-package dumb-jump
+  :ensure (:host github :repo "jacktasia/dumb-jump")
+  :config
+  (add-to-list 'xref-backend-functions #'dumb-jump-xref-activate))
+
 (provide 'config-qol)

@@ -203,14 +203,6 @@ Requires rust-mode and markdown-mode
    cargo-mode-test-current-test))
 #+end_src
 
-* Dumb Jump
-#+begin_src emacs-lisp :results output silent
-(use-package dumb-jump
-  :ensure (:host github :repo "jacktasia/dumb-jump")
-  :config
-  (add-to-list 'xref-backend-functions #'dumb-jump-xref-activate))
-#+end_src
-
 * JSON                                                                :major:
 #+begin_src emacs-lisp :results output silent
 (use-package json-mode
