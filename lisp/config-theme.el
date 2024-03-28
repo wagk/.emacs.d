@@ -94,7 +94,7 @@
 (customize-set-variable 'nano-dark-faded       sol-base00)
 (customize-set-variable 'nano-dark-salient     sol-cyan)
 (customize-set-variable 'nano-dark-strong      sol-base1)
-(customize-set-variable 'nano-dark-popout      sol-magenta)
+(customize-set-variable 'nano-dark-popout      sol-orange)
 (customize-set-variable 'nano-dark-critical    sol-red)
 
 (with-eval-after-load 'nano-theme
