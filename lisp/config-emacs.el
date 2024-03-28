@@ -41,6 +41,9 @@
   (:states 'normal
    :prefix my-default-evil-leader-key
    "." 'whitespace-mode)
+  (:keymaps 'Buffer-menu-mode-map
+   :states '(normal motion)
+   "C-d" 'evil-scroll-down) ;; replaces `Buffer-menu-delete-backwards`
   :hook
   (prog-mode-hook . hs-minor-mode)
   (prog-mode-hook . show-paren-mode)
