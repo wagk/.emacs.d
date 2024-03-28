@@ -4,52 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Smartparens
-
-TODO: Make it so that if the point is inside {} or something similar,
-pressing RET autoformats it, instead of doing nothing as it does right now
-
-#+begin_src emacs-lisp :results output silent
-(use-package smartparens
-  :ensure (:host github :repo "Fuco1/smartparens")
-  :defer 2
-  :blackout t
-  :commands (sp-local-pair
-             smartparens-global-mode)
-  :hook
-  ;; TODO: make this not just hooked on prog-mode
-  (prog-mode-hook . (lambda () (interactive)
-                      (require 'smartparens-config) ;; load some default configurations
-                      (require 'smartparens)))
-  :custom-face
-  (sp-pair-overlay-face ((t (:inherit default :underline nil))))
-  :general
-  (:states 'normal
-   :prefix my-default-evil-leader-key
-   "." 'smartparens-mode)
-  :custom
-  (sp-cancel-autoskip-on-backward-movement
-   nil
-   "We want to maintain the chomp-like behavior of electric-pair")
-  (sp-autoskip-closing-pair
-   'always
-   "Maintain chomp-like behavior of electric-pair")
-  :config
-  (smartparens-global-mode)
-  (cl-defun --double-newline-and-indent-braces (_opening_delimiter
-                                                _action
-                                                _context)
-    "adds that cool vim indent thing we always wanted, Refer to WHEN
-      segment of `sp-pair' documentation on what each parameter does"
-    (newline)
-    (indent-according-to-mode)
-    (previous-line)
-    (indent-according-to-mode))
-  (sp-local-pair 'prog-mode "{" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
-  (sp-local-pair 'prog-mode "[" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
-  (sp-local-pair 'prog-mode "(" nil :post-handlers '((--double-newline-and-indent-braces "RET"))))
-#+end_src
-
 * hl-todo
 #+begin_src emacs-lisp :results output silent
 (use-package hl-todo
