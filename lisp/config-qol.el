@@ -74,4 +74,43 @@
   (sp-local-pair 'prog-mode "[" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
   (sp-local-pair 'prog-mode "(" nil :post-handlers '((--double-newline-and-indent-braces "RET"))))
 
+(use-package hl-todo
+  :disabled t
+  :ensure (:host github :repo "tarsius/hl-todo")
+  :blackout t
+  :commands (hl-todo-mode)
+  :hook ((prog-mode-hook  . hl-todo-mode)
+         (yaml-mode-hook  . hl-todo-mode))
+  :custom
+  (hl-todo-keyword-faces '(("TODO"  . "#b58900")
+                           ("DEBUG" . "#d33682")
+                           ("NOTE"  . "#586e75")
+                           ("FIXME" . "#cb4b16")))
+  :general
+  ;; (:states 'normal
+  ;;  :prefix my-default-evil-leader-key
+  ;;  "t t" 'my-helm-swoop-hl-todo)
+  (:keymaps 'evil-normal-state-map
+   "[ h"  'hl-todo-previous
+   "] h"  'hl-todo-next))
+;; :init
+;;TODO: Make this search for regexes
+;; (defun my-helm-swoop-hl-todo () (interactive)
+;;        (require 'helm-swoop)
+;;        (helm-swoop :$query hl-todo-regexp :$multiline 4)))
+;; Stolen from https://github.com/emacs-helm/helm/wiki/Developing. Convenient!
+;; Not used because we don't incrementally search for todos
+;; (defun my-helm-hl-todo-items ()
+;;   "Show `hl-todo'-keyword items in buffer."
+;;   (interactive)
+;;   (hl-todo--setup)
+;;   (helm :sources (helm-build-in-buffer-source "hl-todo items"
+;;                    :data (current-buffer)
+;;                    :candidate-transformer (lambda (candidates)
+;;                                             (cl-loop for c in candidates
+;;                                                      when (string-match hl-todo--regexp c)
+;;                                                      collect c))
+;;                    :get-line #'buffer-substring)
+;;         :buffer "*helm hl-todo*"))
+
 (provide 'config-qol)
