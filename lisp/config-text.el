@@ -10,4 +10,14 @@
   :hook ((org-mode-hook . aggressive-fill-paragraph-mode)
          (markdown-mode-hook . aggressive-fill-paragraph-mode)))
 
+(use-package aggressive-indent
+  :ensure (:host github :repo "malabarba/aggressive-indent-mode")
+  :commands (aggressive-indent-mode)
+  :custom
+  (aggressive-indent-comments-too t)
+  :general
+  (:states 'normal
+   :prefix my-default-evil-leader-key
+   "=" 'aggressive-indent-mode))
+
 (provide 'config-text)
