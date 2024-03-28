@@ -745,6 +745,20 @@
   (set-face-attribute 'scopeline-face nil
                       :inherit 'sol-superlight-foreground))
 
+(with-eval-after-load 'dired-hacks
+  (set-face-attribute 'dired-subtree-depth-1-face nil
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'dired-subtree-depth-2-face nil
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'dired-subtree-depth-3-face nil
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'dired-subtree-depth-4-face nil
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'dired-subtree-depth-5-face nil
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'dired-subtree-depth-6-face nil
+                      :inherit 'sol-superlight-background))
+
 ;; Solarized theme
 
 (use-package solarized-theme
