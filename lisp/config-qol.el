@@ -165,4 +165,13 @@
   ;;  "f" 'ace-link-help
   ;;  "F" 'ace-link-help))
 
+(use-package elisp-demos
+  :after (helpful)
+  :ensure (:host github :repo "xuchunyang/elisp-demos"
+             :files (:defaults "elisp-demos.org"))
+  :config
+  (with-eval-after-load 'helpful
+    (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update))
+  (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1))
+
 (provide 'config-qol)

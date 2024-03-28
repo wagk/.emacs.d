@@ -506,18 +506,6 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 ;;                          (display-line-numbers-mode)))))))
 #+end_src
 
-* Elisp demos
-#+begin_src emacs-lisp :results output silent
-(use-package elisp-demos
-  :after (helpful)
-  :ensure (:host github :repo "xuchunyang/elisp-demos"
-             :files (:defaults "elisp-demos.org"))
-  :config
-  (with-eval-after-load 'helpful
-    (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update))
-  (advice-add 'describe-function-1 :after #'elisp-demos-advice-describe-function-1))
-#+end_src
-
 * Comint Mode
 #+begin_src emacs-lisp :results output silent
 (use-package comint-mode
