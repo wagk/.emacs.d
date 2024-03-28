@@ -1981,8 +1981,8 @@ Just do the scratch buffer simple and stupidly
      :states 'normal
       "g g" #'consult-compile-error))
   :hook
-  ((compilation-filter-hook . my-colorize-completion-buffer)
-   (compilation-mode-hook . visual-line-mode)))
+  ;; (compilation-filter-hook . my-colorize-completion-buffer)
+  (compilation-mode-hook . visual-line-mode))
 #+end_src
 
 #+begin_src emacs-lisp :results output silent
