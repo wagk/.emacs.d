@@ -10,7 +10,23 @@ package is known as elisp-mode but it reads as emacs-lisp
 #+begin_src emacs-lisp :results output silent
 (use-package elisp-mode
   :ensure nil
-  :hook ((emacs-lisp-mode-hook . update-evil-shift-width)))
+  :init
+  (cl-defun --update-emacs-lisp-mode-line-name ()
+    "Lifted from the emacs-lisp define-derived-mode. With some edits to the face
+in dynamic mode."
+    (setq mode-name
+          `("ELisp"
+            (lexical-binding (:propertize "/lex"
+                              help-echo "Using lexical-binding mode")
+                             (:propertize "/dyn"
+                              help-echo "Using old dynamic scoping mode\n\
+mouse-1: Enable lexical-binding mode"
+                              face nano-subtle
+                              mouse-face mode-line-highlight
+                              local-map ,elisp--dynlex-modeline-map)))))
+  :hook ((emacs-lisp-mode-hook . update-evil-shift-width)
+         (emacs-lisp-mode-hook . --update-emacs-lisp-mode-line-name)))
+
 ;; (emacs-lisp-mode-hook . (lambda () (setq-local comment-begin ";; "))))) ;; not working for some reason
 ;; (emacs-lisp-mode-hook . (lambda ()
 ;;                      (mapc (lambda (pair) (push pair
