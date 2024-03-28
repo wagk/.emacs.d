@@ -5,31 +5,6 @@
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
 * Lisp
-** Parinfer Rust Mode
-For M1 machines, we have to clone
-https://github.com/eraserhd/parinfer-rust.git, build the =.dylib=, and
-rename the extension to =.so=:
-
-#+begin_src shell
-cargo build --release --features emacs
-cp target/release/libparinfer_rust.dylib ~/.emacs.d/parinfer-rust/parinfer-rust-darwin.so
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-(use-package parinfer-rust-mode
-  :commands (parinfer-rust-mode)
-  :general
-  (:states 'motion
-   "g p" 'parinfer-rust-toggle-paren-mode)
-  :custom
-  (parinfer-rust-auto-download t)
-  (parinfer-rust-dim-parens nil)
-  :hook ((emacs-lisp-mode-hook . parinfer-rust-mode)
-         (racket-mode-hook . parinfer-rust-mode)
-         (clojure-mode-hook . parinfer-rust-mode)
-         (hy-mode-hook . parinfer-rust-mode)))
-#+end_src
-
 ** Prism mode
 Much like rainbow blocks mode, but better.
 #+begin_src emacs-lisp :results output silent

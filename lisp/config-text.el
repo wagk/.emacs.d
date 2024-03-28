@@ -76,4 +76,25 @@
   :custom
   (aya-case-fold t "smartcasing"))
 
+;; For M1 machines, we have to clone
+;; https://github.com/eraserhd/parinfer-rust.git, build the =.dylib=, and
+;; rename the extension to =.so=:
+;;
+;; ```
+;; cargo build --release --features emacs
+;; cp target/release/libparinfer_rust.dylib ~/.emacs.d/parinfer-rust/parinfer-rust-darwin.so
+;; ```
+(use-package parinfer-rust-mode
+  :commands (parinfer-rust-mode)
+  :general
+  (:states 'motion
+   "g p" 'parinfer-rust-toggle-paren-mode)
+  :custom
+  (parinfer-rust-auto-download t)
+  (parinfer-rust-dim-parens nil)
+  :hook ((emacs-lisp-mode-hook . parinfer-rust-mode)
+         (racket-mode-hook . parinfer-rust-mode)
+         (clojure-mode-hook . parinfer-rust-mode)
+         (hy-mode-hook . parinfer-rust-mode)))
+
 (provide 'config-text)
