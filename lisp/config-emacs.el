@@ -287,7 +287,7 @@
 (use-package ediff
   :ensure nil
   :custom
-  (ediff-window-setup-function 'ediff-setup-window-plain))
+  (ediff-window-setup-function 'ediff-setup-windows-plain))
 
 (use-package calendar
   :ensure nil
