@@ -112,4 +112,65 @@
   (use-package anaphora
     :ensure (:host github :repo "rolandwalker/anaphora")))
 
+(use-package wgrep
+  :ensure (:host github :repo "mhayashi1120/Emacs-wgrep")
+  :commands (wgrep-change-to-wgrep-mode)
+  :custom (wgrep-auto-save-buffer t))
+
+(use-package rg
+  :ensure (:host github :repo "dajva/rg.el")
+  :demand t
+  :custom
+  (rg-ignore-case 'smart)
+  (rg-keymap-prefix "")
+  (rg-default-alias-fallback "everything")
+  (rg-buffer-name #'(lambda () (format "*rg<%s>*" (buffer-name))))
+  :general
+  (rg-mode-map
+   :states '(motion normal)
+   "gg" 'evil-goto-first-line)
+  (rg-mode-map
+   :states 'normal
+    "M-j" "C-j"
+    "M-k" "C-k")
+  (grep-mode-map
+   :states '(motion normal)
+   "n" 'evil-ex-search-next
+   "N" 'evil-ex-search-previous)
+  (:states '(normal motion visual)
+   "C-+" 'rg-menu)
+  :init
+  (evil-ex-define-cmd "rg" 'rg-menu)
+  (evil-ex-define-cmd "rr" 'rg-menu)
+  ;; (evil-ex-define-cmd "prg" 'rg-project)
+  :config
+  (rg-enable-menu)
+  ;; (transient-remove-suffix 'rg-menu "d")
+  (transient-remove-suffix 'rg-menu "c")
+  ;; (transient-remove-suffix 'rg-menu "f")
+
+  ;; Note that this is not a true 1-file search. It's all the files with the
+  ;; same name within the directory
+  ;; https://github.com/dajva/rg.el/issues/91
+  (rg-define-search --rg-search-file
+    :files (funcall #'(lambda () (file-name-nondirectory (buffer-file-name))))
+    :dir current
+    :query (funcall #'--thing-at-point-or-region-or-user-input)
+    :menu ("Search" "f" "File"))
+  (rg-define-search --rg-search-dir
+    :files "everything"
+    :dir current
+    :query (funcall #'--thing-at-point-or-region-or-user-input)
+    :menu ("Search" "d" "Directory"))
+  (with-eval-after-load 'hl-todo
+    (rg-define-search search-hl-todo-keywords
+      "Uses the everything filter for project searches"
+      :query (-> (mapcar 'car hl-todo-keyword-faces)
+                 (string-join "|"))
+      :format regexp
+      :files "everything" ;; make this "all" maybe?
+      :dir project
+      :menu ("Custom" "hl" "`hl-todo' Keywords"))
+    (evil-ex-define-cmd "hl-todo" 'search-hl-todo-keywords)))
+
 (provide 'config-text)
