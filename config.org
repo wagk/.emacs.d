@@ -4,12 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Quality of Life
-** Add :repl for ielm
-#+begin_src emacs-lisp :results output silent
-(evil-ex-define-cmd "repl" 'ielm)
-#+end_src
-
 * Which Key
 #+begin_src emacs-lisp :results output silent
 (use-package which-key

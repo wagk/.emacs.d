@@ -126,6 +126,12 @@
    :keymap 'minibuffer-mode-map
    "C-<return>" "RET"))
 
+(use-package ielm
+  :ensure nil
+  :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "repl" 'ielm)))
+
 (use-package doctor
   :ensure nil
   :init
