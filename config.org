@@ -1907,19 +1907,6 @@ Just do the scratch buffer simple and stupidly
   :commands (macrostep-expand))
 #+end_src
 
-
-#+begin_src emacs-lisp :results output silent
-(use-package fancy-compilation
-  :after compile
-  :custom
-  (fancy-compilation-override-colors nil)
-  (fancy-compilation-scroll-output 'first-error)
-  (fancy-compilation-quiet-prolog nil)
-  (fancy-compilation-quiet-prelude nil)
-  :config
-  (fancy-compilation-mode))
-#+end_src
-
 * Hydras
 #+begin_src emacs-lisp :results output silent
 (use-package hydra)

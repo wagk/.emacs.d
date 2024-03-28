@@ -78,6 +78,7 @@
 (require 'config-completions)
 (require 'config-project)
 (require 'config-emacs)
+(require 'config-qol)
 (require 'config-org)
 (require 'config-org-capture)
 (require 'config-org-capture-templates)
