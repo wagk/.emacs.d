@@ -5,19 +5,6 @@
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
 * Quality of Life
-** Function to find all parent modes
-I wrote this for =fci-mode= restarting then I figured I could just check
-for the existence of =fci-mode= instead of finding through all the modes
-for the specific hook.
-#+begin_src emacs-lisp :results output silent
-(defun my-find-major-mode-parents (mode)
-  "Recursively composes a list of all parent modes for a given
-mode."
-  (when mode
-    (cons mode
-          (my-find-major-mode-parents (get-mode-local-parent mode)))))
-#+end_src
-
 ** Add :repl for ielm
 #+begin_src emacs-lisp :results output silent
 (evil-ex-define-cmd "repl" 'ielm)
