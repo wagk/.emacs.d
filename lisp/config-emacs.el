@@ -488,4 +488,46 @@
             (exp (read-string (format "abbrev for \"%s\": " name))))
        (define-abbrev global-abbrev-table (downcase name) exp)))))
 
+(use-package comint-mode
+  :ensure nil
+  :custom
+  ;; Make cursor always move to end when entering insert mode in
+  ;; comint modes
+  (comint-scroll-to-bottom-on-input t)
+  (comint-prompt-read-only t)
+  :general
+  (comint-mode-map
+   :states '(normal insert)
+   "C-l" #'comint-clear-buffer))
+
+;; Make shell open in same window
+;; - Related Spacemacs Issue :: https://github.com/syl20bnr/spacemacs/issues/6820
+;; - Make shell mode update working directory :: https://emacs.stackexchange.com/questions/5589/automatically-update-default-directory-when-pwd-changes-in-shell-mode-and-term-m
+(use-package shell
+  :ensure nil
+  :commands shell
+  :custom
+  (comint-scroll-to-bottom-on-input t)
+  (comint-prompt-read-only t)
+  :init
+  (defun my-buffer-specific-shell ()
+    (interactive)
+    (let ((name (format "*shell<%s>*" (buffer-name))))
+      (shell name)))
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "sh[ell]" #'(lambda () (interactive)
+                                      (my-buffer-specific-shell)))
+    (evil-ex-define-cmd "Sshell" #'(lambda () (interactive)
+                                     (evil-window-split)
+                                     (my-buffer-specific-shell)))
+    (evil-ex-define-cmd "Vshell" #'(lambda () (interactive)
+                                     (evil-window-vsplit)
+                                     (my-buffer-specific-shell))))
+  (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
+  :hook
+  ((shell-mode-hook . shell-dirtrack-mode))
+  :config
+  (with-eval-after-load 'org
+   (org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))))
+
 (provide 'config-emacs)

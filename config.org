@@ -419,62 +419,6 @@ It's a minor mode, much like how magit's commit mode is a minor mode
 ;; :hook ((org-mode-hook . beancount-mode)))
 #+end_src
 
-* Comint Mode
-#+begin_src emacs-lisp :results output silent
-(use-package comint-mode
-  :ensure nil
-  :custom
-  ;; Make cursor always move to end when entering insert mode in
-  ;; comint modes
-  (comint-scroll-to-bottom-on-input t)
-  (comint-prompt-read-only t)
-  :general
-  (comint-mode-map
-   :states '(normal insert)
-   "C-l" #'comint-clear-buffer))
-#+end_src
-
-
-** Make shell open in same window
-- Related Spacemacs Issue ::
-  https://github.com/syl20bnr/spacemacs/issues/6820
-- Make shell mode update working directory ::
-  [[https://emacs.stackexchange.com/questions/5589/automatically-update-default-directory-when-pwd-changes-in-shell-mode-and-term-m][stackoverflow]]
-
-
-Let's try just creating the shell on the side instead of overtaking
-the thing, because that's what vim does.
-
-#+begin_src emacs-lisp :results output silent
-(use-package shell
-  :ensure nil
-  :commands shell
-  :custom
-  (comint-scroll-to-bottom-on-input t)
-  (comint-prompt-read-only t)
-  :init
-  (defun my-buffer-specific-shell ()
-    (interactive)
-    (let ((name (format "*shell<%s>*" (buffer-name))))
-      (shell name)))
-  (evil-ex-define-cmd "sh[ell]" #'(lambda () (interactive)
-                                    (my-buffer-specific-shell)))
-  (evil-ex-define-cmd "Sshell" #'(lambda () (interactive)
-                                   (evil-window-split)
-                                   (my-buffer-specific-shell)))
-  (evil-ex-define-cmd "Vshell" #'(lambda () (interactive)
-                                   (evil-window-vsplit)
-                                   (my-buffer-specific-shell)))
-  (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
-  :hook
-  ((shell-mode-hook . shell-dirtrack-mode)))
-#+end_src
-
-*** Org-babel Shell
-#+begin_src emacs-lisp :results output silent
-(org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
-#+end_src
-
 * Groovy mode                                                         :major:
 #+begin_src emacs-lisp :results output silent
 (use-package groovy-mode
