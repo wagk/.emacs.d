@@ -121,4 +121,16 @@ Lisp function does not specify a special indentation."
   (with-eval-after-load 'org-src
     (cl-pushnew '("rkt" . racket) org-src-lang-modes)))
 
+(use-package clojure-mode
+  :ensure (:host github :repo "clojure-emacs/clojure-mode")
+  :commands (clojure-mode
+             clojurescript-mode)
+  :hook ((clojure-mode-hook . update-evil-shift-width)
+         (clojure-mode-hook . show-paren-mode))
+  :init
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("edn" . clojure) org-src-lang-modes)
+    (cl-pushnew '("clj" . clojure) org-src-lang-modes)
+    (cl-pushnew '("cljs" . clojurescript) org-src-lang-modes)))
+
 (provide 'config-language)

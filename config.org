@@ -4,25 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Clojure                                                             :major:
-clojurescript-mode derives from clojure-mode
-
-[[https://clojure.org/api/cheatsheet][Cheatsheet]]
-
-#+begin_src emacs-lisp :results output silent
-(use-package clojure-mode
-  :ensure (:host github :repo "clojure-emacs/clojure-mode")
-  :commands (clojure-mode
-             clojurescript-mode)
-  :hook ((clojure-mode-hook . update-evil-shift-width)
-         (clojure-mode-hook . show-paren-mode))
-  :init
-  (with-eval-after-load 'org-src
-    (cl-pushnew '("edn" . clojure) org-src-lang-modes)
-    (cl-pushnew '("clj" . clojure) org-src-lang-modes)
-    (cl-pushnew '("cljs" . clojurescript) org-src-lang-modes)))
-#+end_src
-
 * Rust                                                                :major:
 #+begin_src emacs-lisp :results output silent
 (use-package rust-mode
