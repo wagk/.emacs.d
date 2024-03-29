@@ -133,4 +133,63 @@ Lisp function does not specify a special indentation."
     (cl-pushnew '("clj" . clojure) org-src-lang-modes)
     (cl-pushnew '("cljs" . clojurescript) org-src-lang-modes)))
 
+(use-package rust-mode
+  :ensure (:host github :repo "rust-lang/rust-mode")
+  :mode
+  ("\\.rs\\'" . rust-mode)
+  :custom
+  (rust-format-show-buffer nil
+                           "Stop polluting my workspace with orphaned
+                           windows thanks")
+  (rust-format-on-save t)
+  :general
+  (:states 'insert
+   :keymaps 'rust-mode-map
+   "RET" 'comment-indent-new-line)
+  :init
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("rust" . rust) org-src-lang-modes)))
+
+;; treesit
+(with-eval-after-load 'rust-ts-mode
+  (with-eval-after-load 'general
+    (general-define-key
+     :keymaps 'rust-ts-mode-map
+     :states 'insert
+     "RET" 'comment-indent-new-line)
+
+    (general-define-key
+     :keymaps 'rust-ts-mode-map
+     :states '(insert normal visual)
+     "C-c C-d" 'rust-dbg-wrap-or-unwrap))
+
+  ;; So that `compile' will correctly color/link to rustc errors
+  (require 'rust-compile)
+
+  (with-eval-after-load 'rust-mode
+    (setq rust-ts-mode-hook rust-mode-hook))
+
+  (cl-defun --rust-ts-mode-rustfmt ()
+    "Rustfmts buffer before saving."
+    (require 'rust-rustfmt)
+    (add-hook 'before-save-hook 'rust-format-buffer nil t))
+
+  (add-hook 'rust-ts-mode-hook '--rust-ts-mode-rustfmt))
+
+(use-package cargo
+  :ensure (:host github :repo "kwrooijen/cargo.el")
+  :blackout t
+  :commands cargo-minor-mode
+  :hook (rust-mode-hook . cargo-minor-mode))
+
+(use-package cargo-mode
+  :ensure (:host github :repo "ayrat555/cargo-mode")
+  :commands
+  (cargo-mode-execute-task
+   cargo-mode-test
+   cargo-mode-last-command
+   cargo-mode-build
+   cargo-mode-test-current-buffer
+   cargo-mode-test-current-test))
+
 (provide 'config-language)
