@@ -205,4 +205,24 @@ Lisp function does not specify a special indentation."
   :after json-mode
   :commands (jsons-print-path))
 
+(use-package yaml-mode
+  :ensure t
+  :mode ("\\.yml\\'"
+         "\\.yaml\\'")
+  :hook
+  (yaml-mode-hook . display-line-numbers-mode)
+  :general
+  (yaml-mode-map
+   "RET" 'newline-and-indent)
+  :commands (yaml-mode)
+  :init
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("yaml" . yaml) org-src-lang-modes)))
+
+;; https://github.com/zkry/yaml.el/tree/9ebddb55238d746dc5a5d46db04c9f360c140b99
+(use-package yaml
+  :after yaml-mode
+  :ensure t
+  :commands (yaml-parse-string))
+
 (provide 'config-language)

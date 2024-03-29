@@ -4,13 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* YAML
-https://github.com/zkry/yaml.el/tree/9ebddb55238d746dc5a5d46db04c9f360c140b99
-#+begin_src emacs-lisp :results output silent
-(use-package yaml
-  :commands (yaml-parse-string))
-#+end_src
-
 * C++
 ** Indentation of 4
 #+begin_src emacs-lisp :results output silent
@@ -281,23 +274,6 @@ It's a minor mode, much like how magit's commit mode is a minor mode
   (defun org-babel-execute:powershell (body _params)
     (let ((explicit-shell-file-name powershell-location-of-exe))
       (shell-command-to-string body))))
-#+end_src
-
-* Yaml-mode
-#+begin_src emacs-lisp :results output silent
-(use-package yaml-mode
-  :mode ("\\.yml\\'"
-         "\\.yaml\\'")
-  :hook
-  (yaml-mode-hook . prism-whitespace-mode)
-  (yaml-mode-hook . display-line-numbers-mode)
-  :general
-  (yaml-mode-map
-   "RET" 'newline-and-indent)
-  :commands (yaml-mode)
-  :init
-  (with-eval-after-load 'org-src
-    (cl-pushnew '("yaml" . yaml) org-src-lang-modes)))
 #+end_src
 
 * Cmake
