@@ -395,4 +395,21 @@ Lisp function does not specify a special indentation."
   (with-eval-after-load 'org-src
     (cl-pushnew '("groovy" . groovy) org-src-lang-modes)))
 
+(use-package hy-mode
+  :ensure (:host github :repo "hylang/hy-mode")
+  :mode "\\.hy\\'"
+  :general
+  (hy-mode-map
+   :states 'insert
+   "RET" 'comment-indent-new-line)
+  :hook ((hy-mode-hook . update-evil-shift-width)
+         (hy-mode-hook . show-paren-mode))
+  :init
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("hy" . hy) org-src-lang-modes)))
+
+(use-package ob-hy
+  :ensure (:host github :repo "brantou/ob-hy")
+  :after (:all org-src hy-mode))
+
 (provide 'config-language)
