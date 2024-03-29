@@ -386,4 +386,13 @@ Lisp function does not specify a special indentation."
 ;; causing fontification errors
 ;; :hook ((org-mode-hook . beancount-mode)))
 
+(use-package groovy-mode
+  :ensure (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes")
+  :mode (("\\.groovy\\'" . groovy-mode)
+         ("\\Jenkinsfile\\'" . groovy-mode))
+  :hook ((groovy-mode-hook . (lambda () (setq-local comment-start "// "))))
+  :init
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("groovy" . groovy) org-src-lang-modes)))
+
 (provide 'config-language)
