@@ -4,17 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Racket
-#+begin_src emacs-lisp :results output silent
-(use-package racket-mode
-  :ensure (:host github :repo "greghendershott/racket-mode")
-  :commands (racket-mode)
-  :mode "\\.rkt\\'"
-  :init
-  (with-eval-after-load 'org-src
-    (cl-pushnew '("rkt" . racket) org-src-lang-modes)))
-#+end_src
-
 * Clojure                                                             :major:
 clojurescript-mode derives from clojure-mode
 

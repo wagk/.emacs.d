@@ -113,4 +113,12 @@ Lisp function does not specify a special indentation."
 ;;                              ("or"       . #x2228)
 ;;                              ("and"      . #x2227))))
 
+(use-package racket-mode
+  :ensure (:host github :repo "greghendershott/racket-mode")
+  :commands (racket-mode)
+  :mode "\\.rkt\\'"
+  :init
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("rkt" . racket) org-src-lang-modes)))
+
 (provide 'config-language)
