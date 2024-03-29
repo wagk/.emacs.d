@@ -192,4 +192,17 @@ Lisp function does not specify a special indentation."
    cargo-mode-test-current-buffer
    cargo-mode-test-current-test))
 
+(use-package json-mode
+  :ensure (:host github :repo "joshwnj/json-mode")
+  :mode "\\.json\\'"
+  :commands (json-mode)
+  :init
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("json" . json) org-src-lang-modes)))
+
+(use-package json-snatcher
+  :ensure t
+  :after json-mode
+  :commands (jsons-print-path))
+
 (provide 'config-language)

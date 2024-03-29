@@ -4,23 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* JSON                                                                :major:
-#+begin_src emacs-lisp :results output silent
-(use-package json-mode
-  :ensure (:host github :repo "joshwnj/json-mode")
-  :mode "\\.json\\'"
-  :commands (json-mode)
-  :init
-  (with-eval-after-load 'org-src
-    (cl-pushnew '("json" . json) org-src-lang-modes)))
-#+end_src
-
-** Json Snatcher
-#+begin_src emacs-lisp :results output silent
-(use-package json-snatcher
-  :commands (jsons-print-path))
-#+end_src
-
 * YAML
 https://github.com/zkry/yaml.el/tree/9ebddb55238d746dc5a5d46db04c9f360c140b99
 #+begin_src emacs-lisp :results output silent
