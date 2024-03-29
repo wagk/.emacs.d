@@ -83,6 +83,7 @@
 (require 'config-org)
 (require 'config-org-capture)
 (require 'config-org-capture-templates)
+(require 'config-language)
 
 (require 'config-japanese)
 (require 'config-anki)
