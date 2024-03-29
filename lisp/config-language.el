@@ -314,4 +314,76 @@ Lisp function does not specify a special indentation."
             #'(lambda ()
                 (add-hook 'completion-at-point-functions #'clang-capf nil t))))
 
+(use-package beancount
+  :ensure (:host github :repo "beancount/beancount-mode")
+  :mode (("\\.beancount\\'" . beancount-mode)
+         ("\\.ledger\\'" . beancount-mode))
+  :init
+  (cl-defun my-beancount-insert-date ()
+    "Does the same thing as `beancount-insert-date', but uses
+`org-read-date' for more ergonomic date generation."
+    (interactive)
+    (unless (bolp) (newline)) ;; `beancount-insert-date' does this
+    (insert (org-read-date) " "))
+  ;; TODO: Add more from
+  ;; `https://beancount.github.io/docs/beancount_language_syntax.html`
+  (when (bound-and-true-p --default-ledger-file)
+    (with-eval-after-load 'org-capture
+      (setq org-capture-templates
+            (doct-add-to
+             org-capture-templates
+             '(("Beancount"
+                :keys "bean"
+                ;; :contexts (:in-mode "beancount-mode")
+                :type plain
+                :file --default-ledger-file
+                :unnarrowed t ;; critical for completion to function
+                :empty-lines-before 1
+                :children
+                (("Today"
+                  :keys "today"
+                  :children
+                  (("Open new account"
+                    :keys "open"
+                    :template
+                    ("%<%Y-%m-%d> open %? %^{CURRENCY}"))
+                   ("Transaction"
+                    :keys "tx"
+                    :template
+                    ("%<%Y-%m-%d> * \"%^{VENDOR}\" \"%^{PURCHASE}\""
+                     "  %?"))))
+                 ("On Date"
+                  :keys "date"
+                  :date (lambda () (org-read-date))
+                  :children
+                  (("Open new account"
+                    :keys "open"
+                    :template
+                    ("%{date} open %? %^{CURRENCY}"))
+                   ("Transaction"
+                    :keys "tx"
+                    :template
+                    ("%{date} * \"%^{VENDOR}\" \"%^{PURCHASE}\""
+                     "  %?")))))))))))
+  (with-eval-after-load 'evil
+    (--evil-ex-define-cmds-splits-and-tabs
+            "ledger"
+            #'(lambda () (interactive)
+                (find-file --default-ledger-file))))
+  :general
+  (beancount-mode-map
+   "M-RET" #'my-beancount-insert-date)
+  :hook
+  (beancount-mode-hook . outline-minor-mode)
+  :config
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("beancount" . beancount) org-src-lang-modes)))
+;; :general
+;; (beancount-mode-map
+;;  :states '(normal motion insert)
+;;  "<f5>" #'(lambda () (interactive)
+;;            (insert (format-time-string "%Y-%m-%d"))))
+;; causing fontification errors
+;; :hook ((org-mode-hook . beancount-mode)))
+
 (provide 'config-language)
