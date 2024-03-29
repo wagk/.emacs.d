@@ -412,4 +412,22 @@ Lisp function does not specify a special indentation."
   :ensure (:host github :repo "brantou/ob-hy")
   :after (:all org-src hy-mode))
 
+(use-package python
+  :ensure nil
+  :general
+  (:keymaps 'python-mode-map
+   :states 'insert
+   "RET" 'comment-indent-new-line)
+  :config
+  (setq-default python-indent-offset 4)
+  (with-eval-after-load 'org
+   (org-babel-do-load-languages 'org-babel-load-languages
+                                (add-to-list 'org-babel-load-languages '(python . t)))))
+
+(use-package pyvenv
+  :after python
+  :ensure (:host github :repo "jorgenschaefer/pyvenv")
+  :commands (pyvenv-activate
+             pyvenv-workon))
+
 (provide 'config-language)

@@ -11,29 +11,6 @@
   (cl-pushnew '("batch" . bat) org-src-lang-modes))
 #+end_src
 
-* Python
-#+begin_src emacs-lisp :results output silent
-(org-babel-do-load-languages 'org-babel-load-languages
-                             (add-to-list 'org-babel-load-languages '(python . t)))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-(setq-default python-indent-offset 4)
-
-(general-define-key
- :keymaps 'python-mode-map
- :states 'insert
- "RET" 'comment-indent-new-line)
-#+end_src
-
-** Virtual Environment
-#+begin_src emacs-lisp :results output silent
-(use-package pyvenv
-  :ensure (:host github :repo "jorgenschaefer/pyvenv")
-  :commands (pyvenv-activate
-             pyvenv-workon))
-#+end_src
-
 * Powershell
 #+begin_src emacs-lisp :results output silent
 (use-package powershell.el
