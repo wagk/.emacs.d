@@ -922,13 +922,9 @@ what the benefits are.
                        (require 'visual-fill-column)
                        (visual-fill-column-mode 1)))
   :init
-  (evil-define-command --gptel-ex-command (_beg _end _type)
-    (interactive "<v>")
-    (if (use-region-p)
-        (gptel-menu)
-      (call-interactively 'gptel)))
-  (evil-ex-define-cmd "gpt" #'--gptel-ex-command)
-  (evil-ex-define-cmd "gptt" #'gptel-menu))
+  (evil-ex-define-cmd "gptt" #'gptel-menu)
+  (with-eval-after-load 'evil
+    (--evil-define-splits "gpt" 'gptel)))
 #+end_src
 
 * Jam-mode
