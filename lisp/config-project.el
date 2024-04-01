@@ -163,7 +163,12 @@
                                    (require 'multi-vterm)
                                    (multi-vterm-project))))
     (evil-ex-define-cmd "pc" #'--compile-command-completing-read)
-    (evil-ex-define-cmd "pcc" #'recompile)
+    (evil-ex-define-cmd "pcc" #'(lambda ()
+                                  (interactive)
+                                  (let ((default-directory
+                                          (project-root (project-current))))
+                                    (recompile))))
+
 
     (with-eval-after-load 'consult
       (--evil-define-splits "pbb" #'consult-project-buffer)))
