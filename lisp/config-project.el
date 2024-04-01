@@ -169,6 +169,13 @@
                                           (project-root (project-current))))
                                     (recompile))))
 
+    (with-eval-after-load 'gud
+      (evil-ex-define-cmd
+       "pg"
+       '(lambda ()
+          (interactive)
+          (let ((default-directory (project-root (project-current t))))
+            (call-interactively 'gdb)))))
 
     (with-eval-after-load 'consult
       (--evil-define-splits "pbb" #'consult-project-buffer)))
