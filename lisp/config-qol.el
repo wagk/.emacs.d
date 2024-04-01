@@ -182,7 +182,7 @@
   (writeroom-bottom-divider-width 0)
   (writeroom-maximize-window nil)
   (writeroom-fullscreen-effect 'maximized)
-  (writeroom-width 80)
+  (writeroom-width 100)
   (writeroom-restore-window-config nil)
   ;; :general
   ;; (:states 'normal
