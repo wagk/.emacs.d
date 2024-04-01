@@ -40,7 +40,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
       (:split (evil-window-split))
       (:vsplit (evil-window-vsplit)))
     (condition-case err
-        (funcall func)
+        (command-execute func)
       (t (delete-window)
          (set-window-configuration orig-window-config)
          (message "%s" err)))))
@@ -51,7 +51,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (require 'tab-bar)
   (tab-bar-new-tab)
   (condition-case err
-      (funcall func)
+      (command-execute func)
     (t (tab-bar-close-tab)
        (message "%s" err))))
 
@@ -60,7 +60,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (interactive)
   (make-frame)
   (condition-case err
-       (funcall func)
+       (command-execute func)
     (t (delete-frame)
        (message "%s" err))))
 

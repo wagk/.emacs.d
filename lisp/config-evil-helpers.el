@@ -6,7 +6,7 @@
 (cl-defun --evil-define-splits (command func)
   (require 'evil)
   (evil-ex-define-cmd command
-                      `(lambda () (interactive) (,func)))
+                      `(lambda () (interactive) (command-execute ',func)))
   (evil-ex-define-cmd (concat "S" command)
                       `(lambda () (interactive)
                          (--evil-do-in-split ',func :split)))
