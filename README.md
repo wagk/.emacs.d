@@ -46,7 +46,6 @@ sudo apt install autoconf build-essential texinfo libx11-dev \
      libsqlite3-dev                                          \
      libgccjit0 libgccjit-11-dev                             \
      libtree-sitter-dev                                      \
-     libjansson4                                             \
      gnutls-bin                                              \
      libxft-dev                                              \
      libwebp-dev
@@ -54,8 +53,7 @@ sudo apt install autoconf build-essential texinfo libx11-dev \
 
 ``` shell
 ./autogen.sh
-./configure --with-json               \
-            --with-imagemagick        \
+./configure --with-imagemagick        \
             --with-native-compilation \
             --with-mailutils          \
             --with-pgtk
