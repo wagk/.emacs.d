@@ -426,7 +426,7 @@
     (general-define-key
      :keymaps 'compilation-mode-map
      :states 'normal
-      "g g" #'consult-compile-error))
+      "f f" #'consult-compile-error))
   :hook
   ;; (compilation-filter-hook . my-colorize-completion-buffer)
   (compilation-mode-hook . visual-line-mode))
