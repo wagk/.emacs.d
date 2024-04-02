@@ -70,9 +70,19 @@
     (evil-ex-define-cmd "gl"     'magit-log)
     (evil-ex-define-cmd "gp"     'magit-push)
     (evil-ex-define-cmd "gz"     'magit-stash))
+  (cl-defun --update-git-commit-comment-info ()
+    "Markdown-mode sets the comments to HTML comments, but git commit messages
+assume # starts a comment."
+    (setq-local comment-start "#"
+                comment-end ""))
   :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
-         (git-commit-setup-hook . markdown-mode)
-         (git-commit-setup-hook . evil-markdown-mode))
+         ;; note that the ordering here is important: we want this function to
+         ;; fire _after_ `markdown-mode' has set up the comment-start/end
+         ;; variables.
+         (git-commit-setup-hook . --update-git-commit-comment-info)
+         ;; evil-markdown-mode should fire after markdown-mode
+         (git-commit-setup-hook . evil-markdown-mode)
+         (git-commit-setup-hook . markdown-mode))
   :config
   (with-eval-after-load 'evil
     (add-to-list 'evil-motion-state-modes 'magit-mode))
