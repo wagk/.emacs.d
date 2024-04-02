@@ -144,6 +144,12 @@
   "Very light box coloring"
   :group 'personal)
 
+(defface sol-background-box
+  `((((background light)) (:box ,sol-base3))
+    (((background dark)) (:box ,sol-base03)))
+  "Background box coloring"
+  :group 'personal)
+
 (with-eval-after-load 'simple
   (when (facep 'blink-matching-paren-offscreen)
     (set-face-attribute 'blink-matching-paren-offscreen nil
@@ -165,16 +171,25 @@
   (set-face-attribute 'vertical-border nil
                       :foreground 'unspecified
                       :inherit 'sol-superlight-foreground)
+  (set-face-attribute 'mode-line nil
+                      :box '(:line-width 3))
   (set-face-attribute 'mode-line-active nil
                       :inherit '(sol-light-foreground
                                  sol-superlight-box))
   (set-face-attribute 'mode-line-inactive nil
                       :foreground 'unspecified
                       :background 'unspecified
-                      :box nil
-                      :inherit '(sol-superlight-foreground nano-default))
+                      :overline 'unspecified
+                      :underline 'unspecified
+                      :box 'unspecified
+                      :inherit '(sol-superlight-box
+                                 sol-superlight-foreground
+                                 nano-default))
+  (set-face-attribute 'mode-line-emphasis nil
+                      :inherit 'nano-subtle)
   (set-face-attribute 'mode-line-buffer-id nil
-                      :inherit 'sol-light-foreground)
+                      :box 'unspecified
+                      :inherit '(sol-light-foreground))
   (set-face-attribute 'header-line nil
                       :background 'unspecified
                       :inherit 'nano-default)
@@ -398,6 +413,10 @@
                       :inherit 'match))
 
 ;; font-lock
+(set-face-attribute 'font-lock-warning-face nil
+                    :bold t
+                    :italic t
+                    :inherit 'nano-default)
 (set-face-attribute 'font-lock-keyword-face nil
                     :foreground 'unspecified
                     :inherit 'nano-default)
