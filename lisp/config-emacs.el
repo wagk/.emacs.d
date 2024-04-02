@@ -318,18 +318,6 @@
 
 (use-package tab-bar
   :ensure nil
-  :general
-  (evil-window-map
-   ;; single window in tab gets moved into frame
-   "g f" #'(lambda ()
-             (interactive)
-             (unless (= 1 (length (window-list)))
-               (tab-window-detach))
-             (tab-detach))
-   "g w" "g f"
-   ;; entire tab gets moved into frame
-   "g F" 'tab-detach
-   "g W" "g F")
   :custom
   (tab-bar-close-last-tab-choice 'delete-frame)
   (tab-bar-new-tab-choice t)
@@ -379,7 +367,21 @@
            (num-tabs (length (cdr tabs))))
       (if (eq num-tabs 1)
           (call-interactively oldfun)
-        (tab-bar-close-tab)))))
+        (tab-bar-close-tab))))
+
+  (with-eval-after-load 'evil
+    (general-define-key
+     :keymaps 'evil-window-map
+     ;; single window in tab gets moved into frame
+     "g f" #'(lambda ()
+               (interactive)
+               (unless (= 1 (length (window-list)))
+                 (tab-window-detach))
+               (tab-detach))
+     "g w" "g f"
+     ;; entire tab gets moved into frame
+     "g F" 'tab-detach
+     "g W" "g F")))
 
 (use-package autorevert
   :ensure nil
