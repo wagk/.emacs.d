@@ -192,8 +192,15 @@
 
 (evil-ex-define-cmd "date" #'(lambda () (interactive)
                                (insert (format-time-string "%F"))))
+(evil-ex-define-cmd "today" "date")
 
 (evil-ex-define-cmd "time" #'(lambda () (interactive)
                                (insert (format-time-string "%H:%M"))))
+
+
+
+
+
+
 
 (provide 'config-evil-helpers)
