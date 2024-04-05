@@ -145,8 +145,10 @@
   :group 'personal)
 
 (defface sol-background-box
-  `((((background light)) (:box ,sol-base3))
-    (((background dark)) (:box ,sol-base03)))
+  `((((background light)) (:box (:line-width (-1 . -1)
+                                 :color ,sol-base3)))
+    (((background dark)) (:box (:line-width (-1 . -1)
+                                :color ,sol-base03))))
   "Background box coloring"
   :group 'personal)
 
