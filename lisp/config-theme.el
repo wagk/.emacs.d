@@ -158,6 +158,9 @@
                         :inherit 'nano-critical)))
 
 (with-eval-after-load 'faces
+  (set-face-attribute 'region nil
+                      :extend t
+                      :inherit '(sol-background-box nano-subtle))
   (set-face-attribute 'fringe nil
                       :inherit 'sol-light-foreground)
   (set-face-attribute 'variable-pitch-text nil
