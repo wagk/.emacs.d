@@ -537,4 +537,10 @@
   :config
   (global-so-long-mode))
 
+(use-package calc
+  :ensure nil
+  :general
+  (calc-edit-mode-map
+   "C-c C-k" '(lambda () (interactive) (kill-buffer (current-buffer)))))
+
 (provide 'config-emacs)
