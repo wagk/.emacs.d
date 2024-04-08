@@ -26,8 +26,8 @@
 (--evil-define-splits "cofnig"      'find-user-config-file)
 (--evil-define-splits "cnfig"       'find-user-config-file)
 (--evil-define-splits "buffers"     'ibuffer)
-(--evil-define-splits "me[ssage]" #'(lambda ()
-                                      (switch-to-buffer "*Messages*")))
+(--evil-define-splits "me[ssage]"   #'(lambda () (interactive)
+                                        (switch-to-buffer "*Messages*")))
 
 (evil-ex-define-cmd "Wn" '(lambda () (interactive)
                             (select-frame-set-input-focus (next-frame))))
