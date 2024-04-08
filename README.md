@@ -99,3 +99,7 @@ makes sense here.
 arch -arm64 emacs --daemon
 emacsclient -a "" -c "SOME FILENAME"
 ```
+
+# TODO
+
+- [ ] `consult-*` functions are not correctly adding themselves to the evil jump list
