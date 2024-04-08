@@ -83,8 +83,19 @@
    "g /" #'consult-line)
   :config
   (with-eval-after-load 'evil
+    (evil-set-command-property #'consult-buffer      :jump t)
+    (evil-set-command-property #'consult-bookmark    :jump t)
+    (evil-set-command-property #'consult-goto-line   :jump t)
+    (evil-set-command-property #'consult-recent-file :jump t)
+    (evil-set-command-property #'consult-imenu       :jump t)
+    (evil-set-command-property #'consult-imenu-multi :jump t)
+    (evil-set-command-property #'consult-line        :jump t)
+    (evil-set-command-property #'consult-line-multi  :jump t)
+    (evil-set-command-property #'consult-info        :jump t))
+  (with-eval-after-load 'evil
     (evil-ex-define-cmd "mb"  'consult-bookmark)
     (evil-ex-define-cmd "fm"  'consult-bookmark)
+    (evil-ex-define-cmd "fn"  'consult-goto-line)
     (evil-ex-define-cmd "bb"  'consult-buffer)
     (evil-ex-define-cmd "fr"  'consult-recent-file)
     (evil-ex-define-cmd "fb"  'consult-buffer)

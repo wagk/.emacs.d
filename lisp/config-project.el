@@ -152,6 +152,11 @@
         (f-touch readme-path))
       (find-file readme-path)))
 
+  (with-eval-after-load 'evil
+    (evil-set-command-property #'project-find-file :jump t)
+    (evil-set-command-property #'project-dired :jump t)
+    (evil-set-command-property #'project-find-dir :jump t))
+
   (with-eval-after-load 'config-evil-helpers
     (--evil-define-splits "readme" #'--project-find-readme)
     (--evil-define-splits "pf" #'project-find-file)
@@ -181,6 +186,7 @@
     (evil-ex-define-cmd "pgr" 'gud-remove)
 
     (with-eval-after-load 'consult
+      (evil-set-command-property #'consult-project-buffer :jump t)
       (--evil-define-splits "pbb" #'consult-project-buffer)))
 
   (with-eval-after-load 'rg
