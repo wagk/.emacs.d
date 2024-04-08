@@ -642,7 +642,8 @@
 
 (with-eval-after-load 'corfu
   (set-face-attribute 'corfu-current nil
-                      :bold t))
+                      :bold t
+                      :inherit '(sol-background-box)))
 
 (with-eval-after-load 'stripe-buffer
   (set-face-attribute 'stripe-highlight nil
