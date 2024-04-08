@@ -169,17 +169,16 @@
                                           (project-root (project-current))))
                                     (recompile))))
 
-    (with-eval-after-load 'gud
-      (evil-ex-define-cmd
-       "pg"
-       '(lambda ()
-          (interactive)
-          (let ((default-directory (project-root (project-current t))))
-            (call-interactively 'gdb))))
-      (evil-ex-define-cmd "gud" "pg")
-      (evil-ex-define-cmd "pgb" 'gud-break)
-      (evil-ex-define-cmd "pgt" 'gud-tbreak)
-      (evil-ex-define-cmd "pgr" 'gud-remove))
+    (evil-ex-define-cmd
+     "pg"
+     '(lambda ()
+        (interactive)
+        (let ((default-directory (project-root (project-current t))))
+          (call-interactively 'gdb))))
+    (evil-ex-define-cmd "gud" "pg")
+    (evil-ex-define-cmd "pgb" 'gud-break)
+    (evil-ex-define-cmd "pgt" 'gud-tbreak)
+    (evil-ex-define-cmd "pgr" 'gud-remove)
 
     (with-eval-after-load 'consult
       (--evil-define-splits "pbb" #'consult-project-buffer)))
