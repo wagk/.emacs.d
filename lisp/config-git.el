@@ -93,6 +93,15 @@ assume # starts a comment."
      "[[" 'help-go-back
      "]]" 'help-go-forward)))
 
+(use-package consult-git-log-grep
+  :ensure (:host github :repo "ghosty141/consult-git-log-grep")
+  :commands (consult-git-log-grep)
+  :after (magit consult)
+  :init
+  (evil-ex-define-cmd "fgl" #'consult-git-log-grep)
+  :config
+  (set-default 'consult-git-log-grep-open-function #'magit-show-commit))
+
 ;; ;; Add section headings for submodule information
 ;; ;;
 ;; ;; Also remember that C-u (or g C-u last I checked) applies individual

@@ -110,15 +110,6 @@
   :config
   (setq xref-show-xrefs-function 'consult-xref))
 
-(use-package consult-git-log-grep
-  :ensure (:host github :repo "ghosty141/consult-git-log-grep")
-  :commands (consult-git-log-grep)
-  :after (magit consult)
-  :init
-  (evil-ex-define-cmd "gll" #'consult-git-log-grep)
-  :config
-  (set-default 'consult-git-log-grep-open-function #'magit-show-commit))
-
 (use-package consult-dir
   :commands consult-dir
   :custom
