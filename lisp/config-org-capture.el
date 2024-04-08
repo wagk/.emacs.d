@@ -76,4 +76,27 @@
 (use-package doct
   :ensure (:host github :repo "progfolio/doct"))
 
+(with-eval-after-load 'org-capture
+  (require 'doct)
+  (setq org-capture-templates
+        (doct-add-to
+         org-capture-templates
+         `(("Scratch"
+            :keys "scratch"
+            :type plain
+            :function
+            ,#'(lambda () (scratch-buffer) (goto-char (point-max)))
+            :empty-lines 1
+            :unnarrowed nil
+            :no-save t
+            :template
+            ("%f:%(with-current-buffer (org-capture-get :original-buffer)
+                     (number-to-string (line-number-at-pos))) %?"
+             ""
+             "%i")
+            :after-finalize
+            ,#'(lambda () (setq org-capture-last-stored-marker (make-marker)))))))
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "scc" #'(lambda () (interactive) (org-capture nil "scratch")))))
+
 (provide 'config-org-capture)
