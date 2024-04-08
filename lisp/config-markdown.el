@@ -27,6 +27,7 @@
     "<tab>" #'--markdown-complete-or-indent-at-table
     "TAB" "<tab>")
   :init
+  (setq initial-major-mode 'markdown-mode)
   (cl-defun --markdown-complete-or-indent-at-table ()
     (interactive)
     (if (markdown-table-at-point-p)

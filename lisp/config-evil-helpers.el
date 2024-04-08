@@ -28,6 +28,7 @@
 (--evil-define-splits "buffers"     'ibuffer)
 (--evil-define-splits "me[ssage]"   #'(lambda () (interactive)
                                         (switch-to-buffer "*Messages*")))
+(--evil-define-splits "sc[ratch]" #'scratch-buffer)
 
 (evil-ex-define-cmd "Wn" '(lambda () (interactive)
                             (select-frame-set-input-focus (next-frame))))
