@@ -160,6 +160,8 @@
                         :inherit 'nano-critical)))
 
 (with-eval-after-load 'faces
+  (set-face-attribute 'link-visited nil
+                      :foreground sol-blue)
   (set-face-attribute 'region nil
                       :inverse-video t
                       :inherit '(nano-subtle))
