@@ -86,13 +86,15 @@ on macos (here the M1 specifically) [issue](https://github.com/d12frosted/homebr
 # Optional step
 brew uninstall emacs-plus
 ```
+
+(Alternatively, use `reinstall`)
 ```
 LIBRARY_PATH="$(brew --prefix)/lib" brew install --debug -v emacs-plus@30 --with-mailutils --with-imagemagick --with-native-comp --with-xwidgets --with-poll
 ```
 
 There might be a problem with the install. Verify if running [`make
-bootstrap`](https://lists.gnu.org/r/bug-gnu-emacs/2021-01/msg00051.html)
-makes sense here.
+bootstrap`](https://lists.gnu.org/r/bug-gnu-emacs/2021-01/msg00051.html) makes
+sense here.
 
 # Daemon
 ```sh
