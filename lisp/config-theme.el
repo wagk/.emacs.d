@@ -367,6 +367,11 @@
                       :inherit 'nano-salient))
 
 (with-eval-after-load 'markdown-mode
+  (set-face-attribute 'markdown-highlighting-face nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :box t
+                      :inherit 'nano-default)
   (set-face-attribute 'markdown-strike-through-face nil
                       :strike-through t
                       :inherit 'nano-faded)
@@ -644,8 +649,9 @@
 
 (with-eval-after-load 'corfu
   (set-face-attribute 'corfu-current nil
-                      :bold t
-                      :inherit '(sol-background-box)))
+                      :inverse-video t
+                      :bold 'unspecified
+                      :inherit 'nano-faded))
 
 (with-eval-after-load 'stripe-buffer
   (set-face-attribute 'stripe-highlight nil
