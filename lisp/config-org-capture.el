@@ -80,8 +80,8 @@
   (require 'doct)
   (cl-defun --scratch-capture-template ()
     (let* ((line-number (number-to-string (line-number-at-pos)))
-           (filepath (pcase (list (project-current nil)
-                                  (buffer-file-name))
+           (filepath (pcase-exhaustive (list (project-current nil)
+                                             (buffer-file-name))
                        (`(nil nil) "<unbacked buffer>")
                        (`(,proj nil) "<unbacked project buffer>")
                        (`(nil ,name) (file-name-nondirectory name))
@@ -91,7 +91,7 @@
               (when (use-region-p)
                 (concat "\n\n"
                         "```\n"
-                        "%i"
+                        "%i" ;; the region itself would likely have a newline
                         "```")))))
   (setq org-capture-templates
         (doct-add-to
