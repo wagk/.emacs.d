@@ -78,6 +78,21 @@
 
 (with-eval-after-load 'org-capture
   (require 'doct)
+  (cl-defun --scratch-capture-template ()
+    (let* ((line-number (number-to-string (line-number-at-pos)))
+           (filepath (pcase (list (project-current nil)
+                                  (buffer-file-name))
+                       (`(nil nil) "<unbacked buffer>")
+                       (`(,proj nil) "<unbacked project buffer>")
+                       (`(nil ,name) (file-name-nondirectory name))
+                       (`(,proj ,name) (file-relative-name
+                                        name (project-root proj))))))
+      (concat filepath ":" line-number " %?"
+              (when (use-region-p)
+                (concat "\n\n"
+                        "```\n"
+                        "%i"
+                        "```")))))
   (setq org-capture-templates
         (doct-add-to
          org-capture-templates
@@ -90,10 +105,7 @@
             :unnarrowed nil
             :no-save t
             :template
-            ("%f:%(with-current-buffer (org-capture-get :original-buffer)
-                     (number-to-string (line-number-at-pos))) %?"
-             ""
-             "%i")
+            ,#'--scratch-capture-template
             :after-finalize
             ,#'(lambda () (setq org-capture-last-stored-marker (make-marker))))))))
 
