@@ -6,11 +6,11 @@
 
 (use-package markdown-mode
   :ensure (:host github :repo "jrblevin/markdown-mode")
-  :mode ("\\.md\\'" . markdown-mode)
+  :mode ("\\.md\\'" . gfm-mode)
   :commands (markdown-mode)
   :custom
   (markdown-asymmetric-header t)
-  (markdown-code-block-braces t)
+  (markdown-code-block-braces nil)
   (markdown-enable-highlighting-syntax t)
   (markdown-enable-math nil)
   (markdown-fontify-code-blocks-natively t)
@@ -27,7 +27,7 @@
     "<tab>" #'--markdown-complete-or-indent-at-table
     "TAB" "<tab>")
   :init
-  (setq initial-major-mode 'markdown-mode)
+  (setq initial-major-mode 'gfm-mode)
   (cl-defun --markdown-complete-or-indent-at-table ()
     (interactive)
     (if (markdown-table-at-point-p)
@@ -43,12 +43,18 @@
         "\n"
         "# " (file-name-base (buffer-file-name)) "\n"
         "\n")))
-  (with-eval-after-load 'smartparens
-    (sp-local-pair 'markdown-mode "`" "`")
-    (sp-local-pair 'markdown-mode "```" "```"
-                   :post-handlers '((--double-newline-and-indent-braces "RET"))))
+
+  ;; (with-eval-after-load 'evil
+  ;;   (evil-define-text-object --markdown-code-block))
+
+  ;; (with-eval-after-load 'smartparens
+  ;;   ;; (sp-local-pair 'markdown-mode "`" nil :when '(:add))
+  ;;   (sp-local-pair 'markdown-mode "```" "```"
+  ;;                  :post-handlers '((--double-newline-and-indent-braces "RET"))))
+
   (with-eval-after-load 'aggressive-fill-paragraph
     (add-hook 'markdown-mode-hook #'aggressive-fill-paragraph-mode))
+
   (with-eval-after-load 'org-table
     (defun orgtbl-to-gfm (table params)
       "Convert the Orgtbl mode TABLE to GitHub Flavored Markdown."

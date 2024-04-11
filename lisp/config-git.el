@@ -86,7 +86,7 @@ assume # starts a comment."
          (git-commit-setup-hook . --update-git-commit-comment-info)
          ;; evil-markdown-mode should fire after markdown-mode
          (git-commit-setup-hook . evil-markdown-mode)
-         (git-commit-setup-hook . markdown-mode))
+         (git-commit-setup-hook . gfm-mode))
   :config
   (with-eval-after-load 'evil
     (add-to-list 'evil-motion-state-modes 'magit-mode))
