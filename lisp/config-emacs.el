@@ -304,6 +304,8 @@
 (use-package ediff
   :ensure nil
   :custom
+  (ediff-split-window-function 'split-window-vertically)
+  (ediff-merge-split-window-function 'split-window-vertically)
   (ediff-window-setup-function 'ediff-setup-windows-plain))
 
 (use-package calendar
