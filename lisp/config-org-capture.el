@@ -110,8 +110,8 @@
             ,#'(lambda () (setq org-capture-last-stored-marker (make-marker))))))))
 
 (with-eval-after-load 'evil
-  (evil-ex-define-cmd "scc" #'(lambda () (interactive)
-                                (require 'org-capture)
-                                (org-capture nil "scratch"))))
+  (evil-ex-define-cmd "ss" #'(lambda () (interactive)
+                               (require 'org-capture)
+                               (org-capture nil "scratch"))))
 
 (provide 'config-org-capture)
