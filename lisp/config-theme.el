@@ -695,6 +695,32 @@
                       :background 'unspecified
                       :inherit 'nano-strong))
 
+(with-eval-after-load 'lsp-diagnostics
+  (customize-set-variable
+   'lsp-diagnostics-attributes
+   `((unnecessary :foreground ,(face-attribute
+                                 'sol-light-foreground
+                                 :foreground))
+     (deprecated :strike-through t))))
+
+(with-eval-after-load 'lsp-headerline
+ (set-face-attribute 'lsp-headerline-breadcrumb-path-error-face nil
+                     :underline `(:color ,sol-red :style line))
+ (set-face-attribute 'lsp-headerline-breadcrumb-symbols-error-face nil
+                     :underline `(:color ,sol-red :style line))
+ (set-face-attribute 'lsp-headerline-breadcrumb-path-hint-face nil
+                     :underline `(:color ,sol-magenta :style line))
+ (set-face-attribute 'lsp-headerline-breadcrumb-symbols-hint-face nil
+                     :underline `(:color ,sol-magenta :style line))
+ (set-face-attribute 'lsp-headerline-breadcrumb-path-info-face nil
+                     :underline `(:color ,sol-blue :style line))
+ (set-face-attribute 'lsp-headerline-breadcrumb-symbols-info-face nil
+                     :underline `(:color ,sol-blue :style line))
+ (set-face-attribute 'lsp-headerline-breadcrumb-path-warning-face nil
+                     :underline `(:color ,sol-yellow :style line))
+ (set-face-attribute 'lsp-headerline-breadcrumb-symbols-warning-face nil
+                     :underline `(:color ,sol-yellow :style line)))
+
 (with-eval-after-load 'lsp-ui-doc
   (setq lsp-ui-doc-border
         (plist-get
