@@ -149,7 +149,10 @@ If there is only one directory just return that."
 (cl-defun config-markdown-find-file ()
   "Opens a markdown file in `config-markdown-directories'."
   (interactive)
-  (find-file (config-markdown--select-file-name)))
+  (find-file (string-replace
+              " " "-"
+              (downcase
+               (config-markdown--select-file-name)))))
 
 (cl-defun config-markdown--find-heading-insertion-point (style)
   "Assuming that we are in the appropriate heading, move point to either the top
