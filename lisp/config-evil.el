@@ -164,6 +164,18 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 
   (evil-ex-define-cmd "vb[uffer]" 'my-evil-vsplit-buffer)
 
+  (defcustom --evil-write-typo-filenames '("'" "[")
+    "Filenames that commonly get created when I mash `:w'.")
+
+  (define-advice evil-write (:before-while (&rest args) --reject-typo-filenames)
+    "When calling :w I want to reject weird typo filenames"
+    (let ((save-name (nth 3 args)))
+      (if-let ((save (-any (lambda (x) (equal x save-name))
+                           --evil-write-typo-filenames)))
+          (y-or-n-p
+           (format "Did you intend to save a file named %s ?" save-name))
+        t)))
+
   (evil-mode))
 
 ;;; evil-collection
