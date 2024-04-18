@@ -575,6 +575,25 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
                       (car matches)
                     (--completing-read "File: " matches :require-match t))))
       (find-file match)
-      (goto-line num))))
+      (goto-line num)))
+
+  (transient-define-prefix --gdb ()
+    ["`gdb-mi' command dispatcher.\n"
+     ["Debugger"
+      ("RET" "Start debugging" (lambda () (interactive)
+                                 (require 'project)
+                                 (if-let* ((project (project-current t))
+                                           (default-directory (project-root project)))
+                                     (call-interactively 'gdb)
+                                   (gdb))))]
+     ["Point-based commands"
+      ("b" "Set breakpoint" gud-break)
+      ("t" "Set temporary breakpoint" gud-tbreak)
+      ("r" "Remove breakpoint" gud-remove)
+      ("p" "Evaluate expression" gud-remove)]])
+    
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "gdb" #'--gdb)
+    (evil-ex-define-cmd "gud" "gdb")))
 
 (provide 'config-emacs)
