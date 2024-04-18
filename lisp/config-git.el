@@ -188,14 +188,14 @@ assume # starts a comment."
                                        (url (progn
                                                 (git-link-homepage (git-link--select-remote))
                                                 (pop kill-ring))))
-                                   (browse-url url))))
-  (evil-ex-define-cmd "pulls" #'(lambda () (interactive)
-                                  (require 'git-link)
-                                  (let ((url (progn
-                                               (git-link-homepage (git-link--select-remote))
-                                               (pop kill-ring)))
-                                        (browse-url-browser-function #'browse-url-default-browser))
-                                   (browse-url (concat url "/pulls"))))))
+                                   (browse-url url)))))
+  ;; (evil-ex-define-cmd "pulls" #'(lambda () (interactive)
+  ;;                                 (require 'git-link)
+  ;;                                 (let ((url (progn
+  ;;                                              (git-link-homepage (git-link--select-remote))
+  ;;                                              (pop kill-ring)))
+  ;;                                       (browse-url-browser-function #'browse-url-default-browser))
+  ;;                                  (browse-url (concat url "/pulls"))))))
 
 (use-package git-timemachine
   :commands git-timemachine
