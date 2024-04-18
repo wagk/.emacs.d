@@ -545,4 +545,36 @@
   (calc-edit-mode-map
    "C-c C-k" '(lambda () (interactive) (kill-buffer (current-buffer)))))
 
+(use-package gdb-mi
+  :ensure nil
+  :mode ("\\.gdb\\'" . gdb-script-mode)
+  :custom
+  (gud-highlight-current-line t)
+  :config
+  (cl-defun --gdb-point-to-linespec ()
+    "Generate a linespec compatible with gdb's `break' <FILENAME>:<LINE>"
+    (interactive)
+    (let* ((filename (file-name-nondirectory (buffer-file-name)))
+           (line-num (line-number-at-pos (point) t))
+           (linespec (format "%s:%s" filename line-num)))
+      (kill-new linespec)
+      (message "%s" linespec)))
+  (cl-defun --gdb-linespec-to-point ()
+    "From a linespec, find the originating file.
+It's quite stupid at the moment, and assumes the line starts with `break'"
+    (interactive)
+    (require 'project)
+    (let* ((line (thing-at-point 'line :no-properties))
+           (_ (string-match "break \\(.*\\):\\([0-9]+\\)" line))
+           (filename (match-string 1 line))
+           (num (string-to-number (match-string 2 line)))
+           (matches (seq-filter (lambda (f)
+                                  (string-suffix-p filename f))
+                                (project-files (project-current))))
+           (match (if (length= matches 1)
+                      (car matches)
+                    (--completing-read "File: " matches :require-match t))))
+      (find-file match)
+      (goto-line num))))
+
 (provide 'config-emacs)
