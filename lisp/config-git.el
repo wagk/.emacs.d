@@ -170,6 +170,18 @@ assume # starts a comment."
   :custom
   (git-link-open-in-browser nil)
   :init
+  (with-eval-after-load 'magit
+    (general-define-key
+     :states 'normal
+     :keymaps 'magit-mode-map
+      "y x" #'git-link-commit
+      "y X" #'(lambda () (interactive)
+                (require 'git-link)
+                (let ((browse-url-browser-function #'browse-url-default-browser)
+                      (url (progn
+                               (git-link-commit (git-link--select-remote))
+                               (pop kill-ring))))
+                  (browse-url url)))))
   (evil-ex-define-cmd "repo" #'(lambda () (interactive)
                                  (require 'git-link)
                                  (let ((browse-url-browser-function #'browse-url-default-browser)
