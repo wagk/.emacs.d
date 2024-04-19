@@ -205,9 +205,12 @@ assume # starts a comment."
    "[[" 'git-timemachine-show-previous-revision
    "]]" 'git-timemachine-show-next-revision
    "M-k" 'git-timemachine-show-next-revision
-   "M-j" 'git-timemachine-show-previous-revision)
+   "M-j" 'git-timemachine-show-previous-revision
+   "g ?" 'git-timemachine-help
+   "RET" 'git-timemachine-show-commit
+   "b" 'git-timemachine-blame)
   :init
-  (evil-ex-define-cmd "gtime" #'git-timemachine))
+  (evil-ex-define-cmd "gtt" #'git-timemachine))
 
 (use-package abridge-diff
   :after magit
