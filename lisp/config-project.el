@@ -168,6 +168,7 @@
                                    (require 'multi-vterm)
                                    (multi-vterm-project))))
     (evil-ex-define-cmd "pc" #'--compile-command-completing-read)
+    (evil-ex-define-cmd "pcd" #'--compile-command-delete)
     (evil-ex-define-cmd "pcc" #'(lambda ()
                                   (interactive)
                                   (let ((default-directory
