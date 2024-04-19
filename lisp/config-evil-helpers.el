@@ -157,17 +157,34 @@
   (interactive)
   (require 'f)
   (require 'dash)
-  (let ((file (--completing-read "file: "
-                                 (directory-files user-lisp-dir)
-                                 :require-match t
-                                 :predicate (lambda (file)
-                                              (-any (lambda (e) (f-ext-p file e))
-                                                    '("el" "org"))))))
-    (f-join user-lisp-dir file)))
+  (let* ((files (--> (directory-files user-lisp-dir)
+                     (seq-filter #'(lambda (file)
+                                     (-any (lambda (e) (f-ext-p file e))
+                                           '("el" "org"))) it)
+                     (seq-filter #'(lambda (file)
+                                     (not (string-match file-name-version-regexp
+                                                        file))) it)
+                     (seq-filter #'(lambda (file)
+                                     (->> (file-name-base file)
+                                          (string-prefix-p ".#")
+                                          (not))) it)
+                     (mapcar #'(lambda (file) (f-join user-lisp-dir file)) it)
+                     (append it (list user-init-file
+                                      user-config-file
+                                      user-local-file))
+                     (mapcar #'(lambda (file)
+                                 (file-relative-name file user-emacs-directory))
+                             it)))
+         (file (--completing-read
+                "file: " files
+                :require-match t)))
+    (concat user-emacs-directory file)))
 
 (defun --select-config-lisp-file ()
   (interactive)
   (find-file (--select-config-lisp-file-name)))
+
+(--evil-define-splits "ll" #'--select-config-lisp-file)
 
 (defun --load-config-lisp-files (file-list)
   (cl-dolist (file file-list)
@@ -175,8 +192,6 @@
       (pcase (file-name-extension file)
         ("el" (load-file file))
         ("org" (org-babel-load-file file))))))
-
-(--evil-define-splits "ll" #'--select-config-lisp-file)
 
 (evil-define-command config-ex-set-arg (cmd)
   (interactive "<a>")
