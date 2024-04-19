@@ -90,8 +90,7 @@
          (line-number (number-to-string (line-number-at-pos)))
          (filepath (pcase-exhaustive (list (project-current nil)
                                            (buffer-file-name))
-                     (`(nil nil) "<unbacked buffer>")
-                     (`(,proj nil) "<unbacked project buffer>")
+                     (`(,_ nil) (buffer-name))
                      (`(nil ,name) (file-name-nondirectory name))
                      (`(,proj ,name) (file-relative-name
                                       name (project-root proj)))))
