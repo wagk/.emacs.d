@@ -76,23 +76,38 @@
 (use-package doct
   :ensure (:host github :repo "progfolio/doct"))
 
+(cl-defun --dedent-text (text)
+  (with-temp-buffer
+    (insert text)
+    (untabify (point-min) (point-max))
+    (let ((dedent-by (indent-rigidly--current-indentation (point-min) (point-max))))
+      (indent-rigidly (point-min) (point-max) (- dedent-by))
+      (buffer-substring-no-properties (point-min) (point-max)))))
+
+(cl-defun --capture-template-interesting ()
+  "Populates an `org-capture' template that stores interesting information."
+  (let* ((timestamp (format-time-string "%F"))
+         (line-number (number-to-string (line-number-at-pos)))
+         (filepath (pcase-exhaustive (list (project-current nil)
+                                           (buffer-file-name))
+                     (`(nil nil) "<unbacked buffer>")
+                     (`(,proj nil) "<unbacked project buffer>")
+                     (`(nil ,name) (file-name-nondirectory name))
+                     (`(,proj ,name) (file-relative-name
+                                      name (project-root proj)))))
+         (region (when (use-region-p)
+                   (let* ((beg (region-beginning))
+                          (end (region-end))
+                          (text (buffer-substring-no-properties beg end)))
+                     (--dedent-text text)))))
+    (concat timestamp " `" filepath "`:" line-number " %?"
+            (when region (concat "\n\n"
+                                 "```\n"
+                                 region
+                                 "```")))))
+
 (with-eval-after-load 'org-capture
   (require 'doct)
-  (cl-defun --scratch-capture-template ()
-    (let* ((line-number (number-to-string (line-number-at-pos)))
-           (filepath (pcase-exhaustive (list (project-current nil)
-                                             (buffer-file-name))
-                       (`(nil nil) "<unbacked buffer>")
-                       (`(,proj nil) "<unbacked project buffer>")
-                       (`(nil ,name) (file-name-nondirectory name))
-                       (`(,proj ,name) (file-relative-name
-                                        name (project-root proj))))))
-      (concat filepath ":" line-number " %?"
-              (when (use-region-p)
-                (concat "\n\n"
-                        "```\n"
-                        "%i" ;; the region itself would likely have a newline
-                        "```")))))
   (setq org-capture-templates
         (doct-add-to
          org-capture-templates
@@ -105,7 +120,7 @@
             :unnarrowed nil
             :no-save t
             :template
-            ,#'--scratch-capture-template
+            ,#'--capture-template-interesting
             :after-finalize
             ,#'(lambda () (setq org-capture-last-stored-marker (make-marker))))))))
 
