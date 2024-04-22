@@ -414,11 +414,6 @@ https://github.com/Silex/docker.el
   (mmm-default-submode-face ((t (:background unspecified)))))
 #+end_src
 
-* Proced
-#+begin_src emacs-lisp :results output silent
-;; (evil-ex-define-cmd "ps" 'proced)
-#+end_src
-
 * ObjC
 #+begin_src emacs-lisp :results output silent
 (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
