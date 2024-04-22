@@ -775,14 +775,6 @@ Don't forget to set =chatgpt-shell-openai-key= somewhere.
   (evil-ex-define-cmd "gpt" #'--evil-gpt-cmd))
 #+end_src
 
-* Xref
-#+begin_src emacs-lisp :results output silent
-(use-package xref
-  :ensure nil
-  :config
-  (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
-#+end_src
-
 * COMMENT Democratize (documentation)
 Commented because this doesn't work all too well for now and I'm not to sure
 what the benefits are.

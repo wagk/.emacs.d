@@ -606,4 +606,9 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
     (evil-ex-define-cmd "gdb" #'--gdb)
     (evil-ex-define-cmd "gud" "gdb")))
 
+(use-package xref
+  :ensure nil
+  :config
+  (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
+
 (provide 'config-emacs)
