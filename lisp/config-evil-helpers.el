@@ -4,6 +4,10 @@
 (evil-ex-define-cmd "view" #'(lambda () (interactive) (read-only-mode 'toggle)))
 
 (cl-defun --evil-define-splits (command func)
+  "Given a function that finds the appropriate buffer sets :{v,s,t,w} ex-cmd
+variants.
+
+\(COMMAND BUFFER-FN)"
   (require 'evil)
   (evil-ex-define-cmd command
                       `(lambda () (interactive) (command-execute ',func)))
