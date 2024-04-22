@@ -74,6 +74,7 @@
 
 ;; https://github.com/progfolio/doct
 (use-package doct
+  :after org-capture
   :ensure (:host github :repo "progfolio/doct"))
 
 (cl-defun --dedent-text (text)
