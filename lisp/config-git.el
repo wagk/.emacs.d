@@ -103,6 +103,7 @@ assume # starts a comment."
   :after (magit consult)
   :init
   (evil-ex-define-cmd "fgl" #'consult-git-log-grep)
+  (evil-ex-define-cmd "gfl" "fgl")
   :config
   (set-default 'consult-git-log-grep-open-function #'magit-show-commit))
 
