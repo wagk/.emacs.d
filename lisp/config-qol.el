@@ -210,4 +210,22 @@
   :config
   (ws-butler-global-mode))
 
+(use-package flycheck
+  :ensure (:host github :repo "flycheck/flycheck")
+  :custom
+  (flycheck-indication-mode 'left-margin)
+  ;; :custom-face
+  ;; (flycheck-error ((t (:underline (:color ,sol-red :style line)))))
+  ;; (flycheck-delimited-error ((t (:inherit flycheck-error))))
+  ;; (flycheck-info ((t (:underline (:color ,sol-blue :style line)))))
+  ;; (flycheck-warning ((t (:underline (:color ,sol-yellow :style line)))))
+  ;; (flycheck-fringe-error ((((background light)) (:background ,sol-base3 :foreground ,sol-red))
+  ;;                         (((background dark)) (:background ,sol-base03 :foreground ,sol-red))))
+  ;; (flycheck-fringe-info ((((background light)) (:background ,sol-base3 :foreground ,sol-blue))
+  ;;                        (((background dark)) (:background ,sol-base03 :foreground ,sol-blue))))
+  ;; (flycheck-fringe-warning ((((background light)) (:background ,sol-base3 :foreground ,sol-yellow))
+  ;;                           (((background dark)) (:background ,sol-base03 :foreground ,sol-yellow))))
+  :hook
+  (prog-mode-hook . global-flycheck-mode))
+
 (provide 'config-qol)
