@@ -217,10 +217,10 @@ variants.
 (evil-ex-define-cmd "time" #'(lambda () (interactive)
                                (insert (format-time-string "%H:%M"))))
 
-
-
-
-
-
+;; Or evil-spongebob if you want to think of it that way.
+(evil-define-operator evil-studlify (beg end)
+  (studlify-region beg end))
+(general-define-key :keymaps '(normal visual)
+  "g S" 'evil-studlify)
 
 (provide 'config-evil-helpers)

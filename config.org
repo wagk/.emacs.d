@@ -4,19 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Studlify operator
-#+begin_src emacs-lisp :results output silent
-(evil-define-operator evil-studlify (beg end)
-  (studlify-region beg end))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-(general-define-key :keymaps '(normal visual)
-  "g S" 'evil-studlify)
-#+end_src
-
-Or evil-spongebob if you want to think of it that way.
-
 * Go Mode                                                             :major:
 #+begin_src emacs-lisp :results output silent
 (use-package go-mode
