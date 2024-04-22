@@ -217,7 +217,6 @@ assume # starts a comment."
   :hook (magit-diff-mode-hook . abridge-diff-enable))
 
 (use-package blamer
-  :disabled t
   :ensure (:host github :repo "Artawower/blamer.el")
   :custom
   (blamer-commit-formatter ": %s")
@@ -226,7 +225,7 @@ assume # starts a comment."
   :custom-face
   (blamer-face ((((background light)) (:background ,sol-base3 :foreground ,sol-base2))
                 (((background dark)) (:background ,sol-base03 :foreground ,sol-base02))))
-  :hook
-  (prog-mode-hook . blamer-mode))
+  :config
+  (global-blamer-mode))
 
 (provide 'config-git)
