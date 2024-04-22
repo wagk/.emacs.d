@@ -76,9 +76,6 @@
   (setq-default indent-tabs-mode nil)
   (fset 'yes-or-no-p 'y-or-n-p) ;; Change "yes or no" to "y or n"
 
-  (setf (alist-get 'continuation fringe-indicator-alist) 'empty-line)
-  (setf (alist-get 'truncation fringe-indicator-alist) 'empty-line)
-
   (setq backup-directory-alist
         `(("." . ,(file-name-concat (when (featurep 'no-littering)
                                       no-littering-etc-directory)

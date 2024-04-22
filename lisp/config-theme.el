@@ -818,6 +818,12 @@
   (set-face-attribute 'dired-subtree-depth-6-face nil
                       :inherit 'sol-superlight-background))
 
+;; Replaces the default arrows you see in the left and right fringe with a
+;; nicer-looking bitmap.
+(setf (alist-get 'continuation fringe-indicator-alist) 'empty-line)
+(setf (alist-get 'truncation fringe-indicator-alist) 'empty-line)
+
+
 ;; Solarized theme
 
 (use-package solarized-theme
