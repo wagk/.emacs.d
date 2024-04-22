@@ -162,6 +162,8 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
     (evil-window-vsplit)
     (evil-buffer buffer))
 
+  (evil-ex-define-cmd "E" "edit")
+
   (evil-ex-define-cmd "vb[uffer]" 'my-evil-vsplit-buffer)
 
   (defcustom --evil-write-typo-filenames '("'" "[")
