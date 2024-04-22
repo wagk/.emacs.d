@@ -4,16 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Info mode
-#+begin_src emacs-lisp :results output silent
-(general-define-key
- :keymaps 'Info-mode-map
- :states 'normal
- "f" 'link-hint-open-link
- "]]" 'Info-next
- "[[" 'Info-prev)
-#+end_src
-
 * Flycheck
 #+begin_src emacs-lisp :results output silent
 (use-package flycheck
