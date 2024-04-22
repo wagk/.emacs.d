@@ -4,20 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* TOML mode for org-src
-#+begin_src emacs-lisp :results output silent
-(with-eval-after-load 'org-src
-  (cl-pushnew '("toml" . conf-toml) org-src-lang-modes))
-#+end_src
-
-* Prettify Symbols Mode
-Use this instead of pretty mode because it's built in and shouldn't
-spaz out as much
-
-#+begin_src emacs-lisp :results output silent
-;; (global-prettify-symbols-mode)
-#+end_src
-
 * Studlify operator
 #+begin_src emacs-lisp :results output silent
 (evil-define-operator evil-studlify (beg end)

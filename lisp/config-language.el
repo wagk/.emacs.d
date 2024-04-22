@@ -452,4 +452,9 @@ Lisp function does not specify a special indentation."
   :after cmake-mode
   :hook (cmake-mode-hook . cmake-font-lock-activate))
 
+(with-eval-after-load 'org-src
+ (cl-pushnew '("cmd" . bat) org-src-lang-modes)
+ (cl-pushnew '("batch" . bat) org-src-lang-modes)
+ (cl-pushnew '("toml" . conf-toml) org-src-lang-modes))
+
 (provide 'config-language)
