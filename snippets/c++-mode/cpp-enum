@@ -2,6 +2,6 @@
 # name: cpp-enum
 # key: enum
 # --
-enum %1 {
-     %0
+enum $1 {
+    $0
 }
