@@ -169,6 +169,9 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (defcustom --evil-write-typo-filenames '("'" "[")
     "Filenames that commonly get created when I mash `:w'.")
 
+  (define-advice evil-fill (:after (&rest args) --move-cursor-to-end-column)
+    (evil-scroll-end-column))
+
   (define-advice evil-write (:before-while (&rest args) --reject-typo-filenames)
     "When calling :w I want to reject weird typo filenames"
     (let ((save-name (nth 3 args)))
