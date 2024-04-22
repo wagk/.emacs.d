@@ -547,6 +547,35 @@
   :mode ("\\.gdb\\'" . gdb-script-mode)
   :custom
   (gud-highlight-current-line t)
+  :init
+  (transient-define-prefix --gdb ()
+    ["`gdb-mi' command dispatcher.\n"
+     ["Debugger"
+      ("RET" "Start debugging" (lambda () (interactive)
+                                 (require 'project)
+                                 (if-let* ((project (project-current t))
+                                           (default-directory (project-root project)))
+                                     (call-interactively 'gdb)
+                                   (gdb))))
+      ("g r" "Refresh" gud-refresh)]
+
+     ["Point-based commands"
+      ("b" "Set breakpoint" gud-break)
+      ("t" "Set temporary breakpoint" gud-tbreak)
+      ("d" "Remove breakpoint" gud-remove)
+      ("p" "Evaluate expression" gud-remove)
+      ("u" "Execute to this line" gud-until)]
+
+     ["Repl manipulation"
+      ("f u" "Up frame" gud-up :transient t)
+      ("f d" "Down frame" gud-down :transient t)
+      ("n" "Step skipping functions" gud-next :transient t)
+      ("s" "Step" gud-step :transient t)
+      ("c" "Continue" gud-cont)]])
+
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "gdb" #'--gdb)
+    (evil-ex-define-cmd "gud" "gdb"))
   :config
   (cl-defun --gdb-point-to-linespec ()
     "Generate a linespec compatible with gdb's `break' <FILENAME>:<LINE>"
@@ -572,36 +601,8 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
                       (car matches)
                     (--completing-read "File: " matches :require-match t))))
       (find-file match)
-      (goto-line num)))
+      (goto-line num))))
 
-  (transient-define-prefix --gdb ()
-    ["`gdb-mi' command dispatcher.\n"
-     ["Debugger"
-      ("RET" "Start debugging" (lambda () (interactive)
-                                 (require 'project)
-                                 (if-let* ((project (project-current t))
-                                           (default-directory (project-root project)))
-                                     (call-interactively 'gdb)
-                                   (gdb))))
-      ("g r" "Refresh" gud-refresh)]
-
-     ["Point-based commands"
-      ("b" "Set breakpoint" gud-break)
-      ("t" "Set temporary breakpoint" gud-tbreak)
-      ("d" "Remove breakpoint" gud-remove)
-      ("p" "Evaluate expression" gud-remove)
-      ("u" "Execute to this line" gud-until)]
-
-     ["Repl manipulation"
-      ("f u" "Up frame" gud-up :transient t)
-      ("f d" "Down frame" gud-down :transient t)
-      ("n" "Step skipping functions" gud-next :transient t)
-      ("s" "Step" gud-step :transient t)
-      ("c" "Continue" gud-cont)]])
-    
-  (with-eval-after-load 'evil
-    (evil-ex-define-cmd "gdb" #'--gdb)
-    (evil-ex-define-cmd "gud" "gdb")))
 
 (use-package xref
   :ensure nil
