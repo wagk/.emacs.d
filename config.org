@@ -4,18 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Go Mode                                                             :major:
-#+begin_src emacs-lisp :results output silent
-(use-package go-mode
-  :mode ("\\.go\\'" . go-mode)
-  :hook
-  (go-mode-hook . gofmt-before-save)
-  :general
-  (:keymaps 'go-mode-map
-   :state 'normal
-   "C-c C-f C-f" 'gofmt))
-#+end_src
-
 * Info mode
 #+begin_src emacs-lisp :results output silent
 (general-define-key

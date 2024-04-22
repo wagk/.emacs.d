@@ -452,6 +452,15 @@ Lisp function does not specify a special indentation."
   :after cmake-mode
   :hook (cmake-mode-hook . cmake-font-lock-activate))
 
+(use-package go-mode
+  :mode ("\\.go\\'" . go-mode)
+  :hook
+  (go-mode-hook . gofmt-before-save)
+  :general
+  (:keymaps 'go-mode-map
+   :state 'normal
+   "C-c C-f C-f" 'gofmt))
+
 (with-eval-after-load 'org-src
  (cl-pushnew '("cmd" . bat) org-src-lang-modes)
  (cl-pushnew '("batch" . bat) org-src-lang-modes)
