@@ -486,7 +486,7 @@ https://github.com/akermu/emacs-libvterm
 (use-package vterm
   :if (not (eq system-type 'windows-nt))
   :custom
-  (vterm-max-scrollback 100000 "maximum allowed without recompilation")
+  (vterm-max-scrollback 100000 "maximum allowed without editing source file.")
   (vterm-always-compile-module t)
   :config
   (evil-ex-define-cmd "term" #'vterm))
