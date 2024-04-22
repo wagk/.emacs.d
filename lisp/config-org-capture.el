@@ -107,6 +107,12 @@
                                  region
                                  "```")))))
 
+(cl-defun --HACK-discard-last-stored-marker ()
+  "Org assumes that the capture will be done inside an `org' buffer and
+helpfully does some parsing(?) if this marker is set as it should be. Remove
+this assumption."
+  (setq org-capture-last-stored-marker (make-marker)))
+
 (with-eval-after-load 'org-capture
   (require 'doct)
   (setq org-capture-templates
@@ -123,7 +129,7 @@
             :template
             ,#'--capture-template-interesting
             :after-finalize
-            ,#'(lambda () (setq org-capture-last-stored-marker (make-marker))))))))
+            ,#'--HACK-discard-last-stored-marker)))))
 
 (with-eval-after-load 'evil
   (evil-ex-define-cmd "ss" #'(lambda () (interactive)
