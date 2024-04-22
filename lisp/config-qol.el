@@ -200,4 +200,6 @@
 ;;                        (unless display-line-numbers-mode
 ;;                          (display-line-numbers-mode)))))))
 
+(use-package rainbow-mode)
+
 (provide 'config-qol)

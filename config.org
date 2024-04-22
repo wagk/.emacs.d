@@ -861,12 +861,7 @@ what the benefits are.
   :load-path "lisp/3p")
 #+end_src
 
-* Rainbow Mode
-#+begin_src emacs-lisp :results output silent
-(use-package rainbow-mode)
-#+end_src
-
-* Buttercup                                                            :testing:
+* Buttercup                                                         :testing:
 https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/writing-tests.md
 https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/running-tests.md
 
