@@ -430,4 +430,26 @@ Lisp function does not specify a special indentation."
   :commands (pyvenv-activate
              pyvenv-workon))
 
+(use-package powershell.el
+  :ensure (:host github :repo "jschaf/powershell.el")
+  :commands (powershell-mode powershell)
+  :init
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("powershell" . powershell) org-src-lang-modes)
+    (cl-pushnew '("ps" . powershell) org-src-lang-modes))
+  :config
+  (defun org-babel-execute:powershell (body _params)
+    (let ((explicit-shell-file-name powershell-location-of-exe))
+      (shell-command-to-string body))))
+
+(use-package cmake-mode
+  :mode ("\\cmakelists.txt\\'" . cmake-mode)
+  ;; :ensure t ;; the package is nested in the greater cmake repo, and
+  ;;           ;; not practical to use straight on (yet)
+  :hook (cmake-mode-hook . hl-todo-mode))
+
+(use-package cmake-font-lock
+  :after cmake-mode
+  :hook (cmake-mode-hook . cmake-font-lock-activate))
+
 (provide 'config-language)

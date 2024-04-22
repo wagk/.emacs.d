@@ -4,43 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Batch/CMD
-#+begin_src emacs-lisp :results output silent
-(with-eval-after-load 'org-src
-  (cl-pushnew '("cmd" . bat) org-src-lang-modes)
-  (cl-pushnew '("batch" . bat) org-src-lang-modes))
-#+end_src
-
-* Powershell
-#+begin_src emacs-lisp :results output silent
-(use-package powershell.el
-  :ensure (:host github :repo "jschaf/powershell.el")
-  :commands (powershell-mode powershell)
-  :init
-  (with-eval-after-load 'org-src
-    (cl-pushnew '("powershell" . powershell) org-src-lang-modes)
-    (cl-pushnew '("ps" . powershell) org-src-lang-modes))
-  :config
-  (defun org-babel-execute:powershell (body _params)
-    (let ((explicit-shell-file-name powershell-location-of-exe))
-      (shell-command-to-string body))))
-#+end_src
-
-* Cmake
-#+begin_src emacs-lisp :results output silent
-(use-package cmake-mode
-  :mode ("\\cmakelists.txt\\'" . cmake-mode)
-  ;; :ensure t ;; the package is nested in the greater cmake repo, and
-  ;;           ;; not practical to use straight on (yet)
-  :hook (cmake-mode-hook . hl-todo-mode))
-#+end_src
-
-** Cmake-font-lock
-#+begin_src emacs-lisp :results output silent
-(use-package cmake-font-lock
-  :hook (cmake-mode-hook . cmake-font-lock-activate))
-#+end_src
-
 * TOML mode for org-src
 #+begin_src emacs-lisp :results output silent
 (with-eval-after-load 'org-src

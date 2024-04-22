@@ -403,7 +403,11 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
    [remap evil-save-and-close] #'my-evil-org-src-save-exit
    ;; doesn't seem to be working, the saving part at least
    [remap evil-save-modified-and-close] #'my-evil-org-src-save-exit
-   [remap evil-quit] 'org-edit-src-abort))
+   [remap evil-quit] 'org-edit-src-abort)
+  :config
+  (with-eval-after-load 'org-src
+   (cl-pushnew '("cmd" . bat) org-src-lang-modes)
+   (cl-pushnew '("batch" . bat) org-src-lang-modes)))
 
 (use-package ob-async
   :after org
