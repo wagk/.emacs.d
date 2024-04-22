@@ -202,4 +202,12 @@
 
 (use-package rainbow-mode)
 
+;; whitespace
+(use-package ws-butler
+  :ensure t
+  :custom
+  (ws-butler-global-exempt-modes '())
+  :config
+  (ws-butler-global-mode))
+
 (provide 'config-qol)
