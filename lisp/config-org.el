@@ -315,10 +315,9 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
   :hook
   (org-agenda-after-show-hook . org-narrow-to-subtree)
   :init
-  (--evil-ex-define-cmds-splits-and-tabs
-   "agenda"
-   #'(lambda () (interactive) (org-agenda nil "A"))
-   #'(lambda () (org-agenda nil "A")))
+  (with-eval-after-load 'config-evil-helpers
+    (--evil-define-splits "agenda" #'(lambda ()
+                                       (interactive (org-agenda nil "A")))))
 
   (cl-defun --run-with-local-idle-timer (secs repeat function &rest args)
     "Like `run-with-idle-timer', but always runs in the `current-buffer'.
