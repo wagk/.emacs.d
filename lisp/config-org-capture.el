@@ -99,8 +99,9 @@
                    (let* ((beg (region-beginning))
                           (end (region-end))
                           (text (buffer-substring-no-properties beg end)))
-                     (--dedent-text text)))))
-    (concat timestamp " `" filepath "`:" line-number " %?"
+                     (--dedent-text text))))
+         (filepath-and-line (concat filepath ":" line-number)))
+    (concat timestamp " `" filepath-and-line "` -- %?"
             (when region (concat "\n\n"
                                  "```\n"
                                  region
