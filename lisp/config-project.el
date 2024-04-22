@@ -180,6 +180,10 @@
       (--evil-define-splits "pbb" #'consult-project-buffer)))
 
   (with-eval-after-load 'rg
+    (with-eval-after-load 'evil
+      (evil-ex-define-cmd "rp" 'rg-project)
+      (evil-ex-define-cmd "pg" "rp"))
+
     (general-define-key
      :keymaps 'project-prefix-map
      "g" 'rg-project
