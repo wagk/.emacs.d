@@ -86,7 +86,9 @@
       (buffer-substring-no-properties (point-min) (point-max)))))
 
 (cl-defun --capture-template-interesting ()
-  "Populates an `org-capture' template that stores interesting information."
+  "Populates an `org-capture' template that stores interesting information.
+Note that capture templates are called in the originating buffer; the one you
+were at when you called for the capture."
   (let* ((timestamp (format-time-string "%F"))
          (line-number (number-to-string (line-number-at-pos)))
          (filepath (pcase-exhaustive (list (project-current nil)
