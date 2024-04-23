@@ -143,6 +143,7 @@
   (evil-ex-define-cmd "rg" 'rg-menu)
   (evil-ex-define-cmd "rr" 'rg-menu)
   (evil-ex-define-cmd "rf" '--rg-search-file)
+  (evil-ex-define-cmd "rd" '--rg-search-dir)
   ;; (evil-ex-define-cmd "prg" 'rg-project)
   :config
   (rg-enable-menu)
@@ -156,7 +157,7 @@
   (rg-define-search --rg-search-file
     :files (funcall #'(lambda () (file-name-nondirectory (buffer-file-name))))
     :dir current
-    :query point
+    :query ask
     :menu ("Search" "f" "File"))
   (rg-define-search --rg-search-dir
     :files "everything"
