@@ -119,10 +119,11 @@
     (interactive)
     (require 'dash)
     (require 'project)
-    (let ((command (--completing-read "Compile command: "
+    (let ((command (--completing-read "Delete compile command: "
                                       compile-history
                                       :default-value compile-command)))
-      (setq compile-history (remove command compile-history))))
+      (when (y-or-n-p (format "Delete command \"%s\"?" command))
+        (setq compile-history (remove command compile-history)))))
 
   (general-define-key
    :keymaps 'project-prefix-map
