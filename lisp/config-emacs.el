@@ -548,30 +548,31 @@
   :custom
   (gud-highlight-current-line t)
   :init
-  (transient-define-prefix --gdb ()
-    ["`gdb-mi' command dispatcher.\n"
-     ["Debugger"
-      ("RET" "Start debugging" (lambda () (interactive)
-                                 (require 'project)
-                                 (if-let* ((project (project-current t))
-                                           (default-directory (project-root project)))
-                                     (call-interactively 'gdb)
-                                   (gdb))))
-      ("g r" "Refresh" gud-refresh)]
+  (with-eval-after-load 'transient
+    (transient-define-prefix --gdb ()
+     ["`gdb-mi' command dispatcher.\n"
+      ["Debugger"
+       ("RET" "Start debugging" (lambda () (interactive)
+                                  (require 'project)
+                                  (if-let* ((project (project-current t))
+                                            (default-directory (project-root project)))
+                                      (call-interactively 'gdb)
+                                    (gdb))))
+       ("g r" "Refresh" gud-refresh)]
 
-     ["Point-based commands"
-      ("b" "Set breakpoint" gud-break)
-      ("t" "Set temporary breakpoint" gud-tbreak)
-      ("d" "Remove breakpoint" gud-remove)
-      ("p" "Evaluate expression" gud-remove)
-      ("u" "Execute to this line" gud-until)]
+      ["Point-based commands"
+       ("b" "Set breakpoint" gud-break)
+       ("t" "Set temporary breakpoint" gud-tbreak)
+       ("d" "Remove breakpoint" gud-remove)
+       ("p" "Evaluate expression" gud-remove)
+       ("u" "Execute to this line" gud-until)]
 
-     ["Repl manipulation"
-      ("f u" "Up frame" gud-up :transient t)
-      ("f d" "Down frame" gud-down :transient t)
-      ("n" "Step skipping functions" gud-next :transient t)
-      ("s" "Step" gud-step :transient t)
-      ("c" "Continue" gud-cont)]])
+      ["Repl manipulation"
+       ("f u" "Up frame" gud-up :transient t)
+       ("f d" "Down frame" gud-down :transient t)
+       ("n" "Step skipping functions" gud-next :transient t)
+       ("s" "Step" gud-step :transient t)
+       ("c" "Continue" gud-cont)]]))
 
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "gdb" #'--gdb)
