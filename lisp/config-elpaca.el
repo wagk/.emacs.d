@@ -65,11 +65,18 @@
                     (or (cdr (assoc (car elem) subst-list)) "X")))
             elpaca-ui-marks)))
 
-(with-eval-after-load 'evil
-  (with-eval-after-load 'general
+(with-eval-after-load 'general
+  (with-eval-after-load 'evil
     (general-define-key
      :keymaps 'elpaca-ui-mode-map
      :states 'normal
-      "M" 'elpaca-ui-mark-merge)))
+     "M" 'elpaca-ui-mark-merge))
+
+  (with-eval-after-load 'link-hint
+    (general-define-key
+     :keymaps 'elpaca-info-mode-map
+      :states 'normal
+      "f" 'link-hint-open-link)))
+
 
 (provide 'config-elpaca)
