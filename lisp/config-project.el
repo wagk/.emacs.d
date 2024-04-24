@@ -121,6 +121,7 @@
     (require 'project)
     (let ((command (--completing-read "Delete compile command: "
                                       compile-history
+                                      :require-match t
                                       :default-value compile-command)))
       (when (y-or-n-p (format "Delete command \"%s\"?" command))
         (setq compile-history (remove command compile-history)))))
