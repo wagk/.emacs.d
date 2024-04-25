@@ -84,28 +84,38 @@
   (when (< emacs-major-version 27)
     (setq w32-pipe-read-delay 0)))
 
-(cl-defun --point-to-file-and-line-number ()
-  (interactive)
-  (require 'project)
-  (let* ((buf (if (project-current nil)
-                (file-relative-name (buffer-file-name)
-                                    (project-root (project-current)))
-                (buffer-file-name)))
-         (info (concat buf ":"
-                       (number-to-string (line-number-at-pos)))))
-    (kill-new info)
-    (message "%s" info)))
-
 (cl-defun --kill-buffer-path ()
   (interactive)
+  (let ((name (--find-buffer-path)))
+    (if (not name)
+        (user-error "Buffer not associated with any path.")
+      (kill-new name)
+      (message "%s" name))))
+
+(cl-defun --point-to-file-and-line-number ()
+  (interactive)
+  (let* ((buf (--find-buffer-path))
+         (name (concat buf ":" (number-to-string (line-number-at-pos)))))
+    (if (not name)
+        (user-error "Buffer not associated with any path.")
+      (kill-new name)
+      (message "%s" name))))
+
+(cl-defun --find-buffer-path ()
+  "Tries to find the path of this buffer.
+If inside a project, make relative to project root.
+Returns a string, or nil if there is no path associated with the buffer."
+  (require 'project)
   (let ((name (or (buffer-file-name) dired-directory)))
+    (when (project-current)
+      (setq name (file-relative-name name (project-root (project-current)))))
     (pcase name
       ;; hack since dired-directory might be a list
-      ((or 'nil (pred listp)) (message "Not a file"))
-      (name (kill-new name)
-            (message "%s" name)))))
+      ((or 'nil (pred listp)) nil)
+      (_ name))))
 
 (with-eval-after-load 'evil
+  ;; buffer level info yanking
   (evil-ex-define-cmd "byl" #'--point-to-file-and-line-number)
   (evil-ex-define-cmd "byf" #'--kill-buffer-path))
 
