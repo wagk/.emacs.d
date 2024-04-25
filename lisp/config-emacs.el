@@ -558,7 +558,12 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom
   (gud-highlight-current-line t)
   :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "gdb" #'(lambda () (interactive) (require 'gdb-mi) (--gdb)))
+    (evil-ex-define-cmd "gud" "gdb"))
+  :config
   (with-eval-after-load 'transient
+    (require 'gdb-mi)
     (transient-define-prefix --gdb ()
      ["`gdb-mi' command dispatcher.\n"
       ["Debugger"
@@ -584,10 +589,6 @@ Returns a string, or nil if there is no path associated with the buffer."
        ("s" "Step" gud-step :transient t)
        ("c" "Continue" gud-cont)]]))
 
-  (with-eval-after-load 'evil
-    (evil-ex-define-cmd "gdb" #'--gdb)
-    (evil-ex-define-cmd "gud" "gdb"))
-  :config
   (cl-defun --gdb-point-to-linespec ()
     "Generate a linespec compatible with gdb's `break' <FILENAME>:<LINE>"
     (interactive)
