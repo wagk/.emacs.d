@@ -614,6 +614,33 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
       (find-file match)
       (goto-line num))))
 
+(use-package smerge-mode
+  :ensure nil
+  :init
+  (with-eval-after-load 'transient
+    (transient-define-prefix --smerge ()
+      ["Smerge mode command dispatcher."
+       ["Navigation"
+        ("k" "Previous hunk" smerge-prev :transient t)
+        ("j" "Next hunk" smerge-next :transient t)]
+       ["Selection"
+        ("u" "Keep upper hunk" smerge-keep-upper :transient t)
+        ("l" "Keep lower hunk" smerge-keep-lower :transient t)
+        ("a" "Keep all hunks" smerge-keep-all :transient t)
+        ("b" "Keep base hunk" smerge-keep-base :transient t)
+        ("c" "Keep hunk at point" smerge-keep-current)
+        ("s" "Resolve ('intelligently')" smerge-resolve :transient t)]
+       ["Display"
+        ("r" "Refine view" smerge-refine :transient t)
+        ("z z" "Recenter (center) view" evil-scroll-line-to-center :transient t)
+        ("z b" "Recenter (bottom) view" evil-scroll-line-to-bottom :transient t)
+        ("z t" "Recenter (top) view" evil-scroll-line-to-top :transient t)]
+       ["???? What are these commands"
+        ("m" "Combine with Next" smerge-combine-with-next)]])
+
+    (with-eval-after-load 'evil
+      (evil-ex-define-cmd "smerge" #'--smerge))))
+
 
 (use-package xref
   :ensure nil
