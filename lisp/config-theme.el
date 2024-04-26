@@ -139,8 +139,10 @@
   :group 'personal)
 
 (defface sol-superlight-box
-  `((((background light)) (:box ,sol-base2))
-    (((background dark)) (:box ,sol-base02)))
+  `((((background light)) (:box (:line-width (-1 . -1)
+                                 :color ,sol-base2)))
+    (((background dark)) (:box (:line-width (-1 . -1)
+                                :color ,sol-base02))))
   "Very light box coloring"
   :group 'personal)
 
