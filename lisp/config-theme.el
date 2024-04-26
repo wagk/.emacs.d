@@ -426,6 +426,10 @@
   (set-face-attribute 'lazy-highlight nil
                       :inherit 'match))
 
+(with-eval-after-load 'highlight-indent-guides
+  (set-face-attribute 'highlight-indent-guides-character-face nil
+                      :inherit 'sol-superlight-foreground))
+
 ;; font-lock
 (set-face-attribute 'font-lock-warning-face nil
                     :bold t

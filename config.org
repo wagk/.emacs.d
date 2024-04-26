@@ -262,8 +262,6 @@ This is closer to the json serialization/deserialization module.
   :custom
   (highlight-indent-guides-method 'character)
   (highlight-indent-guides-auto-enabled nil)
-  :custom-face
-  (highlight-indent-guides-character-face ((t (:inherit sol-superlight-foreground))))
   :hook
   ((prog-mode-hook . highlight-indent-guides-mode)))
 #+end_src
