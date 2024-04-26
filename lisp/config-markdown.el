@@ -170,10 +170,10 @@ STYLE can be either `:append' or `:prepend'"
 
 (cl-defun config-markdown--level-of-heading-at-point ()
   "Returns the level of the header.
-If point is at a header, return the level, nil otherwise."
+If point is not at a header, go to previous header, and return that level."
   (interactive)
   (save-excursion
-    (beginning-of-line)
+    (outline-back-to-heading)
     (when (looking-at config-markdown-header-regexp)
       (length (match-string 1)))))
 
@@ -232,9 +232,7 @@ end of the selected heading."
                  (-> (config-markdown--find-files-named "Diary")
                      (find-file))
                  (config-markdown--find-or-insert-date-heading-point-at-level
-                  (save-excursion
-                    (markdown-previous-heading)
-                    (config-markdown--level-of-heading-at-point))))
+                  (config-markdown--level-of-heading-at-point)))
             :unnarrowed t
             :empty-lines 1
             :append t
