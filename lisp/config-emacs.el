@@ -622,8 +622,17 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
     (transient-define-prefix --smerge ()
       ["Smerge mode command dispatcher."
        ["Navigation"
-        ("k" "Previous hunk" smerge-prev :transient t)
-        ("j" "Next hunk" smerge-next :transient t)]
+        ("k" "Previous hunk"
+         (lambda ()
+           (interactive)
+           (smerge-prev)
+           (evil-scroll-line-to-center))
+         :transient t)
+        ("j" "Next hunk"
+         (lambda () (interactive)
+           (smerge-next)
+           (evil-scroll-line-to-center))
+         :transient t)]
        ["Selection"
         ("u" "Keep upper hunk" smerge-keep-upper :transient t)
         ("l" "Keep lower hunk" smerge-keep-lower :transient t)
@@ -632,10 +641,7 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
         ("c" "Keep hunk at point" smerge-keep-current)
         ("s" "Resolve ('intelligently')" smerge-resolve :transient t)]
        ["Display"
-        ("r" "Refine view" smerge-refine :transient t)
-        ("z z" "Recenter (center) view" evil-scroll-line-to-center :transient t)
-        ("z b" "Recenter (bottom) view" evil-scroll-line-to-bottom :transient t)
-        ("z t" "Recenter (top) view" evil-scroll-line-to-top :transient t)]
+        ("r" "Refine view" smerge-refine :transient t)]
        ["???? What are these commands"
         ("m" "Combine with Next" smerge-combine-with-next)]])
 
