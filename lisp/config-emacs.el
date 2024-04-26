@@ -625,25 +625,27 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
         ("k" "Previous hunk" (lambda ()
                                (interactive)
                                (smerge-prev)
-                               (evil-scroll-line-to-center)) :transient t)
+                               (recenter)) :transient t)
         ("j" "Next hunk" (lambda () (interactive)
                            (smerge-next)
-                           (evil-scroll-line-to-center)) :transient t)]
+                           (recenter)) :transient t)]
        ["Selection"
-        ("u" "Keep upper hunk" smerge-keep-upper)
-        ("l" "Keep lower hunk" smerge-keep-lower)
-        ("a" "Keep all hunks" smerge-keep-all)
-        ("b" "Keep base hunk" smerge-keep-base)
-        ("c" "Keep hunk at point" smerge-keep-current)
-        ("s" "Resolve ('intelligently')" smerge-resolve)]
+        ("u" "Keep upper hunk" smerge-keep-upper :transient t)
+        ("l" "Keep lower hunk" smerge-keep-lower :transient t)
+        ("a" "Keep all hunks" smerge-keep-all :transient t)
+        ("b" "Keep base hunk" smerge-keep-base :transient t)
+        ("c" "Keep hunk at point" smerge-keep-current :transient t)
+        ("s" "Resolve ('intelligently')" smerge-resolve :transient t)]
        ["Display"
-        ("r" "Refine view" smerge-refine :transient t)]
+        ("r" "Cycle Refine view" smerge-refine :transient t)
+        ("d u" "Diff base/upper" smerge-diff-base-upper :transient t)
+        ("d l" "Diff base/lower" smerge-diff-base-lower :transient t)
+        ("d c" "Diff upper/lower" smerge-diff-upper-lower :transient t)]
        ["???? What are these commands"
         ("m" "Combine with Next" smerge-combine-with-next)]])
 
     (with-eval-after-load 'evil
       (evil-ex-define-cmd "smerge" #'--smerge))))
-
 
 (use-package xref
   :ensure nil
