@@ -622,24 +622,20 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
     (transient-define-prefix --smerge ()
       ["Smerge mode command dispatcher."
        ["Navigation"
-        ("k" "Previous hunk"
-         (lambda ()
-           (interactive)
-           (smerge-prev)
-           (evil-scroll-line-to-center))
-         :transient t)
-        ("j" "Next hunk"
-         (lambda () (interactive)
-           (smerge-next)
-           (evil-scroll-line-to-center))
-         :transient t)]
+        ("k" "Previous hunk" (lambda ()
+                               (interactive)
+                               (smerge-prev)
+                               (evil-scroll-line-to-center)) :transient t)
+        ("j" "Next hunk" (lambda () (interactive)
+                           (smerge-next)
+                           (evil-scroll-line-to-center)) :transient t)]
        ["Selection"
-        ("u" "Keep upper hunk" smerge-keep-upper :transient t)
-        ("l" "Keep lower hunk" smerge-keep-lower :transient t)
-        ("a" "Keep all hunks" smerge-keep-all :transient t)
-        ("b" "Keep base hunk" smerge-keep-base :transient t)
+        ("u" "Keep upper hunk" smerge-keep-upper)
+        ("l" "Keep lower hunk" smerge-keep-lower)
+        ("a" "Keep all hunks" smerge-keep-all)
+        ("b" "Keep base hunk" smerge-keep-base)
         ("c" "Keep hunk at point" smerge-keep-current)
-        ("s" "Resolve ('intelligently')" smerge-resolve :transient t)]
+        ("s" "Resolve ('intelligently')" smerge-resolve)]
        ["Display"
         ("r" "Refine view" smerge-refine :transient t)]
        ["???? What are these commands"
