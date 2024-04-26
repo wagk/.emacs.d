@@ -88,23 +88,25 @@
 (cl-defun --capture-template-interesting ()
   "Populates an `org-capture' template that stores interesting information.
 Note that capture templates are called in the originating buffer; the one you
-were at when you called for the capture."
-  (let* ((timestamp (format-time-string "%F"))
-         (line-number (number-to-string (line-number-at-pos)))
+were at when you called for the capture.
+
+Assumes Markdown formatting."
+  (let* ((region (when (use-region-p)
+                   (let* ((beg (region-beginning))
+                          (end (region-end))
+                          (text (buffer-substring-no-properties beg end)))
+                     (--dedent-text text))))
          (filepath (pcase-exhaustive (list (project-current nil)
                                            (buffer-file-name))
                      (`(,_ nil) (buffer-name))
                      (`(nil ,name) (file-name-nondirectory name))
                      (`(,proj ,name) (file-relative-name
                                       name (project-root proj)))))
-         (region (when (use-region-p)
-                   (let* ((beg (region-beginning))
-                          (end (region-end))
-                          (text (buffer-substring-no-properties beg end)))
-                     (--dedent-text text))))
+         (line-number (number-to-string (line-number-at-pos)))
          (filepath-and-line (concat filepath ":" line-number)))
-    (concat timestamp " `" filepath-and-line "` -- %?"
-            (when region (concat "\n\n"
+    (concat (format "## %s `%s`\n" (format-time-string "%F") filepath-and-line)
+            "\n%?\n"
+            (when region (concat "\n"
                                  "```\n"
                                  region
                                  "```")))))
