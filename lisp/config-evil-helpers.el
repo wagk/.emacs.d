@@ -33,6 +33,9 @@ variants.
 (--evil-define-splits "me[ssage]"   #'(lambda () (interactive)
                                         (switch-to-buffer "*Messages*")))
 (--evil-define-splits "sc[ratch]" #'scratch-buffer)
+(--evil-define-splits "snippets" #'(lambda () (interactive)
+                                     (dired (locate-user-emacs-file "snippets"))))
+
 
 (evil-ex-define-cmd "Wn" '(lambda () (interactive)
                             (select-frame-set-input-focus (next-frame))))
