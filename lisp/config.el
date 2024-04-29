@@ -80,6 +80,7 @@
 (require 'config-emacs)
 (require 'config-text)
 (require 'config-qol)
+(require 'config-lsp)
 (require 'config-org)
 (require 'config-org-capture)
 (require 'config-language)
