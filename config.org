@@ -4,14 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Rot13
-Note that while the buffer will look rot13 encrypted, the final saved
-file will not itself be encrypted.
-
-#+begin_src emacs-lisp :results output silent
-(evil-ex-define-cmd "rot[13]" 'toggle-rot13-mode)
-#+end_src
-
 * PlantUML mode
 [[http://plantuml.com/index][Reference]]
 

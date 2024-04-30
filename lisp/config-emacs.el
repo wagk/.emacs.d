@@ -84,6 +84,11 @@
   (when (< emacs-major-version 27)
     (setq w32-pipe-read-delay 0)))
 
+;; Note that while the buffer will look rot13 encrypted, the final saved) file
+;; will not itself be encrypted.)
+(with-eval-after-load 'evil
+  (evil-ex-define-cmd "rot[13]" 'toggle-rot13-mode))
+
 (cl-defun --kill-buffer-path ()
   (interactive)
   (let ((name (--find-buffer-path)))
