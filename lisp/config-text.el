@@ -199,4 +199,11 @@
   :config
   (global-origami-mode))
 
+(use-package tree-sitter
+  :commands (tree-sitter-hl-mode tree-sitter-mode)
+  :hook ((tree-sitter-after-on-hook . tree-sitter-hl-mode)))
+
+(use-package tree-sitter-langs
+  :after tree-sitter)
+
 (provide 'config-text)

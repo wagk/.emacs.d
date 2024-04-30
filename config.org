@@ -4,20 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Tree Sitter
-#+begin_src emacs-lisp :results output silent
-(use-package tree-sitter
-  :commands (tree-sitter-hl-mode tree-sitter-mode)
-  :hook ((tree-sitter-after-on-hook . tree-sitter-hl-mode))
-  :custom-face
-  (tree-sitter-hl-face:type.builtin ((t (:inherit 'tree-sitter-hl-face:keyword)))))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-(use-package tree-sitter-langs
-  :after tree-sitter)
-#+end_src
-
 ** Text objects
 #+begin_src emacs-lisp :results output silent
 (use-package evil-textobj-tree-sitter
