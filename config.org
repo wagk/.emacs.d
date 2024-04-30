@@ -4,12 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Kotlin Mode
-#+begin_src emacs-lisp :results output silent
-(use-package kotlin-mode
-  :mode ("\\.kt\\'" . kotlin-mode))
-#+end_src
-
 * Swift Mode
 #+begin_src emacs-lisp :results output silent
 (use-package swift-mode

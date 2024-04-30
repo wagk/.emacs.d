@@ -550,4 +550,7 @@ Lisp function does not specify a special indentation."
   :custom
   (ob-mermaid-cli-path --mermaid-cli-bin))
 
+(use-package kotlin-mode
+  :mode ("\\.kt\\'" . kotlin-mode))
+
 (provide 'config-language)
