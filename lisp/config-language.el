@@ -484,4 +484,9 @@ Lisp function does not specify a special indentation."
   (org-babel-do-load-languages 'org-babel-load-languages
                                (add-to-list 'org-babel-load-languages '(plantuml . t))))
 
+(use-package edn
+  :ensure (:host github :repo "expez/edn.el")
+  :commands (edn-read
+             edn-print-string))
+
 (provide 'config-language)
