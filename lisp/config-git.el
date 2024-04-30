@@ -242,9 +242,6 @@ assume # starts a comment."
   (blamer-commit-formatter ": %s")
   (blamer-min-offset 5)
   (blamer-idle-time 1)
-  :custom-face
-  (blamer-face ((((background light)) (:background ,sol-base3 :foreground ,sol-base2))
-                (((background dark)) (:background ,sol-base03 :foreground ,sol-base02))))
   :config
   (global-blamer-mode))
 

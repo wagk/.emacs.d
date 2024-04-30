@@ -464,6 +464,13 @@
 (set-face-attribute 'font-lock-string-face nil
                     :foreground 'unspecified)
 
+(with-eval-after-load 'blamer
+  (set-face-attribute 'blamer-face nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :weight 'extra-light
+                      :inherit 'nano-superlight-foreground))
+
 (with-eval-after-load 'eww
   (set-face-attribute 'eww-form-submit nil
                       :foreground 'unspecified
