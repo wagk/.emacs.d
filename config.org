@@ -4,18 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Svg Tag Mode
-#+begin_src emacs-lisp :results output silent
-(use-package svg-lib
-  :ensure (:host github :repo "rougier/svg-lib"))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-(use-package svg-tag-mode
-   ;; depends on `svg-lib'
-  :after svg-lib)
-#+end_src
-
 * Term
 ** Multi-Term
 #+begin_src emacs-lisp :results output silent

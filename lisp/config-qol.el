@@ -313,4 +313,10 @@
   :init
   (evil-ex-define-cmd "docker" #'docker))
 
+(use-package svg-lib
+  :ensure (:host github :repo "rougier/svg-lib"))
+
+(use-package svg-tag-mode
+  :after svg-lib)
+
 (provide 'config-qol)
