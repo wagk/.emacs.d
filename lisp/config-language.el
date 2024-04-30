@@ -500,4 +500,7 @@ Lisp function does not specify a special indentation."
   (with-eval-after-load 'lsp-mode
     (add-hook 'web-mode-hook #'lsp-deferred)))
 
+(use-package moonscript
+  :ensure t)
+
 (provide 'config-language)

@@ -4,11 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Moonscript
-#+begin_src emacs-lisp :results output silent
-(use-package moonscript)
-#+end_src
-
 * Decide-mode
 #+begin_src emacs-lisp :results output silent
 (use-package decide
