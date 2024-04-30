@@ -503,4 +503,7 @@ Lisp function does not specify a special indentation."
 (use-package moonscript
   :ensure t)
 
+(use-package hcl-mode
+  :ensure t)
+
 (provide 'config-language)
