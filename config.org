@@ -4,34 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Mermaid
-Requires =mermaid-cli= to be installed:
-#+begin_src sh
-npm install -g @mermaid-js/mermaid-cli
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-(use-package mermaid-mode
-  :if (and (bound-and-true-p --mermaid-cli-bin)
-           (f-exists-p --mermaid-cli-bin))
-  :custom
-  (mermaid-mmdc-location --mermaid-cli-bin)
-  :commands (mermaid-mode)
-  :init
-  (with-eval-after-load 'markdown-mode
-    (add-to-list 'markdown-code-lang-modes '("mermaid" . mermaid-mode))))
-#+end_src
-
-** Ob-Mermaid
-#+begin_src emacs-lisp :results output silent
-(use-package ob-mermaid
-  :after org
-  :if (and (bound-and-true-p --mermaid-cli-bin)
-           (f-exists-p --mermaid-cli-bin))
-  :custom
-  (ob-mermaid-cli-path --mermaid-cli-bin))
-#+end_src
-
 * Svg Tag Mode
 #+begin_src emacs-lisp :results output silent
 (use-package svg-lib

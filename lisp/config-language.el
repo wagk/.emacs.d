@@ -529,4 +529,25 @@ Lisp function does not specify a special indentation."
   (with-eval-after-load 'tree-sitter
     (add-hook 'typescript-mode-hook 'tree-sitter-hl-mode)))
 
+;; Requires `mermaid-cli' to be installed
+;; ```
+;; npm install -g @mermaid-js/mermaid-cli
+;; ```
+(use-package mermaid-mode
+  :if (and (bound-and-true-p --mermaid-cli-bin)
+           (f-exists-p --mermaid-cli-bin))
+  :custom
+  (mermaid-mmdc-location --mermaid-cli-bin)
+  :commands (mermaid-mode)
+  :init
+  (with-eval-after-load 'markdown-mode
+    (add-to-list 'markdown-code-lang-modes '("mermaid" . mermaid-mode))))
+
+(use-package ob-mermaid
+  :after (org mermaid-mode)
+  :if (and (bound-and-true-p --mermaid-cli-bin)
+           (f-exists-p --mermaid-cli-bin))
+  :custom
+  (ob-mermaid-cli-path --mermaid-cli-bin))
+
 (provide 'config-language)
