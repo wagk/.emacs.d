@@ -4,11 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Hydras
-#+begin_src emacs-lisp :results output silent
-(use-package hydra)
-#+end_src
-
 * Evaluation Result Overlay for Emacs Lisp
 #+begin_src emacs-lisp :results output silent
 (use-package eros
