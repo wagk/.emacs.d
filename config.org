@@ -4,15 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Typescript
-#+begin_src emacs-lisp :results output silent
-(use-package typescript-mode
-  :mode "\\.ts\\'"
-  :config
-  (with-eval-after-load 'tree-sitter
-    (add-hook 'typescript-mode-hook 'tree-sitter-hl-mode)))
-#+end_src
-
 * Mermaid
 Requires =mermaid-cli= to be installed:
 #+begin_src sh

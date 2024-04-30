@@ -523,4 +523,10 @@ Lisp function does not specify a special indentation."
 ;; objc
 (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
 
+(use-package typescript-mode
+  :mode "\\.ts\\'"
+  :config
+  (with-eval-after-load 'tree-sitter
+    (add-hook 'typescript-mode-hook 'tree-sitter-hl-mode)))
+
 (provide 'config-language)
