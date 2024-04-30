@@ -281,6 +281,7 @@ Ensure that `libtool` is installed. On Ubuntu this can be done via
 #+begin_src emacs-lisp :results output silent
 (use-package vterm
   :if (not (eq system-type 'windows-nt))
+  :after evil
   :custom
   (vterm-max-scrollback 100000 "maximum allowed without editing source file.")
   (vterm-always-compile-module t)
@@ -291,7 +292,7 @@ Ensure that `libtool` is installed. On Ubuntu this can be done via
 ** Multi-Vterm
 #+begin_src emacs-lisp :results output silent
 (use-package multi-vterm
-  :after vterm
+  :after (vterm general evil)
   :if (not (eq system-type 'windows-nt))
   :general
   (general-define-key
