@@ -4,6 +4,7 @@
 ;; More examples about transient can be found at:
 ;; https://github.com/positron-solutions/transient-showcase
 (use-package transient
+  :demand t
   :ensure (:host github :repo "magit/transient"))
 
 (when (eq system-type 'windows-nt)
@@ -200,18 +201,36 @@ assume # starts a comment."
 
 (use-package git-timemachine
   :commands git-timemachine
+  :after (evil transient general)
   :general
   (git-timemachine-mode-map
    :states 'normal
-   "[[" 'git-timemachine-show-previous-revision
-   "]]" 'git-timemachine-show-next-revision
+   "[["  'git-timemachine-show-previous-revision
+   "]]"  'git-timemachine-show-next-revision
    "M-k" 'git-timemachine-show-next-revision
    "M-j" 'git-timemachine-show-previous-revision
    "g ?" 'git-timemachine-help
-   "RET" 'git-timemachine-show-commit
-   "b" 'git-timemachine-blame)
+   "RET" '--git-timemachine)
   :init
-  (evil-ex-define-cmd "gtt" #'git-timemachine))
+  (transient-define-prefix --git-timemachine ()
+    [:description "Git Timemachine dispatcher"
+     ["Configuration"
+      ("b" "Blame" git-timemachine-blame)
+      ("?" "Help" git-timemachine-help)]
+     ["Display"
+      ("RET" "Show current commit" git-timemachine-show-commit)
+      ("c c" "Fuzzy find commit" git-timemachine-show-revision-fuzzy)
+      ("c n" "Nearest commit" git-timemachine-show-nearest-revision)]
+     ["Navigation"
+      ("j" "Previous commit" git-timemachine-show-previous-revision :transient t)
+      ("k" "Next commit" git-timemachine-show-next-revision :transient t)
+      ("t" "Fuzzy find commit" git-timemachine-show-revision-fuzzy)
+      ("g" "Nth commit from start" git-timemachine-show-nth-revision)
+      ("h" "Nearest commit to X" git-timemachine-show-nearest-revision)]
+     ["Capture"
+      ("y" "Yank short hash" git-timemachine-kill-abbreviated-revision)
+      ("Y" "Yank full hash" git-timemachine-kill-revision)]])
+  (evil-ex-define-cmd "glt" #'git-timemachine))
 
 (use-package abridge-diff
   :after magit
