@@ -306,4 +306,11 @@
   :config
   (eros-mode))
 
+;; https://github.com/Silex/docker.el
+(use-package docker
+  :commands docker
+  :after evil
+  :init
+  (evil-ex-define-cmd "docker" #'docker))
+
 (provide 'config-qol)
