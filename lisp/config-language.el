@@ -466,4 +466,22 @@ Lisp function does not specify a special indentation."
  (cl-pushnew '("batch" . bat) org-src-lang-modes)
  (cl-pushnew '("toml" . conf-toml) org-src-lang-modes))
 
+(use-package plantuml-mode
+  :ensure (:host github :repo "skuro/plantuml-mode")
+  :commands (plantuml-mode)
+  :custom
+  (plantuml-output-type "txt"
+                        "Display using glorious text")
+  (plantuml-default-exec-mode 'executable)
+  :mode "\\.plantuml\\'"
+  :init
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("plantuml" . plantuml) org-src-lang-modes)))
+
+;; http://plantuml.com/index
+(with-eval-after-load 'org
+  (customize-set-value 'org-plantuml-exec-mode 'plantuml)
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               (add-to-list 'org-babel-load-languages '(plantuml . t))))
+
 (provide 'config-language)

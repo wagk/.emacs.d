@@ -4,29 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* PlantUML mode
-[[http://plantuml.com/index][Reference]]
-
-#+begin_src emacs-lisp :results output silent
-(use-package plantuml-mode
-  :ensure (:host github :repo "skuro/plantuml-mode")
-  :commands (plantuml-mode)
-  :custom
-  (plantuml-output-type "txt"
-                        "Display using glorious text")
-  (plantuml-default-exec-mode 'executable)
-  :mode "\\.plantuml\\'"
-  :init
-  (with-eval-after-load 'org-src
-    (cl-pushnew '("plantuml" . plantuml) org-src-lang-modes)))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-(customize-set-value 'org-plantuml-exec-mode 'plantuml)
-(org-babel-do-load-languages 'org-babel-load-languages
-                             (add-to-list 'org-babel-load-languages '(plantuml . t)))
-#+end_src
-
 * Edn format
 This is closer to the json serialization/deserialization module.
 
