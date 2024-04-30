@@ -269,4 +269,21 @@
    "f" 'link-hint-open-link
    "y f" 'link-hint-copy-link))
 
+(use-package highlight-indent-guides
+  :commands (highlight-indent-guides-mode)
+  :after general
+  :general
+  (:states 'normal
+   :prefix my-default-evil-leader-key
+   "|" #'(lambda () (interactive)
+           (require 'display-fill-column-indicator)
+           (require 'highlight-indent-guides)
+           (display-fill-column-indicator-mode 'toggle)
+           (highlight-indent-guides-mode 'toggle)))
+  :custom
+  (highlight-indent-guides-method 'character)
+  (highlight-indent-guides-auto-enabled nil)
+  :hook
+  ((prog-mode-hook . highlight-indent-guides-mode)))
+
 (provide 'config-qol)
