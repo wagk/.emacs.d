@@ -4,11 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Dockerfile mode
-#+begin_src emacs-lisp :results output silent
-(use-package dockerfile-mode)
-#+end_src
-
 * mmm-mode
 #+begin_src emacs-lisp :results output silent
 (use-package mmm-mode

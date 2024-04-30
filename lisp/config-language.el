@@ -513,4 +513,6 @@ Lisp function does not specify a special indentation."
   (with-eval-after-load 'tree-sitter
     (add-hook 'terraform-mode-hook #'tree-sitter-mode)))
 
+(use-package dockerfile-mode)
+
 (provide 'config-language)
