@@ -4,19 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-** Treesit (built-in mode)
-#+begin_src emacs-lisp :results output silent
-(use-package treesit-auto
-  :disabled t
-  :if (and (not (eq system-type 'windows-nt))
-           (fboundp 'treesit-available-p)
-           (treesit-available-p))
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (global-treesit-auto-mode))
-#+end_src
-
 * Macrostep
 #+begin_src emacs-lisp :results output silent
 (use-package macrostep

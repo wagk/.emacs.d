@@ -206,4 +206,14 @@
 (use-package tree-sitter-langs
   :after tree-sitter)
 
+(use-package treesit-auto
+  :disabled t ;; tree-sitter is more mature, I find
+  :if (and (not (eq system-type 'windows-nt))
+           (fboundp 'treesit-available-p)
+           (treesit-available-p))
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (global-treesit-auto-mode))
+
 (provide 'config-text)
