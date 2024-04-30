@@ -275,6 +275,9 @@ npm install -g @mermaid-js/mermaid-cli
 * Vterm
 https://github.com/akermu/emacs-libvterm
 
+Ensure that `libtool` is installed. On Ubuntu this can be done via
+`libtool-bin`.
+
 #+begin_src emacs-lisp :results output silent
 (use-package vterm
   :if (not (eq system-type 'windows-nt))
