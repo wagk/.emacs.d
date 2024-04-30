@@ -175,4 +175,28 @@
       :menu ("Custom" "hl" "`hl-todo' Keywords"))
     (evil-ex-define-cmd "hl-todo" 'search-hl-todo-keywords)))
 
+(use-package origami
+  :ensure (:host github :repo "gregsexton/origami.el")
+  :after evil
+  :defer 2
+  :general
+  (:states 'normal
+   "zm" 'origami-close-all-nodes
+   "zr" 'origami-open-all-nodes
+   "zc" 'origami-close-node
+   "zC" 'origami-close-node-recursively
+   "zo" 'origami-open-node
+   "zO" 'origami-open-node-recursively
+   "za" 'origami-recursively-toggle-node
+   "zj" 'origami-forward-fold
+   "zk" #'(lambda () (interactive)
+            (call-interactively 'origami-previous-fold)
+            (call-interactively 'origami-next-fold))
+   "[z" 'origami-previous-fold
+   "]z" 'origami-next-fold)
+  :hook
+  (prog-mode-hook . origami-mode)
+  :config
+  (global-origami-mode))
+
 (provide 'config-text)

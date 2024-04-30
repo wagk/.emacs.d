@@ -4,33 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Code Folding (Origami)
-#+begin_src emacs-lisp :results output silent
-(use-package origami
-  :ensure (:host github :repo "gregsexton/origami.el")
-  :after evil
-  :defer 2
-  :general
-  (:states 'normal
-   "zm" 'origami-close-all-nodes
-   "zr" 'origami-open-all-nodes
-   "zc" 'origami-close-node
-   "zC" 'origami-close-node-recursively
-   "zo" 'origami-open-node
-   "zO" 'origami-open-node-recursively
-   "za" 'origami-recursively-toggle-node
-   "zj" 'origami-forward-fold
-   "zk" #'(lambda () (interactive)
-            (call-interactively 'origami-previous-fold)
-            (call-interactively 'origami-next-fold))
-   "[z" 'origami-previous-fold
-   "]z" 'origami-next-fold)
-  :hook
-  (prog-mode-hook . origami-mode)
-  :config
-  (global-origami-mode))
-#+end_src
-
 * Rot13
 Note that while the buffer will look rot13 encrypted, the final saved
 file will not itself be encrypted.
