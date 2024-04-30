@@ -298,4 +298,12 @@
 (use-package macrostep
   :commands (macrostep-expand))
 
+(use-package eros
+  :custom-face
+  (eros-result-overlay-face ((t (:box nil
+                                 :background unspecified
+                                 :inherit shadow))))
+  :config
+  (eros-mode))
+
 (provide 'config-qol)
