@@ -4,17 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Fill Function Argument
-#+begin_src emacs-lisp :results output silent
-(use-package fill-function-arguments
-  :ensure (:host github :repo "davidshepherd7/fill-function-arguments")
-  :commands (fill-function-arguments-dwim)
-  :custom (fill-function-arguments-indent-after-fill t)
-  :general
-  (:states 'normal
-   "g *" 'fill-function-arguments-dwim))
-#+end_src
-
 * Tree Sitter
 #+begin_src emacs-lisp :results output silent
 (use-package tree-sitter

@@ -286,4 +286,13 @@
   :hook
   ((prog-mode-hook . highlight-indent-guides-mode)))
 
+(use-package fill-function-arguments
+  :ensure (:host github :repo "davidshepherd7/fill-function-arguments")
+  :after general
+  :commands (fill-function-arguments-dwim)
+  :custom (fill-function-arguments-indent-after-fill t)
+  :general
+  (:states 'normal
+   "g *" 'fill-function-arguments-dwim))
+
 (provide 'config-qol)
