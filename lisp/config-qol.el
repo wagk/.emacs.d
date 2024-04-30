@@ -349,4 +349,9 @@
   :config
   (evil-ex-define-cmd "term" #'multi-vterm))
 
+(with-eval-after-load 'evil
+  (when (fboundp 'shortdoc)
+   (evil-ex-define-cmd "cheatsheet" 'shortdoc)
+   (evil-ex-define-cmd "cs" 'shortdoc)))
+
 (provide 'config-qol)
