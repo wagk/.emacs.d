@@ -520,4 +520,7 @@ Lisp function does not specify a special indentation."
   :custom-face
   (mmm-default-submode-face ((t (:background unspecified)))))
 
+;; objc
+(add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
+
 (provide 'config-language)
