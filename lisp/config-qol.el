@@ -295,4 +295,7 @@
   (:states 'normal
    "g *" 'fill-function-arguments-dwim))
 
+(use-package macrostep
+  :commands (macrostep-expand))
+
 (provide 'config-qol)

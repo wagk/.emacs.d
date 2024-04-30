@@ -555,6 +555,12 @@
                       :italic nil
                       :inherit 'font-lock-function-name-face))
 
+(with-eval-after-load 'macrostep-expand
+  (set-face-attribute 'macrostep-expansion-highlight-face nil
+                      :foreground sol-green
+                      :background 'unspecified
+                      :inherit 'nano-subtle))
+
 (with-eval-after-load 'term
  (set-face-attribute 'term-color-red nil
                      :foreground sol-red
