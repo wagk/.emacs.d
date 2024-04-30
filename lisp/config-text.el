@@ -216,4 +216,10 @@
   :config
   (global-treesit-auto-mode))
 
+;; dice rolling and the like
+(use-package decide
+  :ensure t
+  :config
+  (decide-mode))
+
 (provide 'config-text)
