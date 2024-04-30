@@ -4,47 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Term
-** Multi-Term
-#+begin_src emacs-lisp :results output silent
-(use-package multi-term
-  :if (not (or (featurep 'vterm)
-               (featurep 'multi-vterm)
-               (eq system-type 'windows-nt)))
-  :commands
-  (multi-term))
-#+end_src
-
-* Vterm
-https://github.com/akermu/emacs-libvterm
-
-Ensure that `libtool` is installed. On Ubuntu this can be done via
-`libtool-bin`.
-
-#+begin_src emacs-lisp :results output silent
-(use-package vterm
-  :if (not (eq system-type 'windows-nt))
-  :after evil
-  :custom
-  (vterm-max-scrollback 100000 "maximum allowed without editing source file.")
-  (vterm-always-compile-module t)
-  :config
-  (evil-ex-define-cmd "term" #'vterm))
-#+end_src
-
-** Multi-Vterm
-#+begin_src emacs-lisp :results output silent
-(use-package multi-vterm
-  :after (vterm general evil)
-  :if (not (eq system-type 'windows-nt))
-  :general
-  (general-define-key
-   :keymaps 'project-prefix-map
-   "s" 'multi-vterm-project) ;; overrides `project-shell'
-  :config
-  (evil-ex-define-cmd "term" #'multi-vterm))
-#+end_src
-
 * Kotlin Mode
 #+begin_src emacs-lisp :results output silent
 (use-package kotlin-mode

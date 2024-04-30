@@ -319,4 +319,34 @@
 (use-package svg-tag-mode
   :after svg-lib)
 
+(use-package multi-term
+  :if (not (or (featurep 'vterm)
+               (featurep 'multi-vterm)
+               (eq system-type 'windows-nt)))
+  :commands
+  (multi-term))
+
+;; https://github.com/akermu/emacs-libvterm
+;;
+;; Ensure that `libtool` is installed. On Ubuntu this can be done via
+;; `libtool-bin`.
+(use-package vterm
+  :if (not (eq system-type 'windows-nt))
+  :after evil
+  :custom
+  (vterm-max-scrollback 100000 "maximum allowed without editing source file.")
+  (vterm-always-compile-module t)
+  :config
+  (evil-ex-define-cmd "term" #'vterm))
+
+(use-package multi-vterm
+  :after (vterm general evil)
+  :if (not (eq system-type 'windows-nt))
+  :general
+  (general-define-key
+   :keymaps 'project-prefix-map
+   "s" 'multi-vterm-project) ;; overrides `project-shell'
+  :config
+  (evil-ex-define-cmd "term" #'multi-vterm))
+
 (provide 'config-qol)
