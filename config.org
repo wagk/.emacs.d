@@ -4,19 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Link hinting
-#+begin_src emacs-lisp :results output silent
-(use-package link-hint
-  :commands (link-hint-open-link
-             link-hint-copy-link)
-  :config
-  (general-define-key
-   :keymaps 'help-mode-map
-   :states '(motion normal)
-   "f" 'link-hint-open-link
-   "y f" 'link-hint-copy-link))
-#+end_src
-
 * Highlight Indent Guides
 #+begin_src emacs-lisp :results output silent
 (use-package highlight-indent-guides

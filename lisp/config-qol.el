@@ -258,4 +258,15 @@
   :config
   (persistent-scratch-setup-default))
 
+(use-package link-hint
+  :after general
+  :commands (link-hint-open-link
+             link-hint-copy-link)
+  :config
+  (general-define-key
+   :keymaps 'help-mode-map
+   :states '(motion normal)
+   "f" 'link-hint-open-link
+   "y f" 'link-hint-copy-link))
+
 (provide 'config-qol)
