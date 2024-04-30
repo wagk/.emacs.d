@@ -489,4 +489,15 @@ Lisp function does not specify a special indentation."
   :commands (edn-read
              edn-print-string))
 
+(use-package web-mode
+  :mode (("\\.svelte\\'" . web-mode)
+         ("\\.vue\\'" . web-mode))
+  :custom
+  (web-mode-code-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  :commands web-mode
+  :config
+  (with-eval-after-load 'lsp-mode
+    (add-hook 'web-mode-hook #'lsp-deferred)))
+
 (provide 'config-language)

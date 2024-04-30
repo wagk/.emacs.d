@@ -4,20 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Web mode
-#+begin_src emacs-lisp :results output silent
-(use-package web-mode
-  :mode (("\\.svelte\\'" . web-mode)
-         ("\\.vue\\'" . web-mode))
-  :custom
-  (web-mode-code-indent-offset 2)
-  (web-mode-css-indent-offset 2)
-  :commands web-mode
-  :config
-  (with-eval-after-load 'lsp-mode
-    (add-hook 'web-mode-hook #'lsp-deferred)))
-#+end_src
-
 * Fill Function Argument
 #+begin_src emacs-lisp :results output silent
 (use-package fill-function-arguments
