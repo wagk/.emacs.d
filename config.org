@@ -4,13 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* mmm-mode
-#+begin_src emacs-lisp :results output silent
-(use-package mmm-mode
-  :custom-face
-  (mmm-default-submode-face ((t (:background unspecified)))))
-#+end_src
-
 * ObjC
 #+begin_src emacs-lisp :results output silent
 (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))

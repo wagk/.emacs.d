@@ -515,4 +515,9 @@ Lisp function does not specify a special indentation."
 
 (use-package dockerfile-mode)
 
+;; multi major mode
+(use-package mmm-mode
+  :custom-face
+  (mmm-default-submode-face ((t (:background unspecified)))))
+
 (provide 'config-language)
