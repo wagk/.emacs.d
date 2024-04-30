@@ -253,4 +253,9 @@
   (:states '(normal motion visual)
    "K" '--ddg-search))
 
+(use-package persistent-scratch
+  :ensure t
+  :config
+  (persistent-scratch-setup-default))
+
 (provide 'config-qol)
