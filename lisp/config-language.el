@@ -506,4 +506,11 @@ Lisp function does not specify a special indentation."
 (use-package hcl-mode
   :ensure t)
 
+(use-package terraform-mode
+  :ensure t
+  :hook (terraform-mode-hook . terraform-format-on-save-mode)
+  :config
+  (with-eval-after-load 'tree-sitter
+    (add-hook 'terraform-mode-hook #'tree-sitter-mode)))
+
 (provide 'config-language)
