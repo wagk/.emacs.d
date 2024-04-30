@@ -134,6 +134,12 @@ If there is only one directory just return that."
       (setq file (file-name-with-extension file "md")))
     (file-name-concat dir file)))
 
+(cl-defun todo!-config-markdown--select-file-programmatic-fn (dir-root)
+  "Returns a function that can serve as an `annotation-function' as documented
+  in `Programmed Completion'.
+What we want to do here is to parse the markdown files for any metadata and
+display within the completion things like tags, aliases, and summary text.")
+
 (cl-defun config-markdown--find-files-named (name)
   (interactive)
   (let* ((dir (config-markdown--select-directory))
