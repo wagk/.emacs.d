@@ -553,4 +553,7 @@ Lisp function does not specify a special indentation."
 (use-package kotlin-mode
   :mode ("\\.kt\\'" . kotlin-mode))
 
+(use-package swift-mode
+  :mode ("\\.swift\\'" . swift-mode))
+
 (provide 'config-language)
