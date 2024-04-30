@@ -228,4 +228,29 @@
   :hook
   (prog-mode-hook . global-flycheck-mode))
 
+(use-package engine-mode
+  :commands defengine
+  :after (evil general)
+  :init
+  (evil-define-command --ddg-search (beg end _type)
+    (interactive "<v>")
+    (require 'engine-mode)
+    (unless (boundp 'engine/search-duckduckgo)
+      (defengine duckduckgo
+        "https://duckduckgo.com/?q=%s"))
+    (let* ((query-region (when (use-region-p)
+                           (buffer-substring beg end)))
+           (query-params (when (evil-ex-p)
+                           evil-ex-argument))
+           (query-args (list query-params query-region))
+           (query (if (-none-p 'identity query-args)
+                      (read-string "Search: " nil nil
+                                   (thing-at-point 'word))
+                    (s-join " " query-args))))
+      (engine/search-duckduckgo query)))
+  (evil-ex-define-cmd "ddg" '--ddg-search)
+  :general
+  (:states '(normal motion visual)
+   "K" '--ddg-search))
+
 (provide 'config-qol)
