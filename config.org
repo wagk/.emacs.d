@@ -1,6 +1,0 @@
-#+STARTUP: overview
-
-[[https://necromuralist.github.io/posts/org-babel-cheat-sheet/][Org Babel Cheatsheet]]
-[[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
-[[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
-

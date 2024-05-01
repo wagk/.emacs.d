@@ -26,9 +26,6 @@ variants.
 
 (--evil-define-splits "init"        'find-user-init-file)
 (--evil-define-splits "local"       'find-user-local-file)
-(--evil-define-splits "config"      'find-user-config-file)
-(--evil-define-splits "cofnig"      'find-user-config-file)
-(--evil-define-splits "cnfig"       'find-user-config-file)
 (--evil-define-splits "buffers"     'ibuffer)
 (--evil-define-splits "me[ssage]"   #'(lambda () (interactive)
                                         (switch-to-buffer "*Messages*")))
@@ -177,7 +174,6 @@ variants.
                                           (not))) it)
                      (mapcar #'(lambda (file) (f-join user-lisp-dir file)) it)
                      (append it (list user-init-file
-                                      user-config-file
                                       user-local-file))
                      (mapcar #'(lambda (file)
                                  (file-relative-name file user-emacs-directory))
@@ -192,6 +188,9 @@ variants.
   (find-file (--select-config-lisp-file-name)))
 
 (--evil-define-splits "ll" #'--select-config-lisp-file)
+(--evil-define-splits "config" #'--select-config-lisp-file)
+(--evil-define-splits "cofnig" #'--select-config-lisp-file)
+(--evil-define-splits "cnfig"  #'--select-config-lisp-file)
 
 (defun --load-config-lisp-files (file-list)
   (cl-dolist (file file-list)

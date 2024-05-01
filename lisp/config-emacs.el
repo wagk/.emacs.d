@@ -293,7 +293,6 @@ Returns a string, or nil if there is no path associated with the buffer."
                       (annotation . ,annot))))
         (bookmark-store name alist overwrite))))
   (config-define-bookmark "init" user-init-file)
-  (config-define-bookmark "config" user-config-file)
   (config-define-bookmark "local" user-local-file))
 
 (use-package diff

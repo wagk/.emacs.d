@@ -18,10 +18,6 @@
   (locate-user-emacs-file "init.el")
   "Points to init.el.")
 
-(defconst user-config-file
-  (locate-user-emacs-file "config.org")
-  "Points to config.org.")
-
 (defconst user-local-file
   (locate-user-emacs-file "local.el")
   "Points to local.el.")
@@ -34,11 +30,6 @@
   "Edit `user-init-file' without opening a new window."
   (interactive)
   (find-file user-init-file))
-
-(defun find-user-config-file ()
-  "Edit `user-config-file' without opening a new window."
-  (interactive)
-  (find-file user-config-file))
 
 (defun find-user-local-file ()
   "Edit `local.el' without opening a new window."
@@ -88,9 +79,5 @@
 (require 'config-japanese)
 (require 'config-anki)
 (require 'config-markdown)
-
-(elpaca-wait)
-
-(org-babel-load-file (locate-user-emacs-file "config.org"))
 
 (provide 'config)
