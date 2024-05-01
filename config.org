@@ -4,59 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Chatgpt Shell
-Don't forget to set =chatgpt-shell-openai-key= somewhere.
-
-#+begin_src emacs-lisp :results output silent
-(use-package chatgpt-shell
-  :disabled t
-  :ensure (:host github :repo "xenodium/chatgpt-shell")
-  :after (dash)
-  :commands chatgpt-shell-prompt
-  :general
-  (chatgpt-shell-mode-map
-   "RET" nil
-   "C-<return>" 'comint-send-input)
-  :custom
-  (chatgpt-shell-request-timeout 300)
-  (chatgpt-shell-insert-queries-inline nil)
-  (chatgpt-shell-history-path no-littering-var-directory)
-  (chatgpt-shell-display-function
-   #'(lambda (buf)
-       (pop-to-buffer buf #'display-buffer-pop-up-window)))
-  (chatgpt-shell-prompt-query-response-style 'shell)
-  :hook
-  (chatgpt-shell-mode-hook . (lambda ()
-                               (when (bound-and-true-p parinfer-rust-mode)
-                                 (parinfer-rust-mode 0))))
-  :config
-  (setq chatgpt-shell-system-prompt
-        (-find-index (lambda (elem)
-                       (string-equal "Programming" (car elem)))
-                     chatgpt-shell-system-prompts))
-  (setq chatgpt-shell-model-version
-        (-find-index (lambda (elem)
-                       (string-equal "gpt-4-turbo-preview" elem))
-                     chatgpt-shell-model-versions))
-  (setq chatgpt-shell-welcome-function
-        #'(lambda (config)
-            "Adapted from `shell-maker-welcome-function'"
-           (format
-            "Welcome to %s shell\n\n  Type %s and press %s for details.\n\n"
-            (propertize (shell-maker-config-name config)
-                        'font-lock-face 'font-lock-comment-face)
-            (propertize "help" 'font-lock-face 'italic)
-            (shell-maker--propertize-key-binding "-shell-submit" config))))
-  :init
-  (evil-define-command --evil-gpt-cmd (prompt)
-    (interactive "<a>")
-    (require 'chatgpt-shell)
-    (if prompt
-        (chatgpt-shell-send-to-buffer prompt)
-      (chatgpt-shell)))
-  (evil-ex-define-cmd "gpt" #'--evil-gpt-cmd))
-#+end_src
-
 * COMMENT Democratize (documentation)
 Commented because this doesn't work all too well for now and I'm not to sure
 what the benefits are.
