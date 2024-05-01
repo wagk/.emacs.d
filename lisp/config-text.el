@@ -272,4 +272,12 @@
   :hook
   (focus-mode-hook . #'lsp-focus-mode))
 
+(use-package ace-window
+  :after (evil general)
+  :custom
+  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  :general
+  (evil-window-map
+   "SPC" 'ace-window))
+
 (provide 'config-text)

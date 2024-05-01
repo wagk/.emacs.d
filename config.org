@@ -4,17 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Ace-window
-#+begin_src emacs-lisp :results output silent
-(use-package ace-window
-  :after evil
-  :custom
-  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-  :general
-  (evil-window-map
-   "SPC" 'ace-window))
-#+end_src
-
 * Pomm
 #+begin_src emacs-lisp :results output silent
 (use-package pomm
