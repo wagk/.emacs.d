@@ -4,27 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* COMMENT Democratize (documentation)
-Commented because this doesn't work all too well for now and I'm not to sure
-what the benefits are.
-#+begin_src emacs-lisp :results output silent
-(use-package xht
-  :ensure (:type git :host nil :repo "https://git.sr.ht/~flandrew/xht"))
-
-(use-package democratize
-  :ensure (:type git :host nil :repo "https://git.sr.ht/~flandrew/democratize")
-  :config
-  (with-eval-after-load 'helpful
-    (democratize-enable-examples-in-helpful))
-  (democratize-enable-examples-in-help))
-#+end_src
-
-* Jinx (spell-checking)
-#+begin_src emacs-lisp :results output silent
-(use-package jinx
-  :custom (jinx-languages "en_US"))
-#+end_src
-
 * Exec path from shell
 #+begin_src emacs-lisp :results output silent
 (use-package exec-path-from-shell
