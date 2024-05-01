@@ -357,4 +357,13 @@
 (use-package dwim-shell-command
   :ensure (:host github :repo "xenodium/dwim-shell-command"))
 
+(use-package scopeline
+  :ensure (:host github :repo "meain/scopeline.el" :branch "master")
+  :after (:or tree-sitter treesit)
+  :hook (prog-mode-hook . scopeline-mode)
+  :blackout t
+  :custom
+  (scopeline-overlay-prefix " -- ")
+  (scopeline-min-lines 0))
+
 (provide 'config-qol)
