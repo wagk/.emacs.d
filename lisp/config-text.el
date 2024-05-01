@@ -251,4 +251,25 @@
   (add-to-list 'dogears-hooks 'bookmark-after-jump-hook)
   (add-to-list 'dogears-functions 'set-marker))
 
+(use-package focus
+  :commands focus-mode
+  :after evil
+  :init
+  (evil-ex-define-cmd "fo[cus]" 'focus-mode)
+  (evil-ex-define-cmd "fou" 'focus-unpin)
+  (evil-ex-define-cmd "fop" 'focus-pin)
+  (with-eval-after-load 'embark
+    (with-eval-after-load 'general
+      (general-define-key
+       :keymaps 'embark-defun-map
+        "f f" 'focus-mode
+        "f u" 'focus-unpin
+        "f p" 'focus-pin))))
+
+(use-package lsp-focus
+  :ensure t
+  :after (lsp focus)
+  :hook
+  (focus-mode-hook . #'lsp-focus-mode))
+
 (provide 'config-text)

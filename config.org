@@ -4,37 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Focus
-#+begin_src emacs-lisp :results output silent
-(use-package focus
-  :commands focus-mode
-  :init
-  (with-eval-after-load 'evil
-    ;; (evil-define-command --focus-maybe-pin (pin)
-    ;;   (interactive "<!>")
-    ;;   (focus-mode 1)
-    ;;   (when pin (focus-pin)))
-    ;; (evil-ex-define-cmd "foc[us]" '--focus-maybe-pin)
-    (evil-ex-define-cmd "fo[cus]" 'focus-mode)
-    (evil-ex-define-cmd "fou" 'focus-unpin)
-    (evil-ex-define-cmd "fop" 'focus-pin))
-  (with-eval-after-load 'embark
-    (with-eval-after-load 'general
-      (general-define-key
-       :keymaps 'embark-defun-map
-        "f f" 'focus-mode
-        "f u" 'focus-unpin
-        "f p" 'focus-pin))))
-#+end_src
-
-#+begin_src emacs-lisp :results output silent
-(use-package lsp-focus
-  :ensure t
-  :after (lsp focus)
-  :hook
-  (focus-mode-hook . #'lsp-focus-mode))
-#+end_src
-
 * Ace-window
 #+begin_src emacs-lisp :results output silent
 (use-package ace-window
