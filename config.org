@@ -4,31 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Gptel
-#+begin_src emacs-lisp :results output silent
-(use-package gptel
-  :ensure t ;; override :general
-  :custom
-  ;; prompts are under `gptel-directives'
-  ;; (gptel-model "gpt-4-1106-preview")
-  (gptel-display-buffer-action '(display-buffer-same-window))
-  :general
-  (gptel-mode-map
-   "C-<return>" #'(lambda () (interactive)
-                    (goto-char (point-max))
-                    (gptel-send))
-   "C-c RET" nil)
-  :hook
-  (gptel-mode-hook . (lambda ()
-                       (visual-line-mode 1)
-                       (require 'visual-fill-column)
-                       (visual-fill-column-mode 1)))
-  :init
-  (evil-ex-define-cmd "gptt" #'gptel-menu)
-  (with-eval-after-load 'evil
-    (--evil-define-splits "gpt" 'gptel)))
-#+end_src
-
 * Jam-mode
 #+begin_src emacs-lisp :results output silent
 (use-package jam-mode

@@ -424,4 +424,26 @@
   :if (not (eq system-type 'windows-nt))
   :commands sudo-edit)
 
+(use-package gptel
+  :ensure t
+  :after (general evil config-evil-helpers)
+  :custom
+  ;; prompts are under `gptel-directives'
+  ;; (gptel-model "gpt-4-1106-preview")
+  (gptel-display-buffer-action '(display-buffer-same-window))
+  :general
+  (gptel-mode-map
+   "C-<return>" #'(lambda () (interactive)
+                    (goto-char (point-max))
+                    (gptel-send))
+   "C-c RET" nil)
+  :hook
+  (gptel-mode-hook . (lambda ()
+                       (visual-line-mode 1)
+                       (require 'visual-fill-column)
+                       (visual-fill-column-mode 1)))
+  :init
+  (evil-ex-define-cmd "gptt" #'gptel-menu)
+  (--evil-define-splits "gpt" 'gptel))
+
 (provide 'config-qol)
