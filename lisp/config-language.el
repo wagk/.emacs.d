@@ -558,4 +558,7 @@ Lisp function does not specify a special indentation."
 
 (use-package earthfile-mode)
 
+;; asciidoc
+(use-package adoc-mode)
+
 (provide 'config-language)
