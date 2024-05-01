@@ -446,4 +446,8 @@
   (evil-ex-define-cmd "gptt" #'gptel-menu)
   (--evil-define-splits "gpt" 'gptel))
 
+;; https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/writing-tests.md
+;; https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/running-tests.md
+(use-package buttercup)
+
 (provide 'config-qol)
