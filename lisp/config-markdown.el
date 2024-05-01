@@ -269,4 +269,42 @@ end of the selected heading."
    #'consult-notes
    #'(lambda () (consult-notes))))
 
+(use-package obsidian
+  :after evil
+  :custom
+  (obsidian-include-hidden-files nil)
+  (obsidian-links-use-vault-path t)
+  ;; :hook
+  ;; (obsidian-mode-hook . (lambda ()
+  ;;                         (when (featurep 'aggressive-fill-paragraph)
+  ;;                           (aggressive-fill-paragraph-mode 0))
+  ;;                         (require 'visual-fill-column)
+  ;;                         (visual-fill-column-mode 1)
+  ;;                         (visual-line-mode 1)))
+  :config
+  ;; don't forget to `obsidian-specify-path'
+  (global-obsidian-mode)
+  (cl-defun --obsidian-find-buffer ()
+    (interactive)
+    (cl-letf ((symbol-function 'find-file) (symbol-function 'find-file-noselect))
+      (obsidian-jump)))
+  ;; (--evil-ex-define-cmds-splits-and-tabs
+  ;;  "nn"
+  ;;  #'obsidian-jump
+  ;;  #'(lambda () (obsidian-jump)))
+  (evil-ex-define-cmd "ni" #'obsidian-insert-link))
+  ;; (with-eval-after-load 'org-capture
+  ;;   (setq org-capture-templates
+  ;;         (doct-add-to org-capture-templates
+  ;;                      '("Obsidian append"
+  ;;                        :keys "c"
+  ;;                        :type plain
+  ;;                        :function (lambda ()
+  ;;                                    (let ((buffer(->> (obsidian-list-all-files)
+  ;;                                                      (--completing-read "File: ")
+  ;;                                                      (find-file-noselect))))
+  ;;                                      (with-current-buffer buffer
+  ;;                                        (goto-char (point-max)))))
+  ;;                        :template "\n")))
+
 (provide 'config-markdown)
