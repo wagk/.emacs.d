@@ -459,4 +459,14 @@
   :init
   (evil-ex-define-cmd "dp" #'ll-debug-insert))
 
+(use-package pomm
+  :ensure t
+  :after evil
+  :commands (pomm
+             pomm-start-with-context
+             pomm-third-time
+             pomm-third-time-start-with-context)
+  :init
+  (evil-ex-define-cmd "timer" 'pomm))
+
 (provide 'config-qol)
