@@ -561,4 +561,9 @@ Lisp function does not specify a special indentation."
 ;; asciidoc
 (use-package adoc-mode)
 
+(use-package jam-mode
+  :ensure nil
+  :mode "Jamroot"
+  :load-path "lisp/3p")
+
 (provide 'config-language)
