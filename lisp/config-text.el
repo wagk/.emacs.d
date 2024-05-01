@@ -222,4 +222,8 @@
   :config
   (decide-mode))
 
+;; Zebra patterns for buffer
+(use-package stripe-buffer
+  :commands stripe-buffer-mode)
+
 (provide 'config-text)
