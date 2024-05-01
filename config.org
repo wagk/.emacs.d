@@ -4,12 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Sudoedit
-#+begin_src emacs-lisp :results output silent
-(use-package sudo-edit
-  :commands sudo-edit)
-#+end_src
-
 * Gptel
 #+begin_src emacs-lisp :results output silent
 (use-package gptel

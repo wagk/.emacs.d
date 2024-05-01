@@ -420,4 +420,8 @@
   :config
   (exec-path-from-shell-initialize))
 
+(use-package sudo-edit
+  :if (not (eq system-type 'windows-nt))
+  :commands sudo-edit)
+
 (provide 'config-qol)
