@@ -4,25 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Consult-Notes
-#+begin_src emacs-lisp :results output silent
-(use-package consult-notes
-  :disabled t
-  :after consult
-  :if (bound-and-true-p --notes-folder)
-  :commands
-  (consult-notes
-   consult-notes-search-in-all-notes)
-  :custom
-  (consult-notes-file-dir-sources
-   `(("Deft" ?d ,--notes-folder)))
-  :init
-  (--evil-ex-define-cmds-splits-and-tabs
-   "nn"
-   #'consult-notes
-   #'(lambda () (consult-notes))))
-#+end_src
-
 * Obsidian.el
 #+begin_src emacs-lisp :results output silent
 (use-package obsidian

@@ -252,6 +252,21 @@ end of the selected heading."
     :dir config-markdown-directories)
   (evil-ex-define-cmd "ng" 'config-markdown-search-in-notes))
 
-;;; Experimentations with datetrees in markdown
+;; Personal notes and the like
+(use-package consult-notes
+  :disabled t
+  :after (config-evil-helpers consult)
+  :if (bound-and-true-p --notes-folder)
+  :commands
+  (consult-notes
+   consult-notes-search-in-all-notes)
+  :custom
+  (consult-notes-file-dir-sources
+   `(("Deft" ?d ,--notes-folder)))
+  :init
+  (--evil-ex-define-cmds-splits-and-tabs
+   "nn"
+   #'consult-notes
+   #'(lambda () (consult-notes))))
 
 (provide 'config-markdown)
