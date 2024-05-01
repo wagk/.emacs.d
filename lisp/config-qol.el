@@ -450,4 +450,13 @@
 ;; https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/running-tests.md
 (use-package buttercup)
 
+;; Debug printf statements
+(use-package ll-debug
+  :commands ll-debug-insert
+  :after evil
+  :custom
+  (ll-debug-output-prefix "DEBUG-pangt-")
+  :init
+  (evil-ex-define-cmd "dp" #'ll-debug-insert))
+
 (provide 'config-qol)
