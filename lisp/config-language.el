@@ -556,4 +556,6 @@ Lisp function does not specify a special indentation."
 (use-package swift-mode
   :mode ("\\.swift\\'" . swift-mode))
 
+(use-package earthfile-mode)
+
 (provide 'config-language)
