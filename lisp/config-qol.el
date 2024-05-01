@@ -354,4 +354,7 @@
    (evil-ex-define-cmd "cheatsheet" 'shortdoc)
    (evil-ex-define-cmd "cs" 'shortdoc)))
 
+(use-package dwim-shell-command
+  :ensure (:host github :repo "xenodium/dwim-shell-command"))
+
 (provide 'config-qol)

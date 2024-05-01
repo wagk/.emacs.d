@@ -4,12 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* dwim shell command
-#+begin_src emacs-lisp :results output silent
-(use-package dwim-shell-command
-  :ensure (:host github :repo "xenodium/dwim-shell-command"))
-#+end_src
-
 * Earthfile
 #+begin_src emacs-lisp :results output silent
 (use-package earthfile-mode)
