@@ -226,4 +226,29 @@
 (use-package stripe-buffer
   :commands stripe-buffer-mode)
 
+(use-package dogears
+  :disabled t
+  :demand t
+  :after (evil)
+  :commands (dogears-list dogears-remember dogears-go)
+  :general
+  (dogears-list-mode-map
+   :states 'normal
+   "RET" 'dogears-list-go
+   "d d" 'dogears-list-delete)
+  :init
+  (evil-ex-define-cmd "fa" 'dogears-list)
+  (evil-ex-define-cmd "fr" 'dogears-remember)
+  (evil-ex-define-cmd "ff" 'dogears-go)
+  (evil-ex-define-cmd "fn" 'dogears-forward)
+  (evil-ex-define-cmd "fp" 'dogears-back)
+  :config
+  (dogears-mode)
+  (with-eval-after-load 'savehist
+    (add-to-list 'savehist-additional-variables 'dogears-list))
+  ;; places to remember
+  (add-to-list 'dogears-hooks 'xref-after-jump-hook)
+  (add-to-list 'dogears-hooks 'bookmark-after-jump-hook)
+  (add-to-list 'dogears-functions 'set-marker))
+
 (provide 'config-text)
