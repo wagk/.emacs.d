@@ -415,4 +415,9 @@
       (chatgpt-shell)))
   (evil-ex-define-cmd "gpt" #'--evil-gpt-cmd))
 
+(use-package exec-path-from-shell
+  :if (not (eq system-type 'windows-nt))
+  :config
+  (exec-path-from-shell-initialize))
+
 (provide 'config-qol)

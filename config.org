@@ -4,14 +4,6 @@
 [[https://org-babel.readthedocs.io/en/latest/eval/][Org Babel Reference Card]]
 [[https://github.com/dfeich/org-babel-examples][Org Babel Examples]]
 
-* Exec path from shell
-#+begin_src emacs-lisp :results output silent
-(use-package exec-path-from-shell
-  :if (not (eq system-type 'windows-nt))
-  :config
-  (exec-path-from-shell-initialize))
-#+end_src
-
 * Sudoedit
 #+begin_src emacs-lisp :results output silent
 (use-package sudo-edit
