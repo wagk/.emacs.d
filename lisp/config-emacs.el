@@ -621,35 +621,33 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
 
 (use-package smerge-mode
   :ensure nil
+  :after (transient evil)
   :init
-  (with-eval-after-load 'transient
-    (transient-define-prefix --smerge ()
-      ["Smerge mode command dispatcher."
-       ["Navigation"
-        ("k" "Previous hunk" (lambda ()
-                               (interactive)
-                               (smerge-prev)
-                               (recenter)) :transient t)
-        ("j" "Next hunk" (lambda () (interactive)
-                           (smerge-next)
-                           (recenter)) :transient t)]
-       ["Selection"
-        ("u" "Keep upper hunk" smerge-keep-upper :transient t)
-        ("l" "Keep lower hunk" smerge-keep-lower :transient t)
-        ("a" "Keep all hunks" smerge-keep-all :transient t)
-        ("b" "Keep base hunk" smerge-keep-base :transient t)
-        ("c" "Keep hunk at point" smerge-keep-current :transient t)
-        ("s" "Resolve ('intelligently')" smerge-resolve :transient t)]
-       ["Display"
-        ("r" "Cycle Refine view" smerge-refine :transient t)
-        ("d u" "Diff base/upper" smerge-diff-base-upper :transient t)
-        ("d l" "Diff base/lower" smerge-diff-base-lower :transient t)
-        ("d c" "Diff upper/lower" smerge-diff-upper-lower :transient t)]
-       ["???? What are these commands"
-        ("m" "Combine with Next" smerge-combine-with-next)]])
-
-    (with-eval-after-load 'evil
-      (evil-ex-define-cmd "smerge" #'--smerge))))
+  (transient-define-prefix --smerge ()
+    ["Smerge mode command dispatcher."
+     ["Navigation"
+      ("k" "Previous hunk" (lambda ()
+                             (interactive)
+                             (smerge-prev)
+                             (recenter)) :transient t)
+      ("j" "Next hunk" (lambda () (interactive)
+                         (smerge-next)
+                         (recenter)) :transient t)]
+     ["Selection"
+      ("u" "Keep upper hunk" smerge-keep-upper :transient t)
+      ("l" "Keep lower hunk" smerge-keep-lower :transient t)
+      ("a" "Keep all hunks" smerge-keep-all :transient t)
+      ("b" "Keep base hunk" smerge-keep-base :transient t)
+      ("c" "Keep hunk at point" smerge-keep-current :transient t)
+      ("s" "Resolve ('intelligently')" smerge-resolve :transient t)]
+     ["Display"
+      ("r" "Cycle Refine view" smerge-refine :transient t)
+      ("d u" "Diff base/upper" smerge-diff-base-upper :transient t)
+      ("d l" "Diff base/lower" smerge-diff-base-lower :transient t)
+      ("d c" "Diff upper/lower" smerge-diff-upper-lower :transient t)]
+     ["???? What are these commands"
+      ("m" "Combine with Next" smerge-combine-with-next)]])
+  (evil-ex-define-cmd "smerge" #'--smerge))
 
 (use-package xref
   :ensure nil
