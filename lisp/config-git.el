@@ -1,12 +1,6 @@
 (require 'use-package)
 (require 'config-theme)
 
-;; More examples about transient can be found at:
-;; https://github.com/positron-solutions/transient-showcase
-(use-package transient
-  :demand t
-  :ensure (:host github :repo "magit/transient"))
-
 ;; If magit complains about not finding the config on windows, it's
 ;; because of [this issue], the easiest solution is to make a link.
 ;;

@@ -114,6 +114,12 @@
   :init
   (defconst my-default-evil-leader-key "SPC"))
 
+;; More examples about transient can be found at:
+;; https://github.com/positron-solutions/transient-showcase
+(use-package transient
+  :demand t
+  :ensure (:host github :repo "magit/transient"))
+
 (use-package no-littering
   :ensure (:host github :repo "emacscollective/no-littering")
   :config
