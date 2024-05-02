@@ -113,14 +113,6 @@ Capture groups:
 
 Accounts for trailing whitespace.")
 
-(cl-defun config-markdown--select-directory ()
-  "Select a directory from `config-markdown-directories'.
-If there is only one directory just return that."
-  (interactive)
-  (if (length= config-markdown-directories 1)
-      (car config-markdown-directories)
-    (--completing-read "Directory: " config-markdown-directories)))
-
 (cl-defun config-markdown--select-file-name ()
   "Search `config-markdown-directories' for files ending in `.md'."
   (interactive)
@@ -156,6 +148,11 @@ Returns a hash table of the contents if some. nil otherwise."
                          (find-file-noselect candidate :nowarn :rawfile))))
       (progn)))
 
+(cl-defun config-markdown--select-directory ()
+  "Select a directory from `config-markdown-directories'.
+If there is only one directory just return that."
+  (interactive)
+  (--completing-read "Directory: " config-markdown-directories))
 
 (cl-defun todo!-config-markdown--select-file-programmatic-fn (dir-root)
   "Returns a function that can serve as an `annotation-function' as documented
@@ -170,9 +167,7 @@ display within the completion things like tags, aliases, and summary text.")
          (files (mapcar (lambda (file)
                           (file-relative-name file dir))
                         (directory-files-recursively dir name)))
-         (diary (if (length= files 1)
-                    (car files)
-                  (--completing-read (format "%s: " name) files))))
+         (diary (--completing-read (format "%s: " name) files)))
     (file-name-concat dir diary)))
 
 (cl-defun config-markdown-find-file ()

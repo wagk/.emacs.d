@@ -9,13 +9,18 @@
                                     initial-input history default-value
                                     inherit-input-method)
   "Wrapper around `completing-read' that allow the use of keywords."
-  (completing-read prompt collection
-                   predicate
-                   require-match
-                   initial-input
-                   history
-                   default-value
-                   inherit-input-method))
+  ;; if the collection is a list and there's only one element, just return that
+  ;; and skip the fanfare.
+  (if (and (seqp collection)
+           (length= collection 1))
+    (car collection)
+    (completing-read prompt collection
+                     predicate
+                     require-match
+                     initial-input
+                     history
+                     default-value
+                     inherit-input-method)))
 
 (cl-defun --thing-at-point-or-region-or-user-input ()
   "Prompt the user for input, defaulting to symbol at point if none."
