@@ -64,11 +64,6 @@
     (scroll-bar-mode -1))
   (window-divider-mode -1)
 
-  (with-eval-after-load 'display-fill-column-indicator
-    ;; "If possible, use U+2502 to indicate fill column, otherwise use |"
-    (setq display-fill-column-indicator-character nil)
-    (global-display-fill-column-indicator-mode 1))
-
   (when (boundp 'pixel-scroll-precision-mode)
     (pixel-scroll-precision-mode))
 
@@ -90,6 +85,14 @@
 ;; will not itself be encrypted.)
 (with-eval-after-load 'evil
   (evil-ex-define-cmd "rot[13]" 'toggle-rot13-mode))
+
+(use-package display-fill-column-indicator
+  :ensure nil
+  :if (>= emacs-major-version 27)
+  :custom
+  (display-fill-column-indicator-character nil)
+  :config
+  (global-display-fill-column-indicator-mode))
 
 (cl-defun --kill-buffer-path ()
   (interactive)
