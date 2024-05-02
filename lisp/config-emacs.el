@@ -64,7 +64,9 @@
     (scroll-bar-mode -1))
   (window-divider-mode -1)
 
-  (when (fboundp 'global-display-fill-column-indicator-mode)
+  (with-eval-after-load 'display-fill-column-indicator
+    ;; "If possible, use U+2502 to indicate fill column, otherwise use |"
+    (setq display-fill-column-indicator-character nil)
     (global-display-fill-column-indicator-mode 1))
 
   (when (boundp 'pixel-scroll-precision-mode)
