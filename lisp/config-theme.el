@@ -489,7 +489,7 @@
                       :foreground 'unspecified
                       :background 'unspecified
                       :weight 'extra-light
-                      :inherit 'nano-superlight-foreground))
+                      :inherit 'sol-superlight-foreground))
 
 (with-eval-after-load 'eww
   (set-face-attribute 'eww-form-submit nil
