@@ -143,7 +143,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
     ":h window-tag"
     (interactive)
     (--evil-do-in-split #'evil-jump-to-tag :vsplit))
-  (defun update-evil-shift-width ()
+  (cl-defun update-evil-shift-width ()
     "We do this otherwise packages like parinfer would mess up with
       the indentation, since their default is 4 but lisp-mode defaults
       are generally 2."

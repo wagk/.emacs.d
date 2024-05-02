@@ -7,6 +7,7 @@
 ;; Also known as `emacs-lisp-mode'
 (use-package elisp-mode
   :ensure nil
+  :after evil
   :init
   (cl-defun --update-emacs-lisp-mode-line-name ()
     "Lifted from the emacs-lisp define-derived-mode. With some edits to the face
@@ -123,6 +124,7 @@ Lisp function does not specify a special indentation."
 
 (use-package clojure-mode
   :ensure (:host github :repo "clojure-emacs/clojure-mode")
+  :after evil
   :commands (clojure-mode
              clojurescript-mode)
   :hook ((clojure-mode-hook . update-evil-shift-width)
@@ -398,6 +400,7 @@ Lisp function does not specify a special indentation."
 (use-package hy-mode
   :ensure (:host github :repo "hylang/hy-mode")
   :mode "\\.hy\\'"
+  :after evil
   :general
   (hy-mode-map
    :states 'insert
