@@ -96,7 +96,7 @@
   "Personal Markdown hacks")
 
 (defcustom config-markdown-directories nil
-  "Location of Markdown directory."
+  "Location of Markdown directories."
   :type '(list directory))
 
 (defconst config-markdown-header-regexp
