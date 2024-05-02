@@ -203,7 +203,7 @@ assume # starts a comment."
   :after (evil transient general)
   :general
   (git-timemachine-mode-map
-   :states 'normal
+   :states 'motion
    "[["  'git-timemachine-show-previous-revision
    "]]"  'git-timemachine-show-next-revision
    "M-k" 'git-timemachine-show-next-revision
