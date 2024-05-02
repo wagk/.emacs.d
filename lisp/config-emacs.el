@@ -563,19 +563,28 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom
   (gud-highlight-current-line t)
   :init
-  (evil-ex-define-cmd "gdb" #'(lambda () (interactive)
-                                (require 'gud) (--gdb)))
+  (cl-defun --invoke-gdb ()
+    (interactive)
+    (require 'project)
+    (if-let* ((project (project-current t))
+              (default-directory (project-root project)))
+        (call-interactively 'gdb)
+      (gdb)))
+  (evil-ex-define-cmd "gdb"
+                      #'(lambda () (interactive)
+                          (require 'gud)
+                          ;; if `gud-break' is not defined, then we haven't
+                          ;; called `gdb' at least once. For the sake of the
+                          ;; transient, fast-forward to the invocation.
+                          (if (not (fboundp 'gud-break))
+                              (--invoke-gdb)
+                            (--gdb))))
   (evil-ex-define-cmd "gud" "gdb")
   :config
   (transient-define-prefix --gdb ()
    ["`gdb-mi' command dispatcher.\n"
     ["Debugger"
-     ("RET" "Start debugging" (lambda () (interactive)
-                                (require 'project)
-                                (if-let* ((project (project-current t))
-                                          (default-directory (project-root project)))
-                                    (call-interactively 'gdb)
-                                  (gdb))))
+     ("RET" "Start debugging" --invoke-gdb)
      ("g r" "Refresh" gud-refresh)]
 
     ["Point-based commands"
