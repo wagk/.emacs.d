@@ -114,23 +114,12 @@ Capture groups:
 
 Accounts for trailing whitespace.")
 
-(cl-defun config-markdown--select-file-name ()
-  "Search `config-markdown-directories' for files ending in `.md'."
-  (interactive)
-  (require 'dash)
-  (let* ((dir (config-markdown--select-directory))
-         (files (mapcar (lambda (file)
-                          (file-relative-name file dir))
-                        (directory-files-recursively dir "\\.md$")))
-         (file (--completing-read (format "File [%s]: " dir) files)))
-    (unless (file-name-extension file)
-      (setq file (file-name-with-extension file "md")))
-    (file-name-concat dir file)))
-
 ;; Lifted from `obsidian-get-yaml-front-matter'
 (cl-defun config-markdown-buffer-yaml-front-matter (s)
   "Find YAML front matter in S.
-Returns a hash table of the contents if some. nil otherwise."
+Returns a hash table of the contents if some. nil otherwise.
+
+\(STRING\)"
   (interactive (list (buffer-string)))
   (require 'yaml)
   (require 'dash)
@@ -142,12 +131,39 @@ Returns a hash table of the contents if some. nil otherwise."
                  (nth 1)
                  yaml-parse-string)))))
 
+;; Lifted from `obsidian-get-yaml-front-matter'
+(cl-defun config-markdown-get-yaml-front-matter ()
+  "Return the text of the YAML front matter of the current buffer.
+Return nil if the front matter does not exist, or incorrectly delineated by
+'---'.  The front matter is required to be at the beginning of the file."
+  (save-excursion
+    (goto-char (point-min))
+    (when-let ((startpoint (re-search-forward "\\(^---\\)" 4 t 1))
+               (endpoint (re-search-forward "\\(^---\\)" nil t 1)))
+      (buffer-substring-no-properties startpoint (- endpoint 3)))))
+
 ;; I want to stick this inside `completion-extra-properties'
+;; TODO: Eventually swap to marginalia to look nicer
 (cl-defun config-markdown--select-file-annotation-function (candidate)
   "Opens a file and reads the metadata"
-  (if-let ((frontmatter (config-markdown-buffer-yaml-front-matter
-                         (find-file-noselect candidate :nowarn :rawfile))))
-      (progn)))
+  (require 'dash)
+  (if-let ((raw-frontmatter (with-temp-buffer
+                              (insert-file-contents-literally candidate)
+                              (config-markdown-get-yaml-front-matter)))
+           (frontmatter (yaml-parse-string raw-frontmatter)))
+      (let ((summary (--> frontmatter
+                          (gethash 'summary it)
+                          (if (eq :null it) nil it)))
+            ;; Format tags by sticking `#' in front of all of them
+            (tags (--> frontmatter
+                       (gethash 'tags it)
+                       (mapconcat #'(lambda (h) (concat "#" h)) it " ")))
+            ;; Format aliases by sticking `&' in front of all of them
+            (alias (--> frontmatter
+                        (gethash 'alias it)
+                        (mapconcat #'(lambda (a) (concat "&" a)) it " "))))
+        (concat "     " tags " " alias (when summary
+                                         (list " " summary))))))
 
 (cl-defun config-markdown--select-directory ()
   "Select a directory from `config-markdown-directories'.
@@ -155,11 +171,29 @@ If there is only one directory just return that."
   (interactive)
   (--completing-read "Directory: " config-markdown-directories))
 
-(cl-defun todo!-config-markdown--select-file-programmatic-fn (dir-root)
-  "Returns a function that can serve as an `annotation-function' as documented
-  in `Programmed Completion'.
-What we want to do here is to parse the markdown files for any metadata and
-display within the completion things like tags, aliases, and summary text.")
+(cl-defun config-markdown--select-file-name ()
+  "Search `config-markdown-directories' for files ending in `.md'."
+  (interactive)
+  (require 'ht)
+  (let* ((dir (config-markdown--select-directory))
+         (files (mapcar #'(lambda (file)
+                            (file-relative-name file dir))
+                        (directory-files-recursively dir "\\.md$")))
+         (memo (ht-create))
+         (completion-extra-properties
+          (list :annotation-function
+            #'(lambda (cand)
+                ;; do some very basic caching because it's slow
+                (if-let ((annot (ht-get memo cand)))
+                    annot
+                  (let ((text (config-markdown--select-file-annotation-function
+                               (file-name-concat dir cand))))
+                    (ht-set memo cand text)
+                    text)))))
+         (file (--completing-read (format "File [%s]: " dir) files)))
+    (unless (file-name-extension file)
+      (setq file (file-name-with-extension file "md")))
+    (file-name-concat dir file)))
 
 (cl-defun config-markdown--find-files-named (name)
   (interactive)
