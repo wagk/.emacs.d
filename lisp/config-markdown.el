@@ -39,6 +39,7 @@
       '("Front matter"
         "---\n"
         "created: " (format-time-string "%F") "\n"
+        "summary: ~\n"
         "---\n"
         "\n"
         "# " (file-name-base (buffer-file-name)) "\n"
