@@ -333,6 +333,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package tab-bar
   :ensure nil
+  :after (general evil)
   :custom
   (tab-bar-close-last-tab-choice 'delete-frame)
   (tab-bar-new-tab-choice t)
@@ -341,38 +342,49 @@ Returns a string, or nil if there is no path associated with the buffer."
   (tab-bar-close-tab-select 'left)
   (tab-bar-new-button nil)
   (tab-bar-new-tab-to 'right)
+  (tab-bar-tab-name-function #'tab-bar-tab-name-truncated)
+  :general
+  (:keymaps 'evil-window-map
+   ;; single window in tab gets moved into frame
+   "g f" #'(lambda ()
+             (interactive)
+             (unless (= 1 (length (window-list)))
+               (tab-window-detach))
+             (tab-detach))
+   "g w" "g f"
+   ;; entire tab gets moved into frame
+   "g F" 'tab-detach
+   "g W" "g F")
   :init
-  (with-eval-after-load 'evil
-    (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
-    (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
-    (evil-define-command my-tab-bar-tab-edit (file)
-      (interactive "<f>")
-      (let ((tab-bar-new-tab-choice (if file file "*scratch*")))
-        (tab-bar-new-tab)))
-    (evil-ex-define-cmd "tabn[ew]" 'my-tab-bar-tab-edit)
-    (evil-ex-define-cmd "tabe[dit]" 'tab-bar-new-tab)
-    (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
-    (evil-define-command --tab-bar-rename-tab (name)
-      (interactive "<a>")
-      (tab-bar-rename-tab name))
-    (evil-ex-define-cmd "tabr[ename]" '--tab-bar-rename-tab)
-    (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
-    (evil-ex-define-cmd "tt" 'tab-bar-select-tab-by-name)
-    (evil-ex-define-cmd "tabm[ove]+" 'tab-bar-move-tab)
-    (evil-ex-define-cmd "tabm[ove]-" 'tab-bar-move-tab-right)
-    (evil-ex-define-cmd "tabd[etach]" 'tab-detach))
+  (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
+  (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
+  (evil-define-command my-tab-bar-tab-edit (file)
+    (interactive "<f>")
+    (let ((tab-bar-new-tab-choice (if file file "*scratch*")))
+      (tab-bar-new-tab)))
+  (evil-ex-define-cmd "tabn[ew]" 'my-tab-bar-tab-edit)
+  (evil-ex-define-cmd "tabe[dit]" 'tab-bar-new-tab)
+  (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
+  (evil-define-command --tab-bar-rename-tab (name)
+    (interactive "<a>")
+    (tab-bar-rename-tab name))
+  (evil-ex-define-cmd "tabr[ename]" '--tab-bar-rename-tab)
+  (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
+  (evil-ex-define-cmd "tt" 'tab-bar-select-tab-by-name)
+  (evil-ex-define-cmd "tabm[ove]+" 'tab-bar-move-tab)
+  (evil-ex-define-cmd "tabm[ove]-" 'tab-bar-move-tab-right)
+  (evil-ex-define-cmd "tabd[etach]" 'tab-detach)
   :config
   (tab-bar-mode)
-  (defun --tab-bar-tab-name-fn ()
-    (require 'project)
-    (let ((buffer-name (-> (minibuffer-selected-window)
-                           (window-buffer)
-                           (buffer-name))))
-      (if-let ((project-info (project-current)))
-          (format "%s<%s>" buffer-name (project-root project-info))
-        (format "%s" buffer-name))))
+  ;; (cl-defun --tab-bar-tab-name-fn ()
+  ;;   (require 'project)
+  ;;   (let ((buffer-name (-> (minibuffer-selected-window)
+  ;;                          (window-buffer)
+  ;;                          (buffer-name))))
+  ;;     (if-let ((project-info (project-current)))
+  ;;         (format "%s<%s>" buffer-name (project-root project-info))
+  ;;       (format "%s" buffer-name))))
   ;; (customize-set-value 'tab-bar-tab-name-function #'--tab-bar-tab-name-fn)
-  (customize-set-value 'tab-bar-tab-name-function #'tab-bar-tab-name-truncated)
 
   (define-advice delete-frame (:around (oldfun &rest _old_args)
                                        --tab-bar-delete-tab-or-emacs)
@@ -382,21 +394,7 @@ Returns a string, or nil if there is no path associated with the buffer."
            (num-tabs (length (cdr tabs))))
       (if (eq num-tabs 1)
           (call-interactively oldfun)
-        (tab-bar-close-tab))))
-
-  (with-eval-after-load 'evil
-    (general-define-key
-     :keymaps 'evil-window-map
-     ;; single window in tab gets moved into frame
-     "g f" #'(lambda ()
-               (interactive)
-               (unless (= 1 (length (window-list)))
-                 (tab-window-detach))
-               (tab-detach))
-     "g w" "g f"
-     ;; entire tab gets moved into frame
-     "g F" 'tab-detach
-     "g W" "g F")))
+        (tab-bar-close-tab)))))
 
 (use-package autorevert
   :ensure nil
