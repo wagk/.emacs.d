@@ -656,9 +656,11 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
   :config
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
 
-(with-eval-after-load 'general
-  (general-define-key
-   :keymaps 'Info-mode-map
+(use-package info
+  :ensure nil
+  :after (general evil link-hint)
+  :general
+  (Info-mode-map
    :states 'normal
    "f" 'link-hint-open-link
    "]]" 'Info-next
