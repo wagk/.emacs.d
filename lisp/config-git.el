@@ -7,22 +7,6 @@
   :demand t
   :ensure (:host github :repo "magit/transient"))
 
-(when (eq system-type 'windows-nt)
-  ;; magit requires seq 2.24, windows only seems to have 2.23
-  ;; lisp stolen from https://github.com/progfolio/elpaca/issues/216
-  (cl-defun --elpaca-unload-seq (e)
-    (and (featurep 'seq) (unload-feature 'seq t))
-    (elpaca--continue-build e))
-  (cl-defun --elpaca-build-seq ()
-    (append (butlast (if (file-exists-p (expand-file-name "seq" elpaca-builds-directory))
-                         elpaca--pre-built-steps
-                       elpaca-build-steps))
-            (list #'--elpaca-unload-seq #'elpaca--activate-package)))
-  (use-package seq
-    :ensure `(seq :build ,(--elpaca-build-seq))
-    :demand t)
-  (elpaca-wait))
-
 ;; If magit complains about not finding the config on windows, it's
 ;; because of [this issue], the easiest solution is to make a link.
 ;;
@@ -31,7 +15,7 @@
 ;; [this issue]: https://github.com/magit/magit/issues/1497
 (use-package magit
   :ensure (:host github :repo "magit/magit" :branch "main")
-  :after transient
+  :after (elpaca evil transient general)
   :commands (magit
              magit-status
              magit-pull
@@ -53,29 +37,43 @@
    :states '(normal)
    "g x" 'magit-browse-thing)
   :init
-  (with-eval-after-load 'evil
-    (evil-define-command ex-magit-cli (cmd)
-      "Calls specific magit functions"
-      (interactive "<a>")
-      (cond
-       ((eq cmd nil) (magit-status))
-       (t (magit-shell-command (concat "git " cmd)))))
-    (evil-ex-define-cmd "gF"      'magit-pull)
-    (evil-ex-define-cmd "gB"      'magit-branch)
-    (evil-ex-define-cmd "gd[iff]" 'magit-diff)
-    (evil-ex-define-cmd "gb"      'magit-blame-addition)
-    (evil-ex-define-cmd "blame"   'magit-blame-addition)
-    (evil-ex-define-cmd "gblame"  'magit-blame)
-    (evil-ex-define-cmd "gc"      'magit-commit)
-    (evil-ex-define-cmd "gf"      'magit-fetch)
-    (evil-ex-define-cmd "gg"      'ex-magit-cli)
-    (evil-ex-define-cmd "git"     'ex-magit-cli)
-    (evil-ex-define-cmd "gl"      'magit-log)
-    (evil-ex-define-cmd "glf"     'magit-log-buffer-file)
-    (evil-ex-define-cmd "glb"    "glf")
-    (evil-ex-define-cmd "gll"     'magit-log-current)
-    (evil-ex-define-cmd "gp"      'magit-push)
-    (evil-ex-define-cmd "gz"      'magit-stash))
+  (when (eq system-type 'windows-nt)
+    ;; magit requires seq 2.24, windows only seems to have 2.23
+    ;; lisp stolen from https://github.com/progfolio/elpaca/issues/216
+    (cl-defun --elpaca-unload-seq (e)
+      (and (featurep 'seq) (unload-feature 'seq t))
+      (elpaca--continue-build e))
+    (cl-defun --elpaca-build-seq ()
+      (append (butlast (if (file-exists-p (expand-file-name "seq" elpaca-builds-directory))
+                           elpaca--pre-built-steps
+                         elpaca-build-steps))
+              (list #'--elpaca-unload-seq #'elpaca--activate-package)))
+    (use-package seq
+      :ensure `(seq :build ,(--elpaca-build-seq))
+      :demand t)
+    (elpaca-wait))
+  (evil-define-command ex-magit-cli (cmd)
+    "Calls specific magit functions"
+    (interactive "<a>")
+    (cond
+     ((eq cmd nil) (magit-status))
+     (t (magit-shell-command (concat "git " cmd)))))
+  (evil-ex-define-cmd "gF"      'magit-pull)
+  (evil-ex-define-cmd "gB"      'magit-branch)
+  (evil-ex-define-cmd "gd[iff]" 'magit-diff)
+  (evil-ex-define-cmd "gb"      'magit-blame-addition)
+  (evil-ex-define-cmd "blame"   'magit-blame-addition)
+  (evil-ex-define-cmd "gblame"  'magit-blame)
+  (evil-ex-define-cmd "gc"      'magit-commit)
+  (evil-ex-define-cmd "gf"      'magit-fetch)
+  (evil-ex-define-cmd "gg"      'ex-magit-cli)
+  (evil-ex-define-cmd "git"     'ex-magit-cli)
+  (evil-ex-define-cmd "gl"      'magit-log)
+  (evil-ex-define-cmd "glf"     'magit-log-buffer-file)
+  (evil-ex-define-cmd "glb"    "glf")
+  (evil-ex-define-cmd "gll"     'magit-log-current)
+  (evil-ex-define-cmd "gp"      'magit-push)
+  (evil-ex-define-cmd "gz"      'magit-stash)
   (cl-defun --update-git-commit-comment-info ()
     "Markdown-mode sets the comments to HTML comments, but git commit messages
 assume # starts a comment."
@@ -88,16 +86,16 @@ assume # starts a comment."
          (git-commit-setup-hook . --update-git-commit-comment-info)
          ;; evil-markdown-mode should fire after markdown-mode
          (git-commit-setup-hook . evil-markdown-mode)
-         (git-commit-setup-hook . gfm-mode))
-  :config
-  (with-eval-after-load 'evil
-    (add-to-list 'evil-motion-state-modes 'magit-mode))
-  (with-eval-after-load 'magit-diff
-    (general-define-key
-     :keymaps 'magit-diff-mode-map
-     :states 'normal
-     "[[" 'help-go-back
-     "]]" 'help-go-forward)))
+         (git-commit-setup-hook . gfm-mode)))
+
+(use-package magit-diff
+  :ensure nil
+  :after (magit general)
+  :general
+  (magit-diff-mode-map
+   :states 'normal
+   "[[" 'help-go-back
+   "]]" 'help-go-forward))
 
 (use-package consult-git-log-grep
   :ensure (:host github :repo "ghosty141/consult-git-log-grep")
