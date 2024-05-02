@@ -134,6 +134,29 @@ If there is only one directory just return that."
       (setq file (file-name-with-extension file "md")))
     (file-name-concat dir file)))
 
+;; Lifted from `obsidian-get-yaml-front-matter'
+(cl-defun config-markdown-buffer-yaml-front-matter (s)
+  "Find YAML front matter in S.
+Returns a hash table of the contents if some. nil otherwise."
+  (interactive (list (buffer-string)))
+  (require 'yaml)
+  (require 'dash)
+  (if (s-starts-with-p "---" s)
+      (let* ((split (s-split-up-to "---" s 2))
+             (looks-like-yaml-p (eq (length split) 3)))
+        (if looks-like-yaml-p
+            (->> split
+                 (nth 1)
+                 yaml-parse-string)))))
+
+;; I want to stick this inside `completion-extra-properties'
+(cl-defun config-markdown--select-file-annotation-function (candidate)
+  "Opens a file and reads the metadata"
+  (if-let ((frontmatter (config-markdown-buffer-yaml-front-matter
+                         (find-file-noselect candidate :nowarn :rawfile))))
+      (progn)))
+
+
 (cl-defun todo!-config-markdown--select-file-programmatic-fn (dir-root)
   "Returns a function that can serve as an `annotation-function' as documented
   in `Programmed Completion'.
