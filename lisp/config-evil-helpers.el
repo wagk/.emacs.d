@@ -24,6 +24,8 @@ variants.
                       `(lambda () (interactive)
                          (--evil-do-in-frame ',func))))
 
+(--evil-define-splits "ld" #'(lambda () (interactive)
+                               (dired user-emacs-directory)))
 (--evil-define-splits "init"        'find-user-init-file)
 (--evil-define-splits "local"       'find-user-local-file)
 (--evil-define-splits "buffers"     'ibuffer)
