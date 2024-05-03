@@ -164,7 +164,9 @@ Return nil if the front matter does not exist, or incorrectly delineated by
                           (gethash 'aliases it)
                           (mapconcat #'(lambda (a) (concat "&" a)) it " "))))
         (if (fboundp 'marginalia--fields)
-            (marginalia--fields (tags) (aliases) (summary))
+            (marginalia--fields (tags :face '--markdown-tag-face)
+                                (aliases :face '--markdown-tag-face)
+                                (summary))
           (concat "     " tags " " aliases (when summary (list " " summary)))))))
 
 (cl-defun config-markdown--select-directory ()
