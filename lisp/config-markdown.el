@@ -151,21 +151,21 @@ Return nil if the front matter does not exist, or incorrectly delineated by
   (if-let ((raw-frontmatter (with-temp-buffer
                               (insert-file-contents-literally candidate)
                               (config-markdown-get-yaml-front-matter)))
-           (frontmatter (yaml-parse-string raw-frontmatter)))
+           (frontmatter (yaml-parse-string raw-frontmatter
+                                           :null-object nil)))
       (let ((summary (--> frontmatter
-                          (gethash 'summary it)
-                          (if (eq :null it) nil it)))
+                          (gethash 'summary it)))
             ;; Format tags by sticking `#' in front of all of them
             (tags (--> frontmatter
                        (gethash 'tags it)
                        (mapconcat #'(lambda (h) (concat "#" h)) it " ")))
             ;; Format aliases by sticking `&' in front of all of them
-            (alias (--> frontmatter
-                        (gethash 'alias it)
-                        (mapconcat #'(lambda (a) (concat "&" a)) it " "))))
+            (aliases (--> frontmatter
+                          (gethash 'aliases it)
+                          (mapconcat #'(lambda (a) (concat "&" a)) it " "))))
         (if (fboundp 'marginalia--fields)
-            (marginalia--fields (tags) (alias) (summary))
-          (concat "     " tags " " alias (when summary (list " " summary)))))))
+            (marginalia--fields (tags) (aliases) (summary))
+          (concat "     " tags " " aliases (when summary (list " " summary)))))))
 
 (cl-defun config-markdown--select-directory ()
   "Select a directory from `config-markdown-directories'.
