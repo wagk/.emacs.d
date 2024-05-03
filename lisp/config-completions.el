@@ -132,8 +132,6 @@
 (use-package marginalia
   :after consult
   :demand t
-  :custom
-  (marginalia-separator ", ")
   :config (marginalia-mode))
 
 (use-package corfu
