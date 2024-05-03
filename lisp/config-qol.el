@@ -2,6 +2,10 @@
 
 (require 'config-emacs)
 
+(use-package context-transient
+  :ensure (:host github :repo "licht1stein/context-transient.el")
+  :after transient)
+
 (use-package fancy-compilation
   :after compile
   :custom
