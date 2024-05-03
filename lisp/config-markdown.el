@@ -147,6 +147,7 @@ Return nil if the front matter does not exist, or incorrectly delineated by
 (cl-defun config-markdown--select-file-annotation-function (candidate)
   "Opens a file and reads the metadata"
   (require 'dash)
+  (require 'marginalia nil :noerror)
   (if-let ((raw-frontmatter (with-temp-buffer
                               (insert-file-contents-literally candidate)
                               (config-markdown-get-yaml-front-matter)))
@@ -162,8 +163,9 @@ Return nil if the front matter does not exist, or incorrectly delineated by
             (alias (--> frontmatter
                         (gethash 'alias it)
                         (mapconcat #'(lambda (a) (concat "&" a)) it " "))))
-        (concat "     " tags " " alias (when summary
-                                         (list " " summary))))))
+        (if (fboundp 'marginalia--fields)
+            (marginalia--fields (tags) (alias) (summary))
+          (concat "     " tags " " alias (when summary (list " " summary)))))))
 
 (cl-defun config-markdown--select-directory ()
   "Select a directory from `config-markdown-directories'.
@@ -186,8 +188,10 @@ If there is only one directory just return that."
                 ;; do some very basic caching because it's slow
                 (if-let ((annot (ht-get memo cand)))
                     annot
-                  (let ((text (config-markdown--select-file-annotation-function
-                               (file-name-concat dir cand))))
+                  (let ((text (condition-case err
+                               (config-markdown--select-file-annotation-function
+                                (file-name-concat dir cand))
+                               (t (message "Error annotating %s. Skipping." cand)))))
                     (ht-set memo cand text)
                     text)))))
          (file (--completing-read (format "File [%s]: " dir) files)))
