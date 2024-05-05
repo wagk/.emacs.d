@@ -193,7 +193,7 @@ If there is only one directory just return that."
                   (let ((text (condition-case err
                                (config-markdown--select-file-annotation-function
                                 (file-name-concat dir cand))
-                               (t (message "Error annotating %s. Skipping." cand)))))
+                               (t (message "Error annotating %s. Err %s." cand err)))))
                     (ht-set memo cand text)
                     text)))))
          (file (--completing-read (format "File [%s]: " dir) files)))
