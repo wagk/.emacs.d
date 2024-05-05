@@ -154,20 +154,25 @@ Return nil if the front matter does not exist, or incorrectly delineated by
            (frontmatter (yaml-parse-string raw-frontmatter
                                            :null-object nil)))
       (let ((summary (--> frontmatter
-                          (gethash 'summary it)))
+                          (gethash 'summary it "")
+                          (or it "")))
             ;; Format tags by sticking `#' in front of all of them
             (tags (--> frontmatter
-                       (gethash 'tags it)
+                       (gethash 'tags it "")
                        (mapconcat #'(lambda (h) (concat "#" h)) it " ")))
             ;; Format aliases by sticking `&' in front of all of them
             (aliases (--> frontmatter
-                          (gethash 'aliases it)
+                          (gethash 'aliases it "")
                           (mapconcat #'(lambda (a) (concat "&" a)) it " "))))
         (if (fboundp 'marginalia--fields)
             (marginalia--fields (tags :face '--markdown-tag-face)
                                 (aliases :face '--markdown-tag-face)
-                                (summary))
-          (concat "     " tags " " aliases (when summary (list " " summary)))))))
+                                (summary :face 'italic))
+          ;; TODO: `propertize' somehow isn't propagating here, but is by
+          ;; `marginalia--fields'.
+         (concat " " tags " " aliases
+                 (unless (string-empty-p summary)
+                   (concat "\n" summary)))))))
 
 (cl-defun config-markdown--select-directory ()
   "Select a directory from `config-markdown-directories'.
