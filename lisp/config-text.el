@@ -145,7 +145,6 @@
   (evil-ex-define-cmd "rr" #'rg-menu)
   (evil-ex-define-cmd "rf" #'--rg-search-file)
   (evil-ex-define-cmd "rd" #'--rg-search-dir)
-  (evil-ex-define-cmd "lr" #'--rg-search-lisp)
   ;; (evil-ex-define-cmd "prg" 'rg-project)
   :config
   (rg-enable-menu)
@@ -166,10 +165,6 @@
     :dir current
     :query (funcall #'--thing-at-point-or-region-or-user-input)
     :menu ("Search" "d" "Directory"))
-  (rg-define-search --rg-search-lisp
-    :files "elisp"
-    :query ask
-    :dir user-lisp-dir)
   (with-eval-after-load 'hl-todo
     (rg-define-search search-hl-todo-keywords
       "Uses the everything filter for project searches"

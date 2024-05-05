@@ -190,6 +190,13 @@ variants.
   (find-file (--select-config-lisp-file-name)))
 
 (--evil-define-splits "ll" #'--select-config-lisp-file)
+(with-eval-after-load 'rg
+  (rg-define-search --rg-search-lisp
+    :files "elisp"
+    :query ask
+    :dir user-lisp-dir)
+  (evil-ex-define-cmd "lr" #'--rg-search-lisp))
+
 (--evil-define-splits "config" #'--select-config-lisp-file)
 (--evil-define-splits "cofnig" #'--select-config-lisp-file)
 (--evil-define-splits "cnfig"  #'--select-config-lisp-file)
