@@ -308,8 +308,8 @@ end of the selected heading."
 (with-eval-after-load 'rg
   (rg-define-search config-markdown-search-in-notes
     :files "everything"
-    :dir config-markdown-directories)
-  (evil-ex-define-cmd "ng" 'config-markdown-search-in-notes))
+    :dir (config-markdown--select-directory))
+  (evil-ex-define-cmd "nr" 'config-markdown-search-in-notes))
 
 ;; Personal notes and the like
 (use-package consult-notes
