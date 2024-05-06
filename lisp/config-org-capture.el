@@ -83,7 +83,7 @@
     (untabify (point-min) (point-max))
     (let ((dedent-by (indent-rigidly--current-indentation (point-min) (point-max))))
       (indent-rigidly (point-min) (point-max) (- dedent-by))
-      (buffer-substring-no-properties (point-min) (point-max)))))
+      (buffer-substring (point-min) (point-max)))))
 
 (cl-defun --capture-template-interesting ()
   "Populates an `org-capture' template that stores interesting information.
@@ -94,7 +94,7 @@ Assumes Markdown formatting."
   (let* ((region (when (use-region-p)
                    (let* ((beg (region-beginning))
                           (end (region-end))
-                          (text (buffer-substring-no-properties beg end)))
+                          (text (buffer-substring beg end)))
                      (--dedent-text text))))
          (filepath (pcase-exhaustive (list (project-current nil)
                                            (buffer-file-name))
@@ -104,9 +104,9 @@ Assumes Markdown formatting."
                                       name (project-root proj)))))
          (line-number (number-to-string (line-number-at-pos)))
          (filepath-and-line (concat filepath ":" line-number)))
-    (concat (format "## %s `%s`\n" (format-time-string "%F") filepath-and-line)
+    (concat (format "## %s %%^{What's interesting?}\n" (format-time-string "%F"))
             "\n%?\n"
-            (when region (concat "\n"
+            (when region (concat (format "\nAt `%s`:\n" filepath-and-line)
                                  "```\n"
                                  region
                                  "```")))))
