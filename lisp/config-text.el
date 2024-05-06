@@ -84,6 +84,9 @@
 ;; cargo build --release --features emacs
 ;; cp target/release/libparinfer_rust.dylib ~/.emacs.d/parinfer-rust/parinfer-rust-darwin.so
 ;; ```
+;;
+;; Note that dired filters might/will hide files with the `.so' extension so
+;; you're going to have to check that that isn't happening.
 (use-package parinfer-rust-mode
   :commands (parinfer-rust-mode)
   :general
