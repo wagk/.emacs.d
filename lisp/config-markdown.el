@@ -184,10 +184,10 @@ Return nil if the front matter does not exist, or incorrectly delineated by
                                 (summary :face 'italic))
           ;; TODO: `propertize' somehow isn't propagating here, but is by
           ;; `marginalia--fields'.
-         (concat " " tags " " aliases
-                 (unless (string-empty-p summary)
-                   (concat "\n" summary)))))
-    " Error encountered during annotation"))
+          (concat " " tags " " aliases
+                  (unless (string-empty-p summary)
+                    (concat "\n" summary)))))
+    " ~"))
 
 (cl-defun config-markdown--select-file-affixation-function (cand-list)
   ":affixation-function for file selection")
@@ -210,6 +210,14 @@ If there is only one directory just return that."
                         (directory-files-recursively dir "\\.md$")))
          (memo (ht-create))
          (completion-extra-properties
+          ;; (list :affixation-function
+          ;;   #'(lambda (cands)
+          ;;       (marginalia--affixate
+          ;;        nil
+          ;;        #'config-markdown--select-file-annotation-function
+          ;;        (mapcar #'(lambda (cand)
+          ;;                    (file-name-concat dir cand))
+          ;;                cands)))))
           (list :annotation-function
             #'(lambda (cand)
                 ;; do some very basic caching because it's slow
