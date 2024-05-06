@@ -151,8 +151,12 @@ Return nil if the front matter does not exist, or incorrectly delineated by
   (if-let ((raw-frontmatter (with-temp-buffer
                               (insert-file-contents-literally candidate)
                               (config-markdown-get-yaml-front-matter)))
-           (frontmatter (yaml-parse-string raw-frontmatter
-                                           :null-object nil)))
+           (frontmatter (condition-case err
+                            (yaml-parse-string raw-frontmatter
+                                               :null-object nil)
+                          (t
+                           (message "Error annotating %s." candidate)
+                           nil))))
       (let ((summary (--> frontmatter
                           (gethash 'summary it "")
                           (or it "")))
@@ -182,7 +186,11 @@ Return nil if the front matter does not exist, or incorrectly delineated by
           ;; `marginalia--fields'.
          (concat " " tags " " aliases
                  (unless (string-empty-p summary)
-                   (concat "\n" summary)))))))
+                   (concat "\n" summary)))))
+    " Error encountered during annotation"))
+
+(cl-defun config-markdown--select-file-affixation-function (cand-list)
+  ":affixation-function for file selection")
 
 (cl-defun config-markdown--select-directory ()
   "Select a directory from `config-markdown-directories'.
@@ -207,10 +215,8 @@ If there is only one directory just return that."
                 ;; do some very basic caching because it's slow
                 (if-let ((annot (ht-get memo cand)))
                     annot
-                  (let ((text (condition-case err
-                               (config-markdown--select-file-annotation-function
-                                (file-name-concat dir cand))
-                               (t (message "Error annotating %s. Err %s." cand err)))))
+                  (let ((text (config-markdown--select-file-annotation-function
+                               (file-name-concat dir cand))))
                     (ht-set memo cand text)
                     text)))))
          (file (--completing-read (format "File [%s]: " dir) files)))
