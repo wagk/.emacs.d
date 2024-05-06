@@ -159,11 +159,21 @@ Return nil if the front matter does not exist, or incorrectly delineated by
             ;; Format tags by sticking `#' in front of all of them
             (tags (--> frontmatter
                        (gethash 'tags it "")
-                       (mapconcat #'(lambda (h) (concat "#" h)) it " ")))
+                       (mapconcat #'(lambda (h)
+                                      (->> h
+                                           (string-replace " " "-")
+                                           (downcase)
+                                           (concat "#")))
+                                  it " ")))
             ;; Format aliases by sticking `&' in front of all of them
             (aliases (--> frontmatter
                           (gethash 'aliases it "")
-                          (mapconcat #'(lambda (a) (concat "&" a)) it " "))))
+                          (mapconcat #'(lambda (a)
+                                         (->> a
+                                              (string-replace " " "-")
+                                              (downcase)
+                                              (concat "&")))
+                                     it " "))))
         (if (fboundp 'marginalia--fields)
             (marginalia--fields (tags :face '--markdown-tag-face)
                                 (aliases :face '--markdown-tag-face)
