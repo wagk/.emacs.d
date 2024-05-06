@@ -178,7 +178,9 @@ Return nil if the front matter does not exist, or incorrectly delineated by
   "Select a directory from `config-markdown-directories'.
 If there is only one directory just return that."
   (interactive)
-  (--completing-read "Directory: " config-markdown-directories))
+  (--completing-read "Directory: "
+                     config-markdown-directories
+                     :require-match t))
 
 (cl-defun config-markdown--select-file-name ()
   "Search `config-markdown-directories' for files ending in `.md'."

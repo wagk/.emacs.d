@@ -11,7 +11,8 @@
   "Wrapper around `completing-read' that allow the use of keywords."
   ;; if the collection is a list and there's only one element, just return that
   ;; and skip the fanfare.
-  (if (and (seqp collection)
+  (if (and require-match
+           (seqp collection)
            (length= collection 1))
     (car collection)
     (completing-read prompt collection
