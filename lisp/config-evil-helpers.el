@@ -189,17 +189,20 @@ variants.
   (interactive)
   (find-file (--select-config-lisp-file-name)))
 
-(--evil-define-splits "ll" #'--select-config-lisp-file)
 (with-eval-after-load 'rg
   (rg-define-search --rg-search-lisp
     :files "elisp"
     :query ask
     :dir user-lisp-dir)
   (evil-ex-define-cmd "lr" #'--rg-search-lisp))
+(--evil-define-splits "ll" #'--select-config-lisp-file)
 
-(--evil-define-splits "config" #'--select-config-lisp-file)
-(--evil-define-splits "cofnig" #'--select-config-lisp-file)
-(--evil-define-splits "cnfig"  #'--select-config-lisp-file)
+(cl-defun --select-lisp-config-root-file ()
+  (interactive)
+  (find-file (locate-user-emacs-file "lisp/config.el")))
+(--evil-define-splits "config" #'--select-lisp-config-root-file)
+(--evil-define-splits "cofnig" "config")
+(--evil-define-splits "cnfig"  "config")
 
 (defun --load-config-lisp-files (file-list)
   (cl-dolist (file file-list)
