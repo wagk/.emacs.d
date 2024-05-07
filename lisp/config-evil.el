@@ -236,6 +236,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
  "C-\\" 'toggle-input-method)
 
 (use-package evil-surround
+  :demand t
   :ensure (:host github :repo "emacs-evil/evil-surround")
   :after (evil)
   :config
