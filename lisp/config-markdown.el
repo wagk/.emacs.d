@@ -80,7 +80,7 @@
   :after markdown-mode)
 
 (use-package evil-markdown
-  :after (markdown-mode)
+  :after (general markdown-mode)
   :ensure (:host github :repo "Somelauw/evil-markdown")
   :commands (evil-markdown-mode)
   :hook (markdown-mode-hook . evil-markdown-mode)
@@ -398,5 +398,7 @@ end of the selected heading."
   ;;                                      (with-current-buffer buffer
   ;;                                        (goto-char (point-max)))))
   ;;                        :template "\n")))
+
+(require 'markdown-datetree)
 
 (provide 'config-markdown)
