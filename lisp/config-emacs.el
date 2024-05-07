@@ -19,6 +19,7 @@
   (kept-old-versions 5)
   (fill-column 80)
   (ff-always-try-to-create nil)
+  (delete-by-moving-to-trash t)
   (blink-matching-paren-highlight-offscreen t)
   (truncate-lines t)
   (inhibit-startup-screen t)
@@ -71,7 +72,10 @@
 
   (column-number-mode 1)
   (setq-default indent-tabs-mode nil)
-  (fset 'yes-or-no-p 'y-or-n-p) ;; Change "yes or no" to "y or n"
+
+  (if (version<= emacs-version "28")
+      (fset 'yes-or-no-p 'y-or-n-p)
+    (setopt use-short-answers t))
 
   (setq backup-directory-alist
         `(("." . ,(file-name-concat (when (featurep 'no-littering)
