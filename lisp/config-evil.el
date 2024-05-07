@@ -124,12 +124,12 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (evil-want-C-u-delete
     t
     "Apparently C-u deletes back to indentation in insert state.")
-  ;; (evil-split-window-below
-  ;;   t
-  ;;   "`set splitbelow` in vim")
-  ;; (evil-vsplit-window-right
-  ;;   t
-  ;;   "`set splitright` in vim")
+  (evil-split-window-below
+    t
+    "`set splitbelow` in vim")
+  (evil-vsplit-window-right
+    t
+    "`set splitright` in vim")
   (evil-move-beyond-eol
     t
     "As recommended by evil-cleverparens")
