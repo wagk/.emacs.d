@@ -91,7 +91,9 @@
   (gcmh-idle-delay 'auto)
   (gcmh-auto-idle-delay-factor 50)
   :config
-  (gcmh-mode))
+  (gcmh-mode)
+  (with-eval-after-load 'blackout
+    (blackout gcmh-mode)))
 
 ;; https://github.com/magnars/dash.el
 (use-package dash)
