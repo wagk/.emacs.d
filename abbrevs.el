@@ -306,6 +306,7 @@
     ("elemtn" "element" nil :count 2)
     ("elme" "elem" nil :count 2)
     ("emtpy" "empty" nil :count 1)
+    ("encable" "enable" nil :count 1)
     ("endpoiint" "endpoint" nil :count 1)
     ("endpoitn" "endpoint" nil :count 1)
     ("endponit" "endpoint" nil :count 2)
