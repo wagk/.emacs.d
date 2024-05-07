@@ -11,6 +11,7 @@
 (use-package undo-tree
   :demand t
   :blackout t
+  :after (evil general)
   :commands (turn-on-undo-tree-mode)
   :custom
   (undo-tree-visualizer-diff t)
@@ -19,12 +20,11 @@
   (undo-tree-enable-undo-in-region t)
   :hook
   (evil-local-mode-hook . turn-on-undo-tree-mode)
+  :general
+  (:states 'normal
+   "U"     'undo-tree-visualize)
   :config
-  (global-undo-tree-mode)
-  (with-eval-after-load 'evil
-    (general-define-key
-      :states 'normal
-      "U"     'undo-tree-visualize)))
+  (global-undo-tree-mode))
 
 ;; Needed for g; and g,
 (use-package goto-chg)
@@ -74,6 +74,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 
 (use-package evil
   :demand t
+  :after (general)
   :ensure (:host github :repo "emacs-evil/evil")
   :commands (evil-set-initial-state
              evil-insert-state
@@ -224,6 +225,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 
 (use-package evil-visualstar
   :ensure (:host github :repo "bling/evil-visualstar")
+  :after (evil general)
   :general
   (:keymaps 'visual
    "*" 'evil-visualstar/begin-search-forward
@@ -240,7 +242,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (global-evil-surround-mode))
 
 (use-package evil-embrace
-  :disabled t
+  :after (evil evil-surround)
   :custom
   (evil-embrace-show-help-p
    nil
@@ -268,6 +270,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (evil-commentary-mode))
 
 (use-package evil-indent-plus
+  :after evil
   :ensure (:host github :repo "TheBB/evil-indent-plus")
   :general
   (evil-inner-text-objects-map
