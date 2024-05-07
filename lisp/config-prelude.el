@@ -89,6 +89,7 @@
   :ensure t
   :custom
   (gcmh-idle-delay 'auto)
+  (gcmh-auto-idle-delay-factor 50)
   :config
   (gcmh-mode))
 
