@@ -84,6 +84,14 @@
 (use-package use-package-ensure-system-package)
 ;; Package stuff end
 
+;; Garbage collection
+(use-package gcmh
+  :ensure t
+  :custom
+  (gcmh-idle-delay 'auto)
+  :config
+  (gcmh-mode))
+
 ;; https://github.com/magnars/dash.el
 (use-package dash)
 
