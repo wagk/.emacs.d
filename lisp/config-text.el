@@ -92,6 +92,21 @@
   :general
   (:states 'motion
    "g p" 'parinfer-rust-toggle-paren-mode)
+  :init
+  ;; parinfer-rust-mode requires track-changes 1.1
+  ;; lisp stolen from https://github.com/progfolio/elpaca/issues/216
+  (cl-defun --elpaca-unload-track-changes (e)
+    (and (featurep 'track-changes) (unload-feature 'track-changes t))
+    (elpaca--continue-build e))
+  (cl-defun --elpaca-build-track-changes ()
+    (append (butlast (if (file-exists-p (expand-file-name "track-changes" elpaca-builds-directory))
+                         elpaca--pre-built-steps
+                       elpaca-build-steps))
+            (list #'--elpaca-unload-track-changes #'elpaca--activate-package)))
+  (use-package track-changes
+    :ensure `(track-changes :build ,(--elpaca-build-track-changes))
+    :demand t)
+  (elpaca-wait)
   :custom
   (parinfer-rust-auto-download t)
   (parinfer-rust-dim-parens nil)
