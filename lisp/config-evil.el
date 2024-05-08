@@ -243,7 +243,8 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (global-evil-surround-mode))
 
 (use-package evil-embrace
-  :after (evil evil-surround)
+  :disabled t
+  :after (embrace evil evil-surround)
   :custom
   (evil-embrace-show-help-p
    nil
