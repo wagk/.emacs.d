@@ -120,9 +120,12 @@
 If inside a project, make relative to project root.
 Returns a string, or nil if there is no path associated with the buffer."
   (require 'project)
+  (require 'dash)
   (let ((name (or (buffer-file-name) dired-directory)))
     (when (project-current)
-      (setq name (file-relative-name name (project-root (project-current)))))
+      (setq name (--> name
+                      (file-relative-name it (project-root (project-current)))
+                      (file-name-concat (project-name (project-current)) it))))
     (pcase name
       ;; hack since dired-directory might be a list
       ((or 'nil (pred listp)) nil)
