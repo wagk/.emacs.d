@@ -307,6 +307,7 @@ end of the selected heading."
 
 (with-eval-after-load 'org-capture
   (require 'doct)
+  (require 'config-org-capture)
   (setq org-capture-templates
         (doct-add-to
          org-capture-templates
@@ -314,15 +315,24 @@ end of the selected heading."
             :keys "header"
             :type plain
             :function config-markdown--find-file-and-point
-            :unnarrowed t
-            :empty-lines 1
             :after-finalize
-            ,#'(lambda () (setq org-capture-last-stored-marker (make-marker)))
+            ,#'--HACK-discard-last-stored-marker
             :template "%?")
-           ("Notes - diary"
+           ("Notes - File - Datetree"
+            :keys "datetree"
+            :type plain
+            :function
+            ,#'(lambda ()
+                 (interactive)
+                 (require 'markdown-datetree)
+                 (config-markdown-find-file)
+                 (markdown-datetree-go-to-day))
+            :after-finalize
+            ,#'--HACK-discard-last-stored-marker
+            :template "%?")
+           ("Notes - Diary"
             :keys "diary"
             :type plain
-            :unnarrowed t
             :function
             ,#'(lambda ()
                  (assert config-markdown-directories
@@ -331,11 +341,8 @@ end of the selected heading."
                      (find-file))
                  (config-markdown--find-or-insert-date-heading-point-at-level
                   (config-markdown--level-of-heading-at-point)))
-            :unnarrowed t
-            :empty-lines 1
-            :append t
             :after-finalize
-            ,#'(lambda () (setq org-capture-last-stored-marker (make-marker)))
+            ,#'--HACK-discard-last-stored-marker
             :template "%?")))))
 
 (with-eval-after-load 'rg
