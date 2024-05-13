@@ -219,12 +219,10 @@ variants.
   (cond
     ((string= cmd "wrap") (visual-line-mode 1))
     ((string= cmd "nowrap") (visual-line-mode -1))
-    ((string= cmd "fill") (progn (visual-line-mode 1)
-                                (require 'visual-fill-column)
-                                (visual-fill-column-mode 1)))
-    ((string= cmd "nofill") (progn (visual-line-mode 0)
-                                   (require 'visual-fill-column)
-                                   (visual-fill-column-mode -1)))))
+    ((string= cmd "fill") (progn (require 'visual-fill-column)
+                                 (visual-line-fill-column-mode 1)))
+    ((string= cmd "nofill") (progn (require 'visual-fill-column)
+                                   (visual-line-fill-column-mode -1)))))
 (evil-ex-define-cmd "set" 'config-ex-set-arg)
 
 (evil-ex-define-cmd "date" #'(lambda () (interactive)

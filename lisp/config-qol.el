@@ -450,9 +450,8 @@
    "C-c RET" nil)
   :hook
   (gptel-mode-hook . (lambda ()
-                       (visual-line-mode 1)
                        (require 'visual-fill-column)
-                       (visual-fill-column-mode 1)))
+                       (visual-line-fill-column-mode 1)))
   :init
   (evil-ex-define-cmd "gptt" #'gptel-menu)
   (--evil-define-splits "gpt" 'gptel))

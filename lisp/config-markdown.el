@@ -378,8 +378,7 @@ end of the selected heading."
   ;;                         (when (featurep 'aggressive-fill-paragraph)
   ;;                           (aggressive-fill-paragraph-mode 0))
   ;;                         (require 'visual-fill-column)
-  ;;                         (visual-fill-column-mode 1)
-  ;;                         (visual-line-mode 1)))
+  ;;                         (visual-line-fill-column-mode 1)))
   :config
   ;; don't forget to `obsidian-specify-path'
   (global-obsidian-mode)
