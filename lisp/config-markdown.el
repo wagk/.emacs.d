@@ -329,7 +329,23 @@ end of the selected heading."
                  (interactive)
                  (require 'markdown-datetree)
                  (config-markdown-find-file)
-                 (markdown-datetree-go-to-day))
+                 (markdown-datetree-go-to-day)
+                 (outline-next-preface))
+            :after-finalize
+            ,#'--HACK-discard-last-stored-marker
+            :template "%?")
+           ("Capture into datetree of diary"
+            :keys "diarydatetree"
+            :type plain
+            :function
+            ,#'(lambda ()
+                 (interactive)
+                 (require 'markdown-datetree)
+                 (assert config-markdown-directories
+                         t "markdown notes directory not set!")
+                 (find-file (config-markdown--find-files-named "Diary"))
+                 (markdown-datetree-go-to-day)
+                 (outline-next-preface))
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
             :template "%?")
