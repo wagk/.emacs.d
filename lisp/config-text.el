@@ -7,8 +7,10 @@
   (:states 'normal
    :prefix my-default-evil-leader-key
    "g w" 'aggressive-fill-paragraph-mode)
-  :hook ((org-mode-hook . aggressive-fill-paragraph-mode)
-         (markdown-mode-hook . aggressive-fill-paragraph-mode)))
+  :hook ((org-mode-hook . aggressive-fill-paragraph-mode)))
+
+(use-package visual-fill-column
+  :after general)
 
 (use-package aggressive-indent
   :ensure (:host github :repo "malabarba/aggressive-indent-mode")
