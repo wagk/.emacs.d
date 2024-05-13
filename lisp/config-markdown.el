@@ -244,7 +244,8 @@ If there is only one directory just return that."
          (files (mapcar (lambda (file)
                           (file-relative-name file dir))
                         (directory-files-recursively dir name)))
-         (diary (--completing-read (format "%s: " name) files)))
+         (diary (--completing-read (format "%s: " name) files
+                                   :require-match t)))
     (file-name-concat dir diary)))
 
 (cl-defun config-markdown-find-file ()
