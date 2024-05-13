@@ -77,9 +77,9 @@ assume # starts a comment."
          ;; markdown-mode (which gfm-mode triggers hooks for) turns on
          ;; visual-line-fill-column-mode. For git commits we do not want that,
          ;; preferring aggressive-fill-paragraph-mode instead.
-         (git-commit-setup-hook . #'(lambda ()
-                                      (when (fboundp 'visual-line-fill-column-mode)
-                                        (visual-line-fill-column-mode -1))))
+         (git-commit-setup-hook . (lambda ()
+                                    (when (fboundp 'visual-line-fill-column-mode)
+                                      (visual-line-fill-column-mode -1))))
          ;; note that the ordering here is important: we want this function to
          ;; fire _after_ `markdown-mode' has set up the comment-start/end
          ;; variables.
