@@ -318,6 +318,7 @@ end of the selected heading."
          `(("Notes - File - Header"
             :keys "header"
             :type plain
+            :empty-lines-before 1
             :function config-markdown--find-file-and-point
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
@@ -325,6 +326,7 @@ end of the selected heading."
            ("Notes - File - Datetree"
             :keys "datetree"
             :type plain
+            :empty-lines-before 1
             :function
             ,#'(lambda ()
                  (interactive)
@@ -338,6 +340,7 @@ end of the selected heading."
            ("Capture into datetree of diary"
             :keys "diarydatetree"
             :type plain
+            :empty-lines-before 1
             :function
             ,#'(lambda ()
                  (interactive)
@@ -353,6 +356,7 @@ end of the selected heading."
            ("Notes - Diary"
             :keys "diary"
             :type plain
+            :empty-lines-before 1
             :function
             ,#'(lambda ()
                  (assert config-markdown-directories

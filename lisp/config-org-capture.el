@@ -127,7 +127,7 @@ this assumption."
             :type plain
             :function
             ,#'(lambda () (scratch-buffer) (goto-char (point-max)))
-            :empty-lines 1
+            :empty-lines-before 1
             :unnarrowed nil
             :no-save t
             :template
