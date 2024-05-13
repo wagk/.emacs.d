@@ -278,8 +278,6 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
              org-agenda-file-to-front
              org-agenda)
   :general
-  (:states 'motion
-   "|" 'org-agenda)
   (:keymaps 'org-agenda-keymap
    :states '(normal motion)
    "g r" 'org-agenda-redo

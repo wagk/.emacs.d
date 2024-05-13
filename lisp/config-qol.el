@@ -4,7 +4,11 @@
 
 (use-package context-transient
   :ensure (:host github :repo "licht1stein/context-transient.el")
-  :after transient)
+  :after transient
+  :commands context-transient
+  :general
+  (:states 'normal
+   "|" #'context-transient))
 
 (use-package fancy-compilation
   :after compile
