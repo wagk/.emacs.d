@@ -178,6 +178,8 @@ Returns a string, or nil if there is no path associated with the buffer."
   :hook
   (dired-mode-hook . hl-line-mode)
   (dired-mode-hook . dired-hide-details-mode)
+  :custom
+  (dired-vc-rename-file t)
   :general
   (dired-mode-map
    :states 'normal
