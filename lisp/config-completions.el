@@ -107,7 +107,10 @@
     (evil-ex-define-cmd "fp"  'consult-yank-from-kill-ring) ;; p for paste
     (evil-ex-define-cmd "ff"  'consult-line)
     (evil-ex-define-cmd "fa"  'consult-line-multi)
-    (evil-ex-define-cmd "fi"  'consult-info))
+    (evil-ex-define-cmd "fi"  'consult-info)
+    (with-eval-after-load 'link-hint
+      (evil-ex-define-cmd "fx"  'link-hint-open-link)
+      (evil-ex-define-cmd "fyx"  'link-hint-copy-link)))
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'(lambda (&rest args)
                                           (apply (if vertico-mode
