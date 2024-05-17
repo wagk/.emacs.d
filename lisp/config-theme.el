@@ -276,6 +276,13 @@
   (set-face-attribute 'evil-ex-substitute-replacement nil
                       :foreground sol-red))
 
+(with-eval-after-load 'diff
+  (set-face-attribute 'diff-removed nil
+                      :foreground sol-red
+                      :inherit 'nano-default)
+  (set-face-attribute 'diff-refine-removed nil
+                      :inherit 'diff-removed))
+
 (with-eval-after-load 'ediff
   (set-face-attribute 'ediff-current-diff-A nil
                       :foreground sol-red
