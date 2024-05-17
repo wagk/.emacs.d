@@ -18,7 +18,7 @@
   :custom
   (org-capture-bookmark nil)
   :init
-  (defun --org-capture-completing-read ()
+  (cl-defun --org-capture-completing-read ()
     "Select capture template, stolen from
    https://github.com/raxod502/selectrum/wiki/Useful-Commands#user-content-org-capture-template"
     (interactive)
@@ -45,7 +45,7 @@
                                                                          :require-match t)))))))
   (evil-ex-define-cmd "cc" '--org-capture-completing-read)
   :config
-  (defun --select-org-agenda-file ()
+  (cl-defun --select-org-agenda-file ()
     (require 'org-agenda)
     (let ((targets
            (->> org-agenda-files
@@ -60,7 +60,7 @@
           (car targets)
         (--completing-read "Capture target: " targets
                            :require-match t))))
-  (defun --select-project-todo-file ()
+  (cl-defun --select-project-todo-file ()
     (require 'org-agenda)
     (require 'project)
     (if-let* ((project (project-current))
