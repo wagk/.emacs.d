@@ -315,16 +315,16 @@ end of the selected heading."
   (setq org-capture-templates
         (doct-add-to
          org-capture-templates
-         `(("Notes - File - Header"
-            :keys "header"
+         `(("File - Header"
+            :keys "fh"
             :type plain
             :empty-lines-before 1
             :function config-markdown--find-file-and-point
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
             :template "%?")
-           ("Notes - File - Datetree"
-            :keys "datetree"
+           ("File - Datetree"
+            :keys "fdt"
             :type plain
             :empty-lines-before 1
             :function
@@ -337,8 +337,8 @@ end of the selected heading."
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
             :template "%?")
-           ("Capture into datetree of diary"
-            :keys "diarydatetree"
+           ("Diary - Datetree"
+            :keys "ddt"
             :type plain
             :empty-lines-before 1
             :function
@@ -353,8 +353,8 @@ end of the selected heading."
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
             :template "%?")
-           ("Notes - Diary"
-            :keys "diary"
+           ("Diary"
+            :keys "d"
             :type plain
             :empty-lines-before 1
             :function
