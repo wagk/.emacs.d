@@ -275,6 +275,7 @@
 
 (use-package link-hint
   :after general
+  :demand t
   :commands (link-hint-open-link
              link-hint-copy-link)
   :config
