@@ -679,19 +679,23 @@
 (with-eval-after-load 'avy
   (set-face-attribute 'avy-background-face nil
                       :foreground 'unspecified
-                      :inherit 'nano-default)
+                      :inherit 'nano-default-i)
   (set-face-attribute 'avy-lead-face nil
-                      :foreground sol-red
-                      :background 'unspecified)
+                      :background sol-red
+                      :foreground 'unspecified
+                      :inherit 'nano-default-i)
   (set-face-attribute 'avy-lead-face-0 nil
-                      :foreground sol-magenta
-                      :background 'unspecified)
+                      :background sol-magenta
+                      :foreground 'unspecified
+                      :inherit 'nano-default-i)
   (set-face-attribute 'avy-lead-face-1 nil
-                      :foreground sol-violet
-                      :background 'unspecified)
+                      :background sol-violet
+                      :foreground 'unspecified
+                      :inherit 'nano-default-i)
   (set-face-attribute 'avy-lead-face-2 nil
-                      :foreground sol-blue
-                      :background 'unspecified))
+                      :background sol-blue
+                      :foreground 'unspecified
+                      :inherit 'nano-default-i))
 
 (with-eval-after-load 'corfu
   (set-face-attribute 'corfu-current nil
