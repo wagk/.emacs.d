@@ -154,7 +154,9 @@ Return nil if the front matter does not exist, or incorrectly delineated by
   (require 'dash)
   (require 'marginalia nil :noerror)
   (if-let ((raw-frontmatter (with-temp-buffer
-                              (insert-file-contents-literally candidate)
+                              (if (file-exists-p candidate)
+                                  (insert-file-contents-literally candidate)
+                                "")
                               (config-markdown-get-yaml-front-matter)))
            (frontmatter (condition-case err
                             (yaml-parse-string raw-frontmatter
