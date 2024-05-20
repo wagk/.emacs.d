@@ -104,12 +104,12 @@ Assumes Markdown formatting."
                                       name (project-root proj)))))
          (line-number (number-to-string (line-number-at-pos)))
          (filepath-and-line (concat filepath ":" line-number)))
-    (concat (format "## %s %%^{What's interesting?}\n" (format-time-string "%F"))
-            "\n%?\n"
-            (when region (concat (format "\nAt `%s`:\n" filepath-and-line)
-                                 "```\n"
-                                 region
-                                 "```")))))
+    ;; (concat (format "## %s %%^{What's interesting?}\n" (format-time-string "%F"))
+    (concat (format "%s %%?\n" (format-time-string "%F %H:%M")
+                    (when region (concat (format "\nAt `%s`:\n" filepath-and-line
+                                                "```\n"
+                                                region)
+                                         "```"))))))
 
 (cl-defun --HACK-discard-last-stored-marker ()
   "Org assumes that the capture will be done inside an `org' buffer and
