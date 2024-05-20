@@ -267,6 +267,9 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 
 (use-package evil-commentary
   :ensure (:host github :repo "linktohack/evil-commentary")
+  :general
+  (evil-commentary-mode-map
+   "s-/" nil)
   :after (evil)
   :config
   (evil-commentary-mode))
