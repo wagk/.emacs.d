@@ -165,6 +165,11 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 
   (evil-ex-define-cmd "E" "edit")
 
+  (with-eval-after-load 'link-hint
+    (general-define-key
+     :states 'normal
+      "g x" #'link-hint-open-link))
+
   (evil-ex-define-cmd "vb[uffer]" 'my-evil-vsplit-buffer)
 
   (defcustom --evil-write-typo-filenames '("'" "[")
