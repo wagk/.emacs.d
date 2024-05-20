@@ -29,30 +29,30 @@
 (defconst markdown-datetree-root-heading-regexp "# Datetree")
 
 (defconst markdown-datetree-year-heading-regexp
-  (rx "## " (group-n 1 (= 4 digit)) eol))
+  (rx bol "## " (group-n 1 (= 4 digit))))
 
 (cl-defun markdown-datetree-specific-year-heading-regexp (year)
   (cl-assert year)
   (cl-assert (stringp year))
-  (rx "## " (literal year) eol))
+  (rx bol "## " (literal year)))
 
 (defconst markdown-datetree-month-heading-regexp
-  (rx "### " (= 4 digit) "-" (in "0-1") digit eol))
+  (rx bol "### " (= 4 digit) "-" (in "0-1") digit))
 
 (cl-defun markdown-datetree-specific-month-heading-regexp (year month)
   (cl-assert year)
   (cl-assert (stringp year))
   (cl-assert month)
   (cl-assert (stringp month))
-  (rx "### " (literal year) "-" (literal month) eol))
+  (rx bol "### " (literal year) "-" (literal month)))
 
 (defconst markdown-datetree-day-heading-regexp
-  (rx "#### " (= 4 digit) "-" (in "0-1") digit "-" (in "0-3") digit eol))
+  (rx bol "#### " (= 4 digit) "-" (in "0-1") digit "-" (in "0-3") digit))
 
 (cl-defun markdown-datetree-specific-day-heading-regexp (day)
   (cl-assert day)
   (cl-assert (stringp day))
-  (rx "#### " (= 4 digit) "-" (in "0-1") digit "-" (in "0-3") digit eol))
+  (rx bol "#### " (= 4 digit) "-" (in "0-1") digit "-" (in "0-3") digit))
 
 (cl-defun markdown-datetree-specific-date-heading-regexp (year month day)
   (cl-assert year)
@@ -61,7 +61,7 @@
   (cl-assert (stringp month))
   (cl-assert day)
   (cl-assert (stringp day))
-  (rx "#### " (literal year) "-" (literal month) "-" (literal day) eol))
+  (rx bol "#### " (literal year) "-" (literal month) "-" (literal day)))
 
 (cl-defun markdown-datetree-go-to-datetree ()
   "In the buffer, find or create a level one heading 'Datetree'.
