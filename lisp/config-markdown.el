@@ -364,7 +364,8 @@ end of the selected heading."
                  (outline-next-preface))
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
-            :template "%?")
+            :template
+            ,#'--capture-template-interesting)
            ("Diary - Datetree"
             :keys "ddt"
             :type plain
@@ -380,7 +381,8 @@ end of the selected heading."
                  (outline-next-preface))
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
-            :template "%?")
+            :template
+            ,#'--capture-template-interesting)
            ("Diary"
             :keys "d"
             :type plain
@@ -395,7 +397,8 @@ end of the selected heading."
                   (config-markdown--level-of-heading-at-point)))
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
-            :template "%?")))))
+            :template
+            ,#'--capture-template-interesting)))))
 
 (with-eval-after-load 'rg
   (rg-define-search config-markdown-search-in-notes
