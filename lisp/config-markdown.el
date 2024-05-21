@@ -319,7 +319,8 @@ end of the selected heading."
   (require 'markdown-mode)
   (let* ((file (config-markdown--select-file-name
                 (-find #'(lambda (vault)
-                           (f-ancestor-of-p vault (buffer-file-name)))
+                           (if-let ((buf (buffer-file-name)))
+                               (f-ancestor-of-p vault (buffer-file-name))))
                        config-markdown-directories)))
          (file (file-relative-name file
                                    (-find #'(lambda (vault)
@@ -328,6 +329,8 @@ end of the selected heading."
     (markdown-insert-reference-link
      (read-string "Link text: " (file-name-base file))
      (read-string "Link label: ")
+     ;; obsidian url-encodes the link, and I don't see a good reason to break
+     ;; compatibility here.
      (url-encode-url file))))
 
 (with-eval-after-load 'config-evil-helpers
