@@ -207,11 +207,14 @@ If there is only one directory just return that."
                      config-markdown-directories
                      :require-match t))
 
-(cl-defun config-markdown--select-file-name ()
-  "Search `config-markdown-directories' for files ending in `.md'."
+(cl-defun config-markdown--select-file-name (&optional default-vault)
+  "Search `config-markdown-directories' for files ending in `.md'.
+DEFAULT-VAULT should be an element of `config-markdown-directories', but it is
+not currently enforced."
   (interactive)
   (require 'ht)
-  (let* ((dir (config-markdown--select-directory))
+  (let* ((dir (or default-vault
+                  (config-markdown--select-directory)))
          (files (mapcar #'(lambda (file)
                             (file-relative-name file dir))
                         (directory-files-recursively dir "\\.md$")))
@@ -314,10 +317,10 @@ end of the selected heading."
   (interactive)
   (require 'dash)
   (require 'markdown-mode)
-  ;; TODO: autodetect the directory. It's hard at the time of writing because
-  ;; `config-markdown--select-file-name' also does the completing annotation,
-  ;; which we want here.
-  (let* ((file (config-markdown--select-file-name))
+  (let* ((file (config-markdown--select-file-name
+                (-find #'(lambda (vault)
+                           (f-ancestor-of-p vault (buffer-file-name)))
+                       config-markdown-directories)))
          (file (file-relative-name file
                                    (-find #'(lambda (vault)
                                               (f-ancestor-of-p vault file))
