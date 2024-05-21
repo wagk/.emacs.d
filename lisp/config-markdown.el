@@ -308,8 +308,28 @@ end of the selected heading."
           (goto-char (point-max))
         (config-markdown--find-heading-insertion-point :prepend)))))
 
+(cl-defun config-markdown-insert-link-to-vault-file ()
+  "Insert a link to a file, relative to a vault folder as specified by
+`config-markdown-directories'."
+  (interactive)
+  (require 'dash)
+  (require 'markdown-mode)
+  ;; TODO: autodetect the directory. It's hard at the time of writing because
+  ;; `config-markdown--select-file-name' also does the completing annotation,
+  ;; which we want here.
+  (let* ((file (config-markdown--select-file-name))
+         (file (file-relative-name file
+                                   (-find #'(lambda (vault)
+                                              (f-ancestor-of-p vault file))
+                                          config-markdown-directories))))
+    (markdown-insert-reference-link
+     (read-string "Link text: " (file-name-base file))
+     (read-string "Link label: ")
+     (url-encode-url file))))
+
 (with-eval-after-load 'config-evil-helpers
-  (--evil-define-splits "nn" #'config-markdown-find-file))
+  (--evil-define-splits "nn" #'config-markdown-find-file)
+  (evil-ex-define-cmd "ni" #'config-markdown-insert-link-to-vault-file))
 
 (with-eval-after-load 'org-capture
   (require 'doct)
@@ -411,12 +431,12 @@ end of the selected heading."
   (cl-defun --obsidian-find-buffer ()
     (interactive)
     (cl-letf ((symbol-function 'find-file) (symbol-function 'find-file-noselect))
-      (obsidian-jump)))
+      (obsidian-jump))))
   ;; (--evil-ex-define-cmds-splits-and-tabs
   ;;  "nn"
   ;;  #'obsidian-jump
   ;;  #'(lambda () (obsidian-jump)))
-  (evil-ex-define-cmd "ni" #'obsidian-insert-link))
+  ;; (evil-ex-define-cmd "ni" #'obsidian-insert-link))
   ;; (with-eval-after-load 'org-capture
   ;;   (setq org-capture-templates
   ;;         (doct-add-to org-capture-templates
