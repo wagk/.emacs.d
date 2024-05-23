@@ -311,7 +311,7 @@ end of the selected heading."
           (goto-char (point-max))
         (config-markdown--find-heading-insertion-point :prepend)))))
 
-(cl-defun config-markdown-insert-link-to-vault-file ()
+(cl-defun config-markdown-insert-link-to-vault-file (&optional &key ref-link)
   "Insert a link to a file, relative to a vault folder as specified by
 `config-markdown-directories'."
   (interactive)
@@ -325,13 +325,17 @@ end of the selected heading."
          (file (file-relative-name file
                                    (-find #'(lambda (vault)
                                               (f-ancestor-of-p vault file))
-                                          config-markdown-directories))))
-    (markdown-insert-reference-link
-     (read-string "Link text: " (file-name-base file))
-     (read-string "Link label: ")
-     ;; obsidian url-encodes the link, and I don't see a good reason to break
-     ;; compatibility here.
-     (url-encode-url file))))
+                                          config-markdown-directories)))
+         (link-text (read-string "Link text: " (file-name-base file)))
+         ;; obsidian url-encodes the link, and I don't see a good reason to break
+         ;; compatibility here.
+         (url-encoded-file (url-encode-url file)))
+    (if ref-link
+        (markdown-insert-reference-link
+         link-text
+         (read-string "Link label: ")
+         url-encoded-file)
+      (insert (concat "[" link-text "]" "(" url-encoded-file ")")))))
 
 (with-eval-after-load 'config-evil-helpers
   (--evil-define-splits "nn" #'config-markdown-find-file)
