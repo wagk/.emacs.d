@@ -166,9 +166,15 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (evil-ex-define-cmd "E" "edit")
 
   (with-eval-after-load 'link-hint
+    ;; (cl-defun --link-hint-browse-point-or-open-link ()
+    ;;   (interactive)
+    ;;   (condition-case err
+    ;;       (browse-url-at-point)
+    ;;     (t (link-hint-open-link)))
     (general-define-key
      :states 'normal
       "g x" #'link-hint-open-link))
+      ;; "g x" #'--link-hint-browse-point-or-open-link))
 
   (evil-ex-define-cmd "vb[uffer]" 'my-evil-vsplit-buffer)
 
