@@ -371,7 +371,7 @@ should prepopulate."
                  (interactive)
                  (require 'markdown-datetree)
                  (config-markdown-find-file)
-                 (markdown-datetree-find-datetree-time)
+                 (markdown-datetree-find-instant)
                  (outline-next-preface))
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
@@ -390,36 +390,22 @@ should prepopulate."
                  (assert config-markdown-directories
                          t "markdown notes directory not set!")
                  (find-file (config-markdown--find-files-named "Diary"))
-                 (markdown-datetree-find-datetree-time)
+                 (markdown-datetree-find-instant)
                  (outline-next-preface))
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
             :template
             ,#'(lambda ()
                  (concat "%(--datetree-heading)\n"
-                         (--capture-template-interesting :no-timestamp))))
-           ("Diary"
-            :keys "di"
-            :type plain
-            :empty-lines-before 1
-            :function
-            ,#'(lambda ()
-                 (assert config-markdown-directories
-                         t "markdown notes directory not set!")
-                 (-> (config-markdown--find-files-named "Diary")
-                     (find-file))
-                 (config-markdown--find-or-insert-date-heading-point-at-level
-                  (config-markdown--level-of-heading-at-point)))
-            :after-finalize
-            ,#'--HACK-discard-last-stored-marker
-            :template
-            ,#'--capture-template-interesting)))))
+                         (--capture-template-interesting :no-timestamp))))))))
 
 (with-eval-after-load 'evil
  (evil-ex-define-cmd "nd" #'(lambda () (interactive)
                               (require 'org-capture)
                               (require 'config-org-capture)
-                              (org-capture nil "di")))
+                              (assert config-markdown-directories
+                                      t "markdown notes directory not set!")
+                              (find-file (config-markdown--find-files-named "Diary"))))
  (evil-ex-define-cmd "ndd" #'(lambda () (interactive)
                                (require 'org-capture)
                                (require 'config-org-capture)
