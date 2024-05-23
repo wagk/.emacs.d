@@ -431,12 +431,19 @@
   (set-face-attribute 'markdown-blockquote-face nil
                       :inherit 'nano-subtle)
 
-  (defface --markdown-timestamp-face
-    '((t (:weight light)))
-    "Face used to describe timestamps."
+  (defface --markdown-date-timestamp-face
+    '((t (:weight semi-light)))
+    "Face used to describe date timestamps. Like years and months and days."
     :group 'personal)
-  (defconst --markdown-timestamp-regex
+  (defconst --markdown-date-timestamp-regex
     (rx (= 4 (any digit)) "-" (any "0-1") (any digit) "-" (any "0-3") (any digit)))
+
+  (defface --markdown-time-timestamp-face
+    '((t (:weight semi-light)))
+    "Face used to describe time timestamps. Like hours and minutes."
+    :group 'personal)
+  (defconst --markdown-time-timestamp-regex
+    (rx (= 2 (any digit)) ":" (= 2 (any digit))))
 
   (defface --markdown-tag-face
     '((t (:weight light :inherit nano-faded)))
@@ -447,7 +454,12 @@
 
   (font-lock-add-keywords
    'markdown-mode `((,--markdown-tag-keyword-regex 0 '--markdown-tag-face)
-                    (,--markdown-timestamp-regex 0 '--markdown-timestamp-face))))
+                    (,--markdown-date-timestamp-regex 0 '--markdown-date-timestamp-face)
+                    (,--markdown-time-timestamp-regex 0 '--markdown-time-timestamp-face)))
+  (font-lock-add-keywords
+   'gfm-mode `((,--markdown-tag-keyword-regex 0 '--markdown-tag-face)
+               (,--markdown-date-timestamp-regex 0 '--markdown-date-timestamp-face)
+               (,--markdown-time-timestamp-regex 0 '--markdown-time-timestamp-face))))
 
 (with-eval-after-load 'isearch
   (set-face-attribute 'lazy-highlight nil
