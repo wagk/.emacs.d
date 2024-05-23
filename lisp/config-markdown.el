@@ -344,6 +344,13 @@ end of the selected heading."
 (with-eval-after-load 'org-capture
   (require 'doct)
   (require 'config-org-capture)
+  (cl-defun --datetree-heading ()
+    "Goes to the capture destination and figures out which datetree headers it
+should prepopulate."
+    (with-current-buffer (org-capture-get :buffer)
+      (save-restriction
+        (widen)
+        (markdown-datetree-template-heading))))
   (setq org-capture-templates
         (doct-add-to
          org-capture-templates
@@ -364,12 +371,14 @@ end of the selected heading."
                  (interactive)
                  (require 'markdown-datetree)
                  (config-markdown-find-file)
-                 (markdown-datetree-go-to-day)
+                 (markdown-datetree-find-datetree-time)
                  (outline-next-preface))
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
             :template
-            ,#'--capture-template-interesting)
+            ,#'(lambda ()
+                 (concat "%(--datetree-heading)\n"
+                         (--capture-template-interesting :no-timestamp))))
            ("Diary - Datetree"
             :keys "ddd"
             :type plain
@@ -381,14 +390,16 @@ end of the selected heading."
                  (assert config-markdown-directories
                          t "markdown notes directory not set!")
                  (find-file (config-markdown--find-files-named "Diary"))
-                 (markdown-datetree-go-to-day)
+                 (markdown-datetree-find-datetree-time)
                  (outline-next-preface))
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
             :template
-            ,#'--capture-template-interesting)
+            ,#'(lambda ()
+                 (concat "%(--datetree-heading)\n"
+                         (--capture-template-interesting :no-timestamp))))
            ("Diary"
-            :keys "d"
+            :keys "di"
             :type plain
             :empty-lines-before 1
             :function
@@ -408,7 +419,7 @@ end of the selected heading."
  (evil-ex-define-cmd "nd" #'(lambda () (interactive)
                               (require 'org-capture)
                               (require 'config-org-capture)
-                              (org-capture nil "d")))
+                              (org-capture nil "di")))
  (evil-ex-define-cmd "ndd" #'(lambda () (interactive)
                                (require 'org-capture)
                                (require 'config-org-capture)

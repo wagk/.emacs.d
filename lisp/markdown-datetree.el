@@ -10,7 +10,7 @@
 ;; ## 2024
 ;; ### 2024-05
 ;; #### 2024-05-07
-;; ##### .... <title>
+;; ##### 10:34 <title>
 
 (require 'rx)
 
@@ -62,6 +62,56 @@
   (cl-assert day)
   (cl-assert (stringp day))
   (rx bol "#### " (literal year) "-" (literal month) "-" (literal day)))
+
+(defconst markdown-datetree-time-heading-regexp
+  (rx bol "##### " (in "0-2") digit ":" (in "0-5") digit))
+
+(cl-defun markdown-datetree-find-datetree-root ()
+  (interactive)
+  (goto-char (point-min))
+  (prog1 (re-search-forward markdown-datetree-root-heading-regexp nil :noerror)
+    (end-of-line)))
+
+(cl-defun markdown-datetree-find-datetree-year ()
+  (interactive)
+  (when (markdown-datetree-find-datetree-root)
+    (prog1 (re-search-forward markdown-datetree-year-heading-regexp nil :noerror)
+      (end-of-line))))
+
+(cl-defun markdown-datetree-find-datetree-month ()
+  (interactive)
+  (when (markdown-datetree-find-datetree-year)
+    (prog1 (re-search-forward markdown-datetree-month-heading-regexp nil :noerror)
+      (end-of-line))))
+
+(cl-defun markdown-datetree-find-datetree-day ()
+  (interactive)
+  (when (markdown-datetree-find-datetree-month)
+    (prog1 (re-search-forward markdown-datetree-day-heading-regexp nil :noerror)
+      (end-of-line))))
+
+(cl-defun markdown-datetree-find-datetree-time ()
+  (interactive)
+  (when (markdown-datetree-find-datetree-day)
+    (prog1 (re-search-forward markdown-datetree-time-heading-regexp nil :noerror)
+      (end-of-line))))
+
+(cl-defun markdown-datetree-template-heading ()
+  "When creating an org capture template, Determine which levels of headings are
+  missing and return the appropriate string."
+  (let ((heading ""))
+    (save-excursion
+      (unless (markdown-datetree-find-datetree-root)
+        (setq heading (concat heading "# Datetree\n")))
+      (unless (markdown-datetree-find-datetree-year)
+        (setq heading (concat heading (format-time-string "## %Y\n"))))
+      (unless (markdown-datetree-find-datetree-month)
+        (setq heading (concat heading (format-time-string "### %Y-%m\n"))))
+      (unless (markdown-datetree-find-datetree-day)
+        (setq heading (concat heading (format-time-string "#### %F\n"))))
+      (unless (markdown-datetree-find-datetree-time)
+        (setq heading (concat heading (format-time-string "##### %H:%M")))))
+    heading))
 
 (cl-defun markdown-datetree-go-to-datetree ()
   "In the buffer, find or create a level one heading 'Datetree'.

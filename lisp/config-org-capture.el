@@ -85,7 +85,7 @@
       (indent-rigidly (point-min) (point-max) (- dedent-by))
       (buffer-substring (point-min) (point-max)))))
 
-(cl-defun --capture-template-interesting ()
+(cl-defun --capture-template-interesting (&optional no-timestamp)
   "Populates an `org-capture' template that stores interesting information.
 Note that capture templates are called in the originating buffer; the one you
 were at when you called for the capture.
@@ -95,7 +95,21 @@ Assumes Markdown formatting."
                    (let* ((beg (region-beginning))
                           (end (region-end))
                           (text (buffer-substring beg end)))
-                     (--dedent-text text))))
+                     (->> text
+                          (--dedent-text)
+                          ;; We do this because we return this region as part of
+                          ;; an org capture template, which org will then parse
+                          ;; for %'s to expand, which might cause some
+                          ;; unexpected results.
+                          ;;
+                          ;; Org only removes the slashes if it escapes known
+                          ;; org-capture template sequences, so we should escape
+                          ;; only known org-capture template sequences, instead
+                          ;; of unilaterally. But I don't know of any builtin
+                          ;; function that does this for us. I also don't really
+                          ;; feel like maintaining my own list right now, so use
+                          ;; this as a stopgap for now.
+                          (string-replace "%" "\\%")))))
          (filepath (pcase-exhaustive (list (project-current nil)
                                            (buffer-file-name))
                      (`(,_ nil) (buffer-name))
@@ -105,11 +119,13 @@ Assumes Markdown formatting."
          (line-number (number-to-string (line-number-at-pos)))
          (filepath-and-line (concat filepath ":" line-number)))
     ;; (concat (format "## %s %%^{What's interesting?}\n" (format-time-string "%F"))
-    (concat (format "%s %%?\n" (format-time-string "%F %H:%M")
-                    (when region (concat (format "\nAt `%s`:\n" filepath-and-line
-                                                "```\n"
-                                                region)
-                                         "```"))))))
+    (concat (if no-timestamp
+                "%?"
+              (format "%s %%?" (format-time-string "%F %H:%M")))
+            (when region (concat (format "\n\nAt `%s`:\n" filepath-and-line)
+                                 "```\n"
+                                 region
+                                 "```")))))
 
 (cl-defun --HACK-discard-last-stored-marker ()
   "Org assumes that the capture will be done inside an `org' buffer and
