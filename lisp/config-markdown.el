@@ -356,7 +356,7 @@ end of the selected heading."
             ,#'--HACK-discard-last-stored-marker
             :template "%?")
            ("File - Datetree"
-            :keys "fdt"
+            :keys "ddf"
             :type plain
             :empty-lines-before 1
             :function
@@ -371,7 +371,7 @@ end of the selected heading."
             :template
             ,#'--capture-template-interesting)
            ("Diary - Datetree"
-            :keys "ddt"
+            :keys "ddd"
             :type plain
             :empty-lines-before 1
             :function
@@ -403,6 +403,20 @@ end of the selected heading."
             ,#'--HACK-discard-last-stored-marker
             :template
             ,#'--capture-template-interesting)))))
+
+(with-eval-after-load 'evil
+ (evil-ex-define-cmd "nd" #'(lambda () (interactive)
+                              (require 'org-capture)
+                              (require 'config-org-capture)
+                              (org-capture nil "d")))
+ (evil-ex-define-cmd "ndd" #'(lambda () (interactive)
+                               (require 'org-capture)
+                               (require 'config-org-capture)
+                               (org-capture nil "ddd")))
+ (evil-ex-define-cmd "ndf" #'(lambda () (interactive)
+                               (require 'org-capture)
+                               (require 'config-org-capture)
+                               (org-capture nil "ddf"))))
 
 (with-eval-after-load 'rg
   (rg-define-search config-markdown-search-in-notes
