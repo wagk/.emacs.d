@@ -362,7 +362,7 @@ should prepopulate."
   (setq org-capture-templates
         (doct-add-to
          org-capture-templates
-         `(("File - Header"
+         `(("Header - File"
             :keys "fh"
             :type plain
             :empty-lines-before 1
@@ -416,7 +416,11 @@ should prepopulate."
   (evil-ex-define-cmd "ndf" #'(lambda () (interactive)
                                 (require 'org-capture)
                                 (require 'config-org-capture)
-                               (org-capture nil "ddf"))))
+                                (org-capture nil "ddf")))
+  (evil-ex-define-cmd "nfd" "ndf"))
+  ;; (evil-ex-define-cmd "nff" #'(lambda () (interactive)
+  ;;                               (require 'org-capture)
+  ;;                               (org-capture nil "fh"))))
 
 (with-eval-after-load 'rg
   (rg-define-search config-markdown-search-in-notes
