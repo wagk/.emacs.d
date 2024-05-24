@@ -85,7 +85,7 @@
       (indent-rigidly (point-min) (point-max) (- dedent-by))
       (buffer-substring (point-min) (point-max)))))
 
-(cl-defun --capture-template-interesting (&optional no-timestamp)
+(cl-defun --capture-template-interesting (&optional &key timestamp-format)
   "Populates an `org-capture' template that stores interesting information.
 Note that capture templates are called in the originating buffer; the one you
 were at when you called for the capture.
@@ -119,9 +119,9 @@ Assumes Markdown formatting."
          (line-number (number-to-string (line-number-at-pos)))
          (filepath-and-line (concat filepath ":" line-number)))
     ;; (concat (format "## %s %%^{What's interesting?}\n" (format-time-string "%F"))
-    (concat (if no-timestamp
-                "%?"
-              (format "%s %%?" (format-time-string "%F %H:%M")))
+    (concat (if timestamp-format
+                (format "%s%%?" (format-time-string timestamp-format))
+              "%?")
             (when region (concat (format "\n\nAt `%s`:\n" filepath-and-line)
                                  "```\n"
                                  region

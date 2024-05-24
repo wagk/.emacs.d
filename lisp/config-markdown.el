@@ -351,6 +351,10 @@ should prepopulate."
       (save-restriction
         (widen)
         (markdown-datetree-template-heading))))
+  (cl-defun --datetree-capture-template ()
+    (concat "%(--datetree-heading)\n"
+            (--capture-template-interesting
+             :timestamp-format "%F %H:%M:%S\n")))
   (setq org-capture-templates
         (doct-add-to
          org-capture-templates
@@ -362,7 +366,7 @@ should prepopulate."
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
             :template "%?")
-           ("File - Datetree"
+           ("Datetree - File"
             :keys "ddf"
             :type plain
             :empty-lines-before 1
@@ -376,10 +380,8 @@ should prepopulate."
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
             :template
-            ,#'(lambda ()
-                 (concat "%(--datetree-heading)\n"
-                         (--capture-template-interesting :no-timestamp))))
-           ("Diary - Datetree"
+            ,#'--datetree-capture-template)
+           ("Datetree - Diary"
             :keys "ddd"
             :type plain
             :empty-lines-before 1
@@ -395,10 +397,7 @@ should prepopulate."
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
             :template
-            ,#'(lambda ()
-                 (concat "%(--datetree-heading)\n"
-                         (--capture-template-interesting :no-timestamp))))))))
-
+            ,#'--datetree-capture-template)))))
 (with-eval-after-load 'evil
   (evil-ex-define-cmd "nd" #'(lambda () (interactive)
                                (require 'org-capture)
