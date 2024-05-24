@@ -567,6 +567,36 @@ Lisp function does not specify a special indentation."
 (use-package jam-mode
   :ensure nil
   :mode "Jamroot"
-  :load-path "lisp/3p")
+  :load-path "lisp/3p"
+  :init
+  (cl-defun --jamroot-imenu-index-matcher (menu-title rx-matcher)
+    "Very simple, very stupid way of generating regexes for imenu in Jamroot."
+    (list menu-title
+          (rx bol (literal rx-matcher)
+              (1+ whitespace) (group-n 1 (1+ (any alnum ?- ?_)))) 1))
+  (cl-defun --update-imenu ()
+    (require 'rx)
+    ;; Useful reference list:
+    ;; https://www.boost.org/build/tutorial.html#rule_reference
+
+    ;; certain regexes are already predefined. We remove them and redefine our
+    ;; own.
+    (setq-local imenu-generic-expression nil)
+    (add-to-list 'imenu-generic-expression
+                 (--jamroot-imenu-index-matcher "Aliases" "alias"))
+    (add-to-list 'imenu-generic-expression
+                 (--jamroot-imenu-index-matcher "Libraries" "lib"))
+    (add-to-list 'imenu-generic-expression
+                 (--jamroot-imenu-index-matcher "Executables" "exe"))
+    (add-to-list 'imenu-generic-expression
+                 (--jamroot-imenu-index-matcher "Install" "install"))
+    (add-to-list 'imenu-generic-expression
+                 (--jamroot-imenu-index-matcher "Rules" "rule"))
+    (add-to-list 'imenu-generic-expression
+                 (--jamroot-imenu-index-matcher "Actions" "actions"))
+    (add-to-list 'imenu-generic-expression
+                 (--jamroot-imenu-index-matcher "Explicit" "explicit")))
+  :hook
+  (jam-mode-hook . --update-imenu))
 
 (provide 'config-language)
