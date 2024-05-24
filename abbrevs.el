@@ -1,7 +1,7 @@
 ;;-*-coding: utf-8;-*-
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("FIle" "File" nil :count 10)
+    ("FIle" "File" nil :count 11)
     ("WIth" "With" nil :count 16)
     ("aand" "and" nil :count 3)
     ("abotu" "about" nil :count 2)
@@ -337,6 +337,7 @@
     ("ersult" "result" nil :count 2)
     ("escapre" "escape" nil :count 1)
     ("esier" "easier" nil :count 1)
+    ("espeically" "especially" nil :count 1)
     ("estabilhs" "establish" nil :count 2)
     ("establihs" "establish" nil :count 1)
     ("establihsment" "establishment" nil :count 1)
@@ -602,6 +603,7 @@
     ("maintenacne" "maintenance" nil :count 1)
     ("make_typle" "make_tuple" nil :count 1)
     ("makrdown" "markdown" nil :count 1)
+    ("makrdwon" "markdown" nil :count 1)
     ("malfunciton" "malfunction" nil :count 1)
     ("maned" "named" nil :count 1)
     ("manfiest" "manifest" nil :count 1)
@@ -609,7 +611,7 @@
     ("manipualtion" "manipulation" nil :count 1)
     ("manyu" "many" nil :count 1)
     ("markdonw" "markdown" nil :count 3)
-    ("markdwon" "markdown" nil :count 25)
+    ("markdwon" "markdown" nil :count 26)
     ("mathc" "match" nil :count 3)
     ("mayually" "manually" nil :count 1)
     ("mdoe" "mode" nil :count 2)
@@ -627,7 +629,7 @@
     ("mertge" "Merge" nil :count 1)
     ("mfoe" "more" nil :count 1)
     ("mghit" "might" nil :count 1)
-    ("mgiht" "might" nil :count 25)
+    ("mgiht" "might" nil :count 26)
     ("mihgt" "might" nil :count 3)
     ("minign" "mining" nil :count 2)
     ("mjigrate" "migrate" nil :count 1)
