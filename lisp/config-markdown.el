@@ -339,6 +339,9 @@ end of the selected heading."
 
 (with-eval-after-load 'config-evil-helpers
   (--evil-define-splits "nn" #'config-markdown-find-file)
+  (--evil-define-splits "nfi" #'(lambda () (interactive)
+                                  (config-markdown-find-file)
+                                  (consult-imenu)))
   (evil-ex-define-cmd "ni" #'config-markdown-insert-link-to-vault-file))
 
 (with-eval-after-load 'org-capture
