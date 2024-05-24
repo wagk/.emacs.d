@@ -7,6 +7,10 @@
   "Given a function that finds the appropriate buffer sets :{v,s,t,w} ex-cmd
 variants.
 
+Note that this is _not_ like `evil-ex-define-cmd' in the sense that it accepts a
+string as an alias. (Might be useful to consider as a feature in the future, but
+not something supported right now)
+
 \(COMMAND BUFFER-FN)"
   (require 'evil)
   (evil-ex-define-cmd command
