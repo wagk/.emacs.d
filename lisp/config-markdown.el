@@ -339,6 +339,7 @@ end of the selected heading."
 
 (with-eval-after-load 'config-evil-helpers
   (--evil-define-splits "nn" #'config-markdown-find-file)
+  (--evil-define-splits "nf" #'config-markdown-find-file)
   (--evil-define-splits "nfi" #'(lambda () (interactive)
                                   (config-markdown-find-file)
                                   (consult-imenu)))
