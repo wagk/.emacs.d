@@ -40,7 +40,7 @@
         "---\n"
         "aliases: []\n"
         "created: " (format-time-string "%F") "\n"
-        "summary: ~\n"
+        "summary: " (read-string "Summary [optional]: " nil nil "~") "\n"
         "tags: []\n"
         "---\n"
         "\n"
