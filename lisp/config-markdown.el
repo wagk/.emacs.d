@@ -400,19 +400,19 @@ should prepopulate."
                          (--capture-template-interesting :no-timestamp))))))))
 
 (with-eval-after-load 'evil
- (evil-ex-define-cmd "nd" #'(lambda () (interactive)
-                              (require 'org-capture)
-                              (require 'config-org-capture)
-                              (assert config-markdown-directories
-                                      t "markdown notes directory not set!")
-                              (find-file (config-markdown--find-files-named "Diary"))))
- (evil-ex-define-cmd "ndd" #'(lambda () (interactive)
+  (evil-ex-define-cmd "nd" #'(lambda () (interactive)
                                (require 'org-capture)
                                (require 'config-org-capture)
-                               (org-capture nil "ddd")))
- (evil-ex-define-cmd "ndf" #'(lambda () (interactive)
-                               (require 'org-capture)
-                               (require 'config-org-capture)
+                               (assert config-markdown-directories
+                                       t "markdown notes directory not set!")
+                               (find-file (config-markdown--find-files-named "Diary"))))
+  (evil-ex-define-cmd "ndd" #'(lambda () (interactive)
+                                 (require 'org-capture)
+                                 (require 'config-org-capture)
+                                 (org-capture nil "ddd")))
+  (evil-ex-define-cmd "ndf" #'(lambda () (interactive)
+                                (require 'org-capture)
+                                (require 'config-org-capture)
                                (org-capture nil "ddf"))))
 
 (with-eval-after-load 'rg
