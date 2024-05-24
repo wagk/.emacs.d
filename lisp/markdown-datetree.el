@@ -94,7 +94,7 @@
 (cl-defun markdown-datetree-find-datetree-year (&optional year)
   (interactive)
   (when (markdown-datetree-find-datetree-root)
-    (let* ((year (or (number-to-string year) (format-time-string "%Y")))
+    (let* ((year (if year (number-to-string year) (format-time-string "%Y")))
            (regex (markdown-datetree-specific-year-heading-regexp year)))
       (prog1 (re-search-forward regex nil :error)
         (end-of-line)))))
