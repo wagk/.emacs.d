@@ -161,7 +161,7 @@
 
   (with-eval-after-load 'config-evil-helpers
     (--evil-define-splits "readme" #'--project-find-readme)
-    (--evil-define-splits "pf" #'project-find-file)
+    (--evil-define-splits "pff" #'project-find-file)
     (--evil-define-splits "pd" #'project-dired)
     (--evil-define-splits "pdd" #'project-find-dir)
     (evil-ex-define-cmd "ps" #'(lambda () (interactive)
