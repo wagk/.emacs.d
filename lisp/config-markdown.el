@@ -34,17 +34,25 @@
         (call-interactively #'markdown-table-forward-cell)
       (indent-for-tab-command)))
 
+  (cl-defun --read-word-list (&optional &key (prompt "Words")
+                                        (func #'identity)
+                                        (split-separator ",")
+                                        (join-separator ", "))
+    "Reads a comma-separted input list and normalizes it.
+If FUNC is passed in then run func for each string in the list and concatenate
+the results."
+    (interactive)
+    (require 's)
+    (--> (read-string (format "%s [optional, \"%s\"-separated]: "
+                              prompt split-separator))
+        (s-split split-separator it :omit-nulls)
+        (mapcar #'s-trim it)
+        (mapcar (-partial #'s-replace " " "-") it)
+        (mapcar #'s-downcase it)
+        (mapcar func it)
+        (s-join join-separator it)))
+
   (with-eval-after-load 'autoinsert
-    (cl-defun --read-word-list (prompt)
-      "Reads a comma-separted input list and normalizes it."
-      (interactive)
-      (require 's)
-      (--> (read-string (format "%s [optional, comma-separated]: " prompt))
-          (s-split "," it :omit-nulls)
-          (mapcar #'s-trim it)
-          (mapcar (-partial #'s-replace " " "-") it)
-          (mapcar #'s-downcase it)
-          (s-join ", " it)))
     (define-auto-insert "\\.md\\'"
       '("Front matter"
         "---\n"
