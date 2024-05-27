@@ -443,7 +443,9 @@
     "Face used to describe time timestamps. Like hours and minutes."
     :group 'personal)
   (defconst --markdown-time-timestamp-regex
-    (rx (= 2 (any digit)) ":" (= 2 (any digit)) (* ":" (= 2 (any digit)))))
+    (rx (= 2 (any digit)) ":" (= 2 (any digit))
+        (* ":" (= 2 (any digit)))
+        (* " +" (= 4 (any digit)))))
 
   (defface --markdown-tag-face
     '((t (:weight light :inherit nano-faded)))

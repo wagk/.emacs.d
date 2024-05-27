@@ -368,7 +368,7 @@ should prepopulate."
   (cl-defun --datetree-capture-template ()
     (concat "%(--datetree-heading)\n"
             (--capture-template-interesting
-             :timestamp-format "%F %H:%M:%S\n")))
+             :timestamp-format "%F %H:%M:%S %z\n")))
   (setq org-capture-templates
         (doct-add-to
          org-capture-templates
