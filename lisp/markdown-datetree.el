@@ -140,7 +140,7 @@
       (unless (markdown-datetree-find-datetree-month)
         (setq heading (concat heading (format-time-string "### %Y-%m (%B)\n"))))
       (unless (markdown-datetree-find-datetree-day)
-        (setq heading (concat heading (format-time-string "#### %F\n")))))
+        (setq heading (concat heading (format-time-string "#### %F (%A)\n")))))
       ;; (unless (markdown-datetree-find-datetree-time)
       ;;   (setq heading (concat heading (format-time-string "##### %H:%M")))))
     heading))
