@@ -35,13 +35,23 @@
       (indent-for-tab-command)))
 
   (with-eval-after-load 'autoinsert
+    (cl-defun --read-word-list (prompt)
+      "Reads a comma-separted input list and normalizes it."
+      (interactive)
+      (require 's)
+      (--> (read-string (format "%s [optional, comma-separated]: " prompt))
+          (s-split "," it :omit-nulls)
+          (mapcar #'s-trim it)
+          (mapcar (-partial #'s-replace " " "-") it)
+          (mapcar #'s-downcase it)
+          (s-join ", " it)))
     (define-auto-insert "\\.md\\'"
       '("Front matter"
         "---\n"
-        "aliases: []\n"
+        "aliases: [" (--read-word-list "Aliases") "]\n"
         "created: " (format-time-string "%F") "\n"
         "summary: " (read-string "Summary [optional]: " nil nil "~") "\n"
-        "tags: []\n"
+        "tags: [" (--read-word-list "Tags") "]\n"
         "---\n"
         "\n"
         "# " (file-name-base (buffer-file-name)) "\n"
