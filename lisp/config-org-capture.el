@@ -122,7 +122,7 @@ Assumes Markdown formatting."
     (concat (when timestamp-format
               (format "%s" (format-time-string timestamp-format)))
             (when collect-tags
-              "%(--read-tags)")
+              " %(--read-tags)")
             "\n%?"
             (when region (concat (format "\n\nAt `%s`:\n" filepath-and-line)
                                  "```\n"
