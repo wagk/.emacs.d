@@ -52,6 +52,15 @@ the results."
         (mapcar func it)
         (s-join join-separator it)))
 
+  (cl-defun --read-tags ()
+    (--read-word-list :prompt "Tags"
+                      :join-separator " "
+                      :func #'(lambda (s)
+                                (require 's)
+                                (if (s-prefix-p "#" s)
+                                    s
+                                  (concat "#" s)))))
+
   (with-eval-after-load 'autoinsert
     (define-auto-insert "\\.md\\'"
       '("Front matter"
@@ -376,7 +385,8 @@ should prepopulate."
   (cl-defun --datetree-capture-template ()
     (concat "%(--datetree-heading)\n"
             (--capture-template-interesting
-             :timestamp-format "%F %H:%M:%S %z\n")))
+             :timestamp-format "%F %H:%M:%S %z\n"
+             :collect-tags t)))
   (setq org-capture-templates
         (doct-add-to
          org-capture-templates
