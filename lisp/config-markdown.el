@@ -375,6 +375,7 @@ end of the selected heading."
 (with-eval-after-load 'org-capture
   (require 'doct)
   (require 'config-org-capture)
+  (require 'markdown-datetree)
   (cl-defun --datetree-heading ()
     "Goes to the capture destination and figures out which datetree headers it
 should prepopulate."
@@ -394,18 +395,37 @@ should prepopulate."
             :keys "fh"
             :type plain
             :empty-lines-before 1
+            :contexts
+            ((:when config-markdown-directories))
             :function config-markdown--find-file-and-point
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
             :template "%?")
-           ("Datetree - File"
+           ("Datetree - Current File"
+            :keys "ddff"
+            :type plain
+            :empty-lines-before 1
+            :contexts
+            ((:when config-markdown-directories)
+             (:in-mode "gfm-mode")
+             (:in-mode "markdown-mode"))
+            :function
+            ,#'(lambda () 
+                 (markdown-datetree-find-instant)
+                 (outline-next-preface))
+            :after-finalize
+            ,#'--HACK-discard-last-stored-marker
+            :template
+            ,#'--datetree-capture-template)
+           ("Datetree - Select File"
             :keys "ddf"
             :type plain
             :empty-lines-before 1
+            :contexts
+            ((:when config-markdown-directories))
             :function
             ,#'(lambda ()
                  (interactive)
-                 (require 'markdown-datetree)
                  (config-markdown-find-file)
                  (markdown-datetree-find-instant)
                  (outline-next-preface))
@@ -417,10 +437,11 @@ should prepopulate."
             :keys "ddd"
             :type plain
             :empty-lines-before 1
+            :contexts
+            ((:when config-markdown-directories))
             :function
             ,#'(lambda ()
                  (interactive)
-                 (require 'markdown-datetree)
                  (assert config-markdown-directories
                          t "markdown notes directory not set!")
                  (find-file (config-markdown--find-files-named "Diary"))
@@ -441,6 +462,10 @@ should prepopulate."
                                  (require 'org-capture)
                                  (require 'config-org-capture)
                                  (org-capture nil "ddd")))
+  (evil-ex-define-cmd "nff" #'(lambda () (interactive)
+                                (require 'org-capture)
+                                (require 'config-org-capture)
+                                (org-capture nil "ddff")))
   (evil-ex-define-cmd "ndf" #'(lambda () (interactive)
                                 (require 'org-capture)
                                 (require 'config-org-capture)
