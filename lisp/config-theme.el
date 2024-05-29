@@ -280,8 +280,17 @@
   (set-face-attribute 'diff-removed nil
                       :foreground sol-red
                       :inherit 'nano-default)
+  (set-face-attribute 'diff-refine-changed nil
+                      :foreground 'unspecified
+                      :inherit 'diff-changed)
   (set-face-attribute 'diff-refine-removed nil
-                      :inherit 'diff-removed))
+                      :strike-through nil
+                      :background sol-red
+                      :inherit 'nano-default-i)
+  (set-face-attribute 'diff-refine-added nil
+                      :bold nil
+                      :background sol-green
+                      :inherit 'nano-default-i))
 
 (with-eval-after-load 'ediff
   (set-face-attribute 'ediff-current-diff-A nil
