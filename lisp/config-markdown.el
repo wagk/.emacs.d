@@ -364,8 +364,43 @@ end of the selected heading."
          url-encoded-file)
       (insert (concat "[" link-text "]" "(" url-encoded-file ")")))))
 
+(with-eval-after-load 'transient
+  (transient-define-prefix --markdown-do ()
+    "Transient organizing all the interesting markdown PKB commands."
+    [:description "Personal Knowledge Base Commands"
+     ["Find"
+      ("f" "Find File" config-markdown-find-file)
+      ("i" "Find File Heading"
+       (lambda () (interactive)
+         (config-markdown-find-file)
+         (consult-imenu)))
+      ("r" "Grep Folder"
+       (lambda () (interactive)
+         (require 'rg)
+         (command-execute #'config-markdown-search-in-notes)))]
+     ["Insert"
+      ("c i" "Insert link to file" config-markdown-insert-link-to-vault-file)]
+     ["Capture"
+      ("d f" "Datetime (File)"
+       (lambda () (interactive)
+         (require 'org-capture)
+         (require 'config-org-capture)
+         (org-capture nil "ddf")))
+      ("d d" "Datetime (Current File)"
+       (lambda () (interactive)
+         (require 'org-capture)
+         (require 'config-org-capture)
+         (org-capture nil "ddff")))
+      ("d a" "Datetime (Diary)"
+       (lambda () (interactive)
+         (require 'org-capture)
+         (require 'config-org-capture)
+         (org-capture nil "ddd")))]]))
+
 (with-eval-after-load 'config-evil-helpers
-  (--evil-define-splits "nn" #'config-markdown-find-file)
+  (evil-ex-define-cmd "nn" #'(lambda () (interactive)
+                               (require 'transient)
+                               (--markdown-do)))
   (--evil-define-splits "nf" #'config-markdown-find-file)
   (--evil-define-splits "nfi" #'(lambda () (interactive)
                                   (config-markdown-find-file)
