@@ -365,22 +365,32 @@ end of the selected heading."
       (insert (concat "[" link-text "]" "(" url-encoded-file ")")))))
 
 (with-eval-after-load 'transient
-  (transient-define-prefix --markdown-do ()
+  (transient-define-prefix --my-markdown-do ()
     "Transient organizing all the interesting markdown PKB commands."
     [:description "Personal Knowledge Base Commands"
      ["Find"
-      ("f" "Find File" config-markdown-find-file)
-      ("i" "Find File Heading"
+      ("f f" "Find File" config-markdown-find-file)
+      ("f i" "Find File Heading"
        (lambda () (interactive)
          (config-markdown-find-file)
          (consult-imenu)))
-      ("r" "Grep Folder"
+      ("f a" "Find Diary"
+       (lambda () (interactive)
+         (assert config-markdown-directories
+                 t "markdown notes directory not set!")
+         (find-file (config-markdown--find-files-named "Diary"))))
+      ("f r" "Grep Folder"
        (lambda () (interactive)
          (require 'rg)
          (command-execute #'config-markdown-search-in-notes)))]
      ["Insert"
-      ("c i" "Insert link to file" config-markdown-insert-link-to-vault-file)]
+      ("i i" "Insert link to file" config-markdown-insert-link-to-vault-file)]
      ["Capture"
+      ("d h" "Header (File)"
+       (lambda () (interactive)
+         (require 'org-capture)
+         (require 'config-org-capture)
+         (org-capture nil "fh")))
       ("d f" "Datetime (File)"
        (lambda () (interactive)
          (require 'org-capture)
@@ -400,7 +410,7 @@ end of the selected heading."
 (with-eval-after-load 'config-evil-helpers
   (evil-ex-define-cmd "nn" #'(lambda () (interactive)
                                (require 'transient)
-                               (--markdown-do)))
+                               (--my-markdown-do)))
   (--evil-define-splits "nf" #'config-markdown-find-file)
   (--evil-define-splits "nfi" #'(lambda () (interactive)
                                   (config-markdown-find-file)
