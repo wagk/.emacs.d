@@ -201,7 +201,12 @@
 
 (with-eval-after-load 'transient
   (transient-define-prefix --my-project-hotkeys ()
-    "Project related convenience bindings.")
+    "Project related convenience bindings."
+    [:description (lambda ()
+                    (format "Project: %s\n"
+                            (project-name (project-current))))
+     ["Find"
+      ("f" "Find file" project-find-file)]])
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "pp" #'--my-project-hotkeys)))
 
