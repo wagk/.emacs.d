@@ -374,8 +374,8 @@ Returns nil if it belongs to no vault."
 (with-eval-after-load 'transient
   (transient-define-prefix --my-markdown-do ()
     "Transient organizing all the interesting markdown PKB commands."
-    [:description "Personal Knowledge Base Commands"
-     ["Find"
+    [:description "Personal Knowledge Base Commands\n"
+     ["Find (in folder)"
       ("f f" "Find File" config-markdown-find-file)
       ("f i" "Find File Heading"
        (lambda () (interactive)
@@ -385,17 +385,16 @@ Returns nil if it belongs to no vault."
        (lambda () (interactive)
          (assert config-markdown-directories
                  t "markdown notes directory not set!")
-         (find-file (config-markdown--find-files-named "Diary"))))
-      ("f g" "Grep Folder"
+         (find-file (config-markdown--find-files-named "Diary"))))]
+     ["Grep (in folder)"
+      ("g g" "Grep Folder"
        (lambda () (interactive)
          (require 'rg)
          (command-execute #'config-markdown-search-in-notes)))
-      ("f t" "Grep TODOs in Folder"
+      ("g t" "Grep TODOs in Folder"
        (lambda () (interactive)
          (require 'rg)
          (command-execute #'config-markdown-search-todo-in-notes)))]
-     ["Insert"
-      ("i i" "Insert link to file" config-markdown-insert-link-to-vault-file)]
      ["Capture (Datetime)"
       ("d d" "Datetime (Current File)"
        (lambda () (interactive)
@@ -420,7 +419,10 @@ Returns nil if it belongs to no vault."
        (lambda () (interactive)
          (require 'org-capture)
          (require 'config-org-capture)
-         (org-capture nil "fh")))]]))
+         (org-capture nil "fh")))]
+     ["Insert"
+      ("i i" "Insert link to file" config-markdown-insert-link-to-vault-file)]]))
+
 
 (with-eval-after-load 'config-evil-helpers
   (evil-ex-define-cmd "nn" #'(lambda () (interactive)
