@@ -338,6 +338,15 @@ end of the selected heading."
           (goto-char (point-max))
         (config-markdown--find-heading-insertion-point :prepend)))))
 
+(cl-defun config-markdown-file-vault (filepath)
+  "Given a filepath, tries to find the vault it belongs to (inside
+  `config-markdown-directories').
+
+Returns nil if it belongs to no vault."
+  (cl-assert filepath)
+  (-find #'(lambda (vault) (f-ancestor-of-p vault filepath))
+         config-markdown-directories))
+
 (cl-defun config-markdown-insert-link-to-vault-file (&optional &key ref-link)
   "Insert a link to a file, relative to a vault folder as specified by
 `config-markdown-directories'."
@@ -345,10 +354,8 @@ end of the selected heading."
   (require 'dash)
   (require 'markdown-mode)
   (let* ((file (config-markdown--select-file-name
-                (-find #'(lambda (vault)
-                           (if-let ((buf (buffer-file-name)))
-                               (f-ancestor-of-p vault (buffer-file-name))))
-                       config-markdown-directories)))
+                (when (buffer-file-name)
+                  (config-markdown-file-vault (buffer-file-name)))))
          (file (file-relative-name file
                                    (-find #'(lambda (vault)
                                               (f-ancestor-of-p vault file))
