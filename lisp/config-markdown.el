@@ -379,10 +379,14 @@ end of the selected heading."
          (assert config-markdown-directories
                  t "markdown notes directory not set!")
          (find-file (config-markdown--find-files-named "Diary"))))
-      ("f r" "Grep Folder"
+      ("f g" "Grep Folder"
        (lambda () (interactive)
          (require 'rg)
-         (command-execute #'config-markdown-search-in-notes)))]
+         (command-execute #'config-markdown-search-in-notes)))
+      ("f t" "Grep TODOs in Folder"
+       (lambda () (interactive)
+         (require 'rg)
+         (command-execute #'config-markdown-search-todo-in-notes)))]
      ["Insert"
       ("i i" "Insert link to file" config-markdown-insert-link-to-vault-file)]
      ["Capture"
@@ -522,6 +526,11 @@ should prepopulate."
 
 (with-eval-after-load 'rg
   (rg-define-search config-markdown-search-in-notes
+    :files "everything"
+    :dir (config-markdown--select-directory))
+  (rg-define-search config-markdown-search-todo-in-notes
+    :format literal
+    :query "- [ ]"
     :files "everything"
     :dir (config-markdown--select-directory))
   (evil-ex-define-cmd "nr" 'config-markdown-search-in-notes))
