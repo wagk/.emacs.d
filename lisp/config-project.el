@@ -171,6 +171,14 @@
                                    (multi-vterm-project))))
     (evil-ex-define-cmd "pc" #'--compile-command-completing-read)
     (evil-ex-define-cmd "pcd" #'--compile-command-delete)
+    (--evil-define-splits "pcb"
+                          #'(lambda () (interactive)
+                              (let ((buf (cl-find-if
+                                          #'compilation-buffer-p
+                                          (project-buffers (project-current)))))
+                                (if buf
+                                    (project-switch-to-buffer buf)
+                                  (message "No project compilation buffer detected.")))))
     (evil-ex-define-cmd "pcc" #'(lambda ()
                                   (interactive)
                                   (let ((default-directory
