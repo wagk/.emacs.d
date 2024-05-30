@@ -199,4 +199,10 @@
      "g" 'rg-project
      "G" 'rg-project)))
 
+(with-eval-after-load 'transient
+  (transient-define-prefix --my-project-hotkeys ()
+    "Project related convenience bindings.")
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "pp" #'--my-project-hotkeys)))
+
 (provide 'config-project)
