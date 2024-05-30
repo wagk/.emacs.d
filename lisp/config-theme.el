@@ -276,6 +276,16 @@
   (set-face-attribute 'evil-ex-substitute-replacement nil
                       :foreground sol-red))
 
+(with-eval-after-load 'whitespace
+  (set-face-attribute 'whitespace-newline nil
+                      :foreground 'unspecified
+                      :inherit 'sol-light-foreground)
+  (set-face-attribute 'whitespace-space nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit '(sol-superlight-background
+                                 sol-light-foreground)))
+
 (with-eval-after-load 'diff
   (set-face-attribute 'diff-removed nil
                       :foreground sol-red
