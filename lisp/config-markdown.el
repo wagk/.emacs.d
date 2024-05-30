@@ -396,27 +396,31 @@ Returns nil if it belongs to no vault."
          (command-execute #'config-markdown-search-todo-in-notes)))]
      ["Insert"
       ("i i" "Insert link to file" config-markdown-insert-link-to-vault-file)]
-     ["Capture"
-      ("d h" "Header (File)"
+     ["Capture (Datetime)"
+      ("d d" "Datetime (Current File)"
        (lambda () (interactive)
          (require 'org-capture)
          (require 'config-org-capture)
-         (org-capture nil "fh")))
+         (org-capture nil "ddff"))
+       :if (lambda ()
+             (or (eq major-mode 'gfm-mode)
+                 (eq major-mode 'markdown-mode))))
       ("d f" "Datetime (File)"
        (lambda () (interactive)
          (require 'org-capture)
          (require 'config-org-capture)
          (org-capture nil "ddf")))
-      ("d d" "Datetime (Current File)"
-       (lambda () (interactive)
-         (require 'org-capture)
-         (require 'config-org-capture)
-         (org-capture nil "ddff")))
       ("d a" "Datetime (Diary)"
        (lambda () (interactive)
          (require 'org-capture)
          (require 'config-org-capture)
-         (org-capture nil "ddd")))]]))
+         (org-capture nil "ddd")))]
+     ["Capture (Header)"
+      ("h f" "Header (File)"
+       (lambda () (interactive)
+         (require 'org-capture)
+         (require 'config-org-capture)
+         (org-capture nil "fh")))]]))
 
 (with-eval-after-load 'config-evil-helpers
   (evil-ex-define-cmd "nn" #'(lambda () (interactive)
