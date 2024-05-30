@@ -402,8 +402,9 @@ Returns nil if it belongs to no vault."
          (require 'config-org-capture)
          (org-capture nil "ddff"))
        :if (lambda ()
-             (or (eq major-mode 'gfm-mode)
-                 (eq major-mode 'markdown-mode))))
+             (and (buffer-file-name)
+                  (or (eq major-mode 'gfm-mode)
+                      (eq major-mode 'markdown-mode)))))
       ("d f" "Datetime (File)"
        (lambda () (interactive)
          (require 'org-capture)
