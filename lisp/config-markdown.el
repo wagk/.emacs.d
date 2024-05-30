@@ -459,7 +459,7 @@ should prepopulate."
              (:in-mode "gfm-mode")
              (:in-mode "markdown-mode"))
             :function
-            ,#'(lambda () 
+            ,#'(lambda ()
                  (markdown-datetree-find-instant)
                  (outline-next-preface))
             :after-finalize
