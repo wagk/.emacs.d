@@ -265,6 +265,7 @@
     ("descriptino" "description" nil :count 1)
     ("descrives" "describes" nil :count 1)
     ("desing" "design" nil :count 11)
+    ("destionation" "destination" nil :count 1)
     ("detaisl" "details" nil :count 2)
     ("detemines" "determines" nil :count 1)
     ("detemrine" "determine" nil :count 1)
