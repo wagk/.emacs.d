@@ -238,7 +238,10 @@ Returns a string, or nil if there is no path associated with the buffer."
 (use-package imenu
   :ensure nil
   :custom
-  (imenu-auto-rescan t))
+  (imenu-auto-rescan t)
+  :config
+  (with-eval-after-load 'evil
+    (add-hook 'imenu-after-jump-hook #'evil-set-jump)))
 
 (use-package dired-imenu
   :after dired
