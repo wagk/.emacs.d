@@ -465,10 +465,7 @@
     "Refer to `gptel' for argument list."
     (require 's)
     (pcase-let ((`(,name ,a ,b ,c) args))
-      (unless (s-prefix-p "*" name)
-        (setq name (concat "*" name)))
-      (unless (s-suffix-p "*" name)
-        (setq name (concat name "*")))
+      (setq name (format "*<%s>%s*" gptel-model name))
       (list name a b c))))
 
 ;; https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/writing-tests.md
