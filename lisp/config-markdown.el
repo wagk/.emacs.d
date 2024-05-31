@@ -376,27 +376,21 @@ Returns nil if it belongs to no vault."
     "Transient organizing all the interesting markdown PKB commands."
     [:description "Personal Knowledge Base Commands\n"
      ["Find (in folder)"
-      ("f f" "Find File" config-markdown-find-file)
-      ("f i" "Find File Heading"
+      ("f f" "File" config-markdown-find-file)
+      ("f i" "File heading"
        (lambda () (interactive)
          (config-markdown-find-file)
          (consult-imenu)))
-      ("f a" "Find Diary"
+      ("f a" "Diary"
        (lambda () (interactive)
          (assert config-markdown-directories
                  t "markdown notes directory not set!")
          (find-file (config-markdown--find-files-named "Diary"))))]
-     ["Grep (in folder)"
-      ("g g" "Grep Folder"
-       (lambda () (interactive)
-         (require 'rg)
-         (command-execute #'config-markdown-search-in-notes)))
-      ("g t" "Grep TODOs in Folder"
-       (lambda () (interactive)
-         (require 'rg)
-         (command-execute #'config-markdown-search-todo-in-notes)))]
-     ["Capture (Datetime)"
-      ("d d" "Datetime (Current File)"
+     ["Insert"
+      ("i i" "Insert link to file" config-markdown-insert-link-to-vault-file)]]
+    ["Capture"
+     ["Into Datetime"
+      ("d d" "Current File"
        (lambda () (interactive)
          (require 'org-capture)
          (require 'config-org-capture)
@@ -405,24 +399,53 @@ Returns nil if it belongs to no vault."
              (and (buffer-file-name)
                   (or (eq major-mode 'gfm-mode)
                       (eq major-mode 'markdown-mode)))))
-      ("d f" "Datetime (File)"
+      ("d f" "File"
        (lambda () (interactive)
          (require 'org-capture)
          (require 'config-org-capture)
          (org-capture nil "ddf")))
-      ("d a" "Datetime (Diary)"
+      ("d a" "Diary"
        (lambda () (interactive)
          (require 'org-capture)
          (require 'config-org-capture)
          (org-capture nil "ddd")))]
-     ["Capture (Header)"
-      ("h f" "Header (File)"
+     ["Into Header"
+      ("h f" "File"
        (lambda () (interactive)
          (require 'org-capture)
          (require 'config-org-capture)
-         (org-capture nil "fh")))]
-     ["Insert"
-      ("i i" "Insert link to file" config-markdown-insert-link-to-vault-file)]]))
+         (org-capture nil "fh")))]]
+    ["Grep"
+     ["Anything"
+      ("g g" "In folder"
+       (lambda () (interactive)
+         (require 'rg)
+         (command-execute #'config-markdown-search-in-notes)))]
+     ["TODOs"
+      ("t t" "In this file"
+       (lambda () (interactive)
+         (require 'rg)
+         (rg-run "- [ ]" (file-relative-name
+                          (buffer-file-name))
+                 default-directory
+                 :literal))
+       :if (lambda ()
+             (and (buffer-file-name)
+                  (or (eq major-mode 'gfm-mode)
+                      (eq major-mode 'markdown-mode)))))
+      ("t f" "In file"
+       (lambda () (interactive)
+         (require 'rg)
+         (let* ((dir (config-markdown--select-directory))
+                (file (file-relative-name
+                       (config-markdown--select-file-name dir)
+                       dir)))
+           (rg-run "- [ ]" file dir :literal))))
+      ("t a" "In folder"
+       (lambda () (interactive)
+         (require 'rg)
+         (rg-run "- [ ]" "everything" (config-markdown--select-directory)
+                 :literal)))]]))
 
 
 (with-eval-after-load 'config-evil-helpers
@@ -540,11 +563,7 @@ should prepopulate."
 
 (with-eval-after-load 'rg
   (rg-define-search config-markdown-search-in-notes
-    :files "everything"
-    :dir (config-markdown--select-directory))
-  (rg-define-search config-markdown-search-todo-in-notes
-    :format literal
-    :query "- [ ]"
+    :query point
     :files "everything"
     :dir (config-markdown--select-directory))
   (evil-ex-define-cmd "nr" 'config-markdown-search-in-notes))
