@@ -269,9 +269,11 @@ not currently enforced."
       (setq file (file-name-with-extension file "md")))
     (file-name-concat dir file)))
 
-(cl-defun config-markdown--find-files-named (name)
+(cl-defun config-markdown--find-files-named (name &optional dir)
+  "Completing-read for a name of a file, relative to DIR.
+If there are multiple files, completing-read for one of them."
   (interactive)
-  (let* ((dir (config-markdown--select-directory))
+  (let* ((dir (or dir (config-markdown--select-directory)))
          (case-fold-search t)
          (files (mapcar (lambda (file)
                           (file-relative-name file dir))
