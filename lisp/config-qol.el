@@ -242,7 +242,6 @@
     (put-text-property 0 (length text) 'face 'nano-default text)
     text))
 
-
 (use-package engine-mode
   :commands defengine
   :after (evil general)
@@ -271,7 +270,19 @@
 (use-package persistent-scratch
   :ensure t
   :config
-  (persistent-scratch-setup-default))
+  (persistent-scratch-setup-default)
+  (with-eval-after-load 'context-transient
+    (context-transient-define scratch
+      :doc "Scratch buffer operations."
+      :buffer "*scratch*"
+      :menu
+      ["Persistent Scratch"
+       [("w" "Write" persistent-scratch-save)
+        ("e" "Read" persistent-scratch-restore)
+        ("n" "New buffer" persistent-scratch-new-backup)]
+       [("f w" "Write to file" persistent-scratch-save-to-file)
+        ("f e" "Read from file" persistent-scratch-restore-from-file)]])))
+
 
 (use-package link-hint
   :after general
