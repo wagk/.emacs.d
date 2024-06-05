@@ -109,15 +109,18 @@
 (cl-defun --point-to-file-and-line-number ()
   (interactive)
   (let* ((buf (--find-buffer-path))
-         (lines (if (not (use-region-p))
-                    (number-to-string (line-number-at-pos))
-                  (concat (save-excursion
-                            (goto-char (use-region-beginning))
-                            (number-to-string (line-number-at-pos)))
-                          "-"
-                          (save-excursion
-                            (goto-char (use-region-end))
-                            (number-to-string (line-number-at-pos))))))
+         (lines (if-let ((_ (use-region-p))
+                         (beg-line (save-excursion
+                                     (goto-char (use-region-beginning))
+                                     (line-number-at-pos)))
+                         (end-line (save-excursion
+                                     (goto-char (max (- (use-region-end) 1)
+                                                     (use-region-beginning)))
+                                     (line-number-at-pos)))
+                         (_ (not (eq beg-line end-line))))
+                    (concat (number-to-string beg-line) "-"
+                            (number-to-string end-line))
+                  (number-to-string (line-number-at-pos))))
          (name (concat buf ":" lines)))
     (if (not name)
         (user-error "Buffer not associated with any path.")
