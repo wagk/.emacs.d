@@ -383,7 +383,7 @@ Returns nil if it belongs to no vault."
        (lambda () (interactive)
          (config-markdown-find-file)
          (consult-imenu)))
-      ("f a" "Diary"
+      ("f a" "File diary"
        (lambda () (interactive)
          (assert config-markdown-directories
                  t "markdown notes directory not set!")
@@ -391,8 +391,8 @@ Returns nil if it belongs to no vault."
      ["Insert"
       ("i i" "Insert link to file" config-markdown-insert-link-to-vault-file)]]
     ["Capture"
-     ["Into Datetime"
-      ("d d" "Current File"
+     ["as Datetime"
+      ("d d" "into current file"
        (lambda () (interactive)
          (require 'org-capture)
          (require 'config-org-capture)
@@ -401,18 +401,18 @@ Returns nil if it belongs to no vault."
              (and (buffer-file-name)
                   (or (eq major-mode 'gfm-mode)
                       (eq major-mode 'markdown-mode)))))
-      ("d f" "File"
+      ("d f" "into a specific file"
        (lambda () (interactive)
          (require 'org-capture)
          (require 'config-org-capture)
          (org-capture nil "ddf")))
-      ("d a" "Diary"
+      ("d a" "into diary"
        (lambda () (interactive)
          (require 'org-capture)
          (require 'config-org-capture)
          (org-capture nil "ddd")))]
      ["Into Header"
-      ("h f" "File"
+      ("h f" "In file"
        (lambda () (interactive)
          (require 'org-capture)
          (require 'config-org-capture)
