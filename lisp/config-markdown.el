@@ -449,7 +449,6 @@ Returns nil if it belongs to no vault."
          (rg-run "- [ ]" "everything" (config-markdown--select-directory)
                  :literal)))]]))
 
-
 (with-eval-after-load 'config-evil-helpers
   (evil-ex-define-cmd "nn" #'(lambda () (interactive)
                                (require 'transient)
