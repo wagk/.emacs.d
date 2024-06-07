@@ -470,14 +470,15 @@
                        (visual-line-fill-column-mode 1)))
   :init
   (evil-ex-define-cmd "gptt" #'gptel-menu)
-  (--evil-define-splits "gpt" 'gptel)
-  :config
-  (define-advice gptel (:filter-args (args) --lint-dynamic-buffer-name)
-    "Refer to `gptel' for argument list."
-    (require 's)
-    (pcase-let ((`(,name ,a ,b ,c) args))
-      (setq name (format "*<%s>%s*" gptel-model name))
-      (list name a b c))))
+  (--evil-define-splits "gpt" 'gptel))
+  ;; :config
+  ;; (define-advice gptel (:filter-args (args) --lint-dynamic-buffer-name)
+  ;;   "Refer to `gptel' for argument list."
+  ;;   (require 's)
+  ;;   (pcase-let ((`(,name ,a ,b ,c) args))
+  ;;     (unless (s-contains-p (format "<")))
+  ;;     (setq name (format "*<%s>%s*" gptel-model name))
+  ;;     (list name a b c))))
 
 ;; https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/writing-tests.md
 ;; https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/running-tests.md
