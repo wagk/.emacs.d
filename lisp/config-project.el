@@ -206,7 +206,8 @@
                     (format "Project: %s\n"
                             (project-name (project-current))))
      ["Find"
-      ("f" "Find file" project-find-file)]])
+      ("f f" "Find file" project-find-file)
+      ("f d" "Directory" project-find-dir)]])
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "pp" #'--my-project-hotkeys)))
 
