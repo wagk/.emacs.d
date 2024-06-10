@@ -980,6 +980,7 @@
     ("transfomring" "transforming" nil :count 1)
     ("transformatinon" "transformation" nil :count 1)
     ("transinet" "transient" nil :count 5)
+    ("transisent" "transient" nil :count 1)
     ("tremling" "trembling" nil :count 1)
     ("treu" "True" nil :count 3)
     ("triat" "trait" nil :count 1)
