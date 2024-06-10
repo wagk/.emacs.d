@@ -234,14 +234,14 @@ If there is only one directory just return that."
                      config-markdown-directories
                      :require-match t))
 
-(cl-defun config-markdown--select-file-name (&optional default-vault)
+(cl-defun config-markdown--select-file-name (vault)
   "Search `config-markdown-directories' for files ending in `.md'.
 DEFAULT-VAULT should be an element of `config-markdown-directories', but it is
 not currently enforced."
-  (interactive)
+  (interactive (list (config-markdown--select-directory)))
+  (cl-assert vault)
   (require 'ht)
-  (let* ((dir (or default-vault
-                  (config-markdown--select-directory)))
+  (let* ((dir vault)
          (files (mapcar #'(lambda (file)
                             (file-relative-name file dir))
                         (directory-files-recursively dir "\\.md$")))
@@ -285,7 +285,10 @@ If there are multiple files, completing-read for one of them."
 (cl-defun config-markdown-find-file ()
   "Opens a markdown file in `config-markdown-directories'."
   (interactive)
-  (find-file (config-markdown--select-file-name)))
+  (require 'dash)
+  (-> (config-markdown--select-directory)
+      (config-markdown--select-file-name)
+      (find-file)))
 
 (cl-defun config-markdown--find-heading-insertion-point (style)
   "Assuming that we are in the appropriate heading, move point to either the top
@@ -356,8 +359,10 @@ Returns nil if it belongs to no vault."
   (require 'dash)
   (require 'markdown-mode)
   (let* ((file (config-markdown--select-file-name
-                (when (buffer-file-name)
-                  (config-markdown-file-vault (buffer-file-name)))))
+                (if-let ((buffer-name (buffer-file-name))
+                         (vault-name (config-markdown-file-vault buffer-name)))
+                    vault-name
+                  (config-markdown--select-directory))))
          (file (file-relative-name file
                                    (-find #'(lambda (vault)
                                               (f-ancestor-of-p vault file))
@@ -372,6 +377,8 @@ Returns nil if it belongs to no vault."
          (read-string "Link label: ")
          url-encoded-file)
       (insert (concat "[" link-text "]" "(" url-encoded-file ")")))))
+
+(cl-defun config-markdown--find-file-from-jira-ticket (vault))
 
 (with-eval-after-load 'transient
   (transient-define-prefix --my-markdown-do ()
