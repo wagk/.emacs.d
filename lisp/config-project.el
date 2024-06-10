@@ -211,4 +211,23 @@
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "pp" #'--my-project-hotkeys)))
 
+(defconst --jira-regex (rx (one-or-more upper) "-" (one-or-more digit)))
+
+(cl-defun --find-jira-ticket-in-line ()
+  "Find all JIRA IDs in the line."
+  (require 'thingatpt)
+  (let ((jira-regex --jira-regex)
+        (matches '()))
+    (save-excursion
+      (beginning-of-line)
+      (while (re-search-forward jira-regex (line-end-position) t)
+        (add-to-list 'matches (substring-no-properties (match-string 0))
+                     :append)))
+    (cond
+     ((length= matches 0) nil)
+     ((length= matches 1) (car matches))
+     (t (let ((orderless-matching-styles '(orderless-literal)))
+          (--completing-read "Jira ID: " matches
+                           :require-match t))))))
+
 (provide 'config-project)
