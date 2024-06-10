@@ -391,7 +391,7 @@
   :blackout t
   :custom
   (scopeline-overlay-prefix " -- ")
-  (scopeline-min-lines 0))
+  (scopeline-min-lines 10))
 
 ;; Don't forget to set =chatgpt-shell-openai-key= somewhere.
 (use-package chatgpt-shell

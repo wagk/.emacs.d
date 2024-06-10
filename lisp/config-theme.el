@@ -885,7 +885,7 @@
 
 (with-eval-after-load 'scopeline
   (set-face-attribute 'scopeline-face nil
-                      :inherit 'sol-superlight-foreground))
+                      :inherit 'sol-light-foreground))
 
 (with-eval-after-load 'dired-hacks
   (set-face-attribute 'dired-subtree-depth-1-face nil
