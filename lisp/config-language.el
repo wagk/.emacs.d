@@ -8,6 +8,8 @@
 (use-package elisp-mode
   :ensure nil
   :after evil
+  :custom
+  (lisp-indent-function #'common-lisp-indent-function)
   :init
   (cl-defun --update-emacs-lisp-mode-line-name ()
     "Lifted from the emacs-lisp define-derived-mode. With some edits to the face
