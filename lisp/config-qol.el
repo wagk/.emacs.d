@@ -143,6 +143,7 @@
 
 (use-package helpful
   :ensure (:host github :repo "Wilfred/helpful")
+  :after link-hint
   :general
   ("C-h k"   'helpful-key
    "C-h f"   'helpful-callable
@@ -162,7 +163,6 @@
                                   :require-match t)))
       (-> sym (intern) (helpful-symbol))))
   :config
-  (require 'link-hint)
   (general-define-key
    :keymaps 'helpful-mode-map
    :states 'normal
