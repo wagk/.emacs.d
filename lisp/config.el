@@ -1,5 +1,5 @@
 (setq user-full-name    "Pang Tun Jiang"
-      user-mail-address "mail@pangt.dev")
+      user-mail-address "mail@wagk.org")
 
 ;; buffer encoding systems
 ;; We do this here because the package system might need to know our preferences
