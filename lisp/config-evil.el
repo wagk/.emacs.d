@@ -173,7 +173,8 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
     ;;     (t (link-hint-open-link)))
     (general-define-key
      :states 'normal
-      "g x" #'link-hint-open-link))
+      "g x" #'link-hint-open-link
+      "g X" #'link-hint-copy-link))
       ;; "g x" #'--link-hint-browse-point-or-open-link))
 
   (evil-ex-define-cmd "vb[uffer]" 'my-evil-vsplit-buffer)
