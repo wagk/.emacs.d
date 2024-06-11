@@ -39,8 +39,10 @@
                                         (split-separator ",")
                                         (join-separator ", "))
     "Reads a comma-separted input list and normalizes it.
-If FUNC is passed in then run func for each string in the list and concatenate
-the results."
+
+If FUNC is passed in then run func for each string in the list.
+
+Finally, concatenate the results."
     (interactive)
     (require 's)
     (--> (read-string (format "%s [optional, \"%s\"-separated]: "
