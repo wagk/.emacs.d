@@ -417,7 +417,7 @@
 (with-eval-after-load 'markdown-mode
   (set-face-attribute 'markdown-metadata-key-face nil
                       :weight 'semi-light
-                      :inherit 'nano-default)
+                      :inherit 'nano-subtle)
   (set-face-attribute 'markdown-metadata-value-face nil
                       :weight 'semi-light
                       :inherit 'nano-default)
