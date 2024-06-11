@@ -46,6 +46,7 @@ the results."
     (--> (read-string (format "%s [optional, \"%s\"-separated]: "
                               prompt split-separator))
         (s-split split-separator it :omit-nulls)
+        (cl-remove-if #'s-blank-str-p it)
         (mapcar #'s-trim it)
         (mapcar (-partial #'s-replace " " "-") it)
         (mapcar #'s-downcase it)
