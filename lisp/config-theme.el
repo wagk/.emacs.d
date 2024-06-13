@@ -377,6 +377,9 @@
  (set-face-attribute 'magit-diff-hunk-heading nil
                      :bold t
                      :inherit 'nano-faded)
+ (set-face-attribute 'magit-keyword-squash nil
+                     :bold t
+                     :inherit 'nano-salient)
  (set-face-attribute 'magit-head nil
                      :bold t
                      :inherit 'nano-salient))
