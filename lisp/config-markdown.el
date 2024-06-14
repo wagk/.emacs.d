@@ -402,7 +402,7 @@ Returns nil if it belongs to no vault."
          (require 'config-org-capture)
          (org-capture nil "ddd")))]
      ["Into Header"
-      ("h f" "In file"
+      ("h f" "into file header"
        (lambda () (interactive)
          (require 'org-capture)
          (require 'config-org-capture)
