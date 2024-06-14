@@ -121,7 +121,28 @@ assume # starts a comment."
          (git-commit-setup-hook . --update-git-commit-comment-info)
          ;; evil-markdown-mode should fire after markdown-mode
          (git-commit-setup-hook . evil-markdown-mode)
-         (git-commit-setup-hook . gfm-mode)))
+         (git-commit-setup-hook . gfm-mode))
+  :config
+  (define-advice magit-log-propertize-keywords
+      (:override (_rev msg) handle-conventional-commits)
+    "https://github.com/magit/magit/issues/4027#issuecomment-1372397053"
+    (let ((boundary 0))
+      (when (string-match "^\\(?:squash\\|fixup\\)! " msg boundary)
+        (setq boundary (match-end 0))
+        (magit--put-face (match-beginning 0) (1- boundary)
+                         'magit-keyword-squash msg))
+      (when magit-log-highlight-keywords
+        ;; Case [...]
+        (while (string-match "\\[[^[]*?]" msg boundary)
+          (setq boundary (match-end 0))
+          (magit--put-face (match-beginning 0) boundary
+                           'magit-keyword msg))
+        ;; Conventional commits
+        (while (string-match "^\\(?:feat\\|fix\\|chore\\|docs\\|style\\|refactor\\|perf\\|test\\)\\(?:\\(?:[(].*[)]\\)\\|\\(?:!\\)\\)?:" msg boundary)
+          (setq boundary (match-end 0))
+          (magit--put-face (match-beginning 0) boundary
+                           'magit-keyword msg)))
+      msg)))
 
 (use-package magit-diff
   :ensure nil
