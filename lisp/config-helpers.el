@@ -45,6 +45,27 @@
     (cl-assert (bufferp buffer))
     buffer))
 
+(cl-defun --read-word-list (&optional &key (prompt "Words")
+                                      (func #'identity)
+                                      (split-separator ",")
+                                      (join-separator ", "))
+  "Reads a comma-separted input list and normalizes it.
+
+If FUNC is passed in then run func for each string in the list.
+
+Finally, concatenate the results."
+  (interactive)
+  (require 's)
+  (--> (read-string (format "%s [optional, \"%s\"-separated]: "
+                            prompt split-separator))
+      (s-split split-separator it :omit-nulls)
+      (cl-remove-if #'s-blank-str-p it)
+      (mapcar #'s-trim it)
+      (mapcar (-partial #'s-replace " " "-") it)
+      (mapcar #'s-downcase it)
+      (mapcar func it)
+      (s-join join-separator it)))
+
 ;; The best feature of notepad
 (defun --make-iso-8601-timestamp (with-hours)
   (insert (format-time-string (if with-hours "%FT%H%M" "%F"))))
