@@ -1,5 +1,7 @@
 (require 'use-package)
 (require 'config-theme)
+(require 'config-helpers)
+(require 'config-project) ;; jira stuff
 
 ;; If magit complains about not finding the config on windows, it's
 ;; because of [this issue], the easiest solution is to make a link.
@@ -74,7 +76,37 @@
 assume # starts a comment."
     (setq-local comment-start "#"
                 comment-end ""))
-  :hook ((git-commit-setup-hook . aggressive-fill-paragraph-mode)
+  (cl-defun --prepare-git-commit-message ()
+    "Prepopulates the commit message with stuff we want.
+- Captures git subject prefixes [0], if any.
+- Captures jira ticket from branch, if any.
+
+[0]: https://kernelnewbies.org/PatchTipsAndTricks"
+    (require 'dash)
+    (if-let (((--> (buffer-substring-no-properties
+                    (point-min) (point-max))
+                   (with-temp-buffer
+                     (insert it)
+                     (goto-char (point-min))
+                     ;; remove all lines starting with #
+                     (while (re-search-forward "^#.*\n?" nil t)
+                       (replace-match ""))
+                     (buffer-string))
+                   (string-match (rx (not (any whitespace))) it))))
+        (message "Commit buffer not empty. Discarding preparations.")
+      (let ((subject (--> (--read-word-list :prompt "Tags")
+                          (unless (string-empty-p it)
+                            (format "[%s]" it))))
+            (jira (let* ((branch (magit-get-current-branch)))
+                    (if-let ((point (string-match --jira-regex branch)))
+                        (match-string 0 branch)))))
+        (insert (pcase-exhaustive (list subject jira)
+                  (`(nil nil) "")
+                  (`(,s nil) (concat s ": "))
+                  (`(nil ,b) (concat b ": "))
+                  (`(,s ,b) (concat s " " b ": ")))))))
+  :hook ((git-commit-setup-hook . --prepare-git-commit-message)
+         (git-commit-setup-hook . aggressive-fill-paragraph-mode)
          ;; markdown-mode (which gfm-mode triggers hooks for) turns on
          ;; visual-line-fill-column-mode. For git commits we do not want that,
          ;; preferring aggressive-fill-paragraph-mode instead.
