@@ -105,7 +105,8 @@ assume # starts a comment."
                   (`(,s nil) (concat s ": "))
                   (`(nil ,b) (concat b ": "))
                   (`(,s ,b) (concat s " " b ": ")))))))
-  :hook ((git-commit-setup-hook . --prepare-git-commit-message)
+  :hook ((git-commit-setup-hook . evil-insert-state)
+         (git-commit-setup-hook . --prepare-git-commit-message)
          (git-commit-setup-hook . aggressive-fill-paragraph-mode)
          ;; markdown-mode (which gfm-mode triggers hooks for) turns on
          ;; visual-line-fill-column-mode. For git commits we do not want that,
