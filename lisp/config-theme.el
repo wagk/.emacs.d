@@ -287,9 +287,14 @@
                                  sol-light-foreground)))
 
 (with-eval-after-load 'diff
+  (set-face-attribute 'diff-context nil
+                      :inherit '(nano-default sol-superlight-background))
+  (set-face-attribute 'diff-added nil
+                      :foreground sol-green
+                      :inherit '(nano-default sol-superlight-background))
   (set-face-attribute 'diff-removed nil
                       :foreground sol-red
-                      :inherit 'nano-default)
+                      :inherit '(nano-default sol-superlight-background))
   (set-face-attribute 'diff-refine-changed nil
                       :foreground 'unspecified
                       :inherit 'diff-changed)
