@@ -166,7 +166,7 @@ Return nil if the front matter does not exist, or incorrectly delineated by
   (if-let ((raw-frontmatter (with-temp-buffer
                               (if (file-exists-p candidate)
                                   (insert-file-contents-literally candidate)
-                                "")
+                                nil)
                               (config-markdown-get-yaml-front-matter)))
            (frontmatter (condition-case err
                             (yaml-parse-string raw-frontmatter
