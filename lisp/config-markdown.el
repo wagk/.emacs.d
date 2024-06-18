@@ -440,9 +440,9 @@ Returns nil if it belongs to no vault."
                  :literal)))]]))
 
 (with-eval-after-load 'config-evil-helpers
-  (evil-ex-define-cmd "nn" #'(lambda () (interactive)
-                               (require 'transient)
-                               (--my-markdown-do)))
+  (--evil-define-splits "nn" #'(lambda () (interactive)
+                                 (require 'transient)
+                                 (--my-markdown-do)))
   (--evil-define-splits "nf" #'config-markdown-find-file)
   (--evil-define-splits "nfi" #'(lambda () (interactive)
                                   (config-markdown-find-file)
