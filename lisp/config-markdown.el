@@ -265,11 +265,11 @@ If there are multiple files, completing-read for one of them."
                                    :require-match t)))
     (file-name-concat dir diary)))
 
-(cl-defun config-markdown-find-file ()
+(cl-defun config-markdown-find-file (&optional vault)
   "Opens a markdown file in `config-markdown-directories'."
   (interactive)
   (require 'dash)
-  (-> (config-markdown--select-directory)
+  (-> (or vault (config-markdown--select-directory))
       (config-markdown--select-file-name)
       (find-file)))
 
