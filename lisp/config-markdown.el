@@ -115,7 +115,7 @@
   "Location of Markdown directories."
   :type '(list directory))
 
-(defvar config-markdown--current-vault nil
+(defvar config-markdown-active-vault nil
   "Last selected vault. Intended for transient use.")
 
 (defconst config-markdown-header-regexp
@@ -139,7 +139,7 @@ If there is only one directory just return that."
   (let ((dir (--completing-read "Directory: "
                                 config-markdown-directories
                                 :require-match t)))
-    (setq config-markdown--current-vault dir)
+    (setq config-markdown-active-vault dir)
     dir))
 
 ;; Lifted from `obsidian-get-yaml-front-matter'
@@ -373,32 +373,31 @@ Returns nil if it belongs to no vault."
   ;;   :description "Default markdown vault"
   ;;   :class 'transient-option
   ;;   ;; :class 'transient-lisp-variable
-  ;;   ;; :variable 'config-markdown--current-vault
+  ;;   ;; :variable 'config-markdown-active-vault
   ;;   :argument "--vault="
   ;;   :key "v"
   ;;   ;; :unsavable nil
   ;;   ;; :always-read nil
   ;;   :allow-empty nil
   ;;   ;; used for `transient-history'
-  ;;   ;; :history-key 'config-markdown--current-vault
+  ;;   ;; :history-key 'config-markdown-active-vault
   ;;   :reader
   ;;   (lambda (_prompt _initial-input _history)
   ;;     (config-markdown-select-directory))
   ;;   :init-value
   ;;   (lambda (obj)
-  ;;     (oset obj value (or config-markdown--current-vault
+  ;;     (oset obj value (or config-markdown-active-vault
   ;;                         (car config-markdown-directories)))))
 
-  (transient-define-infix --set-current-vault ()
+  (transient-define-infix --set-active-vault ()
     :class 'transient-lisp-variable
     :key "v"
     :description "Active Vault:"
-    :variable 'config-markdown--current-vault
+    :variable 'config-markdown-active-vault
     :allow-empty nil
     :init-value
     (lambda (obj)
-      (oset obj value (or config-markdown--current-vault
-                          (car config-markdown-directories))))
+      (oset obj value config-markdown-active-vault))
     :reader
     (lambda (_prompt _initial-input _history)
       ;; we internally track the variable instead of doing it via transient
@@ -416,16 +415,16 @@ Returns nil if it belongs to no vault."
   (transient-define-prefix --my-markdown-do ()
     "Transient organizing all the interesting markdown PKB commands."
     ["Configuration"
-      (--set-current-vault)]
+      (--set-active-vault)]
     [:description "Personal Knowledge Base Commands\n"
      ["Find (in folder)"
       ("f f" "File"
        (lambda () (interactive)
-         (config-markdown-find-file config-markdown--current-vault)))
+         (config-markdown-find-file config-markdown-active-vault)))
       ("f i" "File heading"
        (lambda () (interactive)
          (config-markdown-find-file
-          config-markdown--current-vault)
+          config-markdown-active-vault)
          (consult-imenu)))
       ("f a" "File diary"
        (lambda () (interactive)
@@ -433,7 +432,7 @@ Returns nil if it belongs to no vault."
                  t "markdown notes directory not set!")
          (find-file (config-markdown--find-files-named
                      "Diary"
-                     config-markdown--current-vault))))]
+                     config-markdown-active-vault))))]
      ["Insert"
       ("i i" "Insert link to file" config-markdown-insert-link-to-vault-file)]]
     ["Capture"
@@ -471,7 +470,7 @@ Returns nil if it belongs to no vault."
          ;; copied from macroexpanded `rg-define-search'
          (rg-run (or (rg-tag-default) (rg-read-pattern nil))
                  "everything"
-                 (or config-markdown--current-vault
+                 (or config-markdown-active-vault
                      (config-markdown-select-directory))
                  :literal)))]
      ["TODOs"
@@ -491,13 +490,13 @@ Returns nil if it belongs to no vault."
          (require 'rg)
          (let* ((file (file-relative-name
                        (config-markdown-select-file-name
-                        config-markdown--current-vault)
+                        config-markdown-active-vault)
                        dir)))
            (rg-run "- [ ]" file dir :literal))))
       ("t a" "Any To Dos in project"
        (lambda () (interactive)
          (require 'rg)
-         (rg-run "- [ ]" "everything" (or config-markdown--current-vault
+         (rg-run "- [ ]" "everything" (or config-markdown-active-vault
                                           (config-markdown-select-directory))
                  :literal)))]]))
 
@@ -540,7 +539,7 @@ should prepopulate."
             :function
             ,#'(lambda () (interactive)
                  (config-markdown--find-file-and-point
-                  (config-markdown-find-file config-markdown--current-vault)))
+                  (config-markdown-find-file config-markdown-active-vault)))
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
             :template "%?")
@@ -570,7 +569,7 @@ should prepopulate."
             ,#'(lambda ()
                  (interactive)
                  (config-markdown-find-file
-                  config-markdown--current-vault)
+                  config-markdown-active-vault)
                  (markdown-datetree-find-instant)
                  (outline-next-preface))
             :after-finalize
@@ -590,7 +589,7 @@ should prepopulate."
                          t "markdown notes directory not set!")
                  (find-file (config-markdown--find-files-named
                              "Diary"
-                             config-markdown--current-vault))
+                             config-markdown-active-vault))
                  (markdown-datetree-find-instant)
                  (outline-next-preface))
             :after-finalize
@@ -605,7 +604,7 @@ should prepopulate."
                                        t "markdown notes directory not set!")
                                (find-file (config-markdown--find-files-named
                                            "Diary"
-                                           config-markdown--current-vault))))
+                                           config-markdown-active-vault))))
   (evil-ex-define-cmd "ndd" #'(lambda () (interactive)
                                  (require 'org-capture)
                                  (require 'config-org-capture)
