@@ -344,8 +344,8 @@ Returns a string, or nil if there is no path associated with the buffer."
 (use-package ediff
   :ensure nil
   :custom
-  (ediff-split-window-function 'split-window-vertically)
-  (ediff-merge-split-window-function 'split-window-vertically)
+  (ediff-split-window-function 'split-window-horizontally)
+  (ediff-merge-split-window-function 'split-window-horizontally)
   (ediff-window-setup-function 'ediff-setup-windows-plain))
 
 (use-package calendar
