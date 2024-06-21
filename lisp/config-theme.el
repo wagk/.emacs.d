@@ -286,6 +286,11 @@
                       :inherit '(sol-superlight-background
                                  sol-light-foreground)))
 
+(with-eval-after-load 'eshell
+  (set-face-attribute 'eshell-prompt nil
+                      :foreground 'unspecified
+                      :inherit 'nano-salient))
+
 (with-eval-after-load 'diff
   (set-face-attribute 'diff-context nil
                       :inherit '(nano-default sol-superlight-background))
