@@ -488,9 +488,10 @@ Returns nil if it belongs to no vault."
       ("t f" "In file"
        (lambda () (interactive)
          (require 'rg)
-         (let* ((file (file-relative-name
-                       (config-markdown-select-file-name
-                        config-markdown-active-vault)
+         (let* ((dir (or config-markdown-active-vault
+                         (config-markdown-select-directory)))
+                (file (file-relative-name
+                       (config-markdown-select-file-name dir)
                        dir)))
            (rg-run "- [ ]" file dir :literal))))
       ("t a" "Any To Dos in project"
