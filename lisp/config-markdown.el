@@ -222,7 +222,7 @@ Return nil if the front matter does not exist, or incorrectly delineated by
 (cl-defun config-markdown--select-file-affixation-function (cand-list)
   ":affixation-function for file selection")
 
-(cl-defun config-markdown--select-file-name (vault)
+(cl-defun config-markdown-select-file-name (vault)
   "Search `config-markdown-directories' for files ending in `.md'.
 DEFAULT-VAULT should be an element of `config-markdown-directories', but it is
 not currently enforced."
@@ -275,7 +275,7 @@ If there are multiple files, completing-read for one of them."
   (interactive)
   (require 'dash)
   (-> (or vault (config-markdown-select-directory))
-      (config-markdown--select-file-name)
+      (config-markdown-select-file-name)
       (find-file)))
 
 (cl-defun config-markdown--find-heading-insertion-point (style)
@@ -346,7 +346,7 @@ Returns nil if it belongs to no vault."
   (interactive)
   (require 'dash)
   (require 'markdown-mode)
-  (let* ((file (config-markdown--select-file-name
+  (let* ((file (config-markdown-select-file-name
                 (if-let ((buffer-name (buffer-file-name))
                          (vault-name (config-markdown-file-vault buffer-name)))
                     vault-name
@@ -465,7 +465,7 @@ Returns nil if it belongs to no vault."
          (require 'rg)
          (let* ((dir (config-markdown-select-directory))
                 (file (file-relative-name
-                       (config-markdown--select-file-name dir)
+                       (config-markdown-select-file-name dir)
                        dir)))
            (rg-run "- [ ]" file dir :literal))))
       ("t a" "In folder"
