@@ -369,8 +369,38 @@ Returns nil if it belongs to no vault."
 (cl-defun config-markdown--find-file-from-jira-ticket (vault))
 
 (with-eval-after-load 'transient
+  ;; (transient-define-infix --selected-markdown-vault ()
+  ;;   :description "Default markdown vault"
+  ;;   :class 'transient-option
+  ;;   ;; :class 'transient-lisp-variable
+  ;;   ;; :variable 'config-markdown--current-vault
+  ;;   :argument "--vault="
+  ;;   :key "v"
+  ;;   ;; :unsavable nil
+  ;;   ;; :always-read nil
+  ;;   :allow-empty nil
+  ;;   ;; used for `transient-history'
+  ;;   ;; :history-key 'config-markdown--current-vault
+  ;;   :reader
+  ;;   (lambda (_prompt _initial-input _history)
+  ;;     (config-markdown--select-directory))
+  ;;   :init-value
+  ;;   (lambda (obj)
+  ;;     (oset obj value (or config-markdown--current-vault
+  ;;                         (car config-markdown-directories)))))
+
+  ;; (transient-define-suffix --markdown-find-file-from-transient ()
+  ;;   "Should strongly consider refactoring things here now."
+  ;;   (interactive)
+  ;;   (let ((vault (transient-arg-value
+  ;;                 "--vault="
+  ;;                 (transient-args transient-current-command))))
+  ;;     (config-markdown-find-file vault)))
+
   (transient-define-prefix --my-markdown-do ()
     "Transient organizing all the interesting markdown PKB commands."
+    ;; ["testconfig"
+    ;;   (--selected-markdown-vault)]
     [:description "Personal Knowledge Base Commands\n"
      ["Find (in folder)"
       ("f f" "File" config-markdown-find-file)
