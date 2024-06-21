@@ -389,6 +389,22 @@ Returns nil if it belongs to no vault."
   ;;     (oset obj value (or config-markdown--current-vault
   ;;                         (car config-markdown-directories)))))
 
+  (transient-define-infix --set-current-vault ()
+    :class 'transient-lisp-variable
+    :key "v"
+    :description "Active Vault:"
+    :variable 'config-markdown--current-vault
+    :allow-empty nil
+    :init-value
+    (lambda (obj)
+      (oset obj value (or config-markdown--current-vault
+                          (car config-markdown-directories))))
+    :reader
+    (lambda (_prompt _initial-input _history)
+      ;; we internally track the variable instead of doing it via transient
+      ;; transient doesn't do anything here actually.
+      (config-markdown-select-directory)))
+
   ;; (transient-define-suffix --markdown-find-file-from-transient ()
   ;;   "Should strongly consider refactoring things here now."
   ;;   (interactive)
@@ -399,20 +415,25 @@ Returns nil if it belongs to no vault."
 
   (transient-define-prefix --my-markdown-do ()
     "Transient organizing all the interesting markdown PKB commands."
-    ;; ["testconfig"
-    ;;   (--selected-markdown-vault)]
+    ["Configuration"
+      (--set-current-vault)]
     [:description "Personal Knowledge Base Commands\n"
      ["Find (in folder)"
-      ("f f" "File" config-markdown-find-file)
+      ("f f" "File"
+       (lambda () (interactive)
+         (config-markdown-find-file config-markdown--current-vault)))
       ("f i" "File heading"
        (lambda () (interactive)
-         (config-markdown-find-file)
+         (config-markdown-find-file
+          config-markdown--current-vault)
          (consult-imenu)))
       ("f a" "File diary"
        (lambda () (interactive)
          (assert config-markdown-directories
                  t "markdown notes directory not set!")
-         (find-file (config-markdown--find-files-named "Diary"))))]
+         (find-file (config-markdown--find-files-named
+                     "Diary"
+                     config-markdown--current-vault))))]
      ["Insert"
       ("i i" "Insert link to file" config-markdown-insert-link-to-vault-file)]]
     ["Capture"
@@ -444,10 +465,15 @@ Returns nil if it belongs to no vault."
          (org-capture nil "fh")))]]
     ["Grep"
      ["Anything"
-      ("g g" "In folder"
+      ("g g" "Anything in project"
        (lambda () (interactive)
          (require 'rg)
-         (command-execute #'config-markdown-search-in-notes)))]
+         ;; copied from macroexpanded `rg-define-search'
+         (rg-run (or (rg-tag-default) (rg-read-pattern nil))
+                 "everything"
+                 (or config-markdown--current-vault
+                     (config-markdown-select-directory))
+                 :literal)))]
      ["TODOs"
       ("t t" "In this file"
        (lambda () (interactive)
@@ -463,15 +489,16 @@ Returns nil if it belongs to no vault."
       ("t f" "In file"
        (lambda () (interactive)
          (require 'rg)
-         (let* ((dir (config-markdown-select-directory))
-                (file (file-relative-name
-                       (config-markdown-select-file-name dir)
+         (let* ((file (file-relative-name
+                       (config-markdown-select-file-name
+                        config-markdown--current-vault)
                        dir)))
            (rg-run "- [ ]" file dir :literal))))
-      ("t a" "In folder"
+      ("t a" "Any To Dos in project"
        (lambda () (interactive)
          (require 'rg)
-         (rg-run "- [ ]" "everything" (config-markdown-select-directory)
+         (rg-run "- [ ]" "everything" (or config-markdown--current-vault
+                                          (config-markdown-select-directory))
                  :literal)))]]))
 
 (with-eval-after-load 'config-evil-helpers
@@ -509,7 +536,11 @@ should prepopulate."
             :empty-lines-before 1
             :contexts
             ((:when config-markdown-directories))
-            :function config-markdown--find-file-and-point
+            ;; :function config-markdown--find-file-and-point
+            :function
+            ,#'(lambda () (interactive)
+                 (config-markdown--find-file-and-point
+                  (config-markdown-find-file config-markdown--current-vault)))
             :after-finalize
             ,#'--HACK-discard-last-stored-marker
             :template "%?")
@@ -538,7 +569,8 @@ should prepopulate."
             :function
             ,#'(lambda ()
                  (interactive)
-                 (config-markdown-find-file)
+                 (config-markdown-find-file
+                  config-markdown--current-vault)
                  (markdown-datetree-find-instant)
                  (outline-next-preface))
             :after-finalize
@@ -556,7 +588,9 @@ should prepopulate."
                  (interactive)
                  (assert config-markdown-directories
                          t "markdown notes directory not set!")
-                 (find-file (config-markdown--find-files-named "Diary"))
+                 (find-file (config-markdown--find-files-named
+                             "Diary"
+                             config-markdown--current-vault))
                  (markdown-datetree-find-instant)
                  (outline-next-preface))
             :after-finalize
@@ -569,7 +603,9 @@ should prepopulate."
                                (require 'config-org-capture)
                                (assert config-markdown-directories
                                        t "markdown notes directory not set!")
-                               (find-file (config-markdown--find-files-named "Diary"))))
+                               (find-file (config-markdown--find-files-named
+                                           "Diary"
+                                           config-markdown--current-vault))))
   (evil-ex-define-cmd "ndd" #'(lambda () (interactive)
                                  (require 'org-capture)
                                  (require 'config-org-capture)
