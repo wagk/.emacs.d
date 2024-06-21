@@ -115,6 +115,9 @@
   "Location of Markdown directories."
   :type '(list directory))
 
+(defvar config-markdown--current-vault nil
+  "Last selected vault. Intended for transient use.")
+
 (defconst config-markdown-header-regexp
   (rx bol
       (group-n 1 (one-or-more "#"))
@@ -128,6 +131,16 @@ Capture groups:
 - 2: The contents of the header.
 
 Accounts for trailing whitespace.")
+
+(cl-defun config-markdown--select-directory ()
+  "Select a directory from `config-markdown-directories'.
+If there is only one directory just return that."
+  (interactive)
+  (let ((dir (--completing-read "Directory: "
+                                config-markdown-directories
+                                :require-match t)))
+    (setq config-markdown--current-vault dir)
+    dir))
 
 ;; Lifted from `obsidian-get-yaml-front-matter'
 (cl-defun config-markdown-buffer-yaml-front-matter (s)
@@ -208,14 +221,6 @@ Return nil if the front matter does not exist, or incorrectly delineated by
 
 (cl-defun config-markdown--select-file-affixation-function (cand-list)
   ":affixation-function for file selection")
-
-(cl-defun config-markdown--select-directory ()
-  "Select a directory from `config-markdown-directories'.
-If there is only one directory just return that."
-  (interactive)
-  (--completing-read "Directory: "
-                     config-markdown-directories
-                     :require-match t))
 
 (cl-defun config-markdown--select-file-name (vault)
   "Search `config-markdown-directories' for files ending in `.md'.
