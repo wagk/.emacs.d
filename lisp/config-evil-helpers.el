@@ -201,7 +201,8 @@ not something supported right now)
     :files "elisp"
     :query ask
     :dir user-lisp-dir)
-  (evil-ex-define-cmd "lr" #'--rg-search-lisp))
+  (evil-ex-define-cmd "lr" #'--rg-search-lisp)
+  (evil-ex-define-cmd "rl" "lr"))
 (--evil-define-splits "ll" #'--select-config-lisp-file)
 
 (cl-defun --select-lisp-config-root-file ()
