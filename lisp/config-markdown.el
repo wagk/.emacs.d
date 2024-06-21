@@ -132,7 +132,7 @@ Capture groups:
 
 Accounts for trailing whitespace.")
 
-(cl-defun config-markdown--select-directory ()
+(cl-defun config-markdown-select-directory ()
   "Select a directory from `config-markdown-directories'.
 If there is only one directory just return that."
   (interactive)
@@ -226,7 +226,7 @@ Return nil if the front matter does not exist, or incorrectly delineated by
   "Search `config-markdown-directories' for files ending in `.md'.
 DEFAULT-VAULT should be an element of `config-markdown-directories', but it is
 not currently enforced."
-  (interactive (list (config-markdown--select-directory)))
+  (interactive (list (config-markdown-select-directory)))
   (cl-assert vault)
   (require 'ht)
   (let* ((dir vault)
@@ -261,7 +261,7 @@ not currently enforced."
   "Completing-read for a name of a file, relative to DIR.
 If there are multiple files, completing-read for one of them."
   (interactive)
-  (let* ((dir (or dir (config-markdown--select-directory)))
+  (let* ((dir (or dir (config-markdown-select-directory)))
          (case-fold-search t)
          (files (mapcar (lambda (file)
                           (file-relative-name file dir))
@@ -274,7 +274,7 @@ If there are multiple files, completing-read for one of them."
   "Opens a markdown file in `config-markdown-directories'."
   (interactive)
   (require 'dash)
-  (-> (or vault (config-markdown--select-directory))
+  (-> (or vault (config-markdown-select-directory))
       (config-markdown--select-file-name)
       (find-file)))
 
@@ -350,7 +350,7 @@ Returns nil if it belongs to no vault."
                 (if-let ((buffer-name (buffer-file-name))
                          (vault-name (config-markdown-file-vault buffer-name)))
                     vault-name
-                  (config-markdown--select-directory))))
+                  (config-markdown-select-directory))))
          (file (file-relative-name file
                                    (-find #'(lambda (vault)
                                               (f-ancestor-of-p vault file))
@@ -383,7 +383,7 @@ Returns nil if it belongs to no vault."
   ;;   ;; :history-key 'config-markdown--current-vault
   ;;   :reader
   ;;   (lambda (_prompt _initial-input _history)
-  ;;     (config-markdown--select-directory))
+  ;;     (config-markdown-select-directory))
   ;;   :init-value
   ;;   (lambda (obj)
   ;;     (oset obj value (or config-markdown--current-vault
@@ -463,7 +463,7 @@ Returns nil if it belongs to no vault."
       ("t f" "In file"
        (lambda () (interactive)
          (require 'rg)
-         (let* ((dir (config-markdown--select-directory))
+         (let* ((dir (config-markdown-select-directory))
                 (file (file-relative-name
                        (config-markdown--select-file-name dir)
                        dir)))
@@ -471,7 +471,7 @@ Returns nil if it belongs to no vault."
       ("t a" "In folder"
        (lambda () (interactive)
          (require 'rg)
-         (rg-run "- [ ]" "everything" (config-markdown--select-directory)
+         (rg-run "- [ ]" "everything" (config-markdown-select-directory)
                  :literal)))]]))
 
 (with-eval-after-load 'config-evil-helpers
@@ -591,7 +591,7 @@ should prepopulate."
   (rg-define-search config-markdown-search-in-notes
     :query point
     :files "everything"
-    :dir (config-markdown--select-directory))
+    :dir (config-markdown-select-directory))
   (evil-ex-define-cmd "nr" 'config-markdown-search-in-notes))
 
 ;; Personal notes and the like
