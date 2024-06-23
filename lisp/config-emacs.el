@@ -170,12 +170,6 @@ Returns a string, or nil if there is no path associated with the buffer."
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "repl" 'ielm)))
 
-(use-package doctor
-  :ensure nil
-  :init
-  (with-eval-after-load 'evil
-    (evil-ex-define-cmd "doc[tor]" 'doctor)))
-
 (use-package savehist
   :ensure nil
   :custom
