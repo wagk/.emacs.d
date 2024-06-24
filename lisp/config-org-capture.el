@@ -123,11 +123,11 @@ Assumes Markdown formatting."
               (format "%s" (format-time-string timestamp-format)))
             (when collect-tags
               " %(--read-tags)")
-            "\n%?"
-            (when region (concat (format "\n\nAt `%s`:\n" filepath-and-line)
+            (when region (concat (format "\nAt `%s`:\n" filepath-and-line)
                                  "```\n"
                                  region
-                                 "```")))))
+                                 "```"))
+            "\n\n%?")))
 
 (cl-defun --HACK-discard-last-stored-marker ()
   "Org assumes that the capture will be done inside an `org' buffer and
