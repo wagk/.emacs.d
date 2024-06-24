@@ -744,15 +744,15 @@
                       :foreground 'unspecified
                       :inherit 'nano-default-i)
   (set-face-attribute 'avy-lead-face-0 nil
-                      :background sol-magenta
-                      :foreground 'unspecified
-                      :inherit 'nano-default-i)
-  (set-face-attribute 'avy-lead-face-1 nil
                       :background sol-violet
                       :foreground 'unspecified
                       :inherit 'nano-default-i)
+  (set-face-attribute 'avy-lead-face-1 nil
+                      :background sol-cyan
+                      :foreground 'unspecified
+                      :inherit 'nano-default-i)
   (set-face-attribute 'avy-lead-face-2 nil
-                      :background sol-blue
+                      :background sol-green
                       :foreground 'unspecified
                       :inherit 'nano-default-i))
 
