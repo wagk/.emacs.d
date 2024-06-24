@@ -683,6 +683,13 @@
                       :inherit 'wgrep-face
                       :strike-through t))
 
+(with-eval-after-load 'gptel
+  (set-face-attribute 'gptel-context-deletion-face nil
+                      :foreground sol-red
+                      :background 'unspecified)
+  (set-face-attribute 'gptel-context-highlight-face nil
+                      :inherit 'nano-salient))
+
 (with-eval-after-load 'compile
   (set-face-attribute 'compilation-mode-line-run nil
                       :background 'unspecified
