@@ -423,7 +423,7 @@ Returns a string, or nil if there is no path associated with the buffer."
     (transient-define-prefix --tab-bar ()
       "Transient for tab-bar related commands"
       [["Search"
-        ("t" "Select by name" tab-bar-select-tab-by-name)]])
+        ("t" "Select tab by name" tab-bar-select-tab-by-name)]])
     (evil-ex-define-cmd "tt" '--tab-bar)))
 
 
