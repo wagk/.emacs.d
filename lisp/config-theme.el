@@ -798,6 +798,15 @@
                       :weight 'normal
                       :inherit 'sol-light-foreground))
 
+(with-eval-after-load 'lsp-ui-imenu
+  (cl-defun --update-lsp-ui-imenu-colors ()
+    (setq lsp-ui-imenu-colors
+                      (list
+                       (plist-get
+                        (custom-face-attributes-get 'nano-default nil)
+                        :foreground))))
+  (add-hook 'lsp-ui-imenu-mode-hook #'--update-lsp-ui-imenu-colors))
+
 (with-eval-after-load 'lsp-ui-peek
   (set-face-attribute 'lsp-ui-peek-peek nil
                       :foreground 'unspecified
