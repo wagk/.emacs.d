@@ -300,4 +300,9 @@ assume # starts a comment."
   :config
   (global-blamer-mode))
 
+(use-package diff-hl
+  :ensure t
+  :config
+  (global-diff-hl-amend-mode))
+
 (provide 'config-git)

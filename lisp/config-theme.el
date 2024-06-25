@@ -134,9 +134,33 @@
   "Somewhat light foreground coloring"
   :group 'personal)
 
+(defface sol-light-background
+  `((((background light)) (:background ,sol-base1))
+    (((background dark)) (:background ,sol-base01)))
+  "Somewhat light background coloring"
+  :group 'personal)
+
+(defface sol-light-background-i
+  `((((background dark)) (:background ,sol-base1))
+    (((background light)) (:background ,sol-base01)))
+  "Somewhat light background coloring"
+  :group 'personal)
+
+(defface sol-superlight-foreground
+  `((((background light)) (:foreground ,sol-base2))
+    (((background dark)) (:foreground ,sol-base02)))
+  "Very light foreground coloring"
+  :group 'personal)
+
 (defface sol-superlight-background
   `((((background light)) (:background ,sol-base2))
     (((background dark)) (:background ,sol-base02)))
+  "Very light background coloring"
+  :group 'personal)
+
+(defface sol-superlight-background-i
+  `((((background dark)) (:background ,sol-base2))
+    (((background light)) (:background ,sol-base02)))
   "Very light background coloring"
   :group 'personal)
 
@@ -925,6 +949,18 @@
   (set-face-attribute 'dired-subtree-depth-5-face nil
                       :inherit 'sol-superlight-background)
   (set-face-attribute 'dired-subtree-depth-6-face nil
+                      :inherit 'sol-superlight-background))
+
+(with-eval-after-load 'diff-hl
+  (set-face-attribute 'diff-hl-change nil
+                      :inherit '(sol-light-foreground
+                                 sol-superlight-background))
+  (set-face-attribute 'diff-hl-delete nil
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'diff-hl-insert nil
+                      :inherit '(sol-superlight-foreground
+                                 sol-superlight-background))
+  (set-face-attribute 'diff-hl-reverted-hunk-highlight nil
                       :inherit 'sol-superlight-background))
 
 ;; Replaces the default arrows you see in the left and right fringe with a
