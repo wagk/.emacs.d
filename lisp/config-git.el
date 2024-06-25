@@ -303,7 +303,7 @@ assume # starts a comment."
 (use-package diff-hl
   :ensure t
   :config
-  (global-diff-hl-amend-mode)
+  (global-diff-hl-mode)
   (with-eval-after-load 'magit
     (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
     (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)))
