@@ -56,6 +56,13 @@
   (lsp-ui-peek-enable t)
   :hook (lsp-mode-hook . lsp-ui-mode))
 
+(use-package lsp-ui-imenu
+  :after lsp
+  :ensure nil
+  :general
+  (:keymaps 'lsp-command-map
+   "i i" #'lsp-ui-imenu))
+
 (use-package lsp-ui-peek
   :after lsp-ui
   :ensure nil
@@ -84,6 +91,11 @@
   :after (consult lsp)
   :commands (consult-lsp-diagnostics
              consult-lsp-symbols
-             consult-lsp-file-symbols))
+             consult-lsp-file-symbols)
+  :general
+  (:keymaps 'lsp-command-map
+   "f f" #'consult-lsp-file-symbols
+   "f a" #'consult-lsp-symbols
+   "f d" #'consult-lsp-diagnostics))
 
 (provide 'config-lsp)
