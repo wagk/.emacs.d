@@ -394,7 +394,6 @@ Returns a string, or nil if there is no path associated with the buffer."
     (tab-bar-rename-tab name))
   (evil-ex-define-cmd "tabr[ename]" '--tab-bar-rename-tab)
   (evil-ex-define-cmd "tabs" 'tab-bar-select-tab-by-name)
-  (evil-ex-define-cmd "tt" 'tab-bar-select-tab-by-name)
   (evil-ex-define-cmd "tabm[ove]+" 'tab-bar-move-tab)
   (evil-ex-define-cmd "tabm[ove]-" 'tab-bar-move-tab-right)
   (evil-ex-define-cmd "tabd[etach]" 'tab-detach)
@@ -418,7 +417,15 @@ Returns a string, or nil if there is no path associated with the buffer."
            (num-tabs (length (cdr tabs))))
       (if (eq num-tabs 1)
           (call-interactively oldfun)
-        (tab-bar-close-tab)))))
+        (tab-bar-close-tab))))
+
+  (with-eval-after-load 'transient
+    (transient-define-prefix --tab-bar ()
+      "Transient for tab-bar related commands"
+      [["Search"
+        ("t" "Select by name" tab-bar-select-tab-by-name)]])
+    (evil-ex-define-cmd "tt" '--tab-bar)))
+
 
 (use-package autorevert
   :ensure nil
