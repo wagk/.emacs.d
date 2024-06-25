@@ -471,7 +471,7 @@ Returns nil if it belongs to no vault."
        (lambda () (interactive)
          (require 'rg)
          ;; copied from macroexpanded `rg-define-search'
-         (rg-run (or (rg-tag-default) (rg-read-pattern nil))
+         (rg-run (rg-read-pattern nil)
                  "everything"
                  (or config-markdown-active-vault
                      (config-markdown-select-directory))
