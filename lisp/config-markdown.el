@@ -397,8 +397,10 @@ Returns nil if it belongs to no vault."
     :allow-empty nil
     :init-value
     (lambda (obj)
-      (oset obj value (or config-markdown-active-vault
-                          (car config-markdown-directories))))
+      (unless config-markdown-active-vault
+        (setq config-markdown-active-vault
+              (car config-markdown-directories)))
+      (oset obj value config-markdown-active-vault))
     :reader
     (lambda (_prompt _initial-input _history)
       ;; we internally track the variable instead of doing it via transient
