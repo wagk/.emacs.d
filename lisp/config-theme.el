@@ -122,12 +122,6 @@
 
 (customize-set-variable 'frame-background-mode 'nil)
 
-(defface sol-superlight-foreground
-  `((((background light)) (:foreground ,sol-base2))
-    (((background dark)) (:foreground ,sol-base02)))
-  "Very light foreground coloring"
-  :group 'personal)
-
 (defface sol-light-foreground
   `((((background light)) (:foreground ,sol-base1))
     (((background dark)) (:foreground ,sol-base01)))
