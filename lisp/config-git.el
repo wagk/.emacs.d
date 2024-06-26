@@ -293,6 +293,7 @@ assume # starts a comment."
 
 (use-package blamer
   :ensure (:host github :repo "Artawower/blamer.el")
+  :after magit
   :custom
   (blamer-commit-formatter ": %s")
   (blamer-min-offset 5)
@@ -302,6 +303,7 @@ assume # starts a comment."
 
 (use-package diff-hl
   :ensure t
+  :after magit
   :config
   (global-diff-hl-mode)
   (with-eval-after-load 'magit
