@@ -297,8 +297,8 @@ assume # starts a comment."
   (blamer-commit-formatter ": %s")
   (blamer-min-offset 5)
   (blamer-idle-time 1)
-  :config
-  (global-blamer-mode))
+  :hook
+  (prog-mode-hook . blamer-mode))
 
 (use-package diff-hl
   :ensure t
