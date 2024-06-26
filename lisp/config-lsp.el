@@ -50,14 +50,14 @@
     (customize-set-value 'lsp-rust-cfg-test t)))
 
 (use-package lsp-ui
-  :after lsp
+  :after lsp-mode
   :custom
   (lsp-ui-doc-enable t)
   (lsp-ui-peek-enable t)
   :hook (lsp-mode-hook . lsp-ui-mode))
 
 (use-package lsp-ui-imenu
-  :after lsp
+  :after lsp-mode
   :ensure nil
   :general
   (:keymaps 'lsp-command-map
@@ -88,10 +88,7 @@
                                       'lsp-describe-thing-at-point)))))
 
 (use-package consult-lsp
-  :after (consult lsp)
-  :commands (consult-lsp-diagnostics
-             consult-lsp-symbols
-             consult-lsp-file-symbols)
+  :after (consult lsp-mode)
   :general
   (:keymaps 'lsp-command-map
    "f f" #'consult-lsp-file-symbols
