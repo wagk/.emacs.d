@@ -955,15 +955,12 @@
                       :inherit 'sol-superlight-background))
 
 (with-eval-after-load 'diff-hl
-  (set-face-attribute 'diff-hl-change nil
-                      :inherit '(sol-superlight-foreground
-                                 sol-superlight-background))
-  (set-face-attribute 'diff-hl-delete nil
-                      :inherit '(sol-light-foreground
-                                 nano-default))
   (set-face-attribute 'diff-hl-insert nil
-                      :inherit '(sol-light-foreground
-                                 sol-superlight-background))
+                      :inherit '(nano-faded-i))
+  (set-face-attribute 'diff-hl-delete nil
+                      :inherit '(nano-faded-i))
+  (set-face-attribute 'diff-hl-change nil
+                      :inherit '(sol-light-foreground sol-superlight-background))
   (set-face-attribute 'diff-hl-reverted-hunk-highlight nil
                       :inherit '(sol-light-background sol-light-background)))
 
