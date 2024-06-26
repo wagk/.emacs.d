@@ -122,6 +122,18 @@
 
 (customize-set-variable 'frame-background-mode 'nil)
 
+(defface sol-background
+  `((((background light)) (:background ,sol-base3))
+    (((background dark)) (:background ,sol-base03)))
+  "Default background coloring."
+  :group 'personal)
+
+(defface sol-foreground
+  `((((background light)) (:background ,sol-base3))
+    (((background dark)) (:background ,sol-base03)))
+  "Default foreground coloring."
+  :group 'personal)
+
 (defface sol-light-foreground
   `((((background light)) (:foreground ,sol-base1))
     (((background dark)) (:foreground ,sol-base01)))
