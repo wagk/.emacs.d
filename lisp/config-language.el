@@ -602,4 +602,7 @@ Lisp function does not specify a special indentation."
   :hook
   (jam-mode-hook . --update-imenu))
 
+(use-package csv-mode
+  :ensure t)
+
 (provide 'config-language)
