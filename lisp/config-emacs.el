@@ -421,9 +421,14 @@ Returns a string, or nil if there is no path associated with the buffer."
 
   (with-eval-after-load 'transient
     (transient-define-prefix --tab-bar ()
-      "Transient for tab-bar related commands"
       [["Search"
-        ("t" "Select tab by name" tab-bar-select-tab-by-name)]])
+        ("g" "Select tab by name" tab-bar-select-tab-by-name)]
+       ["Move"
+        (">>" "Move right" tab-bar-move-tab :transient t)
+        ("<<" "Move left" tab-bar-move-tab-backward :transient t)]
+       ["Manipulate"
+        ("r" "Rename" tab-bar-rename-tab)
+        ("c" "Close" tab-bar-close-tab)]])
     (evil-ex-define-cmd "tt" '--tab-bar)))
 
 
