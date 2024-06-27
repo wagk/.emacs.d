@@ -298,6 +298,8 @@ assume # starts a comment."
 (use-package diff-hl
   :ensure t
   :after magit
+  :hook
+  (dired-mode-hook . diff-hl-dired-mode)
   :config
   (global-diff-hl-mode)
   (with-eval-after-load 'magit
