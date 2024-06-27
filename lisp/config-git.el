@@ -123,6 +123,9 @@ assume # starts a comment."
          (git-commit-setup-hook . evil-markdown-mode)
          (git-commit-setup-hook . gfm-mode))
   :config
+  (with-eval-after-load 'transient
+    (transient-replace-suffix 'magit-dispatch #'magit-status-quick
+      (list "j" "Show Status" #'magit-status)))
   (define-advice magit-log-propertize-keywords
       (:override (_rev msg) handle-conventional-commits)
     "https://github.com/magit/magit/issues/4027#issuecomment-1372397053"
