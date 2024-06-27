@@ -967,14 +967,14 @@
                       :inherit 'sol-superlight-background))
 
 (with-eval-after-load 'diff-hl
-  (set-face-attribute 'diff-hl-insert nil
-                      :inherit '(nano-faded-i))
-  (set-face-attribute 'diff-hl-delete nil
-                      :inherit '(nano-faded-i))
   (set-face-attribute 'diff-hl-change nil
                       :inherit '(sol-light-foreground sol-superlight-background))
+  (set-face-attribute 'diff-hl-insert nil
+                      :inherit 'diff-hl-change)
+  (set-face-attribute 'diff-hl-delete nil
+                      :inherit 'diff-hl-change)
   (set-face-attribute 'diff-hl-reverted-hunk-highlight nil
-                      :inherit '(sol-light-background sol-light-background)))
+                      :inherit 'diff-hl-change))
 
 ;; Replaces the default arrows you see in the left and right fringe with a
 ;; nicer-looking bitmap.
