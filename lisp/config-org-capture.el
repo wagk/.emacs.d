@@ -126,8 +126,8 @@ Assumes Markdown formatting."
             (when region (concat (format "\nAt `%s`:\n" filepath-and-line)
                                  "```\n"
                                  region
-                                 "```"))
-            "\n\n%?")))
+                                 "```\n"))
+            "\n%?")))
 
 (cl-defun --HACK-discard-last-stored-marker ()
   "Org assumes that the capture will be done inside an `org' buffer and
