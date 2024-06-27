@@ -49,12 +49,6 @@
       :ensure `(seq :build ,(--elpaca-build-seq))
       :demand t)
     (elpaca-wait))
-  (evil-define-command ex-magit-cli (cmd)
-    "Calls specific magit functions"
-    (interactive "<a>")
-    (cond
-     ((eq cmd nil) (magit-status))
-     (t (magit-shell-command (concat "git " cmd)))))
   (evil-ex-define-cmd "gF"      'magit-pull)
   (evil-ex-define-cmd "gB"      'magit-branch)
   (evil-ex-define-cmd "gd[iff]" 'magit-diff)
