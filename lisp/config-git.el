@@ -187,8 +187,8 @@ assume # starts a comment."
 ;; TODO: Somehow jigger `magit-todos-branch-list' to *only* show
 ;; branch todos instead of it being an appended section
 (use-package magit-todos
-  :disabled t ;; we disabled hl-todo
-  :ensure (:host github :repo "alphapapa/magit-todos")
+  :ensure t
+  :after magit
   :custom
   (magit-todos-ignore-case t)
   (magit-todos-nice
