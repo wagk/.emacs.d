@@ -23,9 +23,6 @@
   (magit-log-auto-more t)
   (magit-log-show-refname-after-summary t)
   (magit-show-long-lines-warning nil)
-  :custom-face
-  (magit-section-heading ((((background light)) (:foreground ,sol-yellow :underline t))
-                          (((background dark)) (:foreground, sol-yellow :underline t))))
   :general
   ;; (general-define-key
   ;;   :keymaps 'project-prefix-map
