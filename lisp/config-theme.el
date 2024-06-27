@@ -414,18 +414,18 @@
   (set-face-attribute 'magit-section-heading nil
                       :foreground sol-yellow
                       :underline t)
- (set-face-attribute 'magit-diff-revision-summary nil
-                     :bold 'unspecified
-                     :inherit 'nano-strong)
- (set-face-attribute 'magit-diff-hunk-heading nil
-                     :bold t
-                     :inherit 'nano-faded)
- (set-face-attribute 'magit-keyword-squash nil
-                     :bold t
-                     :inherit 'nano-salient)
- (set-face-attribute 'magit-head nil
-                     :bold t
-                     :inherit 'nano-salient))
+  (set-face-attribute 'magit-diff-revision-summary nil
+                      :bold 'unspecified
+                      :inherit 'nano-strong)
+  (set-face-attribute 'magit-diff-hunk-heading nil
+                      :bold t
+                      :inherit 'nano-faded)
+  (set-face-attribute 'magit-keyword-squash nil
+                      :bold t
+                      :inherit 'nano-salient)
+  (set-face-attribute 'magit-head nil
+                      :bold t
+                      :inherit 'nano-salient))
 
 (with-eval-after-load 'magit-sequence
   (set-face-attribute 'magit-sequence-head nil
