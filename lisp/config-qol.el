@@ -86,7 +86,8 @@
 
 (use-package hl-todo
   :disabled t
-  :ensure (:host github :repo "tarsius/hl-todo")
+  ;; :ensure (:host github :repo "tarsius/hl-todo")
+  :ensure t
   :blackout t
   :commands (hl-todo-mode)
   :hook ((prog-mode-hook  . hl-todo-mode)
