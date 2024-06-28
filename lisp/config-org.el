@@ -27,18 +27,6 @@
    "<C-M-S-return>" 'org-insert-todo-subheading)
   (org-src-mode-map
    "C-c C-'" 'org-src-edit-exit)
-  :custom-face
-  (org-headline-done ((t (:strike-through t))))
-  (org-checkbox ((t (:bold t :box nil))))
-  (org-block ((((background dark)) (:background ,sol-base02))
-              (((background light)) (:background ,sol-base2))))
-  (org-block-begin-line ((((background dark)) (:inherit org-meta-line :underline nil))
-                         (((background light)) (:inherit org-meta-line :underline nil))))
-  (org-block-end-line ((((background dark)) (:inherit org-meta-line :overline nil))
-                       (((background light)) (:inherit org-meta-line :overline nil))))
-  (org-drawer ((((background dark)) (:foreground ,sol-base01))
-               (((background light)) (:foreground ,sol-base1))))
-  (org-special-keyword ((t (:inherit default :bold nil :foreground ,sol-blue))))
   :custom
   (org-edit-src-content-indentation 0 "Don't indent code blocks")
   (org-list-description-max-indent

@@ -902,6 +902,27 @@
                       :bold nil
                       :inherit 'nano-default))
 
+(with-eval-after-load 'org
+  (set-face-attribute 'org-headline-done nil
+                      :strike-through t)
+  (set-face-attribute 'org-checkbox nil
+                      :bold t
+                      :box nil)
+  (set-face-attribute 'org-block nil
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'org-block-begin-line nil
+                      :underline nil
+                      :inherit 'org-meta-line)
+  (set-face-attribute 'org-block-end-line nil
+                      :overline nil
+                      :inherit 'org-meta-line)
+  (set-face-attribute 'org-drawer nil
+                      :inherit 'sol-light-foreground)
+  (set-face-attribute 'org-special-keyword nil
+                      :bold nil
+                      :foreground sol-blue
+                      :inherit 'default))
+
 (with-eval-after-load 'orderless
   (set-face-attribute 'orderless-match-face-0 nil
                       :inherit 'nano-strong))
