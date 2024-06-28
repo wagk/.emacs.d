@@ -35,6 +35,8 @@
   (which-key-side-window-max-width 0.33)
   (which-key-max-display-columns nil)
   (which-key-show-docstrings t)
+  (which-key-show-remaining-keys t)
+  (which-key-show-prefix 'top)
   (which-key-side-window-location 'bottom)
   ;; :general
   ;; (:states 'normal
