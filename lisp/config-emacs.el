@@ -289,8 +289,6 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom
   (bookmark-fringe-mark nil)
   (bookmark-save-flag 1 "Write to bookmark file immediately")
-  :custom-face
-  (bookmark-face ((t (:inherit sol-subtle))))
   :config
   (defun config-define-bookmark (name path &optional overwrite annotation)
     "Programmatically creates and stores bookmarks into the bookmark file. We do

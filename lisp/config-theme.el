@@ -923,6 +923,10 @@
                       :foreground sol-blue
                       :inherit 'default))
 
+(with-eval-after-load 'bookmark
+  (set-face-attribute 'bookmark-face nil
+                      :inherit 'sol-subtle))
+
 (with-eval-after-load 'orderless
   (set-face-attribute 'orderless-match-face-0 nil
                       :inherit 'nano-strong))
