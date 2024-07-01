@@ -185,6 +185,8 @@ Returns a string, or nil if there is no path associated with the buffer."
   (dired-mode-hook . hl-line-mode)
   (dired-mode-hook . dired-hide-details-mode)
   :custom
+  ;; (dired-create-destination-dirs-on-trailing-dirsep nil)
+  (dired-create-destination-dirs 'ask)
   (dired-vc-rename-file t)
   :general
   (dired-mode-map
@@ -193,8 +195,6 @@ Returns a string, or nil if there is no path associated with the buffer."
    "SPC" nil                       ; was shadowing leader key bindings
    "-" 'dired-up-directory
    "d" 'dired-create-directory
-   "e" 'dired-toggle-read-only ; similar interface to wgrep
-   "i" nil ; unbind the original binding
    "Y" #'(lambda () (interactive)
            (dired-copy-filename-as-kill 0)))
   (dired-mode-map
