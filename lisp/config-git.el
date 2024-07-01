@@ -298,7 +298,7 @@ assume # starts a comment."
 
 (use-package diff-hl
   :ensure t
-  :after magit
+  :after dired
   :hook
   (dired-mode-hook . diff-hl-dired-mode)
   :config
