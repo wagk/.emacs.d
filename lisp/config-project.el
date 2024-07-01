@@ -171,6 +171,7 @@
                                    (multi-vterm-project))))
     (evil-ex-define-cmd "pc" #'--compile-command-completing-read)
     (evil-ex-define-cmd "pcd" #'--compile-command-delete)
+    (evil-ex-define-cmd "pck" #'kill-compilation)
     (--evil-define-splits "pcb"
                           #'(lambda () (interactive)
                               (let ((buf (cl-find-if
