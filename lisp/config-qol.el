@@ -289,15 +289,23 @@
 
 (use-package link-hint
   :after general
-  :demand t
   :commands (link-hint-open-link
-             link-hint-copy-link)
-  :config
-  (general-define-key
-   :keymaps 'help-mode-map
+             link-hint-open-link-at-point
+             link-hint-copy-link
+             link-hint-copy-link-at-point)
+  ;; :custom
+  ;; (link-hint-action-fallback-commands
+  ;;  (list :open
+  ;;    (lambda ()
+  ;;      (cond
+  ;;       ((eq last-command 'link-hint-open-link-at-point) (link-hint-open-link))
+  ;;       ((eq last-command 'link-hint-copy-link-at-point) (link-hint-copy-link))))))
+  :general
+  (:keymaps 'help-mode-map
    :states '(motion normal)
    "f" 'link-hint-open-link
    "y f" 'link-hint-copy-link))
+
 
 (use-package highlight-indent-guides
   :commands (highlight-indent-guides-mode)
