@@ -983,17 +983,23 @@
 
 (with-eval-after-load 'dired-hacks
   (set-face-attribute 'dired-subtree-depth-1-face nil
-                      :inherit 'sol-superlight-background)
+                      :background 'unspecified
+                      :inherit 'nano-default)
   (set-face-attribute 'dired-subtree-depth-2-face nil
-                      :inherit 'sol-superlight-background)
+                      :background 'unspecified
+                      :inherit 'nano-default)
   (set-face-attribute 'dired-subtree-depth-3-face nil
-                      :inherit 'sol-superlight-background)
+                      :background 'unspecified
+                      :inherit 'nano-default)
   (set-face-attribute 'dired-subtree-depth-4-face nil
-                      :inherit 'sol-superlight-background)
+                      :background 'unspecified
+                      :inherit 'nano-default)
   (set-face-attribute 'dired-subtree-depth-5-face nil
-                      :inherit 'sol-superlight-background)
+                      :background 'unspecified
+                      :inherit 'nano-default)
   (set-face-attribute 'dired-subtree-depth-6-face nil
-                      :inherit 'sol-superlight-background))
+                      :background 'unspecified
+                      :inherit 'nano-default))
 
 (with-eval-after-load 'diff-hl
   (set-face-attribute 'diff-hl-change nil
