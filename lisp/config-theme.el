@@ -412,8 +412,9 @@
 
 (with-eval-after-load 'magit
   (set-face-attribute 'magit-section-heading nil
-                      :foreground sol-yellow
-                      :underline t)
+                      :foreground 'unspecified
+                      :underline t
+                      :inherit 'nano-default)
   (set-face-attribute 'magit-diff-revision-summary nil
                       :bold 'unspecified
                       :inherit 'nano-strong)
