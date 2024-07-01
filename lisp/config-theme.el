@@ -977,6 +977,10 @@
                       :background sol-yellow
                       :inherit 'nano-default-i))
 
+(with-eval-after-load 'adoc-mode
+  (set-face-attribute 'adoc-gen-face nil
+                      :foreground sol-blue))
+
 (with-eval-after-load 'scopeline
   (set-face-attribute 'scopeline-face nil
                       :inherit 'sol-light-foreground))
