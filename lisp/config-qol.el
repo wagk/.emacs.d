@@ -304,7 +304,20 @@
   (:keymaps 'help-mode-map
    :states '(motion normal)
    "f" 'link-hint-open-link
-   "y f" 'link-hint-copy-link))
+   "y f" 'link-hint-copy-link)
+  :config
+  (cl-defun --link-hint-open-link-fallback (&rest _)
+    (condition-case nil
+        (apply #'link-hint-open-link-at-point)
+      (error (link-hint-open-link))))
+  (advice-add 'link-hint-open-link-at-point :around
+              #'--link-hint-open-link-fallback)
+  (cl-defun --link-hint-copy-link-fallback (&rest _)
+    (condition-case nil
+        (apply #'link-hint-copy-link-at-point)
+      (error (link-hint-copy-link))))
+  (advice-add 'link-hint-copy-link-at-point :around
+              #'--link-hint-copy-link-fallback))
 
 
 (use-package highlight-indent-guides
