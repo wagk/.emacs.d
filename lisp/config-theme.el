@@ -524,7 +524,7 @@
     "Face used to describe tags (like `#foo'). I like using tags."
     :group 'personal)
   (defconst --markdown-tag-keyword-regex
-    (rx (or line-start space) "#" (one-or-more (any alnum "_" "-"))))
+    (rx (or line-start space punct) "#" (one-or-more (any alnum "_" "-"))))
 
   (font-lock-add-keywords
    'markdown-mode `((,--markdown-tag-keyword-regex 0 '--markdown-tag-face)
