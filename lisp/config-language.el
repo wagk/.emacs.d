@@ -603,6 +603,9 @@ Lisp function does not specify a special indentation."
   (jam-mode-hook . --update-imenu))
 
 (use-package csv-mode
-  :ensure t)
+  :ensure t
+  :config
+  (with-eval-after-load 'stripe-buffer
+    (add-hook 'csv-mode-hook 'stripe-buffer-mode)))
 
 (provide 'config-language)
