@@ -118,6 +118,8 @@
 (defvar config-markdown-active-vault nil
   "Last selected vault. Intended for transient use.")
 
+(defconst config-markdown-time-capture-format-string "-- %F %H:%M:%S %z --")
+
 (defconst config-markdown-header-regexp
   (rx bol
       (group-n 1 (one-or-more "#"))
@@ -442,7 +444,8 @@ Returns nil if it belongs to no vault."
        (lambda () (interactive)
          (end-of-buffer)
          (insert (markdown-datetree-template-heading))
-         (insert (format-time-string "\n-- %F %H:%M:%S %z --\n"))
+         (insert (format-time-string
+                  (concat "\n" config-markdown-time-capture-format-string "\n")))
          (command-execute #'evil-insert)))]]
     ["Capture"
      ["as Datetime"
@@ -534,7 +537,7 @@ should prepopulate."
   (cl-defun --datetree-capture-template ()
     (concat "%(--datetree-heading)\n"
             (--capture-template-interesting
-             :timestamp-format "-- %F %H:%M:%S %z --"
+             :timestamp-format config-markdown-time-capture-format-string
              :collect-tags nil)))
   (setq org-capture-templates
         (doct-add-to
