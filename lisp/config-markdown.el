@@ -437,7 +437,13 @@ Returns nil if it belongs to no vault."
                      "Diary"
                      config-markdown-active-vault))))]
      ["Insert"
-      ("i i" "Insert link to file" config-markdown-insert-link-to-vault-file)]]
+      ("i i" "Insert link to file" config-markdown-insert-link-to-vault-file)
+      ("i d" "Insert datetree entry in file"
+       (lambda () (interactive)
+         (end-of-buffer)
+         (insert (markdown-datetree-template-heading))
+         (insert (format-time-string "\n-- %F %H:%M:%S %z --\n"))
+         (command-execute #'evil-insert)))]]
     ["Capture"
      ["as Datetime"
       ("d d" "into current file"
