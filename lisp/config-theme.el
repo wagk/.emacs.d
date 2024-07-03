@@ -415,12 +415,28 @@
                       :foreground 'unspecified
                       :underline t
                       :inherit 'nano-default)
+  (set-face-attribute 'magit-diff-our nil
+                      :foreground sol-blue
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'magit-diff-our-highlight nil
+                      :foreground sol-blue
+                      :bold t
+                      :inherit 'magit-diff-our)
+  (set-face-attribute 'magit-diff-context nil
+                      :inherit '(nano-faded sol-superlight-background))
+  (set-face-attribute 'magit-diff-context-highlight nil
+                      :bold t
+                      :inherit 'magit-diff-context)
   (set-face-attribute 'magit-diff-revision-summary nil
                       :bold 'unspecified
                       :inherit 'nano-strong)
+  (set-face-attribute 'magit-diff-added nil
+                      :inherit '(nano-salient sol-superlight-background))
+  (set-face-attribute 'magit-diff-removed nil
+                      :inherit '(nano-popout sol-superlight-background))
   (set-face-attribute 'magit-diff-hunk-heading nil
                       :bold t
-                      :inherit 'nano-faded)
+                      :inherit '(nano-faded sol-superlight-background))
   (set-face-attribute 'magit-keyword-squash nil
                       :bold t
                       :inherit 'nano-salient)
