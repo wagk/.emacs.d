@@ -63,3 +63,4 @@ straight/*
 /elpaca/
 /pomm-third-time
 /pomm
+**/flycheck_*.el
