@@ -604,6 +604,8 @@ Lisp function does not specify a special indentation."
 
 (use-package csv-mode
   :ensure t
+  :custom
+  (csv-align-style 'auto)
   :config
   (with-eval-after-load 'stripe-buffer
     (add-hook 'csv-mode-hook 'stripe-buffer-mode)))
