@@ -415,6 +415,9 @@
                       :foreground 'unspecified
                       :underline t
                       :inherit 'nano-default)
+  (set-face-attribute 'magit-diff-hunk-heading nil
+                      :extend nil
+                      :inherit '(nano-strong sol-superlight-background))
   (set-face-attribute 'magit-diff-our nil
                       :foreground sol-blue
                       :inherit 'sol-superlight-background)
