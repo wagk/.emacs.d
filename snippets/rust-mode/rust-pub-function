@@ -3,5 +3,5 @@
 # key: pf
 # --
 pub fn $1($2) $3{
-    ${0:todo!()}
+    ${0:unimplemented!()}
 }
