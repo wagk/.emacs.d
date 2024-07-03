@@ -1005,6 +1005,12 @@
                       :background 'unspecified
                       :inherit 'nano-default))
 
+(with-eval-after-load 'table
+  (set-face-attribute 'table-cell nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-default))
+
 (with-eval-after-load 'diff-hl
   (set-face-attribute 'diff-hl-change nil
                       :inherit '(sol-light-foreground sol-superlight-background))
