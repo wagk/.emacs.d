@@ -436,7 +436,7 @@
   (set-face-attribute 'magit-diff-context nil
                       :inherit '(nano-faded sol-superlight-background))
   (set-face-attribute 'magit-diff-context-highlight nil
-                      :bold t
+                      :bold nil
                       :inherit 'magit-diff-context)
   (set-face-attribute 'magit-diff-revision-summary nil
                       :bold 'unspecified
