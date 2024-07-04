@@ -120,8 +120,10 @@
 
 (defconst config-markdown-time-capture-format-string "-- %F %H:%M:%S %z --")
 
-(defconst config-markdown-checkbox-regex "- \\[ \\]")
-(defconst config-markdown-checkbox-done-regex "- \\[[xX]\\]")
+(defconst config-markdown-checkbox-regex "- \\[ \\]"
+  "These are rg regexes")
+(defconst config-markdown-checkbox-done-regex "- \\[[xX]\\]"
+  "These are rg regexes")
 
 (defconst config-markdown-header-regexp
   (rx bol
