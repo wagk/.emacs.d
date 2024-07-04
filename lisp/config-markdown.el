@@ -120,6 +120,9 @@
 
 (defconst config-markdown-time-capture-format-string "-- %F %H:%M:%S %z --")
 
+(defconst config-markdown-checkbox-regex "- \\[ \\]")
+(defconst config-markdown-checkbox-done-regex "- \\[[xX]\\]")
+
 (defconst config-markdown-header-regexp
   (rx bol
       (group-n 1 (one-or-more "#"))
@@ -489,10 +492,9 @@ Returns nil if it belongs to no vault."
       ("t t" "In this file"
        (lambda () (interactive)
          (require 'rg)
-         (rg-run "- [ ]" (file-relative-name
-                          (buffer-file-name))
-                 default-directory
-                 :literal))
+         (rg-run config-markdown-checkbox-regex (file-relative-name
+                                                 (buffer-file-name))
+                 default-directory))
        :if (lambda ()
              (and (buffer-file-name)
                   (or (eq major-mode 'gfm-mode)
@@ -505,13 +507,40 @@ Returns nil if it belongs to no vault."
                 (file (file-relative-name
                        (config-markdown-select-file-name dir)
                        dir)))
-           (rg-run "- [ ]" file dir :literal))))
+           (rg-run config-markdown-checkbox-regex file dir))))
       ("t a" "Any To Dos in project"
        (lambda () (interactive)
          (require 'rg)
-         (rg-run "- [ ]" "everything" (or config-markdown-active-vault
-                                          (config-markdown-select-directory))
-                 :literal)))]]))
+         (rg-run config-markdown-checkbox-regex
+                 "everything" (or config-markdown-active-vault
+                                  (config-markdown-select-directory)))))]
+     ["DONEs"
+      ("T t" "In this file"
+       (lambda () (interactive)
+         (require 'rg)
+         (rg-run config-markdown-checkbox-done-regex (file-relative-name
+                                                      (buffer-file-name))
+                 default-directory))
+       :if (lambda ()
+             (and (buffer-file-name)
+                  (or (eq major-mode 'gfm-mode)
+                      (eq major-mode 'markdown-mode)))))
+      ("T f" "In file"
+       (lambda () (interactive)
+         (require 'rg)
+         (let* ((dir (or config-markdown-active-vault
+                         (config-markdown-select-directory)))
+                (file (file-relative-name
+                       (config-markdown-select-file-name dir)
+                       dir)))
+           (rg-run config-markdown-checkbox-done-regex
+                   file dir))))
+      ("T a" "Any To Dos in project"
+       (lambda () (interactive)
+         (require 'rg)
+         (rg-run config-markdown-checkbox-done-regex
+                 "everything" (or config-markdown-active-vault
+                                  (config-markdown-select-directory)))))]]))
 
 (with-eval-after-load 'config-evil-helpers
   (--evil-define-splits "nn" #'(lambda () (interactive)
