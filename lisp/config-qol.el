@@ -146,7 +146,6 @@
 
 (use-package helpful
   :ensure (:host github :repo "Wilfred/helpful")
-  :after link-hint
   :general
   ("C-h k"   'helpful-key
    "C-h f"   'helpful-callable
