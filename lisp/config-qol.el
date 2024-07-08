@@ -264,7 +264,7 @@
                                    (thing-at-point 'word))
                     (s-join " " query-args))))
       (engine/search-duckduckgo query)))
-  (evil-ex-define-cmd "ddg" '--ddg-search)
+  ;; (evil-ex-define-cmd "ddg" '--ddg-search)
   :general
   (:states '(normal motion visual)
    "K" '--ddg-search))
