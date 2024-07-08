@@ -203,7 +203,12 @@ Lisp function does not specify a special indentation."
   :commands (json-mode)
   :init
   (with-eval-after-load 'org-src
-    (cl-pushnew '("json" . json) org-src-lang-modes)))
+    (cl-pushnew '("json" . json) org-src-lang-modes))
+  :config
+  (with-eval-after-load 'smartparens
+    (sp-local-pair 'json-mode "{" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
+    (sp-local-pair 'json-mode "[" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
+    (sp-local-pair 'json-mode "(" nil :post-handlers '((--double-newline-and-indent-braces "RET")))))
 
 (use-package json-snatcher
   :ensure t
@@ -222,7 +227,12 @@ Lisp function does not specify a special indentation."
   :commands (yaml-mode)
   :init
   (with-eval-after-load 'org-src
-    (cl-pushnew '("yaml" . yaml) org-src-lang-modes)))
+    (cl-pushnew '("yaml" . yaml) org-src-lang-modes))
+  :config
+  (with-eval-after-load 'smartparens
+    (sp-local-pair 'yaml-mode "{" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
+    (sp-local-pair 'yaml-mode "[" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
+    (sp-local-pair 'yaml-mode "(" nil :post-handlers '((--double-newline-and-indent-braces "RET")))))
 
 ;; https://github.com/zkry/yaml.el/tree/9ebddb55238d746dc5a5d46db04c9f360c140b99
 (use-package yaml
