@@ -317,6 +317,7 @@
                #'(lambda ()
                    "Ignore git commit message file as location."
                    (string= (buffer-name) "COMMIT_EDITMSG")))
+  (add-to-list 'dogears-ignore-modes 'elpaca-log-mode)
   (with-eval-after-load 'consult
     (add-to-list 'dogears-hooks 'consult-after-jump-hook)))
 
