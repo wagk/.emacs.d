@@ -1,5 +1,44 @@
 ;;; config-text.el --- Text related packages
 
+(use-package smartparens
+  :ensure (:host github :repo "Fuco1/smartparens")
+  :demand t
+  :blackout t
+  :commands (sp-local-pair
+             smartparens-global-mode)
+  :hook
+  ;; TODO: make this not just hooked on prog-mode
+  (prog-mode-hook . (lambda () (interactive)
+                      (require 'smartparens-config) ;; load some default configurations
+                      (require 'smartparens)))
+  :custom-face
+  (sp-pair-overlay-face ((t (:inherit default :underline nil))))
+  :general
+  (:states 'normal
+   :prefix my-default-evil-leader-key
+   "." 'smartparens-mode)
+  :custom
+  (sp-cancel-autoskip-on-backward-movement
+   nil
+   "We want to maintain the chomp-like behavior of electric-pair")
+  (sp-autoskip-closing-pair
+   'always
+   "Maintain chomp-like behavior of electric-pair")
+  :config
+  (smartparens-global-mode)
+  (cl-defun --double-newline-and-indent-braces (_opening_delimiter
+                                                _action
+                                                _context)
+    "adds that cool vim indent thing we always wanted, Refer to WHEN
+      segment of `sp-pair' documentation on what each parameter does"
+    (newline)
+    (indent-according-to-mode)
+    (previous-line)
+    (indent-according-to-mode))
+  (sp-local-pair 'prog-mode "{" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
+  (sp-local-pair 'prog-mode "[" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
+  (sp-local-pair 'prog-mode "(" nil :post-handlers '((--double-newline-and-indent-braces "RET"))))
+
 (use-package aggressive-fill-paragraph
   :ensure (:host github :repo "davidshepherd7/aggressive-fill-paragraph-mode")
   :commands (aggressive-fill-paragraph-mode)
