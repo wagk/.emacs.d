@@ -470,12 +470,13 @@
 
 ;; Debug printf statements
 (use-package ll-debug
+  :disabled t
   :commands ll-debug-insert
   :after evil
   :custom
-  (ll-debug-output-prefix "DEBUG-pangt-")
-  :init
-  (evil-ex-define-cmd "dp" #'ll-debug-insert))
+  (ll-debug-output-prefix "DEBUG-pangt-"))
+  ;; :init
+  ;; (evil-ex-define-cmd "di" #'ll-debug-insert))
 
 (use-package pomm
   :ensure t
