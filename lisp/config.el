@@ -79,4 +79,6 @@
 (require 'config-anki)
 (require 'config-markdown)
 
+(elpaca-process-queues)
+
 (provide 'config)
