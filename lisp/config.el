@@ -24,7 +24,7 @@
 
 (defconst user-lisp-dir
   (locate-user-emacs-file "lisp")
-  "Points to lisp configuration file directory")
+  "Points to LISP configuration file directory.")
 
 (defun find-user-init-file ()
   "Edit `user-init-file' without opening a new window."
@@ -37,13 +37,12 @@
   (find-file user-local-file))
 
 (defun find-user-lisp-dir ()
-  "Edit lisp directory without opening a new window."
+  "Edit LISP directory without opening a new window."
   (interactive)
   (dired user-lisp-dir))
 
 (defgroup personal nil
-  "A list of configuration variables that is needed from the local
-  machine.")
+  "A list of personal configuration variables.")
 
 (setq initial-scratch-message
       (concat "> Programmers are not to be measured by their ingenuity and their\n"
