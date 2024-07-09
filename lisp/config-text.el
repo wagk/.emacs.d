@@ -292,6 +292,7 @@
   :commands (dogears-list dogears-remember dogears-go)
   :custom
   (dogears-idle 10)
+  (dogears-position-delta 200)
   :general
   (dogears-list-mode-map
    :states 'normal
@@ -313,11 +314,11 @@
   (add-to-list 'dogears-hooks 'xref-after-jump-hook)
   (add-to-list 'dogears-hooks 'bookmark-after-jump-hook)
   ;; (add-to-list 'dogears-functions 'set-marker)
-  (add-to-list 'dogears-ignore-places-functions
-               #'(lambda ()
-                   "Ignore git commit message file as location."
-                   (string= (buffer-name) "COMMIT_EDITMSG")))
   (add-to-list 'dogears-ignore-modes 'elpaca-log-mode)
+  (with-eval-after-load 'git-commit
+    (add-to-list 'dogears-ignore-modes 'git-commit-mode))
+  (with-eval-after-load 'magit-status
+    (add-to-list 'dogears-ignore-modes 'magit-status-mode))
   (with-eval-after-load 'consult
     (add-to-list 'dogears-hooks 'consult-after-jump-hook)))
 
