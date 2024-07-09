@@ -290,25 +290,33 @@
   :demand t
   :after (evil)
   :commands (dogears-list dogears-remember dogears-go)
+  :custom
+  (dogears-idle 10)
   :general
   (dogears-list-mode-map
    :states 'normal
    "RET" 'dogears-list-go
-   "d d" 'dogears-list-delete)
+   "o" 'tabulated-list-sort
+   "d d" 'dogears-list-delete
+   "M-l" 'tabulated-list-next-column
+   "M-h" 'tabulated-list-previous-column)
   :init
   (evil-ex-define-cmd "dd" 'dogears-list)
-  ;; (evil-ex-define-cmd "fr" 'dogears-remember)
-  ;; (evil-ex-define-cmd "ff" 'dogears-go)
-  ;; (evil-ex-define-cmd "fn" 'dogears-forward)
-  ;; (evil-ex-define-cmd "fp" 'dogears-back)
+  (evil-ex-define-cmd "dr" 'dogears-remember)
+  (evil-ex-define-cmd "df" 'dogears-go)
+  (evil-ex-define-cmd "dn" 'dogears-forward)
+  (evil-ex-define-cmd "dp" 'dogears-back)
+  ;; note that ":di" is bound to "display", which is an alias for "registers"
+  ;; which displays current register contents.
   :config
   (dogears-mode)
-  (with-eval-after-load 'savehist
-    (add-to-list 'savehist-additional-variables 'dogears-list))
-  ;; places to remember
   (add-to-list 'dogears-hooks 'xref-after-jump-hook)
   (add-to-list 'dogears-hooks 'bookmark-after-jump-hook)
-  (add-to-list 'dogears-functions 'set-marker)
+  ;; (add-to-list 'dogears-functions 'set-marker)
+  (add-to-list 'dogears-ignore-places-functions
+               #'(lambda ()
+                   "Ignore git commit message file as location."
+                   (string= (buffer-name) "COMMIT_EDITMSG")))
   (with-eval-after-load 'consult
     (add-to-list 'dogears-hooks 'consult-after-jump-hook)))
 
