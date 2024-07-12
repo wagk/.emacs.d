@@ -718,8 +718,7 @@
 
 (with-eval-after-load 'smerge-mode
   (set-face-attribute 'smerge-markers nil
-                      :overline t
-                      :underline t
+                      :bold t
                       :foreground 'unspecified
                       :background 'unspecified
                       :inherit 'nano-subtle)
