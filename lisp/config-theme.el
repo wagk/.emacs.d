@@ -427,18 +427,21 @@
                       :extend nil
                       :inherit '(nano-strong sol-superlight-background))
   (set-face-attribute 'magit-diff-our nil
+                      :foreground sol-blue
                       :extend t
                       :inherit '(nano-default sol-superlight-background))
   (set-face-attribute 'magit-diff-our-highlight nil
                       :bold t
                       :inherit 'magit-diff-our)
   (set-face-attribute 'magit-diff-their nil
+                      :foreground sol-blue
                       :extend t
                       :inherit '(nano-default sol-superlight-background))
   (set-face-attribute 'magit-diff-their-highlight nil
                       :bold t
                       :inherit 'magit-diff-their)
   (set-face-attribute 'magit-diff-base nil
+                      :foreground sol-blue
                       :extend t
                       :inherit 'sol-superlight-background)
   (set-face-attribute 'magit-diff-base-highlight nil
@@ -715,6 +718,8 @@
 
 (with-eval-after-load 'smerge-mode
   (set-face-attribute 'smerge-markers nil
+                      :overline t
+                      :underline t
                       :foreground 'unspecified
                       :background 'unspecified
                       :inherit 'nano-subtle)
