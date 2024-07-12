@@ -403,11 +403,11 @@ Returns nil if it belongs to no vault."
     :variable 'config-markdown-active-vault
     :allow-empty nil
     :init-value
-    (lambda (obj)
+    (lambda (this)
       (unless config-markdown-active-vault
         (setq config-markdown-active-vault
               (car config-markdown-directories)))
-      (oset obj value config-markdown-active-vault))
+      (oset this value config-markdown-active-vault))
     :reader
     (lambda (_prompt _initial-input _history)
       ;; we internally track the variable instead of doing it via transient
