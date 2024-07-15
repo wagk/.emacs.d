@@ -303,9 +303,11 @@
    "M-l" 'tabulated-list-next-column
    "M-h" 'tabulated-list-previous-column)
   :init
-  (evil-ex-define-cmd "dd" 'dogears-list)
+  (evil-ex-define-cmd "da" 'dogears-list)
   (evil-ex-define-cmd "dr" 'dogears-remember)
-  (evil-ex-define-cmd "df" 'dogears-go)
+  (evil-ex-define-cmd "dd" #'(lambda () (interactive)
+                               (let ((prefix-arg 1))
+                                 (command-execute #'dogears-go))))
   (evil-ex-define-cmd "dn" 'dogears-forward)
   (evil-ex-define-cmd "dp" 'dogears-back)
   ;; note that ":di" is bound to "display", which is an alias for "registers"
