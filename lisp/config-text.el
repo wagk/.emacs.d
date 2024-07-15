@@ -292,7 +292,7 @@
   :commands (dogears-list dogears-remember dogears-go)
   :custom
   (dogears-idle 10)
-  (dogears-position-delta 200)
+  (dogears-position-delta 500)
   (dogears-ellipsis "...")
   :general
   (dogears-list-mode-map
@@ -316,8 +316,8 @@
   (dogears-mode)
   (add-to-list 'dogears-hooks 'xref-after-jump-hook)
   (add-to-list 'dogears-hooks 'bookmark-after-jump-hook)
-  ;; (add-to-list 'dogears-functions 'set-marker)
-  (add-to-list 'dogears-ignore-modes 'elpaca-log-mode)
+  (with-eval-after-load 'elpaca
+    (add-to-list 'dogears-ignore-modes 'elpaca-log-mode))
   (with-eval-after-load 'git-commit
     (add-to-list 'dogears-ignore-modes 'git-commit-mode))
   (with-eval-after-load 'magit-status
