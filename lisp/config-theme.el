@@ -216,7 +216,7 @@
                       :foreground sol-blue)
   (set-face-attribute 'region nil
                       :inverse-video t
-                      :inherit '(nano-subtle))
+                      :inherit '(sol-background-box nano-subtle))
   (set-face-attribute 'fringe nil
                       :inherit 'sol-light-foreground)
   (set-face-attribute 'variable-pitch-text nil
@@ -322,6 +322,8 @@
                       :inherit 'nano-salient))
 
 (with-eval-after-load 'diff
+  (set-face-attribute 'diff-header nil
+                      :inherit 'nano-default)
   (set-face-attribute 'diff-context nil
                       :inherit '(nano-default sol-superlight-background))
   (set-face-attribute 'diff-added nil
@@ -415,6 +417,8 @@
                       :foreground 'unspecified
                       :underline t
                       :inherit 'nano-default)
+  (set-face-attribute 'magit-section-highlight nil
+                      :inherit 'nano-subtle)
   (set-face-attribute 'magit-keyword-squash nil
                       :bold t
                       :inherit 'nano-salient)
@@ -461,8 +465,14 @@
                       :inherit 'nano-strong)
   (set-face-attribute 'magit-diff-added nil
                       :inherit '(nano-salient sol-superlight-background))
+  (set-face-attribute 'magit-diff-added-highlight nil
+                      :bold t
+                      :inherit '(magit-diff-added))
   (set-face-attribute 'magit-diff-removed nil
                       :inherit '(nano-popout sol-superlight-background))
+  (set-face-attribute 'magit-diff-removed-highlight nil
+                      :bold t
+                      :inherit '(magit-diff-removed))
   (set-face-attribute 'magit-diff-hunk-heading nil
                       :bold t
                       :inherit '(nano-faded sol-superlight-background)))
