@@ -293,6 +293,7 @@
   :custom
   (dogears-idle 10)
   (dogears-position-delta 200)
+  (dogears-ellipsis "...")
   :general
   (dogears-list-mode-map
    :states 'normal
