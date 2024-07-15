@@ -707,4 +707,9 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
    "]]" 'Info-next
    "[[" 'Info-prev))
 
+(use-package diff-mode
+  :ensure nil
+  :hook
+  (diff-mode-hook . font-lock-mode))
+
 (provide 'config-emacs)
