@@ -82,8 +82,6 @@
   (:states 'normal
    "g /" #'consult-line)
   :config
-  (with-eval-after-load 'dogears
-    (add-hook 'consult-after-jump-hook #'dogears-remember))
   (with-eval-after-load 'evil
     (evil-set-command-property #'consult-buffer      :jump t)
     (evil-set-command-property #'consult-bookmark    :jump t)

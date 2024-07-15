@@ -321,9 +321,7 @@
   (with-eval-after-load 'git-commit
     (add-to-list 'dogears-ignore-modes 'git-commit-mode))
   (with-eval-after-load 'magit-status
-    (add-to-list 'dogears-ignore-modes 'magit-status-mode))
-  (with-eval-after-load 'consult
-    (add-to-list 'dogears-hooks 'consult-after-jump-hook)))
+    (add-to-list 'dogears-ignore-modes 'magit-status-mode)))
 
 (use-package focus
   :commands focus-mode
