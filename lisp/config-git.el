@@ -293,6 +293,7 @@ assume # starts a comment."
   (blamer-commit-formatter ": %s")
   (blamer-min-offset 5)
   (blamer-idle-time 1)
+  (blamer-view 'overlay-right)
   :hook
   (prog-mode-hook . blamer-mode))
 

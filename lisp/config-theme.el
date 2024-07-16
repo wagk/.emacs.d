@@ -631,7 +631,7 @@
                       :foreground 'unspecified
                       :background 'unspecified
                       :weight 'extra-light
-                      :inherit 'sol-superlight-foreground))
+                      :inherit 'sol-light-foreground))
 
 (with-eval-after-load 'eww
   (set-face-attribute 'eww-form-submit nil
