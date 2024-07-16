@@ -856,7 +856,16 @@
   (set-face-attribute 'lsp-details-face nil
                       :height 1.0
                       :weight 'normal
-                      :inherit 'sol-light-foreground))
+                      :inherit 'sol-light-foreground)
+  (set-face-attribute 'lsp-face-highlight-textual nil
+                      :inherit '(nano-default sol-superlight-background))
+  (set-face-attribute 'lsp-face-highlight-read nil
+                      :underline nil
+                      :inherit 'lsp-face-highlight-textual)
+  (set-face-attribute 'lsp-face-highlight-write nil
+                      :underline t
+                      :bold nil
+                      :inherit '(lsp-face-highlight-textual)))
 
 (with-eval-after-load 'lsp-ui-imenu
   (cl-defun --update-lsp-ui-imenu-colors ()
