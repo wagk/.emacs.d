@@ -1042,6 +1042,7 @@
 
 (with-eval-after-load 'scopeline
   (set-face-attribute 'scopeline-face nil
+                      :weight 'ultra-light
                       :inherit 'sol-light-foreground))
 
 (with-eval-after-load 'dired-hacks
