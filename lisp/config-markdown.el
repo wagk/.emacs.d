@@ -143,7 +143,8 @@ Accounts for trailing whitespace.")
   "Select a directory from `config-markdown-directories'.
 If there is only one directory just return that."
   (interactive)
-  (let ((dir (--completing-read "Directory: "
+  (let ((dir (--completing-read (format "Directory (active: %s): "
+                                        (or config-markdown-active-vault "none"))
                                 config-markdown-directories
                                 :require-match t)))
     (setq config-markdown-active-vault dir)
@@ -641,6 +642,7 @@ should prepopulate."
             :template
             ,#'--datetree-capture-template)))))
 (with-eval-after-load 'evil
+  (evil-ex-define-cmd "nv" #'config-markdown-select-directory)
   (evil-ex-define-cmd "nd" #'(lambda () (interactive)
                                (require 'org-capture)
                                (require 'config-org-capture)
