@@ -358,7 +358,8 @@ Returns nil if it belongs to no vault."
                 (if-let ((buffer-name (buffer-file-name))
                          (vault-name (config-markdown-file-vault buffer-name)))
                     vault-name
-                  (config-markdown-select-directory))))
+                  (or config-markdown-active-vault
+                      (config-markdown-select-directory)))))
          (file (file-relative-name file
                                    (-find #'(lambda (vault)
                                               (f-ancestor-of-p vault file))
@@ -549,9 +550,12 @@ Returns nil if it belongs to no vault."
   (--evil-define-splits "nn" #'(lambda () (interactive)
                                  (require 'transient)
                                  (--my-markdown-do)))
-  (--evil-define-splits "nf" #'config-markdown-find-file)
+  (--evil-define-splits "nf" #'(lambda () (interactive)
+                                 (config-markdown-find-file
+                                  config-markdown-active-vault)))
   (--evil-define-splits "nfi" #'(lambda () (interactive)
-                                  (config-markdown-find-file)
+                                  (config-markdown-find-file
+                                   config-markdown-active-vault)
                                   (consult-imenu)))
   (evil-ex-define-cmd "ni" #'config-markdown-insert-link-to-vault-file))
 
@@ -613,8 +617,7 @@ should prepopulate."
             :function
             ,#'(lambda ()
                  (interactive)
-                 (config-markdown-find-file
-                  config-markdown-active-vault)
+                 (config-markdown-find-file config-markdown-active-vault)
                  (markdown-datetree-find-instant)
                  (outline-next-preface))
             :after-finalize
