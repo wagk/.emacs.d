@@ -451,6 +451,8 @@
   (set-face-attribute 'magit-diff-base-highlight nil
                       :bold t
                       :inherit 'magit-diff-base)
+  (set-face-attribute 'magit-diff-file-heading-highlight nil
+                      :inherit '(nano-strong sol-superlight-background))
   (set-face-attribute 'magit-diff-context nil
                       :inherit '(nano-faded sol-superlight-background))
   (set-face-attribute 'magit-diff-context-highlight nil
