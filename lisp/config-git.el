@@ -116,7 +116,7 @@ assume # starts a comment."
   :config
   (with-eval-after-load 'transient
     (transient-replace-suffix 'magit-dispatch #'magit-status-quick
-      (list "j" "Show status" #'magit-status)))
+      (list "j" "Show status" #'magit-status))
     (transient-replace-suffix 'magit-dispatch #'magit-push
       (list "p" "Push" #'magit-push)))
   (define-advice magit-log-propertize-keywords
