@@ -164,6 +164,10 @@ Returns a string, or nil if there is no path associated with the buffer."
    :keymap 'minibuffer-mode-map
    "C-<return>" "RET"))
 
+(use-package track-changes
+  :demand t
+  :ensure nil)
+
 (use-package ielm
   :ensure nil
   :init
