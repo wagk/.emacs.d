@@ -24,6 +24,7 @@
   (:states 'normal
    "U"     'undo-tree-visualize)
   :config
+  (require 'track-changes nil :noerror) ;; if present, load track-changes
   (global-undo-tree-mode))
 
 ;; Needed for g; and g,
