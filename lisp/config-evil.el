@@ -16,7 +16,9 @@
   :custom
   (undo-tree-visualizer-diff t)
   (undo-tree-visualizer-timestamps t)
-  (undo-tree-auto-save-history nil) ;; the perf of this seems intensely bad
+  ;; (undo-tree-auto-save-history nil) ;; the perf of this seems intensely bad
+  (undo-tree-history-directory-alist
+   `(("." . ,(locate-user-emacs-file (file-name-concat "etc" "undo-tree")))))
   (undo-tree-enable-undo-in-region t)
   :hook
   (evil-local-mode-hook . turn-on-undo-tree-mode)
