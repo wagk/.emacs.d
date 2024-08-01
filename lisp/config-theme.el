@@ -876,7 +876,7 @@
                        (plist-get
                         (custom-face-attributes-get 'nano-default nil)
                         :foreground))))
-  (add-hook 'lsp-ui-imenu-mode-hook #'--update-lsp-ui-imenu-colors))
+  (--update-lsp-ui-imenu-colors))
 
 (with-eval-after-load 'lsp-ui-peek
   (set-face-attribute 'lsp-ui-peek-peek nil
