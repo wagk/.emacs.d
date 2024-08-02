@@ -1102,7 +1102,6 @@
     ("wrok" "work" nil :count 1)
     ("wrory" "worry" nil :count 1)
     ("wrpaper" "Wrapper" nil :count 1)
-    ("wrt" "w.r.t" nil :count 15)
     ("wtih" "with" nil :count 24)
     ("wtihin" "within" nil :count 2)
     ("wuld" "would" nil :count 1)
