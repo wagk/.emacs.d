@@ -63,7 +63,6 @@
 
 (require 'config-helpers)
 (require 'config-evil)
-(require 'config-theme)
 (require 'config-git)
 (require 'config-completions)
 (require 'config-project)
@@ -78,6 +77,10 @@
 (require 'config-japanese)
 (require 'config-anki)
 (require 'config-markdown)
+
+(if (display-graphic-p)
+    (require 'config-theme)
+  (require 'config-theme-term))
 
 (elpaca-process-queues)
 

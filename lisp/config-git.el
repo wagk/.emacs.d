@@ -1,5 +1,4 @@
 (require 'use-package)
-(require 'config-theme)
 (require 'config-helpers)
 (require 'config-project) ;; jira stuff
 

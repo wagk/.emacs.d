@@ -202,7 +202,7 @@
   (define-advice flycheck-mode-line-status-text
       (:filter-return (text) --flycheck-mute-modeline-colors)
     "Make the modeline coloring of flycheck warnings/errors less striking."
-    (put-text-property 0 (length text) 'face 'nano-default text)
+    (put-text-property 0 (length text) 'face 'default text)
     text))
 
 (use-package engine-mode

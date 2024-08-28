@@ -22,7 +22,7 @@ in dynamic mode."
                              (:propertize "/dyn"
                               help-echo "Using old dynamic scoping mode\n\
 mouse-1: Enable lexical-binding mode"
-                              face nano-subtle
+                              face default
                               mouse-face mode-line-highlight
                               local-map ,elisp--dynlex-modeline-map)))))
   :hook ((emacs-lisp-mode-hook . update-evil-shift-width)
