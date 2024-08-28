@@ -17,7 +17,6 @@
   (vc-make-backup-files t)
   (kept-new-versions 20)
   (kept-old-versions 5)
-  (fill-column 80)
   (ff-always-try-to-create nil)
   (delete-by-moving-to-trash t)
   (blink-matching-paren-highlight-offscreen t)
@@ -33,7 +32,7 @@
   (show-paren-context-when-offscreen t)
   (tags-add-tables nil)
   (use-dialog-box nil)
-  (fill-column 80)
+  ;; (fill-column 80)
   (frame-resize-pixelwise t)
   (inhibit-compacting-font-caches t)
   ;; make things more vim-like
