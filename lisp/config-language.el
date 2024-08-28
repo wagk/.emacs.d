@@ -540,6 +540,7 @@ Lisp function does not specify a special indentation."
 (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
 
 (use-package typescript-mode
+  :disabled t
   :mode "\\.ts\\'"
   :config
   (with-eval-after-load 'tree-sitter

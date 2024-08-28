@@ -279,7 +279,6 @@
   (advice-add 'link-hint-copy-link-at-point :around
               #'--link-hint-copy-link-fallback))
 
-
 (use-package highlight-indent-guides
   :commands (highlight-indent-guides-mode)
   :after general
@@ -342,7 +341,8 @@
 ;; Ensure that `libtool` is installed. On Ubuntu this can be done via
 ;; `libtool-bin`.
 (use-package vterm
-  :if (not (eq system-type 'windows-nt))
+  :disabled t
+  ;; :if (not (eq system-type 'windows-nt))
   :after evil
   :custom
   (vterm-max-scrollback 100000 "maximum allowed without editing source file.")
@@ -369,6 +369,7 @@
   :ensure (:host github :repo "xenodium/dwim-shell-command"))
 
 (use-package scopeline
+  :disabled t
   :ensure (:host github :repo "meain/scopeline.el" :branch "master")
   :after (:or tree-sitter treesit)
   :hook (prog-mode-hook . scopeline-mode)

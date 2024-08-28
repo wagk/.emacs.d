@@ -4,13 +4,12 @@
   :ensure (:host github :repo "Fuco1/smartparens")
   :demand t
   :blackout t
-  :commands (sp-local-pair
-             smartparens-global-mode)
   :hook
   ;; TODO: make this not just hooked on prog-mode
   (prog-mode-hook . (lambda () (interactive)
                       (require 'smartparens-config) ;; load some default configurations
-                      (require 'smartparens)))
+                      (require 'smartparens)
+                      (smartparens-mode)))
   :custom-face
   (sp-pair-overlay-face ((t (:inherit default :underline nil))))
   :general
@@ -129,6 +128,7 @@
 ;; Note that dired filters might/will hide files with the `.so' extension so
 ;; you're going to have to check that that isn't happening.
 (use-package parinfer-rust-mode
+  :disabled t ;; until we figure out how to get it working on work machines
   :commands (parinfer-rust-mode)
   :general
   (:states 'motion
@@ -260,10 +260,12 @@
   (global-origami-mode))
 
 (use-package tree-sitter
+  :disabled t
   :commands (tree-sitter-hl-mode tree-sitter-mode)
   :hook ((tree-sitter-after-on-hook . tree-sitter-hl-mode)))
 
 (use-package tree-sitter-langs
+  :disabled t
   :after tree-sitter)
 
 (use-package treesit-auto
