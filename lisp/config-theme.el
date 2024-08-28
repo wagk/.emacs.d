@@ -1004,7 +1004,21 @@
 
 (with-eval-after-load 'dired
   (set-face-attribute 'dired-directory nil
-                      :bold t))
+                      :bold t)
+  (set-face-attribute 'dired-broken-symlink nil
+                      :background sol-red
+                      :foreground 'unspecified
+                      :inherit 'nano-default-i))
+
+(with-eval-after-load 'dired-async
+  (set-face-attribute 'dired-async-failures nil
+                      :foreground sol-red)
+  (set-face-attribute 'dired-async-message nil
+                      :foreground 'unspecified
+                      :inherit 'nano-default)
+  (set-face-attribute 'dired-async-mode-message nil
+                      :foreground 'unspecified
+                      :inherit 'nano-default))
 
 (with-eval-after-load 'ace-window
   (set-face-attribute 'aw-leading-char-face nil

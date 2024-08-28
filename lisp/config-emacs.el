@@ -186,6 +186,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   :ensure nil
   :hook
   (dired-mode-hook . hl-line-mode)
+  (dired-mode-hook . dired-async-mode)
   (dired-mode-hook . dired-hide-details-mode)
   :custom
   ;; (dired-create-destination-dirs-on-trailing-dirsep nil)
