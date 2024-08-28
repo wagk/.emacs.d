@@ -66,7 +66,7 @@
 (cl-defun --find-and-set-fonts ()
   (interactive)
   (let ((sarasa-mono (font-spec :family "Sarasa Mono J" :size 14))
-        (iosevka (font-spec :family "Iosevka" :size 14))
+        (iosevka (font-spec :family "Iosevka" :size 20))
         (iosevka-etoile (font-spec :family "Iosevka Etoile" :size 14))
         (iosevka-aile (font-spec :family "Iosevka Aile" :size 14))
         (courier (font-spec :family "Courier" :size 14)))
@@ -704,6 +704,11 @@
                       :foreground sol-green
                       :background 'unspecified
                       :inherit 'nano-subtle))
+
+(with-eval-after-load 'sh-script
+  (set-face-attribute 'sh-heredoc nil
+                      :foreground 'unspecified
+                      :inherit 'nano-salient))
 
 (with-eval-after-load 'term
  (set-face-attribute 'term-color-red nil
