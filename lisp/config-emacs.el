@@ -275,6 +275,11 @@ Returns a string, or nil if there is no path associated with the buffer."
   (push '(before-string . nil) (get :warning 'flymake-overlay-control))
   (push '(before-string . nil) (get :note 'flymake-overlay-control)))
 
+(use-package eglot
+  :ensure nil
+  :custom
+  (eglot-prefer-plaintext t))
+
 (use-package dired-git-info
   :disabled t
   :ensure (:host github :repo "clemera/dired-git-info")
