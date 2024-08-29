@@ -265,7 +265,15 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom
   (flymake-error-bitmap nil)
   (flymake-warning-bitmap nil)
-  (flymake-note-bitmap nil))
+  (flymake-note-bitmap nil)
+  (flymake-fringe-indicator-location nil)
+  (flymake-margin-indicator-position nil)
+  (flymake-indicator-type nil)
+  :config
+  ;; solve the overlay problem
+  (push '(before-string . nil) (get :error 'flymake-overlay-control))
+  (push '(before-string . nil) (get :warning 'flymake-overlay-control))
+  (push '(before-string . nil) (get :note 'flymake-overlay-control)))
 
 (use-package dired-git-info
   :disabled t
