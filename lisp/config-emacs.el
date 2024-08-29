@@ -266,14 +266,23 @@ Returns a string, or nil if there is no path associated with the buffer."
   (flymake-error-bitmap nil)
   (flymake-warning-bitmap nil)
   (flymake-note-bitmap nil)
-  (flymake-fringe-indicator-location nil)
-  (flymake-margin-indicator-position nil)
+  (flymake-fringe-indicator-position nil)
   (flymake-indicator-type nil)
+  (flymake-margin-indicator-position nil)
+  (flymake-margin-indicators-string '((error "")
+                                      (warning "")
+                                      (note "")))
   :config
-  ;; solve the overlay problem
-  (push '(before-string . nil) (get :error 'flymake-overlay-control))
+  ;; flycheck is better
+  (push '(before-string . nil) (get :note 'flymake-overlay-control))
   (push '(before-string . nil) (get :warning 'flymake-overlay-control))
-  (push '(before-string . nil) (get :note 'flymake-overlay-control)))
+  (push '(before-string . nil) (get :error 'flymake-overlay-control)))
+  ;; :init
+  ;; ;; solve the overlay problem
+  ;; (setq flymake-overlay-control
+  ;;       '(:error (before-string . nil)
+  ;;         :warning (before-string . nil)
+  ;;         :note (before-string . nil))))
 
 (use-package eglot
   :ensure nil
