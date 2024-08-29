@@ -511,4 +511,11 @@
   :custom
   (eat-term-name "*eat-term*"))
 
+(use-package kubernetes
+  :ensure t)
+
+(use-package kubernetes-evil
+  :ensure t
+  :after kubernetes)
+
 (provide 'config-qol)
