@@ -141,6 +141,7 @@
 (use-package corfu
   ;; normal tab-completion seems to beat this with how it does
   ;; incremental completions
+  :disabled t ;; fairly laggy. minibuffer completion is enough
   :demand t
   :custom
   (corfu-auto nil)
