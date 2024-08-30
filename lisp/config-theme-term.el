@@ -26,4 +26,10 @@
                       :inverse-video nil
                       :inherit '(default highlight)))
 
+(with-eval-after-load 'dired
+  (set-face-attribute 'dired-filter-group-header nil
+                      :background 'unspecified
+                      :foreground 'unspecified
+                      :inherit 'default))
+
 (provide 'config-theme-term)
