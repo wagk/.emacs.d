@@ -631,6 +631,11 @@
                     :foreground 'unspecified
                     :bold t)
 
+(with-eval-after-load 'eglot
+  (set-face-attribute 'eglot-highlight-symbol-face nil
+                      :bold nil
+                      :inherit '(sol-superlight-background)))
+
 (with-eval-after-load 'blamer
   (set-face-attribute 'blamer-face nil
                       :foreground 'unspecified
