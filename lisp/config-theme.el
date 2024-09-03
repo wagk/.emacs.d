@@ -615,9 +615,11 @@
                     :foreground 'unspecified
                     :inherit 'nano-strong)
 (set-face-attribute 'font-lock-comment-face nil
+                    :weight 'semi-light
                     :foreground 'unspecified
                     :inherit '(nano-faded sol-superlight-background))
 (set-face-attribute 'font-lock-doc-face nil
+                    :weight 'semi-light
                     :foreground 'unspecified
                     :extend t
                     :inherit '(nano-default sol-superlight-background))
@@ -626,7 +628,8 @@
                     :foreground 'unspecified
                     :inherit 'nano-default)
 (set-face-attribute 'font-lock-string-face nil
-                    :foreground 'unspecified)
+                    :foreground 'unspecified
+                    :weight 'semi-light)
 
 (with-eval-after-load 'blamer
   (set-face-attribute 'blamer-face nil
