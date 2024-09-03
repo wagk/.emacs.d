@@ -629,7 +629,7 @@
                     :inherit 'nano-default)
 (set-face-attribute 'font-lock-string-face nil
                     :foreground 'unspecified
-                    :weight 'semi-light)
+                    :bold t)
 
 (with-eval-after-load 'blamer
   (set-face-attribute 'blamer-face nil
