@@ -66,7 +66,7 @@
 (cl-defun --find-and-set-fonts ()
   (interactive)
   (let ((sarasa-mono (font-spec :family "Sarasa Mono J" :size 14))
-        (iosevka (font-spec :family "Iosevka" :size 20))
+        (iosevka (font-spec :family "Iosevka" :size 22))
         (iosevka-etoile (font-spec :family "Iosevka Etoile" :size 14))
         (iosevka-aile (font-spec :family "Iosevka Aile" :size 14))
         (courier (font-spec :family "Courier" :size 14)))
