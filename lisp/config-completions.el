@@ -192,4 +192,10 @@
   (add-to-list 'completion-at-point-functions #'cape-history)
   (add-to-list 'completion-at-point-functions #'cape-keyword))
 
+(use-package consult-eglot
+  :after (eglot consult)
+  :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "fl" #'consult-eglot-symbols)))
+
 (provide 'config-completions)
