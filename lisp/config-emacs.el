@@ -181,6 +181,12 @@ Returns a string, or nil if there is no path associated with the buffer."
   :config
   (savehist-mode 1))
 
+(use-package eldoc
+  :ensure nil
+  :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "doc" #'eldoc)))
+
 (use-package dired
   :demand t
   :ensure nil
