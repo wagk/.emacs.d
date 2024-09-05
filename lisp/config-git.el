@@ -45,6 +45,11 @@
       :ensure `(seq :build ,(--elpaca-build-seq))
       :demand t)
     (elpaca-wait))
+
+  ;; the *dispatch commands are probably the most important
+  (evil-ex-define-cmd "gf"      'magit-file-dispatch)
+  (evil-ex-define-cmd "gg"      'magit-dispatch)
+
   (evil-ex-define-cmd "gF"      'magit-pull)
   (evil-ex-define-cmd "gB"      'magit-branch)
   (evil-ex-define-cmd "gd[iff]" 'magit-diff)
@@ -52,13 +57,11 @@
   (evil-ex-define-cmd "blame"   'magit-blame-addition)
   (evil-ex-define-cmd "gblame"  'magit-blame)
   (evil-ex-define-cmd "gc"      'magit-commit)
-  (evil-ex-define-cmd "gf"      'magit-file-dispatch)
-  (evil-ex-define-cmd "gg"      'magit-dispatch)
   (evil-ex-define-cmd "git"     'ex-magit-cli)
-  (evil-ex-define-cmd "gl"      'magit-log)
+  ;; (evil-ex-define-cmd "gl"      'magit-log)
   (evil-ex-define-cmd "glf"     'magit-log-buffer-file)
   (evil-ex-define-cmd "glb"    "glf")
-  (evil-ex-define-cmd "gll"     'magit-log-current)
+  ;; (evil-ex-define-cmd "gll"     'magit-log-current)
   (evil-ex-define-cmd "gp"      'magit-push)
   (evil-ex-define-cmd "gz"      'magit-stash)
   (cl-defun --update-git-commit-comment-info ()
@@ -153,8 +156,8 @@ assume # starts a comment."
   :commands (consult-git-log-grep)
   :after (magit consult)
   :init
-  (evil-ex-define-cmd "fgl" #'consult-git-log-grep)
-  (evil-ex-define-cmd "gfl" "fgl")
+  (evil-ex-define-cmd "fg" #'consult-git-log-grep)
+  (evil-ex-define-cmd "gl" "fg")
   :config
   (set-default 'consult-git-log-grep-open-function #'magit-show-commit))
 
