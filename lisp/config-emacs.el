@@ -145,7 +145,9 @@ Returns a string, or nil if there is no path associated with the buffer."
 (with-eval-after-load 'evil
   ;; buffer level info yanking
   (evil-ex-define-cmd "byl" #'--point-to-file-and-line-number)
-  (evil-ex-define-cmd "byf" #'--kill-buffer-path))
+  (evil-ex-define-cmd "yl" "byl")
+  (evil-ex-define-cmd "byf" #'--kill-buffer-path)
+  (evil-ex-define-cmd "yf" "byf"))
 
 ;; from https://github.com/bbatsov/crux
 (cl-defun --eval-and-replace ()
