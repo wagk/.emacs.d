@@ -109,9 +109,11 @@
     (evil-ex-define-cmd "ff"  'consult-line)
     (evil-ex-define-cmd "fa"  'consult-line-multi)
     (evil-ex-define-cmd "fi"  'consult-info)
+    (with-eval-after-load 'project
+      (evil-ex-define-cmd "fc" #'consult-compile-error))
     (with-eval-after-load 'link-hint
-      (evil-ex-define-cmd "fx"  'link-hint-open-link)
-      (evil-ex-define-cmd "fy"  'link-hint-copy-link)))
+      (evil-ex-define-cmd "flx"  'link-hint-open-link)
+      (evil-ex-define-cmd "fly"  'link-hint-copy-link)))
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'(lambda (&rest args)
                                           (apply (if vertico-mode
