@@ -301,6 +301,9 @@
                       :inherit 'sol-superlight-background))
 
 (with-eval-after-load 'evil
+  (set-face-attribute 'evil-ex-search nil
+                      :inherit 'match)
+
   (set-face-attribute 'evil-ex-info nil
                       :foreground sol-red)
   (set-face-attribute 'evil-ex-substitute-replacement nil
