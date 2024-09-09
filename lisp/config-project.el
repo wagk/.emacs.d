@@ -188,7 +188,9 @@
 
     (with-eval-after-load 'consult
       (evil-set-command-property #'consult-project-buffer :jump t)
-      (--evil-define-splits "pbb" #'consult-project-buffer)))
+      (--evil-define-splits "pbb" #'consult-project-buffer))
+    (with-eval-after-load 'flycheck
+      (evil-ex-define-cmd "pe" #'flycheck-list-errors)))
 
   (with-eval-after-load 'rg
     (with-eval-after-load 'evil

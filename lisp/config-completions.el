@@ -110,7 +110,9 @@
     (evil-ex-define-cmd "fa"  'consult-line-multi)
     (evil-ex-define-cmd "fi"  'consult-info)
     (with-eval-after-load 'project
-      (evil-ex-define-cmd "fc" #'consult-compile-error))
+      (evil-ex-define-cmd "fc" #'consult-compile-error)
+      (with-eval-after-load 'consult-flycheck
+        (evil-ex-define-cmd "fc" #'consult-flycheck)))
     (with-eval-after-load 'link-hint
       (evil-ex-define-cmd "flx"  'link-hint-open-link)
       (evil-ex-define-cmd "fly"  'link-hint-copy-link)))

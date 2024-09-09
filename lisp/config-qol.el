@@ -205,6 +205,17 @@
     (put-text-property 0 (length text) 'face 'default text)
     text))
 
+(use-package flycheck-eglot
+  :ensure t
+  :after (flycheck eglot)
+  :config
+  (global-flycheck-eglot-mode))
+
+(use-package consult-flycheck
+  :ensure t
+  :after flycheck
+  :commands (consult-flycheck))
+
 (use-package engine-mode
   :commands defengine
   :after (evil general)
