@@ -1075,7 +1075,11 @@
 (with-eval-after-load 'scopeline
   (set-face-attribute 'scopeline-face nil
                       :weight 'ultra-light
-                      :inherit 'sol-light-foreground))
+                      :inherit 'sol-light-foreground)
+  (with-eval-after-load 'eglot
+    (set-face-attribute 'scopeline-face nil
+                        :weight 'unspecified
+                        :inherit 'eglot-inlay-hint-face)))
 
 (with-eval-after-load 'dired-hacks
   (set-face-attribute 'dired-subtree-depth-1-face nil
