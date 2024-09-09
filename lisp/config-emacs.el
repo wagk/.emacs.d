@@ -513,6 +513,7 @@ Returns a string, or nil if there is no path associated with the buffer."
       "f f" #'consult-compile-error))
   :hook
   ;; (compilation-filter-hook . my-colorize-completion-buffer)
+  (compilation-mode-hook . hl-line-mode)
   (compilation-mode-hook . visual-line-mode))
 
 (use-package abbrev
