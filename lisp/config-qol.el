@@ -260,6 +260,9 @@
   ;;      (cond
   ;;       ((eq last-command 'link-hint-open-link-at-point) (link-hint-open-link))
   ;;       ((eq last-command 'link-hint-copy-link-at-point) (link-hint-copy-link))))))
+  :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "yx" #'link-hint-copy-link-at-point))
   :general
   (:keymaps 'help-mode-map
    :states '(motion normal)
