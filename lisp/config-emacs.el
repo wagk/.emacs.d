@@ -730,6 +730,8 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
 (use-package xref
   :ensure nil
   :config
+  (when (executable-find "rg")
+    (setq xref-search-program 'ripgrep))
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
 
 (use-package info
