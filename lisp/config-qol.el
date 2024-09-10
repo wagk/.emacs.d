@@ -531,4 +531,9 @@
   :ensure t
   :after kubernetes)
 
+(use-package plz
+  :ensure t
+  :if (executable-find "curl")
+  :commands plz)
+
 (provide 'config-qol)
