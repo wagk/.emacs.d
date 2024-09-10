@@ -188,14 +188,15 @@
 
     (with-eval-after-load 'consult
       (evil-set-command-property #'consult-project-buffer :jump t)
-      (--evil-define-splits "pbb" #'consult-project-buffer))
+      (--evil-define-splits "pbb" #'consult-project-buffer)
+      (evil-ex-define-cmd "pr" #'consult-ripgrep))
+
     (with-eval-after-load 'flycheck
       (evil-ex-define-cmd "pe" #'flycheck-list-errors)))
 
   (with-eval-after-load 'rg
     (with-eval-after-load 'evil
-      (evil-ex-define-cmd "rp" 'rg-project)
-      (evil-ex-define-cmd "pr" "rp"))
+      (evil-ex-define-cmd "rp" 'rg-project))
 
     (general-define-key
      :keymaps 'project-prefix-map
