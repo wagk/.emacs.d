@@ -142,6 +142,10 @@ assume # starts a comment."
                            'magit-keyword msg)))
       msg)))
 
+(use-package git-commit
+  :ensure t
+  :after magit)
+
 (use-package magit-diff
   :ensure nil
   :after (magit general)
