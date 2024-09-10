@@ -26,7 +26,7 @@
                       :inverse-video nil
                       :inherit '(default highlight)))
 
-(with-eval-after-load 'dired
+(with-eval-after-load 'dired-filter
   (set-face-attribute 'dired-filter-group-header nil
                       :background 'unspecified
                       :foreground 'unspecified
