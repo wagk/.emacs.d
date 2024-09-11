@@ -93,7 +93,8 @@
     (evil-set-command-property #'consult-line-multi  :jump t)
     (evil-set-command-property #'consult-info        :jump t))
   (with-eval-after-load 'evil
-    (evil-ex-define-cmd "mb"  'consult-bookmark)
+    (with-eval-after-load 'config-evil-helpers
+      (--evil-define-splits "mb" 'consult-bookmark))
     (evil-ex-define-cmd "mr"  'consult-recent-file)
     (evil-ex-define-cmd "fm"  'consult-bookmark)
     (evil-ex-define-cmd "fn"  'consult-goto-line)
@@ -105,6 +106,8 @@
     (evil-ex-define-cmd "fout"  'consult-outline)
     (evil-ex-define-cmd "ii"  'consult-imenu)
     (evil-ex-define-cmd "ia"  'consult-imenu-multi)
+    (with-eval-after-load 'consult-eglot
+      (evil-ex-define-cmd "ia" #'consult-eglot-symbols))
     (evil-ex-define-cmd "fp"  'consult-yank-from-kill-ring) ;; p for paste
     (evil-ex-define-cmd "ff"  'consult-line)
     (evil-ex-define-cmd "fa"  'consult-line-multi)
