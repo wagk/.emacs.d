@@ -148,6 +148,7 @@
 (use-package corfu
   ;; normal tab-completion seems to beat this with how it does
   ;; incremental completions
+  :if (display-graphic-p)
   :demand t
   :custom
   (corfu-auto nil)
