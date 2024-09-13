@@ -122,9 +122,11 @@
 
 (cl-defun --load-config-theme ()
   (interactive)
-  ;; (load-theme 'nano-dark t)
-  (load-theme 'nano-light t)
-  (load-file (locate-user-emacs-file (file-name-concat "lisp" "config-theme.el"))))
+  (with-eval-after-load 'nano-theme
+   ;; (load-theme 'nano-dark t)
+   (load-theme 'nano-light t)
+   (load-file (locate-user-emacs-file (file-name-concat "lisp" "config-theme.el")))))
+
 
 (add-hook 'elpaca-after-init-hook #'--load-config-theme)
 
