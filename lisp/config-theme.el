@@ -117,18 +117,16 @@
 (customize-set-variable 'nano-dark-popout      sol-orange)
 (customize-set-variable 'nano-dark-critical    sol-red)
 
-;; (with-eval-after-load 'nano-theme
-;;   (load-theme (or (bound-and-true-p --default-background) 'nano-light) t))
+(with-eval-after-load 'nano-theme
+  (load-theme (or (bound-and-true-p --default-background) 'nano-dark) t))
+  ;; (load-theme (or (bound-and-true-p --default-background) 'nano-light) t))
 
-(cl-defun --load-config-theme ()
+(cl-defun --load-config-theme (&optional dark)
   (interactive)
-  (with-eval-after-load 'nano-theme
-   ;; (load-theme 'nano-dark t)
-   (load-theme 'nano-light t)
-   (load-file (locate-user-emacs-file (file-name-concat "lisp" "config-theme.el")))))
-
-
-(add-hook 'elpaca-after-init-hook #'--load-config-theme)
+  ;; (if dark
+  ;;     (load-theme 'nano-dark t)
+  ;;   (load-theme 'nano-light t))
+  (load-file (locate-user-emacs-file (file-name-concat "lisp" "config-theme.el"))))
 
 (customize-set-variable 'frame-background-mode 'nil)
 
