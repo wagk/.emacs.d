@@ -732,6 +732,42 @@
                       :foreground 'unspecified
                       :inherit 'nano-salient))
 
+;; this is done primarily for vterm, so if we're not using vterm these
+;; values might be wrong
+(with-eval-after-load 'ansi-color
+  (set-face-attribute 'ansi-color-bright-black nil
+                      :bold t
+                      :foreground sol-base02
+                      :background sol-base02)
+  (set-face-attribute 'ansi-color-bright-blue nil
+                      :bold t
+                      :foreground sol-blue
+                      :background sol-blue)
+  (set-face-attribute 'ansi-color-bright-cyan nil
+                      :bold t
+                      :foreground sol-cyan
+                      :background sol-cyan)
+  (set-face-attribute 'ansi-color-bright-green nil
+                      :bold t
+                      :foreground sol-green
+                      :background sol-green)
+  (set-face-attribute 'ansi-color-bright-magenta nil
+                      :bold t
+                      :foreground sol-magenta
+                      :background sol-magenta)
+  (set-face-attribute 'ansi-color-bright-red nil
+                      :bold t
+                      :foreground sol-red
+                      :background sol-red)
+  (set-face-attribute 'ansi-color-bright-white nil
+                      :bold t
+                      :foreground sol-base2
+                      :background sol-base2)
+  (set-face-attribute 'ansi-color-bright-yellow nil
+                      :bold t
+                      :foreground sol-yellow
+                      :background sol-yellow))
+
 (with-eval-after-load 'term
  (set-face-attribute 'term-color-red nil
                      :foreground sol-red
