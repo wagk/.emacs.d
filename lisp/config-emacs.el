@@ -183,12 +183,6 @@ Returns a string, or nil if there is no path associated with the buffer."
   :config
   (savehist-mode 1))
 
-(use-package eldoc
-  :ensure nil
-  :init
-  (with-eval-after-load 'evil
-    (evil-ex-define-cmd "doc" #'eldoc)))
-
 (use-package dired
   :demand t
   :ensure nil
@@ -295,7 +289,21 @@ Returns a string, or nil if there is no path associated with the buffer."
 (use-package eglot
   :ensure nil
   :custom
-  (eglot-prefer-plaintext t))
+  (eglot-prefer-plaintext t)
+  :init
+  (with-eval-after-load 'evil
+    ;; "fl" is the prefix I'm choosing for this
+    (evil-ex-define-cmd "fla" #'eglot-code-actions)
+    (evil-ex-define-cmd "flaa" #'eglot-code-action-quickfix)
+    (evil-ex-define-cmd "flal" #'eglot-code-action-inline)
+    (evil-ex-define-cmd "flr" #'eglot-rename)
+    ;; "<normal>K" works just fine
+    ;; (with-eval-after-load 'eldoc
+    ;;   (evil-ex-define-cmd "fld" #'eldoc))
+    (with-eval-after-load 'flycheck
+      (evil-ex-define-cmd "fle" #'flycheck-list-errors)
+      (evil-ex-define-cmd "flen" #'flycheck-next-error)
+      (evil-ex-define-cmd "flep" #'flycheck-previous-error))))
 
 (use-package dired-git-info
   :disabled t
@@ -493,6 +501,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom
   (compilation-auto-jump-to-first-error nil)
   (compilation-ask-about-save nil)
+  (compile-command "" "Set the default to nothing")
   :config
   (with-eval-after-load 'savehist
     (add-to-list 'savehist-additional-variables 'compile-history))

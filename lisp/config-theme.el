@@ -291,6 +291,9 @@
                         (:underline ,sol-base01))))))
 
 (with-eval-after-load 'flycheck
+  (set-face-attribute 'flycheck-error-list-highlight nil
+                      :inherit 'sol-superlight-background
+                      :extend t)
   (custom-set-faces
     `(flycheck-error ((((background light))
                        (:box ,sol-base1))
