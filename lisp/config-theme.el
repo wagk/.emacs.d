@@ -118,8 +118,8 @@
 (customize-set-variable 'nano-dark-critical    sol-red)
 
 (with-eval-after-load 'nano-theme
-  (load-theme (or (bound-and-true-p --default-background) 'nano-dark) t))
-  ;; (load-theme (or (bound-and-true-p --default-background) 'nano-light) t))
+  ;; (load-theme (or (bound-and-true-p --default-background) 'nano-dark) t))
+  (load-theme (or (bound-and-true-p --default-background) 'nano-light) t))
 
 (cl-defun --load-config-theme (&optional dark)
   (interactive)
