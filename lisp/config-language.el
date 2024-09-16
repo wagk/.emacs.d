@@ -621,4 +621,7 @@ Lisp function does not specify a special indentation."
   (with-eval-after-load 'stripe-buffer
     (add-hook 'csv-mode-hook 'stripe-buffer-mode)))
 
+(use-package fish-mode
+  :ensure t)
+
 (provide 'config-language)
