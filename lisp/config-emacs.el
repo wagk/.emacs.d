@@ -165,9 +165,23 @@ Returns a string, or nil if there is no path associated with the buffer."
    :keymap 'minibuffer-mode-map
    "C-<return>" "RET"))
 
+;; lisp stolen from https://github.com/progfolio/elpaca/issues/216
+(cl-defun --elpaca-unload-track-changes (e)
+  (and (featurep 'track-changes) (unload-feature 'track-changes t))
+  (elpaca--continue-build e))
+
+(cl-defun --elpaca-build-track-changes ()
+  (append (butlast (if (file-exists-p (expand-file-name "track-changes" elpaca-builds-directory))
+		     elpaca--pre-built-steps
+		     elpaca-build-steps))
+          (list #'--elpaca-unload-track-changes #'elpaca--activate-package)))
+
 (use-package track-changes
-  :demand t
-  :ensure nil)
+  :ensure `(track-changes
+            :build ,(--elpaca-build-track-changes)
+            :host github
+            :repo "emacs-straight/track-changes")
+  :demand t)
 
 (use-package ielm
   :ensure nil
