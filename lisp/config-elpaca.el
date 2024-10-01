@@ -51,6 +51,9 @@
 
 (elpaca-wait)
 
+(setq elpaca-menu-functions
+  '(elpaca-menu-extensions elpaca-menu-org elpaca-menu-melpa))
+
 (if (not (boundp 'elpaca-ui-marks))
     (warn "elpaca-ui-marks can't be found! Skipping configuration")
   ;; Replace prefix emojis with non-emojis.
