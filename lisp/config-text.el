@@ -104,7 +104,9 @@
   (yas-global-mode))
 
 (use-package yasnippet-capf
-  :after (:all cape yasnippet)
+  :after (cape yasnippet)
+  :custom
+  (yasnippet-capf-lookup-by 'name)
   :config
   (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 

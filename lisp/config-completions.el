@@ -198,7 +198,10 @@
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-history)
-  (add-to-list 'completion-at-point-functions #'cape-keyword))
+  (add-to-list 'completion-at-point-functions #'cape-keyword)
+  (add-to-list 'completion-at-point-functions #'cape-line)
+  (add-to-list 'completion-at-point-functions #'cape-dict))
+
 
 (use-package consult-eglot
   :after (eglot consult)
