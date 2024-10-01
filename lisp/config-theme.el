@@ -881,7 +881,7 @@
                       :background 'unspecified
                       :underline 'unspecified
                       :bold nil
-                      :inherit '(sol-light-underline default))
+                      :inherit '(sol-superlight-background default))
   (set-face-attribute 'tab-bar-tab-inactive nil
                       :foreground 'unspecified
                       :background 'unspecified
