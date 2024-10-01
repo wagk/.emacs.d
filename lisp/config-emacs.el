@@ -180,11 +180,12 @@ Returns a string, or nil if there is no path associated with the buffer."
   :ensure `(track-changes
             :build ,(--elpaca-build-track-changes)
             :host github
-            :repo "emacs-straight/track-changes")
+            :repo "emacs-straight/track-changes"
+            :branch "master")
   :demand t)
 
 (use-package queue
-  :ensure (:host github :repo "emacs-straight/queue"))
+  :ensure (:host github :repo "emacs-straight/queue" :branch "master"))
 
 (use-package ielm
   :ensure nil

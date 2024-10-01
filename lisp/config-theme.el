@@ -93,7 +93,7 @@
 ;; Nano theme
 
 (use-package nano-theme
-  :ensure (:host github :repo "emacs-straight/nano-theme")
+  :ensure (:host github :repo "emacs-straight/nano-theme" :branch "master")
   :custom
   (nano-window-divider-show t)
   (nano-fonts-use nil)) ;; for now

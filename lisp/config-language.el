@@ -614,7 +614,7 @@ Lisp function does not specify a special indentation."
   (jam-mode-hook . --update-imenu))
 
 (use-package csv-mode
-  :ensure (:host github :repo "emacs-straight/csv-mode")
+  :ensure (:host github :repo "emacs-straight/csv-mode" :branch "master")
   :custom
   (csv-align-style 'auto)
   :config

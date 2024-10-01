@@ -1,5 +1,5 @@
 (use-package spinner
-  :ensure (:host github :repo "emacs-straight/spinner"))
+  :ensure (:host github :repo "emacs-straight/spinner" :branch "master"))
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)

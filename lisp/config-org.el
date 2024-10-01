@@ -6,7 +6,7 @@
 
 (use-package org
   ;; :ensure t ;; use non-emacs version
-  :ensure (:host github :repo "emacs-straight/org-mode")
+  :ensure (:host github :repo "emacs-straight/org-mode" :branch "master")
   :demand t
   :commands (orgtbl-mode
              org-babel-load-file)
@@ -455,7 +455,7 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
   :hook (org-mode-hook . org-appear-mode))
 
 (use-package valign
-  :ensure (:host github :repo "emacs-straight/valign")
+  :ensure (:host github :repo "emacs-straight/valign" :branch "master")
   :after org
   :hook (org-mode-hook . valign-mode))
 

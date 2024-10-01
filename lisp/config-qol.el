@@ -179,7 +179,7 @@
 ;;                          (display-line-numbers-mode)))))))
 
 (use-package rainbow-mode
-  :ensure (:host github :repo "emacs-straight/rainbow-mode"))
+  :ensure (:host github :repo "emacs-straight/rainbow-mode" :branch "master"))
 
 ;; whitespace
 (use-package ws-butler
@@ -540,7 +540,7 @@
   :after kubernetes)
 
 (use-package plz
-  :ensure (:host github :repo "emacs-straight/plz")
+  :ensure (:host github :repo "emacs-straight/plz" :branch "master")
   :if (executable-find "curl")
   :commands plz)
 
