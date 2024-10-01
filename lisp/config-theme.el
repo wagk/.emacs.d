@@ -488,10 +488,7 @@
                       :inherit '(nano-popout sol-superlight-background))
   (set-face-attribute 'magit-diff-removed-highlight nil
                       :bold t
-                      :inherit '(magit-diff-removed))
-  (set-face-attribute 'magit-diff-hunk-heading nil
-                      :bold t
-                      :inherit '(nano-faded sol-superlight-background)))
+                      :inherit '(magit-diff-removed)))
 
 (with-eval-after-load 'magit-sequence
   (set-face-attribute 'magit-sequence-head nil
