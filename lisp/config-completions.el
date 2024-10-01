@@ -99,11 +99,12 @@
     (evil-ex-define-cmd "fm"  'consult-bookmark)
     (evil-ex-define-cmd "fn"  'consult-goto-line)
     (evil-ex-define-cmd "bb"  'consult-buffer)
-    (evil-ex-define-cmd "fr"  'consult-recent-file)
-    (evil-ex-define-cmd "fb"  'consult-buffer)
+    (evil-ex-define-cmd "fr"  "mr")
+    (evil-ex-define-cmd "fb"  "bb")
     ;; :fo is currently used by focus-mode, and I sort of like it that way right
     ;; now.
     (evil-ex-define-cmd "fout"  'consult-outline)
+    (evil-ex-define-cmd "fi"  'consult-outline)
     (evil-ex-define-cmd "ii"  'consult-imenu)
     (evil-ex-define-cmd "ia"  'consult-imenu-multi)
     (with-eval-after-load 'consult-eglot
@@ -111,7 +112,6 @@
     (evil-ex-define-cmd "fp"  'consult-yank-from-kill-ring) ;; p for paste
     (evil-ex-define-cmd "ff"  'consult-line)
     (evil-ex-define-cmd "fa"  'consult-line-multi)
-    (evil-ex-define-cmd "fi"  'consult-info)
     (with-eval-after-load 'project
       (evil-ex-define-cmd "fc" #'consult-compile-error)
       (with-eval-after-load 'consult-flycheck
