@@ -191,6 +191,10 @@
       (--evil-define-splits "pbb" #'consult-project-buffer)
       (evil-ex-define-cmd "pr" #'consult-ripgrep))
 
+    (with-eval-after-load 'consult-todo
+      (evil-set-command-property #'--consult-todo :jump t)
+      (--evil-define-splits "pt" #'--consult-todo))
+
     (with-eval-after-load 'flycheck
       (evil-ex-define-cmd "pe" #'flycheck-list-errors)))
 

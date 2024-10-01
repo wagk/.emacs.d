@@ -48,8 +48,10 @@
 (use-package hl-todo
   ;; :ensure (:host github :repo "tarsius/hl-todo")
   :ensure t
+  :demand t
   :blackout t
-  :commands (hl-todo-mode)
+  :config
+  (global-hl-todo-mode)
   :hook ((prog-mode-hook  . hl-todo-mode)
          (yaml-mode-hook  . hl-todo-mode))
   :general
@@ -78,6 +80,17 @@
 ;;                                                      collect c))
 ;;                    :get-line #'buffer-substring)
 ;;         :buffer "*helm hl-todo*"))
+
+(use-package consult-todo
+  :ensure t
+  :after hl-todo
+  :config
+  (cl-defun --consult-todo ()
+    (interactive)
+    (require 'project)
+    (require 'dash)
+    (consult-todo (-filter #'buffer-file-name
+                           (project-buffers (project-current))))))
 
 ;; TODO: update `dired-collapse--create-ov' to not hardcode the shadow
 ;; face. This should be a PR
