@@ -91,7 +91,8 @@
     (evil-set-command-property #'consult-imenu-multi :jump t)
     (evil-set-command-property #'consult-line        :jump t)
     (evil-set-command-property #'consult-line-multi  :jump t)
-    (evil-set-command-property #'consult-info        :jump t))
+    (evil-set-command-property #'consult-info        :jump t)
+    (evil-set-command-property #'consult-ripgrep     :jump t))
   (with-eval-after-load 'evil
     (with-eval-after-load 'config-evil-helpers
       (--evil-define-splits "mb" 'consult-bookmark)
