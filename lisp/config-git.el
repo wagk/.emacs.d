@@ -242,13 +242,15 @@ assume # starts a comment."
                                (git-link-commit (git-link--select-remote))
                                (pop kill-ring))))
                   (browse-url url)))))
-  (evil-ex-define-cmd "repo" #'(lambda () (interactive)
-                                 (require 'git-link)
-                                 (let ((browse-url-browser-function #'browse-url-default-browser)
-                                       (url (progn
-                                                (git-link-homepage (git-link--select-remote))
-                                                (pop kill-ring))))
-                                   (browse-url url)))))
+  ;; TODO (pangt): something like :byg but for git specifically
+  (evil-ex-define-cmd "repo" #'git-link-homepage))
+  ;; (evil-ex-define-cmd "repo" #'(lambda () (interactive)
+  ;;                                (require 'git-link)
+  ;;                                (let ((browse-url-browser-function #'browse-url-default-browser)
+  ;;                                      (url (progn
+  ;;                                               (git-link-homepage (git-link--select-remote))
+  ;;                                               (pop kill-ring))))
+  ;;                                  (browse-url url)))))
   ;; (evil-ex-define-cmd "pulls" #'(lambda () (interactive)
   ;;                                 (require 'git-link)
   ;;                                 (let ((url (progn
