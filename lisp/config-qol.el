@@ -46,18 +46,12 @@
   (which-key-mode))
 
 (use-package hl-todo
-  :disabled t
   ;; :ensure (:host github :repo "tarsius/hl-todo")
   :ensure t
   :blackout t
   :commands (hl-todo-mode)
   :hook ((prog-mode-hook  . hl-todo-mode)
          (yaml-mode-hook  . hl-todo-mode))
-  :custom
-  (hl-todo-keyword-faces '(("TODO"  . "#b58900")
-                           ("DEBUG" . "#d33682")
-                           ("NOTE"  . "#586e75")
-                           ("FIXME" . "#cb4b16")))
   :general
   ;; (:states 'normal
   ;;  :prefix my-default-evil-leader-key

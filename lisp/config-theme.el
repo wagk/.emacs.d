@@ -320,6 +320,12 @@
   (set-face-attribute 'evil-ex-substitute-replacement nil
                       :foreground sol-red))
 
+(with-eval-after-load 'hl-todo
+  (setq hl-todo-keyword-faces '(("TODO"  . nano-default)
+                                ("DEBUG" . nano-default)
+                                ("NOTE"  . nano-default)
+                                ("FIXME" . nano-default))))
+
 (with-eval-after-load 'whitespace
   (set-face-attribute 'whitespace-newline nil
                       :foreground 'unspecified
