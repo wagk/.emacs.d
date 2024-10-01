@@ -165,7 +165,8 @@
 ;;                        (unless display-line-numbers-mode
 ;;                          (display-line-numbers-mode)))))))
 
-(use-package rainbow-mode)
+(use-package rainbow-mode
+  :ensure (:host github :repo "emacs-straight/rainbow-mode"))
 
 ;; whitespace
 (use-package ws-butler
@@ -526,7 +527,7 @@
   :after kubernetes)
 
 (use-package plz
-  :ensure t
+  :ensure (:host github :repo "emacs-straight/plz")
   :if (executable-find "curl")
   :commands plz)
 

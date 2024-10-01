@@ -1,3 +1,6 @@
+(use-package spinner
+  :ensure (:host github :repo "emacs-straight/spinner"))
+
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
   :custom

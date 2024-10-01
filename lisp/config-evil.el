@@ -9,6 +9,7 @@
 ;; NOTE: reddit notes that there might still be some history
 ;; corruption?
 (use-package undo-tree
+  :ensure (:host github :repo "emacs-straight/undo-tree")
   :demand t
   :blackout t
   :after (evil general)

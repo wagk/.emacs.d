@@ -183,6 +183,9 @@ Returns a string, or nil if there is no path associated with the buffer."
             :repo "emacs-straight/track-changes")
   :demand t)
 
+(use-package queue
+  :ensure (:host github :repo "emacs-straight/queue"))
+
 (use-package ielm
   :ensure nil
   :init
