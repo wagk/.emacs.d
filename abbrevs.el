@@ -609,6 +609,7 @@
     ("lical" "local" nil :count 2)
     ("liek" "like" nil :count 15)
     ("lifw" "life" nil :count 1)
+    ("lihgt" "light" nil :count 1)
     ("likley" "likely" nil :count 1)
     ("listenign" "listening" nil :count 1)
     ("literla" "literal" nil :count 1)
