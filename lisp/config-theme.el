@@ -63,13 +63,18 @@
 
 ;; Fonts
 
+(defcustom --default-font-size 20
+  "Default frame font size."
+  :group 'personal
+  :type 'integer)
+
 (cl-defun --find-and-set-fonts ()
   (interactive)
-  (let ((sarasa-mono (font-spec :family "Sarasa Mono J" :size 14))
-        (iosevka (font-spec :family "Iosevka" :size 22))
-        (iosevka-etoile (font-spec :family "Iosevka Etoile" :size 14))
-        (iosevka-aile (font-spec :family "Iosevka Aile" :size 14))
-        (courier (font-spec :family "Courier" :size 14)))
+  (let ((sarasa-mono (font-spec :family "Sarasa Mono J" :size --default-font-size))
+        (iosevka (font-spec :family "Iosevka" :size --default-font-size))
+        (iosevka-etoile (font-spec :family "Iosevka Etoile" :size --default-font-size))
+        (iosevka-aile (font-spec :family "Iosevka Aile" :size --default-font-size))
+        (courier (font-spec :family "Courier" :size --default-font-size)))
     (cond
      ((find-font sarasa-mono)
       (set-frame-font sarasa-mono nil t)
