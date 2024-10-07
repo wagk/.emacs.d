@@ -323,6 +323,12 @@ Returns a string, or nil if there is no path associated with the buffer."
       (evil-ex-define-cmd "flen" #'flycheck-next-error)
       (evil-ex-define-cmd "flep" #'flycheck-previous-error))))
 
+(use-package consult-eglot
+  :after (eglot consult)
+  :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "fll" #'consult-eglot-symbols)))
+
 (use-package dired-git-info
   :disabled t
   :ensure (:host github :repo "clemera/dired-git-info")

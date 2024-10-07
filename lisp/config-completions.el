@@ -202,11 +202,4 @@
   (add-to-list 'completion-at-point-functions #'cape-line)
   (add-to-list 'completion-at-point-functions #'cape-dict))
 
-
-(use-package consult-eglot
-  :after (eglot consult)
-  :init
-  (with-eval-after-load 'evil
-    (evil-ex-define-cmd "fl" #'consult-eglot-symbols)))
-
 (provide 'config-completions)
