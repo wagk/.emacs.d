@@ -181,6 +181,11 @@
 (use-package rainbow-mode
   :ensure (:host github :repo "emacs-straight/rainbow-mode" :branch "master"))
 
+(use-package cursor-flash
+  :ensure (:host github :repo "Boruch-Baum/emacs-cursor-flash")
+  :config
+  (cursor-flash-mode))
+
 ;; whitespace
 (use-package ws-butler
   :ensure t

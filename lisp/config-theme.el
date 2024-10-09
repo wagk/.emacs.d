@@ -294,6 +294,12 @@
                        (((background dark))
                         (:underline ,sol-base01))))))
 
+(with-eval-after-load 'cursor-flash
+  (set-face-attribute 'cursor-flash-face nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit 'nano-salient-i))
+
 (with-eval-after-load 'flycheck
   (set-face-attribute 'flycheck-error-list-highlight nil
                       :inherit 'sol-superlight-background
