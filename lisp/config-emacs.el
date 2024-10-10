@@ -226,6 +226,10 @@ Returns a string, or nil if there is no path associated with the buffer."
    :prefix my-default-evil-leader-key
    "<SPC>" 'execute-extended-command)
   :init
+  (with-eval-after-load 'dired-aux
+    (general-define-key
+     :keymaps 'dired-mode-map
+     "C-=" #'dired-create-empty-file))
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "Ex[plore]" 'dired-jump)
     (evil-ex-define-cmd "Sex[plore]" #'(lambda () (interactive)
