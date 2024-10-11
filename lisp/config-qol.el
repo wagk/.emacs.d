@@ -492,30 +492,6 @@
   ;;     (setq name (format "*<%s>%s*" gptel-model name))
   ;;     (list name a b c))))
 
-;; https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/writing-tests.md
-;; https://github.com/jorgenschaefer/emacs-buttercup/blob/master/docs/running-tests.md
-(use-package buttercup)
-
-;; Debug printf statements
-(use-package ll-debug
-  :disabled t
-  :commands ll-debug-insert
-  :after evil
-  :custom
-  (ll-debug-output-prefix "DEBUG-pangt-"))
-  ;; :init
-  ;; (evil-ex-define-cmd "di" #'ll-debug-insert))
-
-(use-package pomm
-  :ensure t
-  :after evil
-  :commands (pomm
-             pomm-start-with-context
-             pomm-third-time
-             pomm-third-time-start-with-context)
-  :init
-  (evil-ex-define-cmd "timer" 'pomm))
-
 (use-package restart-emacs
   :if (not (eq system-type 'darwin))
   :ensure (:host github :repo "iqbalansari/restart-emacs")
