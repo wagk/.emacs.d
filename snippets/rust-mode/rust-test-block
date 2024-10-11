@@ -3,7 +3,7 @@
 # name: rust-test-mod
 # --
 #[cfg(test)]
-mod tests {
+mod ${1:tests} {
     use super::*;
 
     $0
