@@ -59,8 +59,8 @@
   ;;  :prefix my-default-evil-leader-key
   ;;  "t t" 'my-helm-swoop-hl-todo)
   (:keymaps 'evil-normal-state-map
-   "[ h"  'hl-todo-previous
-   "] h"  'hl-todo-next))
+   "[ t"  'hl-todo-previous
+   "] t"  'hl-todo-next))
 ;; :init
 ;;TODO: Make this search for regexes
 ;; (defun my-helm-swoop-hl-todo () (interactive)

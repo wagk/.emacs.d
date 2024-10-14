@@ -444,9 +444,9 @@ Returns a string, or nil if there is no path associated with the buffer."
    ;; entire tab gets moved into frame
    "g F" 'tab-detach
    "g W" "g F")
-  (:states 'normal
-   "] t" #'tab-bar-switch-to-next-tab
-   "[ t" #'tab-bar-switch-to-prev-tab)
+  ;; (:states 'normal
+  ;;  "] t" #'tab-bar-switch-to-next-tab
+  ;;  "[ t" #'tab-bar-switch-to-prev-tab)
   :init
   (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
   (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
