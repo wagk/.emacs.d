@@ -1,0 +1,4 @@
+# key: derive
+# name: rust-derive
+# --
+#[derive($0)]
