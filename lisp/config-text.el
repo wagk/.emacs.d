@@ -102,9 +102,9 @@
                                (t comment-start))))
       ;; if we are already within a comment then skip comment char
       ;; insertion.
-      (if (comment-only-p (line-beginning-position) (line-end-position))
+      (if (save-excursion (comment-beginning))
           (format "%s" str)
-          (format "%s%s%s" comment-start str comment-end))))
+        (format "%s%s%s" comment-start str comment-end))))
   (yas-global-mode))
 
 (use-package yasnippet-capf
