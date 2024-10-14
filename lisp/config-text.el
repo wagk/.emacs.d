@@ -100,7 +100,11 @@
     (let ((comment-start (cond ((eq major-mode 'emacs-lisp-mode) ";; ")
                                ((eq major-mode 'terraform-mode) "# ")
                                (t comment-start))))
-      (format "%s%s%s" comment-start str comment-end)))
+      ;; if we are already within a comment then skip comment char
+      ;; insertion.
+      (if (comment-only-p (line-beginning-position) (line-end-position))
+          (format "%s" str)
+          (format "%s%s%s" comment-start str comment-end))))
   (yas-global-mode))
 
 (use-package yasnippet-capf
