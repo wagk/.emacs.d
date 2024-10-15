@@ -97,7 +97,8 @@
     (with-eval-after-load 'config-evil-helpers
       (--evil-define-splits "mb" 'consult-bookmark)
       (with-eval-after-load 'consult-todo
-        (--evil-define-splits "ft" #'consult-todo)))
+        (--evil-define-splits "ft" #'consult-todo)
+        (--evil-define-splits "ftt" #'--consult-todo)))
     (evil-ex-define-cmd "mr"  'consult-recent-file)
     (evil-ex-define-cmd "fm"  'consult-bookmark)
     (evil-ex-define-cmd "fn"  'consult-goto-line)
