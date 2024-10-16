@@ -312,6 +312,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   :ensure nil
   :custom
   (eglot-prefer-plaintext t)
+  (eglot-extend-to-xref t)
   :init
   (with-eval-after-load 'evil
     ;; "fl" is the prefix I'm choosing for this
