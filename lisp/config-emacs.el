@@ -284,6 +284,11 @@ Returns a string, or nil if there is no path associated with the buffer."
             #'(lambda ()
                 (add-hook 'imenu-after-jump-hook #'dired-find-file nil t))))
 
+(use-package eldoc
+  :ensure nil
+  :config
+  (global-eldoc-mode))
+
 (use-package flymake
   :ensure nil
   :custom
