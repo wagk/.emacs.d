@@ -129,6 +129,17 @@
                                                      #'consult-completion-in-region
                                                    #'completion--in-region)
                                                  args))))
+;;   (when (executable-find "rg")
+;;     (cl-defun --consult-ripgrep-single-file ()
+;;       "Call `consult-ripgrep' for the current buffer (a single file).
+
+;; Lifted from https://github.com/minad/consult/issues/407#issuecomment-1868143867"
+;;       (interactive)
+;;       (let ((consult-project-function (lambda (x) nil)))
+;;         (consult-ripgrep (list (shell-quote-argument buffer-file-name)))))
+;;     (evil-set-command-property #'--consult-ripgrep-single-file :jump t)
+;;     (evil-ex-define-cmd "ff"  '--consult-ripgrep-single-file)
+;;     (evil-ex-define-cmd "fa"  'consult-ripgrep)))
 
 (use-package consult-xref
   :ensure nil

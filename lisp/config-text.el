@@ -172,6 +172,7 @@
   :custom (wgrep-auto-save-buffer t))
 
 (use-package rg
+  :if (executable-find "rg")
   :ensure (:host github :repo "dajva/rg.el")
   :demand t
   :after (evil general)
