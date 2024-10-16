@@ -121,8 +121,8 @@
       (with-eval-after-load 'consult-flycheck
         (evil-ex-define-cmd "fc" #'consult-flycheck)))
     (with-eval-after-load 'link-hint
-      (evil-ex-define-cmd "flx"  'link-hint-open-link)
-      (evil-ex-define-cmd "fly"  'link-hint-copy-link)))
+      (evil-ex-define-cmd "fx"  'link-hint-open-link)
+      (evil-ex-define-cmd "fy"  'link-hint-copy-link)))
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'(lambda (&rest args)
                                           (apply (if vertico-mode
