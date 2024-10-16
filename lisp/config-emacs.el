@@ -318,6 +318,8 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom
   (eglot-prefer-plaintext t)
   (eglot-extend-to-xref t)
+  :hook
+  ((eglot-managed-mode-hook . eglot-inlay-hints-mode))
   :init
   (with-eval-after-load 'evil
     ;; "fl" is the prefix I'm choosing for this
