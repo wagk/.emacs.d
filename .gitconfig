@@ -4,6 +4,7 @@
     algorithm = histogram
     # tool = difftastic
     context = 10
+	submodule = log
 [rerere]
     enabled = true
 [merge]
@@ -17,3 +18,17 @@
     autoSetupRemote = true
 [log]
     date = iso
+[commit]
+    verbose = true
+[transfer]
+	fsckobjects = true
+[fetch]
+	fsckobjects = true
+[receive]
+	fsckobjects = true
+[status]
+	submoduleSummary = true
+[submodule]
+	recurse = true
+[branch]
+	sort = -committerdate
