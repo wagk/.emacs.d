@@ -152,7 +152,7 @@
   :custom
   (consult-dir-default-command #'consult-dir-dired)
   :init
-  (with-eval-after-load 'evil
+  (with-eval-after-load 'config-evil
     (--evil-define-splits "mm" #'consult-dir)))
 
 (use-package marginalia
