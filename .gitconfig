@@ -1,11 +1,11 @@
 [merge]
-	conflictstyle = diff3
+    conflictstyle = diff3
 [diff]
     algorithm = histogram
     # tool = difftastic
     context = 10
 [rerere]
-	enabled = true
+    enabled = true
 [merge]
     keepbackup = false
 [rebase]
