@@ -182,10 +182,10 @@
   (corfu-bar ((t (:inherit region))))
   (corfu-border ((t (:inherit corfu-default
                      :background unspecified))))
-  (corfu-deprecated ((t (:inherit shadow :strike-through nil))))
-  :config
-  (global-corfu-mode)
-  (corfu-echo-mode))
+  (corfu-deprecated ((t (:inherit shadow :strike-through nil)))))
+  ;;:config)
+  ;; (global-corfu-mode)
+  ;;(corfu-echo-mode))
 
 (use-package embark
   :after vertico
