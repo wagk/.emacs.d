@@ -7,7 +7,7 @@
 
 (use-package markdown-mode
   :ensure (:host github :repo "jrblevin/markdown-mode")
-  :mode ("\\.md\\'" . gfm-mode)
+  :mode ("\\.md\\'" . markdown-mode)
   :commands (markdown-mode)
   :custom
   (markdown-asymmetric-header t)
@@ -28,7 +28,7 @@
     "<tab>" #'--markdown-complete-or-indent-at-table
     "TAB" "<tab>")
   :init
-  (setq initial-major-mode 'gfm-mode)
+  (setq initial-major-mode 'markdown-mode)
   (cl-defun --markdown-complete-or-indent-at-table ()
     (interactive)
     (if (markdown-table-at-point-p)

@@ -114,7 +114,7 @@ assume # starts a comment."
          (git-commit-setup-hook . --update-git-commit-comment-info)
          ;; evil-markdown-mode should fire after markdown-mode
          (git-commit-setup-hook . evil-markdown-mode)
-         (git-commit-setup-hook . gfm-mode))
+         (git-commit-setup-hook . markdown-mode))
   :config
   (with-eval-after-load 'transient
     (transient-replace-suffix 'magit-dispatch #'magit-status-quick
