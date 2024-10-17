@@ -630,7 +630,7 @@
                     :inherit 'nano-default)
 (set-face-attribute 'font-lock-keyword-face nil
                     :foreground 'unspecified
-                    :inherit 'nano-default)
+                    :inherit 'nano-faded)
 (set-face-attribute 'font-lock-constant-face nil
                     :foreground 'unspecified
                     :inherit 'nano-default)
