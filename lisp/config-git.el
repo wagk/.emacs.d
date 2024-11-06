@@ -200,11 +200,9 @@ assume # starts a comment."
   :custom
   (magit-todos-keyword-suffix
    ,(rx (optional (0+ blank) "(" (1+ (not (any ")"))) ")") ":"))
-  (magit-todos-ignore-case t)
   (magit-todos-nice
    (not (eq system-type 'windows-nt))
    "`nice' does not exist on windows")
-  (magit-todos-branch-list t)
   (magit-todos-group-by '(magit-todos-item-first-path-component
                           magit-todos-item-filename))
                           ;; magit-todos-item-keyword))
