@@ -195,10 +195,11 @@ assume # starts a comment."
 ;; TODO: Somehow jigger `magit-todos-branch-list' to *only* show
 ;; branch todos instead of it being an appended section
 (use-package magit-todos
-  :disabled t
   :ensure t
   :after (magit hl-todo)
   :custom
+  (magit-todos-keyword-suffix
+   ,(rx (optional (0+ blank) "(" (1+ (not (any ")"))) ")") ":"))
   (magit-todos-ignore-case t)
   (magit-todos-nice
    (not (eq system-type 'windows-nt))
@@ -207,16 +208,6 @@ assume # starts a comment."
   (magit-todos-group-by '(magit-todos-item-first-path-component
                           magit-todos-item-filename))
                           ;; magit-todos-item-keyword))
-  :general
-  (:keymaps
-   '(magit-todos-section-map magit-todos-item-section-map)
-   "jT" nil
-   "jl" nil
-   "j" nil)
-  :commands
-  (magit-todos-list)
-  :init
-  (evil-ex-define-cmd "gtodo" 'magit-todos-list)
   :hook
   (magit-status-mode-hook . magit-todos-mode))
 
