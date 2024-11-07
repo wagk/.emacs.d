@@ -199,7 +199,7 @@ assume # starts a comment."
   :after (magit hl-todo)
   :custom
   (magit-todos-keyword-suffix
-   (rx (optional (0+ blank) "(" (1+ (not (any ")"))) ")") ":"))
+   (rx (optional (0+ blank) "(" (1+ (not (any ")"))) ")" (0+ blank)) ":"))
   (magit-todos-nice
    (not (eq system-type 'windows-nt))
    "`nice' does not exist on windows")
