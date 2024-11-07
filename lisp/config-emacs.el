@@ -333,14 +333,7 @@ Returns a string, or nil if there is no path associated with the buffer."
     (evil-ex-define-cmd "fla" #'eglot-code-actions)
     (evil-ex-define-cmd "flaa" #'eglot-code-action-quickfix)
     (evil-ex-define-cmd "flal" #'eglot-code-action-inline)
-    (evil-ex-define-cmd "flr" #'eglot-rename)
-    ;; "<normal>K" works just fine
-    ;; (with-eval-after-load 'eldoc
-    ;;   (evil-ex-define-cmd "fld" #'eldoc))
-    (with-eval-after-load 'flycheck
-      (evil-ex-define-cmd "fle" #'flycheck-list-errors)
-      (evil-ex-define-cmd "flen" #'flycheck-next-error)
-      (evil-ex-define-cmd "flep" #'flycheck-previous-error))))
+    (evil-ex-define-cmd "flr" #'eglot-rename)))
 
 (use-package consult-eglot
   :after (eglot consult)

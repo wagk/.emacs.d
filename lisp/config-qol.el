@@ -228,7 +228,12 @@
 (use-package consult-flycheck
   :ensure t
   :after flycheck
-  :commands (consult-flycheck))
+  :commands (consult-flycheck)
+  :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "fle" #'consult-flycheck)))
+
+
 
 (use-package engine-mode
   :commands defengine
