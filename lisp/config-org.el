@@ -6,7 +6,7 @@
 
 (use-package org
   ;; :ensure t ;; use non-emacs version
-  :ensure (:host github :repo "emacs-straight/org-mode" :branch "master")
+  :ensure (:host github :repo "emacs-straight/org-mode" :branch "main")
   :demand t
   :commands (orgtbl-mode
              org-babel-load-file)
