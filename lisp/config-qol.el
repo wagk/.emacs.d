@@ -197,6 +197,7 @@
 (use-package flycheck
   :ensure (:host github :repo "flycheck/flycheck")
   :custom
+  (flycheck-mode-line nil)
   (flycheck-indication-mode 'left-margin)
   ;; :custom-face
   ;; (flycheck-error ((t (:underline (:color ,sol-red :style line)))))
