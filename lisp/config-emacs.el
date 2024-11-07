@@ -289,6 +289,13 @@ Returns a string, or nil if there is no path associated with the buffer."
   :config
   (global-eldoc-mode))
 
+(use-package eglot-signature-eldoc-talkative
+  :ensure (:host codeberg :repo "mekeor/eglot-signature-eldoc-talkative")
+  :after (eglot eldoc)
+  :config
+  (advice-add #'eglot-signature-eldoc-function
+              :override #'eglot-signature-eldoc-talkative))
+
 (use-package flymake
   :ensure nil
   :custom
