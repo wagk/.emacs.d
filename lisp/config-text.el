@@ -166,6 +166,11 @@
   (use-package anaphora
     :ensure (:host github :repo "rolandwalker/anaphora")))
 
+(use-package breadcrumb
+  :ensure (:host github :repo "joaotavora/breadcrumb")
+  :config
+  (breadcrumb-mode))
+
 (use-package wgrep
   :ensure (:host github :repo "mhayashi1120/Emacs-wgrep")
   :commands (wgrep-change-to-wgrep-mode)
