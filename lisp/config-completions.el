@@ -110,7 +110,8 @@
     ;; :fo is currently used by focus-mode, and I sort of like it that way right
     ;; now.
     ;; (evil-ex-define-cmd "fout"  'consult-outline)
-    (evil-ex-define-cmd "fi"  'consult-imenu-multi)
+    (evil-ex-define-cmd "fi"  'consult-imenu)
+    (evil-ex-define-cmd "ii"  'consult-imenu-multi)
     (with-eval-after-load 'consult-eglot
       (evil-ex-define-cmd "ia" #'consult-eglot-symbols))
     (evil-ex-define-cmd "fp"  'consult-yank-from-kill-ring) ;; p for paste
