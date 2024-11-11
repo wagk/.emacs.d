@@ -372,8 +372,7 @@
 ;; Ensure that `libtool` is installed. On Ubuntu this can be done via
 ;; `libtool-bin`.
 (use-package vterm
-  :disabled t
-  ;; :if (not (eq system-type 'windows-nt))
+  :if (not (eq system-type 'windows-nt))
   :after evil
   :custom
   (vterm-max-scrollback 100000 "maximum allowed without editing source file.")
@@ -384,11 +383,13 @@
 (use-package multi-vterm
   :after (vterm general evil)
   :if (not (eq system-type 'windows-nt))
+  :commands (multi-vterm-project
+             multi-vterm)
   :general
   (general-define-key
    :keymaps 'project-prefix-map
    "s" 'multi-vterm-project) ;; overrides `project-shell'
-  :config
+  :init
   (evil-ex-define-cmd "term" #'multi-vterm))
 
 (with-eval-after-load 'evil
