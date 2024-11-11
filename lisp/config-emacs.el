@@ -290,6 +290,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   (global-eldoc-mode))
 
 (use-package eglot-signature-eldoc-talkative
+  :disabled t
   :ensure (:host codeberg :repo "mekeor/eglot-signature-eldoc-talkative")
   :after (eglot eldoc)
   :config
