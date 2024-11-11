@@ -82,6 +82,9 @@
   (:states 'normal
    "g /" #'consult-line)
   :config
+  (add-to-list 'consult-async-split-styles-alist
+               '(slashperl :initial "/" :function consult--split-perl))
+  (setq consult-async-split-style 'slashperl)
   (with-eval-after-load 'evil
     (evil-set-command-property #'consult-buffer      :jump t)
     (evil-set-command-property #'consult-bookmark    :jump t)
