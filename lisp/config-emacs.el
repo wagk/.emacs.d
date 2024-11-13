@@ -338,9 +338,12 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package consult-eglot
   :after (eglot consult)
+  :commands (consult-eglot-symbols)
   :init
   (with-eval-after-load 'evil
+    (evil-set-command-property #'consult-eglot-symbols :jump t)
     (evil-ex-define-cmd "fll" #'consult-eglot-symbols)))
+    (evil-ex-define-cmd "fl" "fll")))
 
 (use-package dired-git-info
   :disabled t
