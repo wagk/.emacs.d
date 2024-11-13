@@ -90,7 +90,10 @@
     (require 'project)
     (require 'dash)
     (consult-todo (-filter #'buffer-file-name
-                           (project-buffers (project-current))))))
+                           (project-buffers (project-current)))))
+  (with-eval-after-load 'evil
+    (evil-set-command-property #'consult-todo :jump t)
+    (evil-set-command-property #'--consult-todo :jump t)))
 
 ;; TODO: update `dired-collapse--create-ov' to not hardcode the shadow
 ;; face. This should be a PR
