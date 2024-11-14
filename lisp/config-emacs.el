@@ -46,6 +46,8 @@
   (:keymaps 'Buffer-menu-mode-map
    :states '(normal motion)
    "C-d" 'evil-scroll-down) ;; replaces `Buffer-menu-delete-backwards`
+  (:keymaps 'esc-map
+   ":" nil) ;; otherwise ESC : runs `eval-expression' instead of evil-ex
   :hook
   (prog-mode-hook . hs-minor-mode)
   (prog-mode-hook . show-paren-mode)
