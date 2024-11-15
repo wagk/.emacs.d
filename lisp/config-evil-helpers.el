@@ -3,7 +3,7 @@
 
 (evil-ex-define-cmd "view" #'(lambda () (interactive) (read-only-mode 'toggle)))
 
-(cl-defun --evil-define-splits (command func)
+(cl-defun --evil-define-splits (command func-or-string)
   "Given a function that finds the appropriate buffer sets :{v,s,t,w} ex-cmd
 variants.
 
@@ -13,20 +13,31 @@ not something supported right now)
 
 \(COMMAND BUFFER-FN)"
   (require 'evil)
-  (evil-ex-define-cmd command
-                      `(lambda () (interactive) (command-execute ',func)))
-  (evil-ex-define-cmd (concat "S" command)
-                      `(lambda () (interactive)
-                         (--evil-do-in-split ',func :split)))
-  (evil-ex-define-cmd (concat "V" command)
-                      `(lambda () (interactive)
-                         (--evil-do-in-split ',func :vsplit)))
-  (evil-ex-define-cmd (concat "T" command)
-                      `(lambda () (interactive)
-                         (--evil-do-in-tab ',func)))
-  (evil-ex-define-cmd (concat "W" command)
-                      `(lambda () (interactive)
-                         (--evil-do-in-frame ',func))))
+  (if (stringp func-or-string)
+      (progn (evil-ex-define-cmd command func-or-string)
+             (evil-ex-define-cmd (concat "S" command)
+                                 (concat "S" func-or-string))
+             (evil-ex-define-cmd (concat "V" command)
+                                 (concat "V" func-or-string))
+             (evil-ex-define-cmd (concat "T" command)
+                                 (concat "T" func-or-string))
+             (evil-ex-define-cmd (concat "W" command)
+                                 (concat "W" func-or-string)))
+    (evil-ex-define-cmd command
+                        `(lambda () (interactive)
+                          (command-execute ',func-or-string)))
+    (evil-ex-define-cmd (concat "S" command)
+                        `(lambda () (interactive)
+                          (--evil-do-in-split ',func-or-string :split)))
+    (evil-ex-define-cmd (concat "V" command)
+                        `(lambda () (interactive)
+                          (--evil-do-in-split ',func-or-string :vsplit)))
+    (evil-ex-define-cmd (concat "T" command)
+                        `(lambda () (interactive)
+                          (--evil-do-in-tab ',func-or-string)))
+    (evil-ex-define-cmd (concat "W" command)
+                        `(lambda () (interactive)
+                          (--evil-do-in-frame ',func-or-string)))))
 
 (--evil-define-splits "ld" #'(lambda () (interactive)
                                (dired user-emacs-directory)))

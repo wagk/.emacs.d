@@ -342,10 +342,10 @@ Returns a string, or nil if there is no path associated with the buffer."
   :after (eglot consult)
   :commands (consult-eglot-symbols)
   :init
-  (with-eval-after-load 'evil
+  (with-eval-after-load 'config-evil
     (evil-set-command-property #'consult-eglot-symbols :jump t)
-    (evil-ex-define-cmd "fll" #'consult-eglot-symbols)))
-    (evil-ex-define-cmd "fl" "fll")))
+    (--evil-define-splits "fll" #'consult-eglot-symbols)
+    (--evil-define-splits "fl" "fll")))
 
 (use-package dired-git-info
   :disabled t
