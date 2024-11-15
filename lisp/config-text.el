@@ -137,7 +137,7 @@
 ;; parinfer-rust-mode requires track-changes 1.1
 (use-package parinfer-rust-mode
   :commands (parinfer-rust-mode)
-  :after (track-changes)
+  :after (track-changes flymake)
   :general
   (:states 'motion
    "g p" 'parinfer-rust-toggle-paren-mode)
@@ -263,6 +263,8 @@
   (global-origami-mode))
 
 (use-package tree-sitter
+  :if (and (fboundp 'treesit-available-p)
+           (not (treesit-available-p)))
   :commands (tree-sitter-hl-mode tree-sitter-mode)
   :hook ((tree-sitter-after-on-hook . tree-sitter-hl-mode))
   :config
@@ -272,7 +274,6 @@
   :after tree-sitter)
 
 (use-package treesit-auto
-  :disabled t ;; tree-sitter is more mature, I find
   :if (and (not (eq system-type 'windows-nt))
            (fboundp 'treesit-available-p)
            (treesit-available-p))

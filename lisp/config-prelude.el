@@ -81,7 +81,6 @@
 (customize-set-variable 'use-package-verbose t)
 (customize-set-variable 'use-package-compute-statistics t)
 (customize-set-variable 'use-package-hook-name-suffix nil)
-(use-package use-package-ensure-system-package)
 ;; Package stuff end
 
 ;; Garbage collection

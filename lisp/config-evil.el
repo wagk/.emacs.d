@@ -143,17 +143,18 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
     "Automatically indent when inserting a newline")
   (evil-want-fine-undo t)
   :hook ((evil-normal-state-entry-hook . evil-ex-nohighlight))
-  :config
-  (cl-defun --evil-window-tag ()
-    ":h window-tag"
-    (interactive)
-    (--evil-do-in-split #'evil-jump-to-tag :vsplit))
+  :init
   (cl-defun update-evil-shift-width ()
     "We do this otherwise packages like parinfer would mess up with
       the indentation, since their default is 4 but lisp-mode defaults
       are generally 2."
     (require 'evil)
     (customize-set-variable 'evil-shift-width lisp-body-indent))
+  :config
+  (cl-defun --evil-window-tag ()
+    ":h window-tag"
+    (interactive)
+    (--evil-do-in-split #'evil-jump-to-tag :vsplit))
   ;; Back to our regularly scheduled programming
   (evil-select-search-module 'evil-search-module 'evil-search)
 
