@@ -546,22 +546,22 @@ Returns a string, or nil if there is no path associated with the buffer."
   (compile-command "" "Set the default to nothing")
   :config
   (with-eval-after-load 'savehist
-    (add-to-list 'savehist-additional-variables 'compile-history))
+    (add-to-list 'savehist-additional-variables 'compile-history)
+    (add-to-list 'savehist-additional-variables 'compile-command))
+  (with-eval-after-load 'consult
+    (general-define-key
+     :keymaps 'compilation-mode-map
+     :states 'normal
+     "f f" #'consult-compile-error))
+  ;; (defun my-colorize-completion-buffer ()
+  ;;   (require 'ansi-color)
+  ;;   (let ((inhibit-read-only t))
+  ;;     (ansi-color-apply-on-region compilation-filter-start (point))))
   :general
   (compilation-mode-map
    :states 'normal
    "]]" 'compilation-next-error
    "[[" 'compilation-previous-error)
-  :init
-  ;; (defun my-colorize-completion-buffer ()
-  ;;   (require 'ansi-color)
-  ;;   (let ((inhibit-read-only t))
-  ;;     (ansi-color-apply-on-region compilation-filter-start (point))))
-  (with-eval-after-load 'consult
-    (general-define-key
-     :keymaps 'compilation-mode-map
-     :states 'normal
-      "f f" #'consult-compile-error))
   :hook
   ;; (compilation-filter-hook . my-colorize-completion-buffer)
   (compilation-mode-hook . hl-line-mode)
