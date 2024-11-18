@@ -271,14 +271,15 @@
   (global-tree-sitter-mode))
 
 (use-package tree-sitter-langs
+  :if (and (fboundp 'treesit-available-p)
+           (not (treesit-available-p)))
   :after tree-sitter)
 
 (use-package treesit-auto
-  :if (and (not (eq system-type 'windows-nt))
-           (fboundp 'treesit-available-p)
+  :if (and (fboundp 'treesit-available-p)
            (treesit-available-p))
   :custom
-  (treesit-auto-install 'prompt)
+  (treesit-auto-install t)
   :config
   (global-treesit-auto-mode))
 

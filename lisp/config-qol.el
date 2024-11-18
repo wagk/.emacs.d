@@ -404,13 +404,14 @@
   :ensure (:host github :repo "xenodium/dwim-shell-command"))
 
 (use-package scopeline
-  :disabled t
+  :if (and (fboundp 'treesit-available-p)
+           (treesit-available-p))
   :ensure (:host github :repo "meain/scopeline.el" :branch "master")
-  :after (:or tree-sitter treesit)
+  :after treesit
   :hook (prog-mode-hook . scopeline-mode)
   :blackout t
   :custom
-  ;; (scopeline-overlay-prefix " -- ")
+  (scopeline-overlay-prefix " ^^^ ")
   (scopeline-overlay-prefix " ")
   (scopeline-min-lines 10))
 

@@ -153,7 +153,10 @@ Lisp function does not specify a special indentation."
    "RET" 'comment-indent-new-line)
   :init
   (with-eval-after-load 'org-src
-    (cl-pushnew '("rust" . rust) org-src-lang-modes)))
+    (cl-pushnew '("rust" . rust) org-src-lang-modes))
+  :config
+  (with-eval-after-load 'treesit
+    (setq rust-mode-treesitter-derive t)))
 
 ;; treesit
 (with-eval-after-load 'rust-ts-mode
