@@ -377,6 +377,8 @@
 (use-package vterm
   :if (not (eq system-type 'windows-nt))
   :after evil
+  :init
+  (setq vterm-always-compile-module t)
   :custom
   (vterm-max-scrollback 100000 "maximum allowed without editing source file.")
   (vterm-always-compile-module t)
