@@ -91,6 +91,14 @@
 (with-eval-after-load 'evil
   (evil-ex-define-cmd "rot[13]" 'toggle-rot13-mode))
 
+(use-package savehist
+  :ensure nil
+  :custom
+  (savehist-additional-variables
+   '(kill-ring search-ring regexp-search-ring))
+  :config
+  (savehist-mode 1))
+
 (use-package display-fill-column-indicator
   :ensure nil
   :if (>= emacs-major-version 27)
@@ -194,14 +202,6 @@ Returns a string, or nil if there is no path associated with the buffer."
   :init
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "repl" 'ielm)))
-
-(use-package savehist
-  :ensure nil
-  :custom
-  (savehist-save-minibuffer-history 1)
-  (savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
-  :config
-  (savehist-mode 1))
 
 (use-package dired
   :demand t
