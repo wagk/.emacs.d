@@ -404,6 +404,7 @@
   :ensure (:host github :repo "xenodium/dwim-shell-command"))
 
 (use-package scopeline
+  :disabled t
   :ensure (:host github :repo "meain/scopeline.el" :branch "master")
   :after (:or tree-sitter treesit)
   :hook (prog-mode-hook . scopeline-mode)
