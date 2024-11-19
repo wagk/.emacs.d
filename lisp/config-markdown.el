@@ -68,8 +68,8 @@
   ;; (with-eval-after-load 'aggressive-fill-paragraph
   ;;   (add-hook 'markdown-mode-hook #'aggressive-fill-paragraph-mode))
 
-  (with-eval-after-load 'visual-fill-column
-    (add-hook 'markdown-mode-hook #'visual-line-fill-column-mode))
+  ;; (with-eval-after-load 'visual-fill-column
+  ;;   (add-hook 'markdown-mode-hook #'visual-line-fill-column-mode))
 
   (with-eval-after-load 'org-table
     (defun orgtbl-to-gfm (table params)
