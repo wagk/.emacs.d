@@ -390,6 +390,8 @@
   :if (not (eq system-type 'windows-nt))
   :commands (multi-vterm-project
              multi-vterm)
+  :custom
+  (multi-vterm-buffer-name "vterm")
   :general
   (general-define-key
    :keymaps 'project-prefix-map
