@@ -393,9 +393,15 @@
   :general
   (general-define-key
    :keymaps 'project-prefix-map
-   "s" 'multi-vterm-project) ;; overrides `project-shell'
+   "s" '--multi-vterm-project) ;; overrides `project-shell'
   :init
-  (evil-ex-define-cmd "term" #'multi-vterm))
+  (evil-ex-define-cmd "term" #'multi-vterm)
+  (cl-defun --multi-vterm-project ()
+    (interactive)
+    (require 'multi-vterm)
+    (cl-letf (((symbol-function 'switch-to-buffer-other-window)
+               #'switch-to-buffer))
+      (command-execute #'multi-vterm-project))))
 
 (with-eval-after-load 'evil
   (when (fboundp 'shortdoc)
