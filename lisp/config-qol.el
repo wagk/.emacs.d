@@ -214,7 +214,7 @@
   ;; (flycheck-fringe-warning ((((background light)) (:background ,sol-base3 :foreground ,sol-yellow))
   ;;                           (((background dark)) (:background ,sol-base03 :foreground ,sol-yellow))))
   :hook
-  (prog-mode-hook . global-flycheck-mode)
+  ((prog-mode-hook . flycheck-mode))
   :config
   (define-advice flycheck-mode-line-status-text
       (:filter-return (text) --flycheck-mute-modeline-colors)
@@ -412,6 +412,7 @@
   :ensure (:host github :repo "xenodium/dwim-shell-command"))
 
 (use-package scopeline
+  :disabled t
   :if (and (fboundp 'treesit-available-p)
            (treesit-available-p))
   :ensure (:host github :repo "meain/scopeline.el" :branch "master")

@@ -136,8 +136,7 @@
 ;;
 ;; parinfer-rust-mode requires track-changes 1.1
 (use-package parinfer-rust-mode
-  :commands (parinfer-rust-mode)
-  :after (track-changes flymake)
+  :after (track-changes flymake flycheck)
   :general
   (:states 'motion
    "g p" 'parinfer-rust-toggle-paren-mode)
