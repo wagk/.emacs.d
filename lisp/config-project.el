@@ -166,7 +166,7 @@
     (--evil-define-splits "pdd" #'project-find-dir)
     (if (eq system-type 'windows-nt)
         (evil-ex-define-cmd "ps" #'project-shell)
-      (evil-ex-define-cmd "ps" #'--multi-vterm-project))
+      (--evil-define-splits "ps" #'--multi-vterm-project))
     (evil-ex-define-cmd "pc" #'--compile-command-completing-read)
     (evil-ex-define-cmd "pcd" #'--compile-command-delete)
     (evil-ex-define-cmd "pck" #'kill-compilation)
