@@ -94,6 +94,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
     "C-u" 'evil-delete-whole-line)
   (:keymaps 'normal
     "g C-u" 'universal-argument
+    "g r" #'(lambda () (interactive) (revert-buffer t t))
     "g a" 'describe-char
     "g o" 'ff-find-other-file
     "g O" 'ff-find-other-file-other-window)
