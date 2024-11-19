@@ -394,6 +394,7 @@
     ("feelinggs" "feelings" nil :count 1)
     ("feild" "field" nil :count 1)
     ("fiarly" "fairly" nil :count 1)
+    ("fictures" "fixtures" nil :count 1)
     ("fiddlign" "fiddling" nil :count 1)
     ("fiel" "file" nil :count 11)
     ("fiels" "files" nil :count 8)
