@@ -330,6 +330,12 @@ Returns a string, or nil if there is no path associated with the buffer."
   (eglot-extend-to-xref t)
   :hook
   ((eglot-managed-mode-hook . eglot-inlay-hints-mode))
+  :general
+  (eglot-mode-map
+   :states 'normal
+    "g r" nil  ;; unbind `xref-find-references'
+    "g 5" nil  ;; unbind `xref-find-definitions-other-frame'
+    "g D" nil) ;; unbind `xref-find-definitions-other-window'
   :init
   (with-eval-after-load 'evil
     ;; "fl" is the prefix I'm choosing for this
