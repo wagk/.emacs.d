@@ -546,4 +546,9 @@
   :if (executable-find "curl")
   :commands plz)
 
+(use-package verb
+  :ensure (:host github :repo "federicotdn/verb")
+  :after (org)
+  :commands (verb-mode))
+
 (provide 'config-qol)
