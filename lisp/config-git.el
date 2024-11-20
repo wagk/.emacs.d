@@ -46,6 +46,9 @@
       :demand t)
     (elpaca-wait))
 
+  (cl-defun --magit-on-mode-save-buffers ()
+    (save-some-buffers t #'save-some-buffers-root))
+
   ;; the *dispatch commands are probably the most important
   (evil-ex-define-cmd "gf"      'magit-file-dispatch)
   (evil-ex-define-cmd "gg"      'magit-dispatch)
@@ -114,7 +117,8 @@ assume # starts a comment."
          (git-commit-setup-hook . --update-git-commit-comment-info)
          ;; evil-markdown-mode should fire after markdown-mode
          (git-commit-setup-hook . evil-markdown-mode)
-         (git-commit-setup-hook . markdown-mode))
+         (git-commit-setup-hook . markdown-mode)
+         (magit-mode-hook . --magit-on-mode-save-buffers))
   :config
   (with-eval-after-load 'transient
     (transient-replace-suffix 'magit-dispatch #'magit-status-quick
