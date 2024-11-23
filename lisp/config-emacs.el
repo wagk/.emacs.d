@@ -39,6 +39,7 @@
   (scroll-step 1)
   (scroll-margin 1)
   (scroll-conservatively 9999)
+  (whitespace-line-column nil)
   :general
   (:states 'normal
    :prefix my-default-evil-leader-key
