@@ -182,8 +182,8 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (cl-defun --elpaca-build-track-changes ()
   (append (butlast (if (file-exists-p (expand-file-name "track-changes" elpaca-builds-directory))
-		     elpaca--pre-built-steps
-		     elpaca-build-steps))
+                       elpaca--pre-built-steps
+                     elpaca-build-steps))
           (list #'--elpaca-unload-track-changes #'elpaca--activate-package)))
 
 (use-package track-changes
