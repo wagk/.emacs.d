@@ -212,14 +212,12 @@ not something supported right now)
     :files "elisp"
     :query ask
     :dir user-lisp-dir)
-  (evil-ex-define-cmd "lr" #'--rg-search-lisp)
-  (evil-ex-define-cmd "rl" "lr"))
-(--evil-define-splits "ll" #'--select-config-lisp-file)
+  (evil-ex-define-cmd "rconfig" #'--rg-search-lisp))
 
 (cl-defun --select-lisp-config-root-file ()
   (interactive)
   (find-file (locate-user-emacs-file "lisp/config.el")))
-(--evil-define-splits "config" #'--select-lisp-config-root-file)
+(--evil-define-splits "config" #'--select-config-lisp-file)
 (--evil-define-splits "cofnig" "config")
 (--evil-define-splits "cnfig"  "config")
 

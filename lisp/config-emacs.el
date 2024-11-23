@@ -339,11 +339,13 @@ Returns a string, or nil if there is no path associated with the buffer."
     "g D" nil) ;; unbind `xref-find-definitions-other-window'
   :init
   (with-eval-after-load 'evil
-    ;; "fl" is the prefix I'm choosing for this
-    (evil-ex-define-cmd "fla" #'eglot-code-actions)
-    (evil-ex-define-cmd "flaa" #'eglot-code-action-quickfix)
-    (evil-ex-define-cmd "flal" #'eglot-code-action-inline)
-    (evil-ex-define-cmd "flr" #'eglot-rename)))
+    (evil-ex-define-cmd "la" #'eglot-code-actions)
+    (evil-ex-define-cmd "lr" #'eglot-rename)
+    (evil-ex-define-cmd "lw" #'eglot-code-action-rewrite)
+    (evil-ex-define-cmd "lx" #'eglot-code-action-extract)
+    (evil-ex-define-cmd "li" #'eglot-code-action-inline)
+    (evil-ex-define-cmd "lc" #'eglot-code-action-quickfix)
+    (evil-ex-define-cmd "lm" #'eglot-code-action-organize-imports)))
 
 (use-package consult-eglot
   :after (eglot consult)
@@ -351,8 +353,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   :init
   (with-eval-after-load 'config-evil
     (evil-set-command-property #'consult-eglot-symbols :jump t)
-    (--evil-define-splits "fll" #'consult-eglot-symbols)
-    (--evil-define-splits "fl" "fll")))
+    (--evil-define-splits "ll" #'consult-eglot-symbols)))
 
 (use-package dired-git-info
   :disabled t
