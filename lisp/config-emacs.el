@@ -353,7 +353,9 @@ Returns a string, or nil if there is no path associated with the buffer."
   :init
   (with-eval-after-load 'config-evil
     (evil-set-command-property #'consult-eglot-symbols :jump t)
-    (--evil-define-splits "ll" #'consult-eglot-symbols)))
+    (--evil-define-splits "ll" #'consult-eglot-symbols)
+    (--evil-define-splits "fl" "ll")
+    (--evil-define-splits "fll" "ll")))
 
 (use-package dired-git-info
   :disabled t
