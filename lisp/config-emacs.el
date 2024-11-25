@@ -551,6 +551,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom
   (compilation-auto-jump-to-first-error nil)
   (compilation-ask-about-save nil)
+  (compilation-always-kill t)
   (compile-command "" "Set the default to nothing")
   :config
   (with-eval-after-load 'savehist
