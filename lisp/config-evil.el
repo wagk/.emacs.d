@@ -194,8 +194,8 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   (define-advice evil-write (:before-while (&rest args) --reject-typo-filenames)
     "When calling :w I want to reject weird typo filenames"
     (let ((save-name (nth 3 args)))
-      (if-let ((save (-any (lambda (x) (equal x save-name))
-                           --evil-write-typo-filenames)))
+      (if-let* ((save (-any (lambda (x) (equal x save-name))
+                            --evil-write-typo-filenames)))
           (y-or-n-p
            (format "Did you intend to save a file named %s ?" save-name))
         t)))

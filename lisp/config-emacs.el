@@ -119,15 +119,15 @@
 (cl-defun --point-to-file-and-line-number ()
   (interactive)
   (let* ((buf (--find-buffer-path))
-         (lines (if-let ((_ (use-region-p))
-                         (beg-line (save-excursion
-                                     (goto-char (use-region-beginning))
-                                     (line-number-at-pos)))
-                         (end-line (save-excursion
-                                     (goto-char (max (- (use-region-end) 1)
-                                                     (use-region-beginning)))
-                                     (line-number-at-pos)))
-                         (_ (not (eq beg-line end-line))))
+         (lines (if-let* ((_ (use-region-p))
+                          (beg-line (save-excursion
+                                      (goto-char (use-region-beginning))
+                                      (line-number-at-pos)))
+                          (end-line (save-excursion
+                                      (goto-char (max (- (use-region-end) 1)
+                                                      (use-region-beginning)))
+                                      (line-number-at-pos)))
+                          (_ (not (eq beg-line end-line))))
                     (concat (number-to-string beg-line) "-"
                             (number-to-string end-line))
                   (number-to-string (line-number-at-pos))))
@@ -497,7 +497,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   ;;   (let ((buffer-name (-> (minibuffer-selected-window)
   ;;                          (window-buffer)
   ;;                          (buffer-name))))
-  ;;     (if-let ((project-info (project-current)))
+  ;;     (if-let* ((project-info (project-current)))
   ;;         (format "%s<%s>" buffer-name (project-root project-info))
   ;;       (format "%s" buffer-name))))
   ;; (customize-set-value 'tab-bar-tab-name-function #'--tab-bar-tab-name-fn)

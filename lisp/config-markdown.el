@@ -184,17 +184,17 @@ Return nil if the front matter does not exist, or incorrectly delineated by
   "Opens a file and reads the metadata"
   (require 'dash)
   (require 'marginalia nil :noerror)
-  (if-let ((raw-frontmatter (with-temp-buffer
-                              (if (file-exists-p candidate)
-                                  (insert-file-contents-literally candidate)
-                                nil)
-                              (config-markdown-get-yaml-front-matter)))
-           (frontmatter (condition-case err
-                            (yaml-parse-string raw-frontmatter
-                                               :null-object nil)
-                          (t
-                           (message "Error annotating %s." candidate)
-                           nil))))
+  (if-let* ((raw-frontmatter (with-temp-buffer
+                               (if (file-exists-p candidate)
+                                   (insert-file-contents-literally candidate)
+                                 nil)
+                               (config-markdown-get-yaml-front-matter)))
+            (frontmatter (condition-case err
+                             (yaml-parse-string raw-frontmatter
+                                                :null-object nil)
+                           (t
+                            (message "Error annotating %s." candidate)
+                            nil))))
       (let ((summary (--> frontmatter
                           (gethash 'summary it "")
                           (or it "")))
@@ -254,7 +254,7 @@ not currently enforced."
           (list :annotation-function
             #'(lambda (cand)
                 ;; do some very basic caching because it's slow
-                (if-let ((annot (ht-get memo cand)))
+                (if-let* ((annot (ht-get memo cand)))
                     annot
                   (let ((text (config-markdown--select-file-annotation-function
                                (file-name-concat dir cand))))
@@ -355,8 +355,8 @@ Returns nil if it belongs to no vault."
   (require 'dash)
   (require 'markdown-mode)
   (let* ((file (config-markdown-select-file-name
-                (if-let ((buffer-name (buffer-file-name))
-                         (vault-name (config-markdown-file-vault buffer-name)))
+                (if-let* ((buffer-name (buffer-file-name))
+                          (vault-name (config-markdown-file-vault buffer-name)))
                     vault-name
                   (or config-markdown-active-vault
                       (config-markdown-select-directory)))))

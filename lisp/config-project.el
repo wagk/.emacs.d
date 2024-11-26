@@ -18,7 +18,7 @@
     (cl-defun --project-buffer-name-function (mode-name)
       (require 'project)
       (concat "*" (downcase mode-name)
-              (if-let ((project (project-current nil)))
+              (if-let* ((project (project-current nil)))
                   (concat "<" (project-name project) ">"))
               "*"))
     (customize-set-variable 'compilation-buffer-name-function

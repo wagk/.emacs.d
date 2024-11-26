@@ -79,23 +79,23 @@ assume # starts a comment."
 
 [0]: https://kernelnewbies.org/PatchTipsAndTricks"
     (require 'dash)
-    (if-let (((--> (buffer-substring-no-properties
-                    (point-min) (point-max))
-                   (with-temp-buffer
-                     (insert it)
-                     (goto-char (point-min))
-                     ;; remove all lines starting with #
-                     (while (re-search-forward "^#.*\n?" nil t)
-                       (replace-match ""))
-                     (buffer-string))
-                   (string-match (rx (not (any whitespace))) it))))
+    (if-let* (((--> (buffer-substring-no-properties
+                     (point-min) (point-max))
+                    (with-temp-buffer
+                      (insert it)
+                      (goto-char (point-min))
+                      ;; remove all lines starting with #
+                      (while (re-search-forward "^#.*\n?" nil t)
+                        (replace-match ""))
+                      (buffer-string))
+                    (string-match (rx (not (any whitespace))) it))))
         (message "Commit buffer not empty. Discarding preparations.")
       (let ((subject nil)
              ;; (--> (--read-word-list :prompt "Tags")
              ;;      (unless (string-empty-p it)
              ;;        (format "[%s]" it))))
             (jira (let* ((branch (magit-get-current-branch)))
-                    (if-let ((point (string-match --jira-regex branch)))
+                    (if-let* ((point (string-match --jira-regex branch)))
                         (match-string 0 branch)))))
         (insert (pcase-exhaustive (list subject jira)
                   (`(nil nil) "")
