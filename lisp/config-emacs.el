@@ -147,7 +147,8 @@ Returns a string, or nil if there is no path associated with the buffer."
     (when (project-current)
       (setq name (--> name
                       (file-relative-name it (project-root (project-current)))
-                      (file-name-concat (project-name (project-current)) it))))
+                      (file-name-concat
+                       (concat "<" (project-name (project-current)) ">") it))))
     (pcase name
       ;; hack since dired-directory might be a list
       ((or 'nil (pred listp)) nil)
