@@ -164,6 +164,8 @@
     (--evil-define-splits "pff" #'project-find-file)
     (--evil-define-splits "pd" #'project-dired)
     (--evil-define-splits "pdd" #'project-find-dir)
+    (--evil-define-splits "pp" #'(lambda () (interactive)
+                                   (dired (funcall project-prompter))))
     (if (eq system-type 'windows-nt)
         (evil-ex-define-cmd "ps" #'project-shell)
       (--evil-define-splits "ps" #'--multi-vterm-project))
@@ -204,17 +206,17 @@
      "g" 'rg-project
      "G" 'rg-project)))
 
-(with-eval-after-load 'transient
-  (transient-define-prefix --my-project-hotkeys ()
-    "Project related convenience bindings."
-    [:description (lambda ()
-                    (format "Project: %s\n"
-                            (project-name (project-current))))
-     ["Find"
-      ("f f" "Find file" project-find-file)
-      ("f d" "Directory" project-find-dir)]])
-  (with-eval-after-load 'evil
-    (evil-ex-define-cmd "pp" #'--my-project-hotkeys)))
+;; (with-eval-after-load 'transient
+;;   (transient-define-prefix --my-project-hotkeys ()
+;;     "Project related convenience bindings."
+;;     [:description (lambda ()
+;;                     (format "Project: %s\n"
+;;                             (project-name (project-current))))
+;;      ["Find"
+;;       ("f f" "Find file" project-find-file)
+;;       ("f d" "Directory" project-find-dir)]])
+;;   (with-eval-after-load 'evil
+;;     (evil-ex-define-cmd "pp" #'--my-project-hotkeys)))
 
 (defconst --jira-regex (rx (one-or-more upper) "-" (one-or-more digit)))
 
