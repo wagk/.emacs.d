@@ -100,15 +100,23 @@
 (use-package dired-hacks
   :after dired
   :ensure (:host github :repo "Fuco1/dired-hacks")
-  ;; :general
-  ;; (dired-mode-map
-  ;;  :states 'normal
-  ;;   "TAB" 'dired-subtree-toggle
-  ;;   "z a" 'dired-subtree-toggle
-  ;;   "z o" 'dired-subtree-insert
-  ;;   "z c" 'dired-subtree-remove)
   :hook ((dired-mode-hook . dired-collapse-mode)
          (dired-mode-hook . dired-filter-mode)))
+
+(use-package dired-subtree
+  :ensure t
+  :after dired
+  :custom
+  (dired-subtree-use-backgrounds nil))
+
+(use-package trashed
+  :ensure t
+  :commands (trashed)
+  :custom
+  (trashed-action-confirmer 'y-or-n-p)
+  (trashed-use-header-line t)
+  (trashed-sort-key '("Date deleted" . t))
+  (trashed-date-format "%Y-%m-%d %H:%M:%S"))
 
 (use-package dumb-jump
   :ensure (:host github :repo "jacktasia/dumb-jump")

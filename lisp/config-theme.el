@@ -1147,26 +1147,6 @@
                         :weight 'unspecified
                         :inherit 'eglot-inlay-hint-face)))
 
-(with-eval-after-load 'dired-hacks
-  (set-face-attribute 'dired-subtree-depth-1-face nil
-                      :background 'unspecified
-                      :inherit 'nano-default)
-  (set-face-attribute 'dired-subtree-depth-2-face nil
-                      :background 'unspecified
-                      :inherit 'nano-default)
-  (set-face-attribute 'dired-subtree-depth-3-face nil
-                      :background 'unspecified
-                      :inherit 'nano-default)
-  (set-face-attribute 'dired-subtree-depth-4-face nil
-                      :background 'unspecified
-                      :inherit 'nano-default)
-  (set-face-attribute 'dired-subtree-depth-5-face nil
-                      :background 'unspecified
-                      :inherit 'nano-default)
-  (set-face-attribute 'dired-subtree-depth-6-face nil
-                      :background 'unspecified
-                      :inherit 'nano-default))
-
 (with-eval-after-load 'table
   (set-face-attribute 'table-cell nil
                       :foreground 'unspecified

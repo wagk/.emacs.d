@@ -61,6 +61,7 @@
 
   ;; (add-to-list 'completion-styles 'orderless)
   (setq completion-styles '(orderless basic))
+  (setq completion-category-defaults nil)
   (add-to-list 'completion-category-overrides
                '((file
                   (styles basic partial-completion)))))
