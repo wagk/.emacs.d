@@ -689,6 +689,12 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom
   (comint-scroll-to-bottom-on-input t)
   (comint-prompt-read-only t)
+  :config
+  (with-eval-after-load 'evil
+    (general-define-key
+     :keymaps 'shell-command-mode-map
+     :states 'normal
+      "q" #'kill-current-buffer))
   :init
   (defun my-buffer-specific-shell ()
     (interactive)
