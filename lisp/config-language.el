@@ -25,7 +25,7 @@ mouse-1: Enable lexical-binding mode"
                               face default
                               mouse-face mode-line-highlight
                               local-map ,elisp--dynlex-modeline-map)))))
-  :hook ((emacs-lisp-mode-hook . update-evil-shift-width)
+  :hook (;; (emacs-lisp-mode-hook . update-evil-shift-width)
          (emacs-lisp-mode-hook . --update-emacs-lisp-mode-line-name)))
 
 ;; NOTE: We want to carefully override this
