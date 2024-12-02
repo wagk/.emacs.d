@@ -1081,6 +1081,7 @@
     ("varinat" "variant" nil :count 1)
     ("verion" "version" nil :count 1)
     ("verison" "version" nil :count 10)
+    ("versino" "version" nil :count 1)
     ("versionoing" "versioning" nil :count 1)
     ("versoin" "version" nil :count 2)
     ("victom" "victim" nil :count 1)
