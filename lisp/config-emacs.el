@@ -694,7 +694,8 @@ Returns a string, or nil if there is no path associated with the buffer."
     (general-define-key
      :keymaps 'shell-command-mode-map
      :states 'normal
-      "q" #'kill-current-buffer))
+      "q" #'kill-current-buffer)
+    (add-to-list 'evil-normal-state-modes 'shell-command-mode))
   :init
   (defun my-buffer-specific-shell ()
     (interactive)
