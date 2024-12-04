@@ -203,7 +203,14 @@
   (evil-ex-define-cmd "rg" #'rg-menu)
   (evil-ex-define-cmd "rr" #'rg-menu)
   (with-eval-after-load 'consult
-    (evil-ex-define-cmd "rr" #'consult-ripgrep))
+    (evil-ex-define-cmd "rr" #'consult-ripgrep)
+    (evil-ex-define-cmd "rl"
+                        ;; we can't do regions because ex-commands
+                        ;; always widen to the line
+                        #'(lambda () (interactive)
+                            (require 'thingatpt)
+                            (consult-ripgrep nil
+                                             (thing-at-point 'symbol)))))
   (evil-ex-define-cmd "rf" #'--rg-search-file)
   (evil-ex-define-cmd "rd" #'--rg-search-dir)
   ;; (evil-ex-define-cmd "prg" 'rg-project)
