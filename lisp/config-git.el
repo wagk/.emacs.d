@@ -43,7 +43,10 @@
                          elpaca-build-steps))
               (list #'--elpaca-unload-seq #'elpaca--activate-package)))
     (use-package seq
-      :ensure `(seq :build ,(--elpaca-build-seq))
+      :ensure `(seq :host github
+                    :repo "emacs-straight/seq"
+                    :branch "master"
+                    :build ,(--elpaca-build-seq))
       :demand t)
     (elpaca-wait))
 

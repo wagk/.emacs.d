@@ -94,6 +94,9 @@
   (with-eval-after-load 'blackout
     (blackout gcmh-mode)))
 
+(use-package compat
+  :ensure (:host github :repo "emacs-straight/compat" :branch "master"))
+
 ;; https://github.com/magnars/dash.el
 (use-package dash)
 

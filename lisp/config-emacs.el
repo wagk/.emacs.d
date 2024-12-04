@@ -119,6 +119,9 @@ The DWIM behaviour of this command is as follows:
 (with-eval-after-load 'evil
   (evil-ex-define-cmd "rot[13]" 'toggle-rot13-mode))
 
+(use-package peg
+  :ensure (:host github :repo "emacs-straight/peg" :branch "master"))
+
 (use-package savehist
   :ensure nil
   :custom
