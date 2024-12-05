@@ -78,7 +78,10 @@
 (require 'config-anki)
 (require 'config-markdown)
 
-(if (display-graphic-p)
+;; TODO (pangt): merge the two: it makes no sense to split it like
+;; this I think
+(if (or (server-running-p)
+        (display-graphic-p))
     (require 'config-theme)
   (require 'config-theme-term))
 
