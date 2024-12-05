@@ -279,7 +279,7 @@
    `(org-level-7 ((,class (:bold t :foreground ,fg1))))
    `(org-level-8 ((,class (:bold t :foreground ,fg1))))
    `(org-link ((,class (:underline t :foreground ,type :italic t))))
-   `(org-meta-line ((,class (:foreground nil :inherit font-lock-comment-face))))
+   `(org-meta-line ((,class (:foreground unspecified :inherit font-lock-comment-face))))
    `(org-mode-line-clock-overrun ((,class (:inherit (org-mode-line-clock) :foreground ,warning :box (:line-width -1 :color ,warning)))))
    `(org-quote ((,class (:inherit org-block :slant italic))))
    `(org-scheduled ((,class (:foreground ,type))))

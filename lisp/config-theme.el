@@ -1045,7 +1045,7 @@
 (with-eval-after-load 'org
   (set-face-attribute 'org-meta-line nil
                       :extend t
-                      :foreground nil
+                      :foreground 'unspecified
                       :inherit '(sol-light-foreground sol-superlight-background))
   (set-face-attribute 'org-headline-done nil
                       :strike-through t)
