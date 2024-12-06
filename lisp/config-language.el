@@ -241,12 +241,20 @@ Lisp function does not specify a special indentation."
   (with-eval-after-load 'smartparens
     (sp-local-pair 'yaml-mode "{" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
     (sp-local-pair 'yaml-mode "[" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
-    (sp-local-pair 'yaml-mode "(" nil :post-handlers '((--double-newline-and-indent-braces "RET"))))
+    (sp-local-pair 'yaml-mode "(" nil :post-handlers '((--double-newline-and-indent-braces "RET")))))
 
-  ;; must be the last one, since it's a snapshot and not a mirror.
-  (with-eval-after-load 'yaml-ts-mode
-    (setq yaml-ts-mode-hook yaml-mode-hook)))
-
+(use-package yaml-ts-mode
+  :ensure nil
+  :if (and (fboundp 'treesit-available-p)
+           (treesit-available-p))
+  :commands (yaml-ts-mode)
+  :after yaml-mode
+  :config
+  (setq yaml-ts-mode-hook yaml-mode-hook)
+  (with-eval-after-load 'flycheck
+    (add-hook 'yaml-ts-mode-hook #'flycheck-mode))
+  (with-eval-after-load 'highlight-indent-guides
+    (add-hook 'yaml-ts-mode-hook #'highlight-indent-guides-mode)))
 
 ;; https://github.com/zkry/yaml.el/tree/9ebddb55238d746dc5a5d46db04c9f360c140b99
 (use-package yaml
