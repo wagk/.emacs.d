@@ -711,7 +711,8 @@ should prepopulate."
   ;;                         (visual-line-fill-column-mode 1)))
   :config
   ;; don't forget to `obsidian-specify-path'
-  (global-obsidian-mode)
+  (when obsidian-directory
+    (global-obsidian-mode))
   (cl-defun --obsidian-find-buffer ()
     (interactive)
     (cl-letf ((symbol-function 'find-file) (symbol-function 'find-file-noselect))
