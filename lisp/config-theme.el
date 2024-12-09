@@ -1153,6 +1153,18 @@
                       :background 'unspecified
                       :inherit 'nano-default))
 
+(with-eval-after-load 'kubernetes
+  (set-face-attribute 'kubernetes-namespace nil
+                      :foreground 'unspecified
+                      :inherit 'nano-salient)
+  (set-face-attribute 'kubernetes-json-key nil
+                      :foreground 'unspecified
+                      :bold t
+                      :inherit 'nano-default)
+  (set-face-attribute 'kubernetes-selector nil
+                      :foreground 'unspecified
+                      :inherit 'nano-strong))
+
 (with-eval-after-load 'diff-hl
   (set-face-attribute 'diff-hl-change nil
                       :inherit '(sol-light-foreground sol-superlight-background))
