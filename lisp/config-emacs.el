@@ -381,10 +381,8 @@ Returns a string, or nil if there is no path associated with the buffer."
     "g D" nil) ;; unbind `xref-find-definitions-other-window'
   :init
   (with-eval-after-load 'evil
-    (evil-ex-define-cmd "la" #'eglot-code-actions)
-    (evil-ex-define-cmd "fla" "la")
-    (evil-ex-define-cmd "lr" #'eglot-rename)
-    (evil-ex-define-cmd "flr" "lr")
+    (evil-ex-define-cmd "fla" #'eglot-code-actions)
+    (evil-ex-define-cmd "flr" #'eglot-rename)
     (evil-ex-define-cmd "lw" #'eglot-code-action-rewrite)
     (evil-ex-define-cmd "lx" #'eglot-code-action-extract)
     (evil-ex-define-cmd "li" #'eglot-code-action-inline)

@@ -210,7 +210,8 @@
                         #'(lambda () (interactive)
                             (require 'thingatpt)
                             (consult-ripgrep nil
-                                             (thing-at-point 'symbol)))))
+                                             (thing-at-point 'symbol))))
+    (evil-ex-define-cmd "lr" "rl"))
   (evil-ex-define-cmd "rf" #'--rg-search-file)
   (evil-ex-define-cmd "rd" #'--rg-search-dir)
   ;; (evil-ex-define-cmd "prg" 'rg-project)
