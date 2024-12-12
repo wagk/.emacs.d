@@ -210,6 +210,8 @@
   :custom
   (flycheck-mode-line nil)
   (flycheck-indication-mode 'left-margin)
+  (flycheck-auto-display-errors-after-checking nil)
+  (flycheck-display-errors-function nil)
   ;; :custom-face
   ;; (flycheck-error ((t (:underline (:color ,sol-red :style line)))))
   ;; (flycheck-delimited-error ((t (:inherit flycheck-error))))
@@ -544,11 +546,14 @@
   (eat-term-name "*eat-term*"))
 
 (use-package kubernetes
-  :ensure t)
-
-(use-package kubernetes-evil
   :ensure t
-  :after kubernetes)
+  :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "k8s" #'kubernetes-dispatch)))
+
+;; (use-package kubernetes-evil
+;;   :ensure t
+;;   :after kubernetes)
 
 (use-package plz
   :ensure (:host github :repo "emacs-straight/plz" :branch "master")
