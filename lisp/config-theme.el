@@ -663,7 +663,12 @@
 (with-eval-after-load 'eglot
   (set-face-attribute 'eglot-highlight-symbol-face nil
                       :bold nil
-                      :inherit '(sol-superlight-background)))
+                      :inherit '(sol-superlight-background))
+  (set-face-attribute 'eglot-inlay-hint-face nil
+                      :italic t
+                      :weight 'semi-light
+                      :height 1.0
+                      :inherit '(sol-light-foreground)))
 
 (with-eval-after-load 'blamer
   (set-face-attribute 'blamer-face nil
