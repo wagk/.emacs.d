@@ -75,7 +75,8 @@ The DWIM behaviour of this command is as follows:
    :states '(normal motion)
    "C-d" 'evil-scroll-down) ;; replaces `Buffer-menu-delete-backwards`
   (:keymaps 'esc-map
-   ":" nil) ;; otherwise ESC : runs `eval-expression' instead of evil-ex
+   ":" nil ;; otherwise ESC : runs `eval-expression' instead of evil-ex
+   "C-w" nil)
   :hook
   (prog-mode-hook . hs-minor-mode)
   (prog-mode-hook . show-paren-mode)
@@ -252,8 +253,6 @@ Returns a string, or nil if there is no path associated with the buffer."
   :general
   (dired-mode-map
    :states 'normal
-   "<SPC>" nil                     ; was shadowing leader key bindings
-   "SPC" nil                       ; was shadowing leader key bindings
    "-" 'dired-up-directory
    "d" 'dired-create-directory
    "Y" #'(lambda () (interactive)
@@ -262,6 +261,15 @@ Returns a string, or nil if there is no path associated with the buffer."
    :states 'normal
    :prefix my-default-evil-leader-key
    "<SPC>" 'execute-extended-command)
+  :config
+  (cl-defun --dired-disable-space ()
+    (general-define-key
+     :keymaps 'dired-mode-map
+     :states 'normal
+      "<SPC>" nil ;; was shadowing leader key bindings
+      "SPC" nil)) ;; was shadowing leader key bindings
+  ;; run this after evil-collections
+  (add-hook 'elpaca-after-init-hook #'--dired-disable-space)
   :init
   (with-eval-after-load 'dired-aux
     (general-define-key
