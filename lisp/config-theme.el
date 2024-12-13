@@ -219,6 +219,9 @@
   :group 'personal)
 
 (with-eval-after-load 'simple
+  (set-face-attribute 'separator-line nil
+                      :background 'unspecified
+                      :inherit 'sol-superlight-background)
   (when (facep 'blink-matching-paren-offscreen)
     (set-face-attribute 'blink-matching-paren-offscreen nil
                         :bold t
@@ -245,11 +248,16 @@
                       :foreground 'unspecified
                       :inherit 'sol-superlight-foreground)
   (set-face-attribute 'mode-line nil
-                      :box '(:line-width 3))
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inverse-video nil
+                      :box '(:line-width 3)
+                      :inherit 'sol-superlight-box)
   (set-face-attribute 'mode-line-active nil
                       :inherit '(sol-light-foreground
                                  sol-superlight-box))
   (set-face-attribute 'mode-line-inactive nil
+                      :inverse-video nil
                       :foreground 'unspecified
                       :background 'unspecified
                       :overline 'unspecified
@@ -264,6 +272,8 @@
                       :box 'unspecified
                       :inherit '(sol-light-foreground))
   (set-face-attribute 'header-line nil
+                      :inverse-video nil
+                      :foreground 'unspecified
                       :background 'unspecified
                       :inherit 'nano-default)
   (set-face-attribute 'help-key-binding nil
@@ -277,7 +287,11 @@
   (set-face-attribute 'line-number nil
                       :inherit 'sol-superlight-foreground)
   (set-face-attribute 'line-number-current-line nil
-                      :inherit 'sol-light-foreground))
+                      :inherit 'sol-light-foreground)
+  (set-face-attribute 'window-divider nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :inherit '(nano-default)))
 
 (with-eval-after-load 'flymake
   (custom-set-faces
