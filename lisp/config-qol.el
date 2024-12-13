@@ -101,7 +101,11 @@
   :after dired
   :ensure (:host github :repo "Fuco1/dired-hacks")
   :hook ((dired-mode-hook . dired-collapse-mode)
-         (dired-mode-hook . dired-filter-mode)))
+         (dired-mode-hook . --maybe-activate-dired-filter-mode))
+  :init
+  (cl-defun --maybe-activate-dired-filter-mode ()
+    (unless (file-remote-p default-directory)
+      (dired-filter-mode))))
 
 (use-package dired-subtree
   :ensure t
