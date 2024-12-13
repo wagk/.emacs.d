@@ -245,7 +245,10 @@
   :init
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "fe" #'consult-flycheck)
-    (evil-ex-define-cmd "le" "fe")))
+    (evil-ex-define-cmd "le" "fe")
+    (evil-ex-define-cmd "feb" #'flycheck-list-errors)
+    (evil-ex-define-cmd "leb" "feb")))
+
 
 (use-package engine-mode
   :commands defengine
