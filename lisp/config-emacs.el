@@ -399,6 +399,11 @@ Returns a string, or nil if there is no path associated with the buffer."
     (--evil-define-splits "fl" "ll")
     (--evil-define-splits "fll" "ll")))
 
+(use-package consult-eglot-embark
+  :after (embark consult-eglot)
+  :config
+  (consult-eglot-embark-mode))
+
 (use-package dired-git-info
   :disabled t
   :ensure (:host github :repo "clemera/dired-git-info")
