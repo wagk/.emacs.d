@@ -133,8 +133,6 @@
   ;; (load-theme (or (bound-and-true-p --default-background) 'nano-dark) t))
   (load-theme (or (bound-and-true-p --default-background) 'nano-light) t))
 
-(load-theme 'solarized t)
-
 (cl-defun --load-config-theme (&optional dark)
   (interactive)
   ;; (if dark
