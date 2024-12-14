@@ -78,12 +78,7 @@
 (require 'config-anki)
 (require 'config-markdown)
 
-;; TODO (pangt): merge the two: it makes no sense to split it like
-;; this I think
-(if (or (server-running-p)
-        (display-graphic-p))
-    (require 'config-theme)
-  (require 'config-theme-term))
+(require 'config-theme)
 
 (elpaca-process-queues)
 

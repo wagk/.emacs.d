@@ -237,8 +237,7 @@
   :group 'nano-shim)
 
 (defface nano-faded
-  `((((background light)) (:background ,sol-base0))
-    (((background dark)) (:background ,sol-base00)))
+  `((t (:inherit sol-superlight-background)))
   "nano-faded shim"
   :group 'nano-shim)
 
