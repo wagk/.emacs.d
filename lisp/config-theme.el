@@ -101,6 +101,7 @@
 ;; Nano theme
 
 (use-package nano-theme
+  :disabled t
   :ensure (:host github :repo "emacs-straight/nano-theme" :branch "main")
   :custom
   (nano-window-divider-show t)
@@ -129,6 +130,8 @@
 (with-eval-after-load 'nano-theme
   ;; (load-theme (or (bound-and-true-p --default-background) 'nano-dark) t))
   (load-theme (or (bound-and-true-p --default-background) 'nano-light) t))
+
+(load-theme 'solarized t)
 
 (cl-defun --load-config-theme (&optional dark)
   (interactive)
@@ -220,6 +223,108 @@
                                 :color ,sol-base03))))
   "Background box coloring"
   :group 'personal)
+
+(defface nano-subtle
+  `((((background light)) (:background ,sol-base2))
+    (((background dark)) (:background ,sol-base02)))
+  "nano-subtle shim"
+  :group 'nano-shim)
+
+(defface nano-subtle-i
+  `((((background light)) (:background ,sol-base02))
+    (((background dark)) (:background ,sol-base2)))
+  "nano-subtle-i shim"
+  :group 'nano-shim)
+
+(defface nano-faded
+  `((((background light)) (:background ,sol-base0))
+    (((background dark)) (:background ,sol-base00)))
+  "nano-faded shim"
+  :group 'nano-shim)
+
+(defface nano-faded-i
+  `((((background light)) (:background ,sol-base3
+                           :foreground ,sol-base0))
+    (((background dark)) (:background ,sol-base03
+                          :foreground ,sol-base00)))
+  "nano-faded-i shim"
+  :group 'nano-shim)
+
+(defface nano-default
+  `((((background light)) (:foreground ,sol-base00))
+    (((background dark)) (:foreground ,sol-base0)))
+  "nano-default shim"
+  :group 'nano-shim)
+
+(defface nano-default-i
+  `((((background light)) (:foreground ,sol-base3
+                           :background ,sol-base00))
+    (((background dark)) (:foreground ,sol-base03
+                          :background ,sol-base0)))
+  "nano-default-i shim"
+  :group 'nano-shim)
+
+(defface nano-salient
+  `((((background light)) (:foreground ,sol-green))
+    (((background dark)) (:foreground ,sol-cyan)))
+  "nano-salient shim"
+  :group 'nano-shim)
+
+(defface nano-salient-i
+  `((((background light)) (:foreground ,sol-base3
+                           :background ,sol-green))
+    (((background dark)) (:foreground ,sol-base03
+                          :background ,sol-cyan)))
+  "nano-salient-i shim"
+  :group 'nano-shim)
+
+(defface nano-strong
+  `((((background light)) (:weight bold :foreground ,sol-base01))
+    (((background dark)) (:weight bold :foreground ,sol-base1)))
+  "nano-strong shim"
+  :group 'nano-shim)
+
+(defface nano-strong-i
+  `((((background light)) (:foreground ,sol-base3
+                           :background ,sol-base01
+                           :weight normal))
+    (((background dark)) (:foreground ,sol-base03
+                          :background ,sol-base1
+                          :weight normal)))
+  "nano-strong-i shim"
+  :group 'nano-shim)
+
+(defface nano-popout
+  `((((background light)) (:foreground ,sol-orange))
+    (((background dark)) (:foreground ,sol-orange)))
+  "nano-popout shim"
+  :group 'nano-shim)
+
+(defface nano-popout-i
+  `((((background light)) (:foreground ,sol-base3
+                           :background ,sol-orange))
+    (((background dark)) (:foreground ,sol-base03
+                          :background ,sol-orange)))
+  "nano-popout-i shim"
+  :group 'nano-shim)
+
+(defface nano-critical
+  `((((background light)) (:foreground ,sol-red
+                           :weight normal))
+    (((background dark)) (:foreground ,sol-red
+                          :weight normal)))
+  "nano-critical shim"
+  :group 'nano-shim)
+
+(defface nano-critical-i
+  `((((background light)) (:foreground ,sol-base3
+                           :background ,sol-red
+                           :weight normal))
+    (((background dark)) (:foreground ,sol-base03
+                          :background ,sol-red
+                          :weight normal)))
+  "nano-critical-i shim"
+  :group 'nano-shim)
 
 (with-eval-after-load 'simple
   (set-face-attribute 'separator-line nil
