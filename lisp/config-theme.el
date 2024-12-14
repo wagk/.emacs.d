@@ -96,7 +96,9 @@
 (add-hook 'server-after-make-frame-hook #'--find-and-set-fonts)
 
 (use-package solarized-definitions
-  :ensure (:host github :repo "sellout/emacs-color-theme-solarized" :main nil))
+  :ensure (:host github :repo "sellout/emacs-color-theme-solarized" :main nil)
+  :config
+  (load-theme 'solarized t))
 
 ;; Nano theme
 
