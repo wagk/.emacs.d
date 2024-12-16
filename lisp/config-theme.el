@@ -343,6 +343,8 @@
                       :foreground sol-cyan))
 
 (with-eval-after-load 'faces
+  (set-face-attribute 'success nil
+                      :foreground sol-green)
   (set-face-attribute 'error nil
                       :foreground sol-red)
   (set-face-attribute 'minibuffer-prompt nil
@@ -416,8 +418,8 @@
                       :background 'unspecified)
   (set-face-attribute 'link nil
                       :foreground sol-yellow
-                      :underline nil
-                      :bold t)
+                      :underline t
+                      :bold nil)
   (set-face-attribute 'line-number nil
                       :inherit '(sol-superlight-foreground))
   (set-face-attribute 'line-number-current-line nil
@@ -608,9 +610,38 @@
                       :inherit 'nano-salient))
 
 (with-eval-after-load 'magit-diff
+  (set-face-attribute 'magit-diff-removed nil
+                      :foreground sol-red
+                      :background 'unspecified
+                      :inherit '(sol-superlight-background))
+  (set-face-attribute 'magit-diff-removed-highlight nil
+                      :background 'unspecified
+                      :underline nil
+                      :weight 'unspecified)
+  (set-face-attribute 'magit-diff-added nil
+                      :foreground sol-green
+                      :background 'unspecified
+                      :inherit '(sol-superlight-background))
+  (set-face-attribute 'magit-diff-added-highlight nil
+                      :background 'unspecified
+                      :foreground 'unspecified
+                      :bold nil
+                      :underline 'unspecified
+                      :inherit 'magit-diff-added)
+  (set-face-attribute 'magit-diffstat-added nil
+                      :foreground sol-green)
+  (set-face-attribute 'magit-diffstat-removed nil
+                      :foreground sol-red)
   (set-face-attribute 'magit-diff-hunk-heading nil
+                      :foreground 'unspecified
+                      :background 'unspecified
                       :extend nil
                       :inherit '(nano-strong sol-superlight-background))
+  (set-face-attribute 'magit-diff-hunk-heading-highlight nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :underline nil
+                      :inherit '(magit-diff-hunk-heading))
   (set-face-attribute 'magit-diff-our nil
                       :foreground sol-blue
                       :extend t
@@ -633,7 +664,15 @@
                       :bold t
                       :inherit 'magit-diff-base)
   (set-face-attribute 'magit-diff-file-heading-highlight nil
+                      :foreground 'unspecified
                       :inherit '(nano-strong sol-superlight-background))
+  (set-face-attribute 'magit-diff-file-heading-selection nil
+                      :foreground 'unspecified
+                      :underline t
+                      :inherit '(magit-diff-file-heading-highlight))
+  (set-face-attribute 'magit-diff-lines-heading nil
+                      :background 'unspecified
+                      :inherit '(magit-diff-hunk-heading-highlight))
   (set-face-attribute 'magit-diff-context nil
                       :inherit '(nano-faded sol-superlight-background))
   (set-face-attribute 'magit-diff-context-highlight nil
@@ -771,8 +810,8 @@
 (with-eval-after-load 'replace
   (set-face-attribute 'match nil
                       :background 'unspecified
-                      :foreground sol-orange
-                      :distant-foreground sol-orange))
+                      :distant-foreground 'unspecified
+                      :foreground sol-red))
 
 (with-eval-after-load 'isearch
   (set-face-attribute 'isearch nil
@@ -1246,7 +1285,17 @@
 
 (with-eval-after-load 'orderless
   (set-face-attribute 'orderless-match-face-0 nil
-                      :inherit 'nano-strong))
+                      :bold nil
+                      :foreground sol-blue)
+  (set-face-attribute 'orderless-match-face-1 nil
+                      :bold nil
+                      :foreground sol-cyan)
+  (set-face-attribute 'orderless-match-face-2 nil
+                      :bold nil
+                      :foreground sol-violet)
+  (set-face-attribute 'orderless-match-face-3 nil
+                      :bold nil
+                      :foreground sol-green))
 
 (with-eval-after-load 'dired-git-info
   (set-face-attribute 'dgi-commit-message-face nil
