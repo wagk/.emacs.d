@@ -348,7 +348,9 @@
   (set-face-attribute 'success nil
                       :foreground sol-green)
   (set-face-attribute 'error nil
-                      :foreground sol-red)
+                      :foreground 'unspecified
+                      :background sol-red
+                      :inherit 'nano-default-i)
   (set-face-attribute 'minibuffer-prompt nil
                       :foreground sol-blue)
   (set-face-attribute 'shadow nil
@@ -640,6 +642,7 @@
   (set-face-attribute 'magit-diff-added-highlight nil
                       :background 'unspecified
                       :foreground 'unspecified
+                      :weight 'normal
                       :bold nil
                       :underline 'unspecified
                       :inherit 'magit-diff-added)
@@ -673,10 +676,13 @@
                       :inherit 'magit-diff-their)
   (set-face-attribute 'magit-diff-base nil
                       :foreground sol-blue
+                      :background 'unspecified
                       :extend t
                       :inherit 'sol-superlight-background)
   (set-face-attribute 'magit-diff-base-highlight nil
-                      :bold t
+                      :background 'unspecified
+                      :foreground 'unspecified
+                      :bold nil
                       :inherit 'magit-diff-base)
   (set-face-attribute 'magit-diff-file-heading-highlight nil
                       :foreground 'unspecified
@@ -1086,6 +1092,9 @@
                       :inherit 'nano-default)
   (set-face-attribute 'compilation-warning nil
                       :inherit 'nano-salient)
+  (set-face-attribute 'compilation-mode-line-fail nil
+                      :foreground 'unspecified
+                      :inherit '(compilation-error nano-default-i))
   (set-face-attribute 'compilation-mode-line-exit nil
                       :background 'unspecified
                       :foreground 'unspecified
