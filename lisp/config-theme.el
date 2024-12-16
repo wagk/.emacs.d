@@ -56,7 +56,10 @@
                (sol-cyan    . "#2aa198")
                (sol-green   . "#859900")))
   ;; TODO: set documentation string
-  (set (car col) (cdr col)))
+  ;; configure faces like this if and only if it's not already defined
+  ;; in `local.el'
+  (unless (boundp (car col))
+    (set (car col) (cdr col))))
 
 (with-eval-after-load 'evil
   (evil-ex-define-cmd "faces" 'list-faces-display))
@@ -95,10 +98,10 @@
 (add-hook 'after-init-hook #'--find-and-set-fonts)
 (add-hook 'server-after-make-frame-hook #'--find-and-set-fonts)
 
-(use-package solarized-definitions
-  :ensure (:host github :repo "sellout/emacs-color-theme-solarized" :main nil)
-  :config
-  (load-theme 'solarized t))
+;; (use-package solarized-definitions
+;;   :ensure (:host github :repo "sellout/emacs-color-theme-solarized" :main nil)
+;;   :config
+;;   (load-theme 'solarized t))
 
 ;; Nano theme
 
@@ -237,7 +240,7 @@
   :group 'nano-shim)
 
 (defface nano-faded
-  `((t (:inherit sol-superlight-background)))
+  `((t (:inherit (sol-light-foreground))))
   "nano-faded shim"
   :group 'nano-shim)
 
@@ -335,20 +338,43 @@
                         :foreground 'unspecified
                         :inherit 'nano-critical)))
 
+(with-eval-after-load 'minibuffer
+  (set-face-attribute 'completions-common-part nil
+                      :foreground sol-cyan))
+
 (with-eval-after-load 'faces
+  (set-face-attribute 'error nil
+                      :foreground sol-red)
+  (set-face-attribute 'minibuffer-prompt nil
+                      :foreground sol-blue)
+  (set-face-attribute 'shadow nil
+                      :foreground 'unspecified
+                      :inherit 'sol-light-foreground)
+  (set-face-attribute 'highlight nil
+                      :background 'unspecified
+                      :inherit 'sol-superlight-background)
   (set-face-attribute 'link-visited nil
                       :foreground sol-blue)
   (set-face-attribute 'region nil
+                      :background 'unspecified
+                      :foreground 'unspecified
                       :inverse-video t
-                      :inherit '(sol-background-box nano-subtle))
+                      :inherit 'nano-default)
   (set-face-attribute 'fringe nil
+                      :background 'unspecified
                       :inherit 'sol-light-foreground)
   (set-face-attribute 'variable-pitch-text nil
                       :height 1)
   (set-face-attribute 'fill-column-indicator nil
                       :inherit 'sol-superlight-foreground)
   (set-face-attribute 'show-paren-match nil
-                      :foreground 'unspecified)
+                      :background 'unspecified
+                      :foreground 'unspecified
+                      :inherit 'sol-superlight-background)
+  (set-face-attribute 'show-paren-mismatch nil
+                      :background sol-red
+                      :foreground 'unspecified
+                      :inherit 'nano-default-i)
   (set-face-attribute 'italic nil
                       :italic t)
   (set-face-attribute 'vertical-border nil
@@ -379,6 +405,7 @@
                       :box 'unspecified
                       :inherit '(sol-light-foreground))
   (set-face-attribute 'header-line nil
+                      :underline nil
                       :inverse-video nil
                       :foreground 'unspecified
                       :background 'unspecified
@@ -392,7 +419,7 @@
                       :underline nil
                       :bold t)
   (set-face-attribute 'line-number nil
-                      :inherit 'sol-superlight-foreground)
+                      :inherit '(sol-superlight-foreground))
   (set-face-attribute 'line-number-current-line nil
                       :inherit 'sol-light-foreground)
   (set-face-attribute 'window-divider nil
@@ -571,6 +598,7 @@
                       :underline t
                       :inherit 'nano-default)
   (set-face-attribute 'magit-section-highlight nil
+                      :background 'unspecified
                       :inherit 'nano-subtle)
   (set-face-attribute 'magit-keyword-squash nil
                       :bold t
@@ -609,6 +637,8 @@
   (set-face-attribute 'magit-diff-context nil
                       :inherit '(nano-faded sol-superlight-background))
   (set-face-attribute 'magit-diff-context-highlight nil
+                      :foreground 'unspecified
+                      :background 'unspecified
                       :bold nil
                       :inherit 'magit-diff-context)
   (set-face-attribute 'magit-diff-conflict-heading nil
@@ -626,6 +656,8 @@
   (set-face-attribute 'magit-diff-removed nil
                       :inherit '(nano-popout sol-superlight-background))
   (set-face-attribute 'magit-diff-removed-highlight nil
+                      :foreground 'unspecified
+                      :background 'unspecified
                       :bold t
                       :inherit '(magit-diff-removed)))
 
@@ -736,8 +768,20 @@
                (,--markdown-date-timestamp-regex 0 '--markdown-date-timestamp-face)
                (,--markdown-time-timestamp-regex 0 '--markdown-time-timestamp-face))))
 
+(with-eval-after-load 'replace
+  (set-face-attribute 'match nil
+                      :background 'unspecified
+                      :foreground sol-orange
+                      :distant-foreground sol-orange))
+
 (with-eval-after-load 'isearch
+  (set-face-attribute 'isearch nil
+                      :background 'unspecified
+                      :foreground sol-green
+                      :inherit 'sol-superlight-background)
   (set-face-attribute 'lazy-highlight nil
+                      :distant-foreground 'unspecified
+                      :background 'unspecified
                       :inherit 'match))
 
 (with-eval-after-load 'highlight-indent-guides
@@ -1011,8 +1055,11 @@
 
 (with-eval-after-load 'tab-bar
   (set-face-attribute 'tab-bar nil
+                      :foreground 'unspecified
+                      :background 'unspecified
                       :underline nil
-                      :inherit 'minibuffer-prompt)
+                      :inherit '(default))
+                      ;; :inherit 'minibuffer-prompt)
   (set-face-attribute 'tab-bar-tab nil
                       :foreground 'unspecified
                       :background 'unspecified
