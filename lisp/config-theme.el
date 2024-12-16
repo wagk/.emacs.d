@@ -674,7 +674,8 @@
                       :background 'unspecified
                       :inherit '(magit-diff-hunk-heading-highlight))
   (set-face-attribute 'magit-diff-context nil
-                      :inherit '(nano-faded sol-superlight-background))
+                      :foreground 'unspecified
+                      :inherit '(sol-superlight-background default))
   (set-face-attribute 'magit-diff-context-highlight nil
                       :foreground 'unspecified
                       :background 'unspecified
