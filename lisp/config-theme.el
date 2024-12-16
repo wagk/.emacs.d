@@ -343,6 +343,8 @@
                       :foreground sol-cyan))
 
 (with-eval-after-load 'faces
+  (set-face-attribute 'warning nil
+                      :foreground sol-orange)
   (set-face-attribute 'success nil
                       :foreground sol-green)
   (set-face-attribute 'error nil
@@ -607,7 +609,20 @@
                       :inherit 'nano-salient)
   (set-face-attribute 'magit-head nil
                       :bold t
-                      :inherit 'nano-salient))
+                      :inherit 'nano-salient)
+  (set-face-attribute 'magit-branch-local nil
+                      :foreground sol-blue)
+  (set-face-attribute 'magit-branch-remote nil
+                      :foreground sol-green)
+  (set-face-attribute 'magit-tag nil
+                      :foreground sol-violet))
+
+(with-eval-after-load 'magit-blame
+  (set-face-attribute 'magit-blame-highlight nil
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :underline nil
+                      :inherit 'nano-subtle))
 
 (with-eval-after-load 'magit-diff
   (set-face-attribute 'magit-diff-removed nil
@@ -835,7 +850,7 @@
                     :inherit 'nano-default)
 (set-face-attribute 'font-lock-keyword-face nil
                     :foreground 'unspecified
-                    :inherit 'nano-faded)
+                    :inherit 'default)
 (set-face-attribute 'font-lock-constant-face nil
                     :foreground 'unspecified
                     :inherit 'nano-default)
@@ -844,7 +859,7 @@
                     :inherit 'nano-default)
 (set-face-attribute 'font-lock-builtin-face nil
                     :foreground 'unspecified
-                    :inherit 'nano-default)
+                    :inherit 'default)
 (set-face-attribute 'font-lock-variable-name-face nil
                     :foreground 'unspecified
                     :inherit 'nano-strong)
