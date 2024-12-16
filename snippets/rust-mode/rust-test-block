@@ -3,6 +3,6 @@
 # name: rust-test-mod
 # --
 #[cfg(test)]
-mod ${1:tests} {
+mod tests {
     $0
 }
