@@ -169,6 +169,12 @@
   "Darker foreground coloring"
   :group 'personal)
 
+(defface sol-superstrong-foreground
+  `((((background light)) (:weight bold :foreground ,sol-base03))
+    (((background dark)) (:weight bold :foreground ,sol-base3)))
+  "Darkest foreground coloring"
+  :group 'personal)
+
 (defface sol-light-background
   `((((background light)) (:background ,sol-base1))
     (((background dark)) (:background ,sol-base01)))
@@ -666,6 +672,9 @@
                       :background 'unspecified
                       :underline nil
                       :inherit '(magit-diff-hunk-heading))
+  (set-face-attribute 'magit-diff-hunk-heading-selection nil
+                      :foreground 'unspecified
+                      :inherit '(magit-diff-hunk-heading-highlight))
   (set-face-attribute 'magit-diff-our nil
                       :foreground sol-blue
                       :extend t
@@ -733,6 +742,11 @@
                       :inherit 'nano-salient)
   (set-face-attribute 'magit-sequence-drop nil
                       :strike-through t))
+
+(with-eval-after-load 'magit-log
+  (set-face-attribute 'magit-log-author nil
+                      :foreground 'unspecified
+                      :inherit 'default))
 
 (with-eval-after-load 're-builder
   (set-face-attribute 'reb-match-0 nil
@@ -880,7 +894,7 @@
                     :inherit 'default)
 (set-face-attribute 'font-lock-variable-name-face nil
                     :foreground 'unspecified
-                    :inherit 'sol-strong-foreground)
+                    :inherit 'sol-superstrong-foreground)
 (set-face-attribute 'font-lock-comment-face nil
                     :weight 'semi-light
                     :foreground 'unspecified
@@ -893,7 +907,8 @@
 (set-face-attribute 'font-lock-type-face nil
                     :italic t
                     :foreground 'unspecified
-                    :inherit 'nano-default)
+                    ;; :inherit 'nano-default)
+                    :inherit 'sol-strong-foreground)
 (set-face-attribute 'font-lock-string-face nil
                     :foreground 'unspecified
                     :bold t
