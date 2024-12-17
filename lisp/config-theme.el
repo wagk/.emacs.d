@@ -692,7 +692,7 @@
                       :inherit 'magit-diff-base)
   (set-face-attribute 'magit-diff-file-heading-highlight nil
                       :foreground 'unspecified
-                      :inherit '(nano-strong sol-superlight-background))
+                      :inherit '(sol-superlight-background))
   (set-face-attribute 'magit-diff-file-heading-selection nil
                       :foreground 'unspecified
                       :underline t
@@ -711,7 +711,7 @@
   (set-face-attribute 'magit-diff-conflict-heading nil
                       :foreground sol-blue
                       :extend t
-                      :inherit '(nano-strong sol-superlight-background))
+                      :inherit '(sol-superlight-background))
   (set-face-attribute 'magit-diff-revision-summary nil
                       :bold 'unspecified
                       :inherit 'nano-strong)
@@ -762,6 +762,12 @@
                       :inherit 'nano-salient))
 
 (with-eval-after-load 'markdown-mode
+  (set-face-attribute 'markdown-header-face nil
+                      :extend t
+                      :inherit '(sol-superlight-background))
+  (set-face-attribute 'markdown-header-delimiter-face nil
+                      :extend t
+                      :inherit '(sol-superlight-background))
   (set-face-attribute 'markdown-metadata-key-face nil
                       :weight 'semi-light
                       :inherit 'nano-subtle)
