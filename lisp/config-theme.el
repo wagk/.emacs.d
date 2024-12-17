@@ -163,6 +163,12 @@
   "Somewhat light foreground coloring"
   :group 'personal)
 
+(defface sol-strong-foreground
+  `((((background light)) (:weight bold :foreground ,sol-base02))
+    (((background dark)) (:weight bold :foreground ,sol-base2)))
+  "Darker foreground coloring"
+  :group 'personal)
+
 (defface sol-light-background
   `((((background light)) (:background ,sol-base1))
     (((background dark)) (:background ,sol-base01)))
@@ -868,7 +874,7 @@
                     :inherit 'default)
 (set-face-attribute 'font-lock-variable-name-face nil
                     :foreground 'unspecified
-                    :inherit 'nano-strong)
+                    :inherit 'sol-strong-foreground)
 (set-face-attribute 'font-lock-comment-face nil
                     :weight 'semi-light
                     :foreground 'unspecified
@@ -884,7 +890,8 @@
                     :inherit 'nano-default)
 (set-face-attribute 'font-lock-string-face nil
                     :foreground 'unspecified
-                    :bold t)
+                    :bold t
+                    :inherit 'nano-default)
 
 (with-eval-after-load 'eglot
   (set-face-attribute 'eglot-highlight-symbol-face nil
