@@ -98,10 +98,10 @@
 (add-hook 'after-init-hook #'--find-and-set-fonts)
 (add-hook 'server-after-make-frame-hook #'--find-and-set-fonts)
 
-;; (use-package solarized-definitions
-;;   :ensure (:host github :repo "sellout/emacs-color-theme-solarized" :main nil)
-;;   :config
-;;   (load-theme 'solarized t))
+(use-package solarized-definitions
+  :ensure (:host github :repo "sellout/emacs-color-theme-solarized" :main nil)
+  :config
+  (load-theme 'solarized t))
 
 ;; Nano theme
 
@@ -164,14 +164,16 @@
   :group 'personal)
 
 (defface sol-strong-foreground
-  `((((background light)) (:weight bold :foreground ,sol-base02))
-    (((background dark)) (:weight bold :foreground ,sol-base2)))
+  `((default (:weight bold))
+    (((background light)) (:foreground ,sol-base02))
+    (((background dark)) (:foreground ,sol-base2)))
   "Darker foreground coloring"
   :group 'personal)
 
 (defface sol-superstrong-foreground
-  `((((background light)) (:weight bold :foreground ,sol-base03))
-    (((background dark)) (:weight bold :foreground ,sol-base3)))
+  `((default (:weight bold))
+    (((background light)) (:foreground ,sol-base03))
+    (((background dark)) (:foreground ,sol-base3)))
   "Darkest foreground coloring"
   :group 'personal)
 
@@ -293,62 +295,55 @@
   :group 'nano-shim)
 
 (defface nano-strong
-  `((((background light)) (:weight bold :foreground ,sol-base01))
-    (((background dark)) (:weight bold :foreground ,sol-base1)))
+  `((default (:weight bold))
+    (((background light)) (:foreground ,sol-base01))
+    (((background dark)) (:foreground ,sol-base1)))
   "nano-strong shim"
   :group 'nano-shim)
 
 (defface nano-strong-i
-  `((((background light)) (:foreground ,sol-base3
-                           :background ,sol-base01
-                           :weight normal))
+  `((default (:weight normal))
+    (((background light)) (:foreground ,sol-base3
+                           :background ,sol-base01))
     (((background dark)) (:foreground ,sol-base03
-                          :background ,sol-base1
-                          :weight normal)))
+                          :background ,sol-base1)))
   "nano-strong-i shim"
   :group 'nano-shim)
 
 (defface nano-popout
-  `((((background light)) (:foreground ,sol-orange))
-    (((background dark)) (:foreground ,sol-orange)))
+  `((t (:foreground ,sol-orange)))
   "nano-popout shim"
   :group 'nano-shim)
 
 (defface nano-popout-i
-  `((((background light)) (:foreground ,sol-base3
-                           :background ,sol-orange))
-    (((background dark)) (:foreground ,sol-base03
-                          :background ,sol-orange)))
+  `((default (:background ,sol-orange))
+    (((background light)) (:foreground ,sol-base3))
+    (((background dark)) (:foreground ,sol-base03)))
   "nano-popout-i shim"
   :group 'nano-shim)
 
 (defface nano-critical
-  `((((background light)) (:foreground ,sol-red
-                           :weight normal))
-    (((background dark)) (:foreground ,sol-red
-                          :weight normal)))
+  `((t (:foreground ,sol-red :weight normal)))
   "nano-critical shim"
   :group 'nano-shim)
 
 (defface nano-critical-i
-  `((((background light)) (:foreground ,sol-base3
-                           :background ,sol-red
-                           :weight normal))
-    (((background dark)) (:foreground ,sol-base03
-                          :background ,sol-red
-                          :weight normal)))
+  `((default (:background ,sol-red :weight normal))
+    (((background light)) (:foreground ,sol-base3))
+    (((background dark)) (:foreground ,sol-base03)))
   "nano-critical-i shim"
   :group 'nano-shim)
 
 (with-eval-after-load 'simple
-  (set-face-attribute 'separator-line nil
-                      :background 'unspecified
-                      :inherit 'sol-superlight-background)
+  (custom-set-faces
+   `(separator-line ((t (:inherit 'sol-superlight-background))) t))
+
   (when (facep 'blink-matching-paren-offscreen)
-    (set-face-attribute 'blink-matching-paren-offscreen nil
-                        :bold t
-                        :foreground 'unspecified
-                        :inherit 'nano-critical)))
+    (custom-set-faces
+     `(blink-matching-paren-offscreen
+       ((default (:inherit sol-strong-background))
+        (((supports (:bold t))) (:bold t)))
+       t))))
 
 (with-eval-after-load 'minibuffer
   (set-face-attribute 'completions-common-part nil
@@ -362,7 +357,8 @@
   (set-face-attribute 'error nil
                       :foreground 'unspecified
                       :background sol-red
-                      :inherit 'nano-default-i)
+                      :inherit 'na))
+no-default-i
   (set-face-attribute 'minibuffer-prompt nil
                       :foreground sol-blue)
   (set-face-attribute 'shadow nil
@@ -443,7 +439,7 @@
   (set-face-attribute 'window-divider nil
                       :foreground 'unspecified
                       :background 'unspecified
-                      :inherit '(nano-default)))
+                      :inherit '(nano-default))
 
 (with-eval-after-load 'flymake
   (custom-set-faces
@@ -644,9 +640,12 @@
                       :background 'unspecified
                       :inherit '(sol-superlight-background))
   (set-face-attribute 'magit-diff-removed-highlight nil
-                      :background 'unspecified
                       :underline nil
-                      :weight 'unspecified)
+                      :weight 'unspecified
+                      :foreground 'unspecified
+                      :background 'unspecified
+                      :bold t
+                      :inherit '(magit-diff-removed))
   (set-face-attribute 'magit-diff-added nil
                       :foreground sol-green
                       :background 'unspecified
@@ -723,19 +722,7 @@
                       :inherit '(sol-superlight-background))
   (set-face-attribute 'magit-diff-revision-summary nil
                       :bold 'unspecified
-                      :inherit 'nano-strong)
-  (set-face-attribute 'magit-diff-added nil
-                      :inherit '(nano-salient sol-superlight-background))
-  (set-face-attribute 'magit-diff-added-highlight nil
-                      :bold t
-                      :inherit '(magit-diff-added))
-  (set-face-attribute 'magit-diff-removed nil
-                      :inherit '(nano-popout sol-superlight-background))
-  (set-face-attribute 'magit-diff-removed-highlight nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :bold t
-                      :inherit '(magit-diff-removed)))
+                      :inherit 'nano-strong))
 
 (with-eval-after-load 'magit-sequence
   (set-face-attribute 'magit-sequence-head nil
@@ -908,7 +895,7 @@
                     :italic t
                     :foreground 'unspecified
                     ;; :inherit 'nano-default)
-                    :inherit 'sol-strong-foreground)
+                    :inherit 'sol-foreground)
 (set-face-attribute 'font-lock-string-face nil
                     :foreground 'unspecified
                     :bold t
@@ -1356,7 +1343,8 @@
 
 (with-eval-after-load 'dired
   (set-face-attribute 'dired-directory nil
-                      :bold t)
+                      :bold t
+                      :inherit 'sol-strong-foreground)
   (set-face-attribute 'dired-broken-symlink nil
                       :background sol-red
                       :foreground 'unspecified
