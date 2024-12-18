@@ -158,7 +158,11 @@
     (evil-set-command-property #'project-find-file :jump t)
     (evil-set-command-property #'project-dired :jump t)
     (evil-set-command-property #'project-find-dir :jump t)
-    (evil-ex-define-cmd "pss" #'project-async-shell-command))
+    ;; (evil-ex-define-cmd "pss" #'project-async-shell-command))
+    (evil-ex-define-cmd "pss" #'(lambda () (interactive)
+                                  (if (project-current)
+                                      (project-async-shell-command)
+                                    (command-execute #'async-shell-command)))))
 
   (with-eval-after-load 'config-evil-helpers
     (--evil-define-splits "readme" #'--project-find-readme)
