@@ -152,8 +152,8 @@
   :group 'personal)
 
 (defface sol-foreground
-  `((((background light)) (:background ,sol-base3))
-    (((background dark)) (:background ,sol-base03)))
+  `((((background light)) (:foreground ,sol-base3))
+    (((background dark)) (:foreground ,sol-base03)))
   "Default foreground coloring."
   :group 'personal)
 
@@ -342,119 +342,86 @@
     (custom-set-faces
      `(blink-matching-paren-offscreen
        ((default (:inherit sol-strong-background))
-        (((supports (:bold t))) (:bold t)))
+        (((supports (:bold))) (:bold t)))
        t))))
 
 (with-eval-after-load 'minibuffer
-  (set-face-attribute 'completions-common-part nil
-                      :foreground sol-cyan))
+  (custom-set-faces
+   `(completions-common-part ((t (:foreground ,sol-cyan))) t)))
 
-(with-eval-after-load 'faces
-  (set-face-attribute 'warning nil
-                      :foreground sol-orange)
-  (set-face-attribute 'success nil
-                      :foreground sol-green)
-  (set-face-attribute 'error nil
-                      :foreground 'unspecified
-                      :background sol-red
-                      :inherit 'na))
-no-default-i
-  (set-face-attribute 'minibuffer-prompt nil
-                      :foreground sol-blue)
-  (set-face-attribute 'shadow nil
-                      :foreground 'unspecified
-                      :inherit 'sol-light-foreground)
-  (set-face-attribute 'highlight nil
-                      :background 'unspecified
-                      :inherit 'sol-superlight-background)
-  (set-face-attribute 'link-visited nil
-                      :foreground sol-blue)
-  (set-face-attribute 'region nil
-                      :background 'unspecified
-                      :foreground 'unspecified
-                      :inverse-video t
-                      :inherit 'nano-default)
-  (set-face-attribute 'fringe nil
-                      :background 'unspecified
-                      :inherit 'sol-light-foreground)
-  (set-face-attribute 'variable-pitch-text nil
-                      :height 1)
-  (set-face-attribute 'fill-column-indicator nil
-                      :inherit 'sol-superlight-foreground)
-  (set-face-attribute 'show-paren-match nil
-                      :background 'unspecified
-                      :foreground 'unspecified
-                      :inherit 'sol-superlight-background)
-  (set-face-attribute 'show-paren-mismatch nil
-                      :background sol-red
-                      :foreground 'unspecified
-                      :inherit 'nano-default-i)
-  (set-face-attribute 'italic nil
-                      :italic t)
-  (set-face-attribute 'vertical-border nil
-                      :foreground 'unspecified
-                      :inherit 'sol-superlight-foreground)
-  (set-face-attribute 'mode-line nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :inverse-video nil
-                      :box '(:line-width 3)
-                      :inherit 'sol-superlight-box)
-  (set-face-attribute 'mode-line-active nil
-                      :inherit '(sol-light-foreground
-                                 sol-superlight-box))
-  (set-face-attribute 'mode-line-inactive nil
-                      :inverse-video nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :overline 'unspecified
-                      :underline 'unspecified
-                      :box 'unspecified
-                      :inherit '(sol-superlight-box
-                                 sol-superlight-foreground
-                                 nano-default))
-  (set-face-attribute 'mode-line-emphasis nil
-                      :inherit 'nano-subtle)
-  (set-face-attribute 'mode-line-buffer-id nil
-                      :box 'unspecified
-                      :inherit '(sol-light-foreground))
-  (set-face-attribute 'header-line nil
-                      :underline nil
-                      :inverse-video nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :inherit 'nano-default)
-  (set-face-attribute 'help-key-binding nil
-                      :foreground sol-yellow
-                      :box nil
-                      :background 'unspecified)
-  (set-face-attribute 'link nil
-                      :foreground sol-yellow
-                      :underline t
-                      :bold nil)
-  (set-face-attribute 'line-number nil
-                      :inherit '(sol-superlight-foreground))
-  (set-face-attribute 'line-number-current-line nil
-                      :inherit 'sol-light-foreground)
-  (set-face-attribute 'window-divider nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :inherit '(nano-default))
+;; faces.el
+(custom-set-faces
+ `(warning ((t (:foreground ,sol-orange))) t)
+ `(success ((t (:foreground ,sol-green))) t)
+ `(error ((default (:foreground unspecified
+                    :background ,sol-red))
+          (((supports (:bold)))) (:bold t))
+         t)
+ `(minibuffer-prompt ((t (:foreground ,sol-blue))) t)
+ `(shadow ((t (:foreground unspecified
+               :inherit sol-light-foreground))) t)
+ `(highlight ((t (:background unspecified
+                  :inherit sol-superlight-background))) t)
+ `(link-visited ((t (:foreground ,sol-blue))))
+ `(region ((t (:foreground unspecified
+               :background unspecified
+               :inverse-video t
+               :inherit nano-default))))
+ `(fringe ((t (:foreground unspecified
+               :background unspecified
+               :inherit sol-superlight-foreground))))
+ `(variable-pitch-text ((((supports (:height))) (:height 1))))
+ `(fill-column-indicator ((t (:inherit sol-superlight-foreground))))
+ `(show-paren-match ((default (:foreground unspecified
+                               :background unspecified
+                               :inherit sol-superlight-background))
+                     (((supports (:bold))) (:bold t))))
+ `(show-paren-mismatch ((t (:background ,sol-red
+                            :foreground unspecified
+                            :inherit nano-default-i))))
+ `(vertical-border ((t (:foreground unspecified
+                        :inherit sol-superlight-foreground))))
+ `(mode-line ((t (:foreground unspecified
+                  :background unspecified
+                  :inverse-video nil
+                  :box (:line-width 3)
+                  :inherit sol-superlight-box))))
+ `(mode-line-active ((t (:inherit (sol-light-foreground
+                                   sol-superlight-box)))))
+ `(mode-line-emphasis ((t (:inherit nano-subtle)) t))
+ `(mode-line-buffer-id ((t (:box unspecified
+                            :inherit sol-light-foreground))))
+ `(mode-line-inactive ((t (:inverse-video nil
+                           :foreground unspecified
+                           :background unspecified
+                           :overline unspecified
+                           :underline unspecified
+                           :box unspecified
+                           :inherit (sol-superlight-box
+                                     sol-superlight-foreground)))))
+ `(header-line ((t (:underline nil
+                    :inverse-video nil
+                    :foreground unspecified
+                    :background unspecified))))
+ `(help-key-binding ((t (:foreground ,sol-yellow
+                         :box nil
+                         :background unspecified))))
+ `(link ((t (:foreground ,sol-yellow
+             :underline t
+             :bold nil))))
+ `(line-number ((t (:inherit sol-superlight-foreground))) t)
+ `(line-number-current-line ((t (:inherit sol-light-foreground))) t)
+ `(window-divider ((t (:foreground unspecified
+                       :background unspecified)))))
 
 (with-eval-after-load 'flymake
   (custom-set-faces
-    `(flymake-error ((((background light))
-                      (:box ,sol-base1))
-                     (((background dark))
-                      (:box ,sol-base01))))
-    `(flymake-note ((((background light))
-                     (:underline ,sol-base1))
-                    (((background dark))
-                     (:underline ,sol-base01))))
-    `(flymake-warning ((((background light))
-                        (:underline ,sol-base1))
-                       (((background dark))
-                        (:underline ,sol-base01))))))
+    `(flymake-error ((((background light)) (:box ,sol-base1))
+                     (((background dark)) (:box ,sol-base01))))
+    `(flymake-note ((((background light)) (:underline ,sol-base1))
+                    (((background dark)) (:underline ,sol-base01))))
+    `(flymake-warning ((((background light)) (:underline ,sol-base1))
+                       (((background dark)) (:underline ,sol-base01))))))
 
 (with-eval-after-load 'cursor-flash
   (set-face-attribute 'cursor-flash-face nil
@@ -467,18 +434,12 @@ no-default-i
                       :inherit 'sol-superlight-background
                       :extend t)
   (custom-set-faces
-    `(flycheck-error ((((background light))
-                       (:box ,sol-base1))
-                      (((background dark))
-                       (:box ,sol-base01))))
-    `(flycheck-info ((((background light))
-                      (:underline ,sol-base1))
-                     (((background dark))
-                      (:underline ,sol-base01))))
-    `(flycheck-warning ((((background light))
-                         (:underline ,sol-base1))
-                        (((background dark))
-                         (:underline ,sol-base01))))))
+    `(flycheck-error ((((background light)) (:box ,sol-base1))
+                      (((background dark)) (:box ,sol-base01))))
+    `(flycheck-info ((((background light)) (:underline ,sol-base1))
+                     (((background dark)) (:underline ,sol-base01))))
+    `(flycheck-warning ((((background light)) (:underline ,sol-base1))
+                        (((background dark)) (:underline ,sol-base01))))))
 
 (with-eval-after-load 'pulse
   (set-face-attribute 'pulse-highlight-start-face nil
