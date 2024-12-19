@@ -152,8 +152,8 @@
   :group 'personal)
 
 (defface sol-foreground
-  `((((background light)) (:foreground ,sol-base3))
-    (((background dark)) (:foreground ,sol-base03)))
+  `((((background light)) (:foreground ,sol-base00))
+    (((background dark)) (:foreground ,sol-base0)))
   "Default foreground coloring."
   :group 'personal)
 
