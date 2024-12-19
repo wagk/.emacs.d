@@ -111,7 +111,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   ;;  #'evil-complete-next-func
   ;;    "Refer to `evil-complete-next-func' for warnings on how this
   ;;    impacts evil configuration variables.")
-  (evil-undo-system 'undo-tree)
+  (evil-undo-system 'undo-redo)
   (evil-want-Y-yank-to-eol
     t
     "Y has the default behavior of functioning identically to yy.
