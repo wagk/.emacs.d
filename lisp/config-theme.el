@@ -370,7 +370,7 @@
  `(error ((default (:foreground unspecified
                     :background ,sol-red))
           (((supports (:bold)))) (:bold t)))
- `(minibuffer-prompt ((default (:foreground ,sol-blue))))
+ `(minibuffer-prompt ((default (:foreground ,sol-green))))
  `(shadow ((default (:foreground unspecified
                      :inherit sol-light-foreground))))
  `(highlight ((default (:background unspecified
@@ -1339,13 +1339,13 @@
 (with-eval-after-load 'orderless
   (custom-set-faces
    `(orderless-match-face-0
-     ((default (:foreground ,sol-blue))))
+     ((default (:foreground ,sol-green))))
    `(orderless-match-face-1
-     ((default (:foreground ,sol-cyan))))
+     ((default (:foreground ,sol-blue))))
    `(orderless-match-face-2
-     ((default (:foreground ,sol-violet))))
+     ((default (:foreground ,sol-cyan))))
    `(orderless-match-face-3
-     ((default (:foreground ,sol-green))))))
+     ((default (:foreground ,sol-violet))))))
 
 (with-eval-after-load 'dired-git-info
   (set-face-attribute 'dgi-commit-message-face nil
