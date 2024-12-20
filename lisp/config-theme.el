@@ -81,19 +81,19 @@
     (cond
      ((find-font sarasa-mono)
       (set-frame-font sarasa-mono nil t)
-      (custom-set-faces `(fixed-pitch ((t (:font ,sarasa-mono))))
-                        `(variable-pitch ((t (:font ,sarasa-mono))))
-                        `(fixed-pitch-serif ((t (:font ,sarasa-mono))))))
+      (custom-set-faces `(fixed-pitch ((default (:font ,sarasa-mono))))
+                        `(variable-pitch ((default (:font ,sarasa-mono))))
+                        `(fixed-pitch-serif ((default (:font ,sarasa-mono))))))
      ((find-font iosevka)
       (set-frame-font iosevka nil t)
-      (custom-set-faces `(fixed-pitch ((t (:font ,iosevka))))
-                        `(variable-pitch ((t (:font ,iosevka))))
-                        `(fixed-pitch-serif ((t (:font ,iosevka)))))))
+      (custom-set-faces `(fixed-pitch ((default (:font ,iosevka))))
+                        `(variable-pitch ((default (:font ,iosevka))))
+                        `(fixed-pitch-serif ((default (:font ,iosevka)))))))
     ;; If iosevka proportional fonts are also found, use that.
     (when (find-font iosevka-etoile)
-      (custom-set-faces `(variable-pitch ((t (:font ,iosevka-etoile))))))
+      (custom-set-faces `(variable-pitch ((default (:font ,iosevka-etoile))))))
     (when (find-font iosevka-aile)
-      (custom-set-faces `(fixed-pitch-serif ((t (:font ,iosevka-aile))))))))
+      (custom-set-faces `(fixed-pitch-serif ((default (:font ,iosevka-aile))))))))
 
 (add-hook 'after-init-hook #'--find-and-set-fonts)
 (add-hook 'server-after-make-frame-hook #'--find-and-set-fonts)
@@ -151,10 +151,29 @@
   "Default background coloring."
   :group 'personal)
 
+(defface sol-background-i
+  `((((background light)) (:background ,sol-base01))
+    (((background dark)) (:background ,sol-base1)))
+  "Inverted default background coloring."
+  :group 'personal)
+
 (defface sol-foreground
   `((((background light)) (:foreground ,sol-base00))
     (((background dark)) (:foreground ,sol-base0)))
   "Default foreground coloring."
+  :group 'personal)
+
+(defface sol-foreground-i
+  `((default (:inherit sol-background-i))
+    (((background light)) (:foreground ,sol-base3))
+    (((background dark)) (:foreground ,sol-base03)))
+  "Inverted default foreground coloring."
+  :group 'personal)
+
+(defface sol-foreground-box
+  `((((background light)) (:box ,sol-base00))
+    (((background dark)) (:box ,sol-base0)))
+  "Default foreground coloring. In a box."
   :group 'personal)
 
 (defface sol-light-foreground
@@ -164,15 +183,13 @@
   :group 'personal)
 
 (defface sol-strong-foreground
-  `((default (:weight bold))
-    (((background light)) (:foreground ,sol-base02))
+  `((((background light)) (:foreground ,sol-base02))
     (((background dark)) (:foreground ,sol-base2)))
   "Darker foreground coloring"
   :group 'personal)
 
 (defface sol-superstrong-foreground
-  `((default (:weight bold))
-    (((background light)) (:foreground ,sol-base03))
+  `((((background light)) (:foreground ,sol-base03))
     (((background dark)) (:foreground ,sol-base3)))
   "Darkest foreground coloring"
   :group 'personal)
@@ -184,8 +201,8 @@
   :group 'personal)
 
 (defface sol-light-background-i
-  `((((background dark)) (:background ,sol-base1))
-    (((background light)) (:background ,sol-base01)))
+  `((((background light)) (:background ,sol-base01))
+    (((background dark)) (:background ,sol-base1)))
   "Somewhat light background coloring"
   :group 'personal)
 
@@ -202,8 +219,8 @@
   :group 'personal)
 
 (defface sol-superlight-background-i
-  `((((background dark)) (:background ,sol-base2))
-    (((background light)) (:background ,sol-base02)))
+  `((((background light)) (:background ,sol-base02))
+    (((background dark)) (:background ,sol-base2)))
   "Very light background coloring"
   :group 'personal)
 
@@ -242,19 +259,17 @@
   :group 'personal)
 
 (defface nano-subtle
-  `((((background light)) (:background ,sol-base2))
-    (((background dark)) (:background ,sol-base02)))
+  `((default (:inherit sol-light-foreground)))
   "nano-subtle shim"
   :group 'nano-shim)
 
 (defface nano-subtle-i
-  `((((background light)) (:background ,sol-base02))
-    (((background dark)) (:background ,sol-base2)))
+  `((default (:inherit sol-strong-foreground)))
   "nano-subtle-i shim"
   :group 'nano-shim)
 
 (defface nano-faded
-  `((t (:inherit (sol-light-foreground))))
+  `((default (:inherit (sol-light-foreground))))
   "nano-faded shim"
   :group 'nano-shim)
 
@@ -267,8 +282,7 @@
   :group 'nano-shim)
 
 (defface nano-default
-  `((((background light)) (:foreground ,sol-base00))
-    (((background dark)) (:foreground ,sol-base0)))
+  `((default (:inherit sol-foreground)))
   "nano-default shim"
   :group 'nano-shim)
 
@@ -311,7 +325,7 @@
   :group 'nano-shim)
 
 (defface nano-popout
-  `((t (:foreground ,sol-orange)))
+  `((default (:foreground ,sol-orange)))
   "nano-popout shim"
   :group 'nano-shim)
 
@@ -323,7 +337,7 @@
   :group 'nano-shim)
 
 (defface nano-critical
-  `((t (:foreground ,sol-red :weight normal)))
+  `((default (:foreground ,sol-red :weight normal)))
   "nano-critical shim"
   :group 'nano-shim)
 
@@ -336,7 +350,7 @@
 
 (with-eval-after-load 'simple
   (custom-set-faces
-   `(separator-line ((t (:inherit 'sol-superlight-background))) t))
+   `(separator-line ((default (:inherit 'sol-superlight-background))) t))
 
   (when (facep 'blink-matching-paren-offscreen)
     (custom-set-faces
@@ -347,157 +361,152 @@
 
 (with-eval-after-load 'minibuffer
   (custom-set-faces
-   `(completions-common-part ((t (:foreground ,sol-cyan))) t)))
+   `(completions-common-part ((default (:foreground ,sol-cyan))) t)))
 
 ;; faces.el
 (custom-set-faces
- `(warning ((t (:foreground ,sol-orange))) t)
- `(success ((t (:foreground ,sol-green))) t)
+ `(warning ((default (:foreground ,sol-orange))))
+ `(success ((default (:foreground ,sol-green))))
  `(error ((default (:foreground unspecified
                     :background ,sol-red))
-          (((supports (:bold)))) (:bold t))
-         t)
- `(minibuffer-prompt ((t (:foreground ,sol-blue))) t)
- `(shadow ((t (:foreground unspecified
-               :inherit sol-light-foreground))) t)
- `(highlight ((t (:background unspecified
-                  :inherit sol-superlight-background))) t)
- `(link-visited ((t (:foreground ,sol-blue))))
- `(region ((t (:foreground unspecified
-               :background unspecified
-               :inverse-video t
-               :inherit nano-default))))
- `(fringe ((t (:foreground unspecified
-               :background unspecified
-               :inherit sol-superlight-foreground))))
+          (((supports (:bold)))) (:bold t)))
+ `(minibuffer-prompt ((default (:foreground ,sol-blue))))
+ `(shadow ((default (:foreground unspecified
+                     :inherit sol-light-foreground))))
+ `(highlight ((default (:background unspecified
+                        :inherit sol-superlight-background))))
+ `(link-visited ((default (:foreground ,sol-blue))))
+ `(region ((default (:foreground unspecified
+                     :background unspecified
+                     :inverse-video t
+                     :inherit nano-default))))
+ `(fringe ((default (:foreground unspecified
+                     :background unspecified
+                     :inherit sol-superlight-foreground))))
  `(variable-pitch-text ((((supports (:height))) (:height 1))))
- `(fill-column-indicator ((t (:inherit sol-superlight-foreground))))
+ `(fill-column-indicator ((default (:inherit sol-superlight-foreground))))
  `(show-paren-match ((default (:foreground unspecified
                                :background unspecified
                                :inherit sol-superlight-background))
                      (((supports (:bold))) (:bold t))))
- `(show-paren-mismatch ((t (:background ,sol-red
-                            :foreground unspecified
-                            :inherit nano-default-i))))
- `(vertical-border ((t (:foreground unspecified
-                        :inherit sol-superlight-foreground))))
- `(mode-line ((t (:foreground unspecified
-                  :background unspecified
-                  :inverse-video nil
-                  :box (:line-width 3)
-                  :inherit sol-superlight-box))))
- `(mode-line-active ((t (:inherit (sol-light-foreground
-                                   sol-superlight-box)))))
- `(mode-line-emphasis ((t (:inherit nano-subtle)) t))
- `(mode-line-buffer-id ((t (:box unspecified
-                            :inherit sol-light-foreground))))
- `(mode-line-inactive ((t (:inverse-video nil
-                           :foreground unspecified
-                           :background unspecified
-                           :overline unspecified
-                           :underline unspecified
-                           :box unspecified
-                           :inherit (sol-superlight-box
-                                     sol-superlight-foreground)))))
- `(header-line ((t (:underline nil
-                    :inverse-video nil
-                    :foreground unspecified
-                    :background unspecified))))
- `(help-key-binding ((t (:foreground ,sol-yellow
-                         :box nil
-                         :background unspecified))))
- `(link ((t (:foreground ,sol-yellow
-             :underline t
-             :bold nil))))
- `(line-number ((t (:inherit sol-superlight-foreground))) t)
- `(line-number-current-line ((t (:inherit sol-light-foreground))) t)
- `(window-divider ((t (:foreground unspecified
-                       :background unspecified)))))
+ `(show-paren-mismatch ((default (:background ,sol-red
+                                  :foreground unspecified
+                                  :inherit nano-default-i))))
+ `(vertical-border ((default (:foreground unspecified
+                              :inherit sol-superlight-foreground))))
+ `(mode-line ((default (:foreground unspecified
+                        :background unspecified
+                        :inverse-video nil
+                        :box (:line-width 3)
+                        :inherit sol-superlight-box))))
+ `(mode-line-active ((default (:inherit (sol-light-foreground
+                                         sol-superlight-box)))))
+ `(mode-line-emphasis ((default (:inherit nano-subtle))))
+ `(mode-line-buffer-id ((default (:box unspecified
+                                  :inherit sol-light-foreground))))
+ `(mode-line-inactive ((default (:inverse-video nil
+                                 :foreground unspecified
+                                 :background unspecified
+                                 :overline unspecified
+                                 :underline unspecified
+                                 :box unspecified
+                                 :inherit (sol-superlight-box
+                                           sol-superlight-foreground)))))
+ `(header-line ((default (:underline nil
+                          :inverse-video nil
+                          :foreground unspecified
+                          :background unspecified))))
+ `(help-key-binding ((default (:foreground ,sol-yellow
+                               :box nil
+                               :background unspecified))))
+ `(link ((default (:foreground ,sol-yellow
+                   :underline t
+                   :bold nil))))
+ `(line-number ((default (:inherit sol-superlight-foreground))))
+ `(line-number-current-line ((default (:inherit sol-light-foreground))))
+ `(window-divider ((default (:foreground unspecified
+                             :background unspecified)))))
 
 (with-eval-after-load 'flymake
   (custom-set-faces
-    `(flymake-error ((((background light)) (:box ,sol-base1))
-                     (((background dark)) (:box ,sol-base01))))
-    `(flymake-note ((((background light)) (:underline ,sol-base1))
-                    (((background dark)) (:underline ,sol-base01))))
-    `(flymake-warning ((((background light)) (:underline ,sol-base1))
-                       (((background dark)) (:underline ,sol-base01))))))
+    `(flymake-error ((default (:inherit sol-foreground-box))))
+    `(flymake-note ((default (:inherit sol-light-foreground))))
+    `(flymake-warning ((default (:inherit sol-light-foreground))))))
 
 (with-eval-after-load 'cursor-flash
-  (set-face-attribute 'cursor-flash-face nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :inherit 'nano-salient-i))
+  (custom-set-faces
+   `(cursor-flash-face ((default (:foreground unspecified
+                                  :background unspecified
+                                  :inherit nano-salient-i))))))
 
 (with-eval-after-load 'flycheck
-  (set-face-attribute 'flycheck-error-list-highlight nil
-                      :inherit 'sol-superlight-background
-                      :extend t)
   (custom-set-faces
-    `(flycheck-error ((((background light)) (:box ,sol-base1))
-                      (((background dark)) (:box ,sol-base01))))
-    `(flycheck-info ((((background light)) (:underline ,sol-base1))
-                     (((background dark)) (:underline ,sol-base01))))
-    `(flycheck-warning ((((background light)) (:underline ,sol-base1))
-                        (((background dark)) (:underline ,sol-base01))))))
+   `(flycheck-error-list-highlight
+     ((default (:extend t :inherit sol-superlight-background))))
+   `(flycheck-error ((default (:inherit (sol-foreground
+                                         sol-foreground-box)))))
+   `(flycheck-info ((default (:inherit sol-light-foreground))))
+   `(flycheck-warning ((default (:inherit sol-foreground))
+                       (((supports (:underline))) (:underline t))))))
 
 (with-eval-after-load 'pulse
-  (set-face-attribute 'pulse-highlight-start-face nil
-                      :background 'unspecified
-                      :inherit 'sol-superlight-background))
+  (custom-set-faces
+   `(pulse-highlight-start-face
+     ((default (:background unspecified
+                :inherit sol-superlight-background))))))
 
 (with-eval-after-load 'evil
-  (set-face-attribute 'evil-ex-search nil
-                      :inherit 'match)
-
-  (set-face-attribute 'evil-ex-info nil
-                      :foreground sol-red)
-  (set-face-attribute 'evil-ex-substitute-replacement nil
-                      :foreground sol-red))
+  (custom-set-faces
+   `(evil-ex-search ((default (:inherit match))))
+   `(evil-ex-info ((default (:foreground ,sol-red))))
+   `(evil-ex-substitute-replacement ((default (:foreground ,sol-red))))))
 
 (with-eval-after-load 'hl-todo
-  (setq hl-todo-keyword-faces '(("TODO"  . nano-default)
-                                ("DEBUG" . nano-default)
-                                ("NOTE"  . nano-default)
-                                ("FIXME" . nano-default))))
+  (setq hl-todo-keyword-faces '(("TODO"  . sol-foreground)
+                                ("DEBUG" . sol-foreground)
+                                ("NOTE"  . sol-foreground)
+                                ("FIXME" . sol-foreground))))
 
 (with-eval-after-load 'whitespace
-  (set-face-attribute 'whitespace-newline nil
-                      :foreground 'unspecified
-                      :inherit 'sol-light-foreground)
-  (set-face-attribute 'whitespace-space nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :inherit '(sol-superlight-background
-                                 sol-light-foreground)))
+  (custom-set-faces
+   `(whitespace-newline ((default (:foreground unspecified
+                                   :inherit sol-light-foreground))))
+   `(whitespace-space ((default (:foreground unspecified
+                                 :background unspecified
+                                 :inherit (sol-superlight-background
+                                           sol-light-foreground)))))))
 
 (with-eval-after-load 'eshell
-  (set-face-attribute 'eshell-prompt nil
-                      :foreground 'unspecified
-                      :inherit 'nano-salient))
+  (custom-set-faces
+   `(eshell-prompt ((default (:foreground unspecified
+                              :inherit ,sol-green))))))
 
 (with-eval-after-load 'diff
-  (set-face-attribute 'diff-header nil
-                      :inherit 'nano-default)
-  (set-face-attribute 'diff-context nil
-                      :inherit '(nano-default sol-superlight-background))
-  (set-face-attribute 'diff-added nil
-                      :foreground sol-green
-                      :inherit '(nano-default sol-superlight-background))
-  (set-face-attribute 'diff-removed nil
-                      :foreground sol-red
-                      :inherit '(nano-default sol-superlight-background))
-  (set-face-attribute 'diff-refine-changed nil
-                      :foreground 'unspecified
-                      :inherit 'diff-changed)
-  (set-face-attribute 'diff-refine-removed nil
-                      :strike-through nil
-                      :background sol-red
-                      :inherit 'nano-default-i)
-  (set-face-attribute 'diff-refine-added nil
-                      :bold nil
-                      :background sol-green
-                      :inherit 'nano-default-i))
+  (custom-set-faces
+   `(diff-header
+     ((default (:inherit sol-foreground))))
+   `(diff-context
+     ((default (:inherit (sol-foreground
+                          sol-superlight-background)))))
+   `(diff-added
+     ((default (:foreground ,sol-green
+                :inherit (sol-foreground
+                          sol-superlight-background)))))
+   `(diff-removed
+     ((default (:foreground ,sol-red
+                :inherit (sol-foreground
+                          sol-superlight-background)))))
+   `(diff-refined-changed
+     ((default (:foreground unspecified
+                :inherit diff-changed))))
+   `(diff-refined-removed
+     ((default (:strike-through nil
+                :background sol-red
+                :inherit nano-default-i))))
+   `(diff-refined-added
+     ((default (:bold nil
+                :background sol-green
+                :inherit nano-default-i))))))
 
 (with-eval-after-load 'ediff
   (set-face-attribute 'ediff-current-diff-A nil
@@ -553,7 +562,6 @@
                       :foreground sol-yellow
                       :background 'unspecified
                       :inherit nil)
-
   (set-face-attribute 'ediff-odd-diff-A nil
                       :background 'unspecified
                       :inherit 'ediff-even-diff-A)
@@ -567,61 +575,81 @@
                       :background 'unspecified
                       :inherit 'ediff-even-diff-C))
 
+(with-eval-after-load 'consult
+  (custom-set-faces
+   `(consult-line-number-wrapped
+     ((default (:inherit line-number))))))
+
+(with-eval-after-load 'magit-section
+ (custom-set-faces
+  `(magit-section-heading
+    ((default (:foreground unspecified
+               :inherit sol-foreground))))
+  `(magit-section-highlight
+    ((default (:inherit (sol-superlight-background)))))))
+
 (with-eval-after-load 'magit
-  (set-face-attribute 'magit-section-heading nil
-                      :foreground 'unspecified
-                      :underline t
-                      :inherit 'nano-default)
-  (set-face-attribute 'magit-section-highlight nil
-                      :background 'unspecified
-                      :inherit 'nano-subtle)
-  (set-face-attribute 'magit-keyword-squash nil
-                      :bold t
-                      :inherit 'nano-salient)
-  (set-face-attribute 'magit-head nil
-                      :bold t
-                      :inherit 'nano-salient)
-  (set-face-attribute 'magit-branch-local nil
-                      :foreground sol-blue)
-  (set-face-attribute 'magit-branch-remote nil
-                      :foreground sol-green)
-  (set-face-attribute 'magit-tag nil
-                      :foreground sol-violet))
+  (custom-set-faces
+   `(magit-keyword-squash
+     ((default (:bold t
+                :foreground ,sol-green))
+      (((type nil)) (:bold nil))))
+   `(magit-header-line
+     ((default (:underline t
+                :inherit magit-section-heading))
+      (((type nil)) (:underline nil))))
+   `(magit-keyword-squash
+     ((default (:bold t
+                :foreground ,sol-green))
+      (((type nil)) (:bold nil))))
+   `(magit-head
+     ((default (:bold t
+                :foreground ,sol-magenta))
+      (((type nil)) (:bold nil))))
+   `(magit-branch-local
+     ((default (:bold t
+                :foreground ,sol-blue))
+      (((type nil)) (:bold nil))))
+   `(magit-branch-remote
+     ((default (:bold t
+                :foreground ,sol-green))
+      (((type nil)) (:bold nil))))
+   `(magit-tag
+     ((default (:bold t
+                :foreground ,sol-violet))
+      (((type nil)) (:bold nil))))
+   `(magit-hash
+     ((default (:bold t
+                :inherit sol-light-foreground))
+      (((type nil)) (:bold nil))))))
 
 (with-eval-after-load 'magit-blame
-  (set-face-attribute 'magit-blame-highlight nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :underline nil
-                      :inherit 'nano-subtle))
+  (custom-set-faces
+   `(magit-blame-highlight
+     ((default (:inherit sol-superlight-background))))))
 
 (with-eval-after-load 'magit-diff
-  (set-face-attribute 'magit-diff-removed nil
-                      :foreground sol-red
-                      :background 'unspecified
-                      :inherit '(sol-superlight-background))
-  (set-face-attribute 'magit-diff-removed-highlight nil
-                      :underline nil
-                      :weight 'unspecified
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :bold t
-                      :inherit '(magit-diff-removed))
-  (set-face-attribute 'magit-diff-added nil
-                      :foreground sol-green
-                      :background 'unspecified
-                      :inherit '(sol-superlight-background))
-  (set-face-attribute 'magit-diff-added-highlight nil
-                      :background 'unspecified
-                      :foreground 'unspecified
-                      :weight 'normal
-                      :bold nil
-                      :underline 'unspecified
-                      :inherit 'magit-diff-added)
-  (set-face-attribute 'magit-diffstat-added nil
-                      :foreground sol-green)
-  (set-face-attribute 'magit-diffstat-removed nil
-                      :foreground sol-red)
+  ;; removed
+  (custom-set-faces
+   `(magit-diff-removed
+     ((default (:foreground ,sol-red
+                :inherit sol-superlight-background))))
+   `(magit-diff-removed-highlight
+     ((default (:inherit magit-diff-removed))))
+   `(magit-diffstat-removed
+     ((t (:foreground ,sol-red)))))
+
+  ;; added
+  (custom-set-faces
+   `(magit-diff-added
+     ((default (:foreground ,sol-green
+                :inherit sol-superlight-background))))
+   `(magit-diff-added-highlight
+     ((default (:inherit magit-diff-added))))
+   `(magit-diffstat-added
+     ((t (:foreground ,sol-green))))))
+
+(with-eval-after-load 'magit-diff
   (set-face-attribute 'magit-diff-hunk-heading nil
                       :foreground 'unspecified
                       :background 'unspecified
@@ -692,9 +720,14 @@
                       :strike-through t))
 
 (with-eval-after-load 'magit-log
-  (set-face-attribute 'magit-log-author nil
-                      :foreground 'unspecified
-                      :inherit 'default))
+  (custom-set-faces
+   `(magit-log-graph
+     ((default (:inherit sol-foreground))))
+   `(magit-log-author
+     ((default (:foreground unspecified
+                :inherit sol-foreground))))
+   `(magit-log-date
+     ((default (:inherit sol-foreground))))))
 
 (with-eval-after-load 're-builder
   (set-face-attribute 'reb-match-0 nil
@@ -711,12 +744,13 @@
                       :background 'unspecified))
 
 (with-eval-after-load 'transient
-  (set-face-attribute 'transient-key-exit nil
-                      :foreground sol-red)
-  (set-face-attribute 'transient-key-return nil
-                      :foreground sol-yellow)
-  (set-face-attribute 'transient-key-stay nil
-                      :foreground sol-blue))
+  (custom-set-faces
+   `(transient-key-exit
+     ((default (:foreground ,sol-red))))
+   `(transient-key-return
+     ((default (:foreground ,sol-yellow))))
+   `(transient-key-stay
+     ((default (:foreground ,sol-blue))))))
 
 (with-eval-after-load 'sh-script
   (set-face-attribute 'sh-quoted-exec nil
@@ -772,14 +806,14 @@
                       :inherit 'nano-subtle)
 
   (defface --markdown-date-timestamp-face
-    '((t (:weight semi-light)))
+    '((default (:weight semi-light)))
     "Face used to describe date timestamps. Like years and months and days."
     :group 'personal)
   (defconst --markdown-date-timestamp-regex
     (rx (= 4 (any digit)) "-" (any "0-1") (any digit) "-" (any "0-3") (any digit)))
 
   (defface --markdown-time-timestamp-face
-    '((t (:weight semi-light)))
+    '((default (:weight semi-light)))
     "Face used to describe time timestamps. Like hours and minutes."
     :group 'personal)
   (defconst --markdown-time-timestamp-regex
@@ -788,7 +822,7 @@
         (* " +" (= 4 (any digit)))))
 
   (defface --markdown-tag-face
-    '((t (:weight light :inherit nano-faded)))
+    '((default (:weight light :inherit nano-faded)))
     "Face used to describe tags (like `#foo'). I like using tags."
     :group 'personal)
   (defconst --markdown-tag-keyword-regex
@@ -804,80 +838,100 @@
                (,--markdown-time-timestamp-regex 0 '--markdown-time-timestamp-face))))
 
 (with-eval-after-load 'replace
-  (set-face-attribute 'match nil
-                      :background 'unspecified
-                      :distant-foreground 'unspecified
-                      :foreground sol-red))
+  (custom-set-faces
+   `(match
+     ((default (:background unspecified
+                :distant-foreground unspecified
+                :inverse-video nil
+                :foreground ,sol-orange))
+      (((type nil)) (:inverse-video t))))))
 
 (with-eval-after-load 'isearch
-  (set-face-attribute 'isearch nil
-                      :background 'unspecified
-                      :foreground sol-green
-                      :inherit 'sol-superlight-background)
-  (set-face-attribute 'lazy-highlight nil
-                      :distant-foreground 'unspecified
-                      :background 'unspecified
-                      :inherit 'match))
+  (custom-set-faces
+   `(isearch
+     ((default (:background unspecified
+                :foreground ,sol-green
+                :inherit sol-superlight-background))))
+   `(lazy-highlight
+     ((default (:distant-foreground unspecified
+                :background unspecified
+                :inherit match))))))
 
 (with-eval-after-load 'highlight-indent-guides
-  (set-face-attribute 'highlight-indent-guides-character-face nil
-                      :inherit 'sol-superlight-foreground))
+  (custom-set-faces
+   `(highlight-indent-guides-character-face
+     ((default (:inherit sol-superlight-foreground))))))
 
 ;; font-lock
-(set-face-attribute 'font-lock-warning-face nil
-                    :bold t
-                    :italic t
-                    :inherit 'nano-default)
-(set-face-attribute 'font-lock-keyword-face nil
-                    :foreground 'unspecified
-                    :inherit 'default)
-(set-face-attribute 'font-lock-constant-face nil
-                    :foreground 'unspecified
-                    :inherit 'nano-default)
-(set-face-attribute 'font-lock-function-name-face nil
-                    :foreground 'unspecified
-                    :inherit 'nano-default)
-(set-face-attribute 'font-lock-builtin-face nil
-                    :foreground 'unspecified
-                    :inherit 'default)
-(set-face-attribute 'font-lock-variable-name-face nil
-                    :foreground 'unspecified
-                    :inherit 'sol-superstrong-foreground)
-(set-face-attribute 'font-lock-comment-face nil
-                    :weight 'semi-light
-                    :foreground 'unspecified
-                    :inherit '(nano-faded sol-superlight-background))
-(set-face-attribute 'font-lock-doc-face nil
-                    :weight 'semi-light
-                    :foreground 'unspecified
-                    :extend t
-                    :inherit '(nano-default sol-superlight-background))
-(set-face-attribute 'font-lock-type-face nil
-                    :italic t
-                    :foreground 'unspecified
-                    ;; :inherit 'nano-default)
-                    :inherit 'sol-foreground)
-(set-face-attribute 'font-lock-string-face nil
-                    :foreground 'unspecified
-                    :bold t
-                    :inherit 'nano-default)
+(custom-set-faces
+ `(font-lock-warning-face
+   ((default (:foreground ,sol-blue))
+    (((supports (:bold))
+      (supports (:italic)))
+     (:bold t :italic t))))
+ `(font-lock-keyword-face
+   ((default (:foreground unspecified))))
+ `(font-lock-constant-face
+   ((default (:foreground unspecified))))
+ `(font-lock-function-name-face
+   ((default (:foreground unspecified))))
+ `(font-lock-builtin-face
+   ((default (:foreground unspecified))))
+ `(font-lock-variable-name-face
+   ((default (:foreground unspecified
+              :inherit sol-superstrong-foreground))
+    ;; if character terminal, use defaults
+    (((type nil)))
+    ;; if bold is supported we don't pop using colors
+    (((supports (:bold))) (:bold t
+                           :inherit sol-foreground))))
+ `(font-lock-comment-face
+   ((default (:italic nil
+              :foreground unspecified
+              :inherit sol-superlight-background))
+    (((type nil)) (:inherit (sol-superlight-background
+                             sol-light-foreground)))
+    (((supports (:weight))) (:weight semi-light))))
+ `(font-lock-comment-delimiter-face
+   ((default (:inherit font-lock-comment-face))))
+ `(font-lock-doc-face
+   ((default (:italic nil
+              :extend t
+              :inherit (ont-lock-comment-face sol-foreground)))))
+ `(font-lock-type-face
+   ((default (:foreground unspecified
+              :inherit sol-foreground))
+    (((supports (:italic))) (:italic t))))
+ `(font-lock-preprocessor-face
+   ((default (:foreground unspecified
+              :inherit sol-foreground))))
+ `(font-lock-string-face
+   ((default (:foreground unspecified
+              :inherit sol-foreground))
+    (((type nil)))
+    (((supports (:bold))) (:bold t
+                           :inherit sol-light-foreground)))))
 
 (with-eval-after-load 'eglot
-  (set-face-attribute 'eglot-highlight-symbol-face nil
-                      :bold nil
-                      :inherit '(sol-superlight-background))
-  (set-face-attribute 'eglot-inlay-hint-face nil
-                      :italic t
-                      :weight 'semi-light
-                      :height 1.0
-                      :inherit '(sol-light-foreground)))
+  (custom-set-faces
+   `(eglot-highlight-symbol-face
+     ((default (:bold nil
+                :inherit sol-superlight-background))))
+   `(eglot-inlay-hint-face
+     ((default (:height unspecified
+                :inherit sol-light-foreground))
+      (((supports (:italic))
+        (supports (:weight)))
+       (:italic t
+        :weight semi-light))))))
 
 (with-eval-after-load 'blamer
-  (set-face-attribute 'blamer-face nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :weight 'extra-light
-                      :inherit 'sol-light-foreground))
+  (custom-set-faces
+   `(blamer-face
+     ((default (:foreground unspecified
+                :background unspecified
+                :inherit sol-light-foreground))
+      (((supports (:weight))) (:weight extra-light))))))
 
 (with-eval-after-load 'eww
   (set-face-attribute 'eww-form-submit nil
@@ -1062,12 +1116,12 @@
                       :inherit 'nano-salient))
 
 (with-eval-after-load 'compile
-  (set-face-attribute 'compilation-mode-line-run nil
-                      :background 'unspecified
-                      :foreground 'unspecified
-                      :inherit 'nano-default)
-  (set-face-attribute 'compilation-warning nil
-                      :inherit 'nano-salient)
+  (custom-set-faces
+   `(compilation-mode-line-run
+     ((default (:inherit sol-foreground))))
+   `(compilation-warning
+     ((default (:foreground ,sol-green)))))
+
   (set-face-attribute 'compilation-mode-line-fail nil
                       :foreground 'unspecified
                       :inherit '(compilation-error nano-default-i))
@@ -1094,23 +1148,22 @@
                       :foreground sol-blue))
 
 (with-eval-after-load 'tab-bar
-  (set-face-attribute 'tab-bar nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :underline nil
-                      :inherit '(default))
-                      ;; :inherit 'minibuffer-prompt)
-  (set-face-attribute 'tab-bar-tab nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :underline 'unspecified
-                      :bold nil
-                      :inherit '(sol-superlight-background default))
-  (set-face-attribute 'tab-bar-tab-inactive nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :bold nil
-                      :inherit 'sol-light-foreground))
+  (custom-set-faces
+   `(tab-bar
+     ((default (:foreground unspecified
+                :background unspecified
+                :underline nil))))
+   `(tab-bar-tab
+     ((default (:foreground unspecified
+                :background unspecified
+                :underline unspecified
+                :bold nil
+                :inherit sol-superlight-background))))
+   `(tab-bar-tab-inactive
+     ((default (:foreground unspecified
+                :background unspecified
+                :bold nil
+                :inherit sol-light-foreground))))))
 
 (with-eval-after-load 'avy
   (set-face-attribute 'avy-background-face nil
@@ -1145,115 +1198,114 @@
                       :extend t
                       :inherit 'nano-subtle))
 
-(with-eval-after-load 'lsp-mode
-  (set-face-attribute 'lsp-details-face nil
-                      :height 1.0
-                      :weight 'normal
-                      :inherit 'sol-light-foreground)
-  (set-face-attribute 'lsp-face-highlight-textual nil
-                      :inherit '(nano-default sol-superlight-background))
-  (set-face-attribute 'lsp-face-highlight-read nil
-                      :underline nil
-                      :inherit 'lsp-face-highlight-textual)
-  (set-face-attribute 'lsp-face-highlight-write nil
-                      :underline t
-                      :bold nil
-                      :inherit '(lsp-face-highlight-textual)))
+;; (with-eval-after-load 'lsp-mode
+;;   (set-face-attribute 'lsp-details-face nil
+;;                       :height 1.0
+;;                       :weight 'normal
+;;                       :inherit 'sol-light-foreground)
+;;   (set-face-attribute 'lsp-face-highlight-textual nil
+;;                       :inherit '(nano-default sol-superlight-background))
+;;   (set-face-attribute 'lsp-face-highlight-read nil
+;;                       :underline nil
+;;                       :inherit 'lsp-face-highlight-textual)
+;;   (set-face-attribute 'lsp-face-highlight-write nil
+;;                       :underline t
+;;                       :bold nil
+;;                       :inherit '(lsp-face-highlight-textual)))
 
-(with-eval-after-load 'lsp-ui-imenu
-  (cl-defun --update-lsp-ui-imenu-colors ()
-    (setq lsp-ui-imenu-colors
-                      (list
-                       (plist-get
-                        (custom-face-attributes-get 'nano-default nil)
-                        :foreground))))
-  (--update-lsp-ui-imenu-colors))
+;; (with-eval-after-load 'lsp-ui-imenu
+;;   (cl-defun --update-lsp-ui-imenu-colors ()
+;;     (setq lsp-ui-imenu-colors
+;;                       (list
+;;                        (plist-get
+;;                         (custom-face-attributes-get 'nano-default nil)
+;;                         :foreground))))
+;;   (--update-lsp-ui-imenu-colors))
 
-(with-eval-after-load 'lsp-ui-peek
-  (set-face-attribute 'lsp-ui-peek-peek nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :inherit 'nano-subtle)
-  (set-face-attribute 'lsp-ui-peek-list nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :inherit 'nano-subtle)
-  (set-face-attribute 'lsp-ui-peek-selection nil
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :inherit 'nano-strong-i)
-  (set-face-attribute 'lsp-ui-peek-line-number nil
-                      :foreground 'unspecified
-                      :inherit 'nano-default)
-  (set-face-attribute 'lsp-ui-peek-filename nil
-                      :foreground 'unspecified
-                      :inherit 'nano-salient)
-  (set-face-attribute 'lsp-ui-peek-header nil
-                      :bold t
-                      :foreground 'unspecified
-                      :background 'unspecified
-                      :inherit 'nano-subtle)
-  (set-face-attribute 'lsp-ui-peek-highlight nil
-                      :foreground 'unspecified
-                      :box 'unspecified
-                      :background 'unspecified
-                      :inherit 'nano-strong))
+;; (with-eval-after-load 'lsp-ui-peek
+;;   (set-face-attribute 'lsp-ui-peek-peek nil
+;;                       :foreground 'unspecified
+;;                       :background 'unspecified
+;;                       :inherit 'nano-subtle)
+;;   (set-face-attribute 'lsp-ui-peek-list nil
+;;                       :foreground 'unspecified
+;;                       :background 'unspecified
+;;                       :inherit 'nano-subtle)
+;;   (set-face-attribute 'lsp-ui-peek-selection nil
+;;                       :foreground 'unspecified
+;;                       :background 'unspecified
+;;                       :inherit 'nano-strong-i)
+;;   (set-face-attribute 'lsp-ui-peek-line-number nil
+;;                       :foreground 'unspecified
+;;                       :inherit 'nano-default)
+;;   (set-face-attribute 'lsp-ui-peek-filename nil
+;;                       :foreground 'unspecified
+;;                       :inherit 'nano-salient)
+;;   (set-face-attribute 'lsp-ui-peek-header nil
+;;                       :bold t
+;;                       :foreground 'unspecified
+;;                       :background 'unspecified
+;;                       :inherit 'nano-subtle)
+;;   (set-face-attribute 'lsp-ui-peek-highlight nil
+;;                       :foreground 'unspecified
+;;                       :box 'unspecified
+;;                       :background 'unspecified
+;;                       :inherit 'nano-strong))
 
-(with-eval-after-load 'lsp-diagnostics
-  (customize-set-variable
-   'lsp-diagnostics-attributes
-   `((unnecessary :foreground ,(face-attribute
-                                 'sol-light-foreground
-                                 :foreground))
-     (deprecated :strike-through t))))
+;; (with-eval-after-load 'lsp-diagnostics
+;;   (customize-set-variable
+;;    'lsp-diagnostics-attributes
+;;    `((unnecessary :foreground ,(face-attribute
+;;                                  'sol-light-foreground
+;;                                  :foreground))
+;;      (deprecated :strike-through t))))
 
-(with-eval-after-load 'lsp-headerline
- (set-face-attribute 'lsp-headerline-breadcrumb-path-error-face nil
-                     :underline `(:color ,sol-red :style line))
- (set-face-attribute 'lsp-headerline-breadcrumb-symbols-error-face nil
-                     :underline `(:color ,sol-red :style line))
- (set-face-attribute 'lsp-headerline-breadcrumb-path-hint-face nil
-                     :underline `(:color ,sol-magenta :style line))
- (set-face-attribute 'lsp-headerline-breadcrumb-symbols-hint-face nil
-                     :underline `(:color ,sol-magenta :style line))
- (set-face-attribute 'lsp-headerline-breadcrumb-path-info-face nil
-                     :underline `(:color ,sol-blue :style line))
- (set-face-attribute 'lsp-headerline-breadcrumb-symbols-info-face nil
-                     :underline `(:color ,sol-blue :style line))
- (set-face-attribute 'lsp-headerline-breadcrumb-path-warning-face nil
-                     :underline `(:color ,sol-yellow :style line))
- (set-face-attribute 'lsp-headerline-breadcrumb-symbols-warning-face nil
-                     :underline `(:color ,sol-yellow :style line)))
+;; (with-eval-after-load 'lsp-headerline
+;;  (set-face-attribute 'lsp-headerline-breadcrumb-path-error-face nil
+;;                      :underline `(:color ,sol-red :style line))
+;;  (set-face-attribute 'lsp-headerline-breadcrumb-symbols-error-face nil
+;;                      :underline `(:color ,sol-red :style line))
+;;  (set-face-attribute 'lsp-headerline-breadcrumb-path-hint-face nil
+;;                      :underline `(:color ,sol-magenta :style line))
+;;  (set-face-attribute 'lsp-headerline-breadcrumb-symbols-hint-face nil
+;;                      :underline `(:color ,sol-magenta :style line))
+;;  (set-face-attribute 'lsp-headerline-breadcrumb-path-info-face nil
+;;                      :underline `(:color ,sol-blue :style line))
+;;  (set-face-attribute 'lsp-headerline-breadcrumb-symbols-info-face nil
+;;                      :underline `(:color ,sol-blue :style line))
+;;  (set-face-attribute 'lsp-headerline-breadcrumb-path-warning-face nil
+;;                      :underline `(:color ,sol-yellow :style line))
+;;  (set-face-attribute 'lsp-headerline-breadcrumb-symbols-warning-face nil
+;;                      :underline `(:color ,sol-yellow :style line)))
 
-(with-eval-after-load 'lsp-ui-doc
-  (setq lsp-ui-doc-border
-        (plist-get
-         (custom-face-attributes-get 'sol-superlight-foreground nil)
-         :foreground))
-
-  (set-face-attribute 'lsp-ui-doc-background nil
-                      :background 'unspecified
-                      :inherit 'nano-subtle)
-  (set-face-attribute 'lsp-ui-doc-header nil
-                      :background 'unspecified
-                      :foreground 'unspecified
-                      :inherit '(nano-salient nano-subtle)))
+;; (with-eval-after-load 'lsp-ui-doc
+;;   (setq lsp-ui-doc-border
+;;         (plist-get
+;;          (custom-face-attributes-get 'sol-superlight-foreground nil)
+;;          :foreground))
+;;   (set-face-attribute 'lsp-ui-doc-background nil
+;;                       :background 'unspecified
+;;                       :inherit 'nano-subtle)
+;;   (set-face-attribute 'lsp-ui-doc-header nil
+;;                       :background 'unspecified
+;;                       :foreground 'unspecified
+;;                       :inherit '(nano-salient nano-subtle)))
 
 (with-eval-after-load 'focus
   (set-face-attribute 'focus-unfocused nil
                       :inherit 'sol-superlight-foreground))
 
-(with-eval-after-load 'lsp-modeline
-  (set-face-attribute 'lsp-modeline-code-actions-face nil
-                      ;; consider just making this nano-faded or something
-                      :foreground sol-yellow)
-  (set-face-attribute 'lsp-modeline-code-actions-preferred-face nil
-                      :foreground sol-red))
+;; (with-eval-after-load 'lsp-modeline
+;;   (set-face-attribute 'lsp-modeline-code-actions-face nil
+;;                       ;; consider just making this nano-faded or something
+;;                       :foreground sol-yellow)
+;;   (set-face-attribute 'lsp-modeline-code-actions-preferred-face nil
+;;                       :foreground sol-red))
 
-(with-eval-after-load 'lsp-headerline
-  (set-face-attribute 'lsp-headerline-breadcrumb-symbols-face nil
-                      :bold nil
-                      :inherit 'nano-default))
+;; (with-eval-after-load 'lsp-headerline
+;;   (set-face-attribute 'lsp-headerline-breadcrumb-symbols-face nil
+;;                       :bold nil
+;;                       :inherit 'nano-default))
 
 (with-eval-after-load 'org
   (set-face-attribute 'org-meta-line nil
@@ -1285,31 +1337,29 @@
                       :inherit 'sol-subtle))
 
 (with-eval-after-load 'orderless
-  (set-face-attribute 'orderless-match-face-0 nil
-                      :bold nil
-                      :foreground sol-blue)
-  (set-face-attribute 'orderless-match-face-1 nil
-                      :bold nil
-                      :foreground sol-cyan)
-  (set-face-attribute 'orderless-match-face-2 nil
-                      :bold nil
-                      :foreground sol-violet)
-  (set-face-attribute 'orderless-match-face-3 nil
-                      :bold nil
-                      :foreground sol-green))
+  (custom-set-faces
+   `(orderless-match-face-0
+     ((default (:foreground ,sol-blue))))
+   `(orderless-match-face-1
+     ((default (:foreground ,sol-cyan))))
+   `(orderless-match-face-2
+     ((default (:foreground ,sol-violet))))
+   `(orderless-match-face-3
+     ((default (:foreground ,sol-green))))))
 
 (with-eval-after-load 'dired-git-info
   (set-face-attribute 'dgi-commit-message-face nil
                       :inherit 'default))
 
 (with-eval-after-load 'dired
-  (set-face-attribute 'dired-directory nil
-                      :bold t
-                      :inherit 'sol-strong-foreground)
-  (set-face-attribute 'dired-broken-symlink nil
-                      :background sol-red
-                      :foreground 'unspecified
-                      :inherit 'nano-default-i))
+  (custom-set-faces
+   `(dired-directory
+     ((default (:bold t :inherit sol-foreground))
+      (((type nil)) (:inherit sol-strong-foreground))))
+   `(dired-broken-symlink
+     ((default (:background ,sol-red
+                :foreground unspecified
+                :inherit sol-foreground-i))))))
 
 (with-eval-after-load 'dired-async
   (set-face-attribute 'dired-async-failures nil
@@ -1390,14 +1440,16 @@
                       :inherit 'nano-strong))
 
 (with-eval-after-load 'diff-hl
-  (set-face-attribute 'diff-hl-change nil
-                      :inherit '(sol-light-foreground sol-superlight-background))
-  (set-face-attribute 'diff-hl-insert nil
-                      :inherit 'diff-hl-change)
-  (set-face-attribute 'diff-hl-delete nil
-                      :inherit 'diff-hl-change)
-  (set-face-attribute 'diff-hl-reverted-hunk-highlight nil
-                      :inherit 'diff-hl-change))
+  (custom-set-faces
+   `(diff-hl-change
+     ((default (:inherit (sol-superlight-foreground
+                          sol-superlight-background)))))
+   `(diff-hl-insert
+     ((default (:inherit diff-hl-change))))
+   `(diff-hl-delete
+     ((default (:inherit diff-hl-change))))
+   `(diff-hl-reverted-chunk-highlight
+     ((default (:inherit diff-hl-change))))))
 
 ;; Replaces the default arrows you see in the left and right fringe with a
 ;; nicer-looking bitmap.
