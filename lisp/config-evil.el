@@ -28,6 +28,7 @@
    "U"     'undo-tree-visualize)
   :config
   (require 'track-changes nil :noerror) ;; if present, load track-changes
+  (setq evil-undo-system 'undo-tree)
   (global-undo-tree-mode))
 
 ;; Needed for g; and g,
@@ -111,7 +112,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
   ;;  #'evil-complete-next-func
   ;;    "Refer to `evil-complete-next-func' for warnings on how this
   ;;    impacts evil configuration variables.")
-  (evil-undo-system 'undo-redo)
+  (evil-undo-system 'undo-tree)
   (evil-want-Y-yank-to-eol
     t
     "Y has the default behavior of functioning identically to yy.
