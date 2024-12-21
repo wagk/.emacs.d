@@ -566,6 +566,8 @@
 
 (with-eval-after-load 'consult
   (custom-set-faces
+   `(consult-separator
+     ((default (:inherit sol-superlight-foreground))))
    `(consult-line-number-wrapped
      ((default (:inherit line-number))))))
 
