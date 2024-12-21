@@ -170,7 +170,10 @@
     (--evil-define-splits "pd" #'project-dired)
     (--evil-define-splits "pdd" #'project-find-dir)
     (--evil-define-splits "pp" #'(lambda () (interactive)
-                                   (dired (funcall project-prompter))))
+                                   (dired
+                                    (if (bound-and-true-p project-prompter)
+                                        (funcall project-prompter)
+                                      (project-prompt-project-dir)))))
     (if (eq system-type 'windows-nt)
         (evil-ex-define-cmd "ps" #'project-shell)
       (--evil-define-splits "ps" #'--multi-vterm-project))
