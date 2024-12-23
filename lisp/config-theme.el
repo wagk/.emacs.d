@@ -763,8 +763,19 @@
 (with-eval-after-load 'markdown-mode
   (custom-set-faces
    `(markdown-header-face
-     ((default . (:inherit sol-superlight-background
-                  :extend t))))
+     ((default . (:inherit sol-superstrong-foreground))))
+   `(markdown-header-face-1
+     ((default . (:inherit markdown-header-face))))
+   `(markdown-header-face-2
+     ((default . (:inherit markdown-header-face))))
+   `(markdown-header-face-3
+     ((default . (:inherit markdown-header-face))))
+   `(markdown-header-face-4
+     ((default . (:inherit markdown-header-face))))
+   `(markdown-header-face-5
+     ((default . (:inherit markdown-header-face))))
+   `(markdown-header-face-6
+     ((default . (:inherit markdown-header-face))))
    `(markdown-header-delimiter-face
      ((default . (:inherit markdown-header-face))))
    `(markdown-metadata-key-face
@@ -875,10 +886,10 @@
  `(font-lock-variable-name-face
    ((default . (:foreground unspecified
                 :inherit sol-superstrong-foreground))
-    ;; if character terminal, use defaults
-    ;; if bold is supported we don't pop using colors
-    (((supports (:bold))) . (:bold t
-                             :inherit sol-foreground))))
+    ;; if character terminal, use colors
+    (((type nil)) . (:inherit sol-strong-foreground))
+    ;; otherwise make it pop by bolding
+    (t . (:bold t :inherit sol-foreground))))
  `(font-lock-comment-face
    ((default . (:italic nil
                 :foreground unspecified
@@ -901,9 +912,7 @@
                 :inherit sol-foreground))))
  `(font-lock-string-face
    ((default . (:foreground unspecified
-                :inherit sol-foreground))
-    (((supports (:bold))) . (:bold t
-                             :inherit sol-light-foreground)))))
+                :inherit sol-foreground)))))
 
 (with-eval-after-load 'eglot
   (custom-set-faces
