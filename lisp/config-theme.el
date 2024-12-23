@@ -574,9 +574,11 @@
  (custom-set-faces
   `(magit-section-heading
     ((default . (:bold t
-                 :inherit sol-foreground))))
+                 :inherit sol-foreground))
+     (((type nil)) . (:inherit sol-strong-foreground))))
   `(magit-section-highlight
-    ((default . (:inherit magit-section-heading))))))
+    ((default . (:inherit magit-section-heading))
+     (((type nil)) . (:inherit sol-superlight-background))))))
 
 (with-eval-after-load 'magit
   (custom-set-faces
