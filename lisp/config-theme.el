@@ -518,6 +518,11 @@
                   :background sol-green
                   :inherit nano-default-i))))))
 
+(with-eval-after-load 'tree-sitter
+  (custom-set-faces
+   `(tree-sitter-hl-face:function.call
+     ((default (:inherit font-lock-function-name-face))))))
+
 (with-eval-after-load 'ediff
   (custom-set-faces
    `(ediff-current-diff-A
