@@ -473,10 +473,10 @@
    `(evil-ex-substitute-replacement ((default . (:foreground ,sol-red))))))
 
 (with-eval-after-load 'hl-todo
-  (setq hl-todo-keyword-faces '(("TODO"  . sol-foreground)
-                                ("DEBUG" . sol-foreground)
-                                ("NOTE"  . sol-foreground)
-                                ("FIXME" . sol-foreground))))
+  (setq hl-todo-keyword-faces `(("TODO"  . ,sol-yellow)
+                                ("DEBUG" . ,sol-yellow)
+                                ("NOTE"  . ,sol-yellow)
+                                ("FIXME" . ,sol-yellow))))
 
 (with-eval-after-load 'whitespace
   (custom-set-faces
