@@ -899,17 +899,15 @@
     (t . (:bold t :inherit sol-foreground))))
  `(font-lock-comment-face
    ((default . (:italic nil
-                :foreground unspecified
-                :inherit sol-superlight-background))
+                :inherit (sol-light-foreground sol-superlight-background)))
     (((type nil)) . (:inherit (sol-superlight-background
                                sol-light-foreground)))
     (((supports (:weight))) . (:weight semi-light))))
  `(font-lock-comment-delimiter-face
    ((default . (:inherit font-lock-comment-face))))
  `(font-lock-doc-face
-   ((default . (:italic nil
-                :extend t
-                :inherit (font-lock-comment-face sol-foreground)))))
+   ((default . (:extend t
+                :inherit font-lock-comment-face))))
  `(font-lock-type-face
    ((default . (:foreground unspecified
                 :inherit sol-foreground))
