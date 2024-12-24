@@ -404,6 +404,7 @@
  `(mode-line-active ((default . (:inherit (sol-light-foreground
                                            sol-superlight-box)))))
  `(mode-line-emphasis ((default . (:inherit nano-subtle))))
+ `(mode-line-highlight ((t . (:inherit nano-subtle))))
  `(mode-line-buffer-id ((default . (:box unspecified
                                     :inherit sol-light-foreground))))
  `(mode-line-inactive ((default . (:inverse-video nil
@@ -418,6 +419,7 @@
                             :inverse-video nil
                             :foreground unspecified
                             :background unspecified))))
+ `(header-line-active ((t . (:inherit header-line))))
  `(help-key-binding ((default . (:foreground ,sol-yellow
                                  :box nil
                                  :background unspecified))))
@@ -573,11 +575,11 @@
 (with-eval-after-load 'magit-section
  (custom-set-faces
   `(magit-section-heading
-    ((default . (:bold t
+    ((default . (:underline t
                  :inherit sol-foreground))
      (((type nil)) . (:inherit sol-strong-foreground))))
   `(magit-section-highlight
-    ((default . (:inherit magit-section-heading))
+    ((default . (:bold t))
      (((type nil)) . (:inherit sol-superlight-background))))))
 
 (with-eval-after-load 'magit
