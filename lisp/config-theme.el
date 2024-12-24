@@ -366,6 +366,7 @@
  `(warning ((default . (:foreground ,sol-orange))))
  `(success ((default . (:foreground ,sol-green))))
  `(error ((default . (:foreground unspecified
+                      :bold t
                       :background ,sol-red
                       :inverse-video nil
                       :inherit sol-foreground-i
@@ -584,6 +585,8 @@
 
 (with-eval-after-load 'magit
   (custom-set-faces
+   `(magit-keyword
+     ((default . (:foreground ,sol-cyan))))
    `(magit-keyword-squash
      ((default . (:bold t
                   :foreground ,sol-green))
