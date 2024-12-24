@@ -457,8 +457,7 @@
    `(flycheck-info ((default . (:inherit sol-foreground
                                 :underline t))))
    `(flycheck-warning ((default . (:inherit sol-foreground
-                                   :overline t
-                                   :underline t))))))
+                                   :underline (:style wave)))))))
 
 (with-eval-after-load 'pulse
   (custom-set-faces
