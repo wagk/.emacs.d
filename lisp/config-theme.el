@@ -454,9 +454,11 @@
      ((default . (:extend t :inherit sol-superlight-background))))
    `(flycheck-error ((default . (:inherit (sol-foreground
                                            sol-foreground-box)))))
-   `(flycheck-info ((default . (:inherit sol-light-foreground))))
-   `(flycheck-warning ((default . (:inherit sol-foreground))
-                       (((supports (:underline))) . (:underline t))))))
+   `(flycheck-info ((default . (:inherit sol-foreground
+                                :underline t))))
+   `(flycheck-warning ((default . (:inherit sol-foreground
+                                   :overline t
+                                   :underline t))))))
 
 (with-eval-after-load 'pulse
   (custom-set-faces
