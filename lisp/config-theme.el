@@ -1084,10 +1084,25 @@
   (custom-set-faces
    `(compilation-mode-line-run
      ((default . (:inherit sol-foreground))))
+   `(compilation-info
+     ((default . (:foreground unspecified
+                  :bold nil
+                  :inherit sol-foreground))))
    `(compilation-warning
-     ((default . (:foreground ,sol-green))))
+     ((default . (:foreground unspecified
+                  :bold nil
+                  :inherit sol-superlight-background))))
    `(compilation-error
-     ((default . (:foreground ,sol-red))))
+     ((default . (:foreground unspecified
+                  :bold t
+                  :inherit (sol-foreground
+                            sol-superlight-background)))))
+   `(compilation-line-number
+     ((default . (:foreground unspecified
+                  :background unspecified
+                  :inherit sol-light-foreground))))
+   `(compilation-column-number
+     ((default . (:inherit compilation-line-number))))
    `(compilation-mode-line-fail
      ((default . (:inherit compilation-error))))
    `(compilation-mode-line-exit
