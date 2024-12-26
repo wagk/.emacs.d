@@ -663,24 +663,21 @@
                   :extend t
                   :inherit sol-superlight-background))))
    `(magit-diff-our-highlight
-     ((default . (:inherit magit-diff-our
-                  :bold t))))
+     ((default . (:inherit magit-diff-our))))
    ;; (rebase) theirs
    `(magit-diff-their
-     ((default . (:foreground ,sol-cyan
+     ((default . (:foreground ,sol-yellow
                   :extend t
                   :inherit sol-superlight-background))))
    `(magit-diff-their-highlight
-     ((default . (:inherit magit-diff-their
-                  :bold t))))
+     ((default . (:inherit magit-diff-their))))
    ;; (rebase) base
    `(magit-diff-base
      ((default . (:foreground ,sol-blue
                   :extend t
                   :inherit sol-superlight-background))))
    `(magit-diff-base-highlight
-     ((default . (:inherit magit-diff-base
-                  :bold t))))
+     ((default . (:inherit magit-diff-base))))
    ;; hunk
    `(magit-diff-hunk-heading
      ((default . (:bold t
@@ -1052,19 +1049,18 @@
   (custom-set-faces
    `(smerge-markers
      ((default . (:bold t
+                  :foreground ,sol-cyan
                   :inherit sol-light-foreground))))
    `(smerge-base
      ((default . (:foreground ,sol-blue))))
    `(smerge-lower
-     ((default . (:foreground ,sol-green))))
+     ((default . (:foreground ,sol-yellow))))
    `(smerge-upper
-     ((default . (:foreground ,sol-red))))
+     ((default . (:foreground ,sol-violet))))
    `(smerge-refined-added
-     ((default . (:foreground ,sol-green
-                  :inherit sol-foreground-i))))
+     ((default . (:foreground ,sol-green))))
    `(smerge-refined-removed
-     ((default . (:foreground ,sol-red
-                  :inherit sol-foreground-i))))))
+     ((default . (:foreground ,sol-red))))))
 
 (with-eval-after-load 'wgrep
   (custom-set-faces
