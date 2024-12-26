@@ -435,6 +435,11 @@
  `(window-divider ((default . (:foreground unspecified
                                :background unspecified)))))
 
+(with-eval-after-load 'info
+  (custom-set-faces
+   `(info-node
+     ((default . (:inherit sol-foreground))))))
+
 (with-eval-after-load 'flymake
   (custom-set-faces
     `(flymake-error ((default . (:inherit sol-foreground-box))))
