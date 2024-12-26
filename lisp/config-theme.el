@@ -1086,16 +1086,16 @@
      ((default . (:inherit sol-foreground))))
    `(compilation-info
      ((default . (:foreground unspecified
-                  :bold nil
-                  :inherit sol-foreground))))
+                  :bold nil))))
    `(compilation-warning
      ((default . (:foreground unspecified
                   :bold nil
-                  :inherit sol-superlight-background))))
+                  :inherit (sol-strong-foreground
+                            sol-superlight-background)))))
    `(compilation-error
      ((default . (:foreground unspecified
                   :bold t
-                  :inherit (sol-foreground
+                  :inherit (sol-strong-foreground
                             sol-superlight-background)))))
    `(compilation-line-number
      ((default . (:foreground unspecified
