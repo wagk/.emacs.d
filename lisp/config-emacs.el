@@ -125,6 +125,8 @@ The DWIM behaviour of this command is as follows:
   :custom
   (display-time-format "%F %a %H:%M %z")
   :config
+  ;; remove the `load' entry, which displays system load.
+  (setq display-time-string-forms (delq 'load display-time-string-forms))
   (display-time-mode))
 
 (use-package peg
