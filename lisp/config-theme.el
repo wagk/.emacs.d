@@ -451,11 +451,9 @@
   (custom-set-faces
    `(flycheck-error-list-highlight
      ((default . (:extend t :inherit sol-superlight-background))))
-   `(flycheck-error ((default . (:inherit (sol-foreground-box)))))
-   `(flycheck-info ((default . (:inherit sol-foreground
-                                :underline t))))
-   `(flycheck-warning ((default . (:inherit sol-foreground
-                                   :underline (:style wave)))))))
+   `(flycheck-error ((default . (:inherit sol-foreground-box))))
+   `(flycheck-info ((default . (:inherit sol-foreground-box))))
+   `(flycheck-warning ((default . (:inherit sol-foreground-box))))))
 
 (with-eval-after-load 'pulse
   (custom-set-faces
@@ -787,7 +785,7 @@
    `(markdown-header-delimiter-face
      ((default . (:inherit markdown-header-face))))
    `(markdown-metadata-key-face
-     ((default . (:inherit sol-light-foreground
+     ((default . (:inherit sol-strong-foreground
                   :weight semi-light))))
    `(markdown-metadata-value-face
      ((default . (:inherit sol-foreground
