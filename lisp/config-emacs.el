@@ -120,6 +120,13 @@ The DWIM behaviour of this command is as follows:
 (with-eval-after-load 'evil
   (evil-ex-define-cmd "rot[13]" 'toggle-rot13-mode))
 
+(use-package time
+  :ensure nil
+  :custom
+  (display-time-format "%F %a %H:%M %z")
+  :config
+  (display-time-mode))
+
 (use-package peg
   :ensure (:host github :repo "emacs-straight/peg" :branch "master"))
 
