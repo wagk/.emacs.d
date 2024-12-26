@@ -400,7 +400,6 @@
  `(mode-line ((default . (:foreground unspecified
                           :background unspecified
                           :inverse-video nil
-                          :box (:line-width 3)
                           :inherit sol-superlight-box))))
  `(mode-line-active ((default . (:inherit (sol-light-foreground
                                            sol-superlight-box)))))
@@ -452,8 +451,7 @@
   (custom-set-faces
    `(flycheck-error-list-highlight
      ((default . (:extend t :inherit sol-superlight-background))))
-   `(flycheck-error ((default . (:inherit (sol-foreground
-                                           sol-foreground-box)))))
+   `(flycheck-error ((default . (:inherit (sol-foreground-box)))))
    `(flycheck-info ((default . (:inherit sol-foreground
                                 :underline t))))
    `(flycheck-warning ((default . (:inherit sol-foreground
@@ -1048,8 +1046,7 @@
 (with-eval-after-load 'smerge-mode
   (custom-set-faces
    `(smerge-markers
-     ((default . (:bold t
-                  :foreground ,sol-cyan
+     ((default . (:foreground ,sol-cyan
                   :inherit sol-light-foreground))))
    `(smerge-base
      ((default . (:foreground ,sol-blue))))
