@@ -610,18 +610,18 @@ Returns nil if it belongs to no vault."
                                   (config-markdown-find-file
                                    config-markdown-active-vault)
                                   (consult-imenu)))
-  (evil-ex-define-cmd "ni" #'config-markdown-insert-link-to-vault-file))
-
-(with-eval-after-load 'magit
-  (cl-defun --magit-dispatch-vault ()
-    "Open `magit-dispatch' for current active vault."
-    (interactive)
-    (require 'magit)
-    (let ((default-directory config-markdown-active-vault))
-      (message "default directory is %s" default-directory)
-      (magit-dispatch)))
-  (evil-ex-define-cmd "ng" #'--magit-dispatch-vault))
-
+  (evil-ex-define-cmd "ni" #'config-markdown-insert-link-to-vault-file)
+  (with-eval-after-load 'magit
+    ;; (cl-defun --magit-dispatch-vault ()
+    ;;   ;; not working!
+    ;;   "Open `magit-dispatch' for current active vault."
+    ;;   (interactive)
+    ;;   (require 'magit)
+    ;;   (let ((default-directory config-markdown-active-vault))
+    ;;     (message "default directory is %s" default-directory)
+    ;;     (magit-dispatch)))
+    (--evil-define-splits "ng" #'(lambda () (interactive)
+                                   (dired config-markdown-active-vault)))))
 
 (with-eval-after-load 'org-capture
   (require 'doct)
