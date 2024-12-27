@@ -92,7 +92,7 @@
   :config
   (gcmh-mode)
   (with-eval-after-load 'blackout
-    (blackout gcmh-mode)))
+    (blackout 'gcmh-mode)))
 
 (use-package compat
   :ensure (:host github :repo "emacs-straight/compat" :branch "master"))

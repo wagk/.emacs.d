@@ -86,6 +86,8 @@
   (yas-indent-line 'auto)
   (yas-also-auto-indent-first-line t)
   :config
+  (with-eval-after-load 'blackout
+    (blackout--handle-minor-mode 'yas-minor-mode))
   (defun yas-with-comment (str)
     ;; TODO: note that this is a hack; the proper way should be
     ;; something as written in the comment box. That said, the
@@ -116,6 +118,7 @@
 
 (use-package auto-yasnippet
   :ensure (:host github :repo "abo-abo/auto-yasnippet")
+  :blackout t
   :after yasnippet
   :commands (aya-create
              aya-expand)
@@ -137,6 +140,7 @@
 ;; parinfer-rust-mode requires track-changes 1.1
 (use-package parinfer-rust-mode
   :after (track-changes flymake flycheck)
+  :blackout t
   :general
   (:states 'motion
    "g p" 'parinfer-rust-toggle-paren-mode)

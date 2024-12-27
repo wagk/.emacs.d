@@ -340,6 +340,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package eldoc
   :ensure nil
+  :blackout t
   :config
   (global-eldoc-mode))
 

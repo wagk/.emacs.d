@@ -210,13 +210,16 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 
 (use-package evil-collection
   :after (evil)
+  :blackout t
   :custom
   (evil-collection-setup-minibuffer t)
   ;; the following causes a crash because:
   ;; Lisp error: (void-variable org-agenda-diary-file)
   ;; (evil-collection-calendar-want-org-bindings t)
   :config
-  (evil-collection-init))
+  (evil-collection-init)
+  (with-eval-after-load 'blackout
+    (blackout 'evil-collection-unimpaired-mode)))
 
 (use-package evil-lion
   :ensure (:host github :repo "edkolev/evil-lion")
@@ -289,6 +292,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 
 (use-package evil-commentary
   :ensure (:host github :repo "linktohack/evil-commentary")
+  :blackout t
   :general
   (evil-commentary-mode-map
    "s-/" nil)

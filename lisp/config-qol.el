@@ -43,7 +43,9 @@
   ;;  "C-h M-k" 'which-key-show-keymap
   ;;  "C-h M-m" 'which-key-show-full-major-mode)
   :config
-  (which-key-mode))
+  (which-key-mode)
+  (with-eval-after-load 'blackout
+    (blackout 'which-key-mode)))
 
 (use-package hl-todo
   ;; :ensure (:host github :repo "tarsius/hl-todo")
@@ -204,6 +206,7 @@
 ;; whitespace
 (use-package ws-butler
   :ensure t
+  :blackout t
   :custom
   (ws-butler-global-exempt-modes '())
   :config
@@ -334,6 +337,7 @@
 (use-package highlight-indent-guides
   :commands (highlight-indent-guides-mode)
   :after general
+  :blackout t
   :general
   (:states 'normal
    :prefix my-default-evil-leader-key
