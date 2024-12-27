@@ -55,7 +55,7 @@
         "---\n"
         "\n"
         "# " (->> (file-name-base (buffer-file-name))
-                  (s-replace " " "-"))
+                  (s-replace "-" " "))
         "\n"
         "\n")))
 
