@@ -274,21 +274,21 @@
   (global-origami-mode))
 
 (use-package tree-sitter
-  :if (and (fboundp 'treesit-available-p)
-           (not (treesit-available-p)))
+  :if (eq system-type 'windows-nt)
+  :blackout t
   :commands (tree-sitter-hl-mode tree-sitter-mode)
   :hook ((tree-sitter-after-on-hook . tree-sitter-hl-mode))
   :config
   (global-tree-sitter-mode))
 
+
 (use-package tree-sitter-langs
-  :if (and (fboundp 'treesit-available-p)
-           (not (treesit-available-p)))
   :after tree-sitter)
 
 (use-package treesit-auto
   :if (and (fboundp 'treesit-available-p)
-           (treesit-available-p))
+           (treesit-available-p)
+           (not (eq system-type 'windows-nt)))
   :custom
   (treesit-auto-install t)
   :config
