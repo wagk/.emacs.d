@@ -926,7 +926,7 @@
 (with-eval-after-load 'eglot
   (custom-set-faces
    `(eglot-highlight-symbol-face
-     ((default . (:bold nil
+     ((default . (:weight unspecified
                   :inherit sol-superlight-background))))
    `(eglot-inlay-hint-face
      ((default . (:height unspecified
