@@ -251,11 +251,11 @@ Return nil if the front matter does not exist, or incorrectly delineated by
                               (message "Error annotating %s." candidate)
                               nil))))
         (let ((summary (--> frontmatter
-                            (gethash 'summary it "")
-                            (or it "")))
+                            (gethash 'summary it)
+                            (or it "~")))
               ;; Format tags by sticking `#' in front of all of them
               (tags (--> frontmatter
-                         (gethash 'tags it "")
+                         (gethash 'tags it)
                          (mapconcat #'(lambda (h)
                                         (->> h
                                              (string-replace " " "-")
@@ -264,23 +264,22 @@ Return nil if the front matter does not exist, or incorrectly delineated by
                                     it " ")))
               ;; Format aliases by sticking `&' in front of all of them
               (aliases (--> frontmatter
-                            (gethash 'aliases it "")
+                            (gethash 'aliases it)
                             (mapconcat #'(lambda (a)
                                            (->> a
                                                 (string-replace " " "-")
                                                 (downcase)
                                                 (concat "&")))
                                        it " "))))
-          (if (fboundp 'marginalia--fields)
-              (marginalia--fields
-               (summary :face 'bold)
-               (tags :face '--markdown-tag-face)
-               (aliases :face '--markdown-tag-face))))
+          (marginalia--fields
+           (summary :width 30)
+           (tags :width 20)
+           (aliases :width 20)))
       " ~"))
   (add-to-list 'marginalia-prompt-categories
                '("\\<markdown\\>" . markdown))
   (add-to-list 'marginalia-annotator-registry
-               '(markdown config-markdown-marginalia-annotator builtin none)))
+               '(markdown config-markdown-marginalia-annotator none)))
 
 (cl-defun config-markdown-select-file-name (vault)
   "Search `config-markdown-directories' for files ending in `.md'.
