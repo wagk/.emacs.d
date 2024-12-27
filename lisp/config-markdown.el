@@ -54,7 +54,9 @@
         "tags: [" (--read-word-list :prompt "Tags") "]\n"
         "---\n"
         "\n"
-        "# " (file-name-base (buffer-file-name)) "\n"
+        "# " (->> (file-name-base (buffer-file-name))
+                  (s-replace " " "-"))
+        "\n"
         "\n")))
 
   ;; (with-eval-after-load 'evil
