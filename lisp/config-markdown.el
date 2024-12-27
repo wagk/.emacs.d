@@ -189,6 +189,7 @@ Return nil if the front matter does not exist, or incorrectly delineated by
   (if-let* ((raw-frontmatter (with-temp-buffer
                                (if (file-exists-p candidate)
                                    (insert-file-contents-literally candidate)
+                                 (message "Candidate %s does not exist" candidate)
                                  nil)
                                (config-markdown-get-yaml-front-matter)))
             (frontmatter (condition-case err
@@ -219,18 +220,67 @@ Return nil if the front matter does not exist, or incorrectly delineated by
                                               (concat "&")))
                                      it " "))))
         (if (fboundp 'marginalia--fields)
-            (marginalia--fields (tags :face '--markdown-tag-face)
-                                (aliases :face '--markdown-tag-face)
-                                (summary :face 'italic))
+            (marginalia--fields
+             (summary :face 'bold)
+             (tags :face '--markdown-tag-face)
+             (aliases :face '--markdown-tag-face))
           ;; TODO: `propertize' somehow isn't propagating here, but is by
           ;; `marginalia--fields'.
-          (concat " " tags " " aliases
-                  (unless (string-empty-p summary)
-                    (concat "\n" summary)))))
+          (concat
+           (unless (string-empty-p summary)
+             (concat summary))
+           " " tags " " aliases)))
     " ~"))
 
-(cl-defun config-markdown--select-file-affixation-function (cand-list)
-  ":affixation-function for file selection")
+(with-eval-after-load 'marginalia
+  (cl-defun config-markdown-marginalia-annotator (candidate)
+    "Opens a file and reads the metadata"
+    (require 'dash)
+    (require 'marginalia nil :noerror)
+    (if-let* ((candidate (file-name-concat config-markdown-active-vault candidate))
+              (raw-frontmatter (with-temp-buffer
+                                 (if (file-exists-p candidate)
+                                     (insert-file-contents-literally candidate)
+                                   (message "Candidate %s does not exist" candidate)
+                                   nil)
+                                 (config-markdown-get-yaml-front-matter)))
+              (frontmatter (condition-case err
+                               (yaml-parse-string raw-frontmatter
+                                                  :null-object nil)
+                             (t
+                              (message "Error annotating %s." candidate)
+                              nil))))
+        (let ((summary (--> frontmatter
+                            (gethash 'summary it "")
+                            (or it "")))
+              ;; Format tags by sticking `#' in front of all of them
+              (tags (--> frontmatter
+                         (gethash 'tags it "")
+                         (mapconcat #'(lambda (h)
+                                        (->> h
+                                             (string-replace " " "-")
+                                             (downcase)
+                                             (concat "#")))
+                                    it " ")))
+              ;; Format aliases by sticking `&' in front of all of them
+              (aliases (--> frontmatter
+                            (gethash 'aliases it "")
+                            (mapconcat #'(lambda (a)
+                                           (->> a
+                                                (string-replace " " "-")
+                                                (downcase)
+                                                (concat "&")))
+                                       it " "))))
+          (if (fboundp 'marginalia--fields)
+              (marginalia--fields
+               (summary :face 'bold)
+               (tags :face '--markdown-tag-face)
+               (aliases :face '--markdown-tag-face))))
+      " ~"))
+  (add-to-list 'marginalia-prompt-categories
+               '("\\<markdown\\>" . markdown))
+  (add-to-list 'marginalia-annotator-registry
+               '(markdown config-markdown-marginalia-annotator builtin none)))
 
 (cl-defun config-markdown-select-file-name (vault)
   "Search `config-markdown-directories' for files ending in `.md'.
@@ -262,7 +312,8 @@ not currently enforced."
                                (file-name-concat dir cand))))
                     (ht-set memo cand text)
                     text)))))
-         (file (--completing-read (format "File [%s]: " dir) files)))
+         ;; note that `Markdown' here is something marginalia tracks
+         (file (--completing-read (format "Markdown File [%s]: " dir) files)))
     (unless (file-name-extension file)
       (setq file (file-name-with-extension file "md")))
     (file-name-concat dir file)))
@@ -560,6 +611,17 @@ Returns nil if it belongs to no vault."
                                    config-markdown-active-vault)
                                   (consult-imenu)))
   (evil-ex-define-cmd "ni" #'config-markdown-insert-link-to-vault-file))
+
+(with-eval-after-load 'magit
+  (cl-defun --magit-dispatch-vault ()
+    "Open `magit-dispatch' for current active vault."
+    (interactive)
+    (require 'magit)
+    (let ((default-directory config-markdown-active-vault))
+      (message "default directory is %s" default-directory)
+      (magit-dispatch)))
+  (evil-ex-define-cmd "ng" #'--magit-dispatch-vault))
+
 
 (with-eval-after-load 'org-capture
   (require 'doct)
