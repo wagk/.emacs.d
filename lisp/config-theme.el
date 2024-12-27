@@ -586,6 +586,8 @@
     ((default . (:underline t
                  :inherit sol-foreground))
      (((type nil)) . (:inherit sol-strong-foreground))))
+  `(magit-section-heading-selection
+    ((default . (:inherit region))))
   `(magit-section-highlight
     ((default . (:bold t))
      (((type nil)) . (:inherit sol-superlight-background))))))
