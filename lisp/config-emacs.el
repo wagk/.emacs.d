@@ -279,6 +279,11 @@ Returns a string, or nil if there is no path associated with the buffer."
       "SPC" nil)) ;; was shadowing leader key bindings
   ;; run this after evil-collections
   (add-hook 'elpaca-after-init-hook #'--dired-disable-space)
+  (with-eval-after-load 'blackout
+    (with-eval-after-load 'dired-async
+      (blackout 'dired-async-mode))
+    (with-eval-after-load 'dired-filter
+      (blackout 'dired-filter-mode)))
   :init
   (with-eval-after-load 'dired-aux
     (general-define-key

@@ -590,7 +590,8 @@
     ((default . (:inherit region))))
   `(magit-section-highlight
     ((default . (:bold t))
-     (((type nil)) . (:inherit sol-superlight-background))))))
+     (((type nil)) . (:bold nil
+                      :inherit sol-superlight-background))))))
 
 (with-eval-after-load 'magit
   (custom-set-faces
