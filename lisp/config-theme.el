@@ -69,7 +69,11 @@
 (defcustom --default-font-size 20
   "Default frame font size."
   :group 'personal
-  :type 'integer)
+  :type 'integer
+  :set
+  #'(lambda (obj size)
+      (set-default-toplevel-value obj size)
+      (--find-and-set-fonts)))
 
 (cl-defun --find-and-set-fonts ()
   (interactive)
