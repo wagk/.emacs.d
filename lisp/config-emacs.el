@@ -8,6 +8,7 @@
   :demand t
   :ensure nil
   :custom
+  (cursor-in-non-selected-windows nil)
   (enable-recursive-minibuffers t)
   (history-delete-duplicates t)
   (history-length t)
