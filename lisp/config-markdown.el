@@ -256,25 +256,23 @@ Return nil if the front matter does not exist, or incorrectly delineated by
               ;; Format tags by sticking `#' in front of all of them
               (tags (--> frontmatter
                          (gethash 'tags it)
-                         (mapconcat #'(lambda (h)
-                                        (->> h
-                                             (string-replace " " "-")
-                                             (downcase)
-                                             (concat "#")))
-                                    it " ")))
+                         (mapcar #'(lambda (h)
+                                     (->> h
+                                          (string-replace " " "-")
+                                          (downcase)
+                                          (concat "#"))) it)))
               ;; Format aliases by sticking `&' in front of all of them
               (aliases (--> frontmatter
                             (gethash 'aliases it)
-                            (mapconcat #'(lambda (a)
-                                           (->> a
-                                                (string-replace " " "-")
-                                                (downcase)
-                                                (concat "&")))
-                                       it " "))))
+                            (mapcar #'(lambda (a)
+                                        (->> a
+                                             (string-replace " " "-")
+                                             (downcase)
+                                             (concat "&"))) it))))
           (marginalia--fields
-           (summary :width 30)
-           (tags :width 20)
-           (aliases :width 20)))
+           (tags :width 30 :face 'success)
+           (aliases :width 30 :face 'match)
+           (summary :width 30 :face 'bold)))
       " ~"))
   (add-to-list 'marginalia-prompt-categories
                '("\\<markdown\\>" . markdown))
