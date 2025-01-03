@@ -485,12 +485,16 @@
 
 (with-eval-after-load 'whitespace
   (custom-set-faces
-   `(whitespace-newline ((default . (:foreground unspecified
-                                     :inherit sol-light-foreground))))
-   `(whitespace-space ((default . (:foreground unspecified
-                                   :background unspecified
-                                   :inherit (sol-superlight-background
-                                             sol-light-foreground)))))))
+   `(whitespace-line
+     ((default . (:foreground ,sol-violet))))
+   `(whitespace-newline
+     ((default . (:foreground unspecified
+                  :inherit sol-light-foreground))))
+   `(whitespace-space
+     ((default . (:foreground unspecified
+                  :background unspecified
+                  :inherit (sol-superlight-background
+                            sol-light-foreground)))))))
 
 (with-eval-after-load 'eshell
   (custom-set-faces
