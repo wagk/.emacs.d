@@ -15,7 +15,7 @@
   :general
   (:states 'normal
    :prefix my-default-evil-leader-key
-   "." 'smartparens-mode)
+   "," 'smartparens-mode)
   :custom
   (sp-cancel-autoskip-on-backward-movement
    nil
