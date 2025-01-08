@@ -297,6 +297,15 @@
   :config
   (global-treesit-auto-mode))
 
+(use-package treesit-fold
+  :if (and (fboundp 'treesit-available-p)
+           (treesit-available-p)
+           (not (eq system-type 'windows-nt)))
+  :ensure (:host github :repo "emacs-tree-sitter/treesit-fold" :branch "master")
+  :config
+  (global-treesit-fold-mode))
+
+
 ;; dice rolling and the like
 (use-package decide
   :ensure t
