@@ -424,7 +424,7 @@
                             :inverse-video nil
                             :foreground unspecified
                             :background unspecified))))
- `(header-line-active ((t . (:inherit header-line))))
+ `(header-line-active ((default . (:inherit header-line))))
  `(help-key-binding ((default . (:foreground ,sol-yellow
                                  :box nil
                                  :background unspecified))))
