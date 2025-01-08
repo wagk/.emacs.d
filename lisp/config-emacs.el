@@ -544,6 +544,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   (evil-ex-define-cmd "tabn[ew]" 'my-tab-bar-tab-edit)
   (evil-ex-define-cmd "tabe[dit]" 'tab-bar-new-tab)
   (evil-ex-define-cmd "tabc[lose]" 'tab-bar-close-tab)
+  (evil-ex-define-cmd "tabo[ther]" 'tab-bar-close-other-tabs)
   (evil-define-command --tab-bar-rename-tab (name)
     (interactive "<a>")
     (tab-bar-rename-tab name))
