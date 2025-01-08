@@ -749,6 +749,8 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package so-long
   :ensure nil
+  :custom
+  (so-long-threshold 5000)
   :config
   (global-so-long-mode))
 

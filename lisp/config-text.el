@@ -172,7 +172,10 @@
 (use-package breadcrumb
   :ensure (:host github :repo "joaotavora/breadcrumb")
   :config
-  (breadcrumb-mode))
+  (breadcrumb-mode)
+  (with-eval-after-load 'so-long
+    (add-hook 'so-long-mode-hook #'(lambda ()
+                                     (breadcrumb-local-mode -1)))))
 
 (use-package wgrep
   :ensure (:host github :repo "mhayashi1120/Emacs-wgrep")

@@ -199,6 +199,9 @@
   :ensure (:host github :repo "emacs-straight/rainbow-mode" :branch "master"))
 
 (use-package cursor-flash
+  :disabled t
+  ;; very laggy on large files.
+  ;; TODO (pangt): figure out a way to conditionally disable
   :ensure (:host github :repo "Boruch-Baum/emacs-cursor-flash")
   :config
   (cursor-flash-mode))
