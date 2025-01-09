@@ -533,15 +533,18 @@ Returns nil if it belongs to no vault."
          (org-capture nil "fh")))]]
     ["Grep"
      ["Anything"
-      ("g g" "Anything in project"
+      ("r r" "Anything in project"
        (lambda () (interactive)
          (require 'rg)
          ;; copied from macroexpanded `rg-define-search'
-         (rg-run (rg-read-pattern nil)
-                 "everything"
-                 (or config-markdown-active-vault
-                     (config-markdown-select-directory))
-                 :literal)))]
+         (consult-ripgrep
+           (or config-markdown-active-vault
+                       (config-markdown-select-directory)))))]
+         ;; (rg-run (rg-read-pattern nil)
+         ;;         "everything"
+         ;;         (or config-markdown-active-vault
+         ;;             (config-markdown-select-directory))
+         ;;         :literal)))]
      ["TODOs"
       ("t t" "In this file"
        (lambda () (interactive)
@@ -735,12 +738,18 @@ should prepopulate."
   ;;                               (require 'org-capture)
   ;;                               (org-capture nil "fh"))))
 
-(with-eval-after-load 'rg
-  (rg-define-search config-markdown-search-in-notes
-    :query point
-    :files "everything"
-    :dir (config-markdown-select-directory))
-  (evil-ex-define-cmd "nr" 'config-markdown-search-in-notes))
+;; (with-eval-after-load 'rg
+;;   (rg-define-search config-markdown-search-in-notes
+;;     :query point
+;;     :files "everything"
+;;     :dir (config-markdown-select-directory))
+;;   (evil-ex-define-cmd "nr" 'config-markdown-search-in-notes))
+
+(with-eval-after-load 'consult
+  (cl-defun --consult-ripgrep-active-vault ()
+    (interactive)
+    (consult-ripgrep config-markdown-active-vault))
+  (evil-ex-define-cmd "nr" #'--consult-ripgrep-active-vault))
 
 ;; Personal notes and the like
 (use-package consult-notes
