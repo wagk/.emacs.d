@@ -98,6 +98,7 @@
   :after (general markdown-mode)
   :ensure (:host github :repo "Somelauw/evil-markdown")
   :commands (evil-markdown-mode)
+  :blackout evil-markdown-mode
   :hook (markdown-mode-hook . evil-markdown-mode)
   :config
   (general-define-key

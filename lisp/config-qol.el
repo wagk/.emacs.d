@@ -38,14 +38,13 @@
   (which-key-show-remaining-keys t)
   (which-key-show-prefix 'top)
   (which-key-side-window-location 'bottom)
+  (which-key-lighter "")
   ;; :general
   ;; (:states 'normal
   ;;  "C-h M-k" 'which-key-show-keymap
   ;;  "C-h M-m" 'which-key-show-full-major-mode)
   :config
-  (which-key-mode)
-  (with-eval-after-load 'blackout
-    (blackout 'which-key-mode)))
+  (which-key-mode))
 
 (use-package hl-todo
   ;; :ensure (:host github :repo "tarsius/hl-todo")

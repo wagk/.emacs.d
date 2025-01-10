@@ -141,6 +141,12 @@ The DWIM behaviour of this command is as follows:
   :hook
   (after-init-hook . savehist-mode))
 
+(use-package hideshow
+  :ensure nil
+  :blackout hs-minor-mode
+  :config
+  (hs-minor-mode))
+
 (use-package display-fill-column-indicator
   :ensure nil
   :if (>= emacs-major-version 27)
