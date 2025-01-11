@@ -143,9 +143,7 @@ The DWIM behaviour of this command is as follows:
 
 (use-package hideshow
   :ensure nil
-  :blackout hs-minor-mode
-  :config
-  (hs-minor-mode))
+  :blackout hs-minor-mode)
 
 (use-package display-fill-column-indicator
   :ensure nil
