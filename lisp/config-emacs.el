@@ -407,7 +407,8 @@ Returns a string, or nil if there is no path associated with the buffer."
     (evil-ex-define-cmd "lx" #'eglot-code-action-extract)
     (evil-ex-define-cmd "li" #'eglot-code-action-inline)
     (evil-ex-define-cmd "lc" #'eglot-code-action-quickfix)
-    (evil-ex-define-cmd "lm" #'eglot-code-action-organize-imports)))
+    (evil-ex-define-cmd "lm" #'eglot-inlay-hints-mode)
+    (evil-ex-define-cmd "lo" #'eglot-code-action-organize-imports)))
 
 (use-package consult-eglot
   :after (eglot consult)
