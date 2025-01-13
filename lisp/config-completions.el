@@ -82,6 +82,8 @@
   :general
   (:states 'normal
    "g /" #'consult-line)
+  :custom
+  (consult-narrow-key ">")
   :config
   (add-to-list 'consult-async-split-styles-alist
                '(slashperl :initial "/" :function consult--split-perl))
