@@ -180,8 +180,7 @@
   (text-mode-hook . --tempel-setup-capf)
   (eglot-managed-mode-hook . --tempel-setup-capf)
   :config
-  (setq tempel-path (locate-user-emacs-file "templates.eld"))
-  (global-tempel-abbrev-mode))
+  (setq tempel-path (locate-user-emacs-file "templates.eld")))
 
 ;; For M1 machines, we have to clone
 ;; https://github.com/eraserhd/parinfer-rust.git, build the =.dylib=, and
