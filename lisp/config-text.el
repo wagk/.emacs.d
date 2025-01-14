@@ -144,13 +144,14 @@
                                :background unspecified))))
   :general
   (tempel-map
-   "TAB" #'--tempel-maybe-expand-or-jump
+   "TAB"       #'--tempel-maybe-expand-or-jump
    "<backtab>" #'tempel-previous
-   "M-l" #'tempel-next
-   "M-j" #'tempel-next
-   "M-h" #'tempel-previous
-   "M-k" #'tempel-previous
-   "M-q" #'tempel-abort)
+   "M-SPC"     #'tempel-kill
+   "M-l"       #'tempel-next
+   "M-j"       #'tempel-next
+   "M-h"       #'tempel-previous
+   "M-k"       #'tempel-previous
+   "M-q"       #'tempel-abort)
   :init
    ;; Setup completion at point
   (cl-defun --tempel-setup-capf ()
@@ -180,7 +181,8 @@
   (text-mode-hook . --tempel-setup-capf)
   (eglot-managed-mode-hook . --tempel-setup-capf)
   :config
-  (setq tempel-path (locate-user-emacs-file "templates.eld")))
+  ;; turn it into a list so we can define local configs
+  (setq tempel-path (list (locate-user-emacs-file "templates.eld"))))
 
 ;; For M1 machines, we have to clone
 ;; https://github.com/eraserhd/parinfer-rust.git, build the =.dylib=, and

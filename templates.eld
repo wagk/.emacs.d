@@ -32,6 +32,15 @@ rust-mode rust-ts-mode
 
 (ma "matches!(" p "," (s pattern) ");" q)
 
-(paf "pub async fn " p  "(" p ")" p "{"
-     n> "todo!()" q
-     n> "}")
+(f "fn " (p "foo")  "(" p ")" p "{"
+   n> (p "todo!()") q
+   n "}" >)
+(pf "pub fn " (p "foo")  "(" p ")" p "{"
+    n> (p "todo!()") q
+    n "}" >)
+(af "async fn " (p "foo")  "(" p ")" p "{"
+    n> (p "todo!()") q
+    n "}" >)
+(paf "pub async fn " (p "foo")  "(" p ")" p "{"
+     n> (p "todo!()") q
+     n "}" >)
