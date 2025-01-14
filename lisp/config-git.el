@@ -307,10 +307,16 @@ assume # starts a comment."
   (prog-mode-hook . blamer-mode))
 
 (use-package diff-hl
-  :ensure t
+  :ensure (:host github :repo "dgutov/diff-hl")
   :after dired
+  :custom
+  (diff-hl-disable-on-remote t)
+  :init
+  (cl-defun --maybe-activate-diff-hl-dired-mode ()
+    (unless (file-remote-p default-directory)
+      (diff-hl-dired-mode)))
   :hook
-  (dired-mode-hook . diff-hl-dired-mode)
+  (dired-mode-hook . --maybe-activate-diff-hl-dired-mode)
   :config
   (global-diff-hl-mode)
   (with-eval-after-load 'magit
