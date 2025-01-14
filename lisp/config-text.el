@@ -133,14 +133,14 @@
 (use-package tempel
   :ensure (:host github :repo "minad/tempel")
   :custom-face
-  (tempel-field ((default . (:inherit sol-foreground
-                             :foreground ,sol-green
+  (tempel-field ((default . (:inherit sol-strong-foreground
+                             :foreground unspecified
                              :background unspecified))))
   (tempel-form ((default . (:inherit sol-foreground
-                            :foreground ,sol-magenta
+                            :foreground ,sol-orange
                             :background unspecified))))
-  (tempel-default ((default . (:inherit sol-foreground
-                               :foreground ,sol-violet
+  (tempel-default ((default . (:inherit sol-light-foreground
+                               :foreground unspecified
                                :background unspecified))))
   :general
   (tempel-map

@@ -15,8 +15,8 @@ prog-mode
 
 rust-mode rust-ts-mode
 
-(m "=> " q)
-(M "-> " q)
+(M "=> " q)
+(m "-> " q)
 
 ;; lambda expansion
 (l "|" p "|" q)
