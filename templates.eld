@@ -2,7 +2,8 @@
 
 fundamental-mode
 
-(/date (format-time-string "%Y-%m-%d"))
+(/date (format-time-string "%F"))
+(/now (format-time-string "%F %H:%M"))
 
 prog-mode
 
