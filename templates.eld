@@ -1,3 +1,5 @@
+;; look up `tempo-define-template`
+
 fundamental-mode
 
 (/date (format-time-string "%Y-%m-%d"))
@@ -12,4 +14,23 @@ prog-mode
 
 rust-mode rust-ts-mode
 
+(m "=> " q)
+(M "-> " q)
+
+;; lambda expansion
 (l "|" p "|" q)
+
+;; docstrings
+(d "/// " q)
+(D "//! " q)
+
+;; asserts
+(a  "assert!(" p ");" q)
+(an "assert_ne!(" p "," p ");" q)
+(ae "assert_eq!(" p "," p ");" q)
+
+(ma "matches!(" p "," (s pattern) ");" q)
+
+(paf "pub async fn " p  "(" p ")" p "{"
+     n> "todo!()" q
+     n> "}")

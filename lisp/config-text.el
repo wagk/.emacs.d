@@ -144,7 +144,13 @@
                                :background unspecified))))
   :general
   (tempel-map
-   "TAB" #'--tempel-maybe-expand-or-jump)
+   "TAB" #'--tempel-maybe-expand-or-jump
+   "<backtab>" #'tempel-previous
+   "M-l" #'tempel-next
+   "M-j" #'tempel-next
+   "M-h" #'tempel-previous
+   "M-k" #'tempel-previous
+   "M-q" #'tempel-abort)
   :init
    ;; Setup completion at point
   (cl-defun --tempel-setup-capf ()
