@@ -194,7 +194,10 @@ not something supported right now)
                                           (string-match "flycheck_")
                                           (not))) it)
                      (mapcar #'(lambda (file) (f-join user-lisp-dir file)) it)
-                     (append it (list user-init-file user-local-file))
+                     (append it (list user-init-file
+                                      user-local-file
+                                      (when (file-exists-p (locate-user-emacs-file "templates.eld"))
+                                        (locate-user-emacs-file "templates.eld"))))
                      (mapcar #'(lambda (file)
                                  (file-relative-name file user-emacs-directory))
                              it)))

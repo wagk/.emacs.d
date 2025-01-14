@@ -61,6 +61,7 @@
    "=" 'aggressive-indent-mode))
 
 (use-package yasnippet
+  :disabled t
   :ensure (:host github :repo "joaotavora/yasnippet")
   :commands (yas-minor-mode
              yas-expand-snippet)
@@ -110,6 +111,7 @@
   (yas-global-mode))
 
 (use-package yasnippet-capf
+  :disabled t
   :after (cape yasnippet)
   :custom
   (yasnippet-capf-lookup-by 'name)
@@ -117,6 +119,7 @@
   (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
 (use-package auto-yasnippet
+  :disabled t
   :ensure (:host github :repo "abo-abo/auto-yasnippet")
   :blackout t
   :after yasnippet
@@ -129,9 +132,19 @@
 ;; https://github.com/minad/tempel?tab=readme-ov-file#template-syntax
 (use-package tempel
   :ensure (:host github :repo "minad/tempel")
+  :custom-face
+  (tempel-field ((default . (:inherit sol-foreground
+                             :foreground ,sol-green
+                             :background unspecified))))
+  (tempel-form ((default . (:inherit sol-foreground
+                            :foreground ,sol-magenta
+                            :background unspecified))))
+  (tempel-default ((default . (:inherit sol-foreground
+                               :foreground ,sol-violet
+                               :background unspecified))))
   :init
    ;; Setup completion at point
-  (cl-defun tempel-setup-capf ()
+  (cl-defun --tempel-setup-capf ()
     ;; Add the Tempel Capf to `completion-at-point-functions'.
     ;; `tempel-expand' only triggers on exact matches. Alternatively use
     ;; `tempel-complete' if you want to see all matches, but then you
@@ -143,9 +156,10 @@
                 (cons #'tempel-expand
                       completion-at-point-functions)))
   :hook
-  (conf-mode-hook . tempel-setup-capf)
-  (prog-mode-hook . tempel-setup-capf)
-  (text-mode-hook . tempel-setup-capf)
+  (conf-mode-hook . --tempel-setup-capf)
+  (prog-mode-hook . --tempel-setup-capf)
+  (text-mode-hook . --tempel-setup-capf)
+  (eglot-managed-mode-hook . --tempel-setup-capf)
   :config
   (setq tempel-path (locate-user-emacs-file "templates.eld"))
   (global-tempel-abbrev-mode))
