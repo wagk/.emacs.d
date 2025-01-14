@@ -125,6 +125,31 @@
   :custom
   (aya-case-fold t "smartcasing"))
 
+;; template syntax
+;; https://github.com/minad/tempel?tab=readme-ov-file#template-syntax
+(use-package tempel
+  :ensure (:host github :repo "minad/tempel")
+  :init
+   ;; Setup completion at point
+  (cl-defun tempel-setup-capf ()
+    ;; Add the Tempel Capf to `completion-at-point-functions'.
+    ;; `tempel-expand' only triggers on exact matches. Alternatively use
+    ;; `tempel-complete' if you want to see all matches, but then you
+    ;; should also configure `tempel-trigger-prefix', such that Tempel
+    ;; does not trigger too often when you don't expect it. NOTE: We add
+    ;; `tempel-expand' *before* the main programming mode Capf, such
+    ;; that it will be tried first.
+    (setq-local completion-at-point-functions
+                (cons #'tempel-expand
+                      completion-at-point-functions)))
+  :hook
+  (conf-mode-hook . tempel-setup-capf)
+  (prog-mode-hook . tempel-setup-capf)
+  (text-mode-hook . tempel-setup-capf)
+  :config
+  (setq tempel-path (locate-user-emacs-file "templates.eld"))
+  (global-tempel-abbrev-mode))
+
 ;; For M1 machines, we have to clone
 ;; https://github.com/eraserhd/parinfer-rust.git, build the =.dylib=, and
 ;; rename the extension to =.so=:
