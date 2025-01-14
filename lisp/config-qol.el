@@ -48,7 +48,6 @@
 
 (use-package hl-todo
   ;; :ensure (:host github :repo "tarsius/hl-todo")
-  :ensure t
   :demand t
   :blackout t
   :config
@@ -83,7 +82,6 @@
 ;;         :buffer "*helm hl-todo*"))
 
 (use-package consult-todo
-  :ensure t
   :after hl-todo
   :config
   (cl-defun --consult-todo ()
@@ -109,13 +107,11 @@
       (dired-filter-mode))))
 
 (use-package dired-subtree
-  :ensure t
   :after dired
   :custom
   (dired-subtree-use-backgrounds nil))
 
 (use-package trashed
-  :ensure t
   :commands (trashed)
   :custom
   (trashed-action-confirmer 'y-or-n-p)
@@ -207,7 +203,6 @@
 
 ;; whitespace
 (use-package ws-butler
-  :ensure t
   :blackout t
   :custom
   (ws-butler-global-exempt-modes '())
@@ -242,13 +237,11 @@
     text))
 
 (use-package flycheck-eglot
-  :ensure t
   :after (flycheck eglot)
   :config
   (global-flycheck-eglot-mode))
 
 (use-package consult-flycheck
-  :ensure t
   :after flycheck
   :commands (consult-flycheck)
   :init
@@ -285,7 +278,6 @@
    "K" '--ddg-search))
 
 (use-package persistent-scratch
-  :ensure t
   :config
   (persistent-scratch-setup-default)
   (with-eval-after-load 'context-transient
@@ -509,7 +501,6 @@
   :commands sudo-edit)
 
 (use-package gptel
-  :ensure t
   :after (general evil config-evil-helpers)
   :custom
   ;; prompts are under `gptel-directives'
@@ -559,13 +550,11 @@
   (eat-term-name "*eat-term*"))
 
 (use-package kubernetes
-  :ensure t
   :init
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "k8s" #'kubernetes-dispatch)))
 
 ;; (use-package kubernetes-evil
-;;   :ensure t
 ;;   :after kubernetes)
 
 (use-package plz

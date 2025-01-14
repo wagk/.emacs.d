@@ -347,7 +347,6 @@
 
 ;; dice rolling and the like
 (use-package decide
-  :ensure t
   :config
   (decide-mode))
 
@@ -408,7 +407,6 @@
         "f p" 'focus-pin))))
 
 (use-package lsp-focus
-  :ensure t
   :after (lsp focus)
   :hook
   (focus-mode-hook . #'lsp-focus-mode))

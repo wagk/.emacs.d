@@ -5,7 +5,6 @@
 ;;; org-mode
 
 (use-package org
-  ;; :ensure t ;; use non-emacs version
   :ensure (:host github :repo "emacs-straight/org-mode" :branch "main")
   :demand t
   :commands (orgtbl-mode
@@ -250,7 +249,6 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
                             calendar)))
 
 (use-package org-web-tools
-  :ensure t
   :commands
   (org-web-tools-insert-link-for-url
    org-web-tools-insert-web-page-as-entry
@@ -349,7 +347,6 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
 ;; https://github.com/alphapapa/org-super-agenda
 (use-package org-super-agenda
   :after org-agenda
-  :ensure t
   :commands org-super-agenda-mode
   :hook (org-agenda-mode-hook . org-super-agenda-mode)
   :general
@@ -393,11 +390,9 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
    [remap evil-quit] 'org-edit-src-abort))
 
 (use-package ob-async
-  :after org
-  :ensure t)
+  :after org)
 
 (use-package ob-http
-  :ensure t
   :after org
   :config
   (org-babel-do-load-languages

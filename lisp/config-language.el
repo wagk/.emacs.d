@@ -214,12 +214,10 @@ Lisp function does not specify a special indentation."
     (sp-local-pair 'json-mode "(" nil :post-handlers '((--double-newline-and-indent-braces "RET")))))
 
 (use-package json-snatcher
-  :ensure t
   :after json-mode
   :commands (jsons-print-path))
 
 (use-package yaml-mode
-  :ensure t
   :mode ("\\.yml\\'"
          "\\.yaml\\'"
          "\\.yaml.in\\'")
@@ -259,7 +257,6 @@ Lisp function does not specify a special indentation."
 ;; https://github.com/zkry/yaml.el/tree/9ebddb55238d746dc5a5d46db04c9f360c140b99
 (use-package yaml
   :after yaml-mode
-  :ensure t
   :commands (yaml-parse-string))
 
 (use-package cc-mode
@@ -343,7 +340,6 @@ Lisp function does not specify a special indentation."
 
 ;; Requires `clang` to be installed (perhaps unsurprisingly).
 (use-package clang-capf
-  :ensure t
   :custom
   (clang-capf-ignore-case t)
   :config
@@ -482,8 +478,6 @@ Lisp function does not specify a special indentation."
 
 (use-package cmake-mode
   :mode ("\\cmakelists.txt\\'" . cmake-mode)
-  ;; :ensure t ;; the package is nested in the greater cmake repo, and
-  ;;           ;; not practical to use straight on (yet)
   :hook (cmake-mode-hook . hl-todo-mode))
 
 (use-package cmake-font-lock
@@ -538,14 +532,11 @@ Lisp function does not specify a special indentation."
   (with-eval-after-load 'lsp-mode
     (add-hook 'web-mode-hook #'lsp-deferred)))
 
-(use-package moonscript
-  :ensure t)
+(use-package moonscript)
 
-(use-package hcl-mode
-  :ensure t)
+(use-package hcl-mode)
 
 (use-package terraform-mode
-  :ensure t
   :hook (terraform-mode-hook . terraform-format-on-save-mode)
   :config
   (with-eval-after-load 'tree-sitter
@@ -643,7 +634,6 @@ Lisp function does not specify a special indentation."
   (with-eval-after-load 'stripe-buffer
     (add-hook 'csv-mode-hook 'stripe-buffer-mode)))
 
-(use-package fish-mode
-  :ensure t)
+(use-package fish-mode)
 
 (provide 'config-language)

@@ -124,6 +124,7 @@ assume # starts a comment."
          (git-commit-setup-hook . markdown-mode)
          (magit-mode-hook . --magit-on-mode-save-buffers))
   :config
+  (require 'git-commit)
   (with-eval-after-load 'transient
     (transient-replace-suffix 'magit-dispatch #'magit-status-quick
       (list "j" "Show status" #'magit-status))
@@ -149,10 +150,6 @@ assume # starts a comment."
           (magit--put-face (match-beginning 0) boundary
                            'magit-keyword msg)))
       msg)))
-
-(use-package git-commit
-  :ensure t
-  :after magit)
 
 (use-package magit-diff
   :ensure nil
@@ -203,7 +200,6 @@ assume # starts a comment."
 ;; TODO: Somehow jigger `magit-todos-branch-list' to *only* show
 ;; branch todos instead of it being an appended section
 (use-package magit-todos
-  :ensure t
   :after (magit hl-todo)
   :custom
   (magit-todos-keyword-suffix

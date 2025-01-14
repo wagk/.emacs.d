@@ -85,7 +85,7 @@
 
 ;; Garbage collection
 (use-package gcmh
-  :ensure t
+  :ensure (:host github :repo "emacsmirror/gcmh" :branch "master")
   :custom
   (gcmh-idle-delay 'auto)
   (gcmh-auto-idle-delay-factor 50)
