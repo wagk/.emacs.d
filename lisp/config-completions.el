@@ -99,7 +99,8 @@
     (evil-set-command-property #'consult-line        :jump t)
     (evil-set-command-property #'consult-line-multi  :jump t)
     (evil-set-command-property #'consult-info        :jump t)
-    (evil-set-command-property #'consult-ripgrep     :jump t))
+    (evil-set-command-property #'consult-ripgrep     :jump t)
+    (evil-set-command-property #'consult-grep        :jump t))
   (with-eval-after-load 'evil
     (with-eval-after-load 'config-evil-helpers
       (--evil-define-splits "mb" 'consult-bookmark)
@@ -128,7 +129,8 @@
         (evil-ex-define-cmd "fc" #'consult-flycheck)))
     (with-eval-after-load 'link-hint
       (evil-ex-define-cmd "fx"  'link-hint-open-link)
-      (evil-ex-define-cmd "fy"  'link-hint-copy-link)))
+      (evil-ex-define-cmd "fy"  'link-hint-copy-link))
+    (evil-ex-define-cmd "gr" #'consult-grep))
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'(lambda (&rest args)
                                           (apply (if vertico-mode

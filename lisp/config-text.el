@@ -266,8 +266,8 @@
   (:states '(normal motion visual)
    "C-+" 'rg-menu)
   :init
-  (evil-ex-define-cmd "rg" #'rg-menu)
   (evil-ex-define-cmd "rr" #'rg-menu)
+  (evil-ex-define-cmd "rg" "rr")
   (with-eval-after-load 'consult
     (evil-ex-define-cmd "rr" #'consult-ripgrep)
     (evil-ex-define-cmd "rl"
