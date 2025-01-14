@@ -142,6 +142,9 @@
   (tempel-default ((default . (:inherit sol-foreground
                                :foreground ,sol-violet
                                :background unspecified))))
+  :general
+  (tempel-map
+   "TAB" #'--tempel-maybe-expand-or-jump)
   :init
    ;; Setup completion at point
   (cl-defun --tempel-setup-capf ()
@@ -155,6 +158,16 @@
     (setq-local completion-at-point-functions
                 (cons #'tempel-expand
                       completion-at-point-functions)))
+  (cl-defun --tempel-maybe-expand-or-jump ()
+    (interactive)
+    (if-let ((templates (tempel--templates))
+             (bounds (tempel--prefix-bounds))
+             (name (buffer-substring-no-properties
+                    (car bounds) (cdr bounds)))
+             (sym (intern-soft name))
+             (template (assq sym templates)))
+        (tempel-expand template)
+      (tempel-next 1)))
   :hook
   (conf-mode-hook . --tempel-setup-capf)
   (prog-mode-hook . --tempel-setup-capf)
