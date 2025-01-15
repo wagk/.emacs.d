@@ -64,3 +64,4 @@ straight/*
 /pomm-third-time
 /pomm
 **/flycheck_*.el
+/local-templates.eld

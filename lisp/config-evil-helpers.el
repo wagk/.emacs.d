@@ -173,6 +173,16 @@ not something supported right now)
 (evil-ex-define-cmd "sbb" #'(lambda () (interactive) (--evil-consult-buffer :split)))
 (evil-ex-define-cmd "tbb" #'(lambda () (interactive) (--evil-consult-buffer :tab)))
 
+(defcustom --additional-config-files
+  (list user-init-file
+        user-local-file
+        (when-let*
+            ((templates (locate-user-emacs-file "templates.eld"))
+             (file-exists-p templates))
+          templates))
+  "Additional configuration files of interest not inside /lisp"
+  :type '(list string))
+
 (defun --select-config-lisp-file-name ()
   "Open a file from `.emacs.d/lisp'."
   (interactive)
@@ -194,10 +204,7 @@ not something supported right now)
                                           (string-match "flycheck_")
                                           (not))) it)
                      (mapcar #'(lambda (file) (f-join user-lisp-dir file)) it)
-                     (append it (list user-init-file
-                                      user-local-file
-                                      (when (file-exists-p (locate-user-emacs-file "templates.eld"))
-                                        (locate-user-emacs-file "templates.eld"))))
+                     (append it --additional-config-files)
                      (mapcar #'(lambda (file)
                                  (file-relative-name file user-emacs-directory))
                              it)))

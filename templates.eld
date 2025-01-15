@@ -44,3 +44,8 @@ rust-mode rust-ts-mode
 (paf "pub async fn " (p "foo")  "(" p ") " p "{"
      n> (p "todo!()") q
      n "}" >)
+
+(tm "#[cfg(test)]" >
+    n "mod tests {" >
+    n> (p "use super::*;") >
+    n "}" >)
