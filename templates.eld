@@ -29,11 +29,11 @@ fundamental-mode
 
 prog-mode
 
-(c (if (derived-mode-p 'emacs-lisp-mode) ";; " comment-start) q)
-(dd (if (derived-mode-p 'emacs-lisp-mode) ";; " comment-start) "DEBUG (pangt): " q)
-(ff (if (derived-mode-p 'emacs-lisp-mode) ";; " comment-start) "FIXME (pangt): " q)
-(nn (if (derived-mode-p 'emacs-lisp-mode) ";; " comment-start) "NOTE (pangt): " q)
-(tt (if (derived-mode-p 'emacs-lisp-mode) ";; " comment-start) "TODO (pangt): " q)
+(c (--tempel-maybe-comment) q)
+(dd (--tempel-maybe-comment) "DEBUG (pangt): " q)
+(ff (--tempel-maybe-comment) "FIXME (pangt): " q)
+(nn (--tempel-maybe-comment) "NOTE (pangt): " q)
+(tt (--tempel-maybe-comment) "TODO (pangt): " q)
 
 rust-mode rust-ts-mode
 

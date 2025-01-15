@@ -153,6 +153,8 @@
    "M-k"       #'tempel-previous
    "M-q"       #'tempel-abort)
   :init
+  ;; turn it into a list so we can define local configs
+  (setq tempel-path (list (locate-user-emacs-file "templates.eld")))
    ;; Setup completion at point
   (cl-defun --tempel-setup-capf ()
     ;; Add the Tempel Capf to `completion-at-point-functions'.
@@ -175,14 +177,17 @@
              (template (assq sym templates)))
         (tempel-expand template)
       (tempel-next 1)))
+  (cl-defun --tempel-maybe-comment ()
+    (unless (save-excursion (comment-beginning))
+      (cond
+       ((derived-mode-p 'emacs-lisp-mode) ";; ")
+       ((derived-mode-p 'terraform-mode) "# ")
+       (t comment-start))))
   :hook
   (conf-mode-hook . --tempel-setup-capf)
   (prog-mode-hook . --tempel-setup-capf)
   (text-mode-hook . --tempel-setup-capf)
-  (eglot-managed-mode-hook . --tempel-setup-capf)
-  :config
-  ;; turn it into a list so we can define local configs
-  (setq tempel-path (list (locate-user-emacs-file "templates.eld"))))
+  (eglot-managed-mode-hook . --tempel-setup-capf))
 
 ;; For M1 machines, we have to clone
 ;; https://github.com/eraserhd/parinfer-rust.git, build the =.dylib=, and
