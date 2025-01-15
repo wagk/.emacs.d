@@ -22,7 +22,7 @@
 ;; (FORM ...) Other Lisp forms are evaluated. Named fields are lexically bound.
 ;; q Quits the containing template when jumped to.
 
-fundamental-mode
+fundamental-mode text-mode
 
 (/date (format-time-string "%F"))
 (/now (format-time-string "%F %H:%M"))
