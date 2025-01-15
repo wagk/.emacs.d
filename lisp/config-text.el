@@ -167,6 +167,7 @@
     (setq-local completion-at-point-functions
                 (cons #'tempel-expand
                       completion-at-point-functions)))
+
   (cl-defun --tempel-maybe-expand-or-jump ()
     (interactive)
     (if-let ((templates (tempel--templates))
@@ -177,12 +178,12 @@
              (template (assq sym templates)))
         (tempel-expand template)
       (tempel-next 1)))
+
   (cl-defun --tempel-maybe-comment ()
     (unless (save-excursion (comment-beginning))
-      (cond
-       ((derived-mode-p 'emacs-lisp-mode) ";; ")
-       ((derived-mode-p 'terraform-mode) "# ")
-       (t comment-start))))
+      (cond ((derived-mode-p 'emacs-lisp-mode) ";; ")
+            ((derived-mode-p 'terraform-mode) "# ")
+            (t comment-start))))
   :hook
   (conf-mode-hook . --tempel-setup-capf)
   (prog-mode-hook . --tempel-setup-capf)

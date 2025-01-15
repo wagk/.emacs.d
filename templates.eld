@@ -35,6 +35,10 @@ prog-mode
 (nn (--tempel-maybe-comment) "NOTE (pangt): " q)
 (tt (--tempel-maybe-comment) "TODO (pangt): " q)
 
+markdown-mode gfm-mode org-mode
+
+(-- "- [ ] " q)
+
 rust-mode rust-ts-mode
 
 (M "=> " q)
@@ -52,22 +56,32 @@ rust-mode rust-ts-mode
 (an "assert_ne!(" p "," p ");" q)
 (ae "assert_eq!(" p "," p ");" q)
 
-(ma "matches!(" p "," (s pattern) ");" q)
+(matches "matches!(" p "," (s pattern) ");" q)
 
+;; functions
 (f "fn " (p "foo")  "(" p ") " p "{"
    n> (p "todo!()") q
    n "}" >)
+
 (pf "pub fn " (p "foo")  "(" p ") " p "{"
     n> (p "todo!()") q
     n "}" >)
+
 (af "async fn " (p "foo")  "(" p ") " p "{"
     n> (p "todo!()") q
     n "}" >)
+
 (paf "pub async fn " (p "foo")  "(" p ") " p "{"
      n> (p "todo!()") q
      n "}" >)
 
+;; tests
+(t "#[test]" >
+   n "fn " (p "foo") "() {" >
+   n> (p "todo!()") q
+   n "}" >)
+
 (tm "#[cfg(test)]" >
     n "mod tests {" >
-    n>
+    n> q
     n "}" >)
