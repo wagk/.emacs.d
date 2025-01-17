@@ -427,8 +427,7 @@
                 :inherit sol-light-foreground)))))
 
 (use-package dogears
-  :demand t
-  :after (evil)
+  :after (evil-ex)
   :commands (dogears-list dogears-remember dogears-go)
   :custom
   (dogears-idle 10)

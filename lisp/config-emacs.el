@@ -582,6 +582,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package ediff
   :ensure nil
+  :commands (ediff ediff3)
   :after config-theme
   :custom
   (ediff-split-window-function 'split-window-horizontally)
