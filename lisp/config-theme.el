@@ -451,99 +451,10 @@
      ((default . (:background unspecified
                   :inherit sol-superlight-background))))))
 
-(with-eval-after-load 'whitespace
-  (custom-set-faces
-   `(whitespace-line
-     ((default . (:foreground ,sol-violet))))
-   `(whitespace-newline
-     ((default . (:foreground unspecified
-                  :inherit sol-light-foreground))))
-   `(whitespace-space
-     ((default . (:foreground unspecified
-                  :background unspecified
-                  :inherit (sol-superlight-background
-                            sol-light-foreground)))))))
-
 (with-eval-after-load 'eshell
   (custom-set-faces
    `(eshell-prompt ((default . (:foreground unspecified
                                 :inherit ,sol-green))))))
-
-(with-eval-after-load 'diff
-  (custom-set-faces
-   `(diff-header
-     ((default . (:inherit sol-foreground))))
-   `(diff-context
-     ((default . (:inherit (sol-foreground
-                            sol-superlight-background)))))
-   `(diff-added
-     ((default . (:foreground ,sol-green
-                  :inherit (sol-foreground
-                            sol-superlight-background)))))
-   `(diff-removed
-     ((default . (:foreground ,sol-red
-                  :inherit (sol-foreground
-                            sol-superlight-background)))))
-   `(diff-refined-changed
-     ((default . (:foreground unspecified
-                  :inherit diff-changed))))
-   `(diff-refined-removed
-     ((default . (:strike-through nil
-                  :background sol-red
-                  :inherit nano-default-i))))
-   `(diff-refined-added
-     ((default . (:bold nil
-                  :background sol-green
-                  :inherit nano-default-i))))))
-
-(with-eval-after-load 'ediff
-  (custom-set-faces
-   `(ediff-current-diff-A
-     ((default . (:foreground ,sol-red
-                  :inherit sol-superlight-background))))
-   `(ediff-fine-diff-A
-     ((default . (:inherit ediff-current-diff-A
-                  :bold t))))
-   `(ediff-even-diff-A
-     ((default . (:foreground ,sol-red))))
-   `(ediff-odd-diff-A
-     ((default . (:foreground ,sol-red)))))
-
-  (custom-set-faces
-   `(ediff-current-diff-Ancestor
-     ((default . (:foreground ,sol-blue
-                  :inherit sol-superlight-background))))
-   `(ediff-fine-diff-Ancestor
-     ((default . (:inherit ediff-current-diff-Ancestor
-                  :bold t))))
-   `(ediff-even-diff-Ancestor
-     ((default . (:foreground ,sol-blue))))
-   `(ediff-odd-diff-Ancestor
-     ((default . (:foreground ,sol-blue)))))
-
-  (custom-set-faces
-   `(ediff-current-diff-B
-     ((default . (:foreground ,sol-green
-                  :inherit sol-superlight-background))))
-   `(ediff-fine-diff-B
-     ((default . (:inherit ediff-current-diff-B
-                  :bold t))))
-   `(ediff-even-diff-B
-     ((default . (:foreground ,sol-green))))
-   `(ediff-odd-diff-B
-     ((default . (:foreground ,sol-green)))))
-
-  (custom-set-faces
-   `(ediff-current-diff-C
-     ((default . (:foreground ,sol-yellow
-                  :inherit sol-superlight-background))))
-   `(ediff-fine-diff-C
-     ((default . (:inherit ediff-current-diff-C
-                  :bold t))))
-   `(ediff-even-diff-C
-     ((default . (:foreground ,sol-yellow))))
-   `(ediff-odd-diff-C
-     ((default . (:foreground ,sol-yellow))))))
 
 (with-eval-after-load 're-builder
   (custom-set-faces
@@ -822,17 +733,6 @@
    `(avy-lead-face-2
      ((default . (:background ,sol-violet
                   :inherit avy-background-face))))))
-
-(with-eval-after-load 'stripe-buffer
-  (custom-set-faces
-   `(stripe-highlight
-     ((default . (:extend t
-                  :inherit sol-light-foreground))))))
-
-(with-eval-after-load 'bookmark
-  (custom-set-faces
-   `(bookmark-face
-     ((default . (:inherit sol-subtle))))))
 
 (with-eval-after-load 'adoc-mode
   (custom-set-faces

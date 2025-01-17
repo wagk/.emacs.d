@@ -10,7 +10,7 @@
 ;; [this issue]: https://github.com/magit/magit/issues/1497
 (use-package magit
   :ensure (:host github :repo "magit/magit" :branch "main")
-  :after (elpaca evil transient general)
+  :after (elpaca evil transient general config-theme)
   :commands (magit
              magit-status
              magit-pull
@@ -61,7 +61,7 @@
   (magit-mode-map
    :states '(normal)
    "g x" 'magit-browse-thing)
-  :init
+  :preface
   (when (eq system-type 'windows-nt)
     ;; magit requires seq 2.24, windows only seems to have 2.23
     ;; lisp stolen from https://github.com/progfolio/elpaca/issues/216
@@ -184,6 +184,7 @@ assume # starts a comment."
 
 (use-package magit-blame
   :ensure nil
+  :after (magit config-theme)
   :custom-face
   (magit-blame-highlight
    ((default . (:foreground unspecified
@@ -192,6 +193,7 @@ assume # starts a comment."
 
 (use-package magit-sequence
   :ensure nil
+  :after (magit config-theme)
   :custom-face
   (magit-sequence-head
    ((default . (:foreground unspecified
@@ -206,6 +208,7 @@ assume # starts a comment."
 
 (use-package magit-section
   :ensure nil
+  :after (magit config-theme)
   :custom-face
   (magit-section-heading
    ((default . (:foreground unspecified
@@ -224,6 +227,7 @@ assume # starts a comment."
 
 (use-package magit-log
   :ensure nil
+  :after (magit config-theme)
   :custom-face
   (magit-log-graph
    ((default . (:foreground unspecified
@@ -237,6 +241,7 @@ assume # starts a comment."
 
 (use-package magit-reflog
   :ensure nil
+  :after (config-theme magit)
   :custom-face
   (magit-reflog-amend
    ((default . (:foreground ,sol-magenta))))
@@ -259,6 +264,7 @@ assume # starts a comment."
 
 (use-package magit-diff
   :ensure nil
+  :after (magit config-theme)
   :general
   (magit-diff-mode-map
    :states 'normal
@@ -488,7 +494,7 @@ assume # starts a comment."
 
 (use-package blamer
   :ensure (:host github :repo "Artawower/blamer.el")
-  :after magit
+  :after (magit config-theme)
   :custom
   (blamer-commit-formatter ": %s")
   (blamer-min-offset 5)
@@ -505,7 +511,7 @@ assume # starts a comment."
 
 (use-package diff-hl
   :ensure (:host github :repo "dgutov/diff-hl")
-  :after dired
+  :after (dired config-theme)
   :custom
   (diff-hl-disable-on-remote t)
   :custom-face

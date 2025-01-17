@@ -252,6 +252,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package dired
   :demand t
+  :after config-theme
   :ensure nil
   :hook
   (dired-mode-hook . hl-line-mode)
@@ -318,7 +319,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package dired-async
   :ensure nil
-  :after async ;; part of this package
+  :after (async config-theme) ;; part of this package
   :commands dired-async-mode
   :custom-face
   (dired-async-failures
@@ -386,6 +387,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package flymake
   :ensure nil
+  :after config-theme
   :custom-face
   (flymake-error ((default . (:inherit sol-foreground-box))))
   (flymake-note ((default . (:underline nil
@@ -415,6 +417,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package eglot
   :ensure nil
+  :after config-theme
   :custom
   (eglot-prefer-plaintext t)
   (eglot-extend-to-xref t)
@@ -464,7 +467,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 (use-package dired-git-info
   :disabled t
   :ensure (:host github :repo "clemera/dired-git-info")
-  :after dired
+  :after (dired config-theme)
   :hook
   (dired-after-readin-hook . (lambda () (dired-git-info-auto-enable)))
   :custom-face
@@ -487,9 +490,13 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package bookmark
   :ensure nil
+  :after config-theme
   :custom
   (bookmark-fringe-mark nil)
   (bookmark-save-flag 1 "Write to bookmark file immediately")
+  :custom-face
+  (bookmark-face
+   ((default . (:inherit sol-subtle))))
   :config
   (defun config-define-bookmark (name path &optional overwrite annotation)
     "Programmatically creates and stores bookmarks into the bookmark file. We do
@@ -519,27 +526,115 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package diff
   :ensure nil
-  :config
-  (with-eval-after-load 'config-theme
-    (set-face-attribute 'diff-changed-unspecified nil
-                         :background 'unspecified
-                         :inherit '(diff-changed sol-superlight-background))
-    (set-face-attribute 'diff-error nil
-                        :background 'unspecified
-                        :foreground sol-red)
-    (set-face-attribute 'diff-indicator-added nil
-                        :foreground 'unspecified)
-    (set-face-attribute 'diff-indicator-changed nil
-                        :foreground 'unspecified)
-    (set-face-attribute 'diff-indicator-removed nil
-                        :foreground 'unspecified)))
+  :after config-theme
+  :custom-face
+  (diff-header
+   ((default . (:inherit sol-foreground))))
+  (diff-context
+   ((default . (:inherit (sol-foreground
+                          sol-superlight-background)))))
+  (diff-added
+   ((default . (:foreground ,sol-green
+                :inherit (sol-foreground
+                          sol-superlight-background)))))
+  (diff-removed
+   ((default . (:foreground ,sol-red
+                :inherit (sol-foreground
+                          sol-superlight-background)))))
+  (diff-refined-changed
+   ((default . (:foreground unspecified
+                :inherit diff-changed))))
+  (diff-refined-removed
+   ((default . (:background ,sol-red
+                :strike-through nil
+                :inherit nano-default-i))))
+  (diff-refined-added
+   ((default . (:bold nil
+                :background ,sol-green
+                :inherit nano-default-i))))
+  (diff-changed-unspecified
+   ((default . (:background unspecified
+                :inherit (diff-changed sol-superlight-background)))))
+  (diff-error
+   ((default . (:background unspecified
+                :foreground ,sol-red))))
+  (diff-indicatgor-added
+   ((default . (:foreground unspecified))))
+  (diff-indicator-changed
+   ((default . (:foreground unspecified))))
+  (diff-indicator-removed
+   ((default . (:foreground unspecified)))))
+
+(use-package whitespace
+  :ensure nil
+  :commands whitespace-mode
+  :after config-theme
+  :custom-face
+  (whitespace-line
+   ((default . (:foreground ,sol-violet))))
+  (whitespace-newline
+   ((default . (:foreground unspecified
+                :inherit sol-light-foreground))))
+  (whitespace-space
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit (sol-light-foreground))))))
 
 (use-package ediff
   :ensure nil
+  :after config-theme
   :custom
   (ediff-split-window-function 'split-window-horizontally)
   (ediff-merge-split-window-function 'split-window-horizontally)
-  (ediff-window-setup-function 'ediff-setup-windows-plain))
+  (ediff-window-setup-function 'ediff-setup-windows-plain)
+  :custom-face
+  ;; A
+  (ediff-current-diff-A
+   ((default . (:foreground ,sol-red
+                :inherit sol-superlight-background))))
+  (ediff-fine-diff-A
+   ((default . (:inherit ediff-current-diff-A
+                :bold t))))
+  (ediff-even-diff-A
+   ((default . (:foreground ,sol-red))))
+  (ediff-odd-diff-A
+   ((default . (:foreground ,sol-red))))
+  ;; Ancestor
+  (ediff-current-diff-Ancestor
+   ((default . (:foreground ,sol-blue
+                :inherit sol-superlight-background))))
+  (ediff-fine-diff-Ancestor
+   ((default . (:inherit ediff-current-diff-Ancestor
+                :bold t))))
+  (ediff-even-diff-Ancestor
+   ((default . (:foreground ,sol-blue))))
+  (ediff-odd-diff-Ancestor
+   ((default . (:foreground ,sol-blue))))
+
+  ;; B
+  (ediff-current-diff-B
+   ((default . (:foreground ,sol-green
+                :inherit sol-superlight-background))))
+  (ediff-fine-diff-B
+   ((default . (:inherit ediff-current-diff-B
+                 :bold t))))
+  (ediff-even-diff-B
+   ((default . (:foreground ,sol-green))))
+  (ediff-odd-diff-B
+   ((default . (:foreground ,sol-green))))
+
+   ;; C
+  (ediff-current-diff-C
+   ((default . (:foreground ,sol-yellow
+                :inherit sol-superlight-background))))
+  (ediff-fine-diff-C
+   ((default . (:inherit ediff-current-diff-C
+                :bold t))))
+  (ediff-even-diff-C
+   ((default . (:foreground ,sol-yellow))))
+  (ediff-odd-diff-C
+   ((default . (:foreground ,sol-yellow)))))
+
 
 (use-package calendar
   :ensure nil
@@ -553,7 +648,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package tab-bar
   :ensure nil
-  :after (general evil)
+  :after (general evil config-theme)
   :custom
   (tab-bar-close-last-tab-choice 'delete-frame)
   (tab-bar-new-tab-choice t)
@@ -672,6 +767,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package compile
   :ensure nil
+  :after config-theme
   :custom
   (compilation-auto-jump-to-first-error nil)
   (compilation-ask-about-save nil)
@@ -700,9 +796,11 @@ Returns a string, or nil if there is no path associated with the buffer."
   (compilation-column-number
    ((default . (:inherit compilation-line-number))))
   (compilation-mode-line-fail
-   ((default . (:inherit compilation-error))))
+   ((default . (:foreground unspecified
+                :inherit compilation-error))))
   (compilation-mode-line-exit
-   ((default . (:inherit sol-foreground))))
+   ((default . (:foreground unspecified
+                :inherit sol-foreground))))
   :config
   (with-eval-after-load 'savehist
     (add-to-list 'savehist-additional-variables 'compile-history)
@@ -918,7 +1016,7 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
 
 (use-package smerge-mode
   :ensure nil
-  :after (transient evil)
+  :after (transient evil config-theme)
   :custom-face
   (smerge-markers
    ((default . (:foreground ,sol-cyan

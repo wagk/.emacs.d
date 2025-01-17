@@ -7,6 +7,7 @@
 (use-package org
   :ensure (:host github :repo "emacs-straight/org-mode" :branch "main")
   :demand t
+  :after config-theme
   :commands (orgtbl-mode
              org-babel-load-file)
   :general
@@ -279,7 +280,7 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
 
 (use-package org-agenda
   :ensure nil
-  :after org
+  :after (org config-theme)
   :commands (org-todo-list
              org-agenda-list
              org-agenda-file-to-front

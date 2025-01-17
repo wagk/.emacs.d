@@ -203,6 +203,7 @@
   ;; very laggy on large files.
   ;; TODO (pangt): figure out a way to conditionally disable
   :ensure (:host github :repo "Boruch-Baum/emacs-cursor-flash")
+  :after config-theme
   :custom-face
   (cursor-flash-face ((default . (:foreground unspecified
                                   :background unspecified
@@ -220,6 +221,7 @@
 
 (use-package flycheck
   :ensure (:host github :repo "flycheck/flycheck")
+  :after config-theme
   :custom
   (flycheck-mode-line nil)
   (flycheck-indication-mode 'left-margin)
@@ -340,7 +342,7 @@
 
 (use-package highlight-indent-guides
   :commands (highlight-indent-guides-mode)
-  :after general
+  :after (general config-theme)
   :blackout t
   :general
   (:states 'normal
@@ -370,16 +372,18 @@
 
 (use-package macrostep
   :commands (macrostep-expand)
+  :after config-theme
   :custom-face
   (macrostep-expansion-highlight-face
    ((default . (:inherit sol-light-background
                 :foreground ,sol-green)))))
 
 (use-package eros
+  :after config-theme
   :custom-face
-  (eros-result-overlay-face ((t (:box nil
-                                 :background unspecified
-                                 :inherit shadow))))
+  (eros-result-overlay-face ((t . (:box nil
+                                   :background unspecified
+                                   :inherit shadow))))
   :config
   (eros-mode))
 
@@ -451,7 +455,7 @@
   :if (and (fboundp 'treesit-available-p)
            (treesit-available-p))
   :ensure (:host github :repo "meain/scopeline.el" :branch "master")
-  :after treesit
+  :after (treesit config-theme)
   :hook (prog-mode-hook . scopeline-mode)
   :blackout t
   :custom
@@ -556,7 +560,7 @@
 
 (use-package gptel-context
   :ensure nil
-  :after gptel
+  :after (gptel config-theme)
   :defer t
   :custom-face
   (gptel-context-deletion-face
@@ -588,6 +592,7 @@
 
 (use-package kubernetes
   :commands kubernetes-dispatch
+  :after config-theme
   :init
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "k8s" #'kubernetes-dispatch))

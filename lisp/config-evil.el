@@ -12,7 +12,7 @@
   :ensure (:host github :repo "emacs-straight/undo-tree" :branch "master")
   :demand t
   :blackout t
-  :after (evil general)
+  :after (evil general config-theme)
   :commands (turn-on-undo-tree-mode)
   :custom
   (undo-tree-visualizer-diff t)
@@ -90,7 +90,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 
 (use-package evil
   :demand t
-  :after (general)
+  :after (general config-theme)
   :ensure (:host github :repo "emacs-evil/evil")
   :commands (evil-set-initial-state
              evil-insert-state

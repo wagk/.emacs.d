@@ -4,6 +4,7 @@
   :ensure (:host github :repo "Fuco1/smartparens")
   :demand t
   :blackout t
+  :after config-theme
   :hook
   ;; TODO: make this not just hooked on prog-mode
   (prog-mode-hook . (lambda () (interactive)
@@ -132,6 +133,7 @@
 ;; https://github.com/minad/tempel?tab=readme-ov-file#template-syntax
 (use-package tempel
   :ensure (:host github :repo "minad/tempel")
+  :after config-theme
   :custom-face
   (tempel-field ((default . (:inherit sol-strong-foreground
                              :foreground unspecified
@@ -244,19 +246,25 @@
 
 (use-package wgrep
   :ensure (:host github :repo "mhayashi1120/Emacs-wgrep")
+  :after config-theme
   :commands (wgrep-change-to-wgrep-mode)
   :custom (wgrep-auto-save-buffer t)
   :custom-face
   (wgrep-face
-   ((default . (:foreground ,sol-green))))
+   ((default . (:foreground ,sol-green
+                :background unspecified))))
   (wgrep-file-face
-   ((default . (:inherit wgrep-face))))
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit wgrep-face))))
   (wgrep-done-face
    ((default . (:foreground ,sol-blue))))
   (wgrep-reject-face
    ((default . (:foreground ,sol-red))))
   (wgrep-delete-face
    ((default . (:inherit wgrep-face
+                :foreground unspecified
+                :background unspecified
                 :strike-through t)))))
 
 (use-package rg
@@ -284,8 +292,7 @@
   (:states '(normal motion visual)
    "C-+" 'rg-menu)
   :init
-  (evil-ex-define-cmd "rr" #'rg-menu)
-  (evil-ex-define-cmd "rg" "rr")
+  (evil-ex-define-cmd "rg" #'rg-menu)
   (with-eval-after-load 'consult
     (evil-ex-define-cmd "rr" #'consult-ripgrep)
     (evil-ex-define-cmd "rl"
@@ -361,6 +368,7 @@
   :blackout t
   :commands (tree-sitter-hl-mode tree-sitter-mode)
   :hook ((tree-sitter-after-on-hook . tree-sitter-hl-mode))
+  :after config-theme
   :custom-face
   (tree-sitter-hl-face:function.call
    ((default (:inherit font-lock-function-name-face))))
@@ -384,6 +392,7 @@
            (treesit-available-p)
            (not (eq system-type 'windows-nt)))
   :ensure (:host github :repo "emacs-tree-sitter/treesit-fold" :branch "master")
+  :after config-theme
   :custom-face
   (treesit-fold-replacement-face
    ((default . (:inherit sol-superlight-background
@@ -410,7 +419,12 @@
 
 ;; Zebra patterns for buffer
 (use-package stripe-buffer
-  :commands stripe-buffer-mode)
+  :commands stripe-buffer-mode
+  :after config-theme
+  :custom-face
+  (stripe-highlight
+   ((default . (:extend t
+                :inherit sol-light-foreground)))))
 
 (use-package dogears
   :demand t
@@ -451,7 +465,7 @@
 
 (use-package focus
   :commands focus-mode
-  :after evil
+  :after (evil-ex config-theme)
   :init
   (evil-ex-define-cmd "fo[cus]" 'focus-mode)
   (evil-ex-define-cmd "fou" 'focus-unpin)
@@ -473,7 +487,7 @@
   (focus-mode-hook . #'lsp-focus-mode))
 
 (use-package ace-window
-  :after (evil general)
+  :after (evil general config-theme)
   :custom
   (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   :general

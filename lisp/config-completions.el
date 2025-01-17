@@ -27,6 +27,7 @@
   (vertico-mode))
 
 (use-package orderless
+  :after config-theme
   :custom
   (orderless-matching-styles '(orderless-literal
                                orderless-regexp
@@ -84,6 +85,7 @@
 
 (use-package consult
   :demand t
+  :after config-theme
   :general
   (:states 'normal
    "g /" #'consult-line)
@@ -183,6 +185,7 @@
   ;; incremental completions
   :if (display-graphic-p)
   :demand t
+  :after config-theme
   :custom
   (corfu-auto nil)
   (corfu-auto-delay 0.2)
