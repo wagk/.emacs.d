@@ -445,12 +445,6 @@
    `(info-node
      ((default . (:inherit sol-foreground))))))
 
-(with-eval-after-load 'flymake
-  (custom-set-faces
-    `(flymake-error ((default . (:inherit sol-foreground-box))))
-    `(flymake-note ((default . (:inherit sol-light-foreground))))
-    `(flymake-warning ((default . (:inherit sol-light-foreground))))))
-
 (with-eval-after-load 'cursor-flash
   (custom-set-faces
    `(cursor-flash-face ((default . (:foreground unspecified

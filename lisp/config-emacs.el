@@ -364,6 +364,10 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package flymake
   :ensure nil
+  :custom-face
+  (flymake-error ((default . (:inherit sol-foreground-box))))
+  (flymake-note ((default . (:inherit sol-light-foreground))))
+  (flymake-warning ((default . (:inherit sol-light-foreground))))
   :custom
   (flymake-error-bitmap nil)
   (flymake-warning-bitmap nil)
