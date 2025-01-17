@@ -245,7 +245,19 @@
 (use-package wgrep
   :ensure (:host github :repo "mhayashi1120/Emacs-wgrep")
   :commands (wgrep-change-to-wgrep-mode)
-  :custom (wgrep-auto-save-buffer t))
+  :custom (wgrep-auto-save-buffer t)
+  :custom-face
+  (wgrep-face
+   ((default . (:foreground ,sol-green))))
+  (wgrep-file-face
+   ((default . (:inherit wgrep-face))))
+  (wgrep-done-face
+   ((default . (:foreground ,sol-blue))))
+  (wgrep-reject-face
+   ((default . (:foreground ,sol-red))))
+  (wgrep-delete-face
+   ((default . (:inherit wgrep-face
+                :strike-through t)))))
 
 (use-package rg
   :if (executable-find "rg")
@@ -349,6 +361,9 @@
   :blackout t
   :commands (tree-sitter-hl-mode tree-sitter-mode)
   :hook ((tree-sitter-after-on-hook . tree-sitter-hl-mode))
+  :custom-face
+  (tree-sitter-hl-face:function.call
+   ((default (:inherit font-lock-function-name-face))))
   :config
   (global-tree-sitter-mode))
 
@@ -447,7 +462,10 @@
        :keymaps 'embark-defun-map
         "f f" 'focus-mode
         "f u" 'focus-unpin
-        "f p" 'focus-pin))))
+        "f p" 'focus-pin)))
+  :custom-face
+  (focus-unfocused
+   ((default . (:inherit sol-superlight-foreground)))))
 
 (use-package lsp-focus
   :after (lsp focus)
@@ -460,6 +478,12 @@
   (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   :general
   (evil-window-map
-   "SPC" 'ace-window))
+   "SPC" 'ace-window)
+  :custom-face
+  (aw-background-face
+   ((default . (:inherit sol-superlight-foreground))))
+  (aw-leading-char-face
+   ((default . (:bold t
+                :foreground ,sol-red)))))
 
 (provide 'config-text)

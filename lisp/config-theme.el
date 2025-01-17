@@ -445,37 +445,11 @@
    `(info-node
      ((default . (:inherit sol-foreground))))))
 
-(with-eval-after-load 'cursor-flash
-  (custom-set-faces
-   `(cursor-flash-face ((default . (:foreground unspecified
-                                    :background unspecified
-                                    :inherit nano-salient-i))))))
-
-(with-eval-after-load 'flycheck
-  (custom-set-faces
-   `(flycheck-error-list-highlight
-     ((default . (:extend t :inherit sol-superlight-background))))
-   `(flycheck-error ((default . (:inherit sol-foreground-box))))
-   `(flycheck-info ((default . (:inherit sol-foreground-box))))
-   `(flycheck-warning ((default . (:inherit sol-foreground-box))))))
-
 (with-eval-after-load 'pulse
   (custom-set-faces
    `(pulse-highlight-start-face
      ((default . (:background unspecified
                   :inherit sol-superlight-background))))))
-
-(with-eval-after-load 'evil
-  (custom-set-faces
-   `(evil-ex-search ((default . (:inherit match))))
-   `(evil-ex-info ((default . (:foreground ,sol-red))))
-   `(evil-ex-substitute-replacement ((default . (:foreground ,sol-red))))))
-
-(with-eval-after-load 'hl-todo
-  (setq hl-todo-keyword-faces `(("TODO"  . sol-strong-foreground)
-                                ("DEBUG" . sol-strong-foreground)
-                                ("NOTE"  . sol-strong-foreground)
-                                ("FIXME" . sol-strong-foreground))))
 
 (with-eval-after-load 'whitespace
   (custom-set-faces
@@ -521,11 +495,6 @@
      ((default . (:bold nil
                   :background sol-green
                   :inherit nano-default-i))))))
-
-(with-eval-after-load 'tree-sitter
-  (custom-set-faces
-   `(tree-sitter-hl-face:function.call
-     ((default (:inherit font-lock-function-name-face))))))
 
 (with-eval-after-load 'ediff
   (custom-set-faces
@@ -576,182 +545,6 @@
    `(ediff-odd-diff-C
      ((default . (:foreground ,sol-yellow))))))
 
-(with-eval-after-load 'consult
-  (custom-set-faces
-   `(consult-separator
-     ((default . (:inherit sol-superlight-foreground))))
-   `(consult-line-number-wrapped
-     ((default . (:inherit line-number))))))
-
-(with-eval-after-load 'magit-section
- (custom-set-faces
-  `(magit-section-heading
-    ((default . (:underline t
-                 :inherit sol-foreground))
-     (((type nil)) . (:inherit sol-strong-foreground))))
-  `(magit-section-heading-selection
-    ((default . (:inherit region))))
-  `(magit-section-highlight
-    ((default . (:bold t))
-     (((type nil)) . (:bold nil
-                      :inherit sol-superlight-background))))))
-
-(with-eval-after-load 'magit
-  (custom-set-faces
-   `(magit-keyword
-     ((default . (:foreground ,sol-cyan))))
-   `(magit-keyword-squash
-     ((default . (:bold t
-                  :foreground ,sol-green))
-      (((type nil)) . (:bold nil))))
-   `(magit-header-line
-     ((default . (:underline t
-                  :inherit magit-section-heading))
-      (((type nil)) . (:underline nil))))
-   `(magit-keyword-squash
-     ((default . (:bold t
-                  :foreground ,sol-green))
-      (((type nil)) . (:bold nil))))
-   `(magit-head
-     ((default . (:bold t
-                  :foreground ,sol-magenta))
-      (((type nil)) . (:bold nil))))
-   `(magit-branch-local
-     ((default . (:bold t
-                  :foreground ,sol-blue))
-      (((type nil)) . (:bold nil))))
-   `(magit-branch-remote
-     ((default . (:bold t
-                  :foreground ,sol-green))
-      (((type nil)) . (:bold nil))))
-   `(magit-tag
-     ((default . (:bold t
-                  :foreground ,sol-violet))
-      (((type nil)) . (:bold nil))))
-   `(magit-hash
-     ((default . (:bold t
-                  :inherit sol-light-foreground))
-      (((type nil)) . (:bold nil))))))
-
-(with-eval-after-load 'magit-blame
-  (custom-set-faces
-   `(magit-blame-highlight
-     ((default . (:inherit sol-superlight-background))))))
-
-(with-eval-after-load 'magit-diff
-  (custom-set-faces
-   ;; base
-   `(magit-diff-context
-     ((default . (:inherit sol-superlight-background))))
-   `(magit-diff-context-highlight
-     ((default . (:inherit (sol-superlight-background
-                            magit-diff-context)))))
-   ;; removed
-   `(magit-diff-removed
-     ((default . (:foreground ,sol-red
-                  :inherit magit-diff-context))))
-   `(magit-diff-removed-highlight
-     ((default . (:inherit (magit-diff-removed
-                            magit-diff-context-highlight)))))
-   `(magit-diffstat-removed
-     ((t . (:foreground ,sol-red))))
-   ;; added
-   `(magit-diff-added
-     ((default . (:foreground ,sol-green
-                  :inherit magit-diff-context))))
-   `(magit-diff-added-highlight
-     ((default . (:inherit (magit-diff-added
-                            magit-diff-context-highlight)))))
-   `(magit-diffstat-added
-     ((t . (:foreground ,sol-green))))
-   ;; (rebase) ours
-   `(magit-diff-our
-     ((default . (:foreground ,sol-violet
-                  :extend t
-                  :inherit sol-superlight-background))))
-   `(magit-diff-our-highlight
-     ((default . (:inherit magit-diff-our))))
-   ;; (rebase) theirs
-   `(magit-diff-their
-     ((default . (:foreground ,sol-yellow
-                  :extend t
-                  :inherit sol-superlight-background))))
-   `(magit-diff-their-highlight
-     ((default . (:inherit magit-diff-their))))
-   ;; (rebase) base
-   `(magit-diff-base
-     ((default . (:foreground ,sol-blue
-                  :extend t
-                  :inherit sol-superlight-background))))
-   `(magit-diff-base-highlight
-     ((default . (:inherit magit-diff-base))))
-   ;; hunk
-   `(magit-diff-hunk-heading
-     ((default . (:bold t
-                  :extend nil
-                  :inherit (sol-light-foreground)))))
-   `(magit-diff-hunk-heading-highlight
-     ((default . (:inherit magit-diff-hunk-heading))))
-   `(magit-diff-hunk-heading-selection
-     ((default . (:inherit magit-diff-hunk-heading-highlight))))
-   ;; file
-   `(magit-diff-file-heading
-     ((default . (:inherit sol-foreground
-                  :bold t))))
-   `(magit-diff-file-heading-highlight
-     ((default . (:inherit magit-diff-file-heading
-                  :bold t))))
-   `(magit-diff-file-heading-selection
-     ((default . (:inherit magit-diff-file-heading-highlight))))
-   `(magit-diff-lines-heading
-     ((default . (:inherit magit-diff-hunk-heading-highlight))))
-   ;; conflict markers
-   `(magit-diff-conflict-heading
-     ((default . (:foreground ,sol-cyan
-                  :extend t
-                  :inherit sol-superlight-background))))
-   ;; revision (?)
-   `(magit-diff-revision-summary
-     ((default . (:inherit sol-foreground))))))
-
-(with-eval-after-load 'magit-reflog
-  (custom-set-faces
-   `(magit-reflog-amend
-     ((default . (:foreground ,sol-magenta))))
-   `(magit-reflog-checkout
-     ((default . (:foreground ,sol-blue))))
-   `(magit-reflog-cherry-pick
-     ((default . (:foreground ,sol-green))))
-   `(magit-reflog-commit
-     ((default . (:foreground ,sol-green))))
-   `(magit-reflog-merge
-     ((default . (:foreground ,sol-green))))
-   `(magit-reflog-other
-     ((default . (:foreground ,sol-cyan))))
-   `(magit-reflog-rebase
-     ((default . (:foreground ,sol-magenta))))
-   `(magit-reflog-remote
-     ((default . (:foreground ,sol-cyan))))
-   `(magit-reflog-reset
-     ((default . (:foreground ,sol-red))))))
-
-(with-eval-after-load 'magit-sequence
-  (custom-set-faces
-   `(magit-sequence-head
-     ((default . (:inherit nano-salient))))
-   `(magit-sequence-drop
-     ((default . (:strike-through t))))))
-
-(with-eval-after-load 'magit-log
-  (custom-set-faces
-   `(magit-log-graph
-     ((default . (:inherit sol-foreground))))
-   `(magit-log-author
-     ((default . (:foreground unspecified
-                  :inherit sol-foreground))))
-   `(magit-log-date
-     ((default . (:inherit sol-foreground))))))
-
 (with-eval-after-load 're-builder
   (custom-set-faces
    `(reb-match-0
@@ -762,15 +555,6 @@
      ((default . (:foreground ,sol-violet))))
    `(reb-match-3
      ((default . (:foreground ,sol-magenta))))))
-
-(with-eval-after-load 'transient
-  (custom-set-faces
-   `(transient-key-exit
-     ((default . (:foreground ,sol-red))))
-   `(transient-key-return
-     ((default . (:foreground ,sol-yellow))))
-   `(transient-key-stay
-     ((default . (:foreground ,sol-blue))))))
 
 (with-eval-after-load 'sh-script
   (custom-set-faces
@@ -881,11 +665,6 @@
                   :background unspecified
                   :inherit match))))))
 
-(with-eval-after-load 'highlight-indent-guides
-  (custom-set-faces
-   `(highlight-indent-guides-character-face
-     ((default . (:inherit sol-superlight-foreground))))))
-
 ;; font-lock
 (custom-set-faces
  `(font-lock-warning-face
@@ -929,25 +708,6 @@
    ((default . (:foreground unspecified
                 :inherit sol-foreground)))))
 
-(with-eval-after-load 'eglot
-  (custom-set-faces
-   `(eglot-highlight-symbol-face
-     ((default . (:weight unspecified
-                  :inherit sol-superlight-background))))
-   `(eglot-inlay-hint-face
-     ((default . (:height unspecified
-                  :inherit sol-light-foreground))
-      (((supports (:italic)) (supports (:weight))) .
-       (:italic t :weight semi-light))))))
-
-(with-eval-after-load 'blamer
-  (custom-set-faces
-   `(blamer-face
-     ((default . (:foreground unspecified
-                  :background unspecified
-                  :inherit sol-light-foreground))
-      (((supports (:weight))) . (:weight extra-light))))))
-
 (with-eval-after-load 'eww
   (custom-set-faces
    `(eww-form-submit
@@ -963,12 +723,6 @@
    `(eww-form-checkbox
      ((default . (:inherit sol-light-foreground
                   :box t))))))
-
-(with-eval-after-load 'macrostep-expand
-  (custom-set-faces
-   `(macrostep-expansion-highlight-face
-     ((default . (:inherit sol-light-background
-                  :foreground ,sol-green))))))
 
 (with-eval-after-load 'sh-script
   (custom-set-faces
@@ -1052,102 +806,6 @@
      ((default . (:foreground ,sol-base2
                   :background ,sol-base2))))))
 
-(with-eval-after-load 'smerge-mode
-  (custom-set-faces
-   `(smerge-markers
-     ((default . (:foreground ,sol-cyan
-                  :inherit sol-light-foreground))))
-   `(smerge-base
-     ((default . (:foreground ,sol-blue))))
-   `(smerge-lower
-     ((default . (:foreground ,sol-yellow))))
-   `(smerge-upper
-     ((default . (:foreground ,sol-violet))))
-   `(smerge-refined-added
-     ((default . (:foreground ,sol-green))))
-   `(smerge-refined-removed
-     ((default . (:foreground ,sol-red))))))
-
-(with-eval-after-load 'wgrep
-  (custom-set-faces
-   `(wgrep-face
-     ((default . (:foreground ,sol-green))))
-   `(wgrep-file-face
-     ((default . (:inherit wgrep-face))))
-   `(wgrep-done-face
-     ((default . (:foreground ,sol-blue))))
-   `(wgrep-reject-face
-     ((default . (:foreground ,sol-red))))
-   `(wgrep-delete-face
-     ((default . (:inherit wgrep-face
-                  :strike-through t))))))
-
-(with-eval-after-load 'gptel-context
-  (custom-set-faces
-   `(gptel-context-deletion-face
-     ((default . (:foreground ,sol-red))))
-   `(gptel-context-highlight-face
-     ((default . (:foreground ,sol-green))))))
-
-(with-eval-after-load 'compile
-  (custom-set-faces
-   `(compilation-mode-line-run
-     ((default . (:inherit sol-foreground))))
-   `(compilation-info
-     ((default . (:foreground unspecified
-                  :bold nil))))
-   `(compilation-warning
-     ((default . (:foreground unspecified
-                  :bold nil
-                  :inherit (sol-strong-foreground
-                            sol-superlight-background)))))
-   `(compilation-error
-     ((default . (:foreground unspecified
-                  :bold t
-                  :inherit (sol-strong-foreground
-                            sol-superlight-background)))))
-   `(compilation-line-number
-     ((default . (:foreground unspecified
-                  :background unspecified
-                  :inherit sol-light-foreground))))
-   `(compilation-column-number
-     ((default . (:inherit compilation-line-number))))
-   `(compilation-mode-line-fail
-     ((default . (:inherit compilation-error))))
-   `(compilation-mode-line-exit
-     ((default . (:inherit sol-foreground))))))
-
-(with-eval-after-load 'undo-tree
-  (custom-set-faces
-   `(undo-tree-visualizer-default-face
-     ((default . (:inherit sol-foreground))))
-   `(undo-tree-visualizer-active-branch-face
-     ((default . (:inherit sol-light-background-i))))
-   `(undo-tree-visualizer-current-face
-     ((default . (:foreground ,sol-green))))
-   `(undo-tree-visualizer-register-face
-     ((default . (:foreground ,sol-yellow))))
-   `(undo-tree-visualizer-unmodified-face
-     ((default . (:foreground ,sol-blue))))))
-
-(with-eval-after-load 'tab-bar
-  (custom-set-faces
-   `(tab-bar
-     ((default . (:foreground unspecified
-                  :background unspecified
-                  :underline nil))))
-   `(tab-bar-tab
-     ((default . (:foreground unspecified
-                  :background unspecified
-                  :underline unspecified
-                  :bold nil
-                  :inherit sol-superlight-background))))
-   `(tab-bar-tab-inactive
-     ((default . (:foreground unspecified
-                  :background unspecified
-                  :bold nil
-                  :inherit sol-light-foreground))))))
-
 (with-eval-after-load 'avy
   (custom-set-faces
    `(avy-background-face
@@ -1165,140 +823,31 @@
      ((default . (:background ,sol-violet
                   :inherit avy-background-face))))))
 
-(with-eval-after-load 'corfu
-  (custom-set-faces
-   `(corfu-current
-     ((default . (:inverse-video t
-                  :inherit sol-light-foreground))))))
-
 (with-eval-after-load 'stripe-buffer
   (custom-set-faces
    `(stripe-highlight
      ((default . (:extend t
                   :inherit sol-light-foreground))))))
 
-(with-eval-after-load 'focus
-  (custom-set-faces
-   `(focus-unfocused
-     ((default . (:inherit sol-superlight-foreground))))))
-
-(with-eval-after-load 'org
-  (custom-set-faces
-   `(org-meta-line
-     ((default . (:extend t
-                  :inherit (sol-light-foreground
-                            sol-superlight-background)))))
-   `(org-headline-done
-     ((default . (:strike-through t))))
-   `(org-checkbox
-     ((default . (:bold t))))
-   `(org-block
-     ((default . (:inherit sol-superlight-background))))
-   `(org-block-begin-line
-     ((default . (:inherit org-meta-line))))
-   `(org-block-end-line
-     ((default . (:inherit org-meta-line))))
-   `(org-drawer
-     ((default . (:inherit sol-light-foreground))))
-   `(org-special-keyword
-     ((default . (:foreground ,sol-blue
-                  :inherit sol-foreground))))))
-
 (with-eval-after-load 'bookmark
   (custom-set-faces
    `(bookmark-face
      ((default . (:inherit sol-subtle))))))
-
-(with-eval-after-load 'orderless
-  (custom-set-faces
-   `(orderless-match-face-0
-     ((default . (:foreground ,sol-green))))
-   `(orderless-match-face-1
-     ((default . (:foreground ,sol-blue))))
-   `(orderless-match-face-2
-     ((default . (:foreground ,sol-cyan))))
-   `(orderless-match-face-3
-     ((default . (:foreground ,sol-violet))))))
-
-(with-eval-after-load 'dired-git-info
-  (custom-set-faces
-   `(dgi-commit-message-face
-     ((default . (:inherit sol-foreground))))))
-
-(with-eval-after-load 'dired
-  (custom-set-faces
-   `(dired-directory
-     ((default . (:bold t :inherit sol-foreground))
-      (((type nil)) . (:inherit sol-strong-foreground))))
-   `(dired-broken-symlink
-     ((default . (:background ,sol-red
-                  :foreground unspecified
-                  :inherit sol-foreground-i))))))
-
-(with-eval-after-load 'dired-async
-  (custom-set-faces
-   `(dired-async-failures
-     ((default . (:foreground ,sol-red))))
-   `(dired-async-message
-     ((default . (:inherit sol-foreground))))
-   `(dired-async-mode-message
-     ((default . (:inherit sol-foreground))))))
-
-(with-eval-after-load 'ace-window
-  (custom-set-faces
-   `(aw-background-face
-     ((default . (:inherit sol-superlight-foreground))))
-   `(aw-leading-char-face
-     ((default . (:bold t
-                  :foreground ,sol-red))))))
 
 (with-eval-after-load 'adoc-mode
   (custom-set-faces
    `(adoc-gen-face
      ((default . (:foreground ,sol-blue))))))
 
-(with-eval-after-load 'scopeline
-  (custom-set-faces
-   `(scopeline-face
-     ((default . (:weight ultra-light
-                  :inherit sol-light-foreground)))))
-  (with-eval-after-load 'eglot
-    (custom-set-faces
-     `(scopeline-face
-       ((default . (:inherit eglot-inlay-hint-face)))))))
-
 (with-eval-after-load 'table
   (custom-set-faces
    `(table-cell
      ((default . (:inherit sol-foreground))))))
 
-(with-eval-after-load 'kubernetes
-  (custom-set-faces
-   `(kubernetes-namespace
-     ((default . (:foreground ,sol-green))))
-   `(kubernetes-json-key
-     ((default . (:bold t
-                  :inherit sol-foreground))))
-   `(kubernetes-selector
-     ((default . (:inherit sol-light-background-i))))))
-
-(with-eval-after-load 'diff-hl
-  (custom-set-faces
-   `(diff-hl-change
-     ((default . (:inherit (sol-superlight-foreground
-                            sol-superlight-background)))))
-   `(diff-hl-insert
-     ((default . (:inherit diff-hl-change))))
-   `(diff-hl-delete
-     ((default . (:inherit diff-hl-change))))
-   `(diff-hl-reverted-chunk-highlight
-     ((default . (:inherit diff-hl-change))))))
-
 ;; Replaces the default arrows you see in the left and right fringe with a
 ;; nicer-looking bitmap.
 (setf (alist-get 'continuation fringe-indicator-alist) 'empty-line)
 (setf (alist-get 'truncation fringe-indicator-alist) 'empty-line)
-
 
 ;; Solarized theme
 

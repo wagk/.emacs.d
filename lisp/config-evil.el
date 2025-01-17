@@ -21,6 +21,17 @@
   (undo-tree-history-directory-alist
    `(("." . ,(locate-user-emacs-file (file-name-concat "etc" "undo-tree")))))
   (undo-tree-enable-undo-in-region t)
+  :custom-face
+  (undo-tree-visualizer-default-face
+   ((default . (:inherit sol-foreground))))
+  (undo-tree-visualizer-active-branch-face
+   ((default . (:inherit sol-light-background-i))))
+  (undo-tree-visualizer-current-face
+   ((default . (:foreground ,sol-green))))
+  (undo-tree-visualizer-register-face
+   ((default . (:foreground ,sol-yellow))))
+  (undo-tree-visualizer-unmodified-face
+   ((default . (:foreground ,sol-blue))))
   :hook
   (evil-local-mode-hook . turn-on-undo-tree-mode)
   :general
@@ -144,6 +155,10 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
     t
     "Automatically indent when inserting a newline")
   (evil-want-fine-undo t)
+  :custom-face
+  (evil-ex-search ((default . (:inherit match))))
+  (evil-ex-info ((default . (:foreground ,sol-red))))
+  (evil-ex-substitute-replacement ((default . (:foreground ,sol-red))))
   :hook ((evil-normal-state-entry-hook . evil-ex-nohighlight)
          (after-init-hook . --update-evil-shift-width-for-emacs-lisp))
   :init

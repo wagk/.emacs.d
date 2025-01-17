@@ -23,6 +23,37 @@
   (magit-log-show-refname-after-summary t)
   (magit-show-long-lines-warning nil)
   (magit-commit-ask-to-stage 'stage)
+  :custom-face
+  (magit-keyword ((default . (:foreground ,sol-cyan))))
+  (magit-keyword-squash ((default . (:bold t
+                                     :foreground ,sol-green))
+                         (((type nil)) . (:bold nil))))
+  (magit-header-line ((default . (:underline t
+                                  :inherit magit-section-heading))
+                      (((type nil)) . (:underline nil))))
+  (magit-keyword-squash ((default . (:bold t
+                                     :foreground ,sol-green))
+                         (((type nil)) . (:bold nil))))
+  (magit-head ((default . (:bold t
+                           :foreground ,sol-magenta))
+               (((type nil)) . (:bold nil))))
+  (magit-branch-local ((default . (:bold t
+                                   :foreground ,sol-blue))
+                       (((type nil)) . (:bold nil))))
+  (magit-branch-remote ((default . (:bold t
+                                    :foreground ,sol-green))
+                        (((type nil)) . (:bold nil))))
+  (magit-tag ((default . (:bold t
+                          :foreground ,sol-violet))
+              (((type nil)) . (:bold nil))))
+  (magit-dimmed ((default . (:inherit sol-light-foreground
+                             :foreground unspecified))))
+  (magit-hash ((default . (:foreground unspecified
+                           :bold t
+                           :inherit sol-light-foreground))
+               (((type nil)) . (:bold nil))))
+  (magit-cherry-equivalent ((default . (:foreground ,sol-magenta))))
+  (magit-cherry-unmatched ((default . (:foreground ,sol-cyan))))
   :general
   ;; (general-define-key
   ;;   :keymaps 'project-prefix-map
@@ -151,14 +182,178 @@ assume # starts a comment."
                            'magit-keyword msg)))
       msg)))
 
+(use-package magit-blame
+  :ensure nil
+  :custom-face
+  (magit-blame-highlight
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit sol-superlight-background)))))
+
+(use-package magit-sequence
+  :ensure nil
+  :custom-face
+  (magit-sequence-head
+   ((default . (:foreground unspecified
+                :inherit nano-salient))))
+  (magit-sequence-drop
+   ((default . (:foreground ,sol-red
+                :strike-through t))))
+  (magit-sequence-part
+   ((default . (:foreground ,sol-yellow))))
+  (magit-sequence-stop
+   ((default . (:foreground ,sol-violet)))))
+
+(use-package magit-section
+  :ensure nil
+  :custom-face
+  (magit-section-heading
+   ((default . (:foreground unspecified
+                :underline t
+                :inherit sol-foreground))
+    (((type nil)) . (:inherit sol-strong-foreground))))
+  (magit-section-heading-selection
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit region))))
+  (magit-section-highlight
+   ((default . (:background unspecified
+                :bold t))
+    (((type nil)) . (:bold nil
+                     :inherit sol-superlight-background)))))
+
+(use-package magit-log
+  :ensure nil
+  :custom-face
+  (magit-log-graph
+   ((default . (:foreground unspecified
+                :inherit sol-foreground))))
+  (magit-log-author
+   ((default . (:foreground unspecified
+                :inherit sol-foreground))))
+  (magit-log-date
+   ((default . (:foreground unspecified
+                :inherit sol-foreground)))))
+
+(use-package magit-reflog
+  :ensure nil
+  :custom-face
+  (magit-reflog-amend
+   ((default . (:foreground ,sol-magenta))))
+  (magit-reflog-checkout
+   ((default . (:foreground ,sol-blue))))
+  (magit-reflog-cherry-pick
+   ((default . (:foreground ,sol-green))))
+  (magit-reflog-commit
+   ((default . (:foreground ,sol-green))))
+  (magit-reflog-merge
+   ((default . (:foreground ,sol-green))))
+  (magit-reflog-other
+   ((default . (:foreground ,sol-cyan))))
+  (magit-reflog-rebase
+   ((default . (:foreground ,sol-magenta))))
+  (magit-reflog-remote
+   ((default . (:foreground ,sol-cyan))))
+  (magit-reflog-reset
+   ((default . (:foreground ,sol-red)))))
+
 (use-package magit-diff
   :ensure nil
-  :after (magit general)
   :general
   (magit-diff-mode-map
    :states 'normal
    "[[" 'help-go-back
-   "]]" 'help-go-forward))
+   "]]" 'help-go-forward)
+  :custom-face
+  ;; base
+  (magit-diff-context ((default . (:foreground unspecified
+                                   :inherit sol-superlight-background))))
+  (magit-diff-context-highlight ((default . (:foreground unspecified
+                                             :background unspecified
+                                             :inherit (sol-superlight-background
+                                                       magit-diff-context)))))
+  ;; removed
+  (magit-diff-removed ((default . (:background unspecified
+                                   :foreground ,sol-red
+                                   :inherit magit-diff-context))))
+  (magit-diff-removed-highlight ((default . (:foreground unspecified
+                                             :background unspecified
+                                             :inherit (magit-diff-removed
+                                                       magit-diff-context-highlight)))))
+  (magit-diffstat-removed ((t . (:foreground ,sol-red))))
+  ;; added
+  (magit-diff-added
+   ((default . (:foreground ,sol-green
+                :background unspecified
+                :inherit magit-diff-context))))
+  (magit-diff-added-highlight
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit (magit-diff-added
+                          magit-diff-context-highlight)))))
+  (magit-diffstat-added
+   ((t . (:foreground ,sol-green))))
+  ;; (rebase) ours
+  (magit-diff-our
+   ((default . (:foreground ,sol-violet
+                :extend t
+                :inherit sol-superlight-background))))
+  (magit-diff-our-highlight
+   ((default . (:inherit magit-diff-our))))
+  ;; (rebase) theirs
+  (magit-diff-their
+   ((default . (:foreground ,sol-yellow
+                :extend t
+                :inherit sol-superlight-background))))
+  (magit-diff-their-highlight
+   ((default . (:inherit magit-diff-their))))
+  ;; (rebase) base
+  (magit-diff-base
+   ((default . (:foreground ,sol-blue
+                :background unspecified
+                :extend t
+                :inherit sol-superlight-background))))
+  (magit-diff-base-highlight
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit magit-diff-base))))
+  ;; hunk
+  (magit-diff-hunk-heading
+   ((default . (:bold t
+                :foreground unspecified
+                :background unspecified
+                :extend nil
+                :inherit (sol-light-foreground)))))
+  (magit-diff-hunk-heading-highlight
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit magit-diff-hunk-heading))))
+  (magit-diff-hunk-heading-selection
+   ((default . (:foreground unspecified
+                :inherit magit-diff-hunk-heading-highlight))))
+  ;; file
+  (magit-diff-file-heading
+   ((default . (:foreground unspecified
+                :inherit sol-foreground
+                :bold t))))
+  (magit-diff-file-heading-highlight
+   ((default . (:inherit magit-diff-file-heading
+                :bold t))))
+  (magit-diff-file-heading-selection
+   ((default . (:foreground unspecified
+                :inherit magit-diff-file-heading-highlight))))
+  (magit-diff-lines-heading
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit magit-diff-hunk-heading-highlight))))
+  ;; conflict markers
+  (magit-diff-conflict-heading
+   ((default . (:foreground ,sol-cyan
+                :extend t
+                :inherit sol-superlight-background))))
+  ;; revision (?)
+  (magit-diff-revision-summary
+   ((default . (:inherit sol-foreground)))))
 
 (use-package consult-git-log-grep
   :ensure (:host github :repo "ghosty141/consult-git-log-grep")
@@ -299,6 +494,12 @@ assume # starts a comment."
   (blamer-min-offset 5)
   (blamer-idle-time 1)
   (blamer-view 'overlay-right)
+  :custom-face
+  (blamer-face
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit sol-light-foreground))
+    (((supports (:weight))) . (:weight extra-light))))
   :hook
   (prog-mode-hook . blamer-mode))
 
@@ -307,6 +508,20 @@ assume # starts a comment."
   :after dired
   :custom
   (diff-hl-disable-on-remote t)
+  :custom-face
+  (diff-hl-change
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit (sol-superlight-foreground
+                          sol-superlight-background)))))
+  (diff-hl-insert
+   ((default . (:foreground unspecified
+                :inherit diff-hl-change))))
+  (diff-hl-delete
+   ((default . (:foreground unspecified
+                :inherit diff-hl-change))))
+  (diff-hl-reverted-chunk-highlight
+   ((default . (:inherit diff-hl-change))))
   :init
   (cl-defun --maybe-activate-diff-hl-dired-mode ()
     (unless (file-remote-p default-directory)

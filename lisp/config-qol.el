@@ -54,6 +54,11 @@
   (global-hl-todo-mode)
   :hook ((prog-mode-hook  . hl-todo-mode)
          (yaml-mode-hook  . hl-todo-mode))
+  :custom
+  (hl-todo-keyword-faces `(("TODO"  . sol-strong-foreground)
+                           ("DEBUG" . sol-strong-foreground)
+                           ("NOTE"  . sol-strong-foreground)
+                           ("FIXME" . sol-strong-foreground)))
   :general
   ;; (:states 'normal
   ;;  :prefix my-default-evil-leader-key
@@ -198,6 +203,10 @@
   ;; very laggy on large files.
   ;; TODO (pangt): figure out a way to conditionally disable
   :ensure (:host github :repo "Boruch-Baum/emacs-cursor-flash")
+  :custom-face
+  (cursor-flash-face ((default . (:foreground unspecified
+                                  :background unspecified
+                                  :inherit nano-salient-i))))
   :config
   (cursor-flash-mode))
 
@@ -216,17 +225,18 @@
   (flycheck-indication-mode 'left-margin)
   (flycheck-auto-display-errors-after-checking nil)
   (flycheck-display-errors-function nil)
-  ;; :custom-face
-  ;; (flycheck-error ((t (:underline (:color ,sol-red :style line)))))
-  ;; (flycheck-delimited-error ((t (:inherit flycheck-error))))
-  ;; (flycheck-info ((t (:underline (:color ,sol-blue :style line)))))
-  ;; (flycheck-warning ((t (:underline (:color ,sol-yellow :style line)))))
-  ;; (flycheck-fringe-error ((((background light)) (:background ,sol-base3 :foreground ,sol-red))
-  ;;                         (((background dark)) (:background ,sol-base03 :foreground ,sol-red))))
-  ;; (flycheck-fringe-info ((((background light)) (:background ,sol-base3 :foreground ,sol-blue))
-  ;;                        (((background dark)) (:background ,sol-base03 :foreground ,sol-blue))))
-  ;; (flycheck-fringe-warning ((((background light)) (:background ,sol-base3 :foreground ,sol-yellow))
-  ;;                           (((background dark)) (:background ,sol-base03 :foreground ,sol-yellow))))
+  :custom-face
+  (flycheck-error-list-highlight
+   ((default . (:extend t :inherit sol-superlight-background))))
+  (flycheck-error
+   ((default . (:underline nil
+                :inherit sol-foreground-box))))
+  (flycheck-info
+   ((default . (:underline nil
+                :inherit sol-foreground-box))))
+  (flycheck-warning
+   ((default . (:underline nil
+                :inherit sol-foreground-box))))
   :hook
   ((prog-mode-hook . flycheck-mode))
   :config
@@ -343,6 +353,9 @@
   :custom
   (highlight-indent-guides-method 'character)
   (highlight-indent-guides-auto-enabled nil)
+  :custom-face
+  (highlight-indent-guides-character-face
+   ((default . (:inherit sol-superlight-foreground))))
   :hook
   ((prog-mode-hook . highlight-indent-guides-mode)))
 
@@ -356,7 +369,11 @@
    "g *" 'fill-function-arguments-dwim))
 
 (use-package macrostep
-  :commands (macrostep-expand))
+  :commands (macrostep-expand)
+  :custom-face
+  (macrostep-expansion-highlight-face
+   ((default . (:inherit sol-light-background
+                :foreground ,sol-green)))))
 
 (use-package eros
   :custom-face
@@ -440,7 +457,16 @@
   :custom
   (scopeline-overlay-prefix " ^^^ ")
   (scopeline-overlay-prefix " ")
-  (scopeline-min-lines 10))
+  (scopeline-min-lines 10)
+  :custom-face
+  (scopeline-face
+   ((default . (:weight ultra-light
+                :inherit sol-light-foreground))))
+  :config
+  (with-eval-after-load 'eglot
+    (custom-set-faces
+     `(scopeline-face
+       ((default . (:inherit eglot-inlay-hint-face)))))))
 
 ;; Don't forget to set =chatgpt-shell-openai-key= somewhere.
 (use-package chatgpt-shell
@@ -528,6 +554,16 @@
   ;;     (setq name (format "*<%s>%s*" gptel-model name))
   ;;     (list name a b c))))
 
+(use-package gptel-context
+  :ensure nil
+  :after gptel
+  :defer t
+  :custom-face
+  (gptel-context-deletion-face
+   ((default . (:foreground ,sol-red))))
+  (gptel-context-highlight-face
+   ((default . (:foreground ,sol-green)))))
+
 (use-package restart-emacs
   :if (not (eq system-type 'darwin))
   :ensure (:host github :repo "iqbalansari/restart-emacs")
@@ -546,13 +582,23 @@
                    ("terminfo/65" "terminfo/65/*")
                    ("integration" "integration/*")
                    (:exclude ".dir-locals.el" "*-tests.el")))
+  :commands eat
   :custom
   (eat-term-name "*eat-term*"))
 
 (use-package kubernetes
+  :commands kubernetes-dispatch
   :init
   (with-eval-after-load 'evil
-    (evil-ex-define-cmd "k8s" #'kubernetes-dispatch)))
+    (evil-ex-define-cmd "k8s" #'kubernetes-dispatch))
+  :custom-face
+  (kubernetes-namespace
+   ((default . (:foreground ,sol-green))))
+  (kubernetes-json-key
+   ((default . (:bold t
+                :inherit sol-foreground))))
+  (kubernetes-selector
+   ((default . (:inherit sol-light-background-i)))))
 
 ;; (use-package kubernetes-evil
 ;;   :after kubernetes)

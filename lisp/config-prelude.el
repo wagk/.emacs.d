@@ -131,7 +131,15 @@
 ;; https://github.com/positron-solutions/transient-showcase
 (use-package transient
   :demand t
-  :ensure (:host github :repo "magit/transient"))
+  :ensure (:host github :repo "magit/transient")
+  :after config-theme
+  :custom-face
+  (transient-key-exit
+   ((default . (:foreground ,sol-red))))
+  (transient-key-return
+   ((default . (:foreground ,sol-yellow))))
+  (transient-key-stay
+   ((default . (:foreground ,sol-blue)))))
 
 (use-package no-littering
   :ensure (:host github :repo "emacscollective/no-littering")

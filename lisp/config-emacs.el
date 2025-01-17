@@ -264,6 +264,14 @@ Returns a string, or nil if there is no path associated with the buffer."
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'always)
   (dired-dwim-target t)
+  :custom-face
+  (dired-directory
+   ((default . (:bold t :inherit sol-foreground))
+    (((type nil)) . (:inherit sol-strong-foreground))))
+  (dired-broken-symlink
+   ((default . (:background ,sol-red
+                :foreground unspecified
+                :inherit sol-foreground-i))))
   :general
   (dired-mode-map
    :states 'normal
@@ -307,6 +315,20 @@ Returns a string, or nil if there is no path associated with the buffer."
                                              (tab-bar-new-tab)
                                            (my-evil-new-tab nil))
                                          (dired-jump)))))
+
+(use-package dired-async
+  :ensure nil
+  :after async ;; part of this package
+  :commands dired-async-mode
+  :custom-face
+  (dired-async-failures
+   ((default . (:foreground ,sol-red))))
+  (dired-async-message
+   ((default . (:foreground unspecified
+                :inherit sol-foreground))))
+  (dired-async-mode-message
+   ((default . (:foreground unspecified
+                :inherit sol-foreground)))))
 
 (use-package dired-auto-readme
   :disabled t
@@ -366,7 +388,8 @@ Returns a string, or nil if there is no path associated with the buffer."
   :ensure nil
   :custom-face
   (flymake-error ((default . (:inherit sol-foreground-box))))
-  (flymake-note ((default . (:inherit sol-light-foreground))))
+  (flymake-note ((default . (:underline nil
+                             :inherit sol-light-foreground))))
   (flymake-warning ((default . (:inherit sol-light-foreground))))
   :custom
   (flymake-error-bitmap nil)
@@ -395,6 +418,15 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom
   (eglot-prefer-plaintext t)
   (eglot-extend-to-xref t)
+  :custom-face
+  (eglot-highlight-symbol-face
+   ((default . (:weight unspecified
+                :inherit sol-superlight-background))))
+  (eglot-inlay-hint-face
+   ((default . (:height unspecified
+                :inherit sol-light-foreground))
+    (((supports (:italic)) (supports (:weight))) .
+     (:italic t :weight semi-light))))
   :hook
   ((eglot-managed-mode-hook . eglot-inlay-hints-mode))
   :general
@@ -434,7 +466,10 @@ Returns a string, or nil if there is no path associated with the buffer."
   :ensure (:host github :repo "clemera/dired-git-info")
   :after dired
   :hook
-  (dired-after-readin-hook . (lambda () (dired-git-info-auto-enable))))
+  (dired-after-readin-hook . (lambda () (dired-git-info-auto-enable)))
+  :custom-face
+  (dgi-commit-message-face
+   ((default . (:inherit sol-foreground)))))
 
 (use-package recentf
   :ensure nil
@@ -528,6 +563,20 @@ Returns a string, or nil if there is no path associated with the buffer."
   (tab-bar-new-button nil)
   (tab-bar-new-tab-to 'right)
   (tab-bar-tab-name-function #'tab-bar-tab-name-truncated)
+  :custom-face
+  (tab-bar ((default . (:foreground unspecified
+                        :background unspecified
+                        :underline nil))))
+  (tab-bar-tab ((default . (:foreground unspecified
+                            :background unspecified
+                            :underline unspecified
+                            :bold nil
+                            :box nil
+                            :inherit sol-superlight-background))))
+  (tab-bar-tab-inactive ((default . (:foreground unspecified
+                                     :background unspecified
+                                     :bold nil
+                                     :inherit sol-light-foreground))))
   :general
   (:keymaps 'evil-window-map
    ;; single window in tab gets moved into frame
@@ -628,6 +677,32 @@ Returns a string, or nil if there is no path associated with the buffer."
   (compilation-ask-about-save nil)
   (compilation-always-kill t)
   (compile-command "" "Set the default to nothing")
+  :custom-face
+  (compilation-mode-line-run
+   ((default . (:inherit sol-foreground))))
+  (compilation-info
+   ((default . (:foreground unspecified
+                :bold nil))))
+  (compilation-warning
+   ((default . (:foreground unspecified
+                :bold nil
+                :inherit (sol-strong-foreground
+                          sol-superlight-background)))))
+  (compilation-error
+   ((default . (:foreground unspecified
+                :bold t
+                :inherit (sol-strong-foreground
+                          sol-superlight-background)))))
+  (compilation-line-number
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit sol-light-foreground))))
+  (compilation-column-number
+   ((default . (:inherit compilation-line-number))))
+  (compilation-mode-line-fail
+   ((default . (:inherit compilation-error))))
+  (compilation-mode-line-exit
+   ((default . (:inherit sol-foreground))))
   :config
   (with-eval-after-load 'savehist
     (add-to-list 'savehist-additional-variables 'compile-history)
@@ -844,6 +919,20 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
 (use-package smerge-mode
   :ensure nil
   :after (transient evil)
+  :custom-face
+  (smerge-markers
+   ((default . (:foreground ,sol-cyan
+                :inherit sol-light-foreground))))
+  (smerge-base
+   ((default . (:foreground ,sol-blue))))
+  (smerge-lower
+   ((default . (:foreground ,sol-yellow))))
+  (smerge-upper
+   ((default . (:foreground ,sol-violet))))
+  (smerge-refined-added
+   ((default . (:foreground ,sol-green))))
+  (smerge-refined-removed
+   ((default . (:foreground ,sol-red))))
   :init
   (transient-define-prefix --smerge ()
     ["Smerge mode command dispatcher."

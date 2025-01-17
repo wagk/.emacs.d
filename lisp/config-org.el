@@ -91,6 +91,26 @@
   (org-extend-today-until
    5 "I think 5 am is a safe bet for the end of the day")
   (org-note-done 'note)
+  :custom-face
+  (org-meta-line
+   ((default . (:extend t
+                :inherit (sol-light-foreground
+                          sol-superlight-background)))))
+  (org-headline-done
+   ((default . (:strike-through t))))
+  (org-checkbox
+   ((default . (:bold t))))
+  (org-block
+   ((default . (:inherit sol-superlight-background))))
+  (org-block-begin-line
+   ((default . (:inherit org-meta-line))))
+  (org-block-end-line
+   ((default . (:inherit org-meta-line))))
+  (org-drawer
+   ((default . (:inherit sol-light-foreground))))
+  (org-special-keyword
+   ((default . (:foreground ,sol-blue
+                :inherit sol-foreground))))
   :hook ((org-insert-heading-hook . evil-insert-state))
   :init
   (with-eval-after-load 'ol

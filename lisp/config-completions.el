@@ -33,6 +33,11 @@
                                orderless-initialism
                                orderless-prefixes
                                orderless-flex))
+  :custom-face
+  (orderless-match-face-0 ((default . (:foreground ,sol-green))))
+  (orderless-match-face-1 ((default . (:foreground ,sol-blue))))
+  (orderless-match-face-2 ((default . (:foreground ,sol-cyan))))
+  (orderless-match-face-3 ((default . (:foreground ,sol-violet))))
   :config
   (with-eval-after-load 'consult
     ;; Adapted from
@@ -85,6 +90,11 @@
   :custom
   (consult-narrow-key ">")
   (consult-widen-key "<")
+  :custom-face
+  (consult-separator
+   ((default . (:inherit sol-superlight-foreground))))
+  (consult-line-number-wrapped
+   ((default . (:inherit line-number))))
   :config
   (add-to-list 'consult-async-split-styles-alist
                '(slashperl :initial "/" :function consult--split-perl))
@@ -187,13 +197,12 @@
   (corfu-map
    "<return>" #'corfu-complete)
   :custom-face
-  (corfu-bar ((t (:inherit region))))
-  (corfu-border ((t (:inherit corfu-default
-                     :background unspecified))))
-  (corfu-deprecated ((t (:inherit shadow :strike-through nil)))))
-  ;;:config)
-  ;; (global-corfu-mode)
-  ;;(corfu-echo-mode))
+  (corfu-current ((default . (:inverse-video t
+                              :inherit sol-light-foreground))))
+  (corfu-bar ((t . (:inherit region))))
+  (corfu-border ((t . (:inherit corfu-default
+                       :background unspecified))))
+  (corfu-deprecated ((t . (:inherit shadow :strike-through nil)))))
 
 (use-package embark
   :after vertico
