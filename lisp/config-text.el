@@ -349,7 +349,6 @@
   :config
   (global-tree-sitter-mode))
 
-
 (use-package tree-sitter-langs
   :after tree-sitter)
 
@@ -370,11 +369,8 @@
   :config
   (global-treesit-fold-mode))
 
-
 ;; dice rolling and the like
-(use-package decide
-  :config
-  (decide-mode))
+(use-package decide)
 
 ;; Zebra patterns for buffer
 (use-package stripe-buffer
