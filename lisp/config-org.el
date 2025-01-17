@@ -6,7 +6,6 @@
 
 (use-package org
   :ensure (:host github :repo "emacs-straight/org-mode" :branch "main")
-  :demand t
   :after config-theme
   :commands (orgtbl-mode
              org-babel-load-file)
