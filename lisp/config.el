@@ -61,6 +61,8 @@
 
 (require 'config-prelude)
 
+(require 'config-theme)
+
 (require 'config-helpers)
 (require 'config-evil)
 (require 'config-git)
@@ -77,8 +79,6 @@
 (require 'config-japanese)
 (require 'config-anki)
 (require 'config-markdown)
-
-(require 'config-theme)
 
 (elpaca-process-queues)
 
