@@ -190,8 +190,9 @@
                                   (message "No project compilation buffer detected.")))))
     (evil-ex-define-cmd "pcc" #'(lambda ()
                                   (interactive)
-                                  (let ((default-directory
-                                          (project-root (project-current))))
+                                  (let* ((dir (project-root (project-current)))
+                                         (default-directory dir)
+                                         (compilation-directory dir))
                                     (recompile))))
 
     (with-eval-after-load 'consult
