@@ -369,6 +369,15 @@
            (treesit-available-p)
            (not (eq system-type 'windows-nt)))
   :ensure (:host github :repo "emacs-tree-sitter/treesit-fold" :branch "master")
+  :custom-face
+  (treesit-fold-replacement-face
+   ((default . (:inherit sol-superlight-background
+                :box unspecified
+                :foreground unspecified))))
+  (treesit-fold-replacement-mouse-face
+   ((default . (:inherit sol-superlight-background
+                :box unspecified
+                :foreground unspecified))))
   :general
   (:states 'normal
    "za" #'treesit-fold-toggle
