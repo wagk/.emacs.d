@@ -318,6 +318,9 @@
     (evil-ex-define-cmd "hl-todo" 'search-hl-todo-keywords)))
 
 (use-package origami
+  :if (or (eq system-type 'windows-nt)
+          (not (and (fboundp 'treesit-available-p)
+                    (treesit-available-p))))
   :ensure (:host github :repo "gregsexton/origami.el")
   :after evil
   :defer 2
@@ -366,6 +369,15 @@
            (treesit-available-p)
            (not (eq system-type 'windows-nt)))
   :ensure (:host github :repo "emacs-tree-sitter/treesit-fold" :branch "master")
+  :general
+  (:states 'normal
+   "za" #'treesit-fold-toggle
+   "zc" #'treesit-fold-close
+   "zC" #'treesit-fold-close-recursively
+   "zo" #'treesit-fold-open
+   "zO" #'treesit-fold-open-recursively
+   "zm" #'treesit-fold-close-all
+   "zr" #'treesit-fold-open-all)
   :config
   (global-treesit-fold-mode))
 
