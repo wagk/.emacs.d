@@ -469,7 +469,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   :ensure (:host github :repo "clemera/dired-git-info")
   :after (dired config-theme)
   :hook
-  (dired-after-readin-hook . (lambda () (dired-git-info-auto-enable)))
+  (dired-after-readin-hook . dired-git-info-auto-enable)
   :custom-face
   (dgi-commit-message-face
    ((default . (:inherit sol-foreground)))))
@@ -498,7 +498,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   (bookmark-face
    ((default . (:inherit sol-subtle))))
   :config
-  (defun config-define-bookmark (name path &optional overwrite annotation)
+  (cl-defun config-define-bookmark (name path &optional overwrite annotation)
     "Programmatically creates and stores bookmarks into the bookmark file. We do
    this here because as of 2019-04-01T16:13:14+0800 we have no idea if there is an
    existing interface to do this. If one is found this will be marked obsolete and
