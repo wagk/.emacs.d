@@ -58,6 +58,8 @@ rust-mode rust-ts-mode
 
 (matches "matches!(" p "," (s pattern) ");" q)
 
+(print "println!(\"" q "\");" >)
+
 ;; functions
 (f "fn " (p "foo")  "(" p ") " p "{"
    n> (p "todo!()") q
