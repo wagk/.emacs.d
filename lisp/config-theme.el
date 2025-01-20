@@ -58,13 +58,23 @@
   ;; TODO: set documentation string
   ;; configure faces like this if and only if it's not already defined
   ;; in `local.el'
-  (unless (boundp (car col))
+  (if (boundp (car col))
+      (message "color %s is already bound to %s" (car col) (cdr col))
     (set (car col) (cdr col))))
 
 (with-eval-after-load 'evil
   (evil-ex-define-cmd "faces" 'list-faces-display))
 
 ;; Fonts
+(defcustom --default-font-size 20
+  "Default frame font size."
+  :group 'personal
+  :type 'natnum
+  :set
+  #'(lambda (obj size)
+      (set-default-toplevel-value obj size)
+      (with-eval-after-load 'config-theme
+        (--find-and-set-fonts))))
 
 (cl-defun --find-and-set-fonts ()
   (interactive)
@@ -89,16 +99,6 @@
       (custom-set-faces `(variable-pitch ((default . (:font ,iosevka-etoile))))))
     (when (find-font iosevka-aile)
       (custom-set-faces `(fixed-pitch-serif ((default . (:font ,iosevka-aile))))))))
-
-(defcustom --default-font-size 20
-  "Default frame font size."
-  :group 'personal
-  :type 'natnum
-  :set
-  #'(lambda (obj size)
-      (set-default-toplevel-value obj size)
-      (with-eval-after-load 'config-theme
-        (--find-and-set-fonts))))
 
 (add-hook 'after-init-hook #'--find-and-set-fonts)
 (add-hook 'server-after-make-frame-hook #'--find-and-set-fonts)
