@@ -35,6 +35,10 @@ prog-mode
 (nn (--tempel-maybe-comment) "NOTE (pangt): " q)
 (tt (--tempel-maybe-comment) "TODO (pangt): " q)
 
+emacs-lisp-mode
+
+(l "(lambda (" p ")" p ")" q >)
+
 markdown-mode gfm-mode org-mode
 
 (-- "- [ ] " q)
