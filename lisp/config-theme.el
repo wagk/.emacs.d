@@ -108,46 +108,6 @@
   :config
   (load-theme 'solarized t))
 
-;; Nano theme
-
-(use-package nano-theme
-  :disabled t
-  :ensure (:host github :repo "emacs-straight/nano-theme" :branch "main")
-  :custom
-  (nano-window-divider-show t)
-  (nano-fonts-use nil)) ;; for now
-
-(customize-set-variable 'nano-light-foreground sol-base00)
-(customize-set-variable 'nano-light-background sol-base3)
-(customize-set-variable 'nano-light-highlight  sol-base2)
-(customize-set-variable 'nano-light-subtle     sol-base2)
-(customize-set-variable 'nano-light-faded      sol-base0)
-(customize-set-variable 'nano-light-salient    sol-green)
-(customize-set-variable 'nano-light-strong     sol-base01)
-(customize-set-variable 'nano-light-popout     sol-orange)
-(customize-set-variable 'nano-light-critical   sol-red)
-
-(customize-set-variable 'nano-dark-foreground  sol-base0)
-(customize-set-variable 'nano-dark-background  sol-base03)
-(customize-set-variable 'nano-dark-highlight   sol-base02)
-(customize-set-variable 'nano-dark-subtle      sol-base02)
-(customize-set-variable 'nano-dark-faded       sol-base00)
-(customize-set-variable 'nano-dark-salient     sol-cyan)
-(customize-set-variable 'nano-dark-strong      sol-base1)
-(customize-set-variable 'nano-dark-popout      sol-orange)
-(customize-set-variable 'nano-dark-critical    sol-red)
-
-(with-eval-after-load 'nano-theme
-  ;; (load-theme (or (bound-and-true-p --default-background) 'nano-dark) t))
-  (load-theme (or (bound-and-true-p --default-background) 'nano-light) t))
-
-(cl-defun --load-config-theme (&optional dark)
-  (interactive)
-  ;; (if dark
-  ;;     (load-theme 'nano-dark t)
-  ;;   (load-theme 'nano-light t))
-  (load-file (locate-user-emacs-file (file-name-concat "lisp" "config-theme.el"))))
-
 (customize-set-variable 'frame-background-mode 'nil)
 
 (defface sol-background
@@ -269,24 +229,5 @@
 ;; put it here.
 (setf (alist-get 'continuation fringe-indicator-alist) 'empty-line)
 (setf (alist-get 'truncation fringe-indicator-alist) 'empty-line)
-
-;; Solarized theme
-
-(use-package solarized-theme
-  :disabled t
-  :ensure (:host github :repo "bbatsov/solarized-emacs")
-  ;; :if (display-graphic-p)
-  :custom
-  (solarized-use-variable-pitch nil)
-  (solarized-distinct-fringe-background nil)
-  (solarized-high-contrast-mode-line nil)
-  (solarized-use-less-bold t)
-  (solarized-use-more-italic nil)
-  (solarized-scale-org-headlines nil)
-  (solarized-height-minus-1 1.0)
-  (solarized-height-plus-1 1.0)
-  (solarized-height-plus-2 1.0)
-  (solarized-height-plus-3 1.0)
-  (solarized-height-plus-4 1.0))
 
 (provide 'config-theme)
