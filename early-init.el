@@ -17,7 +17,9 @@
 
 (when (and (fboundp 'native-comp-available-p)
            (native-comp-available-p))
-  (setq native-comp-async-report-warnings-errors 'silent))
+  (setq native-comp-async-report-warnings-errors 'silent)
+  (when (boundp 'native-comp-always-compile)
+    (setq native-comp-always-compile t)))
 
 (defvaralias
   'comp-deferred-compilation-deny-list
