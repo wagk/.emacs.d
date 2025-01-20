@@ -837,20 +837,27 @@ should prepopulate."
 
 ;; Personal notes and the like
 (use-package consult-notes
-  :disabled t
-  :after (config-evil-helpers consult)
-  :if (bound-and-true-p --notes-folder)
-  :commands
-  (consult-notes
-   consult-notes-search-in-all-notes)
+  :after markdown-mode
   :custom
+  (consult-notes-default-format 'markdown-mode)
   (consult-notes-file-dir-sources
-   `(("Deft" ?d ,--notes-folder)))
-  :init
-  (--evil-ex-define-cmds-splits-and-tabs
-   "nn"
-   #'consult-notes
-   #'(lambda () (consult-notes))))
+   `(("obsidian" ?o ,config-markdown-active-vault))))
+
+;; (use-package consult-notes
+;;   :disabled t
+;;   :after (config-evil-helpers consult)
+;;   :if (bound-and-true-p --notes-folder)
+;;   :commands
+;;   (consult-notes
+;;    consult-notes-search-in-all-notes)
+;;   :custom
+;;   (consult-notes-file-dir-sources
+;;    `(("Deft" ?d ,--notes-folder)))
+;;   :init
+;;   (--evil-ex-define-cmds-splits-and-tabs
+;;    "nn"
+;;    #'consult-notes
+;;    #'(lambda () (consult-notes))))
 
 (use-package obsidian
   :after evil
