@@ -542,7 +542,8 @@ Lisp function does not specify a special indentation."
   (with-eval-after-load 'tree-sitter
     (add-hook 'terraform-mode-hook #'tree-sitter-mode)))
 
-(use-package dockerfile-mode)
+(use-package dockerfile-mode
+  :commands dockerfile-mode)
 
 ;; multi major mode
 (use-package mmm-mode
@@ -633,6 +634,7 @@ Lisp function does not specify a special indentation."
 
 (use-package csv-mode
   :ensure (:host github :repo "emacs-straight/csv-mode" :branch "master")
+  :commands csv-mode
   :custom
   (csv-align-style 'auto)
   :config

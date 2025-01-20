@@ -445,6 +445,7 @@
    (evil-ex-define-cmd "cs" 'shortdoc)))
 
 (use-package dwim-shell-command
+  :disabled t ;; find a use for this eventually... maybe
   :ensure (:host github :repo "xenodium/dwim-shell-command"))
 
 (use-package scopeline

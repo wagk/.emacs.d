@@ -369,6 +369,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package eww
   :ensure nil
+  :commands eww
   :after config-theme
   :custom-face
   (eww-form-submit
@@ -419,6 +420,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package sh-script
   :ensure nil
+  :commands shell-script-mode
   :after config-theme
   :custom-face
   (sh-heredoc
@@ -431,14 +433,14 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package ielm
   :ensure nil
+  :commands ielm
   :init
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "repl" 'ielm)))
 
 (use-package dired
-  :demand t
-  :after config-theme
   :ensure nil
+  :after config-theme
   :hook
   (dired-mode-hook . hl-line-mode)
   (dired-mode-hook . dired-async-mode)
@@ -824,6 +826,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package calendar
   :ensure nil
+  :commands calendar
   :custom
   (calendar-week-start-day 1 "monday"))
 
@@ -1118,6 +1121,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package eshell
   :ensure nil
+  :commands eshell
   :after config-theme
   :custom-face
   (eshell-prompt
@@ -1158,6 +1162,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package calc
   :ensure nil
+  :commands calc
   :general
   (calc-edit-mode-map
    "C-c C-k" '(lambda () (interactive) (kill-buffer (current-buffer)))))
@@ -1236,6 +1241,7 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
 (use-package smerge-mode
   :ensure nil
   :after (transient evil config-theme)
+  :commands smerge-mode
   :custom-face
   (smerge-markers
    ((default . (:foreground ,sol-cyan
@@ -1280,6 +1286,7 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
 (use-package term
   :ensure nil
   :after config-theme
+  :commands term
   :custom-face
   (term-color-red
    ((default . (:foreground ,sol-red

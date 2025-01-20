@@ -255,6 +255,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 ;; :tyank             copy range into tmux paste buffer, requires running under tmux
 ;; :tput              paste from tmux paste nuffer, requires running under tmux
 (use-package evil-expat
+  :disabled t
   :ensure (:host github :repo "edkolev/evil-expat"))
 
 (use-package evil-matchit
