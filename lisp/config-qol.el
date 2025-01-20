@@ -205,9 +205,8 @@
   :ensure (:host github :repo "Boruch-Baum/emacs-cursor-flash")
   :after config-theme
   :custom-face
-  (cursor-flash-face ((default . (:foreground unspecified
-                                  :background unspecified
-                                  :inherit nano-salient-i))))
+  (cursor-flash-face ((default . (:foreground ,sol-green
+                                  :background unspecified))))
   :config
   (cursor-flash-mode))
 

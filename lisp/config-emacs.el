@@ -143,7 +143,6 @@ The DWIM behaviour of this command is as follows:
                        :background unspecified
                        :inverse-video t
                        :inherit sol-superlight-background))))
-  ;; :inherit nano-default))))
   (fringe ((default . (:foreground unspecified
                        :background unspecified
                        :inherit sol-superlight-foreground))))
@@ -154,8 +153,8 @@ The DWIM behaviour of this command is as follows:
                                  :inherit sol-superlight-background))
                      (((supports (:bold))) . (:bold t))))
   (show-paren-mismatch ((default . (:background ,sol-red
-                                     :foreground unspecified
-                                     :inherit nano-default-i))))
+                                    :foreground unspecified
+                                    :inherit sol-foreground-i))))
   (vertical-border ((default . (:foreground unspecified
                                 :inherit sol-superlight-foreground))))
   (mode-line ((default . (:foreground unspecified
@@ -164,8 +163,10 @@ The DWIM behaviour of this command is as follows:
                           :inherit sol-superlight-box))))
   (mode-line-active ((default . (:inherit (sol-light-foreground
                                            sol-superlight-box)))))
-  (mode-line-emphasis ((default . (:inherit nano-subtle))))
-  (mode-line-highlight ((t . (:inherit nano-subtle))))
+  (mode-line-emphasis
+   ((default . (:inherit sol-light-foreground))))
+  (mode-line-highlight
+   ((t . (:inherit sol-light-foreground))))
   (mode-line-buffer-id ((default . (:box unspecified
                                     :inherit sol-light-foreground))))
   (mode-line-inactive ((default . (:inverse-video nil
@@ -371,7 +372,8 @@ Returns a string, or nil if there is no path associated with the buffer."
   :after config-theme
   :custom-face
   (eww-form-submit
-   ((default . (:inherit nano-strong))))
+   ((default . (:weight bold
+                :inherit sol-light-background-i))))
   (eww-form-textarea
    ((default . (:inherit sol-foreground))))
   (eww-form-text
@@ -422,7 +424,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   (sh-heredoc
    ((default . (:foreground ,sol-green))))
   (sh-quoted-exec
-   ((default . (:inherit nano-salient)))))
+   ((default . (:foreground ,sol-green)))))
 
 (use-package queue
   :ensure (:host github :repo "emacs-straight/queue" :branch "master"))
@@ -730,11 +732,11 @@ Returns a string, or nil if there is no path associated with the buffer."
   (diff-refined-removed
    ((default . (:background ,sol-red
                 :strike-through nil
-                :inherit nano-default-i))))
+                :inherit sol-foreground-i))))
   (diff-refined-added
    ((default . (:bold nil
                 :background ,sol-green
-                :inherit nano-default-i))))
+                :inherit sol-foreground-i))))
   (diff-changed-unspecified
    ((default . (:background unspecified
                 :inherit (diff-changed sol-superlight-background)))))

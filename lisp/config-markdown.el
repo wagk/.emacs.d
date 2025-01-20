@@ -50,7 +50,7 @@
    ((default . (:box t))))
   (markdown-strike-through-face
    ((default . (:strike-through t
-                :inherit nano-faded))))
+                :inherit sol-light-foreground))))
   (markdown-inline-code-face
    ((default . (:inherit sol-light-foreground))))
   (markdown-code-face
@@ -96,7 +96,7 @@
         (* " +" (= 4 (any digit)))))
 
   (defface --markdown-tag-face
-    '((default . (:weight light :inherit nano-faded)))
+    '((default . (:weight light :inherit sol-light-foreground)))
     "Face used to describe tags (like `#foo'). I like using tags."
     :group 'personal)
   (defconst --markdown-tag-keyword-regex

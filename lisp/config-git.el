@@ -196,8 +196,7 @@ assume # starts a comment."
   :after (magit config-theme)
   :custom-face
   (magit-sequence-head
-   ((default . (:foreground unspecified
-                :inherit nano-salient))))
+   ((default . (:foreground ,sol-green))))
   (magit-sequence-drop
    ((default . (:foreground ,sol-red
                 :strike-through t))))
