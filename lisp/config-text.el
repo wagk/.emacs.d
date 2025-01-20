@@ -489,8 +489,26 @@
   :hook
   (focus-mode-hook . #'lsp-focus-mode))
 
+(use-package avy
+  :after config-theme
+  :custom-face
+  (avy-background-face
+   ((default . (:inherit sol-foreground-i))))
+  (avy-lead-face
+   ((default . (:background ,sol-green
+                :inherit avy-background-face))))
+  (avy-lead-face-0
+   ((default . (:background ,sol-blue
+                :inherit avy-background-face))))
+  (avy-lead-face-1
+   ((default . (:background ,sol-cyan
+                :inherit avy-background-face))))
+  (avy-lead-face-2
+   ((default . (:background ,sol-violet
+                :inherit avy-background-face)))))
+
 (use-package ace-window
-  :after (evil general config-theme)
+  :after (evil avy general config-theme)
   :custom
   (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   :general

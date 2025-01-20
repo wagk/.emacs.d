@@ -9,7 +9,6 @@
   :ensure nil
   :custom
   (cursor-in-non-selected-windows nil)
-  (enable-recursive-minibuffers t)
   (history-delete-duplicates t)
   (history-length t)
   (version-control t)
@@ -121,6 +120,87 @@ The DWIM behaviour of this command is as follows:
 (with-eval-after-load 'evil
   (evil-ex-define-cmd "rot[13]" 'toggle-rot13-mode))
 
+(use-package faces
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (warning ((default . (:foreground ,sol-orange))))
+  (success ((default . (:foreground ,sol-green))))
+  (error ((default . (:foreground unspecified
+                      :bold t
+                      :background ,sol-red
+                      :inverse-video nil
+                      :inherit sol-foreground-i
+                      :background ,sol-red))
+          (((supports (:bold)))) . (:bold t)))
+  (minibuffer-prompt ((default . (:foreground ,sol-green))))
+  (shadow ((default . (:foreground unspecified
+                       :inherit sol-light-foreground))))
+  (highlight ((default . (:background unspecified
+                          :inherit sol-superlight-background))))
+  (link-visited ((default . (:foreground ,sol-blue))))
+  (region ((default . (:foreground unspecified
+                       :background unspecified
+                       :inverse-video t
+                       :inherit sol-superlight-background))))
+  ;; :inherit nano-default))))
+  (fringe ((default . (:foreground unspecified
+                       :background unspecified
+                       :inherit sol-superlight-foreground))))
+  (variable-pitch-text ((((supports (:height))) . (:height 1))))
+  (fill-column-indicator ((default . (:inherit sol-superlight-foreground))))
+  (show-paren-match ((default . (:foreground unspecified
+                                 :background unspecified
+                                 :inherit sol-superlight-background))
+                     (((supports (:bold))) . (:bold t))))
+  (show-paren-mismatch ((default . (:background ,sol-red
+                                     :foreground unspecified
+                                     :inherit nano-default-i))))
+  (vertical-border ((default . (:foreground unspecified
+                                :inherit sol-superlight-foreground))))
+  (mode-line ((default . (:foreground unspecified
+                          :background unspecified
+                          :inverse-video nil
+                          :inherit sol-superlight-box))))
+  (mode-line-active ((default . (:inherit (sol-light-foreground
+                                           sol-superlight-box)))))
+  (mode-line-emphasis ((default . (:inherit nano-subtle))))
+  (mode-line-highlight ((t . (:inherit nano-subtle))))
+  (mode-line-buffer-id ((default . (:box unspecified
+                                    :inherit sol-light-foreground))))
+  (mode-line-inactive ((default . (:inverse-video nil
+                                   :foreground unspecified
+                                   :background unspecified
+                                   :overline unspecified
+                                   :underline unspecified
+                                   :box unspecified
+                                   :inherit (sol-superlight-box
+                                             sol-superlight-foreground)))))
+  (header-line ((default . (:underline nil
+                            :inverse-video nil
+                            :foreground unspecified
+                            :background unspecified))))
+  (header-line-active ((default . (:inherit header-line))))
+  (help-key-binding ((default . (:foreground ,sol-yellow
+                                 :box nil
+                                 :background unspecified))))
+  (link ((default . (:foreground ,sol-yellow
+                     :underline t
+                     :bold nil))))
+  (line-number ((default . (:inherit sol-superlight-foreground))))
+  (line-number-current-line
+   ((default . (:inherit sol-light-foreground))))
+  (window-divider ((default . (:foreground unspecified
+                               :background unspecified)))))
+
+(use-package minibuffer
+  :ensure nil
+  :after config-theme
+  :custom
+  (enable-recursive-minibuffers t)
+  :custom-face
+  (completions-common-part ((default . (:foreground ,sol-cyan)))))
+
 (use-package time
   :ensure nil
   :custom
@@ -132,6 +212,51 @@ The DWIM behaviour of this command is as follows:
 
 (use-package peg
   :ensure (:host github :repo "emacs-straight/peg" :branch "master"))
+
+(use-package font-lock
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (font-lock-warning-face
+   ((default . (:foreground ,sol-blue))
+    (((supports (:bold)) (supports (:italic))) .
+     (:bold t :italic t))))
+  (font-lock-keyword-face
+   ((default . (:foreground unspecified))))
+  (font-lock-constant-face
+   ((default . (:foreground unspecified))))
+  (font-lock-function-name-face
+   ((default . (:foreground unspecified))))
+  (font-lock-builtin-face
+   ((default . (:foreground unspecified))))
+  (font-lock-variable-name-face
+   ((default . (:foreground unspecified
+                :inherit sol-superstrong-foreground))
+    ;; if character terminal, use colors
+    (((type nil)) . (:inherit sol-strong-foreground))
+    ;; otherwise make it pop by bolding
+    (t . (:bold t :inherit sol-foreground))))
+  (font-lock-comment-face
+   ((default . (:italic nil
+                :inherit (sol-light-foreground sol-superlight-background)))
+    (((type nil)) . (:inherit (sol-superlight-background
+                               sol-light-foreground)))
+    (((supports (:weight))) . (:weight semi-light))))
+  (font-lock-comment-delimiter-face
+   ((default . (:inherit font-lock-comment-face))))
+  (font-lock-doc-face
+   ((default . (:extend t
+                :inherit font-lock-comment-face))))
+  (font-lock-type-face
+   ((default . (:foreground unspecified
+                :inherit sol-foreground))
+    (((supports (:italic))) . (:italic t))))
+  (font-lock-preprocessor-face
+   ((default . (:foreground unspecified
+                :inherit sol-foreground))))
+  (font-lock-string-face
+   ((default . (:foreground unspecified
+                :inherit sol-foreground)))))
 
 (use-package savehist
   :ensure nil
@@ -240,6 +365,64 @@ Returns a string, or nil if there is no path associated with the buffer."
             :repo "emacs-straight/track-changes"
             :branch "master")
   :demand t)
+
+(use-package eww
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (eww-form-submit
+   ((default . (:inherit nano-strong))))
+  (eww-form-textarea
+   ((default . (:inherit sol-foreground))))
+  (eww-form-text
+   ((default . (:inherit sol-light-foreground))))
+  (eww-form-select
+   ((default . (:foreground ,sol-green))))
+  (eww-form-file
+   ((default . (:inherit sol-foreground))))
+  (eww-form-checkbox
+   ((default . (:inherit sol-light-foreground
+                :box t)))))
+
+(use-package replace
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (match
+   ((default (:background unspecified
+              :distant-foreground unspecified
+              :inverse-video nil
+              :foreground ,sol-orange))
+    (((type nil)) (:inverse-video t)))))
+
+(use-package re-builder
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (reb-match-0
+   ((default . (:foreground ,sol-cyan))))
+  (reb-match-1
+   ((default . (:foreground ,sol-blue))))
+  (reb-match-2
+   ((default . (:foreground ,sol-violet))))
+  (reb-match-3
+   ((default . (:foreground ,sol-magenta)))))
+
+(use-package table
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (table-cell
+   ((default . (:inherit sol-foreground)))))
+
+(use-package sh-script
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (sh-heredoc
+   ((default . (:foreground ,sol-green))))
+  (sh-quoted-exec
+   ((default . (:inherit nano-salient)))))
 
 (use-package queue
   :ensure (:host github :repo "emacs-straight/queue" :branch "master"))
@@ -926,10 +1109,43 @@ Returns a string, or nil if there is no path associated with the buffer."
                                      (my-buffer-specific-shell))))
   (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
   :hook
-  ((shell-mode-hook . shell-dirtrack-mode))
+  (shell-mode-hook . shell-dirtrack-mode)
   :config
   (with-eval-after-load 'org
    (org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))))
+
+(use-package eshell
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (eshell-prompt
+   ((default . (:foreground ,sol-green)))))
+
+(use-package isearch
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (isearch
+   ((default . (:background unspecified
+                :foreground ,sol-green
+                :inherit sol-superlight-background))))
+  (lazy-highlight
+   ((default . (:distant-foreground unspecified
+                :background unspecified
+                :inherit match)))))
+
+(use-package simple
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (separator-line ((default . (:inherit 'sol-superlight-background))))
+  :config
+  ;; not a thing in older emacs versions
+  (when (facep 'blink-matching-paren-offscreen)
+    (custom-set-faces
+     `(blink-matching-paren-offscreen
+       ((default . (:inherit sol-strong-background))
+        (((supports (:bold))) . (:bold t)))))))
 
 (use-package so-long
   :ensure nil
@@ -1059,6 +1275,86 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
       ("m" "Combine with Next" smerge-combine-with-next)]])
   (evil-ex-define-cmd "smerge" #'--smerge))
 
+(use-package term
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (term-color-red
+   ((default . (:foreground ,sol-red
+                :background ,sol-red))))
+  (term-color-green
+   ((default . (:foreground ,sol-green
+                :background ,sol-green))))
+  (term-color-yellow
+   ((default . (:foreground ,sol-yellow
+                :background ,sol-yellow))))
+  (term-color-green
+   ((default . (:foreground ,sol-green
+                :background ,sol-green))))
+  (term-color-blue
+   ((default . (:foreground ,sol-blue
+                :background ,sol-blue))))
+  (term-color-magenta
+   ((default . (:foreground ,sol-magenta
+                :background ,sol-magenta))))
+  (term-color-cyan
+   ((default . (:foreground ,sol-cyan
+                :background ,sol-cyan))))
+  (term-color-white
+   ((default . (:foreground ,sol-base2
+                :background ,sol-base2)))))
+
+;; this is done primarily for vterm, so if we're not using vterm these
+;; values might be wrong
+(use-package ansi-color
+  :ensure nil
+  :after config-theme
+  (ansi-color-bright-black
+   ((default . (:foreground ,sol-base03
+                :background ,sol-base03))))
+  (ansi-color-black
+   ((default . (:foreground ,sol-base02
+                :background ,sol-base02))))
+  (ansi-color-bright-blue
+   ((default . (:foreground ,sol-base0
+                :background ,sol-base0))))
+  (ansi-color-blue
+   ((default . (:foreground ,sol-blue
+                :background ,sol-blue))))
+  (ansi-color-bright-cyan
+   ((default . (:foreground ,sol-base1
+                :background ,sol-base1))))
+  (ansi-color-cyan
+   ((default . (:foreground ,sol-cyan
+                :background ,sol-cyan))))
+  (ansi-color-bright-green
+   ((default . (:foreground ,sol-base01
+                :background ,sol-base01))))
+  (ansi-color-green
+   ((default . (:foreground ,sol-green
+                :background ,sol-green))))
+  (ansi-color-bright-magenta
+   ((default . (:foreground ,sol-violet
+                :background ,sol-violet))))
+  (ansi-color-magenta
+   ((default . (:foreground ,sol-magenta
+                :background ,sol-magenta))))
+  (ansi-color-bright-red
+   ((default . (:foreground ,sol-orange
+                :background ,sol-orange))))
+  (ansi-color-red
+   ((default . (:foreground ,sol-red
+                :background ,sol-red))))
+  (ansi-color-bright-white
+   ((default . (:foreground ,sol-base3
+                :background ,sol-base3))))
+  (ansi-color-bright-yellow
+   ((default . (:foreground ,sol-base00
+                :background ,sol-base00))))
+  (ansi-color-yellow
+   ((default . (:foreground ,sol-yellow
+                :background ,sol-yellow)))))
+
 (use-package xref
   :ensure nil
   :config
@@ -1066,15 +1362,26 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
     (setq xref-search-program 'ripgrep))
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
 
+(use-package pulse
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (pulse-highlight-start-face
+   ((default . (:background unspecified
+                :inherit sol-superlight-background)))))
+
 (use-package info
   :ensure nil
-  :after (general evil link-hint)
+  :after (config-theme general evil link-hint)
   :general
   (Info-mode-map
    :states 'normal
    "f" 'link-hint-open-link
    "]]" 'Info-next
-   "[[" 'Info-prev))
+   "[[" 'Info-prev)
+  :custom-face
+  (info-node
+   ((default . (:inherit sol-foreground)))))
 
 (use-package diff-mode
   :ensure nil

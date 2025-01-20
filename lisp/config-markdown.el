@@ -8,6 +8,7 @@
 (use-package markdown-mode
   :ensure (:host github :repo "jrblevin/markdown-mode")
   :mode ("\\.md\\'" . markdown-mode)
+  :after config-theme
   :commands (markdown-mode)
   :custom
   (markdown-asymmetric-header t)
@@ -22,12 +23,85 @@
   (markdown-unordered-list-item-prefix "- ")
   (markdown-wiki-link-fontify-missing nil)
   (markdown-wiki-link-search-type 'project)
+  :custom-face
+  (markdown-header-face
+   ((default . (:inherit sol-superstrong-foreground))))
+  (markdown-header-face-1
+   ((default . (:inherit markdown-header-face))))
+  (markdown-header-face-2
+   ((default . (:inherit markdown-header-face))))
+  (markdown-header-face-3
+   ((default . (:inherit markdown-header-face))))
+  (markdown-header-face-4
+   ((default . (:inherit markdown-header-face))))
+  (markdown-header-face-5
+   ((default . (:inherit markdown-header-face))))
+  (markdown-header-face-6
+   ((default . (:inherit markdown-header-face))))
+  (markdown-header-delimiter-face
+   ((default . (:inherit markdown-header-face))))
+  (markdown-metadata-key-face
+   ((default . (:inherit sol-strong-foreground
+                :weight semi-light))))
+  (markdown-metadata-value-face
+   ((default . (:inherit sol-foreground
+                :weight semi-light))))
+  (markdown-highlighting-face
+   ((default . (:box t))))
+  (markdown-strike-through-face
+   ((default . (:strike-through t
+                :inherit nano-faded))))
+  (markdown-inline-code-face
+   ((default . (:inherit sol-light-foreground))))
+  (markdown-code-face
+   ((default . (:inherit markdown-inline-code-face
+                :extend t))))
+  (markdown-table-face
+   ((default . (:inherit sol-light-foreground))))
+  (markdown-reference-face
+   ((default . (:inherit sol-light-foreground))))
+  (markdown-italic-face
+   ((default . (:italic t))))
+  (markdown-bold-face
+   ((default . (:bold t))))
+  (markdown-plain-url-face
+   ((default . (:inherit markdown-italic-face))))
+  (markdown-url-face
+   ((default . (:inherit (markdown-italic-face
+                          sol-light-foreground)))))
+  (markdown-link-face
+   ((default . (:inherit markdown-italic-face))))
+  (markdown-blockquote-face
+   ((default . (:inherit sol-light-foreground))))
   :general
   (markdown-mode-map
    :states '(normal insert)
     "<tab>" #'--markdown-complete-or-indent-at-table
     "TAB" "<tab>")
   :init
+  (defface --markdown-date-timestamp-face
+    '((default . (:weight semi-light)))
+    "Face used to describe date timestamps. Like years and months and days."
+    :group 'personal)
+  (defconst --markdown-date-timestamp-regex
+    (rx (= 4 (any digit)) "-" (any "0-1") (any digit) "-" (any "0-3") (any digit)))
+
+  (defface --markdown-time-timestamp-face
+    '((default . (:weight semi-light)))
+    "Face used to describe time timestamps. Like hours and minutes."
+    :group 'personal)
+  (defconst --markdown-time-timestamp-regex
+    (rx (= 2 (any digit)) ":" (= 2 (any digit))
+        (* ":" (= 2 (any digit)))
+        (* " +" (= 4 (any digit)))))
+
+  (defface --markdown-tag-face
+    '((default . (:weight light :inherit nano-faded)))
+    "Face used to describe tags (like `#foo'). I like using tags."
+    :group 'personal)
+  (defconst --markdown-tag-keyword-regex
+    (rx (or line-start space punct) "#" (one-or-more (any alnum "_" "-"))))
+
   (setq initial-major-mode 'markdown-mode)
   (cl-defun --markdown-complete-or-indent-at-table ()
     (interactive)
@@ -84,7 +158,16 @@
                             :lstart "| " :lend " |" :sep " | ")))
         (orgtbl-to-generic table (org-combine-plists params2 params)))))
   (with-eval-after-load 'org-src
-    (cl-pushnew '("md" . gfm) org-src-lang-modes)))
+    (cl-pushnew '("md" . gfm) org-src-lang-modes))
+  :config
+  (font-lock-add-keywords
+   'markdown-mode `((,--markdown-tag-keyword-regex 0 '--markdown-tag-face)
+                    (,--markdown-date-timestamp-regex 0 '--markdown-date-timestamp-face)
+                    (,--markdown-time-timestamp-regex 0 '--markdown-time-timestamp-face)))
+  (font-lock-add-keywords
+   'gfm-mode `((,--markdown-tag-keyword-regex 0 '--markdown-tag-face)
+               (,--markdown-date-timestamp-regex 0 '--markdown-date-timestamp-face)
+               (,--markdown-time-timestamp-regex 0 '--markdown-time-timestamp-face))))
   ;; :config
   ;; (define-advice markdown-toggle-gfm-checkbox
   ;;     (:after () insert-checkbox-if-none)

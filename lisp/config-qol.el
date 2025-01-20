@@ -263,7 +263,6 @@
     (evil-ex-define-cmd "feb" #'flycheck-list-errors)
     (evil-ex-define-cmd "leb" "feb")))
 
-
 (use-package engine-mode
   :commands defengine
   :after (evil general)
@@ -304,9 +303,8 @@
        [("f w" "Write to file" persistent-scratch-save-to-file)
         ("f e" "Read from file" persistent-scratch-restore-from-file)]])))
 
-
 (use-package link-hint
-  :after general
+  :after (general avy)
   :commands (link-hint-open-link
              link-hint-open-link-at-point
              link-hint-copy-link

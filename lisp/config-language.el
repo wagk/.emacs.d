@@ -590,7 +590,11 @@ Lisp function does not specify a special indentation."
 
 ;; asciidoc
 (use-package adoc-mode
-  :commands adoc-mode)
+  :commands adoc-mode
+  :after config-theme
+  :custom-face
+  (adoc-gen-face
+   ((default . (:foreground ,sol-blue)))))
 
 (use-package jam-mode
   :ensure nil
