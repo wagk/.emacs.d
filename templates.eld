@@ -62,28 +62,28 @@ rust-mode rust-ts-mode
 
 ;; functions
 (f "fn " (p "foo")  "(" p ") " p "{"
-   n> (p "todo!()") q
+   n> (p "todo!()") q >
    n "}" >)
 
 (pf "pub fn " (p "foo")  "(" p ") " p "{"
-    n> (p "todo!()") q
+    n> (p "todo!()") q >
     n "}" >)
 
 (af "async fn " (p "foo")  "(" p ") " p "{"
-    n> (p "todo!()") q
+    n> (p "todo!()") q >
     n "}" >)
 
 (paf "pub async fn " (p "foo")  "(" p ") " p "{"
-     n> (p "todo!()") q
+     n> (p "todo!()") q >
      n "}" >)
 
 ;; tests
 (t "#[test]" >
    n "fn " (p "foo") "() {" >
-   n> (p "todo!()") q
+   n> (p "todo!()") q >
    n "}" >)
 
 (tm "#[cfg(test)]" >
     n "mod tests {" >
-    n> q
+    n> q >
     n "}" >)
