@@ -186,6 +186,7 @@
     ("cofngi" "config" nil :count 3)
     ("cofnig" "config" nil :count 51)
     ("colaltes" "collates" nil :count 1)
+    ("colleciton" "collection" nil :count 1)
     ("columsn" "columns" nil :count 1)
     ("comamdn" "command" nil :count 1)
     ("comamnd" "command" nil :count 3)
