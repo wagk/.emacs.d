@@ -270,7 +270,7 @@
 (use-package rg
   :if (executable-find "rg")
   :ensure (:host github :repo "dajva/rg.el")
-  :demand t
+  :commands rg-menu
   :after (evil general)
   :custom
   (rg-ignore-case 'smart)
@@ -303,8 +303,12 @@
                             (consult-ripgrep nil
                                              (thing-at-point 'symbol))))
     (evil-ex-define-cmd "lr" "rl"))
-  (evil-ex-define-cmd "rf" #'--rg-search-file)
-  (evil-ex-define-cmd "rd" #'--rg-search-dir)
+  (evil-ex-define-cmd "rf" #'(lambda () (interactive)
+                               (require 'rg)
+                               (--rg-search-file)))
+  (evil-ex-define-cmd "rd" #'(lambda () (interactive)
+                               (require 'rg)
+                               (--rg-search-dir)))
   ;; (evil-ex-define-cmd "prg" 'rg-project)
   :config
   (rg-enable-menu)
