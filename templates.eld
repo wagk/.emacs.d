@@ -87,3 +87,11 @@ rust-mode rust-ts-mode
     n "mod tests {" >
     n> q >
     n "}" >)
+
+;; structs/enums
+
+(ps "pub struct " q >)
+(s "struct " q >)
+
+(pe "pub enum " (s "Foo") "{" n> q > "}" >)
+(e "enum " (s "Foo") "{" n> q > "}" >)
