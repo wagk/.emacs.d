@@ -60,7 +60,7 @@ rust-mode rust-ts-mode
 (an "assert_ne!(" p "," p ");" q)
 (ae "assert_eq!(" p "," p ");" q)
 
-(matches "matches!(" p "," (s pattern) ");" q)
+(matches "matches!(" p "," (s pattern) ")" q)
 
 (print "println!(\"" q "\");" >)
 
