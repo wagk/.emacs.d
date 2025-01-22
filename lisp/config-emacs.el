@@ -1246,17 +1246,23 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
   :custom-face
   (smerge-markers
    ((default . (:foreground ,sol-cyan
+                :background unspecified
                 :inherit sol-light-foreground))))
   (smerge-base
-   ((default . (:foreground ,sol-blue))))
+   ((default . (:background unspecified
+                :foreground ,sol-blue))))
   (smerge-lower
-   ((default . (:foreground ,sol-yellow))))
+   ((default . (:background unspecified
+                :foreground ,sol-yellow))))
   (smerge-upper
-   ((default . (:foreground ,sol-violet))))
+   ((default . (:background unspecified
+                :foreground ,sol-violet))))
   (smerge-refined-added
-   ((default . (:foreground ,sol-green))))
+   ((default . (:background unspecified
+                :foreground ,sol-green))))
   (smerge-refined-removed
-   ((default . (:foreground ,sol-red))))
+   ((default . (:background unspecified
+                :foreground ,sol-red))))
   :init
   (transient-define-prefix --smerge ()
     ["Smerge mode command dispatcher."
