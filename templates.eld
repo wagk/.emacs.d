@@ -97,5 +97,5 @@ rust-mode rust-ts-mode
 (ps "pub struct " q >)
 (s "struct " q >)
 
-(pe "pub enum " (s "Foo") "{" n> q > "}" >)
-(e "enum " (s "Foo") "{" n> q > "}" >)
+(pe "pub enum " (s "Foo") " {" n> p n "}" q >)
+(e "enum " (s "Foo") " {" n> p n "}" q >)
