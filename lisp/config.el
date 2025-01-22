@@ -75,6 +75,7 @@
 (require 'config-org)
 (require 'config-org-capture)
 (require 'config-language)
+(require 'config-todo)
 
 (require 'config-japanese)
 (require 'config-anki)

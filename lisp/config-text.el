@@ -431,6 +431,7 @@
                 :inherit sol-light-foreground)))))
 
 (use-package dogears
+  :disabled t ;; we don't use this.
   :after (evil-ex)
   :commands (dogears-list dogears-remember dogears-go)
   :custom
