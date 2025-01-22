@@ -98,29 +98,36 @@
   :ensure (:host github :repo "emacs-straight/compat" :branch "master"))
 
 ;; https://github.com/magnars/dash.el
-(use-package dash)
+(use-package dash
+  :ensure (:host github :repo "emacsmirror/dash" :branch "master"))
 
 ;; https://github.com/plexus/a.el/
 ;; alist functions
-(use-package a)
+(use-package a
+  :ensure (:host github :repo "emacsmirror/a" :branch "master"))
 
 ;; https://github.com/rejeep/f.el/
 ;; file functions
-(use-package f)
+(use-package f
+  :ensure (:host github :repo "emacsmirror/f" :branch "master"))
 
 ;; https://github.com/magnars/s.el/
 ;; string functions
-(use-package s)
+(use-package s
+  :ensure (:host github :repo "emacsmirror/s" :branch "master"))
 
 ;; https://github.com/Wilfred/ht.el/
 ;; hash-table functions
-(use-package ht)
+(use-package ht
+  :ensure (:host github :repo "emacsmirror/ht" :branch "master"))
 
 ;; https://github.com/alphapapa/ts.el
 ;; date and time functions
-(use-package ts)
+(use-package ts
+  :ensure (:host github :repo "emacsmirror/ts" :branch "master"))
 
-(use-package async)
+(use-package async
+  :ensure (:host github :repo "emacsmirror/async" :branch "master"))
 
 (use-package general
   :ensure (:host github :repo "noctuid/general.el")
@@ -143,6 +150,7 @@
 
 (use-package no-littering
   :ensure (:host github :repo "emacscollective/no-littering")
+  :after f
   :config
   (let ((dir (f-join no-littering-etc-directory "auto-save/")))
     (unless (f-exists-p dir)
@@ -150,13 +158,14 @@
     (add-to-list 'auto-save-file-name-transforms
                  `(".*" ,dir t))))
 
-(use-package blackout)
+(use-package blackout
+  :ensure (:host github :repo "emacsmirror/blackout" :branch "master"))
 
 (elpaca-wait)
 
-(let ((custom (locate-user-emacs-file "custom.el")))
-  (unless (f-exists-p custom)
-    (f-touch custom))
-  (setq custom-file custom))
+;; (let ((custom (locate-user-emacs-file "custom.el")))
+;;   (unless (f-exists-p custom)
+;;     (f-touch custom))
+;;   (setq custom-file custom))
 
 (provide 'config-prelude)
