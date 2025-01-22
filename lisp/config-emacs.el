@@ -628,6 +628,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   :init
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "fla" #'eglot-code-actions)
+    (evil-ex-define-cmd "la" "fla")
     (evil-ex-define-cmd "flr" #'eglot-rename)
     (evil-ex-define-cmd "lw" #'eglot-code-action-rewrite)
     (evil-ex-define-cmd "lx" #'eglot-code-action-extract)
@@ -910,7 +911,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   (define-advice delete-frame (:around (oldfun &rest _old_args)
                                        --tab-bar-delete-tab-or-emacs)
     (interactive)
-    (let* ((tabs (find-if (lambda (elem) (eq 'tabs (car elem)))
+    (let* ((tabs (cl-find-if (lambda (elem) (eq 'tabs (car elem)))
                           (frame-parameters)))
            (num-tabs (length (cdr tabs))))
       (if (eq num-tabs 1)
