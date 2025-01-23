@@ -9,7 +9,12 @@
   :type 'file)
 
 (defvar-keymap config-todo-keymap
-  "C-c C-c" #'config-todo-do)
+  "C-c C-c" #'config-todo-do
+  "C-c C-s" #'(lambda ()
+                (interactive)
+                (require 'evil)
+                (let ((sort-fold-case t))
+                  (evil-ex-sort (point-min) (point-max)))))
 
 (cl-defun config-todo--toggle-done ()
   (save-excursion
@@ -34,7 +39,7 @@
 
 (cl-defun config-todo--prefix-date-on-newline ()
   "Inserts a timestamp into every new line"
-  (when (and (bolp) (eolp))
+  (when (and (bolp) (eolp) (not (use-region-p)))
     (beginning-of-line)
     (insert (format-time-string "%F "))
     (end-of-line)))
