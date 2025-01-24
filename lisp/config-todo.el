@@ -18,6 +18,9 @@
   :group 'config-todo
   :type 'file)
 
+(defconst config-todo-timestamp-rx
+  (rx (= 4 (any digit)) "-" (any "0-1") (any digit) "-" (any "0-3") (any digit)))
+
 (defvar-keymap config-todo-keymap
   "C-c C-c" #'config-todo-do
   "C-c C-s" #'config-todo-organize)
@@ -52,9 +55,14 @@
 
 (cl-defun config-todo--normalize-line (line)
   "Takes in a string that is a line, and returns a string that is a line."
-  (string-trim line))
+  (let* ((line (string-trim line)))
+    (if (string-match (rx line-start (optional "x ") (regexp config-todo-timestamp-rx) line-end)
+                      line)
+        nil line)))
 
 (cl-defun config-todo--normalize-every-line ()
+  ;; iterate through every line in the buffer.
+  ;; TODO (pangt): I wonder how we would remove lines completely.
   (save-excursion
     (goto-char (point-min))
     (while (not (eobp))
@@ -63,7 +71,7 @@
                     (line-end-position)))
              (line (config-todo--normalize-line line)))
         (delete-region (line-beginning-position) (line-end-position))
-        (insert line))
+        (when line (insert line)))
       (forward-line))))
 
 (cl-defun config-todo--toggle-done ()
