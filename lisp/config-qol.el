@@ -219,7 +219,8 @@
   (ws-butler-global-mode))
 
 (use-package flycheck
-  :if (not (bound-and-true-p flymake-show-diagnostics-at-end-of-line))
+  :disabled t
+  :if (not (boundp 'flymake-show-diagnostics-at-end-of-line))
   :ensure (:host github :repo "flycheck/flycheck")
   :after config-theme
   :custom
@@ -249,13 +250,15 @@
     text))
 
 (use-package flycheck-eglot
-  :if (not (bound-and-true-p flymake-show-diagnostics-at-end-of-line))
+  :disabled t
+  :if (not (boundp 'flymake-show-diagnostics-at-end-of-line))
   :after (flycheck eglot)
   :config
   (global-flycheck-eglot-mode))
 
 (use-package consult-flycheck
-  :if (not (bound-and-true-p flymake-show-diagnostics-at-end-of-line))
+  :disabled t
+  :if (not (boundp 'flymake-show-diagnostics-at-end-of-line))
   :after flycheck
   :commands (consult-flycheck)
   :init

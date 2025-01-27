@@ -573,7 +573,6 @@ Returns a string, or nil if there is no path associated with the buffer."
               :override #'eglot-signature-eldoc-talkative))
 
 (use-package flymake
-  :if (bound-and-true-p flymake-show-diagnostics-at-end-of-line)
   :ensure nil
   :after config-theme
   :hook
@@ -581,15 +580,17 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom-face
   (flymake-error ((default . (:foreground unspecified
                               :box nil
+                              :underline t
                               :inherit (sol-superstrong-foreground)))))
   (flymake-error-echo ((default . (:inherit flymake-error))))
   (flymake-error-echo-at-eol ((default . (:inherit (flymake-error
                                                     sol-superlight-box)))))
-  (flymake-note ((default . (:underline nil
+  (flymake-note ((default . (:underline t
                              :inherit sol-light-foreground))))
   (flymake-note-echo ((default . (:inherit flymake-note))))
   (flymake-note-echo-at-eol ((default . (:inherit flymake-note))))
   (flymake-warning ((default . (:foreground unspecified
+                                :underline t
                                 :inherit sol-foreground))))
   (flymake-warning-echo ((default . (:inherit flymake-warning))))
   (flymake-warning-echo-at-eol ((default . (:inherit flymake-warning))))
