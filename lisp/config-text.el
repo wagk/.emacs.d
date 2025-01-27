@@ -302,7 +302,6 @@
                             (require 'thingatpt)
                             (consult-ripgrep nil
                                              (thing-at-point 'symbol))))
-    (evil-ex-define-cmd "lr" "rl"))
   (evil-ex-define-cmd "rf" #'(lambda () (interactive)
                                (require 'rg)
                                (--rg-search-file)))

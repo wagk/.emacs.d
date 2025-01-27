@@ -651,6 +651,7 @@ Returns a string, or nil if there is no path associated with the buffer."
     (evil-ex-define-cmd "fla" #'eglot-code-actions)
     (evil-ex-define-cmd "la" "fla")
     (evil-ex-define-cmd "flr" #'eglot-rename)
+    (evil-ex-define-cmd "lr" "flr")
     (evil-ex-define-cmd "lw" #'eglot-code-action-rewrite)
     (evil-ex-define-cmd "lx" #'eglot-code-action-extract)
     (evil-ex-define-cmd "li" #'eglot-code-action-inline)
