@@ -233,13 +233,13 @@
    ((default . (:extend t :inherit sol-superlight-background))))
   (flycheck-error
    ((default . (:underline nil
-                :inherit sol-foreground-box))))
+                :inherit sol-error))))
   (flycheck-info
    ((default . (:underline nil
-                :inherit sol-foreground-box))))
+                :inherit sol-info))))
   (flycheck-warning
    ((default . (:underline nil
-                :inherit sol-foreground-box))))
+                :inherit sol-warning))))
   ;; :hook
   ;; (prog-mode-hook . flycheck-mode)
   :config

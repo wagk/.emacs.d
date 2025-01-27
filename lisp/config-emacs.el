@@ -581,17 +581,17 @@ Returns a string, or nil if there is no path associated with the buffer."
   (flymake-error ((default . (:foreground unspecified
                               :box nil
                               :underline t
-                              :inherit (sol-superstrong-foreground)))))
+                              :inherit sol-error))))
   (flymake-error-echo ((default . (:inherit flymake-error))))
   (flymake-error-echo-at-eol ((default . (:inherit (flymake-error
                                                     sol-superlight-box)))))
   (flymake-note ((default . (:underline t
-                             :inherit sol-light-foreground))))
-  (flymake-note-echo ((default . (:inherit flymake-note))))
+                             :inherit sol-note))))
+  (flymake-note-echo ((default . (:inherit flymake-info))))
   (flymake-note-echo-at-eol ((default . (:inherit flymake-note))))
   (flymake-warning ((default . (:foreground unspecified
                                 :underline t
-                                :inherit sol-foreground))))
+                                :inherit sol-warning))))
   (flymake-warning-echo ((default . (:inherit flymake-warning))))
   (flymake-warning-echo-at-eol ((default . (:inherit flymake-warning))))
   :custom
@@ -1006,17 +1006,15 @@ Returns a string, or nil if there is no path associated with the buffer."
    ((default . (:inherit sol-foreground))))
   (compilation-info
    ((default . (:foreground unspecified
-                :bold nil))))
+                :bold nil
+                :inherit sol-info))))
   (compilation-warning
    ((default . (:foreground unspecified
                 :bold nil
-                :inherit (sol-strong-foreground
-                          sol-superlight-background)))))
+                :inherit sol-warning))))
   (compilation-error
    ((default . (:foreground unspecified
-                :bold t
-                :inherit (sol-strong-foreground
-                          sol-superlight-background)))))
+                :inherit sol-error))))
   (compilation-line-number
    ((default . (:foreground unspecified
                 :background unspecified
