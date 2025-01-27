@@ -922,6 +922,7 @@
     ("somewaht" "somewhat" nil :count 1)
     ("somsthing" "something" nil :count 1)
     ("sothat" "so that" nil :count 1)
+    ("sotrage" "storage" nil :count 1)
     ("soundind" "sounding" nil :count 1)
     ("spawen" "spawn" nil :count 1)
     ("specfically" "specifically" nil :count 1)
