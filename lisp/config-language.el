@@ -340,6 +340,7 @@ Lisp function does not specify a special indentation."
 
 ;; Requires `clang` to be installed (perhaps unsurprisingly).
 (use-package clang-capf
+  :disabled t
   :custom
   (clang-capf-ignore-case t)
   :config
@@ -477,10 +478,12 @@ Lisp function does not specify a special indentation."
       (shell-command-to-string body))))
 
 (use-package cmake-mode
+  :disabled t
   :mode ("\\cmakelists.txt\\'" . cmake-mode)
   :hook (cmake-mode-hook . hl-todo-mode))
 
 (use-package cmake-font-lock
+  :disabled t
   :after cmake-mode
   :hook (cmake-mode-hook . cmake-font-lock-activate))
 
