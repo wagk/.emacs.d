@@ -219,6 +219,7 @@
   (ws-butler-global-mode))
 
 (use-package flycheck
+  :if (not (bound-and-true-p flymake-show-diagnostics-at-end-of-line))
   :ensure (:host github :repo "flycheck/flycheck")
   :after config-theme
   :custom
@@ -238,8 +239,8 @@
   (flycheck-warning
    ((default . (:underline nil
                 :inherit sol-foreground-box))))
-  :hook
-  ((prog-mode-hook . flycheck-mode))
+  ;; :hook
+  ;; (prog-mode-hook . flycheck-mode)
   :config
   (define-advice flycheck-mode-line-status-text
       (:filter-return (text) --flycheck-mute-modeline-colors)
@@ -248,11 +249,13 @@
     text))
 
 (use-package flycheck-eglot
+  :if (not (bound-and-true-p flymake-show-diagnostics-at-end-of-line))
   :after (flycheck eglot)
   :config
   (global-flycheck-eglot-mode))
 
 (use-package consult-flycheck
+  :if (not (bound-and-true-p flymake-show-diagnostics-at-end-of-line))
   :after flycheck
   :commands (consult-flycheck)
   :init

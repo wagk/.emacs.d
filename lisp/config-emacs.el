@@ -573,8 +573,11 @@ Returns a string, or nil if there is no path associated with the buffer."
               :override #'eglot-signature-eldoc-talkative))
 
 (use-package flymake
+  :if (bound-and-true-p flymake-show-diagnostics-at-end-of-line)
   :ensure nil
   :after config-theme
+  :hook
+  (prog-mode-hook . flymake-mode)
   :custom-face
   (flymake-error ((default . (:foreground unspecified
                               :box nil
@@ -600,8 +603,15 @@ Returns a string, or nil if there is no path associated with the buffer."
   (flymake-margin-indicators-string '((error "")
                                       (warning "")
                                       (note "")))
+  (flymake-show-diagnostics-at-end-of-line t)
+  :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "feb" #'flymake-show-buffer-diagnostics)
+    (evil-ex-define-cmd "leb" "feb")
+    (with-eval-after-load 'consult
+      (evil-ex-define-cmd "fe" #'consult-flymake)
+      (evil-ex-define-cmd "le" "fe")))
   :config
-  ;; flycheck is better
   (push '(before-string . nil) (get :note 'flymake-overlay-control))
   (push '(before-string . nil) (get :warning 'flymake-overlay-control))
   (push '(before-string . nil) (get :error 'flymake-overlay-control)))
