@@ -576,10 +576,20 @@ Returns a string, or nil if there is no path associated with the buffer."
   :ensure nil
   :after config-theme
   :custom-face
-  (flymake-error ((default . (:inherit sol-foreground-box))))
+  (flymake-error ((default . (:foreground unspecified
+                              :box nil
+                              :inherit (sol-superstrong-foreground)))))
+  (flymake-error-echo ((default . (:inherit flymake-error))))
+  (flymake-error-echo-at-eol ((default . (:inherit (flymake-error
+                                                    sol-superlight-box)))))
   (flymake-note ((default . (:underline nil
                              :inherit sol-light-foreground))))
-  (flymake-warning ((default . (:inherit sol-light-foreground))))
+  (flymake-note-echo ((default . (:inherit flymake-note))))
+  (flymake-note-echo-at-eol ((default . (:inherit flymake-note))))
+  (flymake-warning ((default . (:foreground unspecified
+                                :inherit sol-foreground))))
+  (flymake-warning-echo ((default . (:inherit flymake-warning))))
+  (flymake-warning-echo-at-eol ((default . (:inherit flymake-warning))))
   :custom
   (flymake-error-bitmap nil)
   (flymake-warning-bitmap nil)
@@ -746,7 +756,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   (diff-error
    ((default . (:background unspecified
                 :foreground ,sol-red))))
-  (diff-indicatgor-added
+  (diff-indicator-added
    ((default . (:foreground unspecified))))
   (diff-indicator-changed
    ((default . (:foreground unspecified))))
@@ -779,50 +789,66 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom-face
   ;; A
   (ediff-current-diff-A
-   ((default . (:foreground ,sol-red
+   ((default . (:background unspecified
+                :foreground ,sol-red
                 :inherit sol-superlight-background))))
   (ediff-fine-diff-A
-   ((default . (:inherit ediff-current-diff-A
+   ((default . (:background unspecified
+                :inherit ediff-current-diff-A
                 :bold t))))
   (ediff-even-diff-A
-   ((default . (:foreground ,sol-red))))
+   ((default . (:background unspecified
+                :foreground ,sol-red))))
   (ediff-odd-diff-A
-   ((default . (:foreground ,sol-red))))
+   ((default . (:background unspecified
+                :foreground ,sol-red))))
   ;; Ancestor
   (ediff-current-diff-Ancestor
-   ((default . (:foreground ,sol-blue
+   ((default . (:background unspecified
+                :foreground ,sol-blue
                 :inherit sol-superlight-background))))
   (ediff-fine-diff-Ancestor
-   ((default . (:inherit ediff-current-diff-Ancestor
+   ((default . (:background unspecified
+                :inherit ediff-current-diff-Ancestor
                 :bold t))))
   (ediff-even-diff-Ancestor
-   ((default . (:foreground ,sol-blue))))
+   ((default . (:background unspecified
+                :foreground ,sol-blue))))
   (ediff-odd-diff-Ancestor
-   ((default . (:foreground ,sol-blue))))
+   ((default . (:background unspecified
+                :foreground ,sol-blue))))
 
   ;; B
   (ediff-current-diff-B
-   ((default . (:foreground ,sol-green
+   ((default . (:background unspecified
+                :foreground ,sol-green
                 :inherit sol-superlight-background))))
   (ediff-fine-diff-B
-   ((default . (:inherit ediff-current-diff-B
+   ((default . (:background unspecified
+                :inherit ediff-current-diff-B
                  :bold t))))
   (ediff-even-diff-B
-   ((default . (:foreground ,sol-green))))
+   ((default . (:background unspecified
+                :foreground ,sol-green))))
   (ediff-odd-diff-B
-   ((default . (:foreground ,sol-green))))
+   ((default . (:background unspecified
+                :foreground ,sol-green))))
 
    ;; C
   (ediff-current-diff-C
-   ((default . (:foreground ,sol-yellow
+   ((default . (:background unspecified
+                :foreground ,sol-yellow
                 :inherit sol-superlight-background))))
   (ediff-fine-diff-C
-   ((default . (:inherit ediff-current-diff-C
+   ((default . (:background unspecified
+                :inherit ediff-current-diff-C
                 :bold t))))
   (ediff-even-diff-C
-   ((default . (:foreground ,sol-yellow))))
+   ((default . (:background unspecified
+                :foreground ,sol-yellow))))
   (ediff-odd-diff-C
-   ((default . (:foreground ,sol-yellow)))))
+   ((default . (:background unspecified
+                :foreground ,sol-yellow)))))
 
 
 (use-package calendar
