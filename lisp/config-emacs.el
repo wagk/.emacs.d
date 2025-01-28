@@ -124,6 +124,9 @@ The DWIM behaviour of this command is as follows:
   :ensure nil
   :after config-theme
   :custom-face
+  (trailing-whitespace ((default . (:foreground unspecified
+                                    :inverse-video nil
+                                    :inherit sol-superlight-background))))
   (warning ((default . (:foreground ,sol-orange))))
   (success ((default . (:foreground ,sol-green))))
   (error ((default . (:foreground unspecified
