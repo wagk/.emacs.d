@@ -44,10 +44,12 @@
 (defgroup personal nil
   "A list of personal configuration variables.")
 
-(setq initial-scratch-message
-      (concat "> Programmers are not to be measured by their ingenuity and their\n"
-              "> logic but by the completeness of their case analysis.\n"
-              "\n"))
+(setq initial-scratch-message "")
+
+;; (setq initial-scratch-message
+;;       (concat "> Programmers are not to be measured by their ingenuity and their\n"
+;;               "> logic but by the completeness of their case analysis.\n"
+;;               "\n"))
 
 ;; Emacs considers the following "dangerous" (i.e they'll ask you to
 ;; confirm)
