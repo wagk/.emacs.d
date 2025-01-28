@@ -1120,7 +1120,7 @@ Returns a string, or nil if there is no path associated with the buffer."
             (exp (read-string (format "abbrev for \"%s\": " name))))
        (define-abbrev global-abbrev-table (downcase name) exp)))))
 
-(use-package comint-mode
+(use-package comint
   :ensure nil
   :custom
   ;; Make cursor always move to end when entering insert mode in
