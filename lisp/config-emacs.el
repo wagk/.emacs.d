@@ -241,7 +241,7 @@ The DWIM behaviour of this command is as follows:
     ;; otherwise make it pop by bolding
     (t . (:bold t :inherit sol-foreground))))
   (font-lock-comment-face
-   ((default . (:italic nil
+   ((default . (:italic t
                 :inherit (sol-light-foreground sol-superlight-background)))
     (((type nil)) . (:inherit (sol-superlight-background
                                sol-light-foreground)))
@@ -250,6 +250,7 @@ The DWIM behaviour of this command is as follows:
    ((default . (:inherit font-lock-comment-face))))
   (font-lock-doc-face
    ((default . (:extend t
+                :italic nil
                 :inherit font-lock-comment-face))))
   (font-lock-type-face
    ((default . (:foreground unspecified
