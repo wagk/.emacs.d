@@ -242,6 +242,7 @@ The DWIM behaviour of this command is as follows:
     (t . (:bold t :inherit sol-foreground))))
   (font-lock-comment-face
    ((default . (:italic t
+                :foreground unspecified
                 :inherit (sol-light-foreground sol-superlight-background)))
     (((type nil)) . (:inherit (sol-superlight-background
                                sol-light-foreground)))
@@ -893,6 +894,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom-face
   (tab-bar ((default . (:foreground unspecified
                         :background unspecified
+                        :inverse-video nil
                         :underline nil))))
   (tab-bar-tab ((default . (:foreground unspecified
                             :background unspecified
@@ -903,7 +905,12 @@ Returns a string, or nil if there is no path associated with the buffer."
   (tab-bar-tab-inactive ((default . (:foreground unspecified
                                      :background unspecified
                                      :bold nil
+                                     :inverse-video nil
                                      :inherit sol-light-foreground))))
+  (tab-line ((default . (:inverse-video nil
+                         :foreground unspecified
+                         :background unspecified
+                         :inherit sol-light-foreground))))
   :general
   (:keymaps 'evil-window-map
    ;; single window in tab gets moved into frame
