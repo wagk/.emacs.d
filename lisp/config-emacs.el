@@ -223,6 +223,8 @@ The DWIM behaviour of this command is as follows:
   :custom-face
   (font-lock-warning-face
    ((default . (:foreground ,sol-blue))
+    ;; fallback to error
+    (((type nil)) . (:foreground unspecified))
     (((supports (:bold)) (supports (:italic))) .
      (:bold t :italic t))))
   (font-lock-keyword-face
