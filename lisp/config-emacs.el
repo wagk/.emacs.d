@@ -1374,6 +1374,7 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
 (use-package ansi-color
   :ensure nil
   :after config-theme
+  :custom-face
   (ansi-color-bright-black
    ((default . (:foreground ,sol-base03
                 :background ,sol-base03))))
