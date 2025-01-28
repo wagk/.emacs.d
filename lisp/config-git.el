@@ -61,26 +61,7 @@
   (magit-mode-map
    :states '(normal)
    "g x" 'magit-browse-thing)
-  :preface
-  (when (eq system-type 'windows-nt)
-    ;; magit requires seq 2.24, windows only seems to have 2.23
-    ;; lisp stolen from https://github.com/progfolio/elpaca/issues/216
-    (cl-defun --elpaca-unload-seq (e)
-      (and (featurep 'seq) (unload-feature 'seq t))
-      (elpaca--continue-build e))
-    (cl-defun --elpaca-build-seq ()
-      (append (butlast (if (file-exists-p (expand-file-name "seq" elpaca-builds-directory))
-                           elpaca--pre-built-steps
-                         elpaca-build-steps))
-              (list #'--elpaca-unload-seq #'elpaca--activate-package)))
-    (use-package seq
-      :ensure `(seq :host github
-                    :repo "emacs-straight/seq"
-                    :branch "master"
-                    :build ,(--elpaca-build-seq))
-      :demand t)
-    (elpaca-wait))
-
+  :init
   (cl-defun --magit-on-mode-save-buffers ()
     (save-some-buffers t #'save-some-buffers-root))
 
