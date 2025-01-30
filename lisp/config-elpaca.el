@@ -36,7 +36,6 @@
     (elpaca-generate-autoloads "elpaca" repo)
     (load "./elpaca-autoloads")))
 
-
 (when (eq system-type 'windows-nt)
   (setq elpaca-queue-limit 20)
   (elpaca-no-symlink-mode))
@@ -53,8 +52,7 @@
 (setq elpaca-menu-functions
   '(elpaca-menu-extensions elpaca-menu-org elpaca-menu-melpa))
 
-(if (not (boundp 'elpaca-ui-marks))
-    (warn "elpaca-ui-marks can't be found! Skipping configuration")
+(with-eval-after-load 'elpaca-ui
   ;; Replace prefix emojis with non-emojis.
   (let ((subst-list '((elpaca-delete  . "D")
                       (elpaca-try     . "T")
@@ -79,6 +77,5 @@
      :keymaps 'elpaca-info-mode-map
       :states 'normal
       "f" 'link-hint-open-link)))
-
 
 (provide 'config-elpaca)
