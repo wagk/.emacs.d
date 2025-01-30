@@ -206,20 +206,19 @@
 ;;
 ;; parinfer-rust-mode requires track-changes 1.1
 (use-package parinfer-rust-mode
-  :after (track-changes flymake flycheck)
   :blackout t
+  :commands parinfer-rust-mode
   :general
   (:states 'motion
    "g p" 'parinfer-rust-toggle-paren-mode)
-  :init
-  (elpaca-wait)
   :custom
   (parinfer-rust-auto-download t)
   (parinfer-rust-dim-parens nil)
-  :hook ((emacs-lisp-mode-hook . parinfer-rust-mode)
-         (racket-mode-hook . parinfer-rust-mode)
-         (clojure-mode-hook . parinfer-rust-mode)
-         (hy-mode-hook . parinfer-rust-mode)))
+  :hook
+  (emacs-lisp-mode-hook . parinfer-rust-mode)
+  (racket-mode-hook . parinfer-rust-mode)
+  (clojure-mode-hook . parinfer-rust-mode)
+  (hy-mode-hook . parinfer-rust-mode))
 
 (use-package prism
   :disabled t ;; see if I can live without this for a bit
