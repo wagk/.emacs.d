@@ -403,47 +403,44 @@
 (use-package svg-tag-mode
   :after svg-lib)
 
-(use-package multi-term
-  :if (not (or (featurep 'vterm)
-               (featurep 'multi-vterm)
-               (eq system-type 'windows-nt)))
-  :commands
-  (multi-term))
-
 ;; https://github.com/akermu/emacs-libvterm
 ;;
 ;; Ensure that `libtool` is installed. On Ubuntu this can be done via
 ;; `libtool-bin`.
-(use-package vterm
-  :if (not (eq system-type 'windows-nt))
-  :after evil
-  :preface
-  (setq vterm-always-compile-module t)
-  :custom
-  (vterm-max-scrollback 100000 "maximum allowed without editing source file.")
-  (vterm-always-compile-module t)
-  :config
-  (evil-ex-define-cmd "term" #'vterm))
+(unless (eq system-type 'windows-nt)
+  (use-package vterm
+    :if (not (eq system-type 'windows-nt))
+    :after evil
+    :preface
+    (setq vterm-always-compile-module t)
+    :custom
+    (vterm-max-scrollback 100000 "maximum allowed without editing source file.")
+    (vterm-always-compile-module t)
+    :config
+    (evil-ex-define-cmd "term" #'vterm))
 
-(use-package multi-vterm
-  :after (vterm general evil)
-  :if (not (eq system-type 'windows-nt))
-  :commands (multi-vterm-project
-             multi-vterm)
-  :custom
-  (multi-vterm-buffer-name "vterm")
-  :general
-  (general-define-key
-   :keymaps 'project-prefix-map
-   "s" '--multi-vterm-project) ;; overrides `project-shell'
-  :init
-  (evil-ex-define-cmd "term" #'multi-vterm)
-  (cl-defun --multi-vterm-project ()
-    (interactive)
-    (require 'multi-vterm)
-    (cl-letf (((symbol-function 'switch-to-buffer-other-window)
-               #'switch-to-buffer))
-      (command-execute #'multi-vterm-project))))
+  (use-package multi-vterm
+    :if (not (eq system-type 'windows-nt))
+    :after (vterm general evil)
+    :commands (multi-vterm-project
+               multi-vterm)
+    ;; multi-vterm seems to also require elpaca input?
+    :preface
+    (setq vterm-always-compile-module t)
+    :custom
+    (multi-vterm-buffer-name "vterm")
+    :general
+    (general-define-key
+     :keymaps 'project-prefix-map
+     "s" '--multi-vterm-project) ;; overrides `project-shell'
+    :init
+    (evil-ex-define-cmd "term" #'multi-vterm)
+    (cl-defun --multi-vterm-project ()
+      (interactive)
+      (require 'multi-vterm)
+      (cl-letf (((symbol-function 'switch-to-buffer-other-window)
+                 #'switch-to-buffer))
+        (command-execute #'multi-vterm-project)))))
 
 (with-eval-after-load 'evil
   (when (fboundp 'shortdoc)
