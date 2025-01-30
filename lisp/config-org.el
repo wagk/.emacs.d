@@ -1,6 +1,5 @@
 (require 'use-package)
 (require 'config-evil) ;; evil-org
-(require 'f)
 
 ;;; org-mode
 
@@ -221,6 +220,7 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
       "o p" 'my-org-paste-clipboard-screenshot)))
 
 (with-eval-after-load 'org-persist
+  (require 'f)
   (customize-set-value 'org-persist-directory
                        (f-join no-littering-var-directory "org-persist/")))
 

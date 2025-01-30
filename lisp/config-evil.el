@@ -1,5 +1,4 @@
 (require 'use-package)
-(require 'general)
 
 (customize-set-value 'evil-want-keybinding nil
                      "`evil-collections' wants this to be disabled

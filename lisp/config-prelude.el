@@ -66,8 +66,6 @@
 (elpaca elpaca-use-package
     (elpaca-use-package-mode))
 
-(elpaca-wait)
-
 (customize-set-variable 'load-prefer-newer t)
 
 ;; must be set before loading use-package
@@ -96,6 +94,33 @@
 
 (use-package compat
   :ensure (:host github :repo "emacs-straight/compat" :branch "master"))
+
+(use-package blackout
+  :ensure (:host github :repo "emacsmirror/blackout" :branch "master"))
+
+(use-package general
+  :ensure (:host github :repo "noctuid/general.el")
+  :init
+  (defconst my-default-evil-leader-key "SPC"))
+
+;; More examples about transient can be found at:
+;; https://github.com/positron-solutions/transient-showcase
+(use-package transient
+  :ensure (:host github :repo "magit/transient")
+  ;; https://github.com/progfolio/elpaca/issues/236#issuecomment-1879838229
+  ;; :preface
+  ;; (unload-feature 'transient t)
+  ;; (setq custom-delayed-init-variables '())
+  :after config-theme
+  :custom-face
+  (transient-key-exit
+   ((default . (:foreground ,sol-red))))
+  (transient-key-return
+   ((default . (:foreground ,sol-yellow))))
+  (transient-key-stay
+   ((default . (:foreground ,sol-blue)))))
+
+(elpaca-wait)
 
 ;; https://github.com/magnars/dash.el
 (use-package dash
@@ -129,25 +154,6 @@
 (use-package async
   :ensure (:host github :repo "emacsmirror/async" :branch "master"))
 
-(use-package general
-  :ensure (:host github :repo "noctuid/general.el")
-  :init
-  (defconst my-default-evil-leader-key "SPC"))
-
-;; More examples about transient can be found at:
-;; https://github.com/positron-solutions/transient-showcase
-(use-package transient
-  :demand t
-  :ensure (:host github :repo "magit/transient")
-  :after config-theme
-  :custom-face
-  (transient-key-exit
-   ((default . (:foreground ,sol-red))))
-  (transient-key-return
-   ((default . (:foreground ,sol-yellow))))
-  (transient-key-stay
-   ((default . (:foreground ,sol-blue)))))
-
 (use-package no-littering
   :ensure (:host github :repo "emacscollective/no-littering")
   :after f
@@ -157,11 +163,6 @@
       (f-mkdir dir))
     (add-to-list 'auto-save-file-name-transforms
                  `(".*" ,dir t))))
-
-(use-package blackout
-  :ensure (:host github :repo "emacsmirror/blackout" :branch "master"))
-
-(elpaca-wait)
 
 ;; (let ((custom (locate-user-emacs-file "custom.el")))
 ;;   (unless (f-exists-p custom)
