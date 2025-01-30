@@ -8,6 +8,8 @@
   :demand t
   :ensure nil
   :custom
+  (confirm-kill-emacs nil)
+  (confirm-kill-processes nil)
   (cursor-in-non-selected-windows nil)
   (history-delete-duplicates t)
   (history-length t)
