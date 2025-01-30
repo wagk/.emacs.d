@@ -37,7 +37,7 @@
     (load "./elpaca-autoloads")))
 
 (when (eq system-type 'windows-nt)
-  (setq elpaca-queue-limit 20)
+  (setq elpaca-queue-limit 25)
   (elpaca-no-symlink-mode))
 
 ;; some issues with https://github.com/progfolio/elpaca/issues/143
