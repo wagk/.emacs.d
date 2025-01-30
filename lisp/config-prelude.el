@@ -64,21 +64,19 @@
 ;; (bootstrap-use-package)
 
 (elpaca elpaca-use-package
-    (elpaca-use-package-mode))
+    (elpaca-use-package-mode)
+    (customize-set-variable 'load-prefer-newer t)
+    ;; must be set before loading use-package
+    (customize-set-variable 'use-package-enable-imenu-support t)
+    ;; download packages if needed
+    (customize-set-variable 'use-package-always-defer nil
+                            "we don't always lazy load because of explicitness")
+    (customize-set-variable 'use-package-always-ensure t)
+    (customize-set-variable 'use-package-verbose t)
+    (customize-set-variable 'use-package-compute-statistics t)
+    (customize-set-variable 'use-package-hook-name-suffix nil)
+    (require 'use-package))
 
-(customize-set-variable 'load-prefer-newer t)
-
-;; must be set before loading use-package
-(customize-set-variable 'use-package-enable-imenu-support t)
-
-(require 'use-package)
-;; download packages if needed
-(customize-set-variable 'use-package-always-defer nil
-                        "we don't always lazy load because of explicitness")
-(customize-set-variable 'use-package-always-ensure t)
-(customize-set-variable 'use-package-verbose t)
-(customize-set-variable 'use-package-compute-statistics t)
-(customize-set-variable 'use-package-hook-name-suffix nil)
 ;; Package stuff end
 
 ;; Garbage collection
