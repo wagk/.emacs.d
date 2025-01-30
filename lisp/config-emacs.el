@@ -126,78 +126,103 @@ The DWIM behaviour of this command is as follows:
   :ensure nil
   :after config-theme
   :custom-face
-  (trailing-whitespace ((default . (:foreground unspecified
-                                    :inverse-video nil
-                                    :inherit sol-superlight-background))))
-  (warning ((default . (:foreground ,sol-orange))))
-  (success ((default . (:foreground ,sol-green))))
-  (error ((default . (:foreground unspecified
-                      :bold t
-                      :background ,sol-red
-                      :inverse-video nil
-                      :inherit sol-foreground-i
-                      :background ,sol-red))
-          (((supports (:bold)))) . (:bold t)))
-  (minibuffer-prompt ((default . (:foreground ,sol-green))))
-  (shadow ((default . (:foreground unspecified
-                       :inherit sol-light-foreground))))
-  (highlight ((default . (:background unspecified
-                          :inherit sol-superlight-background))))
-  (link-visited ((default . (:foreground ,sol-blue))))
-  (region ((default . (:foreground unspecified
-                       :background unspecified
-                       :inverse-video t
-                       :inherit sol-superlight-background))))
-  (fringe ((default . (:foreground unspecified
-                       :background unspecified
-                       :inherit sol-superlight-foreground))))
-  (variable-pitch-text ((((supports (:height))) . (:height 1))))
-  (fill-column-indicator ((default . (:inherit sol-superlight-foreground))))
-  (show-paren-match ((default . (:foreground unspecified
-                                 :background unspecified
-                                 :inherit sol-superlight-background))
-                     (((supports (:bold))) . (:bold t))))
-  (show-paren-mismatch ((default . (:background ,sol-red
-                                    :foreground unspecified
-                                    :inherit sol-foreground-i))))
-  (vertical-border ((default . (:foreground unspecified
-                                :inherit sol-superlight-foreground))))
-  (mode-line ((default . (:foreground unspecified
-                          :background unspecified
-                          :inverse-video nil
-                          :inherit sol-superlight-box))))
-  (mode-line-active ((default . (:inherit (sol-light-foreground
-                                           sol-superlight-box)))))
+  (trailing-whitespace
+   ((default . (:foreground unspecified
+                :inverse-video nil
+                :inherit sol-superlight-background))))
+  (warning
+   ((default . (:foreground ,sol-orange))))
+  (success
+   ((default . (:foreground ,sol-green))))
+  (error
+   ((default . (:foreground unspecified
+                :bold t
+                :background ,sol-red
+                :inverse-video nil
+                :inherit sol-foreground-i
+                :background ,sol-red))
+    (((supports (:bold)))) . (:bold t)))
+  (minibuffer-prompt
+   ((default . (:foreground ,sol-green))))
+  (shadow
+   ((default . (:foreground unspecified
+                :inherit sol-light-foreground))))
+  (highlight
+   ((default . (:background unspecified
+                :inherit sol-superlight-background))))
+  (link-visited
+   ((default . (:foreground ,sol-blue))))
+  (region
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inverse-video t
+                :inherit sol-superlight-background))))
+  (fringe
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit sol-superlight-foreground))))
+  (variable-pitch-text
+   ((((supports (:height))) . (:height 1))))
+  (fill-column-indicator
+   ((default . (:inherit sol-superlight-foreground))))
+  (show-paren-match
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit sol-superlight-background))
+    (((supports (:bold))) . (:bold t))))
+  (show-paren-mismatch
+   ((default . (:background ,sol-red
+                :foreground unspecified
+                :inherit sol-foreground-i))))
+  (vertical-border
+   ((default . (:foreground unspecified
+                :inherit sol-superlight-foreground))))
+  (mode-line
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inverse-video nil
+                :inherit sol-superlight-box))))
+  (mode-line-active
+   ((default . (:inherit (sol-light-foreground
+                          sol-superlight-box)))))
   (mode-line-emphasis
    ((default . (:inherit sol-light-foreground))))
   (mode-line-highlight
    ((t . (:inherit sol-light-foreground))))
-  (mode-line-buffer-id ((default . (:box unspecified
-                                    :inherit sol-light-foreground))))
-  (mode-line-inactive ((default . (:inverse-video nil
-                                   :foreground unspecified
-                                   :background unspecified
-                                   :overline unspecified
-                                   :underline unspecified
-                                   :box unspecified
-                                   :inherit (sol-superlight-box
-                                             sol-superlight-foreground)))))
-  (header-line ((default . (:underline nil
-                            :inverse-video nil
-                            :foreground unspecified
-                            :background unspecified))))
-  (header-line-active ((default . (:inherit header-line))))
-  (help-key-binding ((default . (:foreground ,sol-yellow
-                                 :box nil
-                                 :background unspecified))))
-  (link ((default . (:foreground ,sol-yellow
-                     :underline t
-                     :bold nil))))
-  (line-number ((default . (:inherit sol-superlight-foreground))))
+  (mode-line-buffer-id
+   ((default . (:box unspecified
+                :inherit sol-light-foreground))))
+  (mode-line-inactive
+   ((default . (:inverse-video nil
+                :foreground unspecified
+                :background unspecified
+                :overline unspecified
+                :underline unspecified
+                :box unspecified
+                :inherit (sol-superlight-box
+                          sol-superlight-foreground)))))
+  (header-line
+   ((default . (:underline nil
+                :inverse-video nil
+                :foreground unspecified
+                :background unspecified))))
+  (header-line-active
+   ((default . (:inherit header-line))))
+  (help-key-binding
+   ((default . (:foreground ,sol-yellow
+                :box nil
+                :background unspecified))))
+  (link
+   ((default . (:foreground ,sol-yellow
+                :underline t
+                :bold nil))))
+  (line-number
+   ((default . (:inherit sol-superlight-foreground))))
   (line-number-current-line
    ((default . (:inherit sol-light-foreground))))
-  (window-divider ((default . (:foreground unspecified
-                               :background unspecified)))))
+  (window-divider
+   ((default . (:foreground unspecified
+                :background unspecified)))))
 
 (use-package minibuffer
   :ensure nil
