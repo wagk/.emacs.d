@@ -163,6 +163,17 @@ assume # starts a comment."
                            'magit-keyword msg)))
       msg)))
 
+(use-package magit-bisect
+  :ensure nil
+  :after (magit config-theme)
+  :custom-face
+  (magit-bisect-bad
+   ((default . (:foreground ,sol-red))))
+  (magit-bisect-good
+   ((default . (:foreground ,sol-green))))
+  (magit-bisect-skip
+   ((default . (:foreground ,sol-yellow)))))
+
 (use-package magit-blame
   :ensure nil
   :after (magit config-theme)
