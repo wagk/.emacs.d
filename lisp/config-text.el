@@ -146,7 +146,7 @@
                                :background unspecified))))
   :general
   (tempel-map
-   "TAB"       #'--tempel-maybe-expand-or-jump
+   ;; "TAB"       #'--tempel-maybe-expand-or-jump
    "<backtab>" #'tempel-previous
    "M-SPC"     #'tempel-kill
    "M-l"       #'tempel-next
