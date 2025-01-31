@@ -64,6 +64,8 @@ rust-mode rust-ts-mode
 
 (print "println!(\"" q "\");" >)
 
+(i "impl " p " {" > n> q > n "}" >)
+
 ;; functions
 (f "fn " (p "foo")  "(" p ") " p "{"
    n> (p "todo!()") q >
