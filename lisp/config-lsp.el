@@ -98,4 +98,9 @@
    "f a" #'consult-lsp-symbols
    "f d" #'consult-lsp-diagnostics))
 
+(use-package lsp-focus
+  :after (lsp focus)
+  :hook
+  (focus-mode-hook . #'lsp-focus-mode))
+
 (provide 'config-lsp)

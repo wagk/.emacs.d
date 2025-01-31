@@ -483,11 +483,6 @@
   (focus-unfocused
    ((default . (:inherit sol-superlight-foreground)))))
 
-(use-package lsp-focus
-  :after (lsp focus)
-  :hook
-  (focus-mode-hook . #'lsp-focus-mode))
-
 (use-package avy
   :after config-theme
   :custom-face
