@@ -62,9 +62,7 @@
   (load-file user-local-file))
 
 (require 'config-prelude)
-
 (require 'config-theme)
-
 (require 'config-helpers)
 (require 'config-evil)
 (require 'config-git)
