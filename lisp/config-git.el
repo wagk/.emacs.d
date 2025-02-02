@@ -520,12 +520,8 @@ assume # starts a comment."
                 :inherit diff-hl-change))))
   (diff-hl-reverted-chunk-highlight
    ((default . (:inherit diff-hl-change))))
-  :init
-  (cl-defun --maybe-activate-diff-hl-dired-mode ()
-    (unless (file-remote-p default-directory)
-      (diff-hl-dired-mode)))
   :hook
-  (dired-mode-hook . --maybe-activate-diff-hl-dired-mode)
+  (dired-mode-hook . diff-hl-dired-mode-unless-remote)
   :config
   (global-diff-hl-mode)
   (with-eval-after-load 'magit
