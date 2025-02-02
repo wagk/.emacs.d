@@ -32,6 +32,9 @@
   (delete-duplicate-lines (point-min) (point-max) nil nil nil t)
   (config-todo--sort-todos))
 
+(cl-defun config-todo-collect-todos ()
+  "Collect every line in the buffer and store them in a list somewhere")
+
 (cl-defun config-todo--sort-todos ()
   (let* ((sort-fold-case t)
          (done-rx (rx line-start "x"))
