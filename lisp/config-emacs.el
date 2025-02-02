@@ -927,13 +927,15 @@ Returns a string, or nil if there is no path associated with the buffer."
   (tab-bar ((default . (:foreground unspecified
                         :background unspecified
                         :inverse-video nil
-                        :underline nil))))
+                        :underline nil
+                        :inherit sol-superlight-foreground))))
   (tab-bar-tab ((default . (:foreground unspecified
                             :background unspecified
                             :underline unspecified
                             :bold nil
                             :box nil
-                            :inherit sol-superlight-background))))
+                            :inherit (sol-superlight-background
+                                      sol-foreground)))))
   (tab-bar-tab-inactive ((default . (:foreground unspecified
                                      :background unspecified
                                      :bold nil
