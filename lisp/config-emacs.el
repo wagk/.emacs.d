@@ -596,7 +596,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   :ensure nil
   :blackout t
   :custom
-  (eldoc-echo-area-use-multiline-p 0.2)
+  (eldoc-echo-area-use-multiline-p 0.1)
   (eldoc-echo-area-prefer-doc-buffer nil)
   :config
   (global-eldoc-mode))
