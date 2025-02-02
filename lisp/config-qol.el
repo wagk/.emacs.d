@@ -417,6 +417,8 @@
     (vterm-max-scrollback 100000 "maximum allowed without editing source file.")
     (vterm-always-compile-module t)
     :config
+    (with-eval-after-load 'undo-tree
+      (add-to-list 'undo-tree-incompatible-major-modes 'vterm-mode))
     (evil-ex-define-cmd "term" #'vterm))
 
   (use-package multi-vterm

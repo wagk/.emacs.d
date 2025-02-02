@@ -18,15 +18,16 @@
   (undo-tree-visualizer-timestamps t)
   ;; (undo-tree-auto-save-history nil) ;; the perf of this seems intensely bad
   (undo-tree-history-directory-alist
-   `(("." . ,(locate-user-emacs-file (file-name-concat "etc" "undo-tree")))))
+   `(("." . ,(expand-file-name (file-name-concat user-emacs-directory "undo-tree")))))
   (undo-tree-enable-undo-in-region t)
   :custom-face
   (undo-tree-visualizer-default-face
-   ((default . (:inherit sol-foreground))))
+   ((default . (:foreground unspecified
+                :inherit sol-foreground))))
   (undo-tree-visualizer-active-branch-face
-   ((default . (:inherit sol-light-background-i))))
-  (undo-tree-visualizer-current-face
    ((default . (:foreground ,sol-green))))
+  (undo-tree-visualizer-current-face
+   ((default . (:inherit sol-superlight-background))))
   (undo-tree-visualizer-register-face
    ((default . (:foreground ,sol-yellow))))
   (undo-tree-visualizer-unmodified-face
@@ -38,8 +39,12 @@
    "U"     'undo-tree-visualize)
   :config
   (require 'track-changes nil :noerror) ;; if present, load track-changes
-  (setq evil-undo-system 'undo-tree)
-  (global-undo-tree-mode))
+  (global-undo-tree-mode)
+  (with-eval-after-load 'evil
+    (setq evil-undo-system 'undo-tree))
+  (with-eval-after-load 'no-littering
+    (setq undo-tree-history-directory-alist
+     `(("." . ,(file-name-concat no-littering-etc-directory "undo-tree"))))))
 
 ;; Needed for g; and g,
 (use-package goto-chg)
@@ -89,7 +94,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 
 (use-package evil
   :demand t
-  :after (general config-theme)
+  :after (general config-theme undo-tree goto-chg)
   :ensure (:host github :repo "emacs-evil/evil")
   :commands (evil-set-initial-state
              evil-insert-state
