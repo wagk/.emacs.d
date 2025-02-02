@@ -334,7 +334,8 @@ assume # starts a comment."
                 :inherit sol-foreground
                 :bold t))))
   (magit-diff-file-heading-highlight
-   ((default . (:inherit magit-diff-file-heading
+   ((default . (:inherit (magit-diff-file-heading
+                          sol-superlight-background)
                 :bold t))))
   (magit-diff-file-heading-selection
    ((default . (:foreground unspecified
