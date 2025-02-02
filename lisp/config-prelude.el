@@ -156,6 +156,9 @@
   :ensure (:host github :repo "emacscollective/no-littering")
   :after f
   :config
+  (setq backup-directory-alist `(("." .  ,(file-name-concat
+                                           no-littering-etc-directory
+                                           "backups"))))
   (let ((dir (f-join no-littering-etc-directory "auto-save/")))
     (unless (f-exists-p dir)
       (f-mkdir dir))

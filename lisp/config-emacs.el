@@ -109,10 +109,10 @@ The DWIM behaviour of this command is as follows:
       (fset 'yes-or-no-p 'y-or-n-p)
     (setopt use-short-answers t))
 
-  (setq backup-directory-alist
-        `(("." . ,(file-name-concat (when (featurep 'no-littering)
-                                      no-littering-etc-directory)
-                                    "backups"))))
+  (unless (featurep 'no-littering)
+    (setq backup-directory-alist
+          `(("." .  ,(expand-file-name
+                      (file-name-concat user-emacs-directory "backups"))))))
 
   (when (< emacs-major-version 27)
     (setq w32-pipe-read-delay 0)))
