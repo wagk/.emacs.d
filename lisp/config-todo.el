@@ -25,6 +25,8 @@
   "C-c C-c" #'config-todo-do
   "C-c C-s" #'config-todo-organize)
 
+(defvar config-todo--lines '())
+
 (cl-defun config-todo-organize ()
   "Normalize each line and then sort buffer."
   (interactive)
@@ -33,7 +35,15 @@
   (config-todo--sort-todos))
 
 (cl-defun config-todo-collect-todos ()
-  "Collect every line in the buffer and store them in a list somewhere")
+  "Collect every line in the buffer and store them in a list somewhere"
+  (save-excursion
+    (goto-char (point-min))
+    (while (not (eobp))
+      (let ((line (buffer-substring-no-properties
+                   (line-beginning-position)
+                   (line-end-position))))
+        (push line config-todo--lines))
+      (forward-line))))
 
 (cl-defun config-todo--sort-todos ()
   (let* ((sort-fold-case t)
