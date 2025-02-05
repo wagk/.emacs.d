@@ -12,7 +12,8 @@
                       (require 'smartparens)
                       (smartparens-mode)))
   :custom-face
-  (sp-pair-overlay-face ((t (:inherit default :underline nil))))
+  (sp-pair-overlay-face ((default (:background unspecified
+                                   :underline nil))))
   :general
   (:states 'normal
    :prefix my-default-evil-leader-key
