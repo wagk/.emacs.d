@@ -89,8 +89,15 @@ rust-mode rust-ts-mode
    n> (p "todo!()") q >
    n "}" >)
 
+(at "#[tokio::test]" >
+   n "async fn " (p "foo") "() {" >
+   n> (p "todo!()") q >
+   n "}" >)
+
 (tm "#[cfg(test)]" >
     n "mod tests {" >
+    n> "use super::*;" >
+    n>
     n> q >
     n "}" >)
 
