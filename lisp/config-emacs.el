@@ -612,8 +612,13 @@ Returns a string, or nil if there is no path associated with the buffer."
 (use-package flymake
   :ensure nil
   :after config-theme
+  :init
+  (cl-defun --maybe-flymake-mode ()
+    (if (buffer-file-name)
+        (flymake-mode 1)
+      (flymake-mode -1)))
   :hook
-  (prog-mode-hook . flymake-mode)
+  (prog-mode-hook . --maybe-flymake-mode)
   :custom-face
   (flymake-error ((default . (:foreground unspecified
                               :box nil
