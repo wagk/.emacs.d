@@ -427,7 +427,8 @@
   :custom-face
   (stripe-highlight
    ((default . (:extend t
-                :inherit sol-light-foreground)))))
+                :background unspecified
+                :inherit sol-superlight-background)))))
 
 (use-package dogears
   :disabled t ;; we don't use this.
