@@ -581,6 +581,7 @@
   (evil-ex-define-cmd "restarttest" 'restart-emacs-start-new-emacs))
 
 (use-package eat
+  :if (not (eq system-type 'windows-nt))
   :ensure (:type git
            :host codeberg
            :repo "akib/emacs-eat"
