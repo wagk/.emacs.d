@@ -229,16 +229,15 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 
 (use-package evil-collection
   :after (evil)
-  :blackout t
+  :blackout (evil-collection-unimpaired-mode)
   :custom
   (evil-collection-setup-minibuffer t)
   ;; the following causes a crash because:
   ;; Lisp error: (void-variable org-agenda-diary-file)
   ;; (evil-collection-calendar-want-org-bindings t)
+  (evil-collection-unimpaired-want-repeat-mode-integration t)
   :config
-  (evil-collection-init)
-  (with-eval-after-load 'blackout
-    (blackout 'evil-collection-unimpaired-mode)))
+  (evil-collection-init))
 
 (use-package evil-lion
   :ensure (:host github :repo "edkolev/evil-lion")
@@ -276,9 +275,10 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
    "*" 'evil-visualstar/begin-search-forward
    "#" 'evil-visualstar/begin-search-backward))
 
-(general-define-key
- :keymaps 'global
- "C-\\" 'toggle-input-method)
+(with-eval-after-load 'general
+  (general-define-key
+   :keymaps 'global
+   "C-\\" 'toggle-input-method))
 
 (use-package evil-surround
   :demand t
