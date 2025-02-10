@@ -612,6 +612,11 @@
 ;; (use-package kubernetes-evil
 ;;   :after kubernetes)
 
+(use-package aider
+  :if (executable-find "aider")
+  :ensure (:host github :repo "tninja/aider.el" :files ("aider.el"))
+  :commands (aider-transient-menu))
+
 (use-package plz
   :ensure (:host github :repo "emacs-straight/plz" :branch "master")
   :if (executable-find "curl")
