@@ -49,8 +49,8 @@
   (magit-dimmed ((default . (:inherit sol-light-foreground
                              :foreground unspecified))))
   (magit-hash ((default . (:foreground unspecified
-                           :bold t
-                           :inherit sol-light-foreground))
+                           :bold nil
+                           :inherit sol-foreground))
                (((type nil)) . (:bold nil))))
   (magit-cherry-equivalent ((default . (:foreground ,sol-magenta))))
   (magit-cherry-unmatched ((default . (:foreground ,sol-cyan))))
@@ -393,6 +393,7 @@ assume # starts a comment."
 ;; TODO: Somehow jigger `magit-todos-branch-list' to *only* show
 ;; branch todos instead of it being an appended section
 (use-package magit-todos
+  :disabled t ;; don't use it for now
   :after (magit hl-todo)
   :custom
   (magit-todos-keyword-suffix
