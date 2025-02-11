@@ -111,8 +111,7 @@
     (evil-set-command-property #'consult-line        :jump t)
     (evil-set-command-property #'consult-line-multi  :jump t)
     (evil-set-command-property #'consult-info        :jump t)
-    (evil-set-command-property #'consult-ripgrep     :jump t)
-    (evil-set-command-property #'consult-grep        :jump t))
+    (evil-set-command-property #'consult-ripgrep     :jump t))
   (with-eval-after-load 'evil
     (with-eval-after-load 'config-evil-helpers
       (--evil-define-splits "mb" 'consult-bookmark)
@@ -120,29 +119,18 @@
         ;; use `:pt' for project level todos
         (--evil-define-splits "ft" #'consult-todo)))
     (evil-ex-define-cmd "mr"  'consult-recent-file)
-    (evil-ex-define-cmd "fm"  'consult-bookmark)
     (evil-ex-define-cmd "fn"  'consult-goto-line)
     (evil-ex-define-cmd "bb"  'consult-buffer)
-    (evil-ex-define-cmd "fr"  "mr")
-    (evil-ex-define-cmd "fb"  "bb")
     ;; :fo is currently used by focus-mode, and I sort of like it that way right
     ;; now.
     ;; (evil-ex-define-cmd "fout"  'consult-outline)
     (evil-ex-define-cmd "fi"  'consult-imenu)
     (evil-ex-define-cmd "ii"  'consult-imenu-multi)
-    (with-eval-after-load 'consult-eglot
-      (evil-ex-define-cmd "ia" #'consult-eglot-symbols))
     (evil-ex-define-cmd "fp"  'consult-yank-from-kill-ring) ;; p for paste
     (evil-ex-define-cmd "ff"  'consult-line)
     (evil-ex-define-cmd "fa"  'consult-line-multi)
     (with-eval-after-load 'project
-      (evil-ex-define-cmd "fc" #'consult-compile-error)
-      (with-eval-after-load 'consult-flycheck
-        (evil-ex-define-cmd "fc" #'consult-flycheck)))
-    (with-eval-after-load 'link-hint
-      (evil-ex-define-cmd "fx"  'link-hint-open-link)
-      (evil-ex-define-cmd "fy"  'link-hint-copy-link))
-    (evil-ex-define-cmd "gr" #'consult-grep))
+      (evil-ex-define-cmd "fc" #'consult-compile-error)))
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'(lambda (&rest args)
                                           (apply (if vertico-mode

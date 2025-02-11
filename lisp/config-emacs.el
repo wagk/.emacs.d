@@ -1019,6 +1019,14 @@ Returns a string, or nil if there is no path associated with the buffer."
         ("g" "Group" tab-bar-change-tab-group)]])
     (evil-ex-define-cmd "tt" '--tab-bar)))
 
+(use-package grep
+  :ensure nil
+  :config
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "lgr" #'lgrep)
+    (with-eval-after-load 'consult
+      (evil-set-command-property #'consult-grep :jump t)
+      (evil-ex-define-cmd "gr" #'consult-grep))))
 
 (use-package autorevert
   :ensure nil
@@ -1027,16 +1035,18 @@ Returns a string, or nil if there is no path associated with the buffer."
   :config
   (global-auto-revert-mode))
 
-(use-package apropos
-  :ensure nil
-  :custom
-  (apropos-do-all t)
-  :init
-  (with-eval-after-load 'evil
-    (evil-define-command my-apropos (pattern)
-      (interactive "<a>")
-      (apropos pattern))
-    (evil-ex-define-cmd "h[elp]" 'my-apropos)))
+;; (use-package apropos
+;;   :ensure nil
+;;   :custom
+;;   (apropos-do-all t)
+;;   :init
+;;   (with-eval-after-load 'evil
+;;     (evil-define-command my-apropos (pattern)
+;;       (interactive "<a>")
+;;       (if pattern
+;;           (apropos pattern)
+;;         (info)))
+;;     (evil-ex-define-cmd "h[elp]" 'my-apropos)))
 
 (use-package ibuffer
   :ensure nil
@@ -1482,9 +1492,23 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
    "f" 'link-hint-open-link
    "]]" 'Info-next
    "[[" 'Info-prev)
+  :config
+  (with-eval-after-load 'consult
+    (evil-ex-define-cmd "h[elp]" #'consult-info)
+    (with-eval-after-load 'config-evil-helpers
+      (--evil-define-splits "info" #'info)))
   :custom-face
   (info-node
    ((default . (:inherit sol-foreground)))))
+
+(use-package shortdoc
+  :ensure nil
+  :after evil
+  :commands shortdoc
+  :init
+  (evil-ex-define-cmd "cheatsheet" 'shortdoc)
+  (evil-ex-define-cmd "cs" "cheatsheet")
+  (evil-ex-define-cmd "hh" "cheatsheet"))
 
 (use-package diff-mode
   :ensure nil

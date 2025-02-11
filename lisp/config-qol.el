@@ -323,7 +323,9 @@
   ;;       ((eq last-command 'link-hint-copy-link-at-point) (link-hint-copy-link))))))
   :init
   (with-eval-after-load 'evil
-    (evil-ex-define-cmd "yx" #'link-hint-copy-link-at-point))
+    (evil-ex-define-cmd "yx" #'link-hint-copy-link-at-point)
+    (evil-ex-define-cmd "fx"  'link-hint-open-link)
+    (evil-ex-define-cmd "fy"  'link-hint-copy-link))
   :general
   (:keymaps 'help-mode-map
    :states '(motion normal)
@@ -443,11 +445,6 @@
       (cl-letf (((symbol-function 'switch-to-buffer-other-window)
                  #'switch-to-buffer))
         (command-execute #'multi-vterm-project)))))
-
-(with-eval-after-load 'evil
-  (when (fboundp 'shortdoc)
-   (evil-ex-define-cmd "cheatsheet" 'shortdoc)
-   (evil-ex-define-cmd "cs" 'shortdoc)))
 
 (use-package dwim-shell-command
   :disabled t ;; find a use for this eventually... maybe
