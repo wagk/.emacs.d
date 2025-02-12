@@ -62,7 +62,11 @@ rust-mode rust-ts-mode
 
 (matches "matches!(" p "," (s pattern) ")" q)
 
-(print "println!(\"" q "\");" >)
+(print "// DEBUG (pangt): " > n>
+       "println!(\"" q "\");" >)
+
+(dbg "// DEBUG (pangt): " > n>
+     "dbg!(" q ");" >)
 
 (i "impl " p " {" > n> q > n "}" >)
 
