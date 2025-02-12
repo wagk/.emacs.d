@@ -393,8 +393,8 @@ assume # starts a comment."
 ;; TODO: Somehow jigger `magit-todos-branch-list' to *only* show
 ;; branch todos instead of it being an appended section
 (use-package magit-todos
-  :disabled t ;; don't use it for now
   :after (magit hl-todo)
+  :commands (magit-todos-list)
   :custom
   (magit-todos-keyword-suffix
    (rx (optional (0+ blank) "(" (1+ (not (any ")"))) ")" (0+ blank)) ": "))
@@ -404,10 +404,10 @@ assume # starts a comment."
    "`nice' does not exist on windows")
   (magit-todos-branch-list t)
   (magit-todos-group-by '(magit-todos-item-first-path-component
-                          magit-todos-item-filename))
+                          magit-todos-item-filename)))
                           ;; magit-todos-item-keyword))
-  :hook
-  (magit-status-mode-hook . magit-todos-mode))
+  ;; :hook)
+  ;; (magit-status-mode-hook . magit-todos-mode))
 
 (use-package magit-lfs
   :after magit)
