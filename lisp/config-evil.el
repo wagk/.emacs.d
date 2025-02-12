@@ -208,7 +208,7 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 
   (evil-ex-define-cmd "vb[uffer]" 'my-evil-vsplit-buffer)
 
-  (defcustom --evil-write-typo-filenames '("'" "[")
+  (defcustom --evil-write-typo-filenames '("'" "[" "]" "\"")
     "Filenames that commonly get created when I mash `:w'.")
 
   (define-advice evil-fill (:after (&rest args) --move-cursor-to-end-column)
