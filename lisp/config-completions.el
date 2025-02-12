@@ -114,13 +114,24 @@
     (evil-set-command-property #'consult-ripgrep     :jump t))
   (with-eval-after-load 'evil
     (with-eval-after-load 'config-evil-helpers
-      (--evil-define-splits "mb" 'consult-bookmark)
-      (with-eval-after-load 'consult-todo
-        ;; use `:pt' for project level todos
-        (--evil-define-splits "ft" #'consult-todo)))
+      (--evil-define-splits "mb" #'consult-bookmark)
+      (with-eval-after-load 'project
+        (--evil-define-splits "fb" #'(lambda ()
+                                       (interactive)
+                                       (if (project-current)
+                                           (consult-project-buffer)
+                                         (consult-buffer))))
+        (--evil-define-splits "bb" "fb")
+        (--evil-define-splits "fd" #'(lambda ()
+                                       (interactive)
+                                       (if (project-current)
+                                           (project-find-file)
+                                         (command-execute #'find-file))))
+        (with-eval-after-load 'consult-todo
+          ;; use `:pt' for project level todos
+          (--evil-define-splits "ft" #'consult-todo))))
     (evil-ex-define-cmd "mr"  'consult-recent-file)
     (evil-ex-define-cmd "fn"  'consult-goto-line)
-    (evil-ex-define-cmd "bb"  'consult-buffer)
     ;; :fo is currently used by focus-mode, and I sort of like it that way right
     ;; now.
     ;; (evil-ex-define-cmd "fout"  'consult-outline)
