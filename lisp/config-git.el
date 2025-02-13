@@ -69,7 +69,6 @@
   (evil-ex-define-cmd "gf"      'magit-file-dispatch)
   (evil-ex-define-cmd "gg"      'magit-dispatch)
 
-  (evil-ex-define-cmd "gF"      'magit-pull)
   (evil-ex-define-cmd "gB"      'magit-branch)
   (evil-ex-define-cmd "gd[iff]" 'magit-diff)
   (evil-ex-define-cmd "gb"      'magit-blame-addition)
