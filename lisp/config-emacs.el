@@ -1004,20 +1004,20 @@ Returns a string, or nil if there is no path associated with the buffer."
            (num-tabs (length (cdr tabs))))
       (if (eq num-tabs 1)
           (call-interactively oldfun)
-        (tab-bar-close-tab))))
+        (tab-bar-close-tab)))))
 
-  (with-eval-after-load 'transient
-    (transient-define-prefix --tab-bar ()
-      [["Search"
-        ("t" "Select tab by name" tab-bar-select-tab-by-name)]
-       ["Move"
-        (">>" "Move right" tab-bar-move-tab :transient t)
-        ("<<" "Move left" tab-bar-move-tab-backward :transient t)]
-       ["Manipulate"
-        ("r" "Rename" tab-bar-rename-tab)
-        ("c" "Close" tab-bar-close-tab)
-        ("g" "Group" tab-bar-change-tab-group)]])
-    (evil-ex-define-cmd "tt" '--tab-bar)))
+  ;; (with-eval-after-load 'transient
+  ;;   (transient-define-prefix --tab-bar ()
+  ;;     [["Search"
+  ;;       ("t" "Select tab by name" tab-bar-select-tab-by-name)]
+  ;;      ["Move"
+  ;;       (">>" "Move right" tab-bar-move-tab :transient t)
+  ;;       ("<<" "Move left" tab-bar-move-tab-backward :transient t)]
+  ;;      ["Manipulate"
+  ;;       ("r" "Rename" tab-bar-rename-tab)
+  ;;       ("c" "Close" tab-bar-close-tab)
+  ;;       ("g" "Group" tab-bar-change-tab-group)]])
+  ;;   (evil-ex-define-cmd "tt" '--tab-bar)))
 
 (use-package grep
   :ensure nil
