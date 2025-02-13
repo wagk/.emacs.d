@@ -121,8 +121,8 @@
   (find-file config-todo-file)
   (config-todo-mode))
 
-(with-eval-after-load 'config-evil-helpers
-  (--evil-define-splits "dd" #'config-todo-open))
+;; (with-eval-after-load 'config-evil-helpers
+;;   (--evil-define-splits "dd" #'config-todo-open))
 
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Major-Mode-Conventions.html
 (define-derived-mode config-todo-mode text-mode "config-todo"
