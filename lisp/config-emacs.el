@@ -667,7 +667,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 
 (use-package eglot
   :ensure nil
-  :after config-theme
+  :after (config-theme evil flymake)
   :custom
   (eglot-prefer-plaintext t)
   (eglot-extend-to-xref t)
@@ -689,17 +689,23 @@ Returns a string, or nil if there is no path associated with the buffer."
     "g 5" nil  ;; unbind `xref-find-definitions-other-frame'
     "g D" nil) ;; unbind `xref-find-definitions-other-window'
   :init
-  (with-eval-after-load 'evil
-    (evil-ex-define-cmd "fla" #'eglot-code-actions)
-    (evil-ex-define-cmd "la" "fla")
-    (evil-ex-define-cmd "flr" #'eglot-rename)
-    (evil-ex-define-cmd "lr" "flr")
-    (evil-ex-define-cmd "lw" #'eglot-code-action-rewrite)
-    (evil-ex-define-cmd "lx" #'eglot-code-action-extract)
-    (evil-ex-define-cmd "li" #'eglot-code-action-inline)
-    (evil-ex-define-cmd "lc" #'eglot-code-action-quickfix)
-    (evil-ex-define-cmd "lm" #'eglot-inlay-hints-mode)
-    (evil-ex-define-cmd "lo" #'eglot-code-action-organize-imports)))
+  (evil-ex-define-cmd "lmm"
+                      #'(lambda ()
+                          ;; Sometimes as consult loads flymake gets a bit trigger-happy linting.
+                          ;; This resets the overlay.
+                          (interactive)
+                          (flymake-mode -1)
+                          (flymake-mode 1)))
+  (evil-ex-define-cmd "fla" #'eglot-code-actions)
+  (evil-ex-define-cmd "la" "fla")
+  (evil-ex-define-cmd "flr" #'eglot-rename)
+  (evil-ex-define-cmd "lr" "flr")
+  (evil-ex-define-cmd "lw" #'eglot-code-action-rewrite)
+  (evil-ex-define-cmd "lx" #'eglot-code-action-extract)
+  (evil-ex-define-cmd "li" #'eglot-code-action-inline)
+  (evil-ex-define-cmd "lc" #'eglot-code-action-quickfix)
+  (evil-ex-define-cmd "lm" #'eglot-inlay-hints-mode)
+  (evil-ex-define-cmd "lo" #'eglot-code-action-organize-imports))
 
 (use-package consult-eglot
   :after (eglot consult)
