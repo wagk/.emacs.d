@@ -85,7 +85,7 @@
 
 (use-package consult
   :demand t
-  :after config-theme
+  :after (config-theme evil project config-evil-helpers)
   :general
   (:states 'normal
    "g /" #'consult-line)
@@ -101,47 +101,41 @@
   (add-to-list 'consult-async-split-styles-alist
                '(slashperl :initial "/" :function consult--split-perl))
   (setq consult-async-split-style 'slashperl)
-  (with-eval-after-load 'evil
-    (evil-set-command-property #'consult-buffer      :jump t)
-    (evil-set-command-property #'consult-bookmark    :jump t)
-    (evil-set-command-property #'consult-goto-line   :jump t)
-    (evil-set-command-property #'consult-recent-file :jump t)
-    (evil-set-command-property #'consult-imenu       :jump t)
-    (evil-set-command-property #'consult-imenu-multi :jump t)
-    (evil-set-command-property #'consult-line        :jump t)
-    (evil-set-command-property #'consult-line-multi  :jump t)
-    (evil-set-command-property #'consult-info        :jump t)
-    (evil-set-command-property #'consult-ripgrep     :jump t))
-  (with-eval-after-load 'evil
-    (with-eval-after-load 'config-evil-helpers
-      (--evil-define-splits "mb" #'consult-bookmark)
-      (with-eval-after-load 'project
-        (--evil-define-splits "fb" #'(lambda ()
-                                       (interactive)
-                                       (if (project-current)
-                                           (consult-project-buffer)
-                                         (consult-buffer))))
-        (--evil-define-splits "bb" "fb")
-        (--evil-define-splits "fd" #'(lambda ()
-                                       (interactive)
-                                       (if (project-current)
-                                           (project-find-file)
-                                         (command-execute #'find-file))))
-        (with-eval-after-load 'consult-todo
-          ;; use `:pt' for project level todos
-          (--evil-define-splits "ft" #'consult-todo))))
-    (evil-ex-define-cmd "mr"  'consult-recent-file)
-    (evil-ex-define-cmd "fn"  'consult-goto-line)
+
+  (evil-set-command-property #'consult-buffer      :jump t)
+  (evil-set-command-property #'consult-bookmark    :jump t)
+  (evil-set-command-property #'consult-goto-line   :jump t)
+  (evil-set-command-property #'consult-recent-file :jump t)
+  (evil-set-command-property #'consult-imenu       :jump t)
+  (evil-set-command-property #'consult-imenu-multi :jump t)
+  (evil-set-command-property #'consult-line        :jump t)
+  (evil-set-command-property #'consult-line-multi  :jump t)
+  (evil-set-command-property #'consult-info        :jump t)
+  (evil-set-command-property #'consult-ripgrep     :jump t)
+
+  (--evil-define-splits "mb" #'consult-bookmark)
+  (--evil-define-splits "fb" #'(lambda () (interactive)
+                                 (if (project-current) (consult-project-buffer)
+                                   (consult-buffer))))
+  (--evil-define-splits "bb" "fb")
+  (--evil-define-splits "fd" #'(lambda () (interactive)
+                                 (if (project-current) (project-find-file)
+                                   (command-execute #'find-file))))
+  (with-eval-after-load 'consult-todo
+    ;; use `:pt' for project level todos
+    (--evil-define-splits "ft" #'consult-todo))
+  (evil-ex-define-cmd "mr"  'consult-recent-file)
+  (evil-ex-define-cmd "fn"  'consult-goto-line)
     ;; :fo is currently used by focus-mode, and I sort of like it that way right
     ;; now.
     ;; (evil-ex-define-cmd "fout"  'consult-outline)
-    (evil-ex-define-cmd "fi"  'consult-imenu)
-    (evil-ex-define-cmd "ii"  'consult-imenu-multi)
-    (evil-ex-define-cmd "fp"  'consult-yank-from-kill-ring) ;; p for paste
-    (evil-ex-define-cmd "ff"  'consult-line)
-    (evil-ex-define-cmd "fa"  'consult-line-multi)
-    (with-eval-after-load 'project
-      (evil-ex-define-cmd "fc" #'consult-compile-error)))
+  (evil-ex-define-cmd "fi"  'consult-imenu)
+  (evil-ex-define-cmd "ii"  'consult-imenu-multi)
+  (evil-ex-define-cmd "fp"  'consult-yank-from-kill-ring) ;; p for paste
+  (evil-ex-define-cmd "ff"  'consult-line)
+  (evil-ex-define-cmd "fa"  'consult-line-multi)
+  (evil-ex-define-cmd "fc" #'consult-compile-error)
+
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'(lambda (&rest args)
                                           (apply (if vertico-mode
