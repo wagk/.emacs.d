@@ -106,9 +106,10 @@
   (org-block-end-line
    ((default . (:inherit org-meta-line))))
   (org-drawer
-   ((default . (:inherit sol-light-foreground))))
+   ((default . (:foreground unspecified
+                :inherit (sol-light-foreground)))))
   (org-special-keyword
-   ((default . (:foreground ,sol-blue
+   ((default . (:foreground unspecified
                 :inherit sol-foreground))))
   :hook ((org-insert-heading-hook . evil-insert-state))
   :init

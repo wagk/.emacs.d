@@ -538,6 +538,36 @@ Returns a string, or nil if there is no path associated with the buffer."
                                            (my-evil-new-tab nil))
                                          (dired-jump)))))
 
+(use-package outline
+  :ensure nil
+  :after (config-theme)
+  :custom-face
+  (outline-1
+   ((default . (:bold t
+                :foreground unspecified
+                :inherit sol-strong-foreground))))
+  (outline-2
+   ((default . (:foreground unspecified
+                :inherit sol-strong-foreground))))
+  (outline-3
+   ((default . (:foreground unspecified
+                :inherit sol-strong-foreground))))
+  (outline-4
+   ((default . (:foreground unspecified
+                :inherit sol-strong-foreground))))
+  (outline-5
+   ((default . (:foreground unspecified
+                :inherit sol-strong-foreground))))
+  (outline-6
+   ((default . (:foreground unspecified
+                :inherit sol-strong-foreground))))
+  (outline-7
+   ((default . (:foreground unspecified
+                :inherit sol-strong-foreground))))
+  (outline-8
+   ((default . (:foreground unspecified
+                :inherit sol-strong-foreground)))))
+
 (use-package dired-async
   :ensure nil
   :after (async config-theme) ;; part of this package
