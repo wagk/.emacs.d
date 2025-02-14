@@ -112,3 +112,8 @@ rust-mode rust-ts-mode
 
 (pe "pub enum " (s "Foo") " {" n> p n "}" q >)
 (e "enum " (s "Foo") " {" n> p n "}" q >)
+
+org-mode
+
+(src "#+BEGIN_SRC " > q n>
+     "#+END_SRC")
