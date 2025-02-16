@@ -1,11 +1,5 @@
 (require 'use-package)
 
-(setq-default tab-always-indent 'complete)
-(customize-set-variable 'completion-ignore-case t)
-(customize-set-variable 'read-file-name-completion-ignore-case t)
-(customize-set-variable 'read-buffer-completion-ignore-case t)
-(customize-set-variable 'completions-detailed t)
-
 ;; TODO: Figure out how to delete an entry from the completion
 ;; history
 (use-package vertico
@@ -121,6 +115,7 @@
   (--evil-define-splits "fd" #'(lambda () (interactive)
                                  (if (project-current) (project-find-file)
                                    (command-execute #'find-file))))
+  (--evil-define-splits "fdd" #'find-file)
   (with-eval-after-load 'consult-todo
     ;; use `:pt' for project level todos
     (--evil-define-splits "ft" #'consult-todo))

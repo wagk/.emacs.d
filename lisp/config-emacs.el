@@ -224,11 +224,28 @@ The DWIM behaviour of this command is as follows:
    ((default . (:foreground unspecified
                 :background unspecified)))))
 
+(use-package indent
+  :ensure nil
+  :custom
+  (tab-always-indent 'complete))
+
+(use-package dictionary
+  :ensure nil
+  :custom
+  (dictionary-server nil))
+
 (use-package minibuffer
   :ensure nil
   :after config-theme
   :custom
   (enable-recursive-minibuffers t)
+  (completion-auto-help 'always)
+  (completions-detailed t)
+  (completions-ignore-case t)
+  (completions-format 'one-column)
+  (completions-max-height nil)
+  (read-file-name-completion-ignore-case t)
+  (read-buffer-completion-ignore-case t)
   :custom-face
   (completions-common-part ((default . (:foreground ,sol-cyan)))))
 
@@ -1276,6 +1293,8 @@ Returns a string, or nil if there is no path associated with the buffer."
 (use-package simple
   :ensure nil
   :after config-theme
+  :custom
+  (completion-auto-select nil)
   :custom-face
   (separator-line ((default . (:inherit 'sol-superlight-background))))
   :config
