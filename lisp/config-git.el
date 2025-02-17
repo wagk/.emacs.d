@@ -392,11 +392,13 @@ assume # starts a comment."
 ;; TODO: Somehow jigger `magit-todos-branch-list' to *only* show
 ;; branch todos instead of it being an appended section
 (use-package magit-todos
-  :after (magit hl-todo)
+  :after hl-todo
   :commands (magit-todos-list)
   :init
   (with-eval-after-load 'evil
-    (evil-ex-define-cmd "tt" #'magit-todos-list))
+    (evil-ex-define-cmd "tt" #'(lambda () (interactive)
+                                 (require 'magit)
+                                 (magit-todos-list))))
   :custom
   (magit-todos-keyword-suffix
    (rx (optional (0+ blank) "(" (1+ (not (any ")"))) ")" (0+ blank)) ": "))
