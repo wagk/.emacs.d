@@ -224,11 +224,6 @@ The DWIM behaviour of this command is as follows:
    ((default . (:foreground unspecified
                 :background unspecified)))))
 
-(use-package indent
-  :ensure nil
-  :custom
-  (tab-always-indent 'complete))
-
 (use-package dictionary
   :ensure nil
   :custom
@@ -238,10 +233,11 @@ The DWIM behaviour of this command is as follows:
   :ensure nil
   :after config-theme
   :custom
+  (tab-always-indent 'complete) ;; not part of minibuffer but indent.el doesn't provide any features
   (enable-recursive-minibuffers t)
   (completion-auto-help 'always)
   (completions-detailed t)
-  (completions-ignore-case t)
+  (completion-ignore-case t) ;; part of `minibuf.c'. The missing `s' is deliberate
   (completions-format 'one-column)
   (completions-max-height nil)
   (read-file-name-completion-ignore-case t)
