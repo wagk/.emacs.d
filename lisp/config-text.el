@@ -344,7 +344,6 @@
                     (treesit-available-p))))
   :ensure (:host github :repo "gregsexton/origami.el")
   :after evil
-  :defer 2
   :general
   (:states 'normal
    "zm" 'origami-close-all-nodes
