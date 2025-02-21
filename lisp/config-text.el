@@ -271,7 +271,7 @@
   :if (executable-find "rg")
   :ensure (:host github :repo "dajva/rg.el")
   :commands rg-menu
-  :after (evil general)
+  :after (evil general config-evil-helpers consult)
   :custom
   (rg-ignore-case 'smart)
   (rg-keymap-prefix "")
@@ -293,15 +293,14 @@
    "C-+" 'rg-menu)
   :init
   (evil-ex-define-cmd "rg" #'rg-menu)
-  (with-eval-after-load 'consult
-    (evil-ex-define-cmd "rr" #'consult-ripgrep)
-    (evil-ex-define-cmd "rl"
-                        ;; we can't do regions because ex-commands
-                        ;; always widen to the line
-                        #'(lambda () (interactive)
-                            (require 'thingatpt)
-                            (consult-ripgrep nil
-                                             (thing-at-point 'symbol)))))
+  (--evil-define-splits "rr" #'consult-ripgrep)
+  (evil-ex-define-cmd "rl"
+                      ;; we can't do regions because ex-commands
+                      ;; always widen to the line
+                      #'(lambda () (interactive)
+                          (require 'thingatpt)
+                          (consult-ripgrep nil
+                                           (thing-at-point 'symbol))))
   (evil-ex-define-cmd "rf" #'(lambda () (interactive)
                                (require 'rg)
                                (--rg-search-file)))
