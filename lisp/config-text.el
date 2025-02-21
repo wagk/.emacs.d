@@ -379,19 +379,21 @@
 (use-package tree-sitter-langs
   :after tree-sitter)
 
-(use-package treesit-auto
+(use-package treesit
   :if (and (fboundp 'treesit-available-p)
            (treesit-available-p)
            (not (eq system-type 'windows-nt)))
+  :ensure nil)
+
+(use-package treesit-auto
+  :after treesit
   :custom
   (treesit-auto-install t)
   :config
   (global-treesit-auto-mode))
 
 (use-package treesit-fold
-  :if (and (fboundp 'treesit-available-p)
-           (treesit-available-p)
-           (not (eq system-type 'windows-nt)))
+  :after treesit
   :ensure (:host github :repo "emacs-tree-sitter/treesit-fold" :branch "master")
   :after config-theme
   :custom-face
