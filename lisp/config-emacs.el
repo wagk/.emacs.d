@@ -628,6 +628,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 (use-package imenu
   :ensure nil
   :custom
+  (imenu-flatten 'prefix)
   (imenu-auto-rescan t)
   :config
   (with-eval-after-load 'evil
