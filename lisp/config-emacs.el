@@ -224,6 +224,11 @@ The DWIM behaviour of this command is as follows:
    ((default . (:foreground unspecified
                 :background unspecified)))))
 
+(use-package indent-aux
+  :ensure nil
+  :config
+  (kill-ring-deindent-mode))
+
 (use-package dictionary
   :ensure nil
   :custom
