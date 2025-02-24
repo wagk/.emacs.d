@@ -7,7 +7,6 @@
 ;; Also known as `emacs-lisp-mode'
 (use-package elisp-mode
   :ensure nil
-  :after evil
   :custom
   ;; (lisp-indent-function #'common-lisp-indent-function)
   (lisp-indent-function #'lisp-indent-function)
@@ -158,31 +157,26 @@ Lisp function does not specify a special indentation."
   (with-eval-after-load 'treesit
     (setq rust-mode-treesitter-derive t)))
 
-;; treesit
-(with-eval-after-load 'rust-ts-mode
-  (with-eval-after-load 'general
-    (general-define-key
-     :keymaps 'rust-ts-mode-map
-     :states 'insert
-     "RET" 'comment-indent-new-line)
-
-    (general-define-key
-     :keymaps 'rust-ts-mode-map
-     :states '(insert normal visual)
-     "C-c C-d" 'rust-dbg-wrap-or-unwrap))
-
-  ;; So that `compile' will correctly color/link to rustc errors
-  (require 'rust-compile)
-
-  (with-eval-after-load 'rust-mode
-    (setq rust-ts-mode-hook rust-mode-hook))
-
+(use-package rust-ts-mode
+  :after (rust-mode general)
+  :ensure nil
+  :general
+  (:keymaps 'rust-ts-mode-map
+   :states 'insert
+   "RET" 'comment-indent-new-line)
+  (:keymaps 'rust-ts-mode-map
+   :states '(insert normal visual)
+   "C-c C-d" 'rust-dbg-wrap-or-unwrap)
+  :init
   (cl-defun --rust-ts-mode-rustfmt ()
     "Rustfmts buffer before saving."
     (require 'rust-rustfmt)
     (add-hook 'before-save-hook 'rust-format-buffer nil t))
-
-  (add-hook 'rust-ts-mode-hook '--rust-ts-mode-rustfmt))
+  :hook
+  (rust-ts-mode-hook . --rust-ts-mode-rustfmt)
+  :config
+  (require 'rust-compile)
+  (setq rust-ts-mode-hook rust-mode-hook))
 
 (use-package cargo
   :ensure (:host github :repo "kwrooijen/cargo.el")
