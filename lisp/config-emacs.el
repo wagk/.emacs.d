@@ -499,6 +499,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   (dired-mode-hook . dired-hide-details-mode)
   :custom
   ;; (dired-create-destination-dirs-on-trailing-dirsep nil)
+  (dired-hide-details-hide-symlink-targets nil)
   (dired-create-destination-dirs 'ask)
   (dired-vc-rename-file t)
   (dired-recursive-copies 'always)
