@@ -388,7 +388,7 @@
 (use-package treesit-auto
   :after treesit
   :custom
-  (treesit-auto-install t)
+  (treesit-auto-install nil)
   :config
   (global-treesit-auto-mode))
 
