@@ -860,6 +860,7 @@ should prepopulate."
 ;;    #'(lambda () (consult-notes))))
 
 (use-package obsidian
+  :disabled t ;; sync timer is killing us
   :after evil
   :custom
   (obsidian-include-hidden-files nil)
