@@ -1573,4 +1573,12 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
   :hook
   (diff-mode-hook . font-lock-mode))
 
+(use-package vc-hooks
+  :ensure nil
+  :after tramp
+  :custom
+  (vc-ignore-dir-regexp (format "\\(%s\\)\\|\\(%s\\)"
+                                vc-ignore-dir-regexp
+                                tramp-file-name-regexp)))
+
 (provide 'config-emacs)
