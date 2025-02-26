@@ -772,7 +772,7 @@ Returns a string, or nil if there is no path associated with the buffer."
                                  ;; :expressionAdjustmentHints (:enable "always")
                                  :genericParameterHints (:lifetime (:enable t)
                                                          :type (:enable t))
-                                 :implicitDrops (:enable t)
+                                 ;; :implicitDrops (:enable t)
                                  :lifetimeElisionHints (:enable "skip_trivial"
                                                         :useParameterNames t)
                                  :rangeExclusiveHints (:enable t)))))))
