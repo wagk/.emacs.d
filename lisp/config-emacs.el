@@ -755,7 +755,26 @@ Returns a string, or nil if there is no path associated with the buffer."
   ;; (evil-ex-define-cmd "li" #'eglot-code-action-inline)
   ;; (evil-ex-define-cmd "lc" #'eglot-code-action-quickfix)
   (evil-ex-define-cmd "lm" #'eglot-inlay-hints-mode)
-  (evil-ex-define-cmd "lo" #'eglot-code-action-organize-imports))
+  (evil-ex-define-cmd "lo" #'eglot-code-action-organize-imports)
+  :config
+  (add-to-list 'eglot-server-programs
+               '((rust-ts-mode rust-mode) .
+                 ("rust-analyzer" :initializationOptions
+                   (:check (:command "clippy")
+                    :cargo (:allTargets t
+                            :features "all")
+                    :references (:excludeTests t)
+                    :inlayHints (:bindingModeHints (:enable t)
+                                 :closureCaptureHints (:enable t)
+                                 :closureReturnTypeHints (:enable "always")
+                                 :discriminantHints (:enable "always")
+                                 ;; :expressionAdjustmentHints (:enable "always")
+                                 :genericParameterHints (:lifetime (:enable t)
+                                                         :type (:enable t))
+                                 :implicitDrops (:enable t)
+                                 :lifetimeElisionHints (:enable "skip_trivial"
+                                                        :useParameterNames t)
+                                 :rangeExclusiveHints (:enable t)))))))
 
 (use-package consult-eglot
   :after (eglot consult)

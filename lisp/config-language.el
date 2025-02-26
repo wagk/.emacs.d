@@ -137,6 +137,7 @@ Lisp function does not specify a special indentation."
     (cl-pushnew '("clj" . clojure) org-src-lang-modes)
     (cl-pushnew '("cljs" . clojurescript) org-src-lang-modes)))
 
+;; refer to eglot for rust-analyzer config
 (use-package rust-mode
   :ensure (:host github :repo "rust-lang/rust-mode")
   :mode
@@ -157,8 +158,9 @@ Lisp function does not specify a special indentation."
   (with-eval-after-load 'treesit
     (setq rust-mode-treesitter-derive t)))
 
+;; refer to eglot for rust-analyzer config
 (use-package rust-ts-mode
-  :after (rust-mode general)
+  :after (rust-mode)
   :ensure nil
   :general
   (:keymaps 'rust-ts-mode-map
