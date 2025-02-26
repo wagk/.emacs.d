@@ -31,6 +31,7 @@
   (x-stretch-cursor t) ;; http://pragmaticemacs.com/emacs/adaptive-cursor-width/
   (show-paren-when-point-inside-paren t)
   (show-paren-when-point-in-periphery t)
+  (show-paren-style 'mixed)
   (show-paren-context-when-offscreen t)
   (tags-add-tables nil)
   (use-dialog-box nil)
