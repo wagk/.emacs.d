@@ -338,47 +338,6 @@
       :menu ("Custom" "hl" "`hl-todo' Keywords"))
     (evil-ex-define-cmd "hl-todo" 'search-hl-todo-keywords)))
 
-(use-package origami
-  :if (or (eq system-type 'windows-nt)
-          (not (and (fboundp 'treesit-available-p)
-                    (treesit-available-p))))
-  :ensure (:host github :repo "gregsexton/origami.el")
-  :after evil
-  :general
-  (:states 'normal
-   "zm" 'origami-close-all-nodes
-   "zr" 'origami-open-all-nodes
-   "zc" 'origami-close-node
-   "zC" 'origami-close-node-recursively
-   "zo" 'origami-open-node
-   "zO" 'origami-open-node-recursively
-   "za" 'origami-recursively-toggle-node
-   "zj" 'origami-forward-fold
-   "zk" #'(lambda () (interactive)
-            (call-interactively 'origami-previous-fold)
-            (call-interactively 'origami-next-fold))
-   "[z" 'origami-previous-fold
-   "]z" 'origami-next-fold)
-  :hook
-  (prog-mode-hook . origami-mode)
-  :config
-  (global-origami-mode))
-
-(use-package tree-sitter
-  :if (eq system-type 'windows-nt)
-  :blackout t
-  :commands (tree-sitter-hl-mode tree-sitter-mode)
-  :hook ((tree-sitter-after-on-hook . tree-sitter-hl-mode))
-  :after config-theme
-  :custom-face
-  (tree-sitter-hl-face:function.call
-   ((default (:inherit font-lock-function-name-face))))
-  :config
-  (global-tree-sitter-mode))
-
-(use-package tree-sitter-langs
-  :after tree-sitter)
-
 (use-package treesit
   :if (and (fboundp 'treesit-available-p)
            (treesit-available-p)

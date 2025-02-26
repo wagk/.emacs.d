@@ -536,10 +536,7 @@ Lisp function does not specify a special indentation."
 (use-package hcl-mode)
 
 (use-package terraform-mode
-  :hook (terraform-mode-hook . terraform-format-on-save-mode)
-  :config
-  (with-eval-after-load 'tree-sitter
-    (add-hook 'terraform-mode-hook #'tree-sitter-mode)))
+  :hook (terraform-mode-hook . terraform-format-on-save-mode))
 
 (use-package dockerfile-mode
   :commands dockerfile-mode)
@@ -554,10 +551,7 @@ Lisp function does not specify a special indentation."
 
 (use-package typescript-mode
   :disabled t
-  :mode "\\.ts\\'"
-  :config
-  (with-eval-after-load 'tree-sitter
-    (add-hook 'typescript-mode-hook 'tree-sitter-hl-mode)))
+  :mode "\\.ts\\'")
 
 ;; Requires `mermaid-cli' to be installed
 ;; ```
