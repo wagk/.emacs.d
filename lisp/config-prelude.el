@@ -101,6 +101,8 @@
   :init
   (defconst my-default-evil-leader-key "SPC"))
 
+(elpaca-wait)
+
 ;; More examples about transient can be found at:
 ;; https://github.com/positron-solutions/transient-showcase
 (use-package transient
@@ -119,8 +121,6 @@
    ((default . (:foreground ,sol-blue))))
   (transient-key-stack
    ((default . (:foreground ,sol-cyan)))))
-
-(elpaca-wait)
 
 ;; https://github.com/magnars/dash.el
 (use-package dash
