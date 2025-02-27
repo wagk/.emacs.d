@@ -116,7 +116,9 @@
   (transient-key-return
    ((default . (:foreground ,sol-yellow))))
   (transient-key-stay
-   ((default . (:foreground ,sol-blue)))))
+   ((default . (:foreground ,sol-blue))))
+  (transient-key-stack
+   ((default . (:foreground ,sol-cyan)))))
 
 (elpaca-wait)
 
