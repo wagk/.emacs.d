@@ -680,13 +680,14 @@ Returns a string, or nil if there is no path associated with the buffer."
                                                     sol-superlight-box)))))
   (flymake-note ((default . (:underline t
                              :inherit sol-note))))
-  (flymake-note-echo ((default . (:inherit flymake-info))))
+  (flymake-note-echo ((default . (:inherit flymake-note))))
   (flymake-note-echo-at-eol ((default . (:inherit flymake-note))))
   (flymake-warning ((default . (:foreground unspecified
                                 :underline t
+                                :bold nil
                                 :inherit sol-warning))))
-  (flymake-warning-echo ((default . (:inherit flymake-warning))))
-  (flymake-warning-echo-at-eol ((default . (:inherit flymake-warning))))
+  (flymake-warning-echo ((t . (:inherit flymake-warning))))
+  (flymake-warning-echo-at-eol ((t . (:inherit flymake-warning))))
   :custom
   (flymake-error-bitmap nil)
   (flymake-warning-bitmap nil)
