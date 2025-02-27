@@ -4,7 +4,8 @@
 ;;; org-mode
 
 (use-package org
-  :ensure (:host github :repo "emacs-straight/org-mode" :branch "main")
+  ;; :ensure (:host github :repo "emacs-straight/org-mode" :branch "main")
+  :ensure nil ;; use bundled org
   :after config-theme
   :commands (orgtbl-mode
              org-babel-load-file)
