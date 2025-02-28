@@ -766,9 +766,14 @@ Returns a string, or nil if there is no path associated with the buffer."
                     :cargo (:allTargets t
                             :features "all")
                     :references (:excludeTests t)
+                    :diagnostics (:styleLints (:enable t))
+                    :assist (:emitMustUse t)
+                    :workspace (:symbol (:search (:scope "workspace"
+                                                  :kind "all_symbols")))
                     :inlayHints (:bindingModeHints (:enable t)
+                                 :closingBraceHints (:minLines 1)
                                  :closureCaptureHints (:enable t)
-                                 :closureReturnTypeHints (:enable "always")
+                                 :closureReturnTypeHints (:enable "with_block")
                                  :discriminantHints (:enable "always")
                                  ;; :expressionAdjustmentHints (:enable "always")
                                  :genericParameterHints (:lifetime (:enable t)
