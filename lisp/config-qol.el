@@ -112,7 +112,8 @@
       (dired-filter-mode))))
 
 (use-package dired-subtree
-  :after dired
+  :after (dired dired-hacks)
+  :ensure nil
   :custom
   (dired-subtree-use-backgrounds nil))
 
