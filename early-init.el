@@ -15,6 +15,8 @@
 (unless (eq system-type 'windows-nt)
   (add-to-list 'default-frame-alist '(undecorated . t)))
 
+(setq native-comp-always-compile t)
+
 ;; (when (and (fboundp 'native-comp-available-p)
 ;;            (native-comp-available-p))
 ;;   (setq native-comp-async-report-warnings-errors 'silent)
