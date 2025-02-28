@@ -176,6 +176,7 @@ not something supported right now)
 (defcustom --additional-config-files
   (list user-init-file
         user-local-file
+        (locate-user-emacs-file "early-init.el")
         (when-let*
             ((templates (locate-user-emacs-file "templates.eld"))
              (file-exists-p templates))
