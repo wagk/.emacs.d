@@ -93,7 +93,8 @@ not something supported right now)
                                             ((functionp ,tab)
                                              (funcall-interactively ,tab))
                                             ((or (bufferp ,tab)
-                                                 (stringp ,tab)) ,tab)
+                                                 (stringp ,tab))
+                                             ,tab)
                                             (t (current-buffer))))
                                    (tab-bar-new-tab-choice buffer))
                               (tab-bar-new-tab)))))))
@@ -113,7 +114,7 @@ not something supported right now)
    `\'ibuffer'\)."
   (require 'evil)
   (unless (stringp command)
-    (warn "given command is not a string! Got %s" command)
+    (warn "Given command is not a string! Got %s" command)
     (cl-return))
   (evil-ex-define-cmd command
                       `(lambda () (interactive)
@@ -145,12 +146,12 @@ not something supported right now)
                                       sel)))
                             (tab-bar-new-tab))))))
 
+;; Looks weird because we attempt to collect the buffer name before
+;; splitting the windows, in order to not have dangling windows if the
+;; split is cancelled. `consult-buffer' doesn't return the buffer
+;; itself so we have to find the buffer name by pretending to be
+;; `consult--buffer-display', which gets called internally.
 (cl-defun --evil-consult-buffer (split-type)
-  "Looks weird because we attempt to collect the buffer name before
-  splitting the windows, in order to not have dangling windows if the
-  split is cancelled. `consult-buffer' doesn't return the buffer
-  itself so we have to find the buffer name by pretending to be
-  `consult--buffer-display', which gets called internally."
   (interactive)
   (let (selected-buffer)
     (cl-flet ((collect-buffer-name (buffer &optional _norecord)
@@ -181,7 +182,7 @@ not something supported right now)
             ((templates (locate-user-emacs-file "templates.eld"))
              (file-exists-p templates))
           templates))
-  "Additional configuration files of interest not inside /lisp"
+  "Additional configuration files of interest not inside /lisp."
   :type '(list string))
 
 (defun --select-config-lisp-file-name ()
@@ -192,18 +193,22 @@ not something supported right now)
   (let* ((files (--> (directory-files user-lisp-dir)
                      (seq-filter #'(lambda (file)
                                      (-any (lambda (e) (f-ext-p file e))
-                                           '("el" "org"))) it)
+                                           '("el" "org")))
+                                 it)
                      (seq-filter #'(lambda (file)
                                      (not (string-match file-name-version-regexp
-                                                        file))) it)
+                                                        file)))
+                                 it)
                      (seq-filter #'(lambda (file)
                                      (->> (file-name-base file)
                                           (string-prefix-p ".#")
-                                          (not))) it)
+                                          (not)))
+                                 it)
                      (seq-filter #'(lambda (file)
                                      (->> (file-name-base file)
                                           (string-match "flycheck_")
-                                          (not))) it)
+                                          (not)))
+                                 it)
                      (mapcar #'(lambda (file) (f-join user-lisp-dir file)) it)
                      (append it --additional-config-files)
                      (mapcar #'(lambda (file)
