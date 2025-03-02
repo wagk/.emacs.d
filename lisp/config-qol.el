@@ -21,7 +21,7 @@
   (fancy-compilation-mode))
 
 (use-package which-key
-  :ensure (:host github :repo "justbur/emacs-which-key")
+  :ensure nil
   :demand t
   :init
   (with-eval-after-load 'evil
