@@ -11,6 +11,7 @@
 (use-package magit
   :ensure (:host github :repo "magit/magit" :branch "main")
   :after (elpaca evil transient general config-theme)
+  :defer 5
   :commands (magit
              magit-status
              magit-pull
