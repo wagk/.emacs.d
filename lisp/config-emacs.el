@@ -313,12 +313,13 @@ The DWIM behaviour of this command is as follows:
                 :inherit sol-foreground)))))
 
 (use-package savehist
+  :after no-littering
   :ensure nil
   :custom
   (savehist-additional-variables
    '(kill-ring search-ring regexp-search-ring))
   :hook
-  (after-init-hook . savehist-mode))
+  (elpaca-after-init-hook . savehist-mode))
 
 (use-package hideshow
   :ensure nil
