@@ -413,6 +413,7 @@
 (unless (eq system-type 'windows-nt)
   (use-package vterm
     :if (not (eq system-type 'windows-nt))
+    :defer 10
     :after evil
     :preface
     (setq vterm-always-compile-module t)
