@@ -109,13 +109,13 @@
   :init
   (cl-defun --maybe-activate-dired-filter-mode ()
     (unless (file-remote-p default-directory)
-      (dired-filter-mode))))
-
-(use-package dired-subtree
-  :after (dired dired-hacks)
-  :ensure nil
+      (dired-filter-mode)))
   :custom
-  (dired-subtree-use-backgrounds nil))
+  (dired-subtree-use-backgrounds nil)
+  :general
+  (dired-mode-map
+   :states 'normal
+    "<TAB>" #'dired-subtree-toggle))
 
 (use-package trashed
   :commands (trashed)
