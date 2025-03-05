@@ -740,7 +740,10 @@ Returns a string, or nil if there is no path associated with the buffer."
     (((supports (:italic)) (supports (:weight))) .
      (:italic t :weight semi-light))))
   :hook
-  ((eglot-managed-mode-hook . eglot-inlay-hints-mode))
+  ((eglot-managed-mode-hook . eglot-inlay-hints-mode)
+   (eglot-managed-mode-hook . (lambda ()
+                                (when (eglot-managed-p)
+                                  (add-hook 'before-save-hook #'eglot-format-buffer nil t)))))
   :general
   (eglot-mode-map
    :states 'normal
