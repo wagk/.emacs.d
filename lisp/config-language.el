@@ -142,15 +142,15 @@ Lisp function does not specify a special indentation."
   :ensure (:host github :repo "rust-lang/rust-mode")
   :mode
   ("\\.rs\\'" . rust-mode)
+  :general
+  (:states 'insert
+   :keymaps 'rust-mode-map
+   "RET" 'comment-indent-new-line)
   :custom
   (rust-format-show-buffer nil
                            "Stop polluting my workspace with orphaned
                            windows thanks")
   (rust-format-on-save t)
-  :general
-  (:states 'insert
-   :keymaps 'rust-mode-map
-   "RET" 'comment-indent-new-line)
   :init
   (with-eval-after-load 'org-src
     (cl-pushnew '("rust" . rust) org-src-lang-modes))
@@ -160,7 +160,7 @@ Lisp function does not specify a special indentation."
 
 ;; refer to eglot for rust-analyzer config
 (use-package rust-ts-mode
-  :after (rust-mode)
+  :after (rust-mode rust-rustfmt)
   :ensure nil
   :general
   (:keymaps 'rust-ts-mode-map
@@ -169,13 +169,6 @@ Lisp function does not specify a special indentation."
   (:keymaps 'rust-ts-mode-map
    :states '(insert normal visual)
    "C-c C-d" 'rust-dbg-wrap-or-unwrap)
-  :init
-  (cl-defun --rust-ts-mode-rustfmt ()
-    "Rustfmts buffer before saving."
-    (require 'rust-rustfmt)
-    (add-hook 'before-save-hook 'rust-format-buffer nil t))
-  :hook
-  (rust-ts-mode-hook . --rust-ts-mode-rustfmt)
   :config
   (require 'rust-compile)
   (setq rust-ts-mode-hook rust-mode-hook))
