@@ -869,6 +869,12 @@ Returns a string, or nil if there is no path associated with the buffer."
   ;; (config-define-bookmark "init" user-init-file)
   ;; (config-define-bookmark "local" user-local-file))
 
+(use-package remember
+  :ensure nil
+  :after evil
+  :init
+  (evil-ex-define-cmd "rem" #'remember))
+
 (use-package diff
   :ensure nil
   :after config-theme
