@@ -500,7 +500,8 @@ Returns a string, or nil if there is no path associated with the buffer."
    :states 'normal
     ;; copy absolute filepath instead of just the filename
     "Y" #'(lambda () (interactive)
-            (dired-copy-filename-as-kill 0)))
+            (dired-copy-filename-as-kill 0))
+    "C-r" #'dired-kill-subdir)
   :hook
   (dired-mode-hook . hl-line-mode)
   (dired-mode-hook . dired-async-mode)
