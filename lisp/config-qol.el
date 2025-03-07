@@ -132,6 +132,7 @@
 
 (use-package helpful
   :ensure (:host github :repo "Wilfred/helpful")
+  :defer 2
   :general
   ("C-h k"   'helpful-key
    "C-h f"   'helpful-callable
