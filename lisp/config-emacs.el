@@ -745,6 +745,8 @@ Returns a string, or nil if there is no path associated with the buffer."
    (eglot-managed-mode-hook . (lambda ()
                                 (when (eglot-managed-p)
                                   (add-hook 'before-save-hook #'eglot-format-buffer nil t)))))
+  :config
+  (setf (plist-get eglot-events-buffer-config :size) 0)
   :general
   (eglot-mode-map
    :states 'normal
