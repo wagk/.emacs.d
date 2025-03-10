@@ -10,7 +10,7 @@
 ;; [this issue]: https://github.com/magit/magit/issues/1497
 (use-package magit
   :ensure (:host github :repo "magit/magit" :branch "main")
-  :after (elpaca evil transient general config-theme)
+  :after (dash elpaca evil transient general config-theme)
   :defer 5
   :commands (magit
              magit-status
