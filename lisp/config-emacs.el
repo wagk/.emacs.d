@@ -731,6 +731,8 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom
   (eglot-prefer-plaintext t)
   (eglot-extend-to-xref t)
+  (eglot-code-action-indications '(eldoc-hint margin mode-line))
+  (eglot-code-action-indicator "@")
   :custom-face
   (eglot-highlight-symbol-face
    ((default . (:weight unspecified
