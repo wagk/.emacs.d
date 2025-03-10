@@ -1051,6 +1051,10 @@ Returns a string, or nil if there is no path associated with the buffer."
                          :foreground unspecified
                          :background unspecified
                          :inherit sol-light-foreground))))
+  (tab-bar-tab-highlight ((default . (:box t
+                                      :foreground unspecified
+                                      :background unspecified
+                                      :inherit sol-superlight-background))))
   :general
   (:keymaps 'evil-window-map
    ;; single window in tab gets moved into frame
