@@ -756,6 +756,7 @@ Returns a string, or nil if there is no path associated with the buffer."
     "g 5" nil  ;; unbind `xref-find-definitions-other-frame'
     "g D" nil) ;; unbind `xref-find-definitions-other-window'
   :init
+  (evil-ex-define-cmd "eg" #'eglot)
   (evil-ex-define-cmd "lmm"
                       #'(lambda ()
                           ;; Sometimes as consult loads flymake gets a bit trigger-happy linting.
