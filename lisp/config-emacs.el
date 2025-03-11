@@ -274,20 +274,20 @@ The DWIM behaviour of this command is as follows:
     (((supports (:bold)) (supports (:italic))) .
      (:bold t :italic t))))
   (font-lock-keyword-face
-   ((default . (:foreground unspecified))))
+   ((default . (:foreground ,sol-green))))
   (font-lock-constant-face
-   ((default . (:foreground unspecified))))
+   ((default . (:foreground ,sol-blue))))
   (font-lock-function-name-face
    ((default . (:foreground unspecified))))
   (font-lock-builtin-face
    ((default . (:foreground unspecified))))
   (font-lock-variable-name-face
-   ((default . (:foreground unspecified
-                :inherit sol-superstrong-foreground))
+   ((default . (:foreground ,sol-cyan
+                :inherit sol-foreground))
     ;; if character terminal, use colors
     (((type nil)) . (:inherit sol-strong-foreground))
     ;; otherwise make it pop by bolding
-    (t . (:bold t :inherit sol-foreground))))
+    (t . (:bold nil :inherit sol-foreground))))
   (font-lock-comment-face
    ((default . (:italic t
                 :foreground unspecified
@@ -302,15 +302,16 @@ The DWIM behaviour of this command is as follows:
                 :italic nil
                 :inherit font-lock-comment-face))))
   (font-lock-type-face
-   ((default . (:foreground unspecified
+   ((default . (:foreground ,sol-yellow
                 :inherit sol-foreground))
-    (((supports (:italic))) . (:italic t))))
+    (((supports (:italic))) . (:italic nil))))
   (font-lock-preprocessor-face
-   ((default . (:foreground unspecified
+   ((default . (:foreground ,sol-orange
                 :inherit sol-foreground))))
   (font-lock-string-face
-   ((default . (:foreground unspecified
-                :inherit sol-foreground)))))
+   ((default . (:foreground ,sol-magenta
+                :inherit sol-foreground))
+    (((supports (:italic))) . (:italic t)))))
 
 (use-package savehist
   :after no-littering
