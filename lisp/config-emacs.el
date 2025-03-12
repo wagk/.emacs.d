@@ -273,21 +273,33 @@ The DWIM behaviour of this command is as follows:
     (((type nil)) . (:foreground unspecified))
     (((supports (:bold)) (supports (:italic))) .
      (:bold t :italic t))))
+  (font-lock-operator-face
+   ((default . (:foreground ,sol-orange
+                :inherit sol-foreground))))
   (font-lock-keyword-face
    ((default . (:foreground ,sol-green))))
   (font-lock-constant-face
    ((default . (:foreground ,sol-blue))))
   (font-lock-function-name-face
-   ((default . (:foreground unspecified))))
+   ((default . (:foreground ,sol-cyan))))
+  (font-lock-function-call-face
+   ((default . (:foreground unspecified
+                :inherit sol-foreground))))
   (font-lock-builtin-face
+   ((default . (:foreground unspecified))))
+  (font-lock-escape-face
    ((default . (:foreground unspecified))))
   (font-lock-variable-name-face
    ((default . (:foreground ,sol-cyan
-                :inherit sol-foreground))
-    ;; if character terminal, use colors
-    (((type nil)) . (:inherit sol-strong-foreground))
-    ;; otherwise make it pop by bolding
-    (t . (:bold nil :inherit sol-foreground))))
+                :inherit sol-foreground))))
+  (font-lock-variable-use-face
+   ((default . (:foreground unspecified
+                :inherit sol-foreground))))
+  (font-lock-property-name-face
+   ((default . (:foreground ,sol-cyan
+                :inherit sol-foreground))))
+  (font-lock-property-use-face
+   ((default . (:inherit sol-foreground))))
   (font-lock-comment-face
    ((default . (:italic t
                 :foreground unspecified
@@ -302,12 +314,9 @@ The DWIM behaviour of this command is as follows:
                 :italic nil
                 :inherit font-lock-comment-face))))
   (font-lock-type-face
-   ((default . (:foreground ,sol-yellow
-                :inherit sol-foreground))
-    (((supports (:italic))) . (:italic nil))))
+   ((default . (:foreground ,sol-yellow))))
   (font-lock-preprocessor-face
-   ((default . (:foreground ,sol-orange
-                :inherit sol-foreground))))
+   ((default . (:foreground ,sol-violet))))
   (font-lock-string-face
    ((default . (:foreground ,sol-magenta
                 :inherit sol-foreground))
@@ -743,6 +752,13 @@ Returns a string, or nil if there is no path associated with the buffer."
                 :inherit sol-light-foreground))
     (((supports (:italic)) (supports (:weight))) .
      (:italic t :weight semi-light))))
+  (eglot-mode-line
+   ((default . (:bold nil
+                :inherit sol-light-foreground))))
+  (eglot-code-action-indicator-face
+   ((default . (:foreground unspecified
+                :bold t
+                :inherit sol-strong-foreground))))
   :hook
   ((eglot-managed-mode-hook . eglot-inlay-hints-mode)
    (eglot-managed-mode-hook . (lambda ()

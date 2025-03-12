@@ -342,7 +342,9 @@
   :if (and (fboundp 'treesit-available-p)
            (treesit-available-p)
            (not (eq system-type 'windows-nt)))
-  :ensure nil)
+  :ensure nil
+  :custom
+  (treesit-font-lock-level 4))
 
 (use-package treesit-auto
   :after treesit
