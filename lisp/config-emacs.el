@@ -274,12 +274,12 @@ The DWIM behaviour of this command is as follows:
     (((supports (:bold)) (supports (:italic))) .
      (:bold t :italic t))))
   (font-lock-operator-face
-   ((default . (:foreground ,sol-orange
+   ((default . (:foreground unspecified
                 :inherit sol-foreground))))
   (font-lock-keyword-face
    ((default . (:foreground ,sol-green))))
   (font-lock-constant-face
-   ((default . (:foreground ,sol-blue))))
+   ((default . (:foreground unspecified))))
   (font-lock-function-name-face
    ((default . (:foreground ,sol-cyan))))
   (font-lock-function-call-face
@@ -316,11 +316,10 @@ The DWIM behaviour of this command is as follows:
   (font-lock-type-face
    ((default . (:foreground ,sol-yellow))))
   (font-lock-preprocessor-face
-   ((default . (:foreground ,sol-violet))))
+   ((default . (:foreground unspecified))))
   (font-lock-string-face
-   ((default . (:foreground ,sol-magenta
-                :inherit sol-foreground))
-    (((supports (:italic))) . (:italic t)))))
+   ((default . (:foreground unspecified
+                :inherit sol-strong-foreground)))))
 
 (use-package savehist
   :after no-littering
