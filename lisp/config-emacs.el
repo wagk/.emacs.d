@@ -268,7 +268,7 @@ The DWIM behaviour of this command is as follows:
   :after config-theme
   :custom-face
   (font-lock-warning-face
-   ((default . (:foreground ,sol-blue))
+   ((default . (:foreground ,sol-orange))
     ;; fallback to error
     (((type nil)) . (:foreground unspecified))
     (((supports (:bold)) (supports (:italic))) .
@@ -706,6 +706,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   (flymake-warning-echo ((t . (:inherit flymake-warning))))
   (flymake-warning-echo-at-eol ((t . (:inherit flymake-warning))))
   :custom
+  (flymake-mode-line-format nil)
   (flymake-error-bitmap nil)
   (flymake-warning-bitmap nil)
   (flymake-note-bitmap nil)
