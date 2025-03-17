@@ -225,22 +225,26 @@
   :group 'personal)
 
 (defface sol-info
-  `((default . (:inherit sol-light-foreground)))
+  `((default . (:italic t
+                :inherit sol-light-foreground)))
   "Global default for notes."
   :group 'personal)
 
 (defface sol-warning
-  `((default . (:inherit (sol-strong-foreground))))
+  `((default . (:italic t
+                :foreground ,sol-orange
+                :inherit (sol-strong-foreground))))
   "Global default for warnings."
   :group 'personal)
 
 (defface sol-error
   `((default . (:bold t
+                :italic t
+                :foreground ,sol-red
                 :inherit (sol-superstrong-foreground
                           sol-superlight-background))))
   "Global default for errors."
   :group 'personal)
-
 
 ;; Replaces the default arrows you see in the left and right fringe
 ;; with a nicer-looking bitmap. There's no really good place to put
