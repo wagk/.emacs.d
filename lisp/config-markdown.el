@@ -52,7 +52,8 @@
    ((default . (:strike-through t
                 :inherit sol-light-foreground))))
   (markdown-inline-code-face
-   ((default . (:inherit sol-light-foreground))))
+   ((default . (:inherit (sol-foreground
+                          sol-superlight-background)))))
   (markdown-code-face
    ((default . (:inherit markdown-inline-code-face
                 :extend t))))
