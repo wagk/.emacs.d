@@ -108,9 +108,7 @@
   (evil-set-command-property #'consult-ripgrep     :jump t)
 
   (--evil-define-splits "mb" #'consult-bookmark)
-  (--evil-define-splits "fb" #'(lambda () (interactive)
-                                 (if (project-current) (consult-project-buffer)
-                                   (consult-buffer))))
+  (--evil-define-splits "fb" #'consult-buffer)
   (--evil-define-splits "bb" "fb")
   (--evil-define-splits "fd" #'(lambda () (interactive)
                                  (if (project-current) (project-find-file)
