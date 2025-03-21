@@ -617,13 +617,4 @@
   :if (executable-find "curl")
   :commands plz)
 
-(use-package verb
-  :ensure (:host github :repo "federicotdn/verb")
-  :after (org)
-  :general
-  (org-mode-map
-   :states 'normal
-    "C-c C-r" verb-command-map)
-  :commands (verb-mode))
-
 (provide 'config-qol)

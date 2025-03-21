@@ -486,4 +486,15 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
     org-ql-view-recent-items
     org-ql-sparse-tree))
 
+(use-package verb
+  :ensure (:host github :repo "federicotdn/verb")
+  :after (org)
+  :custom
+  (verb-auto-kill-response-buffers t)
+  :general
+  (org-mode-map
+   :states 'normal
+    "C-c C-r" verb-command-map)
+  :commands (verb-mode))
+
 (provide 'config-org)
