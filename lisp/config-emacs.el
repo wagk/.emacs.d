@@ -272,7 +272,7 @@ The DWIM behaviour of this command is as follows:
     ;; fallback to error
     (((type nil)) . (:foreground unspecified))
     (((supports (:bold)) (supports (:italic))) .
-     (:bold t :italic t))))
+     (:bold nil :italic t))))
   (font-lock-operator-face
    ((default . (:foreground unspecified
                 :inherit sol-foreground))))
