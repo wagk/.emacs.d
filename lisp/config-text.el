@@ -46,8 +46,7 @@
   :general
   (:states 'normal
    :prefix my-default-evil-leader-key
-   "g w" 'aggressive-fill-paragraph-mode)
-  :hook ((org-mode-hook . aggressive-fill-paragraph-mode)))
+   "g w" 'aggressive-fill-paragraph-mode))
 
 (use-package visual-fill-column
   :after general)
