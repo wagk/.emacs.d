@@ -523,6 +523,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'always)
   (dired-dwim-target t)
+  (dired-filter-stack nil)
   :custom-face
   (dired-directory
    ((default . (:bold t :inherit sol-foreground))
