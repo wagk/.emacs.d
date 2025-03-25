@@ -38,6 +38,8 @@
   (magit-head ((default . (:bold t
                            :foreground ,sol-magenta))
                (((type nil)) . (:bold nil))))
+  (magit-branch-current ((default . (:box nil
+                                     :inverse-video t))))
   (magit-branch-local ((default . (:bold t
                                    :foreground ,sol-blue))
                        (((type nil)) . (:bold nil))))
@@ -51,7 +53,7 @@
                              :foreground unspecified))))
   (magit-hash ((default . (:foreground unspecified
                            :bold nil
-                           :inherit sol-foreground))
+                           :inherit (sol-foreground)))
                (((type nil)) . (:bold nil))))
   (magit-cherry-equivalent ((default . (:foreground ,sol-magenta))))
   (magit-cherry-unmatched ((default . (:foreground ,sol-cyan))))
