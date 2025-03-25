@@ -139,11 +139,6 @@ assume # starts a comment."
          (magit-mode-hook . --magit-on-mode-save-buffers))
   :config
   (require 'git-commit)
-  (with-eval-after-load 'transient
-    (transient-replace-suffix 'magit-dispatch #'magit-status-quick
-      (list "j" "Show status" #'magit-status))
-    (transient-replace-suffix 'magit-dispatch #'magit-push
-      (list "p" "Push" #'magit-push)))
   (define-advice magit-log-propertize-keywords
       (:override (_rev msg) handle-conventional-commits)
     "https://github.com/magit/magit/issues/4027#issuecomment-1372397053"
