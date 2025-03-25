@@ -38,6 +38,8 @@
   (magit-head ((default . (:bold t
                            :foreground ,sol-magenta))
                (((type nil)) . (:bold nil))))
+  (magit-branch-remote-head ((default . (:box nil
+                                         :inverse-video t))))
   (magit-branch-current ((default . (:box nil
                                      :inverse-video t))))
   (magit-branch-local ((default . (:bold t
