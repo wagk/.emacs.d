@@ -117,3 +117,7 @@ org-mode
 
 (src "#+BEGIN_SRC " > q n>
      "#+END_SRC")
+
+;; not _actually_ an org quote block, but feels more natural to me
+(quote "#+BEGIN_EXAMPLE " > q n>
+         "#+END_EXAMPLE")
