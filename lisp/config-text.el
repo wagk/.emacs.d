@@ -292,7 +292,11 @@
    "C-+" 'rg-menu)
   :init
   (evil-ex-define-cmd "rg" #'rg-menu)
-  (--evil-define-splits "rr" #'consult-ripgrep)
+  (--evil-define-splits "rr" #'(lambda ()
+                                 (interactive)
+                                 (if (file-remote-p default-directory)
+                                     (command-execute #'lgrep)
+                                   (consult-ripgrep))))
   (evil-ex-define-cmd "rl"
                       ;; we can't do regions because ex-commands
                       ;; always widen to the line
