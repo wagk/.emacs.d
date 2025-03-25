@@ -240,8 +240,7 @@
 (defface sol-error
   `((default . (:italic t
                 :foreground ,sol-red
-                :inherit (sol-strong-foreground
-                          sol-superlight-background))))
+                :inherit (sol-strong-foreground))))
   "Global default for errors."
   :group 'personal)
 
