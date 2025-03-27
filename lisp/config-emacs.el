@@ -529,9 +529,10 @@ Returns a string, or nil if there is no path associated with the buffer."
    ((default . (:bold t :inherit sol-foreground))
     (((type nil)) . (:inherit sol-strong-foreground))))
   (dired-broken-symlink
-   ((default . (:background ,sol-red
-                :foreground unspecified
-                :inherit sol-foreground-i))))
+   ((default . (:background unspecified
+                :foreground ,sol-red
+                :strike-through t
+                :inherit sol-foreground))))
   :general
   (dired-mode-map
    :states 'normal
