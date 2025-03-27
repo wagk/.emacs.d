@@ -1152,7 +1152,13 @@ Returns a string, or nil if there is no path associated with the buffer."
     (evil-ex-define-cmd "lgr" #'lgrep)
     (with-eval-after-load 'consult
       (evil-set-command-property #'consult-grep :jump t)
-      (evil-ex-define-cmd "gr" #'consult-grep))))
+      (evil-ex-define-cmd "gr" #'(lambda ()
+                                   (interactive)
+                                   (command-execute
+                                    (if (file-remote-p default-directory)
+                                        #'grep
+                                      #'consult-grep)))))))
+
 
 (use-package autorevert
   :ensure nil

@@ -295,7 +295,7 @@
   (--evil-define-splits "rr" #'(lambda ()
                                  (interactive)
                                  (if (file-remote-p default-directory)
-                                     (command-execute #'lgrep)
+                                     (command-execute #'grep)
                                    (consult-ripgrep))))
   (evil-ex-define-cmd "rl"
                       ;; we can't do regions because ex-commands
