@@ -414,7 +414,6 @@
 (unless (eq system-type 'windows-nt)
   (use-package vterm
     :if (not (eq system-type 'windows-nt))
-    :defer 10
     :after evil
     :preface
     (setq vterm-always-compile-module t)
@@ -429,9 +428,6 @@
   (use-package multi-vterm
     :if (not (eq system-type 'windows-nt))
     :after (vterm general evil)
-    :commands (multi-vterm-project
-               multi-vterm)
-    ;; multi-vterm seems to also require elpaca input?
     :preface
     (setq vterm-always-compile-module t)
     :custom
