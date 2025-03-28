@@ -113,7 +113,9 @@
   (--evil-define-splits "fd" #'(lambda () (interactive)
                                  (if (project-current) (project-find-file)
                                    (command-execute #'find-file))))
-  (--evil-define-splits "fdd" #'dired)
+  (--evil-define-splits "fdd" #'(lambda () (interactive)
+                                  (if (project-current) (project-find-dir)
+                                    (command-execute #'dired))))
   (with-eval-after-load 'consult-todo
     ;; use `:pt' for project level todos
     (--evil-define-splits "ft" #'consult-todo))
