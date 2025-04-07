@@ -49,7 +49,9 @@
    "g w" 'aggressive-fill-paragraph-mode))
 
 (use-package visual-fill-column
-  :after general)
+  :after general
+  :ensure
+  (:host github :repo "emacsmirror/visual-fill-column" :branch "master"))
 
 (use-package aggressive-indent
   :ensure (:host github :repo "malabarba/aggressive-indent-mode")

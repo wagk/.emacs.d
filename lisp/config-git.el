@@ -453,6 +453,7 @@ assume # starts a comment."
   ;;                                  (browse-url (concat url "/pulls"))))))
 
 (use-package git-timemachine
+  :ensure (:host github :repo "emacsmirror/git-timemachine" :branch "master")
   :commands git-timemachine
   :after (evil transient general)
   :general

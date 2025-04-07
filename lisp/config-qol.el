@@ -12,6 +12,7 @@
 
 (use-package fancy-compilation
   :after compile
+  :ensure (:host github :repo "emacsmirror/fancy-compilation" :branch "master")
   :custom
   (fancy-compilation-override-colors nil)
   (fancy-compilation-scroll-output 'first-error)
@@ -579,8 +580,8 @@
 (use-package eat
   :if (not (eq system-type 'windows-nt))
   :ensure (:type git
-           :host codeberg
-           :repo "akib/emacs-eat"
+           :host github
+           :repo "emacsmirror/eat"
            :files ("*.el" ("term" "term/*.el") "*.texi"
                    "*.ti" ("terminfo/e" "terminfo/e/*")
                    ("terminfo/65" "terminfo/65/*")
