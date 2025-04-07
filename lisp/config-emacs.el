@@ -589,7 +589,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   (outline-1
    ((default . (:bold t
                 :foreground unspecified
-                :inherit sol-strong-foreground))))
+                :inherit sol-superstrong-foreground))))
   (outline-2
    ((default . (:foreground unspecified
                 :inherit sol-strong-foreground))))
@@ -692,26 +692,29 @@ Returns a string, or nil if there is no path associated with the buffer."
     (if (buffer-file-name)
         (flymake-mode 1)
       (flymake-mode -1)))
-  :hook
-  (prog-mode-hook . --maybe-flymake-mode)
+  ;; :hook
+  ;; (prog-mode-hook . --maybe-flymake-mode)
   :custom-face
   (flymake-error ((default . (:foreground unspecified
                               :box nil
                               :underline t
                               :inherit sol-error))))
   (flymake-error-echo ((default . (:inherit flymake-error))))
-  (flymake-error-echo-at-eol ((default . (:inherit (flymake-error
+  (flymake-error-echo-at-eol ((default . (:height 0.8
+                                          :inherit (flymake-error
                                                     sol-superlight-box)))))
   (flymake-note ((default . (:underline t
                              :inherit sol-note))))
   (flymake-note-echo ((default . (:inherit flymake-note))))
-  (flymake-note-echo-at-eol ((default . (:inherit flymake-note))))
+  (flymake-note-echo-at-eol ((default . (:height 0.8
+                                         :inherit flymake-note))))
   (flymake-warning ((default . (:foreground unspecified
                                 :underline t
                                 :bold nil
                                 :inherit sol-warning))))
   (flymake-warning-echo ((t . (:inherit flymake-warning))))
-  (flymake-warning-echo-at-eol ((t . (:inherit flymake-warning))))
+  (flymake-warning-echo-at-eol ((t . (:height 0.8
+                                      :inherit flymake-warning))))
   :custom
   (flymake-mode-line-format nil)
   (flymake-error-bitmap nil)
@@ -726,6 +729,8 @@ Returns a string, or nil if there is no path associated with the buffer."
   (flymake-show-diagnostics-at-end-of-line t)
   :init
   (with-eval-after-load 'evil
+    (evil-ex-define-cmd "flymake" #'(lambda () (interactive)
+                                      (flymake-mode (if flymake-mode -1 1))))
     (evil-ex-define-cmd "feb" #'flymake-show-buffer-diagnostics)
     (evil-ex-define-cmd "leb" "feb")
     (with-eval-after-load 'consult

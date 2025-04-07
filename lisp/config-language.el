@@ -171,7 +171,15 @@ Lisp function does not specify a special indentation."
    "C-c C-d" 'rust-dbg-wrap-or-unwrap)
   :config
   (require 'rust-compile)
-  (setq rust-ts-mode-hook rust-mode-hook))
+  (setq rust-ts-mode-hook rust-mode-hook)
+  (general-define-key
+   :keymaps 'rust-ts-mode-map
+   :states 'insert
+   "RET" 'comment-indent-new-line)
+  (general-define-key
+   :keymaps 'rust-ts-mode-map
+   :states '(insert normal visual)
+   "C-c C-d" 'rust-dbg-wrap-or-unwrap))
 
 (use-package cargo
   :ensure (:host github :repo "kwrooijen/cargo.el")

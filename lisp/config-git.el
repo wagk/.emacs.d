@@ -10,7 +10,7 @@
 ;; [this issue]: https://github.com/magit/magit/issues/1497
 (use-package magit
   :ensure (:host github :repo "magit/magit" :branch "main")
-  :after (dash elpaca evil transient general config-theme)
+  :after (evil config-theme)
   :defer 10
   :commands (magit
              magit-status
@@ -451,6 +451,10 @@ assume # starts a comment."
   ;;                                              (pop kill-ring)))
   ;;                                       (browse-url-browser-function #'browse-url-default-browser))
   ;;                                  (browse-url (concat url "/pulls"))))))
+
+;; (use-package magit-blame-color-by-age
+;;   :ensure (:host github :repo "jdtsmith/magit-blame-color-by-age")
+;;   :hook (magit-blame-mode-hook . magit-blame-color-by-age-mode))
 
 (use-package git-timemachine
   :ensure (:host github :repo "emacsmirror/git-timemachine" :branch "master")

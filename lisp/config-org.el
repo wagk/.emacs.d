@@ -112,6 +112,8 @@
   (org-special-keyword
    ((default . (:foreground unspecified
                 :inherit sol-foreground))))
+  (org-verbatim
+   ((default . (:underline nil))))
   :hook ((org-insert-heading-hook . evil-insert-state))
   :init
   (with-eval-after-load 'ol
@@ -236,11 +238,10 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
 
 (use-package evil-org
   :ensure (:host github :repo "Somelauw/evil-org-mode")
-  :after org
+  :hook (org-mode-hook . evil-org-mode)
   :blackout t
   :preface
   (fset 'evil-redirect-digit-argument 'ignore)
-  :hook ((org-mode-hook . evil-org-mode))
   :custom
   (evil-org-retain-visual-state-on-shift
     t "Let us chain < and > calls")
