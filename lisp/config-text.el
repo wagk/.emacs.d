@@ -2,6 +2,7 @@
 
 (use-package smartparens
   :ensure (:host github :repo "Fuco1/smartparens")
+  :disabled t
   :demand t
   :blackout t
   :after config-theme

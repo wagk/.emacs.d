@@ -430,6 +430,11 @@ Returns a string, or nil if there is no path associated with the buffer."
             :branch "master")
   :demand t)
 
+(use-package elec-pair
+  :ensure nil
+  :config
+  (electric-pair-mode))
+
 (use-package eww
   :ensure nil
   :commands eww
