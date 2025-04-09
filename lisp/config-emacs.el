@@ -731,7 +731,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   (flymake-show-diagnostics-at-end-of-line t)
   :init
   (with-eval-after-load 'evil
-    (evil-ex-define-cmd "flymake" #'(lambda () (interactive)
+    (evil-ex-define-cmd "fly[make]" #'(lambda () (interactive)
                                       (flymake-mode (if flymake-mode -1 1))))
     (evil-ex-define-cmd "feb" #'flymake-show-buffer-diagnostics)
     (evil-ex-define-cmd "leb" "feb")
