@@ -703,20 +703,19 @@ Returns a string, or nil if there is no path associated with the buffer."
                               :inherit sol-error))))
   (flymake-error-echo ((default . (:inherit flymake-error))))
   (flymake-error-echo-at-eol ((default . (:height 0.8
-                                          :inherit (flymake-error
-                                                    sol-superlight-box)))))
+                                          :inherit (sol-strong-foreground)))))
   (flymake-note ((default . (:underline t
                              :inherit sol-note))))
   (flymake-note-echo ((default . (:inherit flymake-note))))
   (flymake-note-echo-at-eol ((default . (:height 0.8
-                                         :inherit flymake-note))))
+                                         :inherit sol-light-foreground))))
   (flymake-warning ((default . (:foreground unspecified
                                 :underline t
                                 :bold nil
                                 :inherit sol-warning))))
   (flymake-warning-echo ((t . (:inherit flymake-warning))))
   (flymake-warning-echo-at-eol ((t . (:height 0.8
-                                      :inherit flymake-warning))))
+                                      :inherit sol-foreground))))
   :custom
   (flymake-mode-line-format nil)
   (flymake-error-bitmap nil)
