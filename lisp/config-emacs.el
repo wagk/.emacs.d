@@ -569,6 +569,8 @@ Returns a string, or nil if there is no path associated with the buffer."
      :keymaps 'dired-mode-map
      "C-=" #'dired-create-empty-file))
   (with-eval-after-load 'evil
+    (with-eval-after-load 'config-evil
+      (--evil-define-splits "dired" #'dired))
     (evil-ex-define-cmd "Ex[plore]" 'dired-jump)
     (evil-ex-define-cmd "Sex[plore]" #'(lambda () (interactive)
                                          (call-interactively 'evil-window-split)
