@@ -821,10 +821,10 @@ Returns a string, or nil if there is no path associated with the buffer."
                                  :closureCaptureHints (:enable t)
                                  :closureReturnTypeHints (:enable "with_block")
                                  :discriminantHints (:enable "always")
-                                 :expressionAdjustmentHints (:enable "reborrow")
+                                 ;; :expressionAdjustmentHints (:enable "reborrow")
                                  :genericParameterHints (:lifetime (:enable t)
                                                          :type (:enable t))
-                                 :implicitDrops (:enable t)
+                                 ;; :implicitDrops (:enable t)
                                  :lifetimeElisionHints (:enable "skip_trivial"
                                                         :useParameterNames t)
                                  :rangeExclusiveHints (:enable t)))))))
