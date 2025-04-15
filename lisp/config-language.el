@@ -179,7 +179,13 @@ Lisp function does not specify a special indentation."
   (general-define-key
    :keymaps 'rust-ts-mode-map
    :states '(insert normal visual)
-   "C-c C-d" 'rust-dbg-wrap-or-unwrap))
+    "C-c C-d" 'rust-dbg-wrap-or-unwrap)
+  (with-eval-after-load 'newcomment
+    (add-hook 'rust-ts-mode-hook
+              #'(lambda ()
+                  "Use /// instead of /**/"
+                  (setq-local block-comment-start nil
+                              block-comment-end nil)))))
 
 (use-package cargo
   :ensure (:host github :repo "kwrooijen/cargo.el")
