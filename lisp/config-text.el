@@ -352,6 +352,17 @@
   :custom
   (treesit-font-lock-level 4))
 
+(use-package evil-textobj-tree-sitter
+  :ensure (:host github
+           :repo "meain/evil-textobj-tree-sitter"
+           :files (:defaults "queries"))
+  :after (evil general (:or treesit tree-sitter))
+  :general
+  (evil-outer-text-objects-map
+   "f" (evil-textobj-tree-sitter-get-textobj "function.outer"))
+  (evil-inner-text-objects-map
+   "f" (evil-textobj-tree-sitter-get-textobj "function.inner")))
+
 (use-package treesit-auto
   :after treesit
   :custom

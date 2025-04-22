@@ -334,15 +334,4 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 (with-eval-after-load 'evil
   (require 'config-evil-helpers))
 
-(use-package evil-textobj-tree-sitter
-  :ensure (:host github
-           :repo "meain/evil-textobj-tree-sitter"
-           :files (:defaults "queries"))
-  :after (evil general)
-  :general
-  (evil-outer-text-objects-map
-   "f" (evil-textobj-tree-sitter-get-textobj "function.outer"))
-  (evil-inner-text-objects-map
-   "f" (evil-textobj-tree-sitter-get-textobj "function.inner")))
-
 (provide 'config-evil)
