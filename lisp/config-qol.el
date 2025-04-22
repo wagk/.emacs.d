@@ -415,7 +415,7 @@
 (unless (eq system-type 'windows-nt)
   (use-package vterm
     :if (not (eq system-type 'windows-nt))
-    :after evil
+    :after (evil config-evil)
     :preface
     (setq vterm-always-compile-module t)
     :custom
@@ -424,13 +424,13 @@
     :config
     (with-eval-after-load 'undo-tree
       (add-to-list 'undo-tree-incompatible-major-modes 'vterm-mode))
-    (evil-ex-define-cmd "term" #'(lambda () (interactive)
-                                   (let ((default-directory "~"))
-                                     (vterm)))))
+    (--evil-define-splits "term" #'(lambda () (interactive)
+                                     (let ((default-directory "~"))
+                                       (vterm)))))
 
   (use-package multi-vterm
     :if (not (eq system-type 'windows-nt))
-    :after (vterm general evil)
+    :after (vterm evil config-evil)
     :preface
     (setq vterm-always-compile-module t)
     :custom
@@ -440,9 +440,9 @@
      :keymaps 'project-prefix-map
      "s" '--multi-vterm-project) ;; overrides `project-shell'
     :init
-    (evil-ex-define-cmd "term" #'(lambda () (interactive)
-                                   (let ((default-directory "~"))
-                                     (multi-vterm))))
+    (--evil-define-splits "term" #'(lambda () (interactive)
+                                     (let ((default-directory "~"))
+                                       (multi-vterm))))
     (cl-defun --multi-vterm-project ()
       (interactive)
       (require 'multi-vterm)
