@@ -773,7 +773,9 @@ Returns a string, or nil if there is no path associated with the buffer."
                 :bold t
                 :inherit sol-strong-foreground))))
   :hook
-  ((eglot-managed-mode-hook . eglot-inlay-hints-mode)
+  ((eglot-managed-mode-hook . (lambda ()
+                                "Disable inlay hints by default"
+                                (eglot-inlay-hints-mode -1)))
    (eglot-managed-mode-hook . (lambda ()
                                 (when (eglot-managed-p)
                                   (add-hook 'before-save-hook #'eglot-format-buffer nil t)))))
@@ -787,13 +789,13 @@ Returns a string, or nil if there is no path associated with the buffer."
     "g D" nil) ;; unbind `xref-find-definitions-other-window'
   :init
   (evil-ex-define-cmd "eg" #'eglot)
-  (evil-ex-define-cmd "lmm"
-                      #'(lambda ()
-                          ;; Sometimes as consult loads flymake gets a bit trigger-happy linting.
-                          ;; This resets the overlay.
-                          (interactive)
-                          (flymake-mode -1)
-                          (flymake-mode 1)))
+  ;; (evil-ex-define-cmd "lmm"
+  ;;                     #'(lambda ()
+  ;;                         ;; Sometimes as consult loads flymake gets a bit trigger-happy linting.
+  ;;                         ;; This resets the overlay.
+  ;;                         (interactive)
+  ;;                         (flymake-mode -1)
+  ;;                         (flymake-mode 1)))
   (evil-ex-define-cmd "la" #'eglot-code-actions)
   (evil-ex-define-cmd "fla" "la")
   (evil-ex-define-cmd "lr" #'eglot-rename)
