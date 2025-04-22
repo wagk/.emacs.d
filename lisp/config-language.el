@@ -160,7 +160,7 @@ Lisp function does not specify a special indentation."
 
 ;; refer to eglot for rust-analyzer config
 (use-package rust-ts-mode
-  :after (rust-mode rust-rustfmt)
+  :after (treesit)
   :ensure nil
   :general
   (:keymaps 'rust-ts-mode-map
@@ -169,23 +169,13 @@ Lisp function does not specify a special indentation."
   (:keymaps 'rust-ts-mode-map
    :states '(insert normal visual)
    "C-c C-d" 'rust-dbg-wrap-or-unwrap)
+  :hook
+  (rust-ts-mode-hook . (lambda ()
+                         "Use /// instead of /**/"
+                         (setq-local block-comment-start nil
+                                     block-comment-end nil)))
   :config
-  (require 'rust-compile)
-  (setq rust-ts-mode-hook rust-mode-hook)
-  (general-define-key
-   :keymaps 'rust-ts-mode-map
-   :states 'insert
-   "RET" 'comment-indent-new-line)
-  (general-define-key
-   :keymaps 'rust-ts-mode-map
-   :states '(insert normal visual)
-    "C-c C-d" 'rust-dbg-wrap-or-unwrap)
-  (with-eval-after-load 'newcomment
-    (add-hook 'rust-ts-mode-hook
-              #'(lambda ()
-                  "Use /// instead of /**/"
-                  (setq-local block-comment-start nil
-                              block-comment-end nil)))))
+  (require 'rust-compile))
 
 (use-package cargo
   :ensure (:host github :repo "kwrooijen/cargo.el")
