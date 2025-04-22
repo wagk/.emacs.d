@@ -92,12 +92,6 @@ The DWIM behaviour of this command is as follows:
   (when (>= emacs-major-version 26)
     (add-hook 'prog-mode-hook 'display-line-numbers-mode))
 
-  (tool-bar-mode -1)
-  (menu-bar-mode -1)
-  (when (boundp 'scroll-bar-mode)
-    (scroll-bar-mode -1))
-  (window-divider-mode -1)
-
   (when (boundp 'pixel-scroll-precision-mode)
     (pixel-scroll-precision-mode))
 

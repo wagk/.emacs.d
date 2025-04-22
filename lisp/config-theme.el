@@ -62,46 +62,10 @@
       (message "color %s is already bound to %s" (car col) (cdr col))
     (set (car col) (cdr col))))
 
+;; NOTE (pangt): Some of the themeing configs are at `early-init.el'
+
 (with-eval-after-load 'evil
   (evil-ex-define-cmd "faces" 'list-faces-display))
-
-;; Fonts
-(defcustom --default-font-size 20
-  "Default frame font size."
-  :group 'personal
-  :type 'natnum
-  :set
-  #'(lambda (obj size)
-      (set-default-toplevel-value obj size)
-      (with-eval-after-load 'config-theme
-        (--find-and-set-fonts))))
-
-(cl-defun --find-and-set-fonts ()
-  (interactive)
-  (let ((sarasa-mono (font-spec :family "Sarasa Mono J" :size --default-font-size))
-        (iosevka (font-spec :family "Iosevka" :size --default-font-size))
-        (iosevka-etoile (font-spec :family "Iosevka Etoile" :size --default-font-size))
-        (iosevka-aile (font-spec :family "Iosevka Aile" :size --default-font-size))
-        (courier (font-spec :family "Courier" :size --default-font-size)))
-    (cond
-     ((find-font sarasa-mono)
-      (set-frame-font sarasa-mono nil t)
-      (custom-set-faces `(fixed-pitch ((default . (:font ,sarasa-mono))))
-                        `(variable-pitch ((default . (:font ,sarasa-mono))))
-                        `(fixed-pitch-serif ((default . (:font ,sarasa-mono))))))
-     ((find-font iosevka)
-      (set-frame-font iosevka nil t)
-      (custom-set-faces `(fixed-pitch ((default . (:font ,iosevka))))
-                        `(variable-pitch ((default . (:font ,iosevka))))
-                        `(fixed-pitch-serif ((default . (:font ,iosevka)))))))
-    ;; If iosevka proportional fonts are also found, use that.
-    (when (find-font iosevka-etoile)
-      (custom-set-faces `(variable-pitch ((default . (:font ,iosevka-etoile))))))
-    (when (find-font iosevka-aile)
-      (custom-set-faces `(fixed-pitch-serif ((default . (:font ,iosevka-aile))))))))
-
-(add-hook 'after-init-hook #'--find-and-set-fonts)
-(add-hook 'server-after-make-frame-hook #'--find-and-set-fonts)
 
 (use-package solarized-definitions
   :if (display-graphic-p)
