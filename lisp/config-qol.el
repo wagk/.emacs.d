@@ -424,7 +424,9 @@
     :config
     (with-eval-after-load 'undo-tree
       (add-to-list 'undo-tree-incompatible-major-modes 'vterm-mode))
-    (evil-ex-define-cmd "term" #'vterm))
+    (evil-ex-define-cmd "term" #'(lambda () (interactive)
+                                   (let ((default-directory "~"))
+                                     (vterm)))))
 
   (use-package multi-vterm
     :if (not (eq system-type 'windows-nt))
@@ -438,7 +440,9 @@
      :keymaps 'project-prefix-map
      "s" '--multi-vterm-project) ;; overrides `project-shell'
     :init
-    (evil-ex-define-cmd "term" #'multi-vterm)
+    (evil-ex-define-cmd "term" #'(lambda () (interactive)
+                                   (let ((default-directory "~"))
+                                     (multi-vterm))))
     (cl-defun --multi-vterm-project ()
       (interactive)
       (require 'multi-vterm)
