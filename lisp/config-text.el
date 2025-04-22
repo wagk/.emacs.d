@@ -215,6 +215,7 @@
   (:states 'motion
    "g p" 'parinfer-rust-toggle-paren-mode)
   :custom
+  (parinfer-rust-troublesome-modes nil)
   (parinfer-rust-auto-download t)
   (parinfer-rust-dim-parens nil)
   :hook
