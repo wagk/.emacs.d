@@ -71,8 +71,9 @@
     (save-some-buffers t #'save-some-buffers-root))
 
   ;; the *dispatch commands are probably the most important
-  (evil-ex-define-cmd "gf"      'magit-file-dispatch)
   (evil-ex-define-cmd "gg"      'magit-dispatch)
+  (evil-ex-define-cmd "ggg"     'magit-file-dispatch)
+  (evil-ex-define-cmd "gf"      'magit-file-dispatch)
 
   (evil-ex-define-cmd "gB"      'magit-branch)
   (evil-ex-define-cmd "gd[iff]" 'magit-diff)
