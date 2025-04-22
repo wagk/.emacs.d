@@ -17,7 +17,11 @@
 
 (setq native-comp-always-compile t)
 
+;; assumes gcmh exists
 (setq gc-cons-threshold #x40000000)
+(add-hook 'after-init-hook #'(lambda ()
+                               (unless (featurep 'gcmh)
+                                 (setq gc-cons-threshold 800000))))
 
 ;; (when (and (fboundp 'native-comp-available-p)
 ;;            (native-comp-available-p))
