@@ -132,7 +132,8 @@
   (evil-ex-define-cmd "fl" '(lambda () (interactive)
                               (consult-line (thing-at-point 'symbol))))
   (evil-ex-define-cmd "fa"  'consult-line-multi)
-  (evil-ex-define-cmd "fc" #'consult-compile-error)
+  (evil-ex-define-cmd "fc"  'consult-compile-error)
+  (evil-ex-define-cmd "foc" 'consult-focus-lines)
 
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'(lambda (&rest args)

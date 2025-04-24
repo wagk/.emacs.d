@@ -447,6 +447,7 @@
     (add-to-list 'dogears-ignore-modes 'magit-status-mode)))
 
 (use-package focus
+  :disabled t
   :commands focus-mode
   :after (evil-ex config-theme)
   :init
