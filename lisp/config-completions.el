@@ -128,6 +128,7 @@
   (evil-ex-define-cmd "ii"  'consult-imenu-multi)
   (evil-ex-define-cmd "fp"  'consult-yank-from-kill-ring) ;; p for paste
   (evil-ex-define-cmd "ff"  'consult-line)
+  (evil-ex-define-cmd "fr"  'consult-register)
   (evil-ex-define-cmd "fl" '(lambda () (interactive)
                               (consult-line (thing-at-point 'symbol))))
   (evil-ex-define-cmd "fa"  'consult-line-multi)
