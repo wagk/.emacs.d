@@ -301,19 +301,19 @@
                                  (if (file-remote-p default-directory)
                                      (command-execute #'grep)
                                    (consult-ripgrep))))
-  (evil-ex-define-cmd "rl"
+  (--evil-define-splits "rl"
                       ;; we can't do regions because ex-commands
                       ;; always widen to the line
                       #'(lambda () (interactive)
                           (require 'thingatpt)
                           (consult-ripgrep nil
                                            (thing-at-point 'symbol))))
-  (evil-ex-define-cmd "rf" #'(lambda () (interactive)
-                               (require 'rg)
-                               (--rg-search-file)))
-  (evil-ex-define-cmd "rd" #'(lambda () (interactive)
-                               (require 'rg)
-                               (--rg-search-dir)))
+  ;; (evil-ex-define-cmd "rf" #'(lambda () (interactive)
+  ;;                              (require 'rg)
+  ;;                              (--rg-search-file)))
+  ;; (evil-ex-define-cmd "rd" #'(lambda () (interactive)
+  ;;                              (require 'rg)
+  ;;                              (--rg-search-dir)))
   ;; (evil-ex-define-cmd "prg" 'rg-project)
   :config
   (rg-enable-menu)
