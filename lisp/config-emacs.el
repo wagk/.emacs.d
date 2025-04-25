@@ -458,7 +458,7 @@ Returns a string, or nil if there is no path associated with the buffer."
               :distant-foreground unspecified
               :inverse-video nil
               :foreground ,sol-orange))
-    (((type nil)) (:inverse-video t)))))
+    (((type nil)) (:underline t)))))
 
 (use-package re-builder
   :ensure nil
