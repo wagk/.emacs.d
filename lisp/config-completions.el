@@ -170,6 +170,8 @@
 (use-package marginalia
   :after consult
   :demand t
+  :custom-face
+  (marginalia-documentation ((((type nil)) . (:underline nil))))
   :config (marginalia-mode))
 
 (use-package corfu
