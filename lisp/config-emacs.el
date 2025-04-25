@@ -1491,22 +1491,28 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
   (smerge-markers
    ((default . (:foreground ,sol-cyan
                 :background unspecified
-                :inherit sol-light-foreground))))
+                :inherit (sol-light-foreground
+                          sol-superlight-background)))))
   (smerge-base
    ((default . (:background unspecified
-                :foreground ,sol-blue))))
+                :foreground ,sol-blue
+                :inherit (sol-superlight-background)))))
   (smerge-lower
    ((default . (:background unspecified
-                :foreground ,sol-yellow))))
+                :foreground ,sol-yellow
+                :inherit (sol-superlight-background)))))
   (smerge-upper
    ((default . (:background unspecified
-                :foreground ,sol-violet))))
+                :foreground ,sol-violet
+                :inherit (sol-superlight-background)))))
   (smerge-refined-added
    ((default . (:background unspecified
-                :foreground ,sol-green))))
+                :foreground ,sol-green
+                :inherit (sol-superlight-background)))))
   (smerge-refined-removed
    ((default . (:background unspecified
-                :foreground ,sol-red))))
+                :foreground ,sol-red
+                :inherit (sol-superlight-background)))))
   :init
   (transient-define-prefix --smerge ()
     ["Smerge mode command dispatcher."
