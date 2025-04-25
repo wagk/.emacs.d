@@ -264,7 +264,10 @@ The DWIM behaviour of this command is as follows:
   (font-lock-warning-face
    ((default . (:foreground ,sol-orange))
     ;; fallback to error
-    (((type nil)) . (:foreground unspecified))
+    (((type nil)) . (:foreground ,sol-red
+                     :inverse-video t
+                     :underline nil
+                     :inherit sol-foreground))
     (((supports (:bold)) (supports (:italic))) .
      (:bold nil :italic t))))
   (font-lock-operator-face
@@ -694,9 +697,11 @@ Returns a string, or nil if there is no path associated with the buffer."
   (flymake-error ((default . (:foreground unspecified
                               :box nil
                               :underline t
-                              :inherit sol-error))))
+                              :inherit sol-error))
+                  (((type nil)) . (:underline nil))))
   (flymake-error-echo ((default . (:inherit flymake-error))))
   (flymake-error-echo-at-eol ((default . (:height 0.8
+                                          :inverse-video nil
                                           :inherit (sol-strong-foreground)))))
   (flymake-note ((default . (:underline t
                              :inherit sol-note))))
