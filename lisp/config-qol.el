@@ -601,6 +601,7 @@
   :init
   (with-eval-after-load 'evil
     (evil-ex-define-cmd "k8s" #'kubernetes-dispatch))
+    (evil-ex-define-cmd "kube" "k8s"))
   :custom-face
   (kubernetes-namespace
    ((default . (:foreground ,sol-green))))
