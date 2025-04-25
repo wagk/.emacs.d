@@ -91,6 +91,8 @@
    ((default . (:inherit sol-superlight-foreground))))
   (consult-line-number-wrapped
    ((default . (:inherit line-number))))
+  (consult-file
+   ((((type nil)) . (:underline nil))))
   :config
   (add-to-list 'consult-async-split-styles-alist
                '(slashperl :initial "/" :function consult--split-perl))
