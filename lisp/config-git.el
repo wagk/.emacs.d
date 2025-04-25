@@ -137,8 +137,8 @@ assume # starts a comment."
          ;; variables.
          (git-commit-setup-hook . --update-git-commit-comment-info)
          ;; evil-markdown-mode should fire after markdown-mode
-         (git-commit-setup-hook . evil-markdown-mode)
-         (git-commit-setup-hook . markdown-mode)
+         ;; (git-commit-setup-hook . evil-markdown-mode)
+         (git-commit-setup-hook . markdown-ts-mode)
          (magit-mode-hook . --magit-on-mode-save-buffers))
   :config
   (require 'git-commit)
