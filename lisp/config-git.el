@@ -41,9 +41,11 @@
                            :foreground ,sol-magenta))
                (((type nil)) . (:bold nil))))
   (magit-branch-remote-head ((default . (:box nil
-                                         :inverse-video t))))
+                                         :inverse-video t
+                                         :inherit magit-branch-remote))))
   (magit-branch-current ((default . (:box nil
-                                     :inverse-video t))))
+                                     :inverse-video t
+                                     :inherit magit-branch-local))))
   (magit-branch-local ((default . (:bold t
                                    :foreground ,sol-blue))
                        (((type nil)) . (:bold nil))))
@@ -266,6 +268,7 @@ assume # starts a comment."
   :custom-face
   ;; base
   (magit-diff-context ((default . (:foreground unspecified
+                                   :extend t
                                    :inherit sol-superlight-background))))
   (magit-diff-context-highlight ((default . (:foreground unspecified
                                              :background unspecified
