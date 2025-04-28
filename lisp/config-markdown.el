@@ -179,7 +179,7 @@
   :after markdown-mode)
 
 (use-package evil-markdown
-  :after (general markdown-mode)
+  :after markdown-mode
   :ensure (:host github :repo "Somelauw/evil-markdown")
   :commands (evil-markdown-mode)
   :blackout evil-markdown-mode

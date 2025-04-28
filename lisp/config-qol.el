@@ -597,17 +597,20 @@
 
 (use-package kubernetes
   :commands kubernetes-dispatch
-  :after config-theme
+  :after evil
   :init
-  (with-eval-after-load 'evil
-    (evil-ex-define-cmd "k8s" #'kubernetes-dispatch))
-    (evil-ex-define-cmd "kube" "k8s"))
+  (evil-ex-define-cmd "k8s" #'kubernetes-dispatch)
+  (evil-ex-define-cmd "kube" "k8s"))
+
+(use-package kubernetes-vars
+  :ensure nil
+  :after (kubernetes config-theme)
   :custom-face
   (kubernetes-namespace
    ((default . (:foreground ,sol-green))))
   (kubernetes-json-key
    ((default . (:bold t
-                :inherit sol-foreground))))
+                      :inherit sol-foreground))))
   (kubernetes-selector
    ((default . (:inherit sol-light-background-i)))))
 
