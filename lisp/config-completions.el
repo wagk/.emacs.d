@@ -213,11 +213,14 @@
   (prefix-help-command #'embark-prefix-help-command)
   :general
   (vertico-map
-   "C-<SPC>" 'embark-act)
+   "C-<SPC>" 'embark-act
+   "C-\\"    'embark-act)
   (:states 'motion
-   "C-<SPC>" 'embark-act))
+   "C-<SPC>" 'embark-act
+   "C-\\"    'embark-act))
 
-(use-package embark-consult)
+(use-package embark-consult
+  :after embark)
 
 (use-package cape
   :demand t

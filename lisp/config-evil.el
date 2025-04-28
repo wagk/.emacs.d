@@ -274,10 +274,10 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
    "*" 'evil-visualstar/begin-search-forward
    "#" 'evil-visualstar/begin-search-backward))
 
-(with-eval-after-load 'general
-  (general-define-key
-   :keymaps 'global
-   "C-\\" 'toggle-input-method))
+;; (with-eval-after-load 'general
+;;   (general-define-key
+;;    :keymaps 'global
+;;    "C-\\" 'toggle-input-method))
 
 (use-package evil-surround
   :demand t
