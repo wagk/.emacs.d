@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;;; Configuration for packages built into Emacs
 
 (require 'use-package)

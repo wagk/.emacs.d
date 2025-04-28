@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;;; config-text.el --- Text related packages
 
 (use-package smartparens

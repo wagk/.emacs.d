@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;;; config-qol.el --- Packages that add quality of life to existing emacs packages
 
 (require 'config-emacs)

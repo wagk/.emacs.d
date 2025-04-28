@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;;; config-helpers -- Weird one-off helper functions
 
 ;;; Commentary:

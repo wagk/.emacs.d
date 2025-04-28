@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (require 'use-package)
 
 ;; TODO: Figure out how to delete an entry from the completion

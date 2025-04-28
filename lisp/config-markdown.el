@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;;; Markdown-related helpers
 ;; We rely on Markdown as our store of information. `obsidian-mode' can feel a
 ;; bit sus at times and we don't use all of its features anyway. Have a small

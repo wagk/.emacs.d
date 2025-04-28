@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (require 'use-package)
 
 (customize-set-value 'evil-want-keybinding nil

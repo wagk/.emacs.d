@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (require 'use-package)
 (require 'config-helpers)
 (require 'config-project) ;; jira stuff

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;;; config-language.el --- Major mode packages, et al  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024  Pang Tun Jiang

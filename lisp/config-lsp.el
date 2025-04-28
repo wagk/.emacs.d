@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (use-package spinner
   :ensure (:host github :repo "emacs-straight/spinner" :branch "master"))
 
