@@ -216,6 +216,7 @@
 ;; whitespace
 (use-package ws-butler
   :blackout t
+  :ensure (:host github :repo "lewang/ws-butler" :branch "master")
   :custom
   (ws-butler-global-exempt-modes '())
   :config
@@ -397,6 +398,7 @@
 
 ;; https://github.com/Silex/docker.el
 (use-package docker
+  :disabled t ;; can't find aio mirror on github
   :commands docker
   :after evil
   :init

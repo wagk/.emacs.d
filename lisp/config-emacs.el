@@ -828,6 +828,7 @@ Returns a string, or nil if there is no path associated with the buffer."
 (use-package consult-eglot
   :after (eglot consult)
   :commands (consult-eglot-symbols)
+  :ensure (:host github :repo "mohkale/consult-eglot" :branch "master")
   :init
   (with-eval-after-load 'config-evil
     (evil-set-command-property #'consult-eglot-symbols :jump t)
