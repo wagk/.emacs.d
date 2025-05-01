@@ -204,6 +204,8 @@ assume # starts a comment."
 (use-package magit-section
   :ensure nil
   :after (magit config-theme)
+  :custom
+  (magit-section-visibility-indicator '("..." . t))
   :custom-face
   (magit-section-heading
    ((default . (:foreground unspecified
@@ -265,6 +267,10 @@ assume # starts a comment."
    :states 'normal
    "[[" 'help-go-back
    "]]" 'help-go-forward)
+  (magit-revision-mode-map
+   :states 'normal
+   "g o" #'magit-diff-visit-file-other-window
+   "g O" #'magit-diff-visit-worktree-file-other-window)
   :custom-face
   ;; base
   (magit-diff-context ((default . (:foreground unspecified
@@ -325,11 +331,13 @@ assume # starts a comment."
                 :foreground unspecified
                 :background unspecified
                 :extend nil
-                :inherit (sol-light-foreground)))))
+                :inherit (sol-foreground)))))
   (magit-diff-hunk-heading-highlight
    ((default . (:foreground unspecified
                 :background unspecified
-                :inherit magit-diff-hunk-heading))))
+                :inherit (sol-superlight-background
+                          sol-strong-foreground
+                          magit-diff-hunk-heading)))))
   (magit-diff-hunk-heading-selection
    ((default . (:foreground unspecified
                 :inherit magit-diff-hunk-heading-highlight))))

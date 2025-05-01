@@ -45,6 +45,7 @@
   (scroll-margin 1)
   (scroll-conservatively 9999)
   (whitespace-line-column nil)
+  (mode-line-collapse-minor-modes t)
   :init
   ;; stolen from
   ;; https://protesilaos.com/codelog/2024-11-28-basic-emacs-configuration/#h:1e468b2a-9bee-4571-8454-e3f5462d9321
@@ -702,7 +703,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   (flymake-error-echo ((default . (:inherit flymake-error))))
   (flymake-error-echo-at-eol ((default . (:height 0.8
                                           :inverse-video nil
-                                          :inherit (sol-foreground
+                                          :inherit (sol-light-foreground
                                                     sol-superlight-background)))))
   (flymake-note ((default . (:underline t
                              :inherit sol-note))))

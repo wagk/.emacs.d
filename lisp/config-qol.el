@@ -217,6 +217,7 @@
 
 ;; whitespace
 (use-package ws-butler
+  :ensure (:host github :repo "emacs-straight/ws-butler")
   :blackout t
   :ensure (:host github :repo "lewang/ws-butler" :branch "master")
   :custom
