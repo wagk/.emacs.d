@@ -1,4 +1,4 @@
-;;; init.el --- Bootstrap further configurations -*- no-byte-compile: t -*-
+;;; init.el --- Bootstrap further configurations -*- no-byte-compile: t; lexical-binding: nil; -*- 
 ;;; Commentary:
 ;;; Code:
 (setq package-enable-at-startup nil)
