@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; Load core configuration that I can't work without.
 
 ;; Package stuff begin

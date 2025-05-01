@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (require 'use-package)
 (require 'config-helpers)
 (require 'config-project) ;; jira stuff
@@ -39,9 +41,11 @@
                            :foreground ,sol-magenta))
                (((type nil)) . (:bold nil))))
   (magit-branch-remote-head ((default . (:box nil
-                                         :inverse-video t))))
+                                         :inverse-video t
+                                         :inherit magit-branch-remote))))
   (magit-branch-current ((default . (:box nil
-                                     :inverse-video t))))
+                                     :inverse-video t
+                                     :inherit magit-branch-local))))
   (magit-branch-local ((default . (:bold t
                                    :foreground ,sol-blue))
                        (((type nil)) . (:bold nil))))
@@ -137,8 +141,8 @@ assume # starts a comment."
          ;; variables.
          (git-commit-setup-hook . --update-git-commit-comment-info)
          ;; evil-markdown-mode should fire after markdown-mode
-         (git-commit-setup-hook . evil-markdown-mode)
-         (git-commit-setup-hook . markdown-mode)
+         ;; (git-commit-setup-hook . evil-markdown-mode)
+         (git-commit-setup-hook . markdown-ts-mode)
          (magit-mode-hook . --magit-on-mode-save-buffers))
   :config
   (require 'git-commit)
@@ -264,6 +268,7 @@ assume # starts a comment."
   :custom-face
   ;; base
   (magit-diff-context ((default . (:foreground unspecified
+                                   :extend t
                                    :inherit sol-superlight-background))))
   (magit-diff-context-highlight ((default . (:foreground unspecified
                                              :background unspecified

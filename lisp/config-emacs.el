@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;;; Configuration for packages built into Emacs
 
 (require 'use-package)
@@ -264,14 +266,15 @@ The DWIM behaviour of this command is as follows:
   (font-lock-warning-face
    ((default . (:foreground ,sol-orange))
     ;; fallback to error
-    (((type nil)) . (:foreground unspecified))
+    (((type nil)) . (:inherit sol-foreground))
     (((supports (:bold)) (supports (:italic))) .
      (:bold nil :italic t))))
   (font-lock-operator-face
    ((default . (:foreground unspecified
                 :inherit sol-foreground))))
   (font-lock-keyword-face
-   ((default . (:foreground ,sol-green))))
+   ((default . (:foreground ,sol-green))
+    (((type nil)) . (:foreground unspecified))))
   (font-lock-constant-face
    ((default . (:foreground unspecified))))
   (font-lock-function-name-face
@@ -458,7 +461,7 @@ Returns a string, or nil if there is no path associated with the buffer."
               :distant-foreground unspecified
               :inverse-video nil
               :foreground ,sol-orange))
-    (((type nil)) (:inverse-video t)))))
+    (((type nil)) (:underline t)))))
 
 (use-package re-builder
   :ensure nil
@@ -694,10 +697,13 @@ Returns a string, or nil if there is no path associated with the buffer."
   (flymake-error ((default . (:foreground unspecified
                               :box nil
                               :underline t
-                              :inherit sol-error))))
+                              :inherit sol-error))
+                  (((type nil)) . (:underline nil))))
   (flymake-error-echo ((default . (:inherit flymake-error))))
   (flymake-error-echo-at-eol ((default . (:height 0.8
-                                          :inherit (sol-strong-foreground)))))
+                                          :inverse-video nil
+                                          :inherit (sol-foreground
+                                                    sol-superlight-background)))))
   (flymake-note ((default . (:underline t
                              :inherit sol-note))))
   (flymake-note-echo ((default . (:inherit flymake-note))))
@@ -1487,22 +1493,28 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
   (smerge-markers
    ((default . (:foreground ,sol-cyan
                 :background unspecified
-                :inherit sol-light-foreground))))
+                :inherit (sol-light-foreground
+                          sol-superlight-background)))))
   (smerge-base
    ((default . (:background unspecified
-                :foreground ,sol-blue))))
+                :foreground ,sol-blue
+                :inherit (sol-superlight-background)))))
   (smerge-lower
    ((default . (:background unspecified
-                :foreground ,sol-yellow))))
+                :foreground ,sol-yellow
+                :inherit (sol-superlight-background)))))
   (smerge-upper
    ((default . (:background unspecified
-                :foreground ,sol-violet))))
+                :foreground ,sol-violet
+                :inherit (sol-superlight-background)))))
   (smerge-refined-added
    ((default . (:background unspecified
-                :foreground ,sol-green))))
+                :foreground ,sol-green
+                :inherit (sol-superlight-background)))))
   (smerge-refined-removed
    ((default . (:background unspecified
-                :foreground ,sol-red))))
+                :foreground ,sol-red
+                :inherit (sol-superlight-background)))))
   :init
   (transient-define-prefix --smerge ()
     ["Smerge mode command dispatcher."

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;;; config-text.el --- Text related packages
 
 (use-package smartparens
@@ -301,19 +303,19 @@
                                  (if (file-remote-p default-directory)
                                      (command-execute #'grep)
                                    (consult-ripgrep))))
-  (evil-ex-define-cmd "rl"
+  (--evil-define-splits "rl"
                       ;; we can't do regions because ex-commands
                       ;; always widen to the line
                       #'(lambda () (interactive)
                           (require 'thingatpt)
                           (consult-ripgrep nil
                                            (thing-at-point 'symbol))))
-  (evil-ex-define-cmd "rf" #'(lambda () (interactive)
-                               (require 'rg)
-                               (--rg-search-file)))
-  (evil-ex-define-cmd "rd" #'(lambda () (interactive)
-                               (require 'rg)
-                               (--rg-search-dir)))
+  ;; (evil-ex-define-cmd "rf" #'(lambda () (interactive)
+  ;;                              (require 'rg)
+  ;;                              (--rg-search-file)))
+  ;; (evil-ex-define-cmd "rd" #'(lambda () (interactive)
+  ;;                              (require 'rg)
+  ;;                              (--rg-search-dir)))
   ;; (evil-ex-define-cmd "prg" 'rg-project)
   :config
   (rg-enable-menu)
@@ -447,6 +449,7 @@
     (add-to-list 'dogears-ignore-modes 'magit-status-mode)))
 
 (use-package focus
+  :disabled t
   :commands focus-mode
   :after (evil-ex config-theme)
   :init

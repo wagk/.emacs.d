@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;;; config-language.el --- Major mode packages, et al  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2024  Pang Tun Jiang
@@ -160,7 +162,7 @@ Lisp function does not specify a special indentation."
 
 ;; refer to eglot for rust-analyzer config
 (use-package rust-ts-mode
-  :after (treesit)
+  :demand t
   :ensure nil
   :general
   (:keymaps 'rust-ts-mode-map
@@ -173,9 +175,7 @@ Lisp function does not specify a special indentation."
   (rust-ts-mode-hook . (lambda ()
                          "Use /// instead of /**/"
                          (setq-local block-comment-start nil
-                                     block-comment-end nil)))
-  :config
-  (require 'rust-compile))
+                                     block-comment-end nil))))
 
 (use-package cargo
   :ensure (:host github :repo "kwrooijen/cargo.el")

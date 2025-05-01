@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; markdown-datetree.el --- Datetrees. In markdown.  -*- lexical-binding: t; -*-
 ;;
 

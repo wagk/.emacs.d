@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; (require 'config-evil)
 ;; Must be evaluated after evil is loaded!
 

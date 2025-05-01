@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (require 'config-org)
 
 (use-package anaphora)

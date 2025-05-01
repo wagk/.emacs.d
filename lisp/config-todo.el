@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 ;; todo
 
 ;; TODO (pangt): Completion, keywords at least

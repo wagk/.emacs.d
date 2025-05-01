@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (require 'use-package)
 
 ;; TODO: Figure out how to delete an entry from the completion
@@ -91,6 +93,8 @@
    ((default . (:inherit sol-superlight-foreground))))
   (consult-line-number-wrapped
    ((default . (:inherit line-number))))
+  (consult-file
+   ((((type nil)) . (:underline nil))))
   :config
   (add-to-list 'consult-async-split-styles-alist
                '(slashperl :initial "/" :function consult--split-perl))
@@ -124,14 +128,16 @@
     ;; :fo is currently used by focus-mode, and I sort of like it that way right
     ;; now.
     ;; (evil-ex-define-cmd "fout"  'consult-outline)
-  (evil-ex-define-cmd "fi"  'consult-imenu)
+  (evil-ex-define-cmd "fi"  'consult-imenu-multi)
   (evil-ex-define-cmd "ii"  'consult-imenu-multi)
   (evil-ex-define-cmd "fp"  'consult-yank-from-kill-ring) ;; p for paste
   (evil-ex-define-cmd "ff"  'consult-line)
+  (evil-ex-define-cmd "fr"  'consult-register)
   (evil-ex-define-cmd "fl" '(lambda () (interactive)
                               (consult-line (thing-at-point 'symbol))))
   (evil-ex-define-cmd "fa"  'consult-line-multi)
-  (evil-ex-define-cmd "fc" #'consult-compile-error)
+  (evil-ex-define-cmd "fc"  'consult-compile-error)
+  (evil-ex-define-cmd "foc" 'consult-focus-lines)
 
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
   (setq completion-in-region-function #'(lambda (&rest args)
@@ -168,6 +174,8 @@
 (use-package marginalia
   :after consult
   :demand t
+  :custom-face
+  (marginalia-documentation ((((type nil)) . (:underline nil))))
   :config (marginalia-mode))
 
 (use-package corfu
@@ -207,11 +215,14 @@
   (prefix-help-command #'embark-prefix-help-command)
   :general
   (vertico-map
-   "C-<SPC>" 'embark-act)
+   "C-<SPC>" 'embark-act
+   "C-\\"    'embark-act)
   (:states 'motion
-   "C-<SPC>" 'embark-act))
+   "C-<SPC>" 'embark-act
+   "C-\\"    'embark-act))
 
-(use-package embark-consult)
+(use-package embark-consult
+  :after embark)
 
 (use-package cape
   :demand t

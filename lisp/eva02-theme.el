@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; eva-theme.el --- Theme
 
 ;; Copyright (C) 2016 ,

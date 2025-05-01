@@ -1,3 +1,5 @@
+;; -*- lexical-binding: nil; -*-
+
 (setq user-full-name    "Pang Tun Jiang"
       user-mail-address "mail@wagk.org")
 
