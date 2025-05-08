@@ -918,18 +918,26 @@ Returns a string, or nil if there is no path associated with the buffer."
 (use-package diff
   :ensure nil
   :after config-theme
+  :custom
+  (diff-font-lock-syntax nil)
   :custom-face
   (diff-header
-   ((default . (:inherit sol-foreground))))
+   ((default . (:background unspecified
+                :inherit sol-foreground))))
+  (diff-file-header
+   ((default . (:background unspecified
+                :inherit sol-strong-foreground))))
   (diff-context
    ((default . (:inherit (sol-foreground
                           sol-superlight-background)))))
   (diff-added
    ((default . (:foreground ,sol-green
+                :background unspecified
                 :inherit (sol-foreground
                           sol-superlight-background)))))
   (diff-removed
    ((default . (:foreground ,sol-red
+                :background unspecified
                 :inherit (sol-foreground
                           sol-superlight-background)))))
   (diff-refined-changed
