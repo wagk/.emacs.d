@@ -7,7 +7,7 @@
 (use-package vertico
   :demand t
   :custom
-  (vertico-count 23)
+  (vertico-count 10)
   :general
   (vertico-map
    "M-j" 'vertico-next
