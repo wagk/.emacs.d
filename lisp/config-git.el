@@ -331,11 +331,12 @@ assume # starts a comment."
                 :inherit magit-diff-base))))
   ;; hunk
   (magit-diff-hunk-heading
-   ((default . (:bold t
+   ((default . (:bold nil
                 :foreground unspecified
                 :background unspecified
                 :extend nil
-                :inherit (sol-foreground)))))
+                :inherit (sol-strong-foreground
+                          sol-superlight-background)))))
   (magit-diff-hunk-heading-highlight
    ((default . (:foreground unspecified
                 :background unspecified
