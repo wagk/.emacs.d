@@ -18,7 +18,7 @@
   (version-control t)
   (delete-old-versions t)
   (backup-by-copying t)
-  (vc-make-backup-files t)
+  (vc-make-backup-files nil)
   (kept-new-versions 20)
   (kept-old-versions 5)
   (ff-always-try-to-create nil)
@@ -1400,7 +1400,8 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom
   (completion-auto-select nil)
   :custom-face
-  (separator-line ((default . (:inherit 'sol-superlight-background))))
+  (separator-line ((default . (:underline nil
+                               :foreground unspecified))))
   :config
   ;; not a thing in older emacs versions
   (when (facep 'blink-matching-paren-offscreen)
