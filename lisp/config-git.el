@@ -127,10 +127,6 @@ assume # starts a comment."
                   (`(,s nil) (concat s ": "))
                   (`(nil ,b) (concat b ": "))
                   (`(,s ,b) (concat s " " b ": ")))))))
-  (cl-defun --select-markdown-mode ()
-    (if (featurep 'treesit)
-        (markdown-ts-mode)
-      (markdown-mode)))
   :hook ((git-commit-setup-hook . evil-insert-state)
          (git-commit-setup-hook . --prepare-git-commit-message)
          (git-commit-setup-hook . aggressive-fill-paragraph-mode)
@@ -145,8 +141,8 @@ assume # starts a comment."
          ;; variables.
          (git-commit-setup-hook . --update-git-commit-comment-info)
          ;; evil-markdown-mode should fire after markdown-mode
-         ;; (git-commit-setup-hook . evil-markdown-mode)
-         (git-commit-setup-hook . --select-markdown-mode)
+         (git-commit-setup-hook . evil-markdown-mode)
+         (git-commit-setup-hook . markdown-mode)
          (magit-mode-hook . --magit-on-mode-save-buffers))
   :config
   (require 'git-commit)
