@@ -398,6 +398,21 @@
   :config
   (global-treesit-fold-mode))
 
+(use-package tree-sitter
+  :if (eq system-type 'windows-nt)
+  :blackout t
+  :commands (tree-sitter-hl-mode tree-sitter-mode)
+  :hook ((tree-sitter-after-on-hook . tree-sitter-hl-mode))
+  :after config-theme
+  :custom-face
+  (tree-sitter-hl-face:function.call
+   ((default (:inherit font-lock-function-name-face))))
+  :config
+  (global-tree-sitter-mode))
+
+(use-package tree-sitter-langs
+  :after tree-sitter)
+
 ;; dice rolling and the like
 (use-package decide)
 
