@@ -736,8 +736,7 @@ Returns a string, or nil if there is no path associated with the buffer."
     (evil-ex-define-cmd "feb" #'flymake-show-buffer-diagnostics)
     (evil-ex-define-cmd "leb" "feb")
     (with-eval-after-load 'consult
-      (evil-ex-define-cmd "fe" #'consult-flymake)
-      (evil-ex-define-cmd "le" "fe")))
+      (evil-ex-define-cmd "fe" #'consult-flymake)))
   :config
   (push '(before-string . nil) (get :note 'flymake-overlay-control))
   (push '(before-string . nil) (get :warning 'flymake-overlay-control))
@@ -798,9 +797,10 @@ Returns a string, or nil if there is no path associated with the buffer."
   ;;                         (flymake-mode -1)
   ;;                         (flymake-mode 1)))
   (evil-ex-define-cmd "la" #'eglot-code-actions)
-  (evil-ex-define-cmd "fla" "la")
+  (evil-ex-define-cmd "la" #'eglot-code-action-quickfix)
+  (evil-ex-define-cmd "lw" #'eglot-code-action-rewrite)
+  (evil-ex-define-cmd "le" #'eglot-code-action-extract)
   (evil-ex-define-cmd "lr" #'eglot-rename)
-  (evil-ex-define-cmd "flr" "lr")
   ;; (evil-ex-define-cmd "lw" #'eglot-code-action-rewrite)
   ;; (evil-ex-define-cmd "lx" #'eglot-code-action-extract)
   ;; (evil-ex-define-cmd "li" #'eglot-code-action-inline)
