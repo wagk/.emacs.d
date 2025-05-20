@@ -65,6 +65,8 @@ rust-mode rust-ts-mode
 (print "// DEBUG (pangt): " > n>
        "println!(\"" q "\");" >)
 
+(todo "todo!()" q)
+
 (dbg "// DEBUG (pangt): " > n>
      "dbg!(" q ");" >)
 

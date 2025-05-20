@@ -553,4 +553,10 @@ assume # starts a comment."
     (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
     (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)))
 
+;; jj-specific packages
+
+(use-package vc-jj
+  :disabled t
+  :ensure (:host github :repo "emacs-straight/vc-jj" :branch "master"))
+
 (provide 'config-git)

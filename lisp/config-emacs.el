@@ -18,7 +18,7 @@
   (version-control t)
   (delete-old-versions t)
   (backup-by-copying t)
-  (vc-make-backup-files nil)
+  (vc-make-backup-files t)
   (kept-new-versions 20)
   (kept-old-versions 5)
   (ff-always-try-to-create nil)
@@ -275,7 +275,8 @@ The DWIM behaviour of this command is as follows:
                 :inherit sol-foreground))))
   (font-lock-keyword-face
    ((default . (:foreground ,sol-green))
-    (((type nil)) . (:foreground unspecified))))
+    (((type nil)) . (:foreground unspecified
+                     :inherit sol-strong-foreground))))
   (font-lock-constant-face
    ((default . (:foreground unspecified))))
   (font-lock-function-name-face
@@ -284,7 +285,8 @@ The DWIM behaviour of this command is as follows:
    ((default . (:foreground unspecified
                 :inherit sol-foreground))))
   (font-lock-builtin-face
-   ((default . (:foreground unspecified))))
+   ((default . (:foreground unspecified
+                :inherit sol-strong-foreground))))
   (font-lock-escape-face
    ((default . (:foreground unspecified))))
   (font-lock-variable-name-face
@@ -796,18 +798,17 @@ Returns a string, or nil if there is no path associated with the buffer."
   ;;                         (interactive)
   ;;                         (flymake-mode -1)
   ;;                         (flymake-mode 1)))
-  (evil-ex-define-cmd "la" #'eglot-code-actions)
-  (evil-ex-define-cmd "la" #'eglot-code-action-quickfix)
+  (evil-ex-define-cmd "ll" #'eglot-code-actions)
+  (evil-ex-define-cmd "lq" #'eglot-code-action-quickfix)
   (evil-ex-define-cmd "lw" #'eglot-code-action-rewrite)
   (evil-ex-define-cmd "le" #'eglot-code-action-extract)
+  (evil-ex-define-cmd "li" #'eglot-code-action-inline)
   (evil-ex-define-cmd "lr" #'eglot-rename)
   ;; (evil-ex-define-cmd "lw" #'eglot-code-action-rewrite)
   ;; (evil-ex-define-cmd "lx" #'eglot-code-action-extract)
   ;; (evil-ex-define-cmd "li" #'eglot-code-action-inline)
   ;; (evil-ex-define-cmd "lc" #'eglot-code-action-quickfix)
-  (evil-ex-define-cmd "lm" #'eglot-inlay-hints-mode)
-  (evil-ex-define-cmd "lo" #'eglot-code-action-organize-imports)
-  :config
+  (evil-ex-define-cmd "lm" #'eglot-inlay-hints-mode) (evil-ex-define-cmd "lo" #'eglot-code-action-organize-imports) :config
   (add-to-list 'eglot-server-programs
                '((rust-ts-mode rust-mode) .
                  ("rust-analyzer" :initializationOptions
@@ -839,10 +840,9 @@ Returns a string, or nil if there is no path associated with the buffer."
   :init
   (with-eval-after-load 'config-evil
     (evil-set-command-property #'consult-eglot-symbols :jump t)
-    (--evil-define-splits "ll" #'(lambda () (interactive)
+    (--evil-define-splits "lf" #'(lambda () (interactive)
                                    (let ((completion-ignore-case t))
-                                     (consult-eglot-symbols))))
-    (--evil-define-splits "fll" "ll")))
+                                     (consult-eglot-symbols))))))
 
 (use-package consult-eglot-embark
   :after (embark consult-eglot)
