@@ -4,6 +4,26 @@
 (require 'config-helpers)
 (require 'config-project) ;; jira stuff
 
+(use-package with-editor
+  :hook
+  (vterm-mode-hook . with-editor-export-editor)
+  (term-mode-hook . with-editor-export-editor)
+  (shell-mode-hook . with-editor-export-editor)
+  (eshell-mode-hook . with-editor-export-editor)
+  :config
+  (cl-defun --maybe-rebind-with-editor-keys ()
+    (when (string-equal (file-name-extension (buffer-file-name))
+                        "jjdescription")
+      (general-define-key
+       :keymaps 'local
+       :states 'normal
+        [remap evil-save-and-close]          #'with-editor-finish
+        [remap evil-save-modified-and-close] #'with-editor-finish
+        [remap evil-quit]                    #'with-editor-cancel
+        "C-c C-c"                            #'with-editor-finish
+        "C-c C-k"                            #'with-editor-cancel)))
+  (add-hook 'find-file-hook #'--maybe-rebind-with-editor-keys))
+
 ;; If magit complains about not finding the config on windows, it's
 ;; because of [this issue], the easiest solution is to make a link.
 ;;
