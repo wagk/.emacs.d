@@ -128,15 +128,15 @@
     ;; :fo is currently used by focus-mode, and I sort of like it that way right
     ;; now.
     ;; (evil-ex-define-cmd "fout"  'consult-outline)
-  (evil-ex-define-cmd "fi"  'consult-imenu-multi)
-  (evil-ex-define-cmd "ii"  'consult-imenu-multi)
+  (--evil-define-splits "fi"  'consult-imenu)
+  (--evil-define-splits "ii"  'consult-imenu-multi)
   (evil-ex-define-cmd "fp"  'consult-yank-from-kill-ring) ;; p for paste
-  (evil-ex-define-cmd "ff"  'consult-line)
+  (--evil-define-splits "ff"  'consult-line)
   (evil-ex-define-cmd "fr"  'consult-register)
   (evil-ex-define-cmd "fl" '(lambda () (interactive)
                               (consult-line (thing-at-point 'symbol))))
   (evil-ex-define-cmd "fa"  'consult-line-multi)
-  (evil-ex-define-cmd "fc"  'consult-compile-error)
+  (--evil-define-splits "fc"  'consult-compile-error)
   (evil-ex-define-cmd "foc" 'consult-focus-lines)
 
   (advice-add 'repeat-complex-command :override #'consult-complex-command)
