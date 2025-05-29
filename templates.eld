@@ -30,6 +30,7 @@ fundamental-mode text-mode prog-mode
 prog-mode
 
 (c (--tempel-maybe-comment) q)
+(cc (--tempel-maybe-comment) q)
 (dd (--tempel-maybe-comment) "DEBUG (pangt): " q)
 (ff (--tempel-maybe-comment) "FIXME (pangt): " q)
 (nn (--tempel-maybe-comment) "NOTE (pangt): " q)
@@ -122,4 +123,4 @@ org-mode
 
 ;; not _actually_ an org quote block, but feels more natural to me
 (quote "#+BEGIN_EXAMPLE " > q n>
-         "#+END_EXAMPLE")
+       "#+END_EXAMPLE")
