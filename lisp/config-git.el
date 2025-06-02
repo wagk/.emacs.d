@@ -33,7 +33,7 @@
 (use-package magit
   :ensure (:host github :repo "magit/magit" :branch "main")
   :after (evil config-theme)
-  :defer 10
+  :defer t
   :commands (magit
              magit-status
              magit-pull
