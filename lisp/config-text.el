@@ -140,7 +140,7 @@
   :ensure (:host github :repo "minad/tempel")
   :after config-theme
   :custom-face
-  (tempel-field ((default . (:inherit sol-strong-foreground
+  (tempel-field ((default . (:inherit sol-foreground
                              :foreground unspecified
                              :background unspecified))))
   (tempel-form ((default . (:inherit sol-foreground

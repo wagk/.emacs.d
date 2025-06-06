@@ -103,7 +103,8 @@
   (org-checkbox
    ((default . (:bold t))))
   (org-block
-   ((default . (:inherit sol-superlight-background))))
+   ((default . (:inherit sol-superlight-background
+                :extend t))))
   (org-block-begin-line
    ((default . (:inherit org-meta-line))))
   (org-block-end-line

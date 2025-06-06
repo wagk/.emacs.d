@@ -928,26 +928,25 @@ Returns a string, or nil if there is no path associated with the buffer."
    ((default . (:background unspecified
                 :inherit sol-strong-foreground))))
   (diff-context
-   ((default . (:inherit (sol-foreground
+   ((default . (:extend t
+                :inherit (sol-foreground
                           sol-superlight-background)))))
   (diff-added
    ((default . (:foreground ,sol-green
                 :background unspecified
-                :inherit (sol-foreground
-                          sol-superlight-background)))))
+                :inherit diff-context))))
   (diff-removed
    ((default . (:foreground ,sol-red
                 :background unspecified
-                :inherit (sol-foreground
-                          sol-superlight-background)))))
-  (diff-refined-changed
+                :inherit diff-context))))
+  (diff-refine-changed
    ((default . (:foreground unspecified
                 :inherit diff-changed))))
-  (diff-refined-removed
+  (diff-refine-removed
    ((default . (:background ,sol-red
                 :strike-through nil
                 :inherit sol-foreground-i))))
-  (diff-refined-added
+  (diff-refine-added
    ((default . (:bold nil
                 :background ,sol-green
                 :inherit sol-foreground-i))))
@@ -958,11 +957,14 @@ Returns a string, or nil if there is no path associated with the buffer."
    ((default . (:background unspecified
                 :foreground ,sol-red))))
   (diff-indicator-added
-   ((default . (:foreground unspecified))))
+   ((default . (:foreground ,sol-green
+                :inherit diff-context))))
   (diff-indicator-changed
-   ((default . (:foreground unspecified))))
+   ((default . (:foreground unspecified
+                :inherit diff-context))))
   (diff-indicator-removed
-   ((default . (:foreground unspecified)))))
+   ((default . (:foreground ,sol-red
+                :inherit diff-context)))))
 
 (use-package whitespace
   :ensure nil
