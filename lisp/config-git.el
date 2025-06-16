@@ -465,12 +465,16 @@ assume # starts a comment."
   :after magit)
 
 (use-package git-link
-  :commands (git-link
+  :after evil
+  :commands (git-link-dispatch
+             git-link
              git-link-commit
              git-link-homepage)
   :custom
   (git-link-open-in-browser nil)
   :init
+  (with-eval-after-load 'evil
+    (evil-ex-define-cmd "gh" #'git-link-dispatch))
   (with-eval-after-load 'magit
     (general-define-key
      :states 'normal
