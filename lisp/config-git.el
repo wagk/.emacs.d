@@ -429,11 +429,11 @@ assume # starts a comment."
 (use-package magit-todos
   :after hl-todo
   :commands (magit-todos-list)
-  :init
-  (with-eval-after-load 'evil
-    (evil-ex-define-cmd "tt" #'(lambda () (interactive)
-                                 (require 'magit)
-                                 (magit-todos-list))))
+  ;; :init
+  ;; (with-eval-after-load 'evil
+  ;;   (evil-ex-define-cmd "tt" #'(lambda () (interactive)
+  ;;                                (require 'magit)
+  ;;                                (magit-todos-list))))
   :custom
   (magit-todos-keyword-suffix
    (rx (optional (0+ blank) "(" (1+ (not (any ")"))) ")" (0+ blank)) ": "))
