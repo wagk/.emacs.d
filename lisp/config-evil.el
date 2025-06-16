@@ -331,8 +331,9 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
    "I" 'evil-indent-plus-a-indent-up))
 
 (with-eval-after-load 'evil
-  (evil-ex-define-cmd "jj" #'evil-avy-goto-char-timer)
-  (evil-ex-define-cmd "fj" #'evil-avy-goto-char-timer))
+  (evil-ex-define-cmd "jj" #'evil-avy-goto-char-2)
+  (evil-ex-define-cmd "jf" #'evil-avy-goto-char-timer)
+  (evil-ex-define-cmd "js" #'evil-avy-goto-symbol-1))
 
 (with-eval-after-load 'evil
   (require 'config-evil-helpers))
