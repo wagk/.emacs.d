@@ -241,6 +241,7 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
 
 (use-package evil-org
   :ensure (:host github :repo "Somelauw/evil-org-mode")
+  :after org
   :hook (org-mode-hook . evil-org-mode)
   :blackout t
   :preface
