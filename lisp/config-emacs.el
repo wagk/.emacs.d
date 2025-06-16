@@ -159,6 +159,10 @@ The DWIM behaviour of this command is as follows:
                 :background unspecified
                 :inverse-video t
                 :inherit sol-superlight-background))))
+  (secondary-selection
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inverse-video t))))
   (fringe
    ((default . (:foreground unspecified
                 :background unspecified
@@ -190,7 +194,7 @@ The DWIM behaviour of this command is as follows:
   (mode-line-emphasis
    ((default . (:inherit sol-light-foreground))))
   (mode-line-highlight
-   ((t . (:inherit sol-light-foreground))))
+   ((default . (:inherit sol-light-foreground))))
   (mode-line-buffer-id
    ((default . (:box unspecified
                 :inherit sol-light-foreground))))
@@ -225,6 +229,19 @@ The DWIM behaviour of this command is as follows:
   (window-divider
    ((default . (:foreground unspecified
                 :background unspecified)))))
+
+(use-package wid-edit
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (widget-field
+   ((default . (:box nil
+                :background unspecified
+                :inherit sol-superlight-background))))
+  (widget-single-line-field
+   ((default . (:box nil
+                :background unspecified
+                :inherit sol-superlight-background)))))
 
 (use-package indent-aux
   :ensure nil
@@ -270,11 +287,12 @@ The DWIM behaviour of this command is as follows:
   :after config-theme
   :custom-face
   (font-lock-warning-face
-   ((default . (:foreground ,sol-orange))
+   ;; ((default . (:foreground ,sol-orange))
+   ((default . (:inherit sol-strong-foreground))
     ;; fallback to error
-    (((type nil)) . (:inherit sol-foreground))
-    (((supports (:bold)) (supports (:italic))) .
-     (:bold nil :italic t))))
+    (((type nil)) . (:inherit sol-foreground))))
+    ;; (((supports (:bold)) (supports (:italic))) .
+    ;;  (:bold nil :italic t))))
   (font-lock-operator-face
    ((default . (:foreground unspecified
                 :inherit sol-foreground))))
@@ -305,7 +323,8 @@ The DWIM behaviour of this command is as follows:
   (font-lock-property-use-face
    ((default . (:inherit sol-foreground))))
   (font-lock-comment-face
-   ((default . (:italic t
+   ((default . (:italic nil
+                :extend nil
                 :foreground unspecified
                 :inherit (sol-light-foreground sol-superlight-background)))
     (((type nil)) . (:inherit (sol-superlight-background
@@ -604,25 +623,25 @@ Returns a string, or nil if there is no path associated with the buffer."
                 :inherit sol-superstrong-foreground))))
   (outline-2
    ((default . (:foreground unspecified
-                :inherit sol-strong-foreground))))
+                :inherit sol-superstrong-foreground))))
   (outline-3
    ((default . (:foreground unspecified
-                :inherit sol-strong-foreground))))
+                :inherit sol-superstrong-foreground))))
   (outline-4
    ((default . (:foreground unspecified
-                :inherit sol-strong-foreground))))
+                :inherit sol-superstrong-foreground))))
   (outline-5
    ((default . (:foreground unspecified
-                :inherit sol-strong-foreground))))
+                :inherit sol-superstrong-foreground))))
   (outline-6
    ((default . (:foreground unspecified
-                :inherit sol-strong-foreground))))
+                :inherit sol-superstrong-foreground))))
   (outline-7
    ((default . (:foreground unspecified
-                :inherit sol-strong-foreground))))
+                :inherit sol-superstrong-foreground))))
   (outline-8
    ((default . (:foreground unspecified
-                :inherit sol-strong-foreground)))))
+                :inherit sol-superstrong-foreground)))))
 
 (use-package dired-async
   :ensure nil
@@ -709,6 +728,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   :custom-face
   (flymake-error ((default . (:foreground unspecified
                               :box nil
+                              :italic nil
                               :underline t
                               :inherit sol-error))
                   (((type nil)) . (:underline nil))))

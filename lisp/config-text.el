@@ -245,6 +245,9 @@
 
 (use-package breadcrumb
   :ensure (:host github :repo "joaotavora/breadcrumb")
+  :custom-face
+  (breadcrumb-imenu-leaf-face
+   ((default . (:inherit breadcrumb-imenu-crumbs-face))))
   :config
   (breadcrumb-mode)
   (with-eval-after-load 'so-long
@@ -498,19 +501,21 @@
   (avy-timeout-seconds 0.3)
   :custom-face
   (avy-background-face
-   ((default . (:inherit sol-foreground-i))))
+   ((default . (:inherit match))))
+  (avy-goto-char-timer-face
+   ((default . (:inherit avy-background-face))))
   (avy-lead-face
-   ((default . (:background ,sol-green
-                :inherit avy-background-face))))
+   ((default . (:foreground unspecified
+                :inherit (highlight avy-background-face)))))
   (avy-lead-face-0
-   ((default . (:background ,sol-blue
-                :inherit avy-background-face))))
+   ((default . (:foreground unspecified
+                :inherit (highlight avy-background-face)))))
   (avy-lead-face-1
-   ((default . (:background ,sol-cyan
-                :inherit avy-background-face))))
+   ((default . (:foreground unspecified
+                :inherit (highlight avy-background-face)))))
   (avy-lead-face-2
-   ((default . (:background ,sol-violet
-                :inherit avy-background-face)))))
+   ((default . (:foreground unspecified
+                :inherit (highlight avy-background-face))))))
 
 (use-package ace-window
   :after (evil avy general config-theme)

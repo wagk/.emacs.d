@@ -60,7 +60,7 @@
    ((default . (:inherit markdown-inline-code-face
                 :extend t))))
   (markdown-table-face
-   ((default . (:inherit sol-light-foreground))))
+   ((default . (:inherit (sol-foreground sol-superlight-background)))))
   (markdown-reference-face
    ((default . (:inherit sol-light-foreground))))
   (markdown-italic-face

@@ -197,7 +197,7 @@
   :group 'personal)
 
 (defface sol-warning
-  `((default . (:italic t
+  `((default . (:italic nil
                 :foreground ,sol-orange
                 :inherit (sol-strong-foreground))))
   "Global default for warnings."
@@ -212,6 +212,7 @@
 
 ;; Update standard faces
 (custom-set-faces
+ ;; sol-foreground
  `(default ((((background light)) . (:foreground ,sol-base00
                                      :background ,sol-base3))
             (((background dark)) . (:foreground ,sol-base0

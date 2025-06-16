@@ -119,20 +119,20 @@
    ((default . (:underline nil
                 :inherit sol-strong-foreground))))
   (org-code
-   ((default . (:underline nil
-                :extend t
-                :inherit (sol-strong-foreground sol-superlight-background)))))
+   ((default . (:underline unspecified
+                :extend unspecified
+                :inherit org-block))))
   (org-todo
-   ((default . (:foreground ,sol-red))))
+   ((default . (:foreground ,sol-blue))))
   (org-done
    ((default . (:foreground ,sol-green))))
   (org-table
    ((default . (:foreground unspecified
-                :inherit sol-foreground))))
-  (org-table-header
-   ((default . (:foreground unspecified
-                :background unspecified
-                :inherit (org-table sol-superlight-background)))))
+                :inherit (sol-foreground sol-superlight-background)))))
+  ;; (org-table-header
+  ;;  ((default . (:foreground unspecified
+  ;;               :background unspecified
+  ;;               :inherit (org-table sol-superlight-background)))))
   (org-table-row
    ((default . (:foreground unspecified
                 :background unspecified
