@@ -579,4 +579,14 @@ assume # starts a comment."
   :disabled t
   :ensure (:host github :repo "emacs-straight/vc-jj" :branch "master"))
 
+(with-eval-after-load 'evil
+  (evil-define-operator --evil-async-jj-command (&optional args)
+    (interactive "<a>")
+    (let ((command (string-trim (concat "jj " args)))
+          (buffer-name (if-let* ((project (project-current nil)))
+                           (format "*jj< %s >*" (project-root project)))))
+      (add-to-history 'shell-command-history command)
+      (async-shell-command command buffer-name)))
+  (evil-ex-define-cmd "jj" #'--evil-async-jj-command))
+
 (provide 'config-git)
