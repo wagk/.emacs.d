@@ -243,10 +243,8 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
 (use-package evil-lion
   :ensure (:host github :repo "edkolev/evil-lion")
   :after (evil)
-  :general
-  (:keymaps '(normal visual)
-   "gl"     'evil-lion-left
-   "gL"     'evil-lion-right))
+  :config
+  (evil-lion-mode))
 
 ;; :reverse           reverse visually selected lines
 ;; :remove            remove current file and its buffer
