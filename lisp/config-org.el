@@ -224,7 +224,39 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
       :keymaps 'org-mode-map
       :states '(normal)
       :prefix my-default-evil-leader-key
-      "o p" 'my-org-paste-clipboard-screenshot)))
+      "o p" 'my-org-paste-clipboard-screenshot))
+
+  ;; extend C-c C-c to evaluate sql expressions through sql's
+  ;; interactive buffer. Requires the buffer (and db process) to
+  ;; already exist.
+  (with-eval-after-load 'sql
+    (cl-defun --org-sql-send-src-block ()
+      (interactive)
+      (require 'sql)
+      (require 'dash)
+      (when (and (eq (car (org-element-at-point)) 'src-block)
+                 (string= "sql" (org-element-property :language (org-element-at-point))))
+        ;; TODO: _no_ idea why I need to stick it here and not right
+        ;; before I insert the result.
+        (org-babel-remove-result-one-or-many nil)
+        (unless sql-buffer
+          (message "No SQLi process active")
+          (cl-return))
+        (when-let* ((sql-buffer (get-buffer sql-buffer))
+                    ;; join into a single string to prevent funny repl prompt printing
+                    (command (--> (org-element-property :value (org-element-at-point))
+                                  (replace-regexp-in-string "[[:space:]]+" " " it)
+                                  (string-trim-right it)
+                                  (if (string-suffix-p ";" it) it (concat it ";"))))
+                    (result (with-temp-buffer
+                              (message "Querying %s with \"%s\"" sql-buffer command)
+                              (sql-redirect sql-buffer command (current-buffer))
+                              (concat (string-trim-right (buffer-string))
+                                      "\n\n-- eval-at: " (format-time-string "%F %T%z")))))
+          (org-babel-insert-result result))))
+
+    (add-hook 'org-ctrl-c-ctrl-c-hook #'--org-sql-send-src-block)))
+
 
 (with-eval-after-load 'org-persist
   (require 'f)
