@@ -337,6 +337,12 @@ The DWIM behaviour of this command is as follows:
   :ensure nil
   :blackout hs-minor-mode)
 
+(use-package help
+  :ensure nil
+  :general
+  ;; unbind `describe-no-warranty'
+  ("C-h C-w" nil))
+
 (use-package display-fill-column-indicator
   :ensure nil
   :if (>= emacs-major-version 27)
