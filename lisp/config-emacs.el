@@ -10,6 +10,7 @@
   :demand t
   :ensure nil
   :custom
+  (create-lockfiles nil)
   (confirm-kill-emacs nil)
   (confirm-kill-processes nil)
   (cursor-in-non-selected-windows nil)
