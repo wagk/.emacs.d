@@ -364,7 +364,16 @@
   (evil-outer-text-objects-map
    "f" (evil-textobj-tree-sitter-get-textobj "function.outer"))
   (evil-inner-text-objects-map
-   "f" (evil-textobj-tree-sitter-get-textobj "function.inner")))
+   "f" (evil-textobj-tree-sitter-get-textobj "function.inner"))
+  :config
+  (with-eval-after-load 'evil-collection-unimpaired
+    (general-define-key
+     :states 'normal
+     :keymaps 'evil-collection-unimpaired-mode-map
+      "]f" #'(lambda () (interactive)
+               (evil-textobj-tree-sitter-goto-textobj "function.outer"))
+      "[f" #'(lambda () (interactive)
+               (evil-textobj-tree-sitter-goto-textobj "function.outer" t)))))
 
 (use-package treesit-auto
   :after treesit
