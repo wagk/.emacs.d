@@ -105,7 +105,6 @@
   (defconst --markdown-tag-keyword-regex
     (rx (or line-start space punct) "#" (one-or-more (any alnum "_" "-"))))
 
-  (setq initial-major-mode 'markdown-mode)
   (cl-defun --markdown-complete-or-indent-at-table ()
     (interactive)
     (if (markdown-table-at-point-p)

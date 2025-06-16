@@ -92,6 +92,8 @@ The DWIM behaviour of this command is as follows:
   :config
   (electric-indent-mode)
 
+  (setq initial-major-mode 'org-mode)
+
   (when (>= emacs-major-version 26)
     (add-hook 'prog-mode-hook 'display-line-numbers-mode))
 
