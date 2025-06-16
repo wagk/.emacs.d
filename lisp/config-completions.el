@@ -171,6 +171,14 @@
   (with-eval-after-load 'config-evil
     (--evil-define-splits "mm" #'consult-dir)))
 
+(use-package consult-omni
+  :after consult
+  :ensure (:host github
+           :repo "armindarvish/consult-omni"
+           :branch "main"
+           :files (:defaults "sources/*.el"))
+  :commands consult-omni)
+
 (use-package marginalia
   :after consult
   :demand t
