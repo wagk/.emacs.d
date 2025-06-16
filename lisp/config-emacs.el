@@ -760,6 +760,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   (eglot-extend-to-xref t)
   (eglot-code-action-indications '(eldoc-hint margin mode-line))
   (eglot-code-action-indicator "@")
+  (eglot-report-progress nil)
   :custom-face
   (eglot-highlight-symbol-face
    ((default . (:weight unspecified
@@ -819,7 +820,8 @@ Returns a string, or nil if there is no path associated with the buffer."
                             :features "all")
                     :references (:excludeTests t)
                     :diagnostics (:styleLints (:enable t))
-                    :assist (:emitMustUse t)
+                    :assist (:emitMustUse t
+                             :preferSelf t)
                     :workspace (:symbol (:search (:scope "workspace"
                                                   :kind "all_symbols")))
                     :inlayHints (:bindingModeHints (:enable t)
