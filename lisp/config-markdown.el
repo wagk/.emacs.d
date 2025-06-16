@@ -839,11 +839,18 @@ should prepopulate."
 
 ;; Personal notes and the like
 (use-package consult-notes
-  :after markdown-mode
+  :after (markdown-mode config-evil)
   :custom
-  (consult-notes-default-format 'markdown-mode)
-  (consult-notes-file-dir-sources
-   `(("obsidian" ?o ,config-markdown-active-vault))))
+  (consult-notes-default-format 'org-mode)
+  ;; (consult-notes-file-dir-sources
+  ;;  `(("obsidian" ?o ,config-markdown-active-vault)))
+  :commands
+  (consult-notes
+   consult-notes-search-in-all-notes)
+  :init
+  (evil-ex-define-cmd "nn" #'consult-notes)
+  (evil-ex-define-cmd "nr" #'consult-notes-search-in-all-notes)
+  (evil-ex-define-cmd "nf" "nr"))
 
 ;; (use-package consult-notes
 ;;   :disabled t
