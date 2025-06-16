@@ -358,18 +358,18 @@
   (:states 'normal
    :prefix my-default-evil-leader-key
    "|" #'(lambda () (interactive)
-           (require 'display-fill-column-indicator)
-           (require 'highlight-indent-guides)
-           (display-fill-column-indicator-mode 'toggle)
-           (highlight-indent-guides-mode 'toggle)))
+           (when (featurep 'display-fill-column-indicator)
+             (display-fill-column-indicator-mode 'toggle))
+           (when (featurep 'highlight-indent-guides)
+             (highlight-indent-guides-mode 'toggle))))
   :custom
   (highlight-indent-guides-method 'character)
   (highlight-indent-guides-auto-enabled nil)
   :custom-face
   (highlight-indent-guides-character-face
-   ((default . (:inherit sol-superlight-foreground))))
-  :hook
-  ((prog-mode-hook . highlight-indent-guides-mode)))
+   ((default . (:inherit sol-superlight-foreground)))))
+  ;; :hook
+  ;; ((prog-mode-hook . highlight-indent-guides-mode)))
 
 (use-package fill-function-arguments
   :ensure (:host github :repo "davidshepherd7/fill-function-arguments")

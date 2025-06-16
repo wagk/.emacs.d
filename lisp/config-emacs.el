@@ -338,9 +338,9 @@ The DWIM behaviour of this command is as follows:
   :ensure nil
   :if (>= emacs-major-version 27)
   :custom
-  (display-fill-column-indicator-character nil)
-  :config
-  (global-display-fill-column-indicator-mode))
+  (display-fill-column-indicator-character nil))
+  ;; :config
+  ;; (global-display-fill-column-indicator-mode))
 
 (cl-defun --kill-buffer-path ()
   (interactive)
