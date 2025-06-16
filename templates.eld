@@ -25,9 +25,10 @@
 fundamental-mode text-mode prog-mode
 
 (/date (format-time-string "%F"))
+(/time (format-time-string "%H:%M"))
 (/now (format-time-string "%F %H:%M"))
 
-prog-mode
+prog-mode yaml-mode yaml-ts-mode
 
 (c (--tempel-maybe-comment) q)
 (cc (--tempel-maybe-comment) q)
@@ -120,6 +121,7 @@ org-mode
 
 (src "#+BEGIN_SRC " > q n>
      "#+END_SRC")
+(elisp "#+BEGIN_SRC emacs-lisp" n> q n> "#+END_SRC")
 
 (sql "#+BEGIN_SRC sql" > q n>
      "#+END_SRC")
