@@ -493,6 +493,8 @@
 
 (use-package avy
   :after config-theme
+  :custom
+  (avy-timeout-seconds 0.3)
   :custom-face
   (avy-background-face
    ((default . (:inherit sol-foreground-i))))
