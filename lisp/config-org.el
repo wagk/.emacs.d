@@ -116,7 +116,27 @@
    ((default . (:foreground unspecified
                 :inherit sol-foreground))))
   (org-verbatim
-   ((default . (:underline nil))))
+   ((default . (:underline nil
+                :inherit sol-strong-foreground))))
+  (org-code
+   ((default . (:underline nil
+                :extend t
+                :inherit (sol-strong-foreground sol-superlight-background)))))
+  (org-todo
+   ((default . (:foreground ,sol-red))))
+  (org-done
+   ((default . (:foreground ,sol-green))))
+  (org-table
+   ((default . (:foreground unspecified
+                :inherit sol-foreground))))
+  (org-table-header
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit (org-table sol-superlight-background)))))
+  (org-table-row
+   ((default . (:foreground unspecified
+                :background unspecified
+                :inherit (sol-light-foreground org-table)))))
   :hook ((org-insert-heading-hook . evil-insert-state))
   :init
   (with-eval-after-load 'ol
