@@ -82,9 +82,9 @@
 (use-package consult
   :demand t
   :after (config-theme evil project config-evil-helpers)
-  :general
-  (:states 'normal
-   "g /" #'consult-line)
+  ;; :general
+  ;; (:states 'normal
+  ;;  "g /" #'consult-line)
   :custom
   (consult-narrow-key ">")
   (consult-widen-key "<")

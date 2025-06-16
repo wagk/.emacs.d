@@ -330,7 +330,11 @@ SPLIT-TYPE must be either `:split' or `:vsplit'"
    "i" 'evil-indent-plus-i-indent-up
    "I" 'evil-indent-plus-a-indent-up))
 
-(with-eval-after-load 'evil
+(with-eval-after-load 'evil-integration
+  (with-eval-after-load 'general
+    (general-define-key
+     :states 'normal
+      "g /" #'evil-avy-goto-char-timer))
   (evil-ex-define-cmd "jj" #'evil-avy-goto-char-2)
   (evil-ex-define-cmd "jf" #'evil-avy-goto-char-timer)
   (evil-ex-define-cmd "js" #'evil-avy-goto-symbol-1))
