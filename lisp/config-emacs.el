@@ -27,6 +27,8 @@
   (blink-matching-paren-highlight-offscreen t)
   (truncate-lines t)
   (inhibit-startup-screen t)
+  (initial-scratch-message "")
+  (initial-major-mode 'fundamental-mode)
   (require-final-newline t)
   (ring-bell-function 'ignore)
   (tab-width 4)
@@ -93,7 +95,6 @@ The DWIM behaviour of this command is as follows:
   :config
   (electric-indent-mode)
 
-  (setq initial-major-mode 'org-mode)
 
   (when (>= emacs-major-version 26)
     (add-hook 'prog-mode-hook 'display-line-numbers-mode))
@@ -249,6 +250,7 @@ The DWIM behaviour of this command is as follows:
   (read-file-name-completion-ignore-case t)
   (read-buffer-completion-ignore-case t)
   :custom-face
+  (completions-annotations ((default . (:inherit sol-light-foreground))))
   (completions-common-part ((default . (:foreground ,sol-cyan)))))
 
 (use-package time
@@ -696,7 +698,7 @@ Returns a string, or nil if there is no path associated with the buffer."
               :override #'eglot-signature-eldoc-talkative))
 
 (use-package flymake
-  :ensure nil
+  :ensure (:host github :repo "emacs-straight/flymake" :branch "master")
   :after config-theme
   :init
   (cl-defun --maybe-flymake-mode ()
@@ -760,7 +762,7 @@ Returns a string, or nil if there is no path associated with the buffer."
   ;;         :note (before-string . nil))))
 
 (use-package eglot
-  :ensure nil
+  :ensure (:host github :repo "emacs-straight/eglot" :branch "master")
   :after (config-theme evil flymake)
   :custom
   (eglot-prefer-plaintext t)
@@ -1130,6 +1132,13 @@ Returns a string, or nil if there is no path associated with the buffer."
   ;;  "] t" #'tab-bar-switch-to-next-tab
   ;;  "[ t" #'tab-bar-switch-to-prev-tab)
   :init
+  (cl-defun --new-tab-group-fn ()
+    (cond
+     ;; ((file-remote-p (pwd)) (tramp-file-name-host (tramp-dissect-file-name (pwd))))
+     ((project-current) (project-root (project-current)))
+     (t nil)))
+  (setq tab-bar-new-tab-group #'--new-tab-group-fn)
+
   (evil-ex-define-cmd "gt" 'tab-bar-switch-to-next-tab)
   (evil-ex-define-cmd "gT" 'tab-bar-switch-to-prev-tab)
   (evil-define-command my-tab-bar-tab-edit (file)
@@ -1683,6 +1692,14 @@ It's quite stupid at the moment, and assumes the line starts with `break'"
   (evil-ex-define-cmd "cheatsheet" 'shortdoc)
   (evil-ex-define-cmd "cs" "cheatsheet")
   (evil-ex-define-cmd "hh" "cheatsheet"))
+
+(use-package cus-edit
+  :ensure nil
+  :after config-theme
+  :custom-face
+  (custom-variable-tag
+   ((default . (:foreground unspecified
+                :inherit sol-strong-foreground)))))
 
 (use-package diff-mode
   :ensure nil

@@ -210,22 +210,22 @@ Lisp function does not specify a special indentation."
   :after json-mode
   :commands (jsons-print-path))
 
-;; (use-package yaml-mode
-;;   :mode ("\\.yml\\'"
-;;          "\\.yaml\\'"
-;;          "\\.yaml.in\\'")
-;;   :hook
-;;   (yaml-mode-hook . display-line-numbers-mode)
-;;   (yaml-mode-hook . flymake-mode)
-;;   :general
-;;   (yaml-mode-map
-;;    "RET" 'newline-and-indent)
-;;   :init
-;;   (with-eval-after-load 'org-src
-;;     (cl-pushnew '("yaml" . yaml) org-src-lang-modes))
-;;   :config
-;;   (with-eval-after-load 'flycheck
-;;     (add-hook 'yaml-mode-hook #'flycheck-mode))
+(use-package yaml-mode
+  :mode ("\\.yml\\'"
+         "\\.yaml\\'"
+         "\\.yaml.in\\'")
+  :hook
+  (yaml-mode-hook . display-line-numbers-mode)
+  (yaml-mode-hook . flymake-mode)
+  :general
+  (yaml-mode-map
+   "RET" 'newline-and-indent)
+  :init
+  (with-eval-after-load 'org-src
+    (cl-pushnew '("yaml" . yaml) org-src-lang-modes))
+  :config
+  (with-eval-after-load 'flycheck
+    (add-hook 'yaml-mode-hook #'flycheck-mode)))
 
   ;; (with-eval-after-load 'highlight-indent-guides
   ;;   (add-hook 'yaml-mode-hook #'highlight-indent-guides-mode))
@@ -235,25 +235,25 @@ Lisp function does not specify a special indentation."
   ;;   (sp-local-pair 'yaml-mode "[" nil :post-handlers '((--double-newline-and-indent-braces "RET")))
   ;;   (sp-local-pair 'yaml-mode "(" nil :post-handlers '((--double-newline-and-indent-braces "RET")))))
 
-;; ;; it has no indentations
-;;
-;; (use-package yaml-ts-mode
-;;   :ensure nil
-;;   :if (and (fboundp 'treesit-available-p)
-;;            (treesit-available-p))
-;;   :commands (yaml-ts-mode)
-;;   :after yaml-mode
-;;   :config
-;;   (setq yaml-ts-mode-hook yaml-mode-hook)
-;;   (with-eval-after-load 'flycheck
-;;     (add-hook 'yaml-ts-mode-hook #'flycheck-mode))
-;;   (with-eval-after-load 'highlight-indent-guides
-;;     (add-hook 'yaml-ts-mode-hook #'highlight-indent-guides-mode)))
+;; it has no indentations
+
+(use-package yaml-ts-mode
+  :ensure nil
+  :if (and (fboundp 'treesit-available-p)
+           (treesit-available-p))
+  :commands (yaml-ts-mode)
+  :after yaml-mode
+  :hook
+  (yaml-ts-mode-hook . display-line-numbers-mode)
+  (yaml-ts-mode-hook . flymake-mode)
+  :config
+  (setq yaml-ts-mode-hook yaml-mode-hook)
+  (with-eval-after-load 'highlight-indent-guides
+    (add-hook 'yaml-ts-mode-hook #'highlight-indent-guides-mode)))
 
 ;; https://github.com/zkry/yaml.el/tree/9ebddb55238d746dc5a5d46db04c9f360c140b99
 (use-package yaml
-  :ensure (:host github :repo "zkry/yaml.el" :branch "master")
-  :commands (yaml-parse-string))
+  :ensure (:host github :repo "zkry/yaml.el" :branch "master"))
 
 (use-package yaml-pro
   :ensure (:host github :repo "zkry/yaml-pro" :branch "master")
@@ -509,6 +509,7 @@ Lisp function does not specify a special indentation."
  (cl-pushnew '("toml" . conf-toml) org-src-lang-modes))
 
 (use-package plantuml-mode
+  :disabled t
   :ensure (:host github :repo "skuro/plantuml-mode")
   :commands (plantuml-mode)
   :custom

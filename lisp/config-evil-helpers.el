@@ -3,7 +3,7 @@
 ;; (require 'config-evil)
 ;; Must be evaluated after evil is loaded!
 
-(evil-ex-define-cmd "view" #'(lambda () (interactive) (read-only-mode 'toggle)))
+(evil-ex-define-cmd "vie[w]" #'(lambda () (interactive) (read-only-mode 'toggle)))
 
 (cl-defun --evil-define-splits (command func-or-string)
   "Given a function that finds the appropriate buffer sets :{v,s,t,w} ex-cmd

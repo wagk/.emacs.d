@@ -11,7 +11,7 @@
   (shell-mode-hook . with-editor-export-editor)
   (eshell-mode-hook . with-editor-export-editor)
   :config
-  (cl-defun --maybe-rebind-with-editor-keys ()
+  (cl-defun --maybe-rebind-with-editor-keys-if-jjdescription ()
     (when (string-equal (file-name-extension (buffer-file-name))
                         "jjdescription")
       (general-define-key
@@ -21,8 +21,21 @@
         [remap evil-save-modified-and-close] #'with-editor-finish
         [remap evil-quit]                    #'with-editor-cancel
         "C-c C-c"                            #'with-editor-finish
-        "C-c C-k"                            #'with-editor-cancel)))
-  (add-hook 'find-file-hook #'--maybe-rebind-with-editor-keys))
+        "C-c C-k"                            #'with-editor-cancel)
+      (with-eval-after-load 'fill-column-indicator
+        (display-fill-column-indicator-mode))
+
+      ;; since this is a JJ buffer we can do some font-locking
+      (font-lock-add-keywords
+       nil
+       `(,(rx line-start "JJ:" (0+ any)) 0 'font-lock-comment-face prepend))
+
+      ;; bit of a hack, but turn on aggressive fill paragraph here,
+      ;; since we're going to be typing a commit message
+      (with-eval-after-load 'aggressive-fill-paragraph
+        (aggressive-fill-paragraph-mode))))
+
+  (add-hook 'find-file-hook #'--maybe-rebind-with-editor-keys-if-jjdescription))
 
 ;; If magit complains about not finding the config on windows, it's
 ;; because of [this issue], the easiest solution is to make a link.
@@ -579,14 +592,17 @@ assume # starts a comment."
   :disabled t
   :ensure (:host github :repo "emacs-straight/vc-jj" :branch "master"))
 
-(with-eval-after-load 'evil
-  (evil-define-operator --evil-async-jj-command (&optional args)
-    (interactive "<a>")
-    (let ((command (string-trim (concat "jj " args)))
-          (buffer-name (if-let* ((project (project-current nil)))
-                           (format "*jj< %s >*" (project-root project)))))
-      (add-to-history 'shell-command-history command)
-      (async-shell-command command buffer-name)))
-  (evil-ex-define-cmd "jj" #'--evil-async-jj-command))
+;; (use-package jujutsu
+;;   :ensure (:host github :repo "bennyandresen/jujutsu.el" :branch "trunk"))
+
+;; (with-eval-after-load 'evil
+;;   (evil-define-operator --evil-async-jj-command (&optional args)
+;;     (interactive "<a>")
+;;     (let ((command (string-trim (concat "jj " args)))
+;;           (buffer-name (if-let* ((project (project-current nil)))
+;;                            (format "*jj< %s >*" (project-root project)))))
+;;       (add-to-history 'shell-command-history command)
+;;       (async-shell-command command buffer-name)))
+;;   (evil-ex-define-cmd "jj" #'--evil-async-jj-command))
 
 (provide 'config-git)

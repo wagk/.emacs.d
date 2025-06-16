@@ -85,7 +85,7 @@
 (use-package gcmh
   :ensure (:host github :repo "emacsmirror/gcmh" :branch "master")
   :custom
-  (gcmh-verbose t)
+  (gcmh-verbose nil)
   (gcmh-idle-delay 'auto)
   (gcmh-auto-idle-delay-factor 50)
   :config

@@ -274,6 +274,7 @@
     (evil-ex-define-cmd "feb" #'flycheck-list-errors)))
 
 (use-package engine-mode
+  :disabled t
   :commands defengine
   :after (evil general)
   :init
@@ -576,6 +577,7 @@
    ((default . (:foreground ,sol-green)))))
 
 (use-package aidermacs
+  :disabled t
   :ensure (:host github :repo "MatthewZMD/aidermacs" :branch "main")
   :commands (aidermacs-transient-menu aidermacs-run)
   :after config-evil
@@ -624,6 +626,9 @@
   (kubernetes-selector
    ((default . (:inherit sol-light-background-i)))))
 
+(use-package k8s-mode
+  :ensure (:host github :repo "TxGVNN/emacs-k8s-mode" :branch "master"))
+
 ;; (use-package kubernetes-evil
 ;;   :after kubernetes)
 
@@ -631,5 +636,8 @@
   :ensure (:host github :repo "emacs-straight/plz" :branch "master")
   :if (executable-find "curl")
   :commands plz)
+
+(use-package casual-suite
+  :ensure t)
 
 (provide 'config-qol)

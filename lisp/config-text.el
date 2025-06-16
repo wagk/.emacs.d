@@ -159,6 +159,8 @@
    "M-h"       #'tempel-previous
    "M-k"       #'tempel-previous
    "M-q"       #'tempel-abort)
+  ;; :config
+  ;; (global-tempel-abbrev-mode)
   :init
   ;; turn it into a list so we can define local configs
   (setq tempel-path (list (locate-user-emacs-file "templates.eld")))
@@ -313,9 +315,9 @@
   ;; (evil-ex-define-cmd "rf" #'(lambda () (interactive)
   ;;                              (require 'rg)
   ;;                              (--rg-search-file)))
-  ;; (evil-ex-define-cmd "rd" #'(lambda () (interactive)
-  ;;                              (require 'rg)
-  ;;                              (--rg-search-dir)))
+  (--evil-define-splits "rd" #'(lambda () (interactive)
+                                 (require 'rg)
+                                 (--rg-search-dir)))
   ;; (evil-ex-define-cmd "prg" 'rg-project)
   :config
   (rg-enable-menu)
@@ -334,7 +336,7 @@
   (rg-define-search --rg-search-dir
     :files "everything"
     :dir current
-    :query (funcall #'--thing-at-point-or-region-or-user-input)
+    ;; :query (funcall #'--thing-at-point-or-region-or-user-input)
     :menu ("Search" "d" "Directory"))
   (with-eval-after-load 'hl-todo
     (rg-define-search search-hl-todo-keywords
@@ -473,20 +475,19 @@
     (add-to-list 'dogears-ignore-modes 'magit-status-mode)))
 
 (use-package focus
-  :disabled t
   :commands focus-mode
   :after (evil-ex config-theme)
   :init
-  (evil-ex-define-cmd "fo[cus]" 'focus-mode)
-  (evil-ex-define-cmd "fou" 'focus-unpin)
-  (evil-ex-define-cmd "fop" 'focus-pin)
-  (with-eval-after-load 'embark
-    (with-eval-after-load 'general
-      (general-define-key
-       :keymaps 'embark-defun-map
-        "f f" 'focus-mode
-        "f u" 'focus-unpin
-        "f p" 'focus-pin)))
+  (evil-ex-define-cmd "focus" 'focus-mode)
+  ;; (evil-ex-define-cmd "fou" 'focus-unpin)
+  ;; (evil-ex-define-cmd "fop" 'focus-pin)
+  ;; (with-eval-after-load 'embark
+  ;;   (with-eval-after-load 'general
+  ;;     (general-define-key
+  ;;      :keymaps 'embark-defun-map
+  ;;       "f f" 'focus-mode
+  ;;       "f u" 'focus-unpin
+  ;;       "f p" 'focus-pin)))
   :custom-face
   (focus-unfocused
    ((default . (:inherit sol-superlight-foreground)))))
