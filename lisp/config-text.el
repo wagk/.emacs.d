@@ -358,7 +358,7 @@
 (use-package evil-textobj-tree-sitter
   :ensure (:host github
            :repo "meain/evil-textobj-tree-sitter"
-           :files (:defaults "queries"))
+           :files (:defaults "queries" "treesit-queries"))
   :after (evil general (:or treesit tree-sitter))
   :general
   (evil-outer-text-objects-map
