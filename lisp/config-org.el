@@ -478,6 +478,7 @@ Taken from `http://www.sastibe.de/2018/11/take-screenshots-straight-into-org-fil
 
 (use-package valign
   :ensure (:host github :repo "emacs-straight/valign" :branch "master")
+  :if (display-graphic-p)
   :after org
   :hook (org-mode-hook . valign-mode))
 
