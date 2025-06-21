@@ -575,6 +575,13 @@
   (gptel-context-highlight-face
    ((default . (:foreground ,sol-green)))))
 
+(use-package aidermacs
+  :ensure (:host github :repo "MatthewZMD/aidermacs" :branch "main")
+  :commands (aidermacs-transient-menu aidermacs-run)
+  :after config-evil
+  :config
+  (evil-ex-define-cmd "ai" #'aidermacs-transient-menu))
+
 (use-package restart-emacs
   :if (not (eq system-type 'darwin))
   :ensure (:host github :repo "iqbalansari/restart-emacs")

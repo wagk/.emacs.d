@@ -65,3 +65,4 @@ straight/*
 /pomm
 **/flycheck_*.el
 /local-templates.eld
+.aider*
