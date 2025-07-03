@@ -1364,14 +1364,7 @@ Returns a string, or nil if there is no path associated with the buffer."
     (let ((name (format "*shell<%s>*" (buffer-name))))
       (shell name)))
   (with-eval-after-load 'evil
-    (evil-ex-define-cmd "sh[ell]" #'(lambda () (interactive)
-                                      (my-buffer-specific-shell)))
-    (evil-ex-define-cmd "Sshell" #'(lambda () (interactive)
-                                     (evil-window-split)
-                                     (my-buffer-specific-shell)))
-    (evil-ex-define-cmd "Vshell" #'(lambda () (interactive)
-                                     (evil-window-vsplit)
-                                     (my-buffer-specific-shell))))
+    (--evil-define-splits "term" #'my-buffer-specific-shell))
   (add-to-list 'display-buffer-alist '("\\*shell\\*" . (display-buffer-same-window . nil)))
   :hook
   (shell-mode-hook . shell-dirtrack-mode)
