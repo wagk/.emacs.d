@@ -279,9 +279,8 @@ The DWIM behaviour of this command is as follows:
    ((default . (:foreground unspecified
                 :inherit sol-foreground))))
   (font-lock-keyword-face
-   ((default . (:foreground ,sol-green))
-    (((type nil)) . (:foreground unspecified
-                     :inherit sol-strong-foreground))))
+   ((default . (:foreground unspecified
+                :inherit sol-strong-foreground))))
   (font-lock-constant-face
    ((default . (:foreground unspecified))))
   (font-lock-function-name-face
@@ -310,14 +309,14 @@ The DWIM behaviour of this command is as follows:
                 :foreground unspecified
                 :inherit (sol-light-foreground sol-superlight-background)))
     (((type nil)) . (:inherit (sol-superlight-background
-                               sol-light-foreground)))
-    (((supports (:weight))) . (:weight semi-light))))
+                               sol-light-foreground)))))
+    ;; (((supports (:weight))) . (:weight semi-light))))
   (font-lock-comment-delimiter-face
    ((default . (:inherit font-lock-comment-face))))
   (font-lock-doc-face
    ((default . (:extend t
                 :italic nil
-                :inherit font-lock-comment-face))))
+                :inherit (sol-foreground font-lock-comment-face)))))
   (font-lock-type-face
    ((default . (:foreground ,sol-yellow))))
   (font-lock-preprocessor-face

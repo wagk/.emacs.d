@@ -71,9 +71,9 @@
 
 (use-package solarized-definitions
   :if (display-graphic-p)
-  :ensure (:host github :repo "sellout/emacs-color-theme-solarized" :main nil)
-  :config
-  (load-theme 'solarized t))
+  :ensure (:host github :repo "sellout/emacs-color-theme-solarized" :main nil))
+  ;; :config
+  ;; (load-theme 'solarized t))
 
 (customize-set-variable 'frame-background-mode 'nil)
 
@@ -209,6 +209,13 @@
                 :inherit (sol-strong-foreground))))
   "Global default for errors."
   :group 'personal)
+
+;; Update standard faces
+(custom-set-faces
+ `(default ((((background light)) . (:foreground ,sol-base00
+                                     :background ,sol-base3))
+            (((background dark)) . (:foreground ,sol-base0
+                                    :background ,sol-base03)))))
 
 ;; Replaces the default arrows you see in the left and right fringe
 ;; with a nicer-looking bitmap. There's no really good place to put
