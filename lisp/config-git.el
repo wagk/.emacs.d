@@ -37,6 +37,9 @@
 
   (add-hook 'find-file-hook #'--maybe-rebind-with-editor-keys-if-jjdescription))
 
+(use-package cond-let
+  :ensure (:host github :repo "tarsius/cond-let" :branch "main"))
+
 ;; If magit complains about not finding the config on windows, it's
 ;; because of [this issue], the easiest solution is to make a link.
 ;;
@@ -45,7 +48,7 @@
 ;; [this issue]: https://github.com/magit/magit/issues/1497
 (use-package magit
   :ensure (:host github :repo "magit/magit" :branch "main")
-  :after (evil config-theme)
+  :after (cond-let evil config-theme)
   :defer t
   :commands (magit
              magit-status
