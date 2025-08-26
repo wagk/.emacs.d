@@ -53,7 +53,7 @@
   (interactive)
   (let ((sarasa-mono (font-spec :family "Sarasa Mono J" :size --default-font-size))
         (iosevka (font-spec :family "Iosevka" :size --default-font-size))
-        (iosevka-slab (font-spec :family "IosevkaSlab" :size --default-font-size))
+        (iosevka-slab (font-spec :family "Iosevka Slab" :size --default-font-size))
         (iosevka-etoile (font-spec :family "Iosevka Etoile" :size --default-font-size))
         (iosevka-aile (font-spec :family "Iosevka Aile" :size --default-font-size))
         (courier (font-spec :family "Courier" :size --default-font-size)))
